@@ -199,9 +199,15 @@ const STYLE_GUIDE = {
  * 1. TypeScript compilation already confirms that types are resolved.
  * 2. It would mask an unresolved `.ts`/`.tsx`/`.js`/`.jsx` implementation.
  */
-const typeScriptExtensions = [".ts", ".cts", ".mts", ".tsx"];
+const TYPESCRIPT_EXTENSIONS = [".ts", ".cts", ".mts", ".tsx"];
 
-const allExtensions = [...typeScriptExtensions, ".js", ".cjs", ".mjs", ".jsx"];
+const ALL_EXTENSIONS = [
+  ...TYPESCRIPT_EXTENSIONS,
+  ".js",
+  ".cjs",
+  ".mjs",
+  ".jsx",
+];
 
 /**
  * This ESLint config only contains rules from `eslint-plugin-import-x`:
@@ -225,18 +231,18 @@ export const baseImportX = tseslint.config(
     // (The necessity of this extra configuration was tested with the `import/no-cycle` rule.)
     // https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2119219537
     settings: {
-      "import-x/extensions": allExtensions,
+      "import-x/extensions": ALL_EXTENSIONS,
       "import-x/external-module-folders": [
         "node_modules",
         "node_modules/@types",
       ],
       "import-x/parsers": {
-        "@typescript-eslint/parser": typeScriptExtensions,
+        "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS,
       },
       "import-x/resolver": {
         typescript: true,
         node: {
-          extensions: allExtensions,
+          extensions: ALL_EXTENSIONS,
         },
       },
     },

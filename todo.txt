@@ -1,3 +1,7 @@
+- // TODO: once on ESLint 9, reorganize rules in "base-eslint.js" to correspond to the website:
+  https://eslint.org/docs/latest/rules/#layout--formatting
+  (for deprecated rules)
+
 - // TODO: Uncomment when TypeScript 5.5 is released.
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
@@ -30,6 +34,10 @@
   - eslint-plugin-import
   - eslint-plugin-deprecation
 
+- does end-user need to install eslint-import-resolver-typescript? if so we need to include it in isaacscript-lint meta package. we might get error of:
+  - typescript with invalid interface loaded as resolver
+  - https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2140996174
+
 - re-enable knip in lint.ts
 - re-enable check-ts in lint.ts
 - see top comment of "update.ts" (and uncomment "no-useless-assignment")
@@ -40,9 +48,6 @@
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - https://github.com/typescript-eslint/typescript-eslint/issues/4571
   - `T extends Foo[]` --> `T extends readonly Foo[]`
-
-- investigate array vs set performance (also search for "O(1)" afterward)
-  - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
 
 ----------------------------------------------------------------------------------------------------
 

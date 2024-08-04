@@ -59,9 +59,9 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/consistent-type-imports": "error",
 
       /**
-       * Disabled since it would be to cumbersome to require return types for non-exported functions.
-       * (It is more reasonable to require it for exported functions only, since it speeds up the
-       * type-checker in large codebases.)
+       * Disabled since it would be to cumbersome to require return types for non-exported
+       * functions. (It is more reasonable to require it for exported functions only, since it
+       * speeds up the type-checker in large codebases.)
        */
       "@typescript-eslint/explicit-function-return-type": "off",
 
@@ -75,8 +75,8 @@ export const baseTypeScriptESLint = tseslint.config(
 
       /**
        * Disabled because enforcing an arbitrary parameter number threshold for every function in a
-       * project does not provide much value. (Additionally, using TypeScript reduces the value of such
-       * a check.)
+       * project does not provide much value. (Additionally, using TypeScript reduces the value of
+       * such a check.)
        */
       "@typescript-eslint/max-params": "off",
 
@@ -90,8 +90,8 @@ export const baseTypeScriptESLint = tseslint.config(
       /**
        * The options are [copied from
        * Airbnb](https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js).
-       * We also allow a leading underscore, which signifies that the element is temporarily not being
-       * used.
+       * We also allow a leading underscore, which signifies that the element is temporarily not
+       * being used.
        */
       "@typescript-eslint/naming-convention": [
         "error",
@@ -108,9 +108,9 @@ export const baseTypeScriptESLint = tseslint.config(
           format: ["camelCase", "PascalCase"],
           leadingUnderscore: "allow",
         },
-        // Airbnb recommends PascalCase for classes (23.3), and although Airbnb does not make TypeScript
-        // recommendations, we are assuming this rule would similarly apply to anything "type like",
-        // including interfaces, type aliases, and enums.
+        // Airbnb recommends PascalCase for classes (23.3), and although Airbnb does not make
+        // TypeScript recommendations, we are assuming this rule would similarly apply to anything
+        // "type like", including interfaces, type aliases, and enums.
         {
           selector: "typeLike",
           format: ["PascalCase"],
@@ -127,9 +127,9 @@ export const baseTypeScriptESLint = tseslint.config(
 
       /**
        * The `allowSingleExtends` option is enabled to allow for the common pattern of using using
-       * interfaces to provide an opaque type. (This can be useful with type-builders such as Zod, since
-       * `z.infer` uses `Expand`, which is sometimes not desired since it can lead to verbose/confusing
-       * mouseover tooltips and TypeScript errors.)
+       * interfaces to provide an opaque type. (This can be useful with type-builders such as Zod,
+       * since `z.infer` uses `Expand`, which is sometimes not desired since it can lead to
+       * verbose/confusing mouseover tooltips and TypeScript errors.)
        */
       "@typescript-eslint/no-empty-interface": [
         "error",
@@ -228,7 +228,8 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/prefer-nullish-coalescing": "error",
 
       /**
-       * Disabled because it can modify the type of `boolean` declarations, which is [undesired in some
+       * Disabled because it can modify the type of `boolean` declarations, which is [undesired in
+       * some
        * circumstances](https://github.com/typescript-eslint/typescript-eslint/issues/5269).
        */
       "@typescript-eslint/prefer-optional-chain": "off",
@@ -261,7 +262,9 @@ export const baseTypeScriptESLint = tseslint.config(
         },
       ],
 
-      /** Disabled since a common use-case of template strings is to coerce everything to a string. */
+      /**
+       * Disabled since a common use-case of template strings is to coerce everything to a string.
+       */
       "@typescript-eslint/restrict-template-expressions": "off",
 
       /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
@@ -299,8 +302,9 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/type-annotation-spacing": "off", // eslint-config-prettier
 
       /**
-       * Disabled since it is not recommended by the `typescript-eslint` team. (They recommend using the
-       * `noImplicitAny` and `strictPropertyInitialization` TypeScript compiler options instead.)
+       * Disabled since it is not recommended by the `typescript-eslint` team. (They recommend using
+       * the `noImplicitAny` and `strictPropertyInitialization` TypeScript compiler options
+       * instead.)
        */
       "@typescript-eslint/typedef": "off",
 
@@ -332,8 +336,8 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/keyword-spacing": "off", // eslint-config-prettier
 
       /**
-       * Even though the `typescript-eslint` team does not recommend using formatting rules, this rule
-       * is not handled by Prettier, so we must use ESLint to enforce it.
+       * Even though the `typescript-eslint` team does not recommend using formatting rules, this
+       * rule is not handled by Prettier, so we must use ESLint to enforce it.
        */
       "@typescript-eslint/lines-around-comment": [
         "error",
@@ -351,8 +355,8 @@ export const baseTypeScriptESLint = tseslint.config(
       ],
 
       /**
-       * Even though the `typescript-eslint` team does not recommend using formatting rules, this rule
-       * is not handled by Prettier, so we must use ESLint to enforce it.
+       * Even though the `typescript-eslint` team does not recommend using formatting rules, this
+       * rule is not handled by Prettier, so we must use ESLint to enforce it.
        */
       "@typescript-eslint/lines-between-class-members": [
         "error",
@@ -401,8 +405,8 @@ export const baseTypeScriptESLint = tseslint.config(
        *
        * - "src" directories (but allowed in test files that are in a separate "tests" directory)
        * - "dist" directories
-       * - "index" files (things in the same package should directly import instead of use the public
-       *   API)
+       * - "index" files (things in the same package should directly import instead of use the
+       *   public API)
        */
       "@typescript-eslint/no-restricted-imports": [
         "error",
@@ -466,9 +470,9 @@ export const baseTypeScriptESLint = tseslint.config(
       ],
 
       /**
-       * The `args` option is set to `all` make the rule stricter. Additionally, we ignore things that
-       * begin with an underscore, since this matches the behavior of the `--noUnusedLocals` TypeScript
-       * compiler flag.
+       * The `args` option is set to `all` make the rule stricter. Additionally, we ignore things
+       * that begin with an underscore, since this matches the behavior of the `--noUnusedLocals`
+       * TypeScript compiler flag.
        */
       "@typescript-eslint/no-unused-vars": [
         "error",
@@ -486,8 +490,8 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/object-curly-spacing": "off", // eslint-config-prettier
 
       /**
-       * Disabled since it is for inserting extra newlines between specific kinds of statements, which
-       * would be project-dependant. (This kind of formatting is not handled by Prettier.)
+       * Disabled since it is for inserting extra newlines between specific kinds of statements,
+       * which would be project-dependant. (This kind of formatting is not handled by Prettier.)
        */
       "@typescript-eslint/padding-line-between-statements": "off",
 
@@ -500,7 +504,8 @@ export const baseTypeScriptESLint = tseslint.config(
       ],
 
       /**
-       * We forbid unnecessary backticks by using the options specified in [the `eslint-config-prettier`
+       * We forbid unnecessary backticks by using the options specified in [the
+       * `eslint-config-prettier`
        * documentation](https://github.com/prettier/eslint-config-prettier#enforce-backticks).
        */
       "@typescript-eslint/quotes": [
