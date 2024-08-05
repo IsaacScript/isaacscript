@@ -1,7 +1,7 @@
 import { echo, isMain } from "isaacscript-common-node";
-import { generateConfigs } from "./generateConfigs.mjs";
-import { generateReadme } from "./generateReadme.mjs";
-import { generateRules } from "./generateRules.mjs";
+import { generateConfigs } from "./generateConfigs.js";
+import { generateReadme } from "./generateReadme.js";
+import { generateRules } from "./generateRules.js";
 
 if (isMain()) {
   await generateAll();

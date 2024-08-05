@@ -1,7 +1,7 @@
-import type { CompleteSentenceMessageIds } from "../completeSentence";
-import { getIncompleteSentences } from "../completeSentence";
-import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
-import { createRule } from "../utils";
+import type { CompleteSentenceMessageIds } from "../completeSentence.js";
+import { getIncompleteSentences } from "../completeSentence.js";
+import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc.js";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 

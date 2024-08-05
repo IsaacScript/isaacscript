@@ -1,5 +1,5 @@
-import { noVoidReturnType } from "../../src/rules/no-void-return-type";
-import { ruleTester } from "../utils";
+import { noVoidReturnType } from "../../src/rules/no-void-return-type.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-void-return-type", noVoidReturnType, {
   valid: [

@@ -1,7 +1,7 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
-import { getTypeName, unionTypeParts } from "../typeUtils";
-import { createRule } from "../utils";
+import { getTypeName, unionTypeParts } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 type Options = [];
 type MessageIds = "mutableArray" | "mutableMap" | "mutableSet";

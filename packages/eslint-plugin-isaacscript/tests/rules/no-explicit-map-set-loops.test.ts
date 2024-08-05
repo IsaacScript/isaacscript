@@ -1,5 +1,5 @@
-import { noExplicitMapSetLoops } from "../../src/rules/no-explicit-map-set-loops";
-import { ruleTester } from "../utils";
+import { noExplicitMapSetLoops } from "../../src/rules/no-explicit-map-set-loops.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-explicit-map-set-loops", noExplicitMapSetLoops, {
   valid: [

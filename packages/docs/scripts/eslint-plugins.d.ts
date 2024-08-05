@@ -7,26 +7,22 @@ interface ESLintPlugin {
   readonly rules: Record<string, unknown>;
 }
 
-declare module "eslint-plugin-eslint-comments" {
+/** @see https://github.com/eslint-community/eslint-plugin-eslint-comments/issues/214 */
+declare module "@eslint-community/eslint-plugin-eslint-comments" {
   const ESLintPlugin: ESLintPlugin;
   export default ESLintPlugin;
 }
 
+/**
+ * Does not support flat config. After it does, an issue should be opened to provide an official
+ * TypeScript declaration file.
+ */
 declare module "eslint-plugin-import" {
   const ESLintPlugin: ESLintPlugin;
   export default ESLintPlugin;
 }
 
-declare module "eslint-plugin-jsdoc" {
-  const ESLintPlugin: ESLintPlugin;
-  export default ESLintPlugin;
-}
-
-declare module "eslint-plugin-n" {
-  const ESLintPlugin: ESLintPlugin;
-  export default ESLintPlugin;
-}
-
+/** @see https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2324 */
 declare module "eslint-plugin-unicorn" {
   const ESLintPlugin: ESLintPlugin;
   export default ESLintPlugin;

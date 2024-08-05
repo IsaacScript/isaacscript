@@ -1,8 +1,11 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import type { MessageIds, Options } from "../../src/rules/strict-enums";
-import { strictEnums } from "../../src/rules/strict-enums";
-import { ruleTester } from "../utils";
-import { fruitEnumDefinition, vegetableEnumDefinition } from "./strict-enums";
+import type { MessageIds, Options } from "../../src/rules/strict-enums.js";
+import { strictEnums } from "../../src/rules/strict-enums.js";
+import { ruleTester } from "../utils.js";
+import {
+  fruitEnumDefinition,
+  vegetableEnumDefinition,
+} from "./strict-enums.js";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];

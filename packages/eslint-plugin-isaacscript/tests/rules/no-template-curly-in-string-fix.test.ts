@@ -1,5 +1,5 @@
-import { noTemplateCurlyInStringFix } from "../../src/rules/no-template-curly-in-string-fix";
-import { ruleTester } from "../utils";
+import { noTemplateCurlyInStringFix } from "../../src/rules/no-template-curly-in-string-fix.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-template-curly-in-string-fix", noTemplateCurlyInStringFix, {
   valid: [

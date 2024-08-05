@@ -1,5 +1,5 @@
-import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc";
-import { createRule } from "../utils";
+import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc.js";
+import { createRule } from "../utils.js";
 
 export const jsdocCodeBlockLanguage = createRule({
   name: "jsdoc-code-block-language",

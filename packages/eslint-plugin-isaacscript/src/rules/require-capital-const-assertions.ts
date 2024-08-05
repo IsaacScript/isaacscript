@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES } from "@typescript-eslint/types";
-import { isFirstLetterCapitalized } from "../isaacScriptCommonTS";
-import { createRule } from "../utils";
+import { isFirstLetterCapitalized } from "isaacscript-common-ts";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 export type MessageIds = "noConstAssertion";

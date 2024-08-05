@@ -1,4 +1,4 @@
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export const noNumberEnums = createRule({
   name: "no-number-enums",

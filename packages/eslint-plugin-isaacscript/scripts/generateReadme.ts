@@ -3,14 +3,14 @@
 import { readFile, writeFile } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
-import { PACKAGE_ROOT } from "./constants.mjs";
-import type { RuleDefinition } from "./utils.mjs";
+import { PACKAGE_ROOT } from "./constants.js";
+import type { RuleDefinition } from "./utils.js";
 import {
   formatWithPrettier,
   getRuleEntries,
   getRuleNameWithPluginNamePrefix,
   isRecommendedRule,
-} from "./utils.mjs";
+} from "./utils.js";
 
 interface Marker {
   start: string;

@@ -2,10 +2,10 @@ import chalk from "chalk";
 import { $, echo, exit, lintScript, readFile } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
-import { generateAll } from "./generate.mjs";
-import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.mjs";
-import { README_MD_PATH } from "./generateReadme.mjs";
-import { RULES_TS_PATH } from "./generateRules.mjs";
+import { generateAll } from "./generate.js";
+import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
+import { README_MD_PATH } from "./generateReadme.js";
+import { RULES_TS_PATH } from "./generateRules.js";
 
 const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   // From "generateRules.mts":

@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { getTypeName } from "../typeUtils";
-import { createRule } from "../utils";
+import { getTypeName } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 const ARRAY_METHODS_WITH_BOOLEAN_FUNCTIONS: ReadonlySet<string> = new Set([
   "every",

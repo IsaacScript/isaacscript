@@ -5,7 +5,6 @@ import {
   $s,
   $sq,
   PACKAGE_JSON,
-  dirName,
   echo,
   exit,
   fatalError,
@@ -28,8 +27,7 @@ enum VersionBump {
   dev = "dev",
 }
 
-const __dirname = dirName();
-const REPO_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 const startTime = Date.now();
 

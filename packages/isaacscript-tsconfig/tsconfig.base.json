@@ -1,6 +1,6 @@
 // This is a tsconfig.json intended to be used as a base for all TypeScript projects. It only
 // contains options that have to do with code checking strictness and omits all options having to do
-// with environment or transpilation.
+// with environment or transpilation (besides the "outDir" option).
 {
   // We extend the strictest base config:
   // https://github.com/tsconfig/bases/blob/main/bases/strictest.json
@@ -27,10 +27,25 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
 
-    // The "strictest" config has the "checkJs" flag set to true. However, this can cause false
-    // positives with JavaScript config files located in the root of the project directory (like the
-    // ESLint config file). For pure TypeScript projects, having this set to true is unnecessary.
-    // TODO: remove this block
+    // The "strictest" config has the "checkJs" flag set to true. This is theoretically a good
+    // setting, because even though most of our code is written in TypeScript, we want to
+    // automatically have typo-detection in our JavaScript configuration files. With that said, this
+    // setting can cause false positives. Specifically:
+    // - Importing from the Node standard library causes type declarations errors in a browser
+    //   projects (because Node type declarations are not supposed to exist).
+    // - Using `import.meta.dirname` causes errors in CommonJS projects.
+    // - In places without an `outDir` specified (like at the root of a monorepo), it will result in
+    //   the following error: "Cannot write file ... because it would overwrite input file." In
+    //   order to get around this, you have to specify a spurious `outDir`.
+    // - It causes the "typescript.tsserver.experimental.enableProjectDiagnostics" setting to
+    //   generate ephemeral errors that go away once the file is opened. Normally, this occurs when
+    //   two or more "tsconfig.json" files include the same JavaScript/TypeScript file, but in this
+    //   case, the errors still appear.
+    // For pure TypeScript projects, having this set to true is unnecessary.
     "checkJs": false,
+
+    // We standardize the `outDir`.
+    // TODO: Uncomment when TypeScript 5.5 is released.
+    /// "outDir": "${configDir}/dist",
   },
 }

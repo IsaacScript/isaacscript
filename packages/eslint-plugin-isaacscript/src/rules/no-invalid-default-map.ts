@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
-import { getTypeName, isFunction, isTypeFlagSet } from "../typeUtils";
-import { createRule } from "../utils";
+import { getTypeName, isFunction, isTypeFlagSet } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 export type NoInvalidDefaultMapMessageIds = "invalidType";
