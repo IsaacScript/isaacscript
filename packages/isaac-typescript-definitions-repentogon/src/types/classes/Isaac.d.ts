@@ -3,6 +3,7 @@ import type {
   Challenge,
   Cutscene,
   EntityPartition,
+  ItemPoolType,
   LanguageAbbreviation,
   Music,
   NullItemID,
@@ -278,6 +279,21 @@ declare global {
     function GetNullItemIdByName(name: string): NullItemID;
 
     function GetPersistentGameData(): PersistentGameData;
+
+    /**
+     * This method is meant to be used when creating local enums that represent custom item pools.
+     * (We have to retrieve the ID of the item pool at run-time, because it is dynamically
+     * calculated based on the current mods that the end-user currently has enabled.)
+     *
+     * It is conventional to name your local enum `ItemPoolTypeCustom` (because this corresponds to
+     * the vanilla enum of `ItemPoolType`).
+     *
+     * Never use this method to get the ID of a vanilla item pool; use the `ItemPoolType` enum
+     * instead.
+     *
+     * Returns -1 if no item pool with the specified name was found.
+     */
+    function GetPoolByName(itemPool: string): ItemPoolType | -1;
 
     /**
      * @param position
