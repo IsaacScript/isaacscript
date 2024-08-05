@@ -81,6 +81,29 @@ declare global {
     IsBossColor: () => boolean;
 
     /**
+     * Changes the ".png" file associated with a specific layer of the NPC's sprite.
+     *
+     * The game will append "_champion" and the stage suffix to the PNG file's path if possible. If
+     * this behavior is not desired, use `Sprite.ReplaceSpritesheet` instead.
+     *
+     * This does not change any layers other than the one that is explicitly specified.
+     *
+     * After replacing a spritesheet, you must call the `Sprite.LoadGraphics` method afterwards if
+     * the `loadGraphics` argument is not true.
+     *
+     * @param layerID
+     * @param pngPath The full path to the PNG file. For example:
+     *                "gfx/items/collectibles/questionmark.png"
+     * @param loadGraphics Optional. If true, `Sprite.LoadGraphics()` is immediately fired. Default
+     *                     is false.
+     */
+    ReplaceSpritesheet: (
+      layerId: int,
+      pngPath: string,
+      loadGraphics?: boolean,
+    ) => void;
+
+    /**
      * Sets the NPC's `ControllerIndex`, which allows a player to control it. If the controller
      * index is `ControllerIndex.NONE`, the NPC will continue its normal behavior.
      */
