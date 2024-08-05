@@ -948,6 +948,11 @@ declare global {
       playerType?: PlayerType,
     ];
 
+    // 1129
+    [ModCallbackRepentogon.POST_FORCE_ADD_PILL_EFFECT]: [
+      callback: (pillEffect: PillEffect, pillColor: PillColor) => void,
+    ];
+
     // 1130
     [ModCallbackRepentogon.PRE_DEVIL_APPLY_ITEMS]: [
       callback: (chance: number) => number | undefined,
@@ -1359,6 +1364,26 @@ declare global {
     [ModCallbackRepentogon.POST_NPC_DARK_RED_CHAMPION_REGEN]: [
       callback: (npc: EntityNPC) => void,
       entityType?: EntityType,
+    ];
+
+    // 1224
+    [ModCallbackRepentogon.EVALUATE_CUSTOM_CACHE]: [
+      callback: (
+        player: EntityPlayer,
+        customCacheTag: string,
+        value: number,
+      ) => number | undefined,
+      customCacheTag?: string,
+    ];
+
+    // 1225
+    [ModCallbackRepentogon.EVALUATE_FAMILIAR_MULTIPLIER]: [
+      callback: (
+        familiar: EntityFamiliar,
+        multiplier: number,
+        player: EntityPlayer,
+      ) => number | undefined,
+      familiarVariant?: FamiliarVariant,
     ];
 
     // 1231
