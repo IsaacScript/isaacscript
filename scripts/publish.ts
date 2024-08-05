@@ -150,6 +150,6 @@ if (UPDATES_ENABLED) {
     $sq`git add --all`;
     $sq`git commit --message ${gitCommitMessage}`;
   }
-
-  $sq`git push --set-upstream origin main`;
 }
+
+$sq`git push --set-upstream origin main`;
