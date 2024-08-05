@@ -228,23 +228,24 @@ export const baseImportX = tseslint.config(
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
     // work properly with TypeScript. We extend the upstream TypeScript config to accomplish this:
     // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
-    // (The necessity of this extra configuration was tested with the `import/no-cycle` rule.)
     // https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2119219537
+    // (The necessity of this extra configuration was tested with the `import/no-cycle` rule + two
+    // TypeScript files.) Also note that the "eslint-import-resolver-typescript" package needs to be
+    // installed, or else an error will appear: "Resolve error: typescript with invalid interface
+    // loaded as resolver"
     settings: {
-      "import-x/extensions": ALL_EXTENSIONS,
-      "import-x/external-module-folders": [
-        "node_modules",
-        "node_modules/@types",
-      ],
       "import-x/parsers": {
         "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS,
       },
       "import-x/resolver": {
         typescript: true,
-        node: {
-          extensions: ALL_EXTENSIONS,
-        },
+        node: true,
       },
+      "import-x/extensions": ALL_EXTENSIONS,
+      "import-x/external-module-folders": [
+        "node_modules",
+        "node_modules/@types",
+      ],
     },
 
     rules: {
@@ -263,11 +264,13 @@ export const baseImportX = tseslint.config(
     },
   },
 
-  // Disable some specific rules in config files.
+  // Some configuration files must export a default object as a design limitation.
   {
     files: [
       ".remarkrc.mjs",
       ".remarkrc.js",
+      "eslint.config.js",
+      "eslint.config.mjs",
       "prettier.config.mjs",
       "prettier.config.js",
       "typedoc.config.mjs",

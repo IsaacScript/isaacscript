@@ -17,8 +17,8 @@ export const baseN = tseslint.config(
       "n/callback-return": "off",
 
       /**
-       * This rule is helpful to automatically fix file extensions in import statements throughout an
-       * entire codebase.
+       * This rule is helpful to automatically fix file extensions in import statements throughout
+       * an entire codebase.
        */
       "n/file-extension-in-import": ["error", "always"],
 

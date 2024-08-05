@@ -519,7 +519,8 @@ const SUGGESTIONS = {
   "no-useless-rename": "error",
 
   /**
-   * Superseded by the `disable-autofix/no-useless-return` rule (since the autofix is usually unwanted).
+   * Superseded by the `disable-autofix/no-useless-return` rule (since the autofix is usually
+   * unwanted).
    */
   "no-useless-return": "off",
 

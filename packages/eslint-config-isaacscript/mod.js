@@ -1,5 +1,5 @@
 /** This config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua projects). */
-export default {
+export const mod = {
   extends: [
     /**
      * The IsaacScript mod config extends the base configuration:

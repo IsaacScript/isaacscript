@@ -1,3 +1,5 @@
+- add "// @ts-check" to all eslint configs in the monorepo + the template
+
 - // TODO: once on ESLint 9, reorganize rules in "base-eslint.js" to correspond to the website:
   https://eslint.org/docs/latest/rules/#layout--formatting
   (for deprecated rules)

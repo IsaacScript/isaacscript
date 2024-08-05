@@ -15,3 +15,5 @@ async function main(): Promise<void> {
   await checkForWindowsTerminalBugs();
   await parseArgs();
 }
+
+export const a = 123;

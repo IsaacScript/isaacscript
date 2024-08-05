@@ -34,7 +34,7 @@ type ParentConfig =
   | "@typescript-eslint/stylistic"
   | "@typescript-eslint/stylistic-type-checked"
   | "eslint-comments/recommended"
-  | "import/recommended"
+  | "import-x/recommended"
   | "jsdoc/recommended"
   | "n/recommended"
   | "unicorn/recommended"
@@ -274,8 +274,8 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts",
   "eslint-comments/recommended":
     "https://github.com/eslint-community/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js",
-  "import/recommended":
-    "https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js",
+  "import-x/recommended":
+    "https://github.com/un-ts/eslint-plugin-import-x/blob/master/src/config/recommended.ts",
   "jsdoc/recommended":
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/src/index.js",
   "n/recommended":
@@ -630,7 +630,7 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
   }
 
   if (IMPORT_RECOMMENDED_RULES_SET.has(ruleName)) {
-    parentConfigs.push("import/recommended");
+    parentConfigs.push("import-x/recommended");
   }
 
   if (JSDOC_RECOMMENDED_RULES_SET.has(ruleName)) {

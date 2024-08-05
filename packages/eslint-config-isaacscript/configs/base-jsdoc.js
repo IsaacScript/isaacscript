@@ -83,8 +83,8 @@ export const baseJSDoc = tseslint.config(
       "jsdoc/check-values": "error",
 
       /**
-       * Disabled since it is idiomatic in the TypeScript ecosystem to use a mixture of both JSDoc and
-       * non-JSDoc comments.
+       * Disabled since it is idiomatic in the TypeScript ecosystem to use a mixture of both JSDoc
+       * and non-JSDoc comments.
        */
       "jsdoc/convert-to-jsdoc-comments": "off",
 
