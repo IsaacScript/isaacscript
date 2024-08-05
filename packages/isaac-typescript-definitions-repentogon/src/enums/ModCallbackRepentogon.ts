@@ -2532,6 +2532,31 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_REMOVE_COSTUME = 1282,
 
   /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postPlayerAddCostume(
+   *   itemConfig: ItemConfigItem,
+   *   player: EntityPlayer,
+   *   itemStateOnly: boolean
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_ADD_COSTUME = 1283,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postPlayerAddCostume(
+   *   itemConfig: ItemConfigItem,
+   *   player: EntityPlayer
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_REMOVE_COSTUME = 1284,
+
+  /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.

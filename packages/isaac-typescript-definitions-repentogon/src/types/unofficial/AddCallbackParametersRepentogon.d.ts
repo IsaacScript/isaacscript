@@ -1596,11 +1596,28 @@ declare global {
         itemConfig: ItemConfigItem,
         player: EntityPlayer,
         itemStateOnly: boolean,
-      ) => void,
+      ) => boolean | ItemConfigItem | undefined,
     ];
 
     // 1282
     [ModCallbackRepentogon.PRE_PLAYER_REMOVE_COSTUME]: [
+      callback: (
+        itemConfig: ItemConfigItem,
+        player: EntityPlayer,
+      ) => boolean | undefined,
+    ];
+
+    // 1283
+    [ModCallbackRepentogon.POST_PLAYER_ADD_COSTUME]: [
+      callback: (
+        itemConfig: ItemConfigItem,
+        player: EntityPlayer,
+        itemStateOnly: boolean,
+      ) => void,
+    ];
+
+    // 1284
+    [ModCallbackRepentogon.POST_PLAYER_REMOVE_COSTUME]: [
       callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
     ];
 
