@@ -32,9 +32,15 @@ declare global {
     /** Returns whether the bomb is currently loading its costumes. */
     IsLoadingCostumes: () => boolean;
 
+    /** Returns whether the bomb was created through the Angelic Prism effect. */
+    IsPrismTouched: () => boolean;
+
     SetFallingSpeed: (speed: number) => void;
     SetHeight: () => void;
     SetLoadCostumes: (load: number) => void;
+
+    /** Sets whether the bomb was created through the Angelic Prism effect. */
+    SetPrismTouched: (touched: boolean) => void;
 
     /**
      * Sets the bomb's target angle. This is only used by rocket bombs, with the angle influencing

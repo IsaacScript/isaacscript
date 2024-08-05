@@ -69,6 +69,12 @@ declare global {
     GetNumAvailableTrinkets: () => int;
 
     /**
+     * Returns the number of item pools in the game, including modded item pools defined in
+     * `itempools.xml`.
+     */
+    GetNumItemPools: () => int;
+
+    /**
      * Returns a `PillColor` matching the specified `PillEffect`. Returns `PillColor.NULL` if the
      * effect is not in the rotation.
      *

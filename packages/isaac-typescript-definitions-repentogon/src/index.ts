@@ -16,6 +16,8 @@ export * from "./enums/DwmWindowsAttribute";
 export * from "./enums/Ending";
 export * from "./enums/EventCounter";
 export * from "./enums/FollowerPriority";
+export * from "./enums/GenericPromptSelection";
+export * from "./enums/GenericPromptSubmittedSelection";
 export * from "./enums/GiantbookType";
 export * from "./enums/HealthType";
 export * from "./enums/HeartFlashType";

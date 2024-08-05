@@ -20,6 +20,12 @@ declare interface EntityTear extends Entity {
   GetTearEffectSprite: () => Sprite;
   GetTearHaloSprite: () => Sprite;
 
+  /** Returns whether the tear was created through the Multidimensional Baby effect. */
+  IsMultidimensionalTouched: () => boolean;
+
+  /** Returns whether the tear was created through the Angelic Prism effect. */
+  IsPrismTouched: () => boolean;
+
   /**
    * Repentogon's modified `EntityTear.ResetSpriteScale` method.
    *
@@ -31,4 +37,10 @@ declare interface EntityTear extends Entity {
    * @customName ResetSpriteScale
    */
   ResetSpriteScaleEx: (force: boolean) => void;
+
+  /** Sets whether the tear was created through the Multidimensional Baby effect. */
+  SetMultidimensionalTouched: (touched: boolean) => void;
+
+  /** Sets whether the tear was created through the Angelic Prism effect. */
+  SetPrismTouched: (touched: boolean) => void;
 }

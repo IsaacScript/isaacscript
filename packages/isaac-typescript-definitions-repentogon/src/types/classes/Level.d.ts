@@ -14,6 +14,12 @@ declare global {
     /** Returns the current dimension the player is in. */
     GetDimension: () => Dimension;
 
+    /**
+     * Returns the pickups that will be transferred to the next floor by the Myosotis trinket
+     * effect.
+     */
+    GetMyosotisPickups: () => EntitiesSaveStateVector;
+
     /** Returns whether the special quest is forced. */
     GetForceSpecialQuest: () => SpecialQuest;
 
