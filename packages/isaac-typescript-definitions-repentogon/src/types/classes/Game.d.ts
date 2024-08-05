@@ -5,7 +5,6 @@ import type {
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { PauseMenuState } from "../../enums/PauseMenuState";
 import type { DebugFlag } from "../../enums/flags/DebugFlag";
-import type { GenericPrompt } from "./GenericPrompt";
 
 declare global {
   interface Game extends IsaacAPIClass {
