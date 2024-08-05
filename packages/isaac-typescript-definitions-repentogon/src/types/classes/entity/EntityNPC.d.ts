@@ -7,6 +7,9 @@ import type {
 
 declare global {
   interface EntityNPC extends Entity {
+    /** Clears the flying override set by `EntityNPC.SetFlyingOverride`. */
+    ClearFlyingOverride: () => void;
+
     /**
      * Behaves the same as `EntityNPC.FireProjectiles` except it returns an array of the projectiles
      * fired.
@@ -83,6 +86,15 @@ declare global {
      */
     SetControllerId: (index: ControllerIndex) => void;
 
+    /**
+     * Applies an override to the return value of the `EntityNPC.IsFlying` method, which is normally
+     * based on the entity's `GridCollisionClass` property.
+     *
+     * This method can be used to make grounded enemies ignore creep or flying enemies take damage
+     * from creep.
+     */
+    SetFlyingOverride: (override: boolean) => void;
+
     /** Sets the NPC's shield strength/armor. */
     SetShieldStrength: (strength: number) => void;
 
@@ -97,6 +109,26 @@ declare global {
      * Returns whether the NPCs target changed successfully.
      */
     TryForceTarget: (target: Entity, duration: int) => void;
+
+    /**
+     * Attempts to split the NPC in half. This is used by the Meat Cleaver collectible when
+     * activated.
+     *
+     * Returns whether the NPC was split successfully.
+     *
+     * This method currently has a bug where calling `TrySplit` repeatedly on a NPC that can no
+     * longer be split any further will still return true.
+     *
+     * @param defaultDamage
+     * @param source
+     * @param doScreenEffects Optional. If true, the split sound effect is played and the screen
+     *                        shakes. Default is false.
+     */
+    TrySplit: (
+      defaultDamage: number,
+      source: EntityRef,
+      doScreenEffects?: boolean,
+    ) => boolean;
 
     TryThrow: (source: EntityRef, direction: Vector, force: number) => boolean;
 
