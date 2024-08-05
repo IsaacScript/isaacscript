@@ -29,6 +29,15 @@ declare global {
 
     GetMoveDelayNum: () => int;
 
+    /**
+     * Returns the familiar's multiplier.
+     *
+     * Triggers `ModCallbackRepentogon.EVALUATE_FAMILIAR_MULTIPLIER` only if the familiar's
+     * multiplier has changed between subsequent calls to this method. If you wish for the callback
+     * to trigger no matter what, call the `EntityFamiliar.InvalidateCachedMultiplier` method.
+     */
+    GetMultiplier: () => number;
+
     /** Returns the familiar's pathfinder. */
     GetPathFinder: () => PathFinder;
 
@@ -37,6 +46,12 @@ declare global {
      * player's attacks (Incubus, etc.).
      */
     GetWeapon: () => WeaponType;
+
+    /**
+     * Causes `ModCallbackRepentogon.EVALUATE_FAMILIAR_MULTIPLIER` to run next time
+     * `EntityFamiliar.GetMultiplier` is ran, regardless of if the value has changed or not.
+     */
+    InvalidateCachedMultiplier: () => void;
 
     /** Returns whether the familiar is charmed. */
     IsCharmed: () => boolean;

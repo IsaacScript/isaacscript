@@ -1388,6 +1388,15 @@ export enum ModCallbackRepentogon {
    * You cannot filter this callback.
    *
    * ```ts
+   * function postForcePillEffect(pillEffect: PillEffect, pillColor: PillColor): void {}
+   * ```
+   */
+  POST_FORCE_ADD_PILL_EFFECT = 1129,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
    * function preDevilApplyItems(chance: number): number | undefined {}
    * ```
    */
@@ -2088,6 +2097,36 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the string provided.
+   *
+   * ```ts
+   * function evaluateCustomCache(
+   *   player: EntityPlayer,
+   *   customCacheTag: string,
+   *   value: number
+   * ): number | undefined {}
+   * ```
+   */
+  EVALUATE_CUSTOM_CACHE = 1224,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `FamiliarVariant` provided.
+   *
+   * ```ts
+   * function evaluateFamiliarMultiplier(
+   *   familiar: EntityFamiliar,
+   *   multiplier: number,
+   *   player: EntityPlayer
+   * ): number | undefined {}
+   * ```
+   */
+  EVALUATE_FAMILIAR_MULTIPLIER = 1225,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
    * ```ts
@@ -2530,6 +2569,31 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_PLAYER_REMOVE_COSTUME = 1282,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postPlayerAddCostume(
+   *   itemConfig: ItemConfigItem,
+   *   player: EntityPlayer,
+   *   itemStateOnly: boolean
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_ADD_COSTUME = 1283,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postPlayerAddCostume(
+   *   itemConfig: ItemConfigItem,
+   *   player: EntityPlayer
+   * ): void {}
+   * ```
+   */
+  POST_PLAYER_REMOVE_COSTUME = 1284,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:

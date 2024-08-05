@@ -19,48 +19,6 @@ import type { ConceptionFamiliarFlag } from "../../../enums/flags/ConceptionFami
 declare global {
   interface EntityPlayer extends Entity {
     /**
-     * Repentogon's modified `EntityPlayer.AddCacheFlags` method.
-     *
-     * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now choose to have it
-     * immediately call `EntityPlayer.EvaluateItems` or not.
-     *
-     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
-     * definitions. However, when the project compiles the method's name will change to what it's
-     * supposed to be.
-     *
-     * @param evaluateItems Optional. Default is false.
-     * @customName AddCacheFlags
-     */
-    AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
-
-    BlockCollectible: (collectible: CollectibleType) => void;
-
-    /**
-     * Repentogon's modified `EntityPlayer.ClearDeadEyeCharge` method.
-     *
-     * Behaves the same as `EntityPlayer.ClearDeadEyeCharge` except you can now forcefully reset the
-     * charge.
-     *
-     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
-     * definitions. However, when the project compiles the method's name will change to what it's
-     * supposed to be.
-     *
-     * @param force Optional. Default is false.
-     * @customName ClearDeadEyeCharge
-     */
-    ClearDeadEyeChargeEx: (force?: boolean) => void;
-
-    GetMultiShotParams: (weaponType: WeaponType) => MultiShotParams;
-    GetMultiShotPositionVelocity: (
-      loopIndex: int,
-      weaponType: WeaponType,
-      shotDirection: Vector,
-      shotSpeed: number,
-      params: MultiShotParams,
-    ) => PosVel;
-    GetPocketItem: (slotId: ActiveSlot) => PocketItem;
-
-    /**
      * Adds the specified amount of charges to one of the player's actives. Returns the true amount
      * of charges added, which may have been capped by the targeted item's max charges.
      *
@@ -82,6 +40,37 @@ declare global {
 
     /** Adds a bone orbital to the player. */
     AddBoneOrbital: (position: Vector) => void;
+
+    /**
+     * Repentogon's modified `EntityPlayer.AddCacheFlags` method.
+     *
+     * Behaves the same as `EntityPlayer.AddCacheFlags` except you can now choose to have it
+     * immediately call `EntityPlayer.EvaluateItems` or not.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param evaluateItems Optional. Default is false.
+     * @customName AddCacheFlags
+     */
+    AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
+
+    /**
+     * Used to specify the custom stats that should be evaluated the next time the
+     * `EntityPlayer.EvaluateCache` is run.
+     *
+     * Do not use this method for vanilla stats, instead use `EntityPlayer.AddCacheFlagsEx` or
+     * `EntityPlayer.AddCacheFlags`.
+     *
+     * @param tags
+     * @param evaluateItems Optional. Whether `EntityPlayer.EvaluateCache` should immediately run.
+     *                      Default is false.
+     */
+    AddCustomCacheTag: (
+      tags: string | string[],
+      evaluateItems?: boolean,
+    ) => void;
 
     /**
      * Adds an innate collectible to the player. Innate collectibles grant the effects of a
@@ -123,6 +112,8 @@ declare global {
      */
     AddUrnSouls: (count?: number) => void;
 
+    BlockCollectible: (collectible: CollectibleType) => void;
+
     /** Returns whether the collectible can be added to the player's inventory. */
     CanAddCollectibleToInventory: (collectible: CollectibleType) => boolean;
 
@@ -151,6 +142,22 @@ declare global {
     ) => EntityFamiliar[];
 
     ClearCollectibleAnim: (collectible: CollectibleType) => void;
+
+    /**
+     * Repentogon's modified `EntityPlayer.ClearDeadEyeCharge` method.
+     *
+     * Behaves the same as `EntityPlayer.ClearDeadEyeCharge` except you can now forcefully reset the
+     * charge.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param force Optional. Default is false.
+     * @customName ClearDeadEyeCharge
+     */
+    ClearDeadEyeChargeEx: (force?: boolean) => void;
+
     ClearItemAnimCollectible: (collectible: CollectibleType) => void;
     ClearItemAnimNullItems: () => void;
     ClearQueueItem: () => void;
@@ -231,8 +238,6 @@ declare global {
 
     GetBombPlaceDelay: () => int;
 
-    GetHallowedGroundCountdown: () => int;
-
     GetCambionConceptionState: () => int;
     GetCambionFamiliarFlags: () => BitFlags<ConceptionFamiliarFlag>;
     GetCambionPregnancyLevel: () => int;
@@ -275,6 +280,12 @@ declare global {
     };
 
     GetCostumeSpriteDescs: () => CostumeSpriteDesc[];
+
+    /**
+     * Returns the value corresponding to the custom cache tag. Returns 0 if the value does not
+     * exist.
+     */
+    GetCustomCacheValue: (customCacheTag: string) => number;
 
     GetD8DamageModifier: () => int;
     GetD8FireDelayModifier: () => int;
@@ -335,6 +346,8 @@ declare global {
     GetGnawedLeafTimer: () => int;
     GetGreedsGulletHearts: () => int;
 
+    GetHallowedGroundCountdown: () => int;
+
     /**
      * Returns the number of frames the player's head was forced to stay in a specific direction.
      * Returns -1 or lower if the direction is not locked.
@@ -390,6 +403,21 @@ declare global {
     GetMetronomeCollectibleID: () => CollectibleType;
 
     /**
+     * Returns the `EntitiesSaveStateVector` corresponding to the pickups the player has stored
+     * using the Moving Box collectible.
+     */
+    GetMovingBoxContents: () => EntitiesSaveStateVector[];
+
+    GetMultiShotParams: (weaponType: WeaponType) => MultiShotParams;
+    GetMultiShotPositionVelocity: (
+      loopIndex: int,
+      weaponType: WeaponType,
+      shotDirection: Vector,
+      shotSpeed: number,
+      params: MultiShotParams,
+    ) => PosVel;
+
+    /**
      * Returns the frame at which the player stops shooting and starts charging the Kidney Stone
      * collectible.
      */
@@ -400,6 +428,8 @@ declare global {
 
     /** Returns the amount of collectibles the player has tied to the specified transformation. */
     GetPlayerFormCounter: (playerFormID: PlayerForm) => void;
+
+    GetPocketItem: (slotId: ActiveSlot) => PocketItem;
 
     /**
      * Returns the amount of frames left until the charging effect from the A Pony or White Pony
@@ -412,6 +442,18 @@ declare global {
      * the player does not have the Purity collectible.
      */
     GetPurityState: () => PurityState;
+
+    GetSpoofedCollectiblesList: () => Array<{
+      CollectibleID: CollectibleType;
+      AppendedCount: int;
+      IsBlocked: boolean;
+    }>;
+
+    /**
+     * Returns the player's tear displacement. The displacement corresponds to the eye the tear is
+     * being fired from, with 1 being the right eye and -1 being the left eye.
+     */
+    GetTearDisplacement: () => number;
 
     /**
      * Repentogon's modified `EntityPlayer.HasCollectible` method.
@@ -461,12 +503,6 @@ declare global {
 
     SetShotSpeedModifier: (modifier: int) => void;
     SetSpeedModifier: (modifier: int) => void;
-
-    GetSpoofedCollectiblesList: () => Array<{
-      CollectibleID: CollectibleType;
-      AppendedCount: int;
-      IsBlocked: boolean;
-    }>;
 
     SetTearPoisonDamage: (damage: number) => void;
     SetTearRangeModifier: (modifier: int) => void;

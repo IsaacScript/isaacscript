@@ -7,6 +7,9 @@ import type {
 
 declare global {
   interface EntityNPC extends Entity {
+    /** Clears the flying override set by `EntityNPC.SetFlyingOverride`. */
+    ClearFlyingOverride: () => void;
+
     /**
      * Behaves the same as `EntityNPC.FireProjectiles` except it returns an array of the projectiles
      * fired.
@@ -78,10 +81,42 @@ declare global {
     IsBossColor: () => boolean;
 
     /**
+     * Changes the ".png" file associated with a specific layer of the NPC's sprite.
+     *
+     * The game will append "_champion" and the stage suffix to the PNG file's path if possible. If
+     * this behavior is not desired, use `Sprite.ReplaceSpritesheet` instead.
+     *
+     * This does not change any layers other than the one that is explicitly specified.
+     *
+     * After replacing a spritesheet, you must call the `Sprite.LoadGraphics` method afterwards if
+     * the `loadGraphics` argument is not true.
+     *
+     * @param layerID
+     * @param pngPath The full path to the PNG file. For example:
+     *                "gfx/items/collectibles/questionmark.png"
+     * @param loadGraphics Optional. If true, `Sprite.LoadGraphics()` is immediately fired. Default
+     *                     is false.
+     */
+    ReplaceSpritesheet: (
+      layerId: int,
+      pngPath: string,
+      loadGraphics?: boolean,
+    ) => void;
+
+    /**
      * Sets the NPC's `ControllerIndex`, which allows a player to control it. If the controller
      * index is `ControllerIndex.NONE`, the NPC will continue its normal behavior.
      */
     SetControllerId: (index: ControllerIndex) => void;
+
+    /**
+     * Applies an override to the return value of the `EntityNPC.IsFlying` method, which is normally
+     * based on the entity's `GridCollisionClass` property.
+     *
+     * This method can be used to make grounded enemies ignore creep or flying enemies take damage
+     * from creep.
+     */
+    SetFlyingOverride: (override: boolean) => void;
 
     /** Sets the NPC's shield strength/armor. */
     SetShieldStrength: (strength: number) => void;
@@ -97,6 +132,26 @@ declare global {
      * Returns whether the NPCs target changed successfully.
      */
     TryForceTarget: (target: Entity, duration: int) => void;
+
+    /**
+     * Attempts to split the NPC in half. This is used by the Meat Cleaver collectible when
+     * activated.
+     *
+     * Returns whether the NPC was split successfully.
+     *
+     * This method currently has a bug where calling `TrySplit` repeatedly on a NPC that can no
+     * longer be split any further will still return true.
+     *
+     * @param defaultDamage
+     * @param source
+     * @param doScreenEffects Optional. If true, the split sound effect is played and the screen
+     *                        shakes. Default is false.
+     */
+    TrySplit: (
+      defaultDamage: number,
+      source: EntityRef,
+      doScreenEffects?: boolean,
+    ) => boolean;
 
     TryThrow: (source: EntityRef, direction: Vector, force: number) => boolean;
 

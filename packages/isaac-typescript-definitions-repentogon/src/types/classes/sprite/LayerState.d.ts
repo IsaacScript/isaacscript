@@ -25,6 +25,12 @@ declare global {
     /** Returns the layer's default spritesheet. */
     GetDefaultSpritesheetPath: () => string;
 
+    /** Returns whether the layer is flipped on the X axis. */
+    GetFlipX: () => boolean;
+
+    /** Returns whether the layer is flipped on the Y axis. */
+    GetFlipY: () => boolean;
+
     /** Returns the layer's ?ID. */
     GetLayerID: () => int;
 
@@ -79,6 +85,12 @@ declare global {
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
     SetCustomChampionShader: (shaderPath: string) => void;
+
+    /** Sets whether the layer is flipped on the X axis. */
+    SetFlipX: (flipped: boolean) => void;
+
+    /** Sets whether the layer is flipped on the Y axis. */
+    SetFlipY: (flipped: boolean) => void;
 
     /** Sets the layer's position. */
     SetPos: (position: Vector) => void;
