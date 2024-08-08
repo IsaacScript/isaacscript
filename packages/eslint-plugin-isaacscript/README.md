@@ -65,7 +65,9 @@ Each rule has emojis denoting:
 | [`isaacscript/no-undefined-return-type`](docs/rules/no-undefined-return-type.md)                         | Disallows `undefined` return types on functions                                                             | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/no-unnecessary-assignment`](docs/rules/no-unnecessary-assignment.md)                       | Disallows useless assignments                                                                               | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/no-unsafe-plusplus`](docs/rules/no-unsafe-plusplus.md)                                     | Disallow unsafe and confusing uses of the "++" and "--" operators                                           | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/no-useless-return`](docs/rules/no-useless-return.md)                                       | Disallow redundant return statements                                                                        | :white_check_mark: |          |                   |
 | [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                                   | Disallows `void` return types on non-exported functions                                                     | :white_check_mark: | :wrench: |                   |
+| [`isaacscript/prefer-const`](docs/rules/prefer-const.md)                                                 | Require `const` declarations for variables that are never reassigned after declared                         | :white_check_mark: |          |                   |
 | [`isaacscript/prefer-plusplus`](docs/rules/prefer-plusplus.md)                                           | Require "++" or "--" operators instead of assignment operators where applicable                             | :white_check_mark: | :wrench: |                   |
 | [`isaacscript/prefer-postfix-plusplus`](docs/rules/prefer-postfix-plusplus.md)                           | Require "i++" instead of "++i"                                                                              | :white_check_mark: |          | :thought_balloon: |
 | [`isaacscript/prefer-readonly-parameter-types`](docs/rules/prefer-readonly-parameter-types.md)           | Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs              | :white_check_mark: |          | :thought_balloon: |
@@ -101,7 +103,6 @@ For example, if you use [VSCode](https://code.visualstudio.com/), and you have t
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
   },
 }
 ```

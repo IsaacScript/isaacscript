@@ -1,6 +1,5 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
-import ESLintPluginESLintComments from "@eslint-community/eslint-plugin-eslint-comments";
 import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
 import type { Linter } from "eslint";
@@ -33,7 +32,6 @@ type ParentConfig =
   | "@typescript-eslint/strict"
   | "@typescript-eslint/stylistic"
   | "@typescript-eslint/stylistic-type-checked"
-  | "eslint-comments/recommended"
   | "import-x/recommended"
   | "jsdoc/recommended"
   | "n/recommended"
@@ -229,10 +227,6 @@ function getTypeScriptESLintConfigRules(configName: string) {
   return rules;
 }
 
-const COMMENTS_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginESLintComments.configs.recommended.rules),
-);
-
 const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginImport.configs.recommended.rules),
 );
@@ -272,8 +266,6 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts",
   "@typescript-eslint/stylistic":
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts",
-  "eslint-comments/recommended":
-    "https://github.com/eslint-community/eslint-plugin-eslint-comments/blob/master/lib/configs/recommended.js",
   "import-x/recommended":
     "https://github.com/un-ts/eslint-plugin-import-x/blob/master/src/config/recommended.ts",
   "jsdoc/recommended":
@@ -302,28 +294,11 @@ export async function makeECIDocs(quiet: boolean): Promise<void> {
   );
 
   markdownOutput += await getMarkdownRuleSection(
-    "disable-autofix",
-    getPluginHeaderTitle("disable-autofix"),
-    "https://github.com/chiefmikey/eslint-plugin-disable-autofix",
-    // This plugin does not have individual documentation pages for each rule.
-    "https://github.com/chiefmikey/eslint-plugin-disable-autofix",
-    undefined,
-  );
-
-  markdownOutput += await getMarkdownRuleSection(
     "typescript-eslint",
     "`@typescript-eslint` Rules",
     "https://typescript-eslint.io/rules/",
     "https://typescript-eslint.io/rules/__RULE_NAME__/",
     TypeScriptESLintPlugin,
-  );
-
-  markdownOutput += await getMarkdownRuleSection(
-    "eslint-comments",
-    getPluginHeaderTitle("eslint-comments"),
-    "https://github.com/eslint-community/eslint-plugin-eslint-comments",
-    "https://github.com/eslint-community/eslint-plugin-eslint-comments/blob/master/docs/rules/__RULE_NAME__.md",
-    ESLintPluginESLintComments,
   );
 
   markdownOutput += await getMarkdownRuleSection(
@@ -624,10 +599,6 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
   }
 
   // -----------------------------------------------------------------------------------------------
-
-  if (COMMENTS_RECOMMENDED_RULES_SET.has(ruleName)) {
-    parentConfigs.push("eslint-comments/recommended");
-  }
 
   if (IMPORT_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("import-x/recommended");

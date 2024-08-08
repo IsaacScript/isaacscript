@@ -20,7 +20,7 @@ export const baseN = tseslint.config(
        * This rule is helpful to automatically fix file extensions in import statements throughout
        * an entire codebase.
        */
-      "n/file-extension-in-import": ["error", "always"],
+      "n/file-extension-in-import": ["warn", "always"],
 
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/exports-style": "off",
@@ -28,7 +28,7 @@ export const baseN = tseslint.config(
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/global-require": "off",
 
-      "n/handle-callback-err": "error",
+      "n/handle-callback-err": "warn",
 
       /**
        * Disabled since it does not work very well with TypeScript. (It needs project-specific
@@ -36,9 +36,9 @@ export const baseN = tseslint.config(
        */
       "n/hashbang": "off", // cspell:disable-line
 
-      "n/no-callback-literal": "error",
-      "n/no-deprecated-api": "error",
-      "n/no-exports-assign": "error",
+      "n/no-callback-literal": "warn",
+      "n/no-deprecated-api": "warn",
+      "n/no-exports-assign": "warn",
 
       /** Disabled since it is handled by the TypeScript compiler. */
       "n/no-extraneous-import": "off",
@@ -52,13 +52,13 @@ export const baseN = tseslint.config(
       /** Disabled since it is handled by the TypeScript compiler. */
       "n/no-missing-import": "off",
 
-      "n/no-missing-require": "error",
+      "n/no-missing-require": "warn",
 
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/no-mixed-requires": "off",
 
-      "n/no-new-require": "error",
-      "n/no-path-concat": "error",
+      "n/no-new-require": "warn",
+      "n/no-path-concat": "warn",
 
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/no-process-env": "off",
@@ -78,15 +78,15 @@ export const baseN = tseslint.config(
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/no-sync": "off",
 
-      "n/no-unpublished-bin": "error",
+      "n/no-unpublished-bin": "warn",
 
       /**
        * An exception is made for files in a "scripts" directory, since those should be allowed to
        * import from "devDependencies".
        */
-      "n/no-unpublished-import": "error",
+      "n/no-unpublished-import": "warn",
 
-      "n/no-unpublished-require": "error",
+      "n/no-unpublished-require": "warn",
 
       /** Disabled because this rule is deprecated. */
       "n/no-unsupported-features": "off",
@@ -133,9 +133,9 @@ export const baseN = tseslint.config(
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/prefer-promises/fs": "off",
 
-      "n/process-exit-as-throw": "error",
+      "n/process-exit-as-throw": "warn",
 
-      /** Superseded by the `n/hashbang` rule. */ // cspell:disable-line
+      /** Superseded by the `n/hashbang` rule. */
       "n/shebang": "off",
     },
   },

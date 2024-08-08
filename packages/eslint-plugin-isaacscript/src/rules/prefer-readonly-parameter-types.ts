@@ -7,7 +7,7 @@ import {
   readonlynessOptionsSchema,
 } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { getParserServices } from "@typescript-eslint/utils/eslint-utils";
 import { getTypeName, unionTypeParts } from "../typeUtils.js";
 import { createRule } from "../utils.js";

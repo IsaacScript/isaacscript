@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { fatalError } from "isaacscript-common-node";
 import { parseSemanticVersion } from "isaacscript-common-ts";
 import { PROJECT_NAME } from "./constants.js";
-import { a } from "./main.js";
 
 // 20.11 is the minimum version that supports `import.meta.dirname`.
 const REQUIRED_NODE_JS_MAJOR_VERSION = 20;
@@ -35,5 +34,3 @@ export function validateNodeVersion(): void {
   );
   process.exit(1);
 }
-
-console.log(a);

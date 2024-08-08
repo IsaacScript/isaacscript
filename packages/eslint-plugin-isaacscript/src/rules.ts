@@ -30,7 +30,9 @@ import { noThrow } from "./rules/no-throw.js";
 import { noUndefinedReturnType } from "./rules/no-undefined-return-type.js";
 import { noUnnecessaryAssignment } from "./rules/no-unnecessary-assignment.js";
 import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus.js";
+import { noUselessReturn } from "./rules/no-useless-return.js";
 import { noVoidReturnType } from "./rules/no-void-return-type.js";
+import { preferConst } from "./rules/prefer-const.js";
 import { preferPlusplus } from "./rules/prefer-plusplus.js";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus.js";
 import { preferReadonlyParameterTypes } from "./rules/prefer-readonly-parameter-types.js";
@@ -74,7 +76,9 @@ export const rules = {
   "no-undefined-return-type": noUndefinedReturnType,
   "no-unnecessary-assignment": noUnnecessaryAssignment,
   "no-unsafe-plusplus": noUnsafePlusplus,
+  "no-useless-return": noUselessReturn,
   "no-void-return-type": noVoidReturnType,
+  "prefer-const": preferConst,
   "prefer-plusplus": preferPlusplus,
   "prefer-postfix-plusplus": preferPostfixPlusplus,
   "prefer-readonly-parameter-types": preferReadonlyParameterTypes,

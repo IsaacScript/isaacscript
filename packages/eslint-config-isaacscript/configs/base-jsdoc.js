@@ -33,7 +33,7 @@ export const baseJSDoc = tseslint.config(
        */
       "jsdoc/check-line-alignment": "off",
 
-      "jsdoc/check-param-names": "error",
+      "jsdoc/check-param-names": "warn",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/check-property-names": "off",
@@ -42,7 +42,7 @@ export const baseJSDoc = tseslint.config(
       "jsdoc/check-syntax": "off",
 
       "jsdoc/check-tag-names": [
-        "error",
+        "warn",
         {
           definedTags: [
             // Ignore tags used by the TypeScript compiler:
@@ -75,12 +75,12 @@ export const baseJSDoc = tseslint.config(
         },
       ],
 
-      "jsdoc/check-template-names": "error",
+      "jsdoc/check-template-names": "warn",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/check-types": "off",
 
-      "jsdoc/check-values": "error",
+      "jsdoc/check-values": "warn",
 
       /**
        * Disabled since it is idiomatic in the TypeScript ecosystem to use a mixture of both JSDoc
@@ -88,13 +88,13 @@ export const baseJSDoc = tseslint.config(
        */
       "jsdoc/convert-to-jsdoc-comments": "off",
 
-      "jsdoc/empty-tags": "error",
-      "jsdoc/implements-on-classes": "error",
+      "jsdoc/empty-tags": "warn",
+      "jsdoc/implements-on-classes": "warn",
 
       /** Disabled since you cannot configure it with a path to the correct "package.json" file. */
       "jsdoc/imports-as-dependencies": "off",
 
-      "jsdoc/informative-docs": "error",
+      "jsdoc/informative-docs": "warn",
 
       /** Superseded by the `isaacscript/jsdoc-full-sentences` rule. */
       "jsdoc/match-description": "off",
@@ -136,7 +136,7 @@ export const baseJSDoc = tseslint.config(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/no-types": [
-        "error",
+        "warn",
         {
           contexts: ["any"],
         },
@@ -145,7 +145,7 @@ export const baseJSDoc = tseslint.config(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
-      "jsdoc/require-asterisk-prefix": "error",
+      "jsdoc/require-asterisk-prefix": "warn",
 
       /** Superseded by the `isaacscript/jsdoc-complete-sentences` rule. */
       "jsdoc/require-description-complete-sentence": "off",
@@ -163,14 +163,14 @@ export const baseJSDoc = tseslint.config(
        * The `never` option is provided to make the rule match the format of the official TypeScript
        * codebase.
        */
-      "jsdoc/require-hyphen-before-param-description": ["error", "never"],
+      "jsdoc/require-hyphen-before-param-description": ["warn", "never"],
 
       /** Disabled since it is overboard for every function to have a JSDoc comment. */
       "jsdoc/require-jsdoc": "off",
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-description": [
-        "error",
+        "warn",
         {
           contexts: ["any"],
         },
@@ -178,7 +178,7 @@ export const baseJSDoc = tseslint.config(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-name": [
-        "error",
+        "warn",
         {
           contexts: ["any"],
         },
@@ -189,7 +189,7 @@ export const baseJSDoc = tseslint.config(
 
       /** Configured to only apply when there are one or more parameters. */
       "jsdoc/require-param": [
-        "error",
+        "warn",
         {
           contexts: [
             {
@@ -203,8 +203,8 @@ export const baseJSDoc = tseslint.config(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property": "off",
 
-      "jsdoc/require-property-description": "error",
-      "jsdoc/require-property-name": "error",
+      "jsdoc/require-property-description": "warn",
+      "jsdoc/require-property-name": "warn",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property-type": "off",
@@ -214,7 +214,7 @@ export const baseJSDoc = tseslint.config(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-returns-description": [
-        "error",
+        "warn",
         {
           contexts: ["any"],
         },

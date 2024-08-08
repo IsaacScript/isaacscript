@@ -1,15 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
-import url from "node:url";
 import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-disable-line import/no-relative-packages
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const config = getTypeDocConfig(__dirname);
+const config = getTypeDocConfig(import.meta.dirname);
 
 // Feature classes are not exported directly, but we want to include them in the documentation.
 // Thus, we must manually add them.
 const FEATURE_CLASS_DIRECTORY = path.join(
-  __dirname,
+  import.meta.dirname,
   "src",
   "classes",
   "features",

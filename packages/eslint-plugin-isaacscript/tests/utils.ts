@@ -11,6 +11,7 @@ export const ruleTester = new RuleTester({
      * The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020',
      * 'es2022', 'esnext', 'system', 'node16', or 'NodeNext'.
      */
+    // eslint-disable-next-line unicorn/prefer-module
     tsconfigRootDir: path.join(__dirname, "fixtures"),
     project: true,
   },

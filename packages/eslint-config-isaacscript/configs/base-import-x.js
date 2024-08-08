@@ -3,7 +3,7 @@ import tseslint from "typescript-eslint";
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const HELPFUL_WARNINGS = {
-  "import-x/export": "error",
+  "import-x/export": "warn",
 
   /**
    * Superseded by the `deprecation/deprecation` rule. (That rule is better because it catches
@@ -11,7 +11,7 @@ const HELPFUL_WARNINGS = {
    */
   "import-x/no-deprecated": "off",
 
-  "import-x/no-empty-named-blocks": "error",
+  "import-x/no-empty-named-blocks": "warn",
 
   /**
    * The options are [copied from
@@ -20,7 +20,7 @@ const HELPFUL_WARNINGS = {
    * We also add a "scripts" directory entry for "devDependencies".
    */
   "import-x/no-extraneous-dependencies": [
-    "error",
+    "warn",
     {
       devDependencies: [
         "test/**", // tape, common npm pattern
@@ -52,8 +52,14 @@ const HELPFUL_WARNINGS = {
     },
   ],
 
-  "import-x/no-mutable-exports": "error",
-  "import-x/no-named-as-default": "error",
+  "import-x/no-mutable-exports": "warn",
+
+  /**
+   * Disabled because it results in [too many false
+   * positives](https://github.com/un-ts/eslint-plugin-import-x/issues/123) when importing from
+   * 3rd-party libraries such as TypeScript itself.
+   */
+  "import-x/no-named-as-default": "off",
 
   /**
    * Disabled because this is [already handled by the TypeScript
@@ -70,9 +76,9 @@ const HELPFUL_WARNINGS = {
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const MODULE_SYSTEMS = {
-  "import-x/no-amd": "error",
-  "import-x/no-commonjs": "error",
-  "import-x/no-import-module-exports": "error",
+  "import-x/no-amd": "warn",
+  "import-x/no-commonjs": "warn",
+  "import-x/no-import-module-exports": "warn",
 
   /** Disabled because it is only used in specific environments (like the browser). */
   "import-x/no-nodejs-modules": "off",
@@ -101,14 +107,14 @@ const STATIC_ANALYSIS = {
    */
   "import-x/namespace": "off",
 
-  "import-x/no-absolute-path": "error",
-  "import-x/no-cycle": "error",
-  "import-x/no-dynamic-require": "error",
+  "import-x/no-absolute-path": "warn",
+  "import-x/no-cycle": "warn",
+  "import-x/no-dynamic-require": "warn",
 
   /** Disabled since a prescribed import pattern is not generalizable enough across projects. */
   "import-x/no-internal-modules": "off",
 
-  "import-x/no-relative-packages": "error",
+  "import-x/no-relative-packages": "warn",
 
   /**
    * Disabled since a forward import direction pattern is not generalizable enough across projects.
@@ -118,7 +124,7 @@ const STATIC_ANALYSIS = {
   /** Disabled since this rule should only contain a project-specific path restriction. */
   "import-x/no-restricted-paths": "off",
 
-  "import-x/no-self-import": "error",
+  "import-x/no-self-import": "warn",
 
   /**
    * Disabled because this is [already handled by the TypeScript
@@ -126,13 +132,13 @@ const STATIC_ANALYSIS = {
    */
   "import-x/no-unresolved": "off",
 
-  "import-x/no-useless-path-segments": "error",
-  "import-x/no-webpack-loader-syntax": "error",
+  "import-x/no-useless-path-segments": "warn",
+  "import-x/no-webpack-loader-syntax": "warn",
 };
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const STYLE_GUIDE = {
-  "import-x/consistent-type-specifier-style": "error",
+  "import-x/consistent-type-specifier-style": "warn",
 
   /** Disabled because it is only useful in environments that use webpack. */
   "import-x/dynamic-import-chunkname": "off",
@@ -143,7 +149,7 @@ const STYLE_GUIDE = {
   /** Disabled because this is already handled by the TypeScript compiler. */
   "import-x/extensions": "off",
 
-  "import-x/first": "error",
+  "import-x/first": "warn",
 
   /** Disabled because this style is not generally used. */
   "import-x/group-exports": "off",
@@ -154,7 +160,7 @@ const STYLE_GUIDE = {
   /** Disabled since it will trigger false positives in codebases that prefer smaller files. */
   "import-x/max-dependencies": "off",
 
-  "import-x/newline-after-import": "error",
+  "import-x/newline-after-import": "warn",
 
   /**
    * Disabled since we disallow default exports elsewhere in this config (in favor of named
@@ -166,10 +172,10 @@ const STYLE_GUIDE = {
    * The case against default exports is [laid out by Basarat Ali
    * Syed](https://basarat.gitbook.io/typescript/main-1/defaultisbad).
    */
-  "import-x/no-default-export": "error",
+  "import-x/no-default-export": "warn",
 
-  "import-x/no-duplicates": "error",
-  "import-x/no-named-default": "error",
+  "import-x/no-duplicates": "warn",
+  "import-x/no-named-default": "warn",
 
   /**
    * Disabled since we disallow default exports elsewhere in this config (in favor of named
@@ -182,7 +188,7 @@ const STYLE_GUIDE = {
    */
   "import-x/no-namespace": "off",
 
-  "import-x/no-unassigned-import": "error",
+  "import-x/no-unassigned-import": "warn",
 
   /** Disabled because this is automatically handled by `prettier-plugin-organize-imports`. */
   "import-x/order": "off",
@@ -226,26 +232,30 @@ export const baseImportX = tseslint.config(
     },
 
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
-    // work properly with TypeScript. We extend the upstream TypeScript config to accomplish this:
-    // https://github.com/import-js/eslint-plugin-import/blob/main/config/typescript.js
-    // https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2119219537
-    // (The necessity of this extra configuration was tested with the `import/no-cycle` rule + two
-    // TypeScript files.) Also note that the "eslint-import-resolver-typescript" package needs to be
-    // installed, or else an error will appear: "Resolve error: typescript with invalid interface
-    // loaded as resolver"
+    // work properly with TypeScript:
+
+    // - First, the "eslint-import-resolver-typescript" package needs to be installed, or else an
+    //   error will appear: "Resolve error: typescript with invalid interface loaded as resolver"
+    // - Second, we extend the upstream TypeScript configuration:
+    // https://github.com/un-ts/eslint-plugin-import-x/blob/master/src/config/typescript.ts
+    // - Third, we need to specify "typescript: true" under the resolver, as documented here:
+    // https://github.com/un-ts/eslint-plugin-import-x/issues/29
+    // (Otherwise, the "no-cycle" rule will not work.)
     settings: {
-      "import-x/parsers": {
-        "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS,
-      },
-      "import-x/resolver": {
-        typescript: true,
-        node: true,
-      },
       "import-x/extensions": ALL_EXTENSIONS,
       "import-x/external-module-folders": [
         "node_modules",
         "node_modules/@types",
       ],
+      "import-x/parsers": {
+        "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS,
+      },
+      "import-x/resolver": {
+        typescript: true,
+        node: {
+          extensions: ALL_EXTENSIONS,
+        },
+      },
     },
 
     rules: {

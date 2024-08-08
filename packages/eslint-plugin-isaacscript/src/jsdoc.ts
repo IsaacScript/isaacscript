@@ -1,4 +1,4 @@
-import { TSESTree } from "@typescript-eslint/types";
+import { TSESTree } from "@typescript-eslint/utils";
 
 export function getJSDocComments(
   comments: readonly TSESTree.Comment[],

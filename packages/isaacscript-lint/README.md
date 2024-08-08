@@ -181,7 +181,7 @@ Additionally, you might also want to install the CSpell extension, which is extr
 Once installed, these extensions provide a nice dichotomy:
 
 - Red squiggly underlines are type-errors from the TypeScript compiler.
-- Yellow squiggly underlines are warnings from ESLint. (Our config uses `eslint-plugin-only-warn` to convert all ESLint errors to warnings.)
+- Yellow squiggly underlines are warnings from ESLint.
 - Blue squiggly underlines are misspelled words. (You can use "Quick Fix" to find suggestions for the proper spelling. Or, you can right click --> `Spelling` --> `Add Words to CSpell Configuration` to ignore a specific word.)
 
 #### `.vscode/settings.json`
@@ -197,7 +197,6 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
   },
 
   "[typescript]": {
@@ -206,7 +205,6 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.tabSize": 2,
   },
 }
 ```

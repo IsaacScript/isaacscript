@@ -31,8 +31,6 @@
 
 - waiting on ESLint 9 support:
   - RuleTester
-  - eslint-plugin-disable-autofix
-  - eslint-plugin-eslint-comments
   - eslint-plugin-import
   - eslint-plugin-deprecation
 

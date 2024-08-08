@@ -45,6 +45,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@typescript-eslint/type-utils": "^7.11.0",
     "@typescript-eslint/utils": "^7.11.0",
     "isaacscript-common-ts": "^16.1.0",
     "typescript-eslint": "^7.11.0"
