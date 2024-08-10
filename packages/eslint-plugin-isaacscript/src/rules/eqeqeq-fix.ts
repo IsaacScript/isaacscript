@@ -42,14 +42,14 @@ function isNullLiteral(node) {
 
 export const eqeqeqFix = createRule({
     name: "eqeqeq-fix", // Added
-    defaultOptions: [], // Added; necessary for the `ruleCreator` helper function
+    defaultOptions: [], // Added (necessary for the `ruleCreator` helper function)
 
     meta: {
         type: "suggestion",
 
         docs: {
             description: "Requires the use of `===` and `!==` (and automatically fixes)",
-            recommended: "recommended", // Changed from false
+            recommended: true, // Changed from false
             // url: "https://eslint.org/docs/latest/rules/eqeqeq"
         },
 

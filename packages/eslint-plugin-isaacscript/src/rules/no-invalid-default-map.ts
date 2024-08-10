@@ -15,6 +15,7 @@ export const noInvalidDefaultMap = createRule<
     type: "problem",
     docs: {
       description: "Disallows invalid constructors for the DefaultMap class",
+      recommended: false,
       requiresTypeChecking: true,
     },
     schema: [],

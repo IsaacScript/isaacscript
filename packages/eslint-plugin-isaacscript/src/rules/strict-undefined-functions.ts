@@ -12,7 +12,7 @@ export const strictUndefinedFunctions = createRule<Options, MessageIds>({
     docs: {
       description:
         "Disallows empty return statements in functions annotated as returning undefined",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

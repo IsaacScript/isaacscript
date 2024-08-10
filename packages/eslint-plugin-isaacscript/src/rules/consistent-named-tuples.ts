@@ -8,7 +8,8 @@ export const consistentNamedTuples = createRule({
     docs: {
       description:
         "Requires that if one or more tuple elements are named, all of them are named",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

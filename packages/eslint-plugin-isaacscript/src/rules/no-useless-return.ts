@@ -148,7 +148,7 @@ export const noUselessReturn = createRule({
 
         docs: {
             description: "Disallow redundant return statements (with no autofixer)", // Changed to add extra description
-            recommended: "recommended", // Changed from true
+            recommended: true, // Changed from true
             // url: "https://eslint.org/docs/latest/rules/no-useless-return"
         },
 

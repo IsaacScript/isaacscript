@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ASTUtils, ESLintUtils } from "@typescript-eslint/utils";
+import type { MyPluginDocs } from "./interfaces/MyPluginDocs.js";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
 const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
@@ -31,7 +32,7 @@ export function areStringsEqualExcludingTrailingSpaces(
 }
 
 // eslint-disable-next-line new-cap
-export const createRule = ESLintUtils.RuleCreator(
+export const createRule = ESLintUtils.RuleCreator<MyPluginDocs>(
   (ruleName) =>
     `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${ruleName}.md`,
 );

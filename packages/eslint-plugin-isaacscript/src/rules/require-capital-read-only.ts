@@ -19,7 +19,7 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires maps/sets/arrays with a capital letter to be read-only",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],
