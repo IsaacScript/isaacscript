@@ -24,6 +24,8 @@ export * from "./enums/flags/EntityTag";
 export * from "./enums/flags/GibFlag";
 export * from "./enums/flags/WeaponModifierFlag";
 export * from "./enums/FollowerPriority";
+export * from "./enums/GenericPromptSelection";
+export * from "./enums/GenericPromptSubmittedSelection";
 export * from "./enums/GiantbookType";
 export * from "./enums/HealthType";
 export * from "./enums/HeartFlashType";

@@ -27,6 +27,7 @@ enum VersionBump {
   dev = "dev",
 }
 
+const UPDATES_ENABLED = false as boolean;
 const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 const startTime = Date.now();
@@ -138,13 +139,15 @@ console.log(
 );
 
 // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
-console.log("Checking for monorepo updates...");
-updateIsaacScriptMonorepo();
+if (UPDATES_ENABLED) {
+  console.log("Checking for monorepo updates...");
+  updateIsaacScriptMonorepo();
 
-if (!isGitRepositoryClean(REPO_ROOT)) {
-  const gitCommitMessage = "chore: updating dependencies";
-  $sq`git add --all`;
-  $sq`git commit --message ${gitCommitMessage}`;
+  if (!isGitRepositoryClean(REPO_ROOT)) {
+    const gitCommitMessage = "chore: updating dependencies";
+    $sq`git add --all`;
+    $sq`git commit --message ${gitCommitMessage}`;
+  }
 }
 
 $sq`git push --set-upstream origin main`;

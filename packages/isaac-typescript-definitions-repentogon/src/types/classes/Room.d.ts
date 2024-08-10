@@ -2,6 +2,7 @@ import type {
   BackdropType,
   EntityType,
   GridEntityType,
+  ItemPoolType,
   PickupVariant,
 } from "isaac-typescript-definitions";
 import type { StbRailVariant } from "../../enums/StbRailVariant";
@@ -81,6 +82,14 @@ declare global {
      */
     GetGridIndexByTile: (row: int, column: int) => int;
 
+    /**
+     * Returns the room's current item pool.
+     *
+     * @param seed Optional. Default is a call to `Random()`.
+     * @param raw Optional. Default is false.
+     */
+    GetItemPool: (seed?: Seed, raw?: boolean) => void;
+
     /** Returns the intensity of the lightning effect. */
     GetLightningIntensity: () => number;
 
@@ -157,6 +166,9 @@ declare global {
 
     /** Sets the greed wave timer. */
     SetGreedWaveTimer: (time: int) => void;
+
+    /** Sets the room's item pool. */
+    SetItemPool: (poolType: ItemPoolType) => void;
 
     /** Sets the intensity of the lava in the room. */
     SetLavaIntensity: (intensity: float) => void;

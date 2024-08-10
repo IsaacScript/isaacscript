@@ -20,6 +20,7 @@ declare global {
     GetCurrentColorModifier: () => ColorModifier;
     GetDebugFlags: () => BitFlags<DebugFlag>;
     GetDizzyAmount: () => int;
+    GetGenericPrompt: () => GenericPrompt;
     GetLerpColorModifier: () => ColorModifier;
     GetPauseMenuState: () => PauseMenuState;
     GetPlanetariumsVisited: () => int;

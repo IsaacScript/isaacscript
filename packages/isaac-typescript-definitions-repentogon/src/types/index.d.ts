@@ -89,6 +89,7 @@
 /// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/Game.d.ts"/>
+/// <reference path="./classes/GenericPrompt.d.ts"/>
 /// <reference path="./classes/ImGui.d.ts"/>
 /// <reference path="./classes/Input.d.ts"/>
 /// <reference path="./classes/Isaac.d.ts"/>

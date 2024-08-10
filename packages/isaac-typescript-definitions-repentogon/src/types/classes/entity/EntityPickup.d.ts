@@ -57,6 +57,12 @@ declare global {
     SetNewOptionsIndex: () => int;
 
     /**
+     * Triggers the effect of the "Theres Options" collectible and removes all pickups in the room
+     * with the same `OptionsPickupIndex` as this pickup.
+     */
+    TriggerTheresOptionsPickup: () => void;
+
+    /**
      * Attempts to flip the collectible, akin to using the Flip collectible.
      *
      * Returns true if successful. Returns false if flipping the collectible failed or the pickup is

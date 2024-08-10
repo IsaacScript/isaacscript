@@ -948,6 +948,11 @@ declare global {
       playerType?: PlayerType,
     ];
 
+    // 1129
+    [ModCallbackRepentogon.POST_FORCE_ADD_PILL_EFFECT]: [
+      callback: (pillEffect: PillEffect, pillColor: PillColor) => void,
+    ];
+
     // 1130
     [ModCallbackRepentogon.PRE_DEVIL_APPLY_ITEMS]: [
       callback: (chance: number) => number | undefined,
@@ -1361,6 +1366,26 @@ declare global {
       entityType?: EntityType,
     ];
 
+    // 1224
+    [ModCallbackRepentogon.EVALUATE_CUSTOM_CACHE]: [
+      callback: (
+        player: EntityPlayer,
+        customCacheTag: string,
+        value: number,
+      ) => number | undefined,
+      customCacheTag?: string,
+    ];
+
+    // 1225
+    [ModCallbackRepentogon.EVALUATE_FAMILIAR_MULTIPLIER]: [
+      callback: (
+        familiar: EntityFamiliar,
+        multiplier: number,
+        player: EntityPlayer,
+      ) => number | undefined,
+      familiarVariant?: FamiliarVariant,
+    ];
+
     // 1231
     [ModCallbackRepentogon.POST_PLAYER_COLLISION]: [
       callback: (player: EntityPlayer, collider: Entity, low: boolean) => void,
@@ -1596,11 +1621,28 @@ declare global {
         itemConfig: ItemConfigItem,
         player: EntityPlayer,
         itemStateOnly: boolean,
-      ) => void,
+      ) => boolean | ItemConfigItem | undefined,
     ];
 
     // 1282
     [ModCallbackRepentogon.PRE_PLAYER_REMOVE_COSTUME]: [
+      callback: (
+        itemConfig: ItemConfigItem,
+        player: EntityPlayer,
+      ) => boolean | undefined,
+    ];
+
+    // 1283
+    [ModCallbackRepentogon.POST_PLAYER_ADD_COSTUME]: [
+      callback: (
+        itemConfig: ItemConfigItem,
+        player: EntityPlayer,
+        itemStateOnly: boolean,
+      ) => void,
+    ];
+
+    // 1284
+    [ModCallbackRepentogon.POST_PLAYER_REMOVE_COSTUME]: [
       callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
     ];
 
