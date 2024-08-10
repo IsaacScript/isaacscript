@@ -367,7 +367,7 @@ export const preferConst = createRule({
         type: "suggestion",
 
         docs: {
-            description: "Require `const` declarations for variables that are never reassigned after declared",
+            description: "Require `const` declarations for variables that are never reassigned after declared (with no autofixer)", // Changed to add extra description
             recommended: "recommended", // Changed from false
             // url: "https://eslint.org/docs/latest/rules/prefer-const"
         },

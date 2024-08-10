@@ -277,14 +277,16 @@ export const baseImportX = tseslint.config(
   // Some configuration files must export a default object as a design limitation.
   {
     files: [
-      ".remarkrc.mjs",
       ".remarkrc.js",
+      ".remarkrc.mjs",
       "eslint.config.js",
       "eslint.config.mjs",
-      "prettier.config.mjs",
+      "jest.config.js",
+      "jest.config.mjs",
       "prettier.config.js",
-      "typedoc.config.mjs",
+      "prettier.config.mjs",
       "typedoc.config.js",
+      "typedoc.config.mjs",
       "vite.config.js",
       "vite.config.mjs",
     ],

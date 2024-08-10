@@ -38,6 +38,10 @@ export const base = tseslint.config(
   // https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
   ...ESLintPluginIsaacScript.configs.recommended,
 
+  // It is best practice to use "eslint-plugin-eslint-comments" instead of the
+  // `reportUnusedDisableDirectives` linter option, because it includes an auto-fixer. However, this
+  // plugin does not yet support the flag config:
+  // https://github.com/eslint-community/eslint-plugin-eslint-comments/issues/244
   {
     linterOptions: {
       reportUnusedDisableDirectives: "warn",
