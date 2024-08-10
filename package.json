@@ -129,9 +129,5 @@
     "yaml": "^2.4.5",
     "zod": "^3.23.8"
   },
-  "packageManager": "yarn@4.3.1",
-  "devDependencies": {
-    "@types/babel__core": "^7",
-    "@types/babel__preset-env": "^7"
-  }
+  "packageManager": "yarn@4.3.1"
 }
