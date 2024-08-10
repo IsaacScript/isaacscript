@@ -24,9 +24,7 @@ const config = {
   hideInPageTOC: true,
 };
 
-/**
- * @param {string} packageDirectoryPath The path to the package directory.
- */
+/** @param {string} packageDirectoryPath The path to the package directory. */
 export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
   const out = path.join(import.meta.dirname, "docs", packageName);
@@ -36,7 +34,7 @@ export function getTypeDocConfig(packageDirectoryPath) {
   const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
   const typeScriptFileExports = getTypeScriptFileExports(indexTSPath);
   const exportsWithSrcPrefix = typeScriptFileExports.map((entryPoint) =>
-    entryPoint.replace(/\.\//g, "./src/"),
+    entryPoint.replaceAll("./", "./src/"),
   );
   const entryPoints = exportsWithSrcPrefix.map(
     (entryPoint) => `${entryPoint}.ts`,

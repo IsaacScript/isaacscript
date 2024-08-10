@@ -130,6 +130,7 @@ export const baseTypeScriptESLint = tseslint.config(
         },
       ],
 
+      "@typescript-eslint/no-empty-object-type": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-extra-non-null-assertion": "warn",
       "@typescript-eslint/no-extraneous-class": "warn",
@@ -167,10 +168,13 @@ export const baseTypeScriptESLint = tseslint.config(
 
       "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
       "@typescript-eslint/no-unnecessary-condition": "warn",
+      "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
       "@typescript-eslint/no-unnecessary-qualifier": "warn",
+      "@typescript-eslint/no-unnecessary-template-expression": "warn",
       "@typescript-eslint/no-unnecessary-type-arguments": "warn",
       "@typescript-eslint/no-unnecessary-type-assertion": "warn",
       "@typescript-eslint/no-unnecessary-type-constraint": "warn",
+      "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unsafe-argument": "warn",
       "@typescript-eslint/no-unsafe-assignment": "warn",
       "@typescript-eslint/no-unsafe-call": "warn",

@@ -1,59 +1,58 @@
-import path from "node:path";
+// @ts-check
 
-const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
-const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
-  REPO_ROOT,
-  "packages",
-  "eslint-config-isaacscript",
-);
+import tseslint from "typescript-eslint";
+import { base } from "../eslint-config-isaacscript/base.js";
+import { mod } from "../eslint-config-isaacscript/mod.js";
+import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
+// @ts-expect-error There are no TypeScript definitions for this plugin.
+import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
-export default {
-  extends: [
-    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "mod.js"),
-    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
-  ],
+export default tseslint.config(
+  ...base,
+  ...mod,
+  ...monorepo,
 
-  plugins: [
-    /** See the `sort-exports` rule below. */
-    "sort-exports",
-  ],
+  {
+    plugins: {
+      "sort-exports": ESLintPluginSortExports,
+    },
 
-  rules: {
-    /**
-     * Defined at: base-typescript-eslint.js
-     *
-     * Ark120202, the author of TypeScriptToLua, recommends using triple-slash directives.
-     */
-    "@typescript-eslint/triple-slash-reference": "off",
+    rules: {
+      /**
+       * Defined at: base-typescript-eslint.js
+       *
+       * Ark120202, the author of TypeScriptToLua, recommends using triple-slash directives.
+       */
+      "@typescript-eslint/triple-slash-reference": "off",
 
-    /**
-     * Defined at: base-jsdoc.js
-     *
-     * The API documentation does not contain entries for every parameter.
-     */
-    "jsdoc/require-param-description": "off",
+      /**
+       * Defined at: base-jsdoc.js
+       *
+       * The API documentation does not contain entries for every parameter.
+       */
+      "jsdoc/require-param-description": "off",
 
-    /** Not defined in the parent configs. */
-    "sort-exports/sort-exports": [
-      "warn",
-      {
-        sortDir: "asc",
-      },
-    ],
+      /** Not defined in the parent configs. */
+      "sort-exports/sort-exports": [
+        "warn",
+        {
+          sortDir: "asc",
+        },
+      ],
+    },
   },
 
-  overrides: [
-    {
-      files: ["index.ts"],
-      rules: {
-        "sort-exports/sort-exports": "off",
-      },
+  {
+    files: ["src/index.ts"],
+    rules: {
+      "sort-exports/sort-exports": "off",
     },
-    {
-      files: ["./src/enums/flags/*.ts"],
-      rules: {
-        "@typescript-eslint/no-redeclare": "off",
-      },
+  },
+
+  {
+    files: ["src/enums/flags/*.ts"],
+    rules: {
+      "@typescript-eslint/no-redeclare": "off",
     },
-  ],
-};
+  },
+);
