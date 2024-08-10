@@ -7,6 +7,7 @@ import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
 export default tseslint.config(
   ...base,
   ...monorepo,
+
   {
     rules: {
       /**

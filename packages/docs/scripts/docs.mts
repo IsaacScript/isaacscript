@@ -4,7 +4,7 @@ import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
-import ESLintPluginImport from "eslint-plugin-import";
+import ESLintPluginImportX from "eslint-plugin-import-x";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
@@ -228,7 +228,7 @@ function getTypeScriptESLintConfigRules(configName: string) {
 }
 
 const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginImport.configs.recommended.rules),
+  Object.keys(ESLintPluginImportX.configs.recommended.rules),
 );
 
 assertDefined(
@@ -302,11 +302,11 @@ export async function makeECIDocs(quiet: boolean): Promise<void> {
   );
 
   markdownOutput += await getMarkdownRuleSection(
-    "import",
-    getPluginHeaderTitle("import"),
-    "https://github.com/import-js/eslint-plugin-import",
-    "https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/__RULE_NAME__.md",
-    ESLintPluginImport,
+    "import-x",
+    getPluginHeaderTitle("import-x"),
+    "https://github.com/un-ts/eslint-plugin-import-x",
+    "https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/__RULE_NAME__.md",
+    ESLintPluginImportX,
   );
 
   markdownOutput += await getMarkdownRuleSection(
@@ -507,7 +507,7 @@ function getMarkdownHeader(headerTitle: string, headerLink: string): string {
 function getRuleEnabled(ruleName: string, rule: Linter.RuleEntry): boolean {
   const severity = getRuleSeverity(ruleName, rule);
 
-  if (severity !== "error" && severity !== "off") {
+  if (severity !== "error" && severity !== "warn" && severity !== "off") {
     fatalError(`Unknown value of "${severity}" when parsing rule: ${ruleName}`);
   }
 

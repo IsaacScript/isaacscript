@@ -1,63 +1,64 @@
-import path from "node:path";
+// @ts-check
 
-const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
-const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
-  REPO_ROOT,
-  "packages",
-  "eslint-config-isaacscript",
-);
+import tseslint from "typescript-eslint";
+import { base } from "../eslint-config-isaacscript/base.js";
+import { mod } from "../eslint-config-isaacscript/mod.js";
+import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
+// @ts-expect-error There are no TypeScript definitions for this plugin.
+import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
-export default {
-  extends: [
-    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "mod.js"),
-    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
-  ],
+export default tseslint.config(
+  ...base,
+  ...mod,
+  ...monorepo,
 
-  plugins: [
-    /** The `sort-exports` rule is used in some specific files. */
-    "sort-exports",
-  ],
+  {
+    plugins: {
+      /** The `sort-exports` rule is used in some specific files. */
+      "sort-exports": ESLintPluginSortExports,
+    },
 
-  ignorePatterns: [
-    "**/dist/**",
-    // When building and linting at the same time, the "indexLua.ts" file can cause a linting error.
-    "indexLua.ts",
-    // Ignore files that were transpiled from Lua to JavaScript.
-    "jsonLua.js",
-  ],
-
-  rules: {
-    /** Not defined in the parent configs. */
-    "@typescript-eslint/explicit-member-accessibility": [
-      "error",
-      {
-        overrides: {
-          constructors: "off",
+    rules: {
+      /** Not defined in the parent configs. */
+      "@typescript-eslint/explicit-member-accessibility": [
+        "warn",
+        {
+          overrides: {
+            constructors: "off",
+          },
         },
-      },
-    ],
+      ],
 
-    /**
-     * Defined at: mod.js
-     *
-     * Since we transpile this library to both Lua and JavaScript, we need to re-enable this lint
-     * rule.
-     */
-    "@typescript-eslint/require-array-sort-compare": "error",
+      /**
+       * Defined at: mod.js
+       *
+       * Since we transpile this library to both Lua and JavaScript, we need to re-enable this lint
+       * rule.
+       */
+      "@typescript-eslint/require-array-sort-compare": "warn",
+    },
   },
 
-  overrides: [
-    {
-      files: ["./src/functions/**"],
-      rules: {
-        /** Not defined in the parent configs. */
-        "sort-exports/sort-exports": [
-          "error",
-          {
-            sortDir: "asc",
-          },
-        ],
-      },
+  {
+    files: ["src/functions/**"],
+    rules: {
+      /** Not defined in the parent configs. */
+      "sort-exports/sort-exports": [
+        "warn",
+        {
+          sortDir: "asc",
+        },
+      ],
     },
-  ],
-};
+  },
+
+  {
+    ignores: [
+      // When building and linting at the same time, the "indexLua.ts" file can cause a linting
+      // error.
+      "src/indexLua.ts",
+      // Ignore files that were transpiled from Lua to JavaScript.
+      "src/lib/jsonLua.js",
+    ],
+  },
+);

@@ -20,15 +20,7 @@ export const baseTypeScriptESLint = tseslint.config(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        sourceType: "module",
-
-        // Recommended as per the official documentation:
-        // https://typescript-eslint.io/getting-started/typed-linting
         project: true,
-
-        // Needed for `eslint-plugin-import` to work properly:
-        // https://github.com/import-js/eslint-plugin-import/blob/main/config/recommended.js
-        ecmaVersion: "latest",
       },
     },
 
@@ -101,13 +93,6 @@ export const baseTypeScriptESLint = tseslint.config(
           selector: "variable",
           format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "allow",
-          // Make an exception for redeclaring CJS variables, which is necessary because they cannot
-          // be replaced with `import.meta.dirname` while the ESLint server still uses an old
-          // version of NodeJS. (This was last tested on August 4th, 2024.)
-          filter: {
-            regex: "^(__filename|__dirname)$",
-            match: false,
-          },
         },
         // Allow camelCase functions (23.2), and PascalCase functions (23.8).
         {

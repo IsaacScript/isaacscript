@@ -5,7 +5,7 @@ import {
 } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 
-await buildScript(async ({ packageRoot, outDir }) => {
+await buildScript(({ packageRoot, outDir }) => {
   assertDefined(
     outDir,
     'Failed to get the "outDir" from the "tsconfig.json" file.',

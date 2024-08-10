@@ -31,10 +31,7 @@ const POSSIBLE_PROBLEMS = {
   "no-dupe-keys": "off", // @typescript-eslint/eslint-recommended
   "no-duplicate-case": "warn",
 
-  /**
-   * Superseded by the `import/no-duplicates` rule (which is provided by the `import/recommended`
-   * config).
-   */
+  /** Superseded by the `import-x/no-duplicates` rule. */
   "no-duplicate-imports": "off",
 
   "no-empty-character-class": "warn",

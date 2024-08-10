@@ -24,7 +24,7 @@ export default {
       rules: {
         /** Not defined in the parent configs. */
         "sort-exports/sort-exports": [
-          "error",
+          "warn",
           {
             sortDir: "asc",
           },

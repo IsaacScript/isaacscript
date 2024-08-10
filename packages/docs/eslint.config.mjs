@@ -27,7 +27,7 @@ export default tseslint.config(
       // (The "package.json" file for the "docs" package does not contain any of the actual
       // dependencies.)
       "import-x/no-extraneous-dependencies": [
-        "error",
+        "warn",
         {
           packageDir: REPO_ROOT,
         },

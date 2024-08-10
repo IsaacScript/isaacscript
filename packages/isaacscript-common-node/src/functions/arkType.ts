@@ -2,11 +2,6 @@ import { caller, filePath } from "@arktype/fs";
 import { capitalizeFirstLetter } from "isaacscript-common-ts";
 import path from "node:path";
 
-// We re-export "findPackageRoot" from "@arktype/fs" so that end-users do not have to depend on it.
-// (We cannot wrap it in a helper function since it works with the call stack.)
-// See: https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
-export { findPackageRoot } from "@arktype/fs";
-
 /**
  * Helper function to get the directory of a calling function.
  *
@@ -43,3 +38,8 @@ export function fileOfCaller(upStackBy = 1): string {
 
   return filePathString;
 }
+
+// We re-export "findPackageRoot" from "@arktype/fs" so that end-users do not have to depend on it.
+// (We cannot wrap it in a helper function since it works with the call stack.)
+// See: https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
+export { findPackageRoot } from "@arktype/fs";

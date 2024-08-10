@@ -465,7 +465,7 @@ player.AddSoulHearts(1); // The type of player is now "EntityPlayer".
 
 In some programming languages, [circular dependencies](https://en.wikipedia.org/wiki/Circular_dependency) are allowed. JavaScript and TypeScript are two of those languages. However, Lua is not. Thus, if you compile a program with circular dependencies, it may cause a stack overflow at run-time.
 
-By default, IsaacScript projects ship with the [`import/no-cycle`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-cycle.md) ESLint rule turned on, which should immediately alert you to this problem if it happens.
+By default, IsaacScript projects ship with the [`import-x/no-cycle`](https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/no-cycle.md) ESLint rule turned on, which should immediately alert you to this problem if it happens.
 
 Programs with circular dependencies are generally considered to be spaghetti. If you have circular dependencies in your Isaac mod, it is a sign that you almost certainly need to rethink your architecture to something more sane.
 

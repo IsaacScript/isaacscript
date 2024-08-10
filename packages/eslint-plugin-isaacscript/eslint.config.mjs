@@ -46,8 +46,4 @@ export default tseslint.config(
       "unicorn/no-empty-file": "off",
     },
   },
-
-  {
-    ignores: ["**/dist/**", "eqeqeq-fix.ts"],
-  },
 );

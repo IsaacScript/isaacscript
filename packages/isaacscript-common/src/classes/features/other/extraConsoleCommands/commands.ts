@@ -2,14 +2,14 @@
 
 /*
 eslint "sort-exports/sort-exports": [
-  "error",
+  "warn",
   {
     sortDir: "asc",
   },
 ],
 */
 
-/* eslint "jsdoc/require-jsdoc": "error" */
+/* eslint "jsdoc/require-jsdoc": "warn" */
 
 /**
  * __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__

@@ -48,7 +48,7 @@ export function packageJSONLint(verbose: boolean): boolean {
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
   const packageJSONPaths = globSync(`./packages/**/${PACKAGE_JSON}`, {
-    ignore: ["**/dist/**", "node_modules/**"],
+    ignore: ["**/dist/**", "**/node_modules/**"],
     cwd: REPO_ROOT,
   });
 

@@ -1,14 +1,10 @@
-/** This config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua projects). */
-export const mod = {
-  extends: [
-    /**
-     * The IsaacScript mod config extends the base configuration:
-     * https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
-     * (Normal TypeScript projects would just use the base configuration directly.)
-     */
-    "./base",
-  ],
+import tseslint from "typescript-eslint";
 
+/**
+ * This ESLint config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua
+ * projects).
+ */
+export const mod = tseslint.config({
   rules: {
     /**
      * Defined at: base-typescript-eslint.js
@@ -25,7 +21,7 @@ export const mod = {
      * using UPPER_CASE.
      */
     "@typescript-eslint/naming-convention": [
-      "error",
+      "warn",
       // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
       // (23.10).
       {
@@ -62,7 +58,7 @@ export const mod = {
      * explicitly specifying the X and Y values.
      */
     "@typescript-eslint/no-base-to-string": [
-      "error",
+      "warn",
       {
         ignoredTypeNames: ["Vector"],
       },
@@ -75,7 +71,7 @@ export const mod = {
      * allow the `this` parameter.
      */
     "@typescript-eslint/no-invalid-void-type": [
-      "error",
+      "warn",
       {
         allowAsThisParameter: true,
       },
@@ -126,7 +122,7 @@ export const mod = {
      *
      * Since Isaac enums use the `SHOUTING_SNAKE_CASE` convention, this rule ensures correctness.
      */
-    "isaacscript/enum-member-number-separation": "error",
+    "isaacscript/enum-member-number-separation": "warn",
 
     /**
      * Defined in "isaacscript/recommended".
@@ -141,21 +137,21 @@ export const mod = {
      *
      * Prevents misuse of the custom `DefaultMap` class in the standard library.
      */
-    "isaacscript/no-invalid-default-map": "error",
+    "isaacscript/no-invalid-default-map": "warn",
 
     /**
      * Not defined in the parent configs.
      *
      * The `throw` keyword should never be used in Isaac mods.
      */
-    "isaacscript/no-throw": "error",
+    "isaacscript/no-throw": "warn",
 
     /**
      * Not defined in the parent configs.
      *
      * We must explicitly enable this rule, since it should only apply to IsaacScript mods.
      */
-    "isaacscript/require-v-registration": "error",
+    "isaacscript/require-v-registration": "warn",
 
     /**
      * Defined at: base-n.js
@@ -185,7 +181,7 @@ export const mod = {
      * Isaac API methods use capital letters, so we must make the options for the rule less strict.
      */
     "new-cap": [
-      "error",
+      "warn",
       {
         newIsCap: true,
         capIsNew: false,
@@ -214,4 +210,4 @@ export const mod = {
      */
     "no-restricted-globals": "off",
   },
-};
+});

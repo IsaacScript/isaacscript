@@ -41,9 +41,4 @@ export const monorepo = tseslint.config(
       "import-x/no-extraneous-dependencies": "off",
     },
   },
-
-  // All packages in this monorepo use a "dist" directory for compiled output.
-  {
-    ignores: ["**/dist/**"],
-  },
 );

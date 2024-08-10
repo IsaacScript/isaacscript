@@ -38,13 +38,19 @@ export const base = tseslint.config(
   // https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
   ...ESLintPluginIsaacScript.configs.recommended,
 
-  // It is best practice to use "eslint-plugin-eslint-comments" instead of the
-  // `reportUnusedDisableDirectives` linter option, because it includes an auto-fixer. However, this
-  // plugin does not yet support the flag config:
-  // https://github.com/eslint-community/eslint-plugin-eslint-comments/issues/244
+  // We prefer the official `reportUnusedDisableDirectives` linter option over the 3rd-party plugin
+  // of "eslint-plugin-eslint-comments".
   {
     linterOptions: {
       reportUnusedDisableDirectives: "warn",
     },
+  },
+
+  {
+    // By default, ESLint ignores "**/node_modules/" and ".git/":
+    // https://eslint.org/docs/latest/use/configure/ignore#ignoring-files
+    // We also ignore want to ignore the "dist" directory since it is the idiomatic place for
+    // compiled output.
+    ignores: ["**/dist/"],
   },
 );

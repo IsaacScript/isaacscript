@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-disable-line import/no-relative-packages
+import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-disable-line import-x/no-relative-packages
 
 const config = getTypeDocConfig(import.meta.dirname);
 
