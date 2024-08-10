@@ -1,6 +1,9 @@
-import type { CompleteSentenceMessageIds } from "../src/completeSentence";
-import { getIncompleteSentences, getSentences } from "../src/completeSentence";
-import { assertDefined } from "../src/isaacScriptCommonTS";
+import { assertDefined } from "isaacscript-common-ts";
+import type { CompleteSentenceMessageIds } from "../src/completeSentence.js";
+import {
+  getIncompleteSentences,
+  getSentences,
+} from "../src/completeSentence.js";
 
 function testSentences(text: string, numSentences: number) {
   const sentences = getSentences(text);

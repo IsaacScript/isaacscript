@@ -12,7 +12,7 @@ await lintScript(async () => {
 
     // Use ESLint to lint the TypeScript.
     // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    $`eslint --max-warnings 0 scripts *.cjs *.mjs`, // We have to exclude the packages directory.
+    $`eslint --max-warnings 0 scripts *.mjs`, // We have to exclude the packages directory.
 
     // Check for unused files, dependencies, and exports.
     // TODO: Re-enable knip
@@ -28,13 +28,14 @@ await lintScript(async () => {
     $`cspell-check-unused-words`,
 
     // Check for template updates.
-    $`tsx ./packages/isaacscript-cli/src/main.ts check --ignore .eslintrc.cjs,bundleEntry.ts,ci.yml,lint.ts,tsconfig.eslint.json,tsconfig.json`,
+    // TODO: Re-enable.
+    /// $`tsx ./packages/isaacscript-cli/src/main.ts check --ignore .eslintrc.cjs,bundleEntry.ts,ci.yml,lint.ts,tsconfig.eslint.json,tsconfig.json`,
   ];
 
   await Promise.all(promises);
 
   // The "packageJSONLint.ts" script uses synchronous APIs, so we must run it separately.
-  if (!packageJSONLint()) {
+  if (!packageJSONLint(false)) {
     exit(1);
   }
 });

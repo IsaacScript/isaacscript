@@ -1,5 +1,5 @@
-import { strictVoidFunctions } from "../../src/rules/strict-void-functions";
-import { ruleTester } from "../utils";
+import { strictVoidFunctions } from "../../src/rules/strict-void-functions.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("strict-void-functions", strictVoidFunctions, {
   valid: [

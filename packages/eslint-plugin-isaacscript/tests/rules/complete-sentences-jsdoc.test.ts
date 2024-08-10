@@ -1,8 +1,8 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import type { CompleteSentenceMessageIds } from "../../src/completeSentence";
-import type { Options } from "../../src/rules/complete-sentences-jsdoc";
-import { completeSentencesJSDoc } from "../../src/rules/complete-sentences-jsdoc";
-import { ruleTester } from "../utils";
+import type { CompleteSentenceMessageIds } from "../../src/completeSentence.js";
+import type { Options } from "../../src/rules/complete-sentences-jsdoc.js";
+import { completeSentencesJSDoc } from "../../src/rules/complete-sentences-jsdoc.js";
+import { ruleTester } from "../utils.js";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<
@@ -454,7 +454,7 @@ valid.push({
 valid.push({
   name: "Comment with JSDoc type on single line",
   code: `
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
+/** @type {import("@docusaurus/types").DocusaurusConfig} */
   `,
 });
 
@@ -462,7 +462,7 @@ valid.push({
   name: "Comment with JSDoc type on multi line",
   code: `
 /**
- * @type {import('@docusaurus/types').DocusaurusConfig}
+ * @type {import("@docusaurus/types").DocusaurusConfig}
  */
   `,
 });

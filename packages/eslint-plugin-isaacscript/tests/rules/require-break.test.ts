@@ -1,7 +1,7 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import type { MessageIds, Options } from "../../src/rules/require-break";
-import { requireBreak } from "../../src/rules/require-break";
-import { ruleTester } from "../utils";
+import type { MessageIds, Options } from "../../src/rules/require-break.js";
+import { requireBreak } from "../../src/rules/require-break.js";
+import { ruleTester } from "../utils.js";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];

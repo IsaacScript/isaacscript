@@ -1,10 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import url from "node:url";
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-
-/** @type {import('typedoc').TypeDocOptions} */
 const config = {
   sort: ["source-order"],
   tsconfig: "tsconfig.json",
@@ -28,13 +24,10 @@ const config = {
   hideInPageTOC: true,
 };
 
-/**
- * @param {string} packageDirectoryPath The path to the package directory.
- * @returns {import('typedoc').TypeDocOptions} A TypeDoc configuration object.
- */
+/** @param {string} packageDirectoryPath The path to the package directory. */
 export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
-  const out = path.join(__dirname, "docs", packageName);
+  const out = path.join(import.meta.dirname, "docs", packageName);
 
   // We want one entry point for each export source file, which will correspond to one Markdown file
   // for each source file.

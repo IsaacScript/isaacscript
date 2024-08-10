@@ -1,83 +1,73 @@
-// This ESLint config only contains built-in rules from ESLint itself:
-// https://eslint.org/docs/latest/rules/
+import confusingBrowserGlobals from "confusing-browser-globals";
+import tseslint from "typescript-eslint";
 
-const confusingBrowserGlobals = require("confusing-browser-globals");
-
-// Rules are separated into categories:
-// 1) Possible Problems
-// 2) Suggestions
-// 3) Layout & Formatting
-
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const POSSIBLE_PROBLEMS = {
   /** The `checkForEach` option is enabled to make the rule stricter. */
   "array-callback-return": [
-    "error",
+    "warn",
     {
       checkForEach: true,
     },
   ],
 
   "constructor-super": "off", // @typescript-eslint/eslint-recommended
-  "for-direction": "error",
+  "for-direction": "warn",
   "getter-return": "off", // @typescript-eslint/eslint-recommended
-  "no-async-promise-executor": "error",
-  "no-await-in-loop": "error",
-  "no-class-assign": "error",
-  "no-compare-neg-zero": "error",
-  "no-cond-assign": "error",
+  "no-async-promise-executor": "warn",
+  "no-await-in-loop": "warn",
+  "no-class-assign": "warn",
+  "no-compare-neg-zero": "warn",
+  "no-cond-assign": "warn",
   "no-const-assign": "off", // @typescript-eslint/eslint-recommended
-  "no-constant-binary-expression": "error",
-  "no-constant-condition": "error",
-  "no-constructor-return": "error",
-  "no-control-regex": "error",
-  "no-debugger": "error",
+  "no-constant-binary-expression": "warn",
+  "no-constant-condition": "warn",
+  "no-constructor-return": "warn",
+  "no-control-regex": "warn",
+  "no-debugger": "warn",
   "no-dupe-args": "off", // @typescript-eslint/eslint-recommended
   "no-dupe-class-members": "off", // @typescript-eslint/eslint-recommended
-  "no-dupe-else-if": "error",
+  "no-dupe-else-if": "warn",
   "no-dupe-keys": "off", // @typescript-eslint/eslint-recommended
-  "no-duplicate-case": "error",
+  "no-duplicate-case": "warn",
 
-  /**
-   * Superseded by the `import/no-duplicates` rule (which is provided by the `import/recommended`
-   * config).
-   */
+  /** Superseded by the `import-x/no-duplicates` rule. */
   "no-duplicate-imports": "off",
 
-  "no-empty-character-class": "error",
-  "no-empty-pattern": "error",
-  "no-ex-assign": "error",
-  "no-fallthrough": "error",
+  "no-empty-character-class": "warn",
+  "no-empty-pattern": "warn",
+  "no-ex-assign": "warn",
+  "no-fallthrough": "warn",
   "no-func-assign": "off", // @typescript-eslint/eslint-recommended
   "no-import-assign": "off", // @typescript-eslint/eslint-recommended
-  "no-inner-declarations": "error",
-  "no-invalid-regexp": "error",
-  "no-irregular-whitespace": "error",
+  "no-inner-declarations": "warn",
+  "no-invalid-regexp": "warn",
+  "no-irregular-whitespace": "warn",
 
   /** Superseded by the `@typescript-eslint/no-loss-of-precision` rule. */
   "no-loss-of-precision": "off",
 
-  "no-misleading-character-class": "error",
-  "no-new-native-nonconstructor": "error",
+  "no-misleading-character-class": "warn",
+  "no-new-native-nonconstructor": "warn",
   "no-new-symbol": "off", // @typescript-eslint/eslint-recommended
   "no-obj-calls": "off", // @typescript-eslint/eslint-recommended`
-  "no-promise-executor-return": "error",
-  "no-prototype-builtins": "error",
-  "no-self-assign": "error",
-  "no-self-compare": "error",
+  "no-promise-executor-return": "warn",
+  "no-prototype-builtins": "warn",
+  "no-self-assign": "warn",
+  "no-self-compare": "warn",
   "no-setter-return": "off", // @typescript-eslint/eslint-recommended
-  "no-sparse-arrays": "error",
-  "no-template-curly-in-string": "error",
+  "no-sparse-arrays": "warn",
+  "no-template-curly-in-string": "warn",
   "no-this-before-super": "off", // @typescript-eslint/eslint-recommended`
   "no-undef": "off", // @typescript-eslint/eslint-recommended
   "no-unexpected-multiline": "off", // eslint-config-prettier
-  "no-unmodified-loop-condition": "error",
+  "no-unmodified-loop-condition": "warn",
   "no-unreachable": "off", // @typescript-eslint/eslint-recommended
-  "no-unreachable-loop": "error",
-  "no-unsafe-finally": "error",
+  "no-unreachable-loop": "warn",
+  "no-unsafe-finally": "warn",
   "no-unsafe-negation": "off", // @typescript-eslint/eslint-recommended
-  "no-unsafe-optional-chaining": "error",
-  "no-unused-private-class-members": "error",
+  "no-unsafe-optional-chaining": "warn",
+  "no-unused-private-class-members": "warn",
 
   /** Superseded by the `@typescript-eslint/no-unused-vars` rule. */
   "no-unused-vars": "off",
@@ -85,7 +75,7 @@ const POSSIBLE_PROBLEMS = {
   /** Superseded by the `@typescript-eslint/no-use-before-define` rule. */
   "no-use-before-define": "off",
 
-  "no-useless-backreference": "error",
+  "no-useless-backreference": "warn",
 
   /**
    * Disabled since [Airbnb reports that the rule is "very
@@ -93,15 +83,15 @@ const POSSIBLE_PROBLEMS = {
    */
   "require-atomic-updates": "off",
 
-  "use-isnan": "error",
-  "valid-typeof": "error",
+  "use-isnan": "warn",
+  "valid-typeof": "warn",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const SUGGESTIONS = {
-  "accessor-pairs": "error",
-  "arrow-body-style": "error",
-  "block-scoped-var": "error",
+  "accessor-pairs": "warn",
+  "arrow-body-style": "warn",
+  "block-scoped-var": "warn",
 
   /**
    * Superseded by the `@typescript-eslint/naming-convention` rule. (`camelcase` is used to enforce
@@ -127,7 +117,7 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/consistent-return` rule. */
   "consistent-return": "off",
 
-  "consistent-this": "error",
+  "consistent-this": "warn",
 
   /**
    * Always requiring curly braces can partially ward against [Apple-style if statement
@@ -135,7 +125,7 @@ const SUGGESTIONS = {
    * to be set to "all" to [work properly with
    * `eslint-prettier-config`](https://github.com/prettier/eslint-config-prettier#curly).
    */
-  curly: ["error", "all"],
+  curly: ["warn", "all"],
 
   /**
    * Disabled since it would cause the `@typescript-eslint/switch-exhaustiveness-check` rule to not
@@ -143,7 +133,7 @@ const SUGGESTIONS = {
    */
   "default-case": "off",
 
-  "default-case-last": "error",
+  "default-case-last": "warn",
 
   /** Superseded by the `@typescript-eslint/default-param-last` rule. */
   "default-param-last": "off",
@@ -154,8 +144,8 @@ const SUGGESTIONS = {
   /** Superseded by the `isaacscript/eqeqeq-fix` rule. */
   eqeqeq: "off",
 
-  "func-name-matching": "error",
-  "func-names": "error",
+  "func-name-matching": "warn",
+  "func-names": "warn",
 
   /**
    * Disabled since it is common in the TypeScript ecosystem to use both function forms, depending
@@ -163,7 +153,7 @@ const SUGGESTIONS = {
    */
   "func-style": "off",
 
-  "grouped-accessor-pairs": "error",
+  "grouped-accessor-pairs": "warn",
 
   /** Superseded by the `isaacscript/no-for-in` rule. */
   "guard-for-in": "off",
@@ -185,14 +175,14 @@ const SUGGESTIONS = {
 
   /** The `enforceForIfStatements` option is enabled to make the rule stricter. */
   "logical-assignment-operators": [
-    "error",
+    "warn",
     "always",
     {
       enforceForIfStatements: true,
     },
   ],
 
-  "max-classes-per-file": "error",
+  "max-classes-per-file": "warn",
 
   /** Disabled since this rule is too prescriptive for general-purpose use. */
   "max-depth": "off",
@@ -209,7 +199,7 @@ const SUGGESTIONS = {
    */
   "max-lines-per-function": "off",
 
-  "max-nested-callbacks": "error",
+  "max-nested-callbacks": "warn",
 
   /** Superseded by the `@typescript-eslint/max-params` rule. */
   "max-params": "off",
@@ -223,15 +213,15 @@ const SUGGESTIONS = {
   /** Disabled because it is conventional to use both kinds of comments in TypeScript projects. */
   "multiline-comment-style": "off",
 
-  "new-cap": "error",
-  "no-alert": "error",
+  "new-cap": "warn",
+  "no-alert": "warn",
 
   /** Superseded by the `@typescript-eslint/no-array-constructor` rule. */
   "no-array-constructor": "off",
 
-  "no-bitwise": "error",
-  "no-caller": "error",
-  "no-case-declarations": "error",
+  "no-bitwise": "warn",
+  "no-caller": "warn",
+  "no-case-declarations": "warn",
   "no-confusing-arrow": "off", // eslint-config-prettier
 
   /**
@@ -247,39 +237,39 @@ const SUGGESTIONS = {
    */
   "no-continue": "off",
 
-  "no-delete-var": "error",
+  "no-delete-var": "warn",
 
   /** Disabled since it is incompatible with the `unicorn/better-regex` rule. */
   "no-div-regex": "off",
 
   /** The `allowElseIf` option is disabled to make the rule stricter. */
   "no-else-return": [
-    "error",
+    "warn",
     {
       allowElseIf: false,
     },
   ],
 
-  "no-empty": "error",
+  "no-empty": "warn",
 
   /** Superseded by the `@typescript-eslint/no-empty-function` rule. */
   "no-empty-function": "off",
 
-  "no-empty-static-block": "error",
-  "no-eq-null": "error",
-  "no-eval": "error",
-  "no-extend-native": "error",
-  "no-extra-bind": "error",
-  "no-extra-boolean-cast": "error",
-  "no-extra-label": "error",
+  "no-empty-static-block": "warn",
+  "no-eq-null": "warn",
+  "no-eval": "warn",
+  "no-extend-native": "warn",
+  "no-extra-bind": "warn",
+  "no-extra-boolean-cast": "warn",
+  "no-extra-label": "warn",
 
   /** Superseded by the `@typescript-eslint/no-extra-semi` rule. */
   "no-extra-semi": "off",
 
   "no-floating-decimal": "off", // eslint-config-prettier
-  "no-global-assign": "error",
-  "no-implicit-coercion": "error",
-  "no-implicit-globals": "error",
+  "no-global-assign": "warn",
+  "no-implicit-coercion": "warn",
+  "no-implicit-globals": "warn",
 
   /** Superseded by the `@typescript-eslint/no-implied-eval` rule. */
   "no-implied-eval": "off",
@@ -290,11 +280,11 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/no-invalid-this` rule. */
   "no-invalid-this": "off",
 
-  "no-iterator": "error",
-  "no-label-var": "error",
-  "no-labels": "error",
-  "no-lone-blocks": "error",
-  "no-lonely-if": "error",
+  "no-iterator": "warn",
+  "no-label-var": "warn",
+  "no-labels": "warn",
+  "no-lone-blocks": "warn",
+  "no-lonely-if": "warn",
 
   /** Superseded by the `@typescript-eslint/no-loop-func` rule. */
   "no-loop-func": "off",
@@ -303,8 +293,8 @@ const SUGGESTIONS = {
   "no-magic-numbers": "off",
 
   "no-mixed-operators": "off", // eslint-config-prettier
-  "no-multi-assign": "error",
-  "no-multi-str": "error",
+  "no-multi-assign": "warn",
+  "no-multi-str": "warn",
 
   /** Superseded by the `unicorn/no-negated-condition` rule. */
   "no-negated-condition": "off",
@@ -312,22 +302,22 @@ const SUGGESTIONS = {
   /**
    * `unicorn/no-nested-ternary` is a modified version of this rule but that version is less strict.
    */
-  "no-nested-ternary": "error",
+  "no-nested-ternary": "warn",
 
-  "no-new": "error",
-  "no-new-func": "error",
-  "no-new-wrappers": "error",
-  "no-nonoctal-decimal-escape": "error",
-  "no-object-constructor": "error",
-  "no-octal": "error",
-  "no-octal-escape": "error",
+  "no-new": "warn",
+  "no-new-func": "warn",
+  "no-new-wrappers": "warn",
+  "no-nonoctal-decimal-escape": "warn",
+  "no-object-constructor": "warn",
+  "no-octal": "warn",
+  "no-octal-escape": "warn",
 
   /**
    * The options are [copied from
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js).
    */
   "no-param-reassign": [
-    "error",
+    "warn",
     {
       props: true,
       ignorePropertyModificationsFor: [
@@ -352,19 +342,19 @@ const SUGGESTIONS = {
    */
   "no-plusplus": "off",
 
-  "no-proto": "error",
+  "no-proto": "warn",
 
   /** Superseded by the `@typescript-eslint/block-spacing` rule. */
   "no-redeclare": "off",
 
-  "no-regex-spaces": "error",
+  "no-regex-spaces": "warn",
 
   /**
    * The options are [copied from
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/es6.js).
    */
   "no-restricted-exports": [
-    "error",
+    "warn",
     {
       restrictedNamedExports: [
         "default", // use `export default` to provide a default export
@@ -378,7 +368,7 @@ const SUGGESTIONS = {
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/variables.js).
    */
   "no-restricted-globals": [
-    "error",
+    "warn",
     {
       name: "isFinite",
       message:
@@ -400,7 +390,7 @@ const SUGGESTIONS = {
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js).
    */
   "no-restricted-properties": [
-    "error",
+    "warn",
     {
       object: "arguments",
       property: "callee",
@@ -455,9 +445,9 @@ const SUGGESTIONS = {
   "no-restricted-syntax": "off",
 
   /** The `always` option is provided to make the rule stricter. */
-  "no-return-assign": ["error", "always"],
+  "no-return-assign": ["warn", "always"],
 
-  "no-script-url": "error",
+  "no-script-url": "warn",
 
   /**
    * Disabled because [it can conflict with
@@ -468,7 +458,7 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/no-shadow` rule. */
   "no-shadow": "off",
 
-  "no-shadow-restricted-names": "error",
+  "no-shadow-restricted-names": "warn",
 
   /**
    * Disabled because ternaries are common in the TypeScript ecosystem and can often lead to concise
@@ -479,7 +469,7 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/no-throw-literal` rule. */
   "no-throw-literal": "off",
 
-  "no-undef-init": "error",
+  "no-undef-init": "warn",
 
   /**
    * Disabled because in TypeScript, it is common to explicitly check for undefined for the purposes
@@ -495,7 +485,7 @@ const SUGGESTIONS = {
 
   /** The `defaultAssignment` option is disabled to make the rule stricter. */
   "no-unneeded-ternary": [
-    "error",
+    "warn",
     {
       defaultAssignment: false,
     },
@@ -504,43 +494,44 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/no-unused-expressions` rule. */
   "no-unused-expressions": "off",
 
-  "no-unused-labels": "error",
-  // "no-useless-assignment": "error", // Temporarily disabled until we upgrade to ESLint 9.
-  "no-useless-call": "error",
-  "no-useless-catch": "error",
+  "no-unused-labels": "warn",
+  /// "no-useless-assignment": "warn", // TODO: Uncomment when ESLint 9 is usable.
+  "no-useless-call": "warn",
+  "no-useless-catch": "warn",
 
   /** The `enforceForClassMembers` option is enabled to make the rule stricter. */
   "no-useless-computed-key": [
-    "error",
+    "warn",
     {
       enforceForClassMembers: true,
     },
   ],
 
-  "no-useless-concat": "error",
+  "no-useless-concat": "warn",
 
   /** Superseded by the `@typescript-eslint/no-useless-constructor` rule. */
   "no-useless-constructor": "off",
 
-  "no-useless-escape": "error",
-  "no-useless-rename": "error",
+  "no-useless-escape": "warn",
+  "no-useless-rename": "warn",
 
   /**
-   * Superseded by the `no-autofix/no-useless-return` rule (since the autofix is usually unwanted).
+   * Superseded by the `isaacscript/no-useless-return` rule (since the auto-fix is usually
+   * unwanted).
    */
   "no-useless-return": "off",
 
-  "no-var": "error",
-  "no-void": "error",
+  "no-var": "warn",
+  "no-void": "warn",
 
   /** Superseded by the `unicorn/expiring-todo-comments` rule. */
   "no-warning-comments": "off",
 
-  "no-with": "error",
+  "no-with": "warn",
 
   /** The `ignoreConstructors` option is disabled to make the rule stricter. */
   "object-shorthand": [
-    "error",
+    "warn",
     "always",
     {
       ignoreConstructors: false,
@@ -551,19 +542,19 @@ const SUGGESTIONS = {
    * The `never` option is provided to disallow multi-variable declarations (since they can be
    * confusing).
    */
-  "one-var": ["error", "never"],
+  "one-var": ["warn", "never"],
 
   "one-var-declaration-per-line": "off", // eslint-config-prettier
-  "operator-assignment": "error",
-  "prefer-arrow-callback": "error",
+  "operator-assignment": "warn",
+  "prefer-arrow-callback": "warn",
 
-  /** Superseded by the `no-autofix/prefer-const` rule (since the autofix is usually unwanted). */
+  /** Superseded by the `isaacscript/prefer-const` rule (since the auto-fix is usually unwanted). */
   "prefer-const": "off",
 
   /** Superseded by the `@typescript-eslint/prefer-destructuring` rule. */
   "prefer-destructuring": "off",
 
-  "prefer-exponentiation-operator": "error",
+  "prefer-exponentiation-operator": "warn",
 
   /**
    * Disabled because it is common to have a regex with only a single match, in which case a named
@@ -571,26 +562,26 @@ const SUGGESTIONS = {
    */
   "prefer-named-capture-group": "off",
 
-  "prefer-numeric-literals": "error",
-  "prefer-object-has-own": "error",
-  "prefer-object-spread": "error",
+  "prefer-numeric-literals": "warn",
+  "prefer-object-has-own": "warn",
+  "prefer-object-spread": "warn",
 
   /** Superseded by the `@typescript-eslint/prefer-promise-reject-errors` rule. */
   "prefer-promise-reject-errors": "off",
 
   /** The `disallowRedundantWrapping` option is enabled to make the rule stricter. */
   "prefer-regex-literals": [
-    "error",
+    "warn",
     {
       disallowRedundantWrapping: true,
     },
   ],
 
-  "prefer-rest-params": "error",
-  "prefer-spread": "error",
-  "prefer-template": "error",
+  "prefer-rest-params": "warn",
+  "prefer-spread": "warn",
+  "prefer-template": "warn",
   "quote-props": "off", // eslint-config-prettier
-  radix: "error",
+  radix: "warn",
 
   /** Superseded by the `@typescript-eslint/require-await` rule. */
   "require-await": "off",
@@ -602,7 +593,7 @@ const SUGGESTIONS = {
    */
   "require-unicode-regexp": "off",
 
-  "require-yield": "error",
+  "require-yield": "warn",
 
   /** Disabled since this is automatically handled by `prettier-plugin-organize-imports`. */
   "sort-imports": "off",
@@ -622,7 +613,7 @@ const SUGGESTIONS = {
    * The `markers` option is provided to make this rule ignore lines that start with "///".
    */
   "spaced-comment": [
-    "error",
+    "warn",
     "always",
     {
       markers: ["/"],
@@ -630,14 +621,14 @@ const SUGGESTIONS = {
   ],
 
   /** The `never` option is provided to make the rule stricter. */
-  strict: ["error", "never"],
+  strict: ["warn", "never"],
 
-  "symbol-description": "error",
-  "vars-on-top": "error",
-  yoda: "error",
+  "symbol-description": "warn",
+  "vars-on-top": "warn",
+  yoda: "warn",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const LAYOUT_AND_FORMATTING = {
   "array-bracket-newline": "off", // eslint-config-prettier
   "array-bracket-spacing": "off", // eslint-config-prettier
@@ -706,19 +697,25 @@ const LAYOUT_AND_FORMATTING = {
   "switch-colon-spacing": "off", // eslint-config-prettier
   "template-curly-spacing": "off", // eslint-config-prettier
   "template-tag-spacing": "off", // eslint-config-prettier
-  "unicode-bom": "error",
+  "unicode-bom": "warn",
   "wrap-iife": "off", // eslint-config-prettier
   "wrap-regex": "off", // eslint-config-prettier
   "yield-star-spacing": "off", // eslint-config-prettier
 };
 
-/** @type {import("eslint").Linter.Config} */
-const config = {
+/**
+ * This ESLint config only contains built-in rules from ESLint itself:
+ * https://eslint.org/docs/latest/rules/
+ *
+ * Rules are separated into categories:
+ * 1) Possible Problems
+ * 2) Suggestions
+ * 3) Layout & Formatting
+ */
+export const baseESLint = tseslint.config({
   rules: {
     ...POSSIBLE_PROBLEMS,
     ...SUGGESTIONS,
     ...LAYOUT_AND_FORMATTING,
   },
-};
-
-module.exports = config;
+});

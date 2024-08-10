@@ -1,68 +1,68 @@
-// This ESLint config only contains rules from `eslint-plugin-unicorn`:
-// https://github.com/sindresorhus/eslint-plugin-unicorn
+import ESLintPluginUnicorn from "eslint-plugin-unicorn";
+import tseslint from "typescript-eslint";
 
-// Rules are separated into categories:
-// 1) Normal rules
-// 2) Deprecated rules
-
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const NORMAL_RULES = {
-  "unicorn/better-regex": "error",
-  "unicorn/catch-error-name": "error",
+  "unicorn/better-regex": "warn",
+  "unicorn/catch-error-name": "warn",
 
   /** Disabled because it has too many false positives. */
   "unicorn/consistent-destructuring": "off",
 
-  "unicorn/consistent-empty-array-spread": "error",
-  "unicorn/consistent-function-scoping": "error",
-  "unicorn/custom-error-definition": "error",
+  "unicorn/consistent-empty-array-spread": "warn",
+  "unicorn/consistent-function-scoping": "warn",
+  "unicorn/custom-error-definition": "warn",
   "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
-  "unicorn/error-message": "error",
-  "unicorn/escape-case": "error",
-  "unicorn/expiring-todo-comments": "error",
-  "unicorn/explicit-length-check": "error",
+  "unicorn/error-message": "warn",
+  "unicorn/escape-case": "warn",
+  "unicorn/expiring-todo-comments": "warn",
+  "unicorn/explicit-length-check": "warn",
 
   /** Disabled since projects may use different file naming conventions. */
   "unicorn/filename-case": "off",
 
-  "unicorn/import-style": "error",
-  "unicorn/new-for-builtins": "error",
+  "unicorn/import-style": "warn",
+  "unicorn/new-for-builtins": "warn",
 
-  /** Superseded by the `eslint-comments/no-unlimited-disable` rule. */
+  /**
+   * Disabled because if a line breaks three or more ESLint rules, then it is useful to use a single
+   * "eslint-disable" comment to make things more concise.
+   */
   "unicorn/no-abusive-eslint-disable": "off",
 
-  "unicorn/no-anonymous-default-export": "error",
+  "unicorn/no-anonymous-default-export": "warn",
 
   /** Disabled since it is not helpful when using TypeScript. */
   "unicorn/no-array-callback-reference": "off",
 
-  "unicorn/no-array-for-each": "error",
-  "unicorn/no-array-method-this-argument": "error",
-  "unicorn/no-array-push-push": "error",
-  "unicorn/no-array-reduce": "error",
-  "unicorn/no-await-expression-member": "error",
-  "unicorn/no-await-in-promise-methods": "error",
-  "unicorn/no-console-spaces": "error",
-  "unicorn/no-document-cookie": "error",
-  "unicorn/no-empty-file": "error",
-  "unicorn/no-for-loop": "error",
-  "unicorn/no-hex-escape": "error",
-  "unicorn/no-instanceof-array": "error",
-  "unicorn/no-invalid-fetch-options": "error",
-  "unicorn/no-invalid-remove-event-listener": "error",
+  "unicorn/no-array-for-each": "warn",
+  "unicorn/no-array-method-this-argument": "warn",
+  "unicorn/no-array-push-push": "warn",
+  "unicorn/no-array-reduce": "warn",
+  "unicorn/no-await-expression-member": "warn",
+  "unicorn/no-await-in-promise-methods": "warn",
+  "unicorn/no-console-spaces": "warn",
+  "unicorn/no-document-cookie": "warn",
+  "unicorn/no-empty-file": "warn",
+  "unicorn/no-for-loop": "warn",
+  "unicorn/no-hex-escape": "warn",
+  "unicorn/no-instanceof-array": "warn",
+  "unicorn/no-invalid-fetch-options": "warn",
+  "unicorn/no-invalid-remove-event-listener": "warn",
 
   /** Disabled because it is common to prefix variables with "new". */
   "unicorn/no-keyword-prefix": "off",
 
-  "unicorn/no-lonely-if": "error",
-  "unicorn/no-magic-array-flat-depth": "error",
-  "unicorn/no-negated-condition": "error",
-  "unicorn/no-negation-in-equality-check": "error",
+  "unicorn/no-length-as-slice-end": "warn",
+  "unicorn/no-lonely-if": "warn",
+  "unicorn/no-magic-array-flat-depth": "warn",
+  "unicorn/no-negated-condition": "warn",
+  "unicorn/no-negation-in-equality-check": "warn",
   "unicorn/no-nested-ternary": "off", // eslint-config-prettier
-  "unicorn/no-new-array": "error",
-  "unicorn/no-new-buffer": "error",
-  "unicorn/no-null": "error",
-  "unicorn/no-object-as-default-parameter": "error",
+  "unicorn/no-new-array": "warn",
+  "unicorn/no-new-buffer": "warn",
+  "unicorn/no-null": "warn",
+  "unicorn/no-object-as-default-parameter": "warn",
 
   /**
    * Disabled because using `process.exit` is common to exit command-line applications without
@@ -70,89 +70,89 @@ const NORMAL_RULES = {
    */
   "unicorn/no-process-exit": "off",
 
-  "unicorn/no-single-promise-in-promise-methods": "error",
-  "unicorn/no-static-only-class": "error",
-  "unicorn/no-thenable": "error",
+  "unicorn/no-single-promise-in-promise-methods": "warn",
+  "unicorn/no-static-only-class": "warn",
+  "unicorn/no-thenable": "warn",
 
   /** Superseded by the `@typescript-eslint/no-this-alias` rule. */
   "unicorn/no-this-assignment": "off",
 
-  "unicorn/no-typeof-undefined": "error",
-  "unicorn/no-unnecessary-await": "error",
-  "unicorn/no-unnecessary-polyfills": "error",
-  "unicorn/no-unreadable-array-destructuring": "error",
-  "unicorn/no-unreadable-iife": "error",
-  "unicorn/no-unused-properties": "error",
-  "unicorn/no-useless-fallback-in-spread": "error",
-  "unicorn/no-useless-length-check": "error",
-  "unicorn/no-useless-promise-resolve-reject": "error",
-  "unicorn/no-useless-spread": "error",
-  "unicorn/no-useless-switch-case": "error",
+  "unicorn/no-typeof-undefined": "warn",
+  "unicorn/no-unnecessary-await": "warn",
+  "unicorn/no-unnecessary-polyfills": "warn",
+  "unicorn/no-unreadable-array-destructuring": "warn",
+  "unicorn/no-unreadable-iife": "warn",
+  "unicorn/no-unused-properties": "warn",
+  "unicorn/no-useless-fallback-in-spread": "warn",
+  "unicorn/no-useless-length-check": "warn",
+  "unicorn/no-useless-promise-resolve-reject": "warn",
+  "unicorn/no-useless-spread": "warn",
+  "unicorn/no-useless-switch-case": "warn",
 
   /** Disabled since it does not work properly with TypeScript. */
   "unicorn/no-useless-undefined": "off",
 
-  "unicorn/no-zero-fractions": "error",
+  "unicorn/no-zero-fractions": "warn",
   "unicorn/number-literal-case": "off", // eslint-config-prettier
-  "unicorn/numeric-separators-style": "error",
-  "unicorn/prefer-add-event-listener": "error",
-  "unicorn/prefer-array-find": "error",
-  "unicorn/prefer-array-flat": "error",
-  "unicorn/prefer-array-flat-map": "error",
-  "unicorn/prefer-array-index-of": "error",
-  "unicorn/prefer-array-some": "error",
-  "unicorn/prefer-at": "error",
-  "unicorn/prefer-blob-reading-methods": "error",
-  "unicorn/prefer-code-point": "error",
-  "unicorn/prefer-date-now": "error",
-  "unicorn/prefer-default-parameters": "error",
-  "unicorn/prefer-dom-node-append": "error",
-  "unicorn/prefer-dom-node-dataset": "error",
-  "unicorn/prefer-dom-node-remove": "error",
-  "unicorn/prefer-dom-node-text-content": "error",
-  "unicorn/prefer-event-target": "error",
-  "unicorn/prefer-export-from": "error",
-  "unicorn/prefer-includes": "error",
+  "unicorn/numeric-separators-style": "warn",
+  "unicorn/prefer-add-event-listener": "warn",
+  "unicorn/prefer-array-find": "warn",
+  "unicorn/prefer-array-flat": "warn",
+  "unicorn/prefer-array-flat-map": "warn",
+  "unicorn/prefer-array-index-of": "warn",
+  "unicorn/prefer-array-some": "warn",
+  "unicorn/prefer-at": "warn",
+  "unicorn/prefer-blob-reading-methods": "warn",
+  "unicorn/prefer-code-point": "warn",
+  "unicorn/prefer-date-now": "warn",
+  "unicorn/prefer-default-parameters": "warn",
+  "unicorn/prefer-dom-node-append": "warn",
+  "unicorn/prefer-dom-node-dataset": "warn",
+  "unicorn/prefer-dom-node-remove": "warn",
+  "unicorn/prefer-dom-node-text-content": "warn",
+  "unicorn/prefer-event-target": "warn",
+  "unicorn/prefer-export-from": "warn",
+  "unicorn/prefer-includes": "warn",
 
   /** Disabled because the rule is not compatible with TypeScript. */
   "unicorn/prefer-json-parse-buffer": "off",
 
-  "unicorn/prefer-keyboard-event-key": "error",
-  "unicorn/prefer-logical-operator-over-ternary": "error",
-  "unicorn/prefer-math-trunc": "error",
-  "unicorn/prefer-modern-dom-apis": "error",
-  "unicorn/prefer-modern-math-apis": "error",
-  "unicorn/prefer-module": "error",
-  "unicorn/prefer-native-coercion-functions": "error",
-  "unicorn/prefer-negative-index": "error",
-  "unicorn/prefer-node-protocol": "error",
-  "unicorn/prefer-number-properties": "error",
-  "unicorn/prefer-object-from-entries": "error",
-  "unicorn/prefer-optional-catch-binding": "error",
-  "unicorn/prefer-prototype-methods": "error",
-  "unicorn/prefer-query-selector": "error",
-  "unicorn/prefer-reflect-apply": "error",
-  "unicorn/prefer-regexp-test": "error",
-  "unicorn/prefer-set-has": "error",
-  "unicorn/prefer-set-size": "error",
-  "unicorn/prefer-spread": "error",
-  "unicorn/prefer-string-raw": "error",
-  "unicorn/prefer-string-replace-all": "error",
-  "unicorn/prefer-string-slice": "error",
-  "unicorn/prefer-string-starts-ends-with": "error",
-  "unicorn/prefer-string-trim-start-end": "error",
-  "unicorn/prefer-structured-clone": "error",
-  "unicorn/prefer-switch": "error",
-  "unicorn/prefer-ternary": "error",
-  "unicorn/prefer-top-level-await": "error",
-  "unicorn/prefer-type-error": "error",
+  "unicorn/prefer-keyboard-event-key": "warn",
+  "unicorn/prefer-logical-operator-over-ternary": "warn",
+  "unicorn/prefer-math-trunc": "warn",
+  "unicorn/prefer-modern-dom-apis": "warn",
+  "unicorn/prefer-modern-math-apis": "warn",
+  "unicorn/prefer-module": "warn",
+  "unicorn/prefer-native-coercion-functions": "warn",
+  "unicorn/prefer-negative-index": "warn",
+  "unicorn/prefer-node-protocol": "warn",
+  "unicorn/prefer-number-properties": "warn",
+  "unicorn/prefer-object-from-entries": "warn",
+  "unicorn/prefer-optional-catch-binding": "warn",
+  "unicorn/prefer-prototype-methods": "warn",
+  "unicorn/prefer-query-selector": "warn",
+  "unicorn/prefer-reflect-apply": "warn",
+  "unicorn/prefer-regexp-test": "warn",
+  "unicorn/prefer-set-has": "warn",
+  "unicorn/prefer-set-size": "warn",
+  "unicorn/prefer-spread": "warn",
+  "unicorn/prefer-string-raw": "warn",
+  "unicorn/prefer-string-replace-all": "warn",
+  "unicorn/prefer-string-slice": "warn",
+  "unicorn/prefer-string-starts-ends-with": "warn",
+  "unicorn/prefer-string-trim-start-end": "warn",
+  "unicorn/prefer-structured-clone": "warn",
+  "unicorn/prefer-switch": "warn",
+  "unicorn/prefer-ternary": "warn",
+  "unicorn/prefer-top-level-await": "warn",
+  "unicorn/prefer-type-error": "warn",
 
   /** Disabled since it is common to use the variable name of "i". */
   "unicorn/prevent-abbreviations": "off",
 
-  "unicorn/relative-url-style": "error",
-  "unicorn/require-array-join-separator": "error",
-  "unicorn/require-number-to-fixed-digits-argument": "error",
+  "unicorn/relative-url-style": "warn",
+  "unicorn/require-array-join-separator": "warn",
+  "unicorn/require-number-to-fixed-digits-argument": "warn",
 
   /** Disabled since it is not recommended by the plugin authors. */
   "unicorn/require-post-message-target-origin": "off",
@@ -160,13 +160,13 @@ const NORMAL_RULES = {
   /** Disabled since string content enforcement is too project-specific. */
   "unicorn/string-content": "off",
 
-  "unicorn/switch-case-braces": "error",
-  "unicorn/template-indent": "error",
-  "unicorn/text-encoding-identifier-case": "error",
-  "unicorn/throw-new-error": "error",
+  "unicorn/switch-case-braces": "warn",
+  "unicorn/template-indent": "warn",
+  "unicorn/text-encoding-identifier-case": "warn",
+  "unicorn/throw-new-error": "warn",
 };
 
-/** @type {import("eslint").Linter.RulesRecord} */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const DEPRECATED_RULES = {
   /** Disabled because this rule is deprecated. */
   "unicorn/import-index": "off",
@@ -220,24 +220,21 @@ const DEPRECATED_RULES = {
   "unicorn/regex-shorthand": "off",
 };
 
-/** @type {import("eslint").Linter.Config} */
-const config = {
-  plugins: ["unicorn"],
+/**
+ * This ESLint config only contains rules from `eslint-plugin-unicorn`:
+ * https://github.com/sindresorhus/eslint-plugin-unicorn
+ *
+ * Rules are separated into categories:
+ * 1) Normal rules
+ * 2) Deprecated rules
+ */
+export const baseUnicorn = tseslint.config({
+  plugins: {
+    unicorn: ESLintPluginUnicorn,
+  },
 
   rules: {
     ...NORMAL_RULES,
     ...DEPRECATED_RULES,
   },
-
-  overrides: [
-    // Disable some TypeScript-specific rules in JavaScript files.
-    {
-      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
-      rules: {
-        "unicorn/prefer-module": "off",
-      },
-    },
-  ],
-};
-
-module.exports = config;
+});

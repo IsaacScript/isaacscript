@@ -1,9 +1,9 @@
 // This rule is mostly copied from the `no-fallthrough` ESLint core rule:
 // https://github.com/eslint/eslint/blob/main/lib/rules/no-fallthrough.js
 
-import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
-import { createRule } from "../utils";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 export type MessageIds = "noBreak";

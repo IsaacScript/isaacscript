@@ -1,4 +1,4 @@
-import { testFormatText } from "./format";
+import { testFormatText } from "./format.js";
 
 test("Exactly 100 characters", () => {
   const text = `
@@ -350,7 +350,7 @@ This is another line.
 
 test("eslint-disable with long line", () => {
   const text = `
-eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-dynamic-require,global-require,no-plusplus
+eslint-disable-next-line @typescript-eslint/no-var-requires,import-x/no-dynamic-require,global-require,no-plusplus
   `;
   testFormatText(text);
 });

@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
-import { createRule } from "../utils";
+import { createRule } from "../utils.js";
 
 export type Options = [];
 export type MessageIds = "plusPlus" | "minusMinus";

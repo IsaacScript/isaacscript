@@ -1,18 +1,53 @@
+- add "// @ts-check" to all eslint configs in the monorepo + the template
+
+- // TODO: once on ESLint 9, reorganize rules in "base-eslint.js" to correspond to the website:
+  https://eslint.org/docs/latest/rules/#layout--formatting
+  (for deprecated rules)
+
+- // TODO: Uncomment when TypeScript 5.5 is released.
+
+- use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
+  https://eslint.org/docs/latest/rules/sort-keys
+
+- test import no-cycle rule (might need to re-add typescript config from main branch)
+
+- things to consider before merging flat config branch:
+  - vscode extension no longer in alpha/beta: https://github.com/microsoft/vscode-eslint/releases
+
+- test eslint-plugin-import
+
 - package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
 
 - Upgrade ESLint infra when this PR passes: https://github.com/eslint/eslint/pull/18134
 
-- lint:
+- try removing ESLint parserOptions, since they might not be needed with flat config
+- re-add test script to package.json for plugin when RuleTester is finished for V8
+  - https://github.com/typescript-eslint/typescript-eslint/issues/9017
+
+- new TSESLint changes:
+  - https://typescript-eslint.io/blog/announcing-typescript-eslint-v8
+  - change project to projectServices
+  - remove tsconfig.eslint.json
+
+- waiting on ESLint 9 support:
+  - RuleTester
+  - eslint-plugin-import
+  - eslint-plugin-deprecation
+
+- does end-user need to install eslint-import-resolver-typescript? if so we need to include it in isaacscript-lint meta package. we might get error of:
+  - typescript with invalid interface loaded as resolver
+  - https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2140996174
+
+- re-enable knip in lint.ts
+- re-enable check-ts in lint.ts
+- see top comment of "update.ts" (and uncomment "no-useless-assignment")
+
+- lint projects:
   - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - https://github.com/typescript-eslint/typescript-eslint/issues/4571
   - `T extends Foo[]` --> `T extends readonly Foo[]`
-
-- preferTypeOnlyAutoImports does not work
-
-- investigate array vs set performance (also search for "O(1)" afterward)
-  - https://stackoverflow.com/questions/39007637/javascript-set-vs-array-performance#:~:text=In%20general%20an%20array%20will,always%20faster%20for%20%3E%2052%20elements.
 
 ----------------------------------------------------------------------------------------------------
 

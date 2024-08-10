@@ -86,50 +86,50 @@ jobs:
       - uses: ./.github/workflows/setup
       - run: npm run lint
 
-  docs-deploy:
-    needs: [build, lint, test, monorepo-lint]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
+  # docs-deploy:
+  #   needs: [build, lint, test, monorepo-lint]
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: ./.github/workflows/setup
 
-      - name: Retrieve the docs build directory
-        uses: actions/download-artifact@v4
-        with:
-          name: docs-build
-          path: ./packages/docs/build
+  #     - name: Retrieve the docs build directory
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: docs-build
+  #         path: ./packages/docs/build
 
-      - name: Checkout the docs repository
-        uses: actions/checkout@v4
-        with:
-          ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
-          repository: IsaacScript/isaacscript.github.io
-          ref: gh-pages
-          # The current working directory is:
-          # /home/runner/work/isaacscript/isaacscript
-          # Thus, the following path is equivalent to:
-          # /home/runner/work/isaacscript/isaacscript/isaacscript.github.io
-          # (It is not possible to clone the repo in the parent directory for security reasons.)
-          path: isaacscript.github.io
+  #     - name: Checkout the docs repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
+  #         repository: IsaacScript/isaacscript.github.io
+  #         ref: gh-pages
+  #         # The current working directory is:
+  #         # /home/runner/work/isaacscript/isaacscript
+  #         # Thus, the following path is equivalent to:
+  #         # /home/runner/work/isaacscript/isaacscript/isaacscript.github.io
+  #         # (It is not possible to clone the repo in the parent directory for security reasons.)
+  #         path: isaacscript.github.io
 
-      - name: Deploy the documentation website
-        id: deploy_documentation_website
-        run: npx tsx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
+  #     - name: Deploy the documentation website
+  #       id: deploy_documentation_website
+  #       run: npx tsx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
 
-      - name: Run DocSearch Scraper
-        uses: celsiusnarhwal/typesense-scraper@v2
-        if: steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
-        with:
-          api-key: ${{ secrets.TYPESENSE_API_KEY }}
-          host: ${{ secrets.TYPESENSE_HOST }}
-          port: ${{ secrets.TYPESENSE_PORT }}
-          protocol: ${{ secrets.TYPESENSE_PROTOCOL }}
-          config: packages/docs/docsearch.config.json
+  #     - name: Run DocSearch Scraper
+  #       uses: celsiusnarhwal/typesense-scraper@v2
+  #       if: steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
+  #       with:
+  #         api-key: ${{ secrets.TYPESENSE_API_KEY }}
+  #         host: ${{ secrets.TYPESENSE_HOST }}
+  #         port: ${{ secrets.TYPESENSE_PORT }}
+  #         protocol: ${{ secrets.TYPESENSE_PROTOCOL }}
+  #         config: packages/docs/docsearch.config.json
 
   discord:
     name: Discord Failure Notification
-    needs: [build, lint, test, monorepo-lint, docs-deploy]
+    needs: [build, lint, test, monorepo-lint] # docs-deploy
     if: failure()
     runs-on: ubuntu-latest
     steps:

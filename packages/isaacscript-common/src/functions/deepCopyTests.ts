@@ -203,21 +203,21 @@ function copiedObjectHasNoReferencesForArray() {
     error("The copied object does not have an equal array.");
   }
 
-  oldObject.abc[0]++;
+  oldObject.abc[0]!++; // eslint-disable-line @typescript-eslint/no-non-null-assertion
   if (arrayEquals(oldObject.abc, newObject.abc)) {
     error(
       "The copied object has an equal array after a modification to the old array.",
     );
   }
-  oldObject.abc[0]--;
+  oldObject.abc[0]!--; // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
-  newObject.abc[0]++;
+  newObject.abc[0]!++; // eslint-disable-line @typescript-eslint/no-non-null-assertion
   if (arrayEquals(oldObject.abc, newObject.abc)) {
     error(
       "The copied object has an equal array after a modification to the new array.",
     );
   }
-  newObject.abc[0]--;
+  newObject.abc[0]!--; // eslint-disable-line @typescript-eslint/no-non-null-assertion
 }
 
 function copiedObjectHasChildObject() {

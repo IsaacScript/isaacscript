@@ -3,6 +3,7 @@ import {
   PACKAGE_JSON,
   buildScript,
   cp,
+  fixMonorepoPackageDistDirectory,
   mkdir,
   rm,
 } from "isaacscript-common-node";
@@ -16,6 +17,7 @@ await buildScript(({ outDir, packageRoot }) => {
   );
 
   $s`tsc`;
+  fixMonorepoPackageDistDirectory(packageRoot, outDir);
   copyToMonorepoNodeModules(packageRoot, outDir);
 });
 

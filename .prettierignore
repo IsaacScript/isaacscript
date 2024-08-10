@@ -34,4 +34,9 @@ packages/docs/docs/isaacscript-common
 packages/docs/docs/isaac-typescript-definitions
 packages/docs/docs/eslint-config-isaacscript
 
+# Rules copied from ESLint
+packages/eslint-plugin-isaacscript/src/rules/eqeqeq-fix.ts
+packages/eslint-plugin-isaacscript/src/rules/no-useless-return.ts
+packages/eslint-plugin-isaacscript/src/rules/prefer-const.ts
+
 # @template-customization-end

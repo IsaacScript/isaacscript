@@ -5,8 +5,12 @@ import {
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
-import { isSymbolFlagSet, isTypeFlagSet, unionTypeParts } from "../typeUtils";
-import { createRule } from "../utils";
+import {
+  isSymbolFlagSet,
+  isTypeFlagSet,
+  unionTypeParts,
+} from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT =
   ts.TypeFlags.Any |

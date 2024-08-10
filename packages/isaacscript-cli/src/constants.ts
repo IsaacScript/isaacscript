@@ -1,8 +1,6 @@
-import { TSCONFIG_JSON, dirName } from "isaacscript-common-node";
+import { TSCONFIG_JSON } from "isaacscript-common-node";
 import os from "node:os";
 import path from "node:path";
-
-const __dirname = dirName();
 
 // Miscellaneous
 export const CWD = process.cwd();
@@ -14,7 +12,7 @@ export const MOD_UPLOADER_PATH = String.raw`C:\Program Files (x86)\Steam\steamap
 export const PROJECT_NAME = "IsaacScript";
 
 // `isaacscript`
-export const REPO_ROOT = path.join(__dirname, "..");
+export const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 // `isaacscript/custom-stage`
 const CUSTOM_STAGE_PATH = path.join(REPO_ROOT, "custom-stage");

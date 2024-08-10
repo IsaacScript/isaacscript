@@ -1,5 +1,5 @@
-import { noConfusingSetMethods } from "../../src/rules/no-confusing-set-methods";
-import { ruleTester } from "../utils";
+import { noConfusingSetMethods } from "../../src/rules/no-confusing-set-methods.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-confusing-set-methods", noConfusingSetMethods, {
   valid: [

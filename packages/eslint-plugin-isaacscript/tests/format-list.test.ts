@@ -1,4 +1,4 @@
-import { testFormatText } from "./format";
+import { testFormatText } from "./format.js";
 
 test("Hyphen list", () => {
   const text = `

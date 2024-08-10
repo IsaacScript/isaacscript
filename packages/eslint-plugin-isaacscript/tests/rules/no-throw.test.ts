@@ -1,5 +1,5 @@
-import { noThrow } from "../../src/rules/no-throw";
-import { ruleTester } from "../utils";
+import { noThrow } from "../../src/rules/no-throw.js";
+import { ruleTester } from "../utils.js";
 
 ruleTester.run("no-throw", noThrow, {
   valid: [
