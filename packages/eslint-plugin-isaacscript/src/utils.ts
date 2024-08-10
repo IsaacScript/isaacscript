@@ -31,6 +31,7 @@ export function areStringsEqualExcludingTrailingSpaces(
   return true;
 }
 
+/** @see https://typescript-eslint.io/developers/custom-rules#extra-rule-docs-types */
 // eslint-disable-next-line new-cap
 export const createRule = ESLintUtils.RuleCreator<MyPluginDocs>(
   (ruleName) =>

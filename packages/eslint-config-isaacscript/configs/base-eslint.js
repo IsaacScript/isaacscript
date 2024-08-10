@@ -466,7 +466,10 @@ const SUGGESTIONS = {
    */
   "no-ternary": "off",
 
-  /** Superseded by the `@typescript-eslint/no-throw-literal` rule. */
+  /**
+   * Superseded by the `@typescript-eslint/only-throw-error` rule. (It was renamed from
+   * `@typescript-eslint/no-throw-literal`.)
+   */
   "no-throw-literal": "off",
 
   "no-undef-init": "warn",
