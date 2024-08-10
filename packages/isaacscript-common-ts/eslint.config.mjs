@@ -1,35 +1,32 @@
-import path from "node:path";
+// @ts-check
 
-const REPO_ROOT = path.join(__dirname, "..", "..");
-const ESLINT_CONFIG_ISAACSCRIPT_PATH = path.join(
-  REPO_ROOT,
-  "packages",
-  "eslint-config-isaacscript",
-);
+import tseslint from "typescript-eslint";
+import { base } from "../eslint-config-isaacscript/base.js";
+import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
+// @ts-expect-error There are no TypeScript definitions for this plugin.
+import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
-export default {
-  extends: [
-    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "base.js"),
-    path.join(ESLINT_CONFIG_ISAACSCRIPT_PATH, "monorepo.js"),
-  ],
+export default tseslint.config(
+  ...base,
+  ...monorepo,
 
-  plugins: [
-    /** The `sort-exports` rule is used in some specific files. */
-    "sort-exports",
-  ],
-
-  overrides: [
-    {
-      files: ["./src/functions/**"],
-      rules: {
-        /** Not defined in the parent configs. */
-        "sort-exports/sort-exports": [
-          "warn",
-          {
-            sortDir: "asc",
-          },
-        ],
-      },
+  {
+    plugins: {
+      /** The `sort-exports` rule is used in some specific files. */
+      "sort-exports": ESLintPluginSortExports,
     },
-  ],
-};
+  },
+
+  {
+    files: ["src/functions/**"],
+    rules: {
+      /** Not defined in the parent configs. */
+      "sort-exports/sort-exports": [
+        "warn",
+        {
+          sortDir: "asc",
+        },
+      ],
+    },
+  },
+);
