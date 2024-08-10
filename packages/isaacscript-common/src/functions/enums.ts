@@ -230,7 +230,7 @@ export function getRandomEnumValue<T extends TranspiledEnum>(
  * `satisfies` operator with the `Record` type instead.
  */
 export function interfaceSatisfiesEnum<
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-unnecessary-type-parameters
   T extends Record<Enum, unknown>,
   Enum extends string | number,
 >(): void {} // eslint-disable-line @typescript-eslint/no-empty-function
