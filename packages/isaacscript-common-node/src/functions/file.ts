@@ -1,22 +1,17 @@
-import chalk from "chalk";
 import { trimSuffix } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
-import { fatalError } from "./utils.js";
 
 /**
  * Helper function to synchronously append data to a file.
  *
- * This will print an error message and exit the program if the file cannot be appended to.
+ * This will throw an error if the file cannot be appended to.
  */
 export function appendFile(filePath: string, data: string): void {
   try {
     fs.appendFileSync(filePath, data);
   } catch (error) {
-    fatalError(
-      `Failed to append to the "${chalk.green(filePath)}" file:`,
-      error,
-    );
+    throw new Error(`Failed to append to the "${filePath}" file: ${error}`);
   }
 }
 
@@ -24,7 +19,7 @@ export function appendFile(filePath: string, data: string): void {
  * Helper function to synchronously copy a file or directory. If a path to a directory is specified,
  * the directory will be recursively copied.
  *
- * This will print an error message and exit the program if the file cannot be copied.
+ * This will throw an error if the file cannot be copied.
  */
 export function copyFileOrDirectory(srcPath: string, dstPath: string): void {
   try {
@@ -32,11 +27,8 @@ export function copyFileOrDirectory(srcPath: string, dstPath: string): void {
       recursive: true,
     });
   } catch (error) {
-    fatalError(
-      `Failed to copy file or directory "${chalk.green(
-        srcPath,
-      )}" to "${chalk.green(dstPath)}":`,
-      error,
+    throw new Error(
+      `Failed to copy file or directory "${srcPath}" to "${dstPath}": ${error}`,
     );
   }
 }
@@ -51,7 +43,7 @@ export function cp(srcPath: string, dstPath: string): void {
  * specified, the directory will be recursively deleted. If the path does not exist, this function
  * will be a no-op.
  *
- * This will print an error message and exit the program if the file cannot be deleted.
+ * This will throw an error if the file cannot be deleted.
  *
  * This function is variadic, meaning that you can pass as many file paths as you want to delete.
  */
@@ -64,9 +56,8 @@ export function deleteFileOrDirectory(...filePaths: readonly string[]): void {
         });
       }
     } catch (error) {
-      fatalError(
-        `Failed to delete file or directory "${chalk.green(filePath)}":`,
-        error,
+      throw new Error(
+        `Failed to delete file or directory "${filePath}": ${error}`,
       );
     }
   }
@@ -75,8 +66,7 @@ export function deleteFileOrDirectory(...filePaths: readonly string[]): void {
 /**
  * Helper function to synchronously check if a file exists.
  *
- * This will print an error message and exit the program if there is an error when checking the file
- * path.
+ * This will throw an error if there is an error when checking the file path.
  */
 export function fileOrDirectoryExists(filePath: string): boolean {
   let exists: boolean;
@@ -84,9 +74,8 @@ export function fileOrDirectoryExists(filePath: string): boolean {
   try {
     exists = fs.existsSync(filePath);
   } catch (error) {
-    fatalError(
-      `Failed to check if file or directory "${chalk.green(filePath)}" exists:`,
-      error,
+    throw new Error(
+      `Failed to check if file or directory "${filePath}" exists: ${error}`,
     );
   }
 
@@ -96,6 +85,8 @@ export function fileOrDirectoryExists(filePath: string): boolean {
 /**
  * Helper function to synchronously get the file names inside of a directory. (If the full path is
  * required, you must manually join the file name with the path to the directory.)
+ *
+ * This will throw an error if there is an error when checking the directory.
  */
 export function getFileNamesInDirectory(
   directoryPath: string,
@@ -104,11 +95,8 @@ export function getFileNamesInDirectory(
   try {
     fileList = fs.readdirSync(directoryPath);
   } catch (error) {
-    fatalError(
-      `Failed to get the files in the "${chalk.green(
-        directoryPath,
-      )}" directory:`,
-      error,
+    throw new Error(
+      `Failed to get the files in the "${directoryPath}" directory: ${error}`,
     );
   }
 
@@ -117,7 +105,9 @@ export function getFileNamesInDirectory(
 
 /**
  * Helper function to get the path to file, given either a file path, a directory path, or
- * `undefined`. This will print an error message and exit the program if the file cannot be found.
+ * `undefined`.
+ *
+ * This will throw an error if the file cannot be found.
  *
  * @param fileName The name of the file to find.
  * @param filePathOrDirPath Either the path to a file or the path to a directory which contains the
@@ -138,17 +128,13 @@ export function getFilePath(
   } else if (isDirectory(filePathOrDirPath)) {
     filePath = path.join(filePathOrDirPath, fileName);
     if (!fs.existsSync(filePath)) {
-      fatalError(
-        `Failed to find a "${chalk.green(
-          fileName,
-        )}" file at the following directory: ${chalk.green(filePathOrDirPath)}`,
+      throw new Error(
+        `Failed to find a "${fileName}" file at the following directory: ${filePathOrDirPath}`,
       );
     }
   } else {
-    fatalError(
-      `Failed to find a "${chalk.green(
-        fileName,
-      )}" file at the following path: ${chalk.green(filePathOrDirPath)}`,
+    throw new Error(
+      `Failed to find a "${fileName}" file at the following path: ${filePathOrDirPath}`,
     );
   }
 
@@ -221,7 +207,7 @@ export function isSubdirectoryOf(dir: string, parent: string): boolean {
  *
  * If the recursive behavior is not desired, then use `fs.mkdirSync` directly.
  *
- * This will print an error message and exit the program if the directory cannot be created.
+ * This will throw an error if the directory cannot be created.
  */
 export function makeDirectory(dirPath: string): void {
   try {
@@ -229,9 +215,8 @@ export function makeDirectory(dirPath: string): void {
       recursive: true,
     });
   } catch (error) {
-    fatalError(
-      `Failed to delete file or directory "${chalk.green(dirPath)}":`,
-      error,
+    throw new Error(
+      `Failed to delete file or directory "${dirPath}": ${error}`,
     );
   }
 }
@@ -244,7 +229,7 @@ export function mkdir(dirPath: string): void {
 /**
  * Helper function to synchronously move a file.
  *
- * This will print an error message and exit the program if the file cannot be moved.
+ * This will throw an error if the file cannot be moved.
  *
  * (This is simply an alias for the `renameFile` function, since the Node.js API uses the same thing
  * for both operations.)
@@ -261,7 +246,7 @@ export function mv(srcPath: string, dstPath: string): void {
 /**
  * Helper function to synchronously prepend data to a file.
  *
- * This will print an error message and exit the program if the file cannot be prepended to.
+ * This will throw an error if the file cannot be prepended to.
  */
 export function prependFile(filePath: string, data: string): void {
   const fileContents = readFile(filePath);
@@ -274,7 +259,7 @@ export function prependFile(filePath: string, data: string): void {
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
  *
- * This will print an error message and exit the program if the file cannot be read.
+ * This will throw an error if the file cannot be read.
  */
 export function readFile(filePath: string): string {
   let fileContents: string;
@@ -282,7 +267,7 @@ export function readFile(filePath: string): string {
   try {
     fileContents = fs.readFileSync(filePath, "utf8");
   } catch (error) {
-    fatalError(`Failed to read file "${chalk.green(filePath)}":`, error);
+    throw new Error(`Failed to read file "${filePath}": ${error}`);
   }
 
   return fileContents;
@@ -291,18 +276,13 @@ export function readFile(filePath: string): string {
 /**
  * Helper function to synchronously rename a file.
  *
- * This will print an error message and exit the program if the file cannot be renamed.
+ * This will throw an error if the file cannot be renamed.
  */
 export function renameFile(srcPath: string, dstPath: string): void {
   try {
     fs.renameSync(srcPath, dstPath);
   } catch (error) {
-    fatalError(
-      `Failed to rename "${chalk.green(srcPath)}" to "${chalk.green(
-        dstPath,
-      )}":`,
-      error,
-    );
+    throw new Error(`Failed to rename "${srcPath}" to "${dstPath}": ${error}`);
   }
 }
 
@@ -366,14 +346,12 @@ export function rm(...filePaths: readonly string[]): void {
 /**
  * Helper function to synchronously write 0 bytes to a file, similar to the `touch` command.
  *
- * This will print an error message and exit the program if the file cannot be written to.
+ * This will throw an error if the file cannot be written to.
  */
 export function touch(filePath: string): void {
   if (isDirectory(filePath)) {
-    fatalError(
-      `Failed to touch the "${chalk.green(
-        filePath,
-      )}" file since it was a directory.`,
+    throw new Error(
+      `Failed to touch the "${filePath}" file since it was a directory.`,
     );
   } else if (isFile(filePath)) {
     try {
@@ -381,7 +359,7 @@ export function touch(filePath: string): void {
       const now = new Date();
       fs.utimesSync(filePath, now, now);
     } catch (error) {
-      fatalError(`Failed to touch the "${chalk.green(filePath)}" file:`, error);
+      throw new Error(`Failed to touch the "${filePath}" file: ${error}`);
     }
   } else {
     writeFile(filePath, "");
@@ -391,15 +369,12 @@ export function touch(filePath: string): void {
 /**
  * Helper function to synchronously write data to a file.
  *
- * This will print an error message and exit the program if the file cannot be written to.
+ * This will throw an error if the file cannot be written to.
  */
 export function writeFile(filePath: string, data: string): void {
   try {
     fs.writeFileSync(filePath, data);
   } catch (error) {
-    fatalError(
-      `Failed to write to the "${chalk.green(filePath)}" file:`,
-      error,
-    );
+    throw new Error(`Failed to write to the "${filePath}" file: ${error}`);
   }
 }

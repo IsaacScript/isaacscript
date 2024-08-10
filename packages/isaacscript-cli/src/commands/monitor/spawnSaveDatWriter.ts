@@ -1,4 +1,4 @@
-import { dirName, fatalError } from "isaacscript-common-node";
+import { fatalError } from "isaacscript-common-node";
 import type { ChildProcess } from "node:child_process";
 import { fork } from "node:child_process";
 import path from "node:path";
@@ -6,14 +6,17 @@ import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
 import type { SaveDatMessage } from "./saveDatWriter/types.js";
 
-const __dirname = dirName();
 const SUBPROCESS_NAME = "saveDatWriter";
 const SUBPROCESS_DESCRIPTION = "save#.dat writer";
 
 let saveDatWriter: ChildProcess | undefined;
 
 export function spawnSaveDatWriter(config: ValidatedConfig): void {
-  const processPath = path.join(__dirname, SUBPROCESS_NAME, SUBPROCESS_NAME);
+  const processPath = path.join(
+    import.meta.dirname,
+    SUBPROCESS_NAME,
+    SUBPROCESS_NAME,
+  );
   const modsDataPath = path.join(config.modsDirectory, "..", "data");
   const watcherModDataPath = path.join(modsDataPath, WATCHER_MOD_NAME);
   const saveDatFileName = `save${config.saveSlot}.dat`;

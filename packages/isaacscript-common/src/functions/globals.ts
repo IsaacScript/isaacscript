@@ -220,8 +220,7 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
     if (!defaultGlobals.has(key)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const keyValueTuple: [AnyNotNil, unknown] = [key, value as any];
+      const keyValueTuple: [AnyNotNil, unknown] = [key, value];
       newGlobals.push(keyValueTuple);
     }
   }

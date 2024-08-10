@@ -2,6 +2,8 @@ import { $, $op, $s, buildScript, rm } from "isaacscript-common-node";
 import path from "node:path";
 import { makeECIDocs } from "./docs.mjs";
 
+const DOCS_BUILD_ENABLED = false as boolean;
+
 const TYPEDOC_PACKAGES = [
   "isaac-typescript-definitions",
   "isaacscript-common",
@@ -13,6 +15,10 @@ const GENERATED_DOC_DIRECTORY_NAMES = [
 ] as const;
 
 await buildScript(async ({ packageRoot }) => {
+  if (!DOCS_BUILD_ENABLED) {
+    return;
+  }
+
   const generatedDocPaths = GENERATED_DOC_DIRECTORY_NAMES.map((directoryName) =>
     path.join(packageRoot, "docs", directoryName),
   );

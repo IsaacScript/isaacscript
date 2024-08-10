@@ -3,7 +3,6 @@
 import {
   PACKAGE_JSON,
   appendFile,
-  dirName,
   echo,
   fatalError,
   getArgs,
@@ -15,9 +14,7 @@ import {
 } from "isaacscript-common-node";
 import path from "node:path";
 
-const __dirname = dirName();
-
-const REPO_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(import.meta.dirname, "..");
 const PACKAGES_PATH = path.join(REPO_ROOT, "packages");
 const GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME = "matrix";
 

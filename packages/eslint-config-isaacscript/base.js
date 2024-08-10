@@ -1,68 +1,56 @@
+import ESLintPluginIsaacScript from "eslint-plugin-isaacscript";
+import tseslint from "typescript-eslint";
+import { baseDeprecation } from "./configs/base-deprecation.js";
+import { baseESLint } from "./configs/base-eslint.js";
+import { baseImportX } from "./configs/base-import-x.js";
+import { baseJSDoc } from "./configs/base-jsdoc.js";
+import { baseN } from "./configs/base-n.js";
+import { baseTypeScriptESLint } from "./configs/base-typescript-eslint.js";
+import { baseUnicorn } from "./configs/base-unicorn.js";
+
+// Hot-patch "eslint-plugin-isaacscript" to convert errors to warnings.
+for (const config of ESLintPluginIsaacScript.configs.recommended) {
+  if (config.rules !== undefined) {
+    for (const [key, value] of Object.entries(config.rules)) {
+      if (value === "error") {
+        config.rules[key] = "warn";
+      }
+    }
+  }
+}
+
 /**
  * This ESLint config is meant to be used as a base for all TypeScript projects.
  *
- *  @type {import("eslint").Linter.Config}
+ * Rule modifications are split out into different files for better organization (based on the
+ * originating plugin) .
  */
-const config = {
-  extends: [
-    /**
-     * Find deprecated code:
-     * https://github.com/gund/eslint-plugin-deprecation
-     */
-    "plugin:deprecation/recommended",
+export const base = tseslint.config(
+  ...baseESLint,
+  ...baseTypeScriptESLint,
+  ...baseImportX,
+  ...baseJSDoc,
+  ...baseN, // "n" stands for Node.
+  ...baseUnicorn,
+  ...baseDeprecation,
 
-    /**
-     * This provides extra miscellaneous rules to keep code safe:
-     * https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
-     */
-    "plugin:isaacscript/recommended",
+  // `eslint-plugin-isaacscript` provides extra miscellaneous rules to keep code safe:
+  // https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
+  ...ESLintPluginIsaacScript.configs.recommended,
 
-    /**
-     * Disable any ESLint rules that conflict with Prettier:
-     * https://github.com/prettier/eslint-config-prettier
-     * Otherwise, we will have unfixable ESLint errors. Note that the Prettier config has to be
-     * before the base ESLint config below since we customize some special rules as documented here:
-     * https://github.com/prettier/eslint-config-prettier#special-rules
-     */
-    "prettier",
-
-    /**
-     * Rule modifications are split out into different files for better organization (based on the
-     * originating plugin) .
-     */
-    "./configs/base-eslint",
-    "./configs/base-no-autofix",
-    "./configs/base-typescript-eslint",
-    "./configs/base-eslint-comments",
-    "./configs/base-import",
-    "./configs/base-jsdoc",
-    "./configs/base-n", // "n" stands for Node.
-    "./configs/base-unicorn",
-  ],
-
-  plugins: [
-    /**
-     * Activate the "eslint-plugin-only-warn" plugin to change all errors to warnings:
-     * https://github.com/bfanger/eslint-plugin-only-warn
-     *
-     * This allows the end-user to more easily distinguish between errors from the TypeScript
-     * compiler (which show up in red) and ESLint rule violations (which show up in yellow).
-     */
-    "only-warn",
-  ],
-
-  overrides: [
-    // Disable some TypeScript-specific rules in JavaScript files.
-    {
-      files: ["*.js", "*.cjs", "*.mjs", "*.jsx"],
-      rules: {
-        "isaacscript/no-let-any": "off",
-        "isaacscript/no-object-any": "off",
-        "isaacscript/require-capital-const-assertions": "off",
-        "isaacscript/require-capital-read-only": "off",
-      },
+  // We prefer the official `reportUnusedDisableDirectives` linter option over the 3rd-party plugin
+  // of "eslint-plugin-eslint-comments".
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: "warn",
     },
-  ],
-};
+  },
 
-module.exports = config;
+  {
+    // By default, ESLint ignores "**/node_modules/" and ".git/":
+    // https://eslint.org/docs/latest/use/configure/ignore#ignoring-files
+    // We also ignore want to ignore the "dist" directory since it is the idiomatic place for
+    // compiled output.
+    ignores: ["**/dist/"],
+  },
+);

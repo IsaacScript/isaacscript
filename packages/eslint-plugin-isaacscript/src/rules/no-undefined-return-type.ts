@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { getTypeName } from "../typeUtils";
-import { createRule } from "../utils";
+import { getTypeName } from "../typeUtils.js";
+import { createRule } from "../utils.js";
 
 export const noUndefinedReturnType = createRule({
   name: "no-undefined-return-type",

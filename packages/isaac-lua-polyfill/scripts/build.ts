@@ -1,20 +1,20 @@
 import {
-  $,
+  $s,
   buildScript,
   fixMonorepoPackageDistDirectory,
 } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 
-await buildScript(async ({ packageRoot, outDir }) => {
+await buildScript(({ packageRoot, outDir }) => {
   assertDefined(
     outDir,
     'Failed to get the "outDir" from the "tsconfig.json" file.',
   );
 
-  await compile(packageRoot, outDir);
+  compile(packageRoot, outDir);
 });
 
-async function compile(packageRoot: string, outDir: string) {
-  await $`tsc`;
+function compile(packageRoot: string, outDir: string) {
+  $s`tsc`;
   fixMonorepoPackageDistDirectory(packageRoot, outDir);
 }

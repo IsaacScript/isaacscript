@@ -2,10 +2,10 @@ import {
   isEnumBlockLabel,
   isSeparatorLine,
   isSpecialComment,
-} from "./comments";
-import type { List } from "./list";
-import { ListKind, getAdjustedList, reachedNewList } from "./list";
-import { hasURL } from "./utils";
+} from "./comments.js";
+import type { List } from "./list.js";
+import { ListKind, getAdjustedList, reachedNewList } from "./list.js";
+import { hasURL } from "./utils.js";
 
 /**
  * Feed this function a string that contains one or more lines of text. It will combine all of the

@@ -1,7 +1,7 @@
-import { isEnumBlockLabel, isSpecialComment } from "./comments";
-import type { List } from "./list";
-import { getAdjustedList, reachedNewList } from "./list";
-import { hasURL } from "./utils";
+import { isEnumBlockLabel, isSpecialComment } from "./comments.js";
+import type { List } from "./list.js";
+import { getAdjustedList, reachedNewList } from "./list.js";
+import { hasURL } from "./utils.js";
 
 export type CompleteSentenceMessageIds =
   | "missingCapital"

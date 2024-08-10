@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "author": "Zamiell",
-  "type": "commonjs",
+  "type": "module",
   "main": "./dist/index.js",
   "files": [
     "dist",
@@ -38,20 +38,20 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
-    "create-rule": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/createRule.mts",
-    "generate": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/generate.mts",
-    "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts",
+    "build": "tsx ./scripts/build.ts",
+    "create-rule": "tsx ./scripts/createRule.ts",
+    "generate": "tsx ./scripts/generate.ts",
+    "lint": "tsx ./scripts/lint.ts",
     "test": "jest"
   },
   "dependencies": {
     "@typescript-eslint/type-utils": "^7.16.1",
-    "@typescript-eslint/types": "^7.16.1",
-    "@typescript-eslint/utils": "^7.16.1"
+    "@typescript-eslint/utils": "^7.16.1",
+    "isaacscript-common-ts": "^16.1.0",
+    "typescript-eslint": "^7.16.1"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": ">= 6.0.0",
-    "eslint": ">= 8.0.0",
+    "eslint": ">= 9.0.0",
     "typescript": ">= 5.0.0"
   }
 }

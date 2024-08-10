@@ -1,8 +1,8 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import type { CompleteSentenceMessageIds } from "../../src/completeSentence";
-import type { Options } from "../../src/rules/complete-sentences-line-comments";
-import { completeSentencesLineComments } from "../../src/rules/complete-sentences-line-comments";
-import { ruleTester } from "../utils";
+import type { CompleteSentenceMessageIds } from "../../src/completeSentence.js";
+import type { Options } from "../../src/rules/complete-sentences-line-comments.js";
+import { completeSentencesLineComments } from "../../src/rules/complete-sentences-line-comments.js";
+import { ruleTester } from "../utils.js";
 
 const valid: Array<TSESLint.ValidTestCase<Options>> = [];
 const invalid: Array<
