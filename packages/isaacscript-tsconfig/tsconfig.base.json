@@ -31,4 +31,6 @@
     // TypeScript projects.
     "outDir": "${configDir}/dist",
   },
+
+  "include": ["${configDir}/src/**/*.ts"],
 }
