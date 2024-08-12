@@ -45,10 +45,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "^7.16.1",
-    "@typescript-eslint/utils": "^7.16.1",
+    "@typescript-eslint/type-utils": "^8.0.1",
+    "@typescript-eslint/utils": "^8.0.1",
     "isaacscript-common-ts": "^16.1.0",
-    "typescript-eslint": "^7.16.1"
+    "typescript-eslint": "^8.0.1"
   },
   "peerDependencies": {
     "eslint": ">= 9.0.0",

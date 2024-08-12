@@ -6,8 +6,6 @@
 
 - delete all "outDir"
 
-https://github.com/typescript-eslint/typescript-eslint/issues/9720
-
 - ADD DEP https://eslint.style/
   AND REPLACE:
       /**
