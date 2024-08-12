@@ -1,10 +1,10 @@
 /* eslint-disable sort-exports/sort-exports */
 
 import path from "node:path";
+import * as tsconfck from "tsconfck";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
-import { getTSConfigJSONOutDir } from "./tsconfigJSON.js";
 import { fatalError, getArgs } from "./utils.js";
 
 type ScriptCallback = (
@@ -15,7 +15,7 @@ interface ScriptCallbackData {
   /** The full path to the directory where the closest "package.json" is located. */
   readonly packageRoot: string;
 
-  /** Equal to the "outDir" setting in the project's "tsconfig.json", if any. */
+  /** The full path to the compiled output (parse from the "outDir" setting in the project's "tsconfig.json"), if any. */
   readonly outDir?: string;
 }
 
@@ -93,7 +93,10 @@ export async function script(
   }
 
   const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
-  const outDir = getTSConfigJSONOutDir(tsConfigJSONPath);
+  // The "parse" API does not seem to work with the "${configDir}" variable for some reason:
+  // https://github.com/dominikg/tsconfck/discussions/185
+  const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
+  const outDir = parseResult.tsconfig.compilerOptions.outDir;
 
   process.chdir(packageRoot);
 
@@ -150,14 +153,13 @@ export function fixMonorepoPackageDistDirectory(
   packageRoot: string,
   outDir: string,
 ): void {
-  const outPath = path.join(packageRoot, outDir);
   const projectName = path.basename(packageRoot);
-  const realOutPath = path.join(outPath, projectName, "src");
+  const realOutPath = path.join(outDir, projectName, "src");
   const tempPath = path.join(packageRoot, projectName);
   rm(tempPath);
   mv(realOutPath, tempPath);
-  rm(outPath);
-  mv(tempPath, outPath);
+  rm(outDir);
+  mv(tempPath, outDir);
 }
 
 export async function sleep(seconds: number): Promise<unknown> {

@@ -39,7 +39,6 @@ function copyToMonorepoNodeModules(packageRoot: string, outDir: string) {
   const newPackageJSONPath = path.join(monorepoPluginDir, PACKAGE_JSON);
   cp(PACKAGE_JSON, newPackageJSONPath);
 
-  const outPath = path.join(packageRoot, outDir);
-  const monorepoPluginDistDir = path.join(monorepoPluginDir, outDir);
-  cp(outPath, monorepoPluginDistDir);
+  const monorepoPluginDistDir = path.join(monorepoPluginDir, "dist");
+  cp(outDir, monorepoPluginDistDir);
 }
