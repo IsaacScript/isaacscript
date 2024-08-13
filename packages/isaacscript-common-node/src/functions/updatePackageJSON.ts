@@ -68,7 +68,15 @@ export function updatePackageJSON(
   const packageJSONChanged = yarnUpdated || dependenciesUpdated;
   if (packageJSONChanged && installAfterUpdate) {
     const packageManager = getPackageManagerForProject(packageRoot);
-    const $$ = $op({ cwd: packageRoot });
+    const $$ = $op({
+      cwd: packageRoot,
+
+      // We need to prevent Corepack from prompting the end user with a "y/n" dialog for downloading
+      // a new version of Yarn.
+      env: {
+        COREPACK_ENABLE_DOWNLOAD_PROMPT: "0",
+      },
+    });
     $$.sync`${packageManager} install`;
   }
 
