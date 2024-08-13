@@ -8,7 +8,7 @@ export const ruleTester = new RuleTester({
         allowDefaultProject: ["*.ts*"],
         defaultProject: "tsconfig.json",
       },
-      tsconfigRootDir: "./path/to/your/folder/fixture",
+      tsconfigRootDir: "./fixtures",
     },
   },
 });

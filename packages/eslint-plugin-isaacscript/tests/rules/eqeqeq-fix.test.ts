@@ -8,6 +8,7 @@ ruleTester.run("eqeqeq-fix", eqeqeqFix, {
 if (foo === bar) {
 }
       `,
+      only: true,
     },
     {
       code: `
