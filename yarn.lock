@@ -4485,6 +4485,74 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stylistic/eslint-plugin-js@npm:2.6.2, @stylistic/eslint-plugin-js@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "@stylistic/eslint-plugin-js@npm:2.6.2"
+  dependencies:
+    "@types/eslint": "npm:^9.6.0"
+    acorn: "npm:^8.12.1"
+    eslint-visitor-keys: "npm:^4.0.0"
+    espree: "npm:^10.1.0"
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 10c0/0dde0ed308bb7a6a3a0c679d9ed4273fc62bdf3cdeecddcb9d9b1dfa5eede245f93dc7387ca183cc0a6e09a3dad4d10dc78b81044ec463f46809646e77397258
+  languageName: node
+  linkType: hard
+
+"@stylistic/eslint-plugin-jsx@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@stylistic/eslint-plugin-jsx@npm:2.6.2"
+  dependencies:
+    "@stylistic/eslint-plugin-js": "npm:^2.6.2"
+    "@types/eslint": "npm:^9.6.0"
+    estraverse: "npm:^5.3.0"
+    picomatch: "npm:^4.0.2"
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 10c0/1d6f6da6705dbe1f673b4c3eab3f0895d88c7873759278a57d863dc65ae4c34babd93d28ab936a842009c3a6ff999d2bf10f34a0e8bed593b6dc4123528d2a14
+  languageName: node
+  linkType: hard
+
+"@stylistic/eslint-plugin-plus@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@stylistic/eslint-plugin-plus@npm:2.6.2"
+  dependencies:
+    "@types/eslint": "npm:^9.6.0"
+    "@typescript-eslint/utils": "npm:^8.0.0"
+  peerDependencies:
+    eslint: "*"
+  checksum: 10c0/5ca32b41e2cd27aa07d7ed7328b7d0315fd36859cd5c81b3c1cdcf73aa08aa0ce2e28a669948b36bae1388893a2633e99bf7439ed58625219cd674317ee41d03
+  languageName: node
+  linkType: hard
+
+"@stylistic/eslint-plugin-ts@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@stylistic/eslint-plugin-ts@npm:2.6.2"
+  dependencies:
+    "@stylistic/eslint-plugin-js": "npm:2.6.2"
+    "@types/eslint": "npm:^9.6.0"
+    "@typescript-eslint/utils": "npm:^8.0.0"
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 10c0/645b925ad0ff815706d91ea83abf4389ec811eeecfe1b86efc9aec10ba4f1d7de0bee8a3d5077bb6c7094f9c9d19fa4b4005673227e746d4c449af2bc78bff0a
+  languageName: node
+  linkType: hard
+
+"@stylistic/eslint-plugin@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "@stylistic/eslint-plugin@npm:2.6.2"
+  dependencies:
+    "@stylistic/eslint-plugin-js": "npm:2.6.2"
+    "@stylistic/eslint-plugin-jsx": "npm:2.6.2"
+    "@stylistic/eslint-plugin-plus": "npm:2.6.2"
+    "@stylistic/eslint-plugin-ts": "npm:2.6.2"
+    "@types/eslint": "npm:^9.6.0"
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 10c0/52d392bb2b5c291910dd01e38ebb378028d81a1b7a8c137d4290afa79d5b52c80bac2823532bb6a42eaf453158d055ef2c249e19b3b764c5cb26754bd932569d
+  languageName: node
+  linkType: hard
+
 "@svgr/babel-plugin-add-jsx-attribute@npm:8.0.0":
   version: 8.0.0
   resolution: "@svgr/babel-plugin-add-jsx-attribute@npm:8.0.0"
@@ -4849,7 +4917,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*":
+"@types/eslint@npm:*, @types/eslint@npm:^9.6.0":
   version: 9.6.0
   resolution: "@types/eslint@npm:9.6.0"
   dependencies:
@@ -5546,7 +5614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.1.0, @typescript-eslint/utils@npm:^8.1.0":
+"@typescript-eslint/utils@npm:8.1.0, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.1.0":
   version: 8.1.0
   resolution: "@typescript-eslint/utils@npm:8.1.0"
   dependencies:
@@ -5885,7 +5953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.0.0, acorn@npm:^8.0.4, acorn@npm:^8.11.0, acorn@npm:^8.11.3, acorn@npm:^8.12.0, acorn@npm:^8.7.1, acorn@npm:^8.8.2":
+"acorn@npm:^8.0.0, acorn@npm:^8.0.4, acorn@npm:^8.11.0, acorn@npm:^8.11.3, acorn@npm:^8.12.0, acorn@npm:^8.12.1, acorn@npm:^8.7.1, acorn@npm:^8.8.2":
   version: 8.12.1
   resolution: "acorn@npm:8.12.1"
   bin:
@@ -11602,6 +11670,7 @@ __metadata:
     "@mdx-js/react": "npm:^3.0.1"
     "@microsoft/api-extractor": "npm:^7.47.6"
     "@prettier/plugin-xml": "npm:^3.4.1"
+    "@stylistic/eslint-plugin": "npm:^2.6.2"
     "@svgr/webpack": "npm:^8.1.0"
     "@tsconfig/node-lts": "npm:^20.1.3"
     "@tsconfig/strictest": "npm:^2.0.5"
@@ -15135,7 +15204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^4.0.1":
+"picomatch@npm:^4.0.1, picomatch@npm:^4.0.2":
   version: 4.0.2
   resolution: "picomatch@npm:4.0.2"
   checksum: 10c0/7c51f3ad2bb42c776f49ebf964c644958158be30d0a510efd5a395e8d49cb5acfed5b82c0c5b365523ce18e6ab85013c9ebe574f60305892ec3fa8eee8304ccc
