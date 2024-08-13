@@ -23,6 +23,7 @@ export const copyCommand = new Command()
     await copy(options);
   });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const copyOptions = copyCommand.opts();
 type CopyOptions = typeof copyOptions;
 
