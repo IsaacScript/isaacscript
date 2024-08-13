@@ -20,7 +20,7 @@ export const baseTypeScriptESLint = tseslint.config(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: true,
+        projectService: true,
       },
     },
 
@@ -57,8 +57,8 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/explicit-function-return-type": "off",
 
       /**
-       * Disabled since many programs may have internal-only classes that would not benefit from an
-       * explicit public/private distinction.
+       * Disabled since many TypeScript applications may have internal-only classes that would not
+       * benefit from an explicit public/private distinction.
        */
       "@typescript-eslint/explicit-member-accessibility": "off",
 

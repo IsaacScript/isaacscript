@@ -46,4 +46,15 @@ export default tseslint.config(
       "unicorn/no-empty-file": "off",
     },
   },
+
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["*.js", "*.cjs", "*.mjs"],
+          defaultProject: "./tsconfig.json",
+        },
+      },
+    },
+  },
 );

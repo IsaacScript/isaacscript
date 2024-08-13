@@ -4,27 +4,17 @@
   "extends": "../../isaacscript-tsconfig/tsconfig.node.json",
 
   "compilerOptions": {
+    // We need the compiled output to be directly next to the source files.
+    "outDir": ".",
+
     // Plugins need to be in CJS format so that CJS mods can use them.
     "module": "CommonJS",
     "moduleResolution": "Node10",
   },
 
-  "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+  "include": ["./*.ts"],
+
+  // We need to specify an empty exclude because by default, it will be populated by the value of
+  // "outDir", and it would therefore exclude everything.
+  "exclude": [],
 }

@@ -7,13 +7,7 @@ const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
 export const monorepo = tseslint.config(
   {
     languageOptions: {
-      // We need to add the `tsconfigRootDir` property, but we must also repeat the options from
-      // "base-typescript-eslint.js" or they will be deleted.
       parserOptions: {
-        sourceType: "module",
-        project: true,
-        ecmaVersion: "latest",
-
         tsconfigRootDir: REPO_ROOT,
       },
     },

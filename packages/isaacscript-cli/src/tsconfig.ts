@@ -1,10 +1,11 @@
 import { Ajv } from "ajv";
 import chalk from "chalk";
-import { TSCONFIG_JSON, fatalError, getJSONC } from "isaacscript-common-node";
+import { fatalError, getJSONC } from "isaacscript-common-node";
 import { isObject } from "isaacscript-common-ts";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,
+  TSCONFIG_JSON,
   TSCONFIG_JSON_PATH,
 } from "./constants.js";
 import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfig.js";

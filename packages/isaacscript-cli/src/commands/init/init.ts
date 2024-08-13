@@ -131,7 +131,9 @@ export const initTSCommand = new Command()
     await init(name, options, true);
   });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const initOptions = initCommand.opts();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const initTSOptions = initTSCommand.opts();
 type InitOptions = typeof initOptions | typeof initTSOptions;
 

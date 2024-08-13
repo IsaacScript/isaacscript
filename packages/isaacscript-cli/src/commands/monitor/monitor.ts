@@ -49,6 +49,7 @@ export const monitorCommand = new Command()
     await monitor(options);
   });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const monitorOptions = monitorCommand.opts();
 type MonitorOptions = typeof monitorOptions;
 

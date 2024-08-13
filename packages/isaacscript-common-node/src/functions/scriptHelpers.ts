@@ -1,5 +1,6 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import { isObject } from "isaacscript-common-ts";
 import path from "node:path";
 import * as tsconfck from "tsconfck";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
@@ -15,7 +16,10 @@ interface ScriptCallbackData {
   /** The full path to the directory where the closest "package.json" is located. */
   readonly packageRoot: string;
 
-  /** The full path to the compiled output (parse from the "outDir" setting in the project's "tsconfig.json"), if any. */
+  /**
+   * The full path to the compiled output (parsed from the "outDir" setting in the project's
+   * "tsconfig.json"), if any.
+   */
   readonly outDir?: string;
 }
 
@@ -92,13 +96,9 @@ export async function script(
     );
   }
 
-  const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
-  // The "parse" API does not seem to work with the "${configDir}" variable for some reason:
-  // https://github.com/dominikg/tsconfck/discussions/185
-  const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
-  const outDir = parseResult.tsconfig.compilerOptions.outDir;
-
   process.chdir(packageRoot);
+
+  const outDir = await getOutDirFromTSConfig(packageRoot);
 
   const startTime = Date.now();
   const data = { packageRoot, outDir };
@@ -108,6 +108,31 @@ export async function script(
     const packageName = path.basename(packageRoot);
     printSuccess(startTime, verb, packageName);
   }
+}
+
+async function getOutDirFromTSConfig(
+  packageRoot: string,
+): Promise<string | undefined> {
+  const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
+  // The "parse" API does not seem to work with the "${configDir}" variable for some reason:
+  // https://github.com/dominikg/tsconfck/discussions/185
+  const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
+  const tsconfig = parseResult.tsconfig as unknown;
+  if (!isObject(tsconfig)) {
+    return undefined;
+  }
+
+  const { compilerOptions } = tsconfig;
+  if (!isObject(compilerOptions)) {
+    return undefined;
+  }
+
+  const { outDir } = compilerOptions;
+  if (typeof outDir !== "string") {
+    return undefined;
+  }
+
+  return outDir;
 }
 
 /**

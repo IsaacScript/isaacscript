@@ -1,13 +1,14 @@
-import type { TSESLint } from "@typescript-eslint/utils";
+import type {
+  InvalidTestCase,
+  ValidTestCase,
+} from "@typescript-eslint/rule-tester";
 import type { CompleteSentenceMessageIds } from "../../src/completeSentence.js";
 import type { Options } from "../../src/rules/complete-sentences-line-comments.js";
 import { completeSentencesLineComments } from "../../src/rules/complete-sentences-line-comments.js";
 import { ruleTester } from "../utils.js";
 
-const valid: Array<TSESLint.ValidTestCase<Options>> = [];
-const invalid: Array<
-  TSESLint.InvalidTestCase<CompleteSentenceMessageIds, Options>
-> = [];
+const valid: Array<ValidTestCase<Options>> = [];
+const invalid: Array<InvalidTestCase<CompleteSentenceMessageIds, Options>> = [];
 
 invalid.push({
   name: "Single-line comment without complete sentence",
