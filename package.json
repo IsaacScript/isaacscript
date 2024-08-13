@@ -88,7 +88,7 @@
     "eslint-plugin-n": "^17.9.0",
     "eslint-plugin-sort-exports": "^0.9.1",
     "eslint-plugin-unicorn": "^55.0.0",
-    "execa": "8.0.1",
+    "execa": "^9.3.0",
     "extract-comments": "^1.1.0",
     "figlet": "^1.7.0",
     "glob": "^11.0.0",
@@ -130,5 +130,5 @@
     "yaml": "^2.4.5",
     "zod": "^3.23.8"
   },
-  "packageManager": "yarn@4.3.1"
+  "packageManager": "yarn@4.4.0"
 }
