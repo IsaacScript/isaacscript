@@ -68,7 +68,15 @@ export function updatePackageJSON(
   const packageJSONChanged = yarnUpdated || dependenciesUpdated;
   if (packageJSONChanged && installAfterUpdate) {
     const packageManager = getPackageManagerForProject(packageRoot);
-    const $$ = $op({ cwd: packageRoot });
+    const $$ = $op({
+      cwd: packageRoot,
+
+      // We need to prevent Corepack from prompting the end user with a "y/n" dialog for downloading
+      // a new version of Yarn.
+      env: {
+        COREPACK_ENABLE_DOWNLOAD_PROMPT: "0",
+      },
+    });
     $$.sync`${packageManager} install`;
   }
 
@@ -91,6 +99,10 @@ export function updateYarn(
 
   // If Yarn version 1 is being used, assume that we don't need to update it.
   const { stdout } = $$.sync`yarn --version`;
+  if (typeof stdout !== "string") {
+    fatalError('Failed to get the output of the "yarn --version" command.');
+  }
+
   const yarnVersion = parseSemanticVersion(stdout);
   if (yarnVersion === undefined) {
     fatalError(
