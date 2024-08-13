@@ -1,3 +1,60 @@
+- submit bug report: https://github.com/dominikg/tsconfck/discussions/185#discussioncomment-10318566
+
+- in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
+
+- make all tsconfig not extends from base (COMPOSITION OVER INHERITANCE)
+
+- delete all "outDir"
+
+https://github.com/typescript-eslint/typescript-eslint/issues/9720
+
+- ADD DEP https://eslint.style/
+  AND REPLACE:
+      /**
+       * Even though the `typescript-eslint` team does not recommend using formatting rules, this
+       * rule is not handled by Prettier, so we must use ESLint to enforce it.
+       */
+      "@typescript-eslint/lines-around-comment": [
+        "warn",
+        {
+          // All of these properties default to false.
+          allowBlockStart: true,
+          allowObjectStart: true,
+          allowArrayStart: true,
+          allowClassStart: true,
+          allowEnumStart: true,
+          allowInterfaceStart: true,
+          allowModuleStart: true,
+          allowTypeStart: true,
+        },
+      ],
+
+      /**
+       * Even though the `typescript-eslint` team does not recommend using formatting rules, this
+       * rule is not handled by Prettier, so we must use ESLint to enforce it.
+       */
+      "@typescript-eslint/lines-between-class-members": [
+        "warn",
+        "always",
+        {
+          exceptAfterSingleLine: true,
+        },
+      ],
+
+      /**
+       * We forbid unnecessary backticks by using the options specified in [the
+       * `eslint-config-prettier`
+       * documentation](https://github.com/prettier/eslint-config-prettier#enforce-backticks).
+       */
+      "@typescript-eslint/quotes": [
+        "warn",
+        "double",
+        {
+          avoidEscape: true,
+          allowTemplateLiterals: false,
+        },
+      ],
+
 - add "// @ts-check" to all eslint configs in the monorepo + the template
 
 - // TODO: once on ESLint 9, reorganize rules in "base-eslint.js" to correspond to the website:
@@ -45,6 +102,7 @@
 - lint projects:
   - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
+  - https://github.com/typescript-eslint/typescript-eslint/issues/7114
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - https://github.com/typescript-eslint/typescript-eslint/issues/4571
   - `T extends Foo[]` --> `T extends readonly Foo[]`
