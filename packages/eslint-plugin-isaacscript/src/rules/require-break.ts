@@ -15,7 +15,8 @@ export const requireBreak = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires that each case of a switch statement has a `break` statement",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

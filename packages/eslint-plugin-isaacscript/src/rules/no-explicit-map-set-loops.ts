@@ -11,7 +11,7 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description: "Disallows explicit iteration for maps and sets",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

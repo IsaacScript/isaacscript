@@ -6,7 +6,8 @@ export const noNumberEnums = createRule({
     type: "problem",
     docs: {
       description: "Disallows number enums",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

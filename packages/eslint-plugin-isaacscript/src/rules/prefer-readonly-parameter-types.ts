@@ -30,7 +30,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
     docs: {
       description:
         "Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [

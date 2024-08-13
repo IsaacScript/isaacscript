@@ -7,7 +7,8 @@ export const noEmptyJSDoc = createRule({
     type: "problem",
     docs: {
       description: "Disallows empty JSDoc comments",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

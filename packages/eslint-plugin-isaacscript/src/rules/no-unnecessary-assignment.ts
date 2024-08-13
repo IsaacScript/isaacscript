@@ -32,7 +32,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description: "Disallows useless assignments",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

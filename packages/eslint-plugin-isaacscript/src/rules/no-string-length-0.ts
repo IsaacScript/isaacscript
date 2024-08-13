@@ -11,7 +11,7 @@ export const noStringLength0 = createRule({
     docs: {
       description:
         "Disallows checking for empty strings via the length method in favor of direct comparison to an empty string",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

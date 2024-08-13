@@ -7,7 +7,8 @@ export const requireUnannotatedConstAssertions = createRule({
     docs: {
       description:
         "Disallows explicit type annotations for variables that have a const assertion",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

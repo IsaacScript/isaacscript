@@ -14,7 +14,8 @@ export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
     type: "layout",
     docs: {
       description: "Requires newlines between switch cases",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {
