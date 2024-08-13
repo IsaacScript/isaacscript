@@ -36,5 +36,5 @@
     "./**/.*.tsx",
   ],
 
-  "exclude": ["dist", "scripts", "tests"],
+  "exclude": ["dist", "scripts", "tests", "eslint.config.mjs"],
 }

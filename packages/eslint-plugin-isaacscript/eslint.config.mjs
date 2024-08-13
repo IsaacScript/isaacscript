@@ -46,4 +46,9 @@ export default tseslint.config(
       "unicorn/no-empty-file": "off",
     },
   },
+
+  // TODO: Remove this when converting `projectService`.
+  {
+    ignores: ["eslint.config.mjs"],
+  },
 );
