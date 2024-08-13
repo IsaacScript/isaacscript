@@ -31,8 +31,7 @@
     "README.md"
   ],
   "scripts": {
-    "lint": "tsx ./scripts/lint.mts",
-    "query-rule": "tsx ./scripts/queryRule.mts"
+    "lint": "tsx ./scripts/lint.mts"
   },
   "dependencies": {
     "confusing-browser-globals": "^1.0.11",
