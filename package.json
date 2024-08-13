@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@algolia/client-search": "^4.24.0",
-    "@arktype/fs": "^0.1.0",
+    "@arktype/fs": "^0.2.1",
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-typescript": "^7.24.7",

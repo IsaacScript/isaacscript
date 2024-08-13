@@ -5,7 +5,7 @@ import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { getTSConfigJSONOutDir } from "./tsconfigJSON.js";
-import { getArgs } from "./utils.js";
+import { fatalError, getArgs } from "./utils.js";
 
 type ScriptCallback = (
   scriptCallbackData: ScriptCallbackData,
@@ -26,18 +26,16 @@ interface ScriptCallbackData {
  * For more information, see the documentation for the `script` helper function.
  */
 export async function buildScript(func: ScriptCallback): Promise<void> {
-  await script(
-    async (data) => {
-      const { outDir } = data;
-      if (outDir !== undefined) {
-        rm(outDir);
-      }
+  const buildFunc: ScriptCallback = async (data) => {
+    const { outDir } = data;
+    if (outDir !== undefined) {
+      rm(outDir);
+    }
 
-      await func(data);
-    },
-    "built",
-    2,
-  );
+    await func(data);
+  };
+
+  await script(buildFunc, "built", 2);
 }
 
 /** See the documentation for the `script` helper function. */
@@ -88,7 +86,11 @@ export async function script(
 
   const fromDir = dirOfCaller(upStackBy);
   const packageRoot = findPackageRoot(fromDir);
-  const packageName = path.basename(packageRoot);
+  if (packageRoot === null) {
+    fatalError(
+      `Failed to find the package root starting from directory: ${fromDir}`,
+    );
+  }
 
   const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
   const outDir = getTSConfigJSONOutDir(tsConfigJSONPath);
@@ -100,6 +102,7 @@ export async function script(
   await func(data);
 
   if (!quiet && verb !== undefined) {
+    const packageName = path.basename(packageRoot);
     printSuccess(startTime, verb, packageName);
   }
 }
