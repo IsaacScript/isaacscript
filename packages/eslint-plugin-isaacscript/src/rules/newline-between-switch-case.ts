@@ -2,7 +2,6 @@
 // source code for the "no-fallthrough" rule.
 
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { createRule } from "../utils.js";
 
 export type Options = [];
@@ -30,9 +29,6 @@ export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
     return {
       SwitchCase(node) {
         const { parent } = node;
-        if (parent.type !== AST_NODE_TYPES.SwitchStatement) {
-          return;
-        }
 
         // Ignore switch cases without a consequent (i.e. no brackets), as those should not have
         // newlines after them.

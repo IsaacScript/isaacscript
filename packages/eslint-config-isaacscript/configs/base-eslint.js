@@ -659,7 +659,7 @@ const LAYOUT_AND_FORMATTING = {
   "linebreak-style": "off", // eslint-config-prettier
   "lines-around-comment": "off", // eslint-config-prettier
 
-  /** Superseded by the `@typescript-eslint/lines-between-class-members` rule. */
+  /** Superseded by the `@stylistic/lines-between-class-members` rule. */
   "lines-between-class-members": "off",
 
   "max-len": "off", // eslint-config-prettier

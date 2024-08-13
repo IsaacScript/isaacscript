@@ -34,6 +34,7 @@
     "lint": "tsx ./scripts/lint.mts"
   },
   "dependencies": {
+    "@eslint/compat": "^1.1.1",
     "confusing-browser-globals": "^1.0.11",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-deprecation": "^3.0.0",

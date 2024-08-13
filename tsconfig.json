@@ -7,6 +7,10 @@
     "./tsconfig.monorepo.json",
   ],
 
+  "compilerOptions": {
+    "checkJs": true, // TODO: move to base config
+  },
+
   // We want to lint every file in the repository. Two entries for each file extension are needed
   // because TypeScript will exclude files that begin with a period from an asterisk glob by
   // default.

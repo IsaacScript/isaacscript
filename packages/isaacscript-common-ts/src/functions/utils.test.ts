@@ -20,12 +20,12 @@ describe("assertsDefined", () => {
   // @ts-expect-error Should fail since we are not in a union with undefined.
   assertDefined(value as string, "");
   // @ts-expect-error Should fail since we are not in a union with undefined.
-  assertDefined(value as Function, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertDefined(value as Function, "");
 
   assertDefined(value as boolean | undefined, "");
   assertDefined(value as number | undefined, "");
   assertDefined(value as string | undefined, "");
-  assertDefined(value as Function | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertDefined(value as Function | undefined, "");
 
   // @ts-expect-error Should fail because we are in a union with null instead of undefined.
   assertDefined(value as boolean | null, "");
@@ -34,12 +34,12 @@ describe("assertsDefined", () => {
   // @ts-expect-error Should fail because we are in a union with null instead of undefined.
   assertDefined(value as string | null, "");
   // @ts-expect-error Should fail because we are in a union with null instead of undefined.
-  assertDefined(value as Function | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertDefined(value as Function | null, "");
 
   assertDefined(value as boolean | undefined | null, "");
   assertDefined(value as number | undefined | null, "");
   assertDefined(value as string | undefined | null, "");
-  assertDefined(value as Function | undefined | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertDefined(value as Function | undefined | null, "");
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   function _genericFunction<T>(_arg: T) {
@@ -58,12 +58,12 @@ describe("assertsNull", () => {
   // @ts-expect-error Should fail since we are not in a union with null.
   assertNotNull(value as string, "");
   // @ts-expect-error Should fail since we are not in a union with null.
-  assertNotNull(value as Function, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertNotNull(value as Function, "");
 
   assertNotNull(value as boolean | null, "");
   assertNotNull(value as number | null, "");
   assertNotNull(value as string | null, "");
-  assertNotNull(value as Function | null, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertNotNull(value as Function | null, "");
 
   // @ts-expect-error Should fail because we are in a union with undefined instead of null.
   assertNotNull(value as boolean | undefined, "");
@@ -72,12 +72,12 @@ describe("assertsNull", () => {
   // @ts-expect-error Should fail because we are in a union with undefined instead of null.
   assertNotNull(value as string | undefined, "");
   // @ts-expect-error Should fail because we are in a union with undefined instead of null.
-  assertNotNull(value as Function | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertNotNull(value as Function | undefined, "");
 
   assertNotNull(value as boolean | null | undefined, "");
   assertNotNull(value as number | null | undefined, "");
   assertNotNull(value as string | null | undefined, "");
-  assertNotNull(value as Function | null | undefined, ""); // eslint-disable-line @typescript-eslint/ban-types
+  assertNotNull(value as Function | null | undefined, "");
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   function _genericFunction<T>(_arg: T) {

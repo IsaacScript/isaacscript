@@ -41,7 +41,6 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/await-thenable": "warn",
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/ban-tslint-comment": "warn",
-      "@typescript-eslint/ban-types": "warn",
       "@typescript-eslint/class-literal-property-style": "warn",
       "@typescript-eslint/consistent-generic-constructors": "warn",
       "@typescript-eslint/consistent-indexed-object-style": "warn",
@@ -184,7 +183,6 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-unsafe-return": "warn",
       "@typescript-eslint/no-unsafe-unary-minus": "warn",
       "@typescript-eslint/no-useless-empty-export": "warn",
-      "@typescript-eslint/no-useless-template-literals": "warn",
       "@typescript-eslint/no-var-requires": "warn",
       "@typescript-eslint/non-nullable-type-assertion-style": "warn",
       "@typescript-eslint/only-throw-error": "warn",
@@ -330,38 +328,6 @@ export const baseTypeScriptESLint = tseslint.config(
 
       "@typescript-eslint/key-spacing": "off", // eslint-config-prettier
       "@typescript-eslint/keyword-spacing": "off", // eslint-config-prettier
-
-      /**
-       * Even though the `typescript-eslint` team does not recommend using formatting rules, this
-       * rule is not handled by Prettier, so we must use ESLint to enforce it.
-       */
-      "@typescript-eslint/lines-around-comment": [
-        "warn",
-        {
-          // All of these properties default to false.
-          allowBlockStart: true,
-          allowObjectStart: true,
-          allowArrayStart: true,
-          allowClassStart: true,
-          allowEnumStart: true,
-          allowInterfaceStart: true,
-          allowModuleStart: true,
-          allowTypeStart: true,
-        },
-      ],
-
-      /**
-       * Even though the `typescript-eslint` team does not recommend using formatting rules, this
-       * rule is not handled by Prettier, so we must use ESLint to enforce it.
-       */
-      "@typescript-eslint/lines-between-class-members": [
-        "warn",
-        "always",
-        {
-          exceptAfterSingleLine: true,
-        },
-      ],
-
       "@typescript-eslint/no-array-constructor": "warn",
       "@typescript-eslint/no-array-delete": "warn",
 
@@ -452,7 +418,6 @@ export const baseTypeScriptESLint = tseslint.config(
       ],
 
       "@typescript-eslint/no-shadow": "warn",
-      "@typescript-eslint/no-throw-literal": "warn",
 
       /**
        * The `allowTaggedTemplates` option is enabled to allow the rule to work with libraries like
@@ -496,20 +461,6 @@ export const baseTypeScriptESLint = tseslint.config(
         "warn",
         {
           allowEmptyReject: true,
-        },
-      ],
-
-      /**
-       * We forbid unnecessary backticks by using the options specified in [the
-       * `eslint-config-prettier`
-       * documentation](https://github.com/prettier/eslint-config-prettier#enforce-backticks).
-       */
-      "@typescript-eslint/quotes": [
-        "warn",
-        "double",
-        {
-          avoidEscape: true,
-          allowTemplateLiterals: false,
         },
       ],
 
