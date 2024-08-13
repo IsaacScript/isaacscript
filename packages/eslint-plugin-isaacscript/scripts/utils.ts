@@ -49,5 +49,6 @@ export function getRuleNameWithPluginNamePrefix(ruleName: string): string {
 }
 
 export function isRecommendedRule(rule: RuleDefinition): boolean {
-  return rule.meta.docs?.recommended !== undefined;
+  const { docs } = rule.meta;
+  return docs !== undefined && "recommended" in docs;
 }
