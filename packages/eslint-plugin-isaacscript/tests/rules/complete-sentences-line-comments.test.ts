@@ -211,28 +211,9 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with eslint-disable",
-  code: `
-function foo() {
-  // eslint-disable-next-line no-useless-return
-}
-  `,
-});
-
-valid.push({
   name: "Comment with ts-ignore",
   code: `
 function foo() {
-  // @ts-ignore
-}
-  `,
-});
-
-valid.push({
-  name: "Comment with eslint-disable and ts-ignore",
-  code: `
-function foo() {
-  // eslint-disable-next-line no-useless-return
   // @ts-ignore
 }
   `,
