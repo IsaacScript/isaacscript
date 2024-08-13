@@ -251,10 +251,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@arktype/fs@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@arktype/fs@npm:0.1.0"
-  checksum: 10c0/0116efba0b31e1b5edc6a7112193a1d8b969520946d8c794056fce54a9bc3660249c89513e1051b2d131580158a74e56c5ae179cea4ac41ed89ab11b9c372beb
+"@arktype/fs@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@arktype/fs@npm:0.2.1"
+  checksum: 10c0/0508aa2744c5ea04327c3d9d0d272380a21db55200d1945604123e8c5ef8e31a9763af3c52f78e2b081c4afb7af757068ca783f89f7a9d908eff28cd74cdb2c9
   languageName: node
   linkType: hard
 
@@ -12055,7 +12055,7 @@ __metadata:
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
     "@algolia/client-search": "npm:^4.24.0"
-    "@arktype/fs": "npm:^0.1.0"
+    "@arktype/fs": "npm:^0.2.1"
     "@babel/core": "npm:^7.25.2"
     "@babel/preset-env": "npm:^7.25.3"
     "@babel/preset-typescript": "npm:^7.24.7"
