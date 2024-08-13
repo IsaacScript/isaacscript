@@ -1,8 +1,8 @@
 import type {
-  Execa$,
-  ExecaReturnBase,
+  ExecaScriptMethod,
   ExecaSyncError,
   Options,
+  Result,
   TemplateExpression,
 } from "execa";
 import { $ as dollarSignFunc } from "execa";
@@ -25,8 +25,8 @@ const dollarSignFuncWithOptions = dollarSignFunc(EXECA_DEFAULT_OPTIONS);
 export async function $(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
-): Promise<ExecaReturnBase<string>> {
-  let returnBase: ExecaReturnBase<string>;
+): Promise<Result> {
+  let returnBase: Result;
 
   try {
     returnBase = await dollarSignFuncWithOptions(templates, ...expressions);
@@ -51,7 +51,12 @@ export function $o(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
 ): string {
-  return $sq(templates, ...expressions).stdout;
+  const output = $sq(templates, ...expressions).stdout;
+  if (output === undefined) {
+    return "";
+  }
+
+  return typeof output === "string" ? output : output.toString();
 }
 
 /**
@@ -59,7 +64,7 @@ export function $o(
  * get a custom executor function without having to consume "execa" directly.
  */
 
-export function $op(options: Options): Execa$ {
+export function $op(options: Options): ExecaScriptMethod<Options> {
   return dollarSignFunc(options);
 }
 
@@ -73,7 +78,7 @@ export function $op(options: Options): Execa$ {
 export async function $q(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
-): Promise<ExecaReturnBase<string>> {
+): Promise<Result> {
   // We want to include the JavaScript stack trace in this instance since this function is used for
   // commands that should not generally fail.
   return dollarSignFunc(templates, ...expressions);
@@ -88,8 +93,8 @@ export async function $q(
 export function $s(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
-): ExecaReturnBase<string> {
-  let returnBase: ExecaReturnBase<string>;
+): Result {
+  let returnBase: Result;
 
   try {
     returnBase = dollarSignFuncWithOptions.sync(templates, ...expressions);
@@ -112,7 +117,7 @@ export function $s(
 export function $sq(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
-): ExecaReturnBase<string> {
+): Result {
   // We want to include the JavaScript stack trace in this instance since this function is used for
   // commands that should not generally fail.
   return dollarSignFunc.sync(templates, ...expressions);

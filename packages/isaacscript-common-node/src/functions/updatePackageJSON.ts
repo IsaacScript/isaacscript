@@ -91,6 +91,10 @@ export function updateYarn(
 
   // If Yarn version 1 is being used, assume that we don't need to update it.
   const { stdout } = $$.sync`yarn --version`;
+  if (typeof stdout !== "string") {
+    fatalError('Failed to get the output of the "yarn --version" command.');
+  }
+
   const yarnVersion = parseSemanticVersion(stdout);
   if (yarnVersion === undefined) {
     fatalError(
