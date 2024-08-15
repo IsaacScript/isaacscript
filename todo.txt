@@ -10,10 +10,6 @@ https://github.com/typescript-eslint/typescript-eslint/issues/9720
 
 - add "// @ts-check" to all eslint configs in the monorepo + the template
 
-- // TODO: once on ESLint 9, reorganize rules in "base-eslint.js" to correspond to the website:
-  https://eslint.org/docs/latest/rules/#layout--formatting
-  (for deprecated rules)
-
 - // TODO: Uncomment when TypeScript 5.5 is released.
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint

@@ -495,7 +495,7 @@ const SUGGESTIONS = {
   "no-unused-expressions": "off",
 
   "no-unused-labels": "warn",
-  /// "no-useless-assignment": "warn", // TODO: Uncomment when ESLint 9 is usable.
+  "no-useless-assignment": "warn",
   "no-useless-call": "warn",
   "no-useless-catch": "warn",
 
@@ -630,77 +630,193 @@ const SUGGESTIONS = {
 
 /** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
 const LAYOUT_AND_FORMATTING = {
-  "array-bracket-newline": "off", // eslint-config-prettier
-  "array-bracket-spacing": "off", // eslint-config-prettier
-  "array-element-newline": "off", // eslint-config-prettier
-  "arrow-parens": "off", // eslint-config-prettier
-  "arrow-spacing": "off", // eslint-config-prettier
-  "block-spacing": "off", // eslint-config-prettier
-  "brace-style": "off", // eslint-config-prettier
-  "comma-dangle": "off", // eslint-config-prettier
-  "comma-spacing": "off", // eslint-config-prettier
-  "comma-style": "off", // eslint-config-prettier
-  "computed-property-spacing": "off", // eslint-config-prettier
-  "dot-location": "off", // eslint-config-prettier
-  "eol-last": "off", // eslint-config-prettier
-  "func-call-spacing": "off", // eslint-config-prettier
-  "function-call-argument-newline": "off", // eslint-config-prettier
-  "function-paren-newline": "off", // eslint-config-prettier
-  "generator-star-spacing": "off", // eslint-config-prettier
-  "implicit-arrow-linebreak": "off", // eslint-config-prettier
-  indent: "off", // eslint-config-prettier
-  "jsx-quotes": "off", // eslint-config-prettier
-  "key-spacing": "off", // eslint-config-prettier
-  "keyword-spacing": "off", // eslint-config-prettier
+  "unicode-bom": "warn",
+};
 
-  /** Disabled since it is common in the TypeScript ecosystem to use both types of comments. */
+/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+const DEPRECATED = {
+  /** Disabled since the rule is deprecated. */
+  "array-bracket-newline": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "array-bracket-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "array-element-newline": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "arrow-parens": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "arrow-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "block-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "brace-style": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "comma-dangle": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "comma-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "comma-style": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "computed-property-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "dot-location": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "eol-last": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "func-call-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "function-call-argument-newline": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "function-paren-newline": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "generator-star-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "implicit-arrow-linebreak": "off",
+
+  /** Disabled since the rule is deprecated. */
+  indent: "off",
+
+  /** Disabled since the rule is deprecated. */
+  "jsx-quotes": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "key-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "keyword-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
   "line-comment-position": "off",
 
-  "linebreak-style": "off", // eslint-config-prettier
-  "lines-around-comment": "off", // eslint-config-prettier
+  /** Disabled since the rule is deprecated. */
+  "linebreak-style": "off",
 
-  /** Superseded by the `@stylistic/lines-between-class-members` rule. */
+  /** Disabled since the rule is deprecated. */
+  "lines-around-comment": "off",
+
+  /** Disabled since the rule is deprecated. */
   "lines-between-class-members": "off",
 
-  "max-len": "off", // eslint-config-prettier
-  "max-statements-per-line": "off", // eslint-config-prettier
-  "multiline-ternary": "off", // eslint-config-prettier
-  "new-parens": "off", // eslint-config-prettier
-  "newline-per-chained-call": "off", // eslint-config-prettier
-  "no-extra-parens": "off", // eslint-config-prettier
-  "no-mixed-spaces-and-tabs": "off", // eslint-config-prettier
-  "no-multi-spaces": "off", // eslint-config-prettier
-  "no-multiple-empty-lines": "off", // eslint-config-prettier
-  "no-tabs": "off", // eslint-config-prettier
-  "no-trailing-spaces": "off", // eslint-config-prettier
-  "no-whitespace-before-property": "off", // eslint-config-prettier
-  "nonblock-statement-body-position": "off", // eslint-config-prettier
-  "object-curly-newline": "off", // eslint-config-prettier
-  "object-curly-spacing": "off", // eslint-config-prettier
-  "object-property-newline": "off", // eslint-config-prettier
-  "operator-linebreak": "off", // eslint-config-prettier
-  "padded-blocks": "off", // eslint-config-prettier
+  /** Disabled since the rule is deprecated. */
+  "max-len": "off",
 
-  /** Superseded by the `@typescript-eslint/padding-line-between-statements` rule. */
+  /** Disabled since the rule is deprecated. */
+  "max-statements-per-line": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "multiline-ternary": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "new-parens": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "newline-per-chained-call": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-extra-parens": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-mixed-spaces-and-tabs": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-multi-spaces": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-multiple-empty-lines": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-tabs": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-trailing-spaces": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "no-whitespace-before-property": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "nonblock-statement-body-position": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "object-curly-newline": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "object-curly-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "object-property-newline": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "operator-linebreak": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "padded-blocks": "off",
+
+  /** Disabled since the rule is deprecated. */
   "padding-line-between-statements": "off",
 
-  quotes: "off", // eslint-config-prettier
-  "rest-spread-spacing": "off", // eslint-config-prettier
-  semi: "off", // eslint-config-prettier
-  "semi-spacing": "off", // eslint-config-prettier
-  "semi-style": "off", // eslint-config-prettier
-  "space-before-blocks": "off", // eslint-config-prettier
-  "space-before-function-paren": "off", // eslint-config-prettier
-  "space-in-parens": "off", // eslint-config-prettier
-  "space-infix-ops": "off", // eslint-config-prettier
-  "space-unary-ops": "off", // eslint-config-prettier
-  "switch-colon-spacing": "off", // eslint-config-prettier
-  "template-curly-spacing": "off", // eslint-config-prettier
-  "template-tag-spacing": "off", // eslint-config-prettier
-  "unicode-bom": "warn",
-  "wrap-iife": "off", // eslint-config-prettier
-  "wrap-regex": "off", // eslint-config-prettier
-  "yield-star-spacing": "off", // eslint-config-prettier
+  /** Disabled since the rule is deprecated. */
+  quotes: "off",
+
+  /** Disabled since the rule is deprecated. */
+  "rest-spread-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  semi: "off",
+
+  /** Disabled since the rule is deprecated. */
+  "semi-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "semi-style": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "space-before-blocks": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "space-before-function-paren": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "space-in-parens": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "space-infix-ops": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "space-unary-ops": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "switch-colon-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "template-curly-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "template-tag-spacing": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "wrap-iife": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "wrap-regex": "off",
+
+  /** Disabled since the rule is deprecated. */
+  "yield-star-spacing": "off",
 };
 
 /**
@@ -711,11 +827,13 @@ const LAYOUT_AND_FORMATTING = {
  * 1) Possible Problems
  * 2) Suggestions
  * 3) Layout & Formatting
+ * 4) Deprecated
  */
 export const baseESLint = tseslint.config({
   rules: {
     ...POSSIBLE_PROBLEMS,
     ...SUGGESTIONS,
     ...LAYOUT_AND_FORMATTING,
+    ...DEPRECATED,
   },
 });
