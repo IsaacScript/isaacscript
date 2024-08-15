@@ -48,10 +48,9 @@ export function formatText(
       insideCodeBlock = !insideCodeBlock;
     }
 
-    let hasExampleTag = false;
     const previousLineInsideExampleTagBlock = insideExampleTagBlock;
     if (shouldParseJSDocTags) {
-      hasExampleTag = line.includes("@example");
+      const hasExampleTag = line.includes("@example");
       if (hasExampleTag) {
         insideExampleTagBlock = true;
       } else if (insideExampleTagBlock && line.trimStart().startsWith("@")) {
@@ -302,6 +301,7 @@ export function formatText(
   }
 
   // Append the partial line that we were building, if any.
+  // eslint-disable-next-line no-useless-assignment
   [formattedLine, formattedText] = appendLineToText(
     formattedLine,
     formattedText,

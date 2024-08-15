@@ -1,3 +1,5 @@
+- test import no-cycle rule (might need to re-add typescript config from main branch)
+
 - submit bug report: https://github.com/dominikg/tsconfck/discussions/185#discussioncomment-10318566
 
 - in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
@@ -14,8 +16,6 @@ https://github.com/typescript-eslint/typescript-eslint/issues/9720
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
-
-- test import no-cycle rule (might need to re-add typescript config from main branch)
 
 - things to consider before merging flat config branch:
   - vscode extension no longer in alpha/beta: https://github.com/microsoft/vscode-eslint/releases
