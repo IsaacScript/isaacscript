@@ -4,6 +4,42 @@ import type { GenericPromptSubmittedSelection } from "../../enums/GenericPromptS
 /**
  * Constructs a new `GenericPrompt` class.
  *
+ * **Example**
+ *
+ * ```ts
+ * const mod = RegisterMod("Foo", 1);
+ *
+ * const prompt = GenericPrompt();
+ * prompt.Initialize();
+ * prompt.SetText("Some test text");
+ *
+ * let wasPromptDisplayed = false;
+ *
+ * function postRender() {
+ *   prompt.Render();
+ * }
+ *
+ * mod.AddCallback(ModCallback.POST_RENDER, postRender);
+ *
+ * function postUpdate() {
+ *   prompt.Update(true); // Process user inputs
+ *
+ *   if (wasPromptDisplayed && !prompt.IsActive()) {
+ *     // Prompt was closed by user.
+ *     const submittedSelection = prompt.GetSubmittedSelection();
+ *     print(`User selected option: ${submittedSelection}`);
+ *     wasPromptDisplayed = false;
+ *   }
+ *
+ *   if (Input.IsButtonTriggered(Keyboard.MINUS, 0)) {
+ *     prompt.Show();
+ *     wasPromptDisplayed = true;
+ *   }
+ * }
+ *
+ * mod.AddCallback(ModCallback.POST_UPDATE, postUpdate);
+ * ```
+ *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/index.html
