@@ -1,3 +1,4 @@
+import { fixupPluginRules } from "@eslint/compat";
 import ESLintPluginDeprecation from "eslint-plugin-deprecation";
 import tseslint from "typescript-eslint";
 
@@ -7,7 +8,9 @@ import tseslint from "typescript-eslint";
  */
 export const baseDeprecation = tseslint.config({
   plugins: {
-    deprecation: ESLintPluginDeprecation,
+    // https://github.com/gund/eslint-plugin-deprecation/issues/78
+    // @ts-expect-error: The types are not matching, but it works.
+    deprecation: fixupPluginRules(ESLintPluginDeprecation),
   },
 
   rules: {

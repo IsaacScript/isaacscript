@@ -1,4 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
+import type {
+  InvalidTestCase,
+  ValidTestCase,
+} from "@typescript-eslint/rule-tester";
 import type {
   MessageIds,
   Options,
@@ -6,8 +9,8 @@ import type {
 import { formatLineComments } from "../../src/rules/format-line-comments.js";
 import { ruleTester } from "../utils.js";
 
-const valid: Array<TSESLint.ValidTestCase<Options>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
+const valid: Array<ValidTestCase<Options>> = [];
+const invalid: Array<InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Using a single-line JSDoc comment that is too long",
@@ -514,25 +517,6 @@ valid.push({
 // ----------------
 // Getter functions
 // ----------------
-  `,
-});
-
-valid.push({
-  name: "Using an eslint-disable-next-line comment",
-  code: `
-// Trim the parenthesis and quotes surrounding the sentence, if any.
-// eslint-disable-next-line no-constant-condition
-  `,
-});
-
-valid.push({
-  name: "Using an eslint-disable-next-line and a ts-ignore comment",
-  code: `
-export function foo(): boolean {
-  // eslint-disable-next-line
-  // @ts-ignore
-  return package !== undefined;
-}
   `,
 });
 

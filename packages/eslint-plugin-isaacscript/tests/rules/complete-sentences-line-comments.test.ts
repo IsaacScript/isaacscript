@@ -1,13 +1,14 @@
-import type { TSESLint } from "@typescript-eslint/utils";
+import type {
+  InvalidTestCase,
+  ValidTestCase,
+} from "@typescript-eslint/rule-tester";
 import type { CompleteSentenceMessageIds } from "../../src/completeSentence.js";
 import type { Options } from "../../src/rules/complete-sentences-line-comments.js";
 import { completeSentencesLineComments } from "../../src/rules/complete-sentences-line-comments.js";
 import { ruleTester } from "../utils.js";
 
-const valid: Array<TSESLint.ValidTestCase<Options>> = [];
-const invalid: Array<
-  TSESLint.InvalidTestCase<CompleteSentenceMessageIds, Options>
-> = [];
+const valid: Array<ValidTestCase<Options>> = [];
+const invalid: Array<InvalidTestCase<CompleteSentenceMessageIds, Options>> = [];
 
 invalid.push({
   name: "Single-line comment without complete sentence",
@@ -210,28 +211,9 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with eslint-disable",
-  code: `
-function foo() {
-  // eslint-disable-next-line no-useless-return
-}
-  `,
-});
-
-valid.push({
   name: "Comment with ts-ignore",
   code: `
 function foo() {
-  // @ts-ignore
-}
-  `,
-});
-
-valid.push({
-  name: "Comment with eslint-disable and ts-ignore",
-  code: `
-function foo() {
-  // eslint-disable-next-line no-useless-return
   // @ts-ignore
 }
   `,

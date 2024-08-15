@@ -49,7 +49,7 @@ export const eqeqeqFix = createRule({
 
         docs: {
             description: "Requires the use of `===` and `!==` (and automatically fixes)",
-            recommended: "recommended", // Changed from false
+            recommended: true, // Changed from false
             // url: "https://eslint.org/docs/latest/rules/eqeqeq"
         },
 

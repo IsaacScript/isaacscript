@@ -32,7 +32,7 @@ export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description: "Disallows using object methods with maps and sets",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

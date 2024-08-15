@@ -174,7 +174,6 @@ export function isBoolean(variable: unknown): variable is boolean {
   return typeof variable === "boolean";
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function isFunction(variable: unknown): variable is Function {
   return typeof variable === "function";
 }

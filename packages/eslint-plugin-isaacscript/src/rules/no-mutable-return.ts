@@ -13,7 +13,7 @@ export const noMutableReturn = createRule<Options, MessageIds>({
     docs: {
       description:
         "Disallows returning mutable arrays, maps, and sets from functions",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

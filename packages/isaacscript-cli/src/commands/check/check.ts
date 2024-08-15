@@ -79,6 +79,7 @@ export const checkTSCommand = new Command()
     check(options, true);
   });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const checkOptions = checkCommand.opts();
 // The options are identical for both, so we do not create a union.
 type CheckOptions = typeof checkOptions;

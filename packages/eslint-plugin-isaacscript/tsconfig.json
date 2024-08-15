@@ -13,6 +13,8 @@
     // Needed since this is a library.
     "declaration": true,
     "declarationMap": true,
+
+    "checkJs": true, // TODO: move to base config
   },
 
   "include": [
@@ -34,5 +36,5 @@
     "./**/.*.tsx",
   ],
 
-  "exclude": ["dist", "scripts", "tests"],
+  "exclude": ["dist", "scripts", "tests", "eslint.config.mjs"],
 }

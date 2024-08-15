@@ -5,6 +5,7 @@ import { baseESLint } from "./configs/base-eslint.js";
 import { baseImportX } from "./configs/base-import-x.js";
 import { baseJSDoc } from "./configs/base-jsdoc.js";
 import { baseN } from "./configs/base-n.js";
+import { baseStylistic } from "./configs/base-stylistic.js";
 import { baseTypeScriptESLint } from "./configs/base-typescript-eslint.js";
 import { baseUnicorn } from "./configs/base-unicorn.js";
 
@@ -28,6 +29,7 @@ for (const config of ESLintPluginIsaacScript.configs.recommended) {
 export const base = tseslint.config(
   ...baseESLint,
   ...baseTypeScriptESLint,
+  ...baseStylistic,
   ...baseImportX,
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.

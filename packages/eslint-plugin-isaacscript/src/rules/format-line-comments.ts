@@ -29,7 +29,8 @@ export const formatLineComments = createRule<Options, MessageIds>({
     docs: {
       description:
         "Disallows `//` comments longer than N characters and multi-line comments that can be merged together",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [
       {

@@ -10,7 +10,7 @@
  */
 // We intersect with an empty object to prevent VSCode from replacing `int` with `number` on
 // mouseover.
-// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/naming-convention
 declare type int = number & {};
 
 /**
@@ -22,5 +22,5 @@ declare type int = number & {};
  */
 // We intersect with an empty object to prevent VSCode from replacing `float` with `number` on
 // mouseover.
-// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/naming-convention
 declare type float = number & {};

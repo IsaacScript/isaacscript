@@ -8,7 +8,8 @@ export const jsdocCodeBlockLanguage = createRule({
     docs: {
       description:
         "Requires a language specification for every JSDoc code block",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

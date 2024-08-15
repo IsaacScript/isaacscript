@@ -75,7 +75,7 @@ $$.sync`git push --force-with-lease`;
 
 // Wait for the website to be be live (which usually takes around 5 minutes).
 const shortCommitSHA1 = commitSHA1.slice(0, 7);
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-condition
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 while (true) {
   if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
     echo(

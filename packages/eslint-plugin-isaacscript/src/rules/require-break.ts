@@ -2,7 +2,6 @@
 // https://github.com/eslint/eslint/blob/main/lib/rules/no-fallthrough.js
 
 import type { TSESLint } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { createRule } from "../utils.js";
 
 export type Options = [];
@@ -15,7 +14,8 @@ export const requireBreak = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires that each case of a switch statement has a `break` statement",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {
@@ -65,9 +65,7 @@ export const requireBreak = createRule<Options, MessageIds>({
         const thisNodeIsReachable = isAnySegmentReachable(
           currentCodePathSegments,
         );
-        const thisNodeIsFinalCase =
-          node.parent.type === AST_NODE_TYPES.SwitchStatement &&
-          node === node.parent.cases.at(-1);
+        const thisNodeIsFinalCase = node === node.parent.cases.at(-1);
 
         if (thisNodeIsReachable && thisNodeIsFinalCase) {
           context.report({
