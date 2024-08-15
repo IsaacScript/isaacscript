@@ -1,4 +1,5 @@
 import type { Difficulty, PlayerType } from "isaac-typescript-definitions";
+import type { CharacterMenuStatus } from "../../../enums/CharacterMenuStatus";
 import type { CharacterMenuType } from "../../../enums/CharacterMenuType";
 
 declare global {
@@ -9,6 +10,9 @@ declare global {
    * @noSelf
    */
   namespace CharacterMenu {
+    /** Returns the menu's current status. */
+    function GetActiveStatus(): CharacterMenuStatus;
+
     /**
      * Returns the sprite used for the background of the character wheel background.
      *
@@ -88,6 +92,9 @@ declare global {
 
     /** Returns the sprite used to display the current win streak. */
     function GetWinStreakPageSprite(): Sprite;
+
+    /** Sets the menu's current status. */
+    function SetActiveStatus(status: CharacterMenuStatus): void;
 
     /** Sets the depth of the character wheel. */
     function SetCharacterWheelDepth(depth: number): void;
