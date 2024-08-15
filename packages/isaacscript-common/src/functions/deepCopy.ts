@@ -320,8 +320,6 @@ function deepCopyDefaultMap(
     }
   }
 
-  insideMap = false;
-
   return newDefaultMap;
 }
 
@@ -420,8 +418,6 @@ function deepCopyMap(
       newMap.set(key, value);
     }
   }
-
-  insideMap = false;
 
   return newMap;
 }
