@@ -35,13 +35,13 @@
   },
   "dependencies": {
     "@eslint/compat": "^1.1.1",
-    "@stylistic/eslint-plugin": "^2.6.2",
+    "@stylistic/eslint-plugin": "^2.6.3",
     "confusing-browser-globals": "^1.0.11",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-deprecation": "^3.0.0",
     "eslint-plugin-import-x": "^3.1.0",
     "eslint-plugin-isaacscript": "^3.12.2",
-    "eslint-plugin-jsdoc": "^50.2.1",
+    "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-unicorn": "^55.0.0",
     "typescript-eslint": "^8.1.0"

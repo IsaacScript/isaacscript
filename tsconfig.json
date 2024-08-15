@@ -8,6 +8,7 @@
   ],
 
   "compilerOptions": {
+    "outDir": "dist", // TODO: Shouldn't be necessary, but we have to add it to get rid of "Cannot write file 'foo' because it would overwrite input file.
     "checkJs": true, // TODO: move to base config
   },
 

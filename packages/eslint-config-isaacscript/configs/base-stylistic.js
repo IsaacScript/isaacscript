@@ -18,30 +18,17 @@ export const baseStylistic = tseslint.config({
       {
         // From the JavaScript version of the rule:
         // https://eslint.style/rules/js/lines-around-comment#options
-        beforeBlockComment: true,
-        afterBlockComment: true,
-        beforeLineComment: true,
-        afterLineComment: true,
         allowBlockStart: true,
-        allowBlockEnd: true,
         allowObjectStart: true,
-        allowObjectEnd: true,
         allowArrayStart: true,
-        allowArrayEnd: true,
         allowClassStart: true,
-        allowClassEnd: true,
-        afterHashbangComment: true,
 
         // From the TypeScript version of the rule:
         // https://eslint.style/rules/ts/lines-around-comment#options
         allowEnumStart: true,
-        allowEnumEnd: true,
         allowInterfaceStart: true,
-        allowInterfaceEnd: true,
         allowModuleStart: true,
-        allowModuleEnd: true,
         allowTypeStart: true,
-        allowTypeEnd: true,
       },
     ],
 
