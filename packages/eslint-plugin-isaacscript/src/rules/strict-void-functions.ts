@@ -8,7 +8,8 @@ export const strictVoidFunctions = createRule({
     docs: {
       description:
         "Disallows non-empty return statements in functions annotated as returning void",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

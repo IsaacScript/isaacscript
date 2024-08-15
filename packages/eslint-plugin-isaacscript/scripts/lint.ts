@@ -49,6 +49,7 @@ async function checkGenerateChangedFiles() {
           "generate.ts",
         )}" script changed the following file: ${chalk.green(filePath)}`,
       );
+      echo(`Run: ${chalk.green("npm run generate")}`);
     }
   }
 

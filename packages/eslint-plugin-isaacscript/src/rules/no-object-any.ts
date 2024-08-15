@@ -10,7 +10,7 @@ export const noObjectAny = createRule({
     docs: {
       description:
         "Disallows declaring objects and arrays that do not have a type",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

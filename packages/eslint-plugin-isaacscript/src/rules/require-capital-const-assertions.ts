@@ -29,7 +29,8 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires a capital letter for named objects and arrays that have a const assertion",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

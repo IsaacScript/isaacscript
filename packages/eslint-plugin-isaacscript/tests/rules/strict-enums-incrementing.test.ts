@@ -1,11 +1,14 @@
-import type { TSESLint } from "@typescript-eslint/utils";
+import type {
+  InvalidTestCase,
+  ValidTestCase,
+} from "@typescript-eslint/rule-tester";
 import type { MessageIds, Options } from "../../src/rules/strict-enums.js";
 import { strictEnums } from "../../src/rules/strict-enums.js";
 import { ruleTester } from "../utils.js";
 import { fruitEnumDefinition } from "./strict-enums.js";
 
-const valid: Array<TSESLint.ValidTestCase<Options>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
+const valid: Array<ValidTestCase<Options>> = [];
+const invalid: Array<InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Incrementing a number (postfix)",

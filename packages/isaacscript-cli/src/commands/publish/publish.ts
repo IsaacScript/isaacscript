@@ -49,6 +49,7 @@ export const publishCommand = new Command()
     await publish(options);
   });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const publishOptions = publishCommand.opts();
 type PublishOptions = typeof publishOptions;
 

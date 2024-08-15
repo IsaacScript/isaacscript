@@ -1,4 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
+import type {
+  InvalidTestCase,
+  ValidTestCase,
+} from "@typescript-eslint/rule-tester";
 import type {
   MessageIds,
   Options,
@@ -6,8 +9,8 @@ import type {
 import { requireCapitalConstAssertions } from "../../src/rules/require-capital-const-assertions.js";
 import { ruleTester } from "../utils.js";
 
-const valid: Array<TSESLint.ValidTestCase<Options>> = [];
-const invalid: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [];
+const valid: Array<ValidTestCase<Options>> = [];
+const invalid: Array<InvalidTestCase<MessageIds, Options>> = [];
 
 valid.push({
   name: "Object acting as a number enum with const assertion",

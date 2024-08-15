@@ -6,7 +6,8 @@ export const noForIn = createRule({
     type: "problem",
     docs: {
       description: 'Disallows "for x in y" statements',
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

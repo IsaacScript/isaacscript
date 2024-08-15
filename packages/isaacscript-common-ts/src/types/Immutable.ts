@@ -21,7 +21,7 @@ type ImmutablePrimitive =
   | boolean
   | string
   | number
-  | Function; // eslint-disable-line @typescript-eslint/ban-types
+  | Function;
 type ImmutableArray<T> = ReadonlyArray<Immutable<T>>;
 type ImmutableMap<K, V> = ReadonlyMap<Immutable<K>, Immutable<V>>;
 type ImmutableSet<T> = ReadonlySet<Immutable<T>>;

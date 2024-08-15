@@ -14,7 +14,8 @@ export const completeSentencesJSDoc = createRule<
     type: "problem",
     docs: {
       description: "Requires complete sentences for JSDoc comments",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {

@@ -10,6 +10,7 @@ export const requireVRegistration = createRule({
     docs: {
       description:
         'Require variables named "v" to be registered with the save data manager',
+      recommended: false,
       requiresTypeChecking: false,
     },
     schema: [],

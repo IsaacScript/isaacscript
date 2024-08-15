@@ -8,7 +8,7 @@ export const noUndefinedReturnType = createRule({
     type: "problem",
     docs: {
       description: "Disallows `undefined` return types on functions",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

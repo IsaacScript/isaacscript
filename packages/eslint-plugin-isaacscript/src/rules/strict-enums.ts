@@ -31,7 +31,7 @@ export const strictEnums = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description: "Disallows the usage of unsafe enum patterns",
-      recommended: "recommended",
+      recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],

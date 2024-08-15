@@ -6,7 +6,8 @@ export const consistentEnumValues = createRule({
     type: "problem",
     docs: {
       description: "Requires consistent enum values",
-      recommended: "recommended",
+      recommended: true,
+      requiresTypeChecking: false,
     },
     schema: [],
     messages: {
