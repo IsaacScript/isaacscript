@@ -1,3 +1,5 @@
+- rewrite create docs script to work with latest typedoc-plugin-markdown
+
 - submit bug report: https://github.com/dominikg/tsconfck/discussions/185#discussioncomment-10318566
 
 - in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
@@ -39,6 +41,8 @@
 - re-enable check-ts in lint.ts
 - see top comment of "update.ts" (and uncomment "no-useless-assignment")
 
+- import eslint-plugin-plugin
+
 - lint projects:
   - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
@@ -60,16 +64,6 @@
   - for Node.js apps, we don't want to force the use of a bundler such as ESBuild, so they will remain having ".js" file extensions
 
 - wait for typedoc-plugin-markdown to release next version: https://github.com/tgreyuk/typedoc-plugin-markdown/discussions/372
-
-- import eslint-plugin-plugin
-  - blocked on: https://github.com/eslint-community/eslint-plugin-eslint-plugin/issues/375
-
-- update eslint to new config
-  - wait until ESLint 9 is released so that environment flag is not necessary
-  - wait until @typescript-eslint/plugin is using flat config and has good docs
-  - ESLint does not support "eslint.config.mjs" file format, so it requires either:
-    1. changing package.json type
-    2. specifying config file location when running, e.g. "--config eslint.config.mjs"
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
