@@ -4,13 +4,10 @@
 
 - make all tsconfig not extends from base (COMPOSITION OVER INHERITANCE)
 
+- // TODO: Uncomment when TypeScript 5.5 is released.
 - delete all "outDir"
 
-https://github.com/typescript-eslint/typescript-eslint/issues/9720
-
 - add "// @ts-check" to all eslint configs in the monorepo + the template
-
-- // TODO: Uncomment when TypeScript 5.5 is released.
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
@@ -22,11 +19,7 @@ https://github.com/typescript-eslint/typescript-eslint/issues/9720
 
 - package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
 
-- Upgrade ESLint infra when this PR passes: https://github.com/eslint/eslint/pull/18134
-
 - try removing ESLint parserOptions, since they might not be needed with flat config
-- re-add test script to package.json for plugin when RuleTester is finished for V8
-  - https://github.com/typescript-eslint/typescript-eslint/issues/9017
 
 - new TSESLint changes:
   - https://typescript-eslint.io/blog/announcing-typescript-eslint-v8
