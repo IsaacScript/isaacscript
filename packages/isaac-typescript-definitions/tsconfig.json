@@ -1,7 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 
-  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.base.json",
+    "../isaacscript-tsconfig/tsconfig.mod.json",
+  ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
@@ -14,12 +17,6 @@
     "declaration": true,
     "declarationMap": true,
 
-    // Needed to hide internal functions from the auto-complete of end-users.
-    "stripInternal": true,
-
-    // We need to read the version of the library from the "package.json" file.
-    "resolveJsonModule": true,
-
     // Force output of CJS. This is necessary because even though we have '"type": "commonjs"' in
     // the "package.json" file, TypeScript will still output ESM for some reason. We cannot convert
     // the package to ESM because of a bug in TSTL:
@@ -27,19 +24,14 @@
     // https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1515
     "module": "CommonJS",
 
-    // Recommended as per TypeScriptToLua:
-    // https://typescripttolua.github.io/docs/getting-started/
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "moduleResolution": "Node",
-
-    // We use TypeScript definitions for the Lua standard library:
-    // https://github.com/TypeScriptToLua/lua-types
-    "types": ["lua-types/5.3"],
-
     // The "strictest" TSConfig template turns this to true, but we need to ensure that the import
     // statements in the ".d.ts" files resolve properly.
     "skipLibCheck": false,
+
+    // We include TypeScript definitions for the Lua standard library as a quality of life feature:
+    // https://github.com/TypeScriptToLua/lua-types
+    "types": ["lua-types/5.3"],
+    // (This also negates the "isaac-typescript-definitions" types from "tsconfig.mod.json" above.)
   },
 
   "include": [
