@@ -28,14 +28,7 @@
   - change project to projectServices
   - remove tsconfig.eslint.json
 
-- waiting on ESLint 9 support:
-  - RuleTester
-  - eslint-plugin-import
-  - eslint-plugin-deprecation
-
-- does end-user need to install eslint-import-resolver-typescript? if so we need to include it in isaacscript-lint meta package. we might get error of:
-  - typescript with invalid interface loaded as resolver
-  - https://github.com/un-ts/eslint-plugin-import-x/issues/29#issuecomment-2140996174
+- remove eslint-plugin-deprecation when available in tseslint
 
 - re-enable knip in lint.ts
 - re-enable check-ts in lint.ts
