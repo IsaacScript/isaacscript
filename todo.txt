@@ -1,5 +1,3 @@
-- test import no-cycle rule (might need to re-add typescript config from main branch)
-
 - submit bug report: https://github.com/dominikg/tsconfck/discussions/185#discussioncomment-10318566
 
 - in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
