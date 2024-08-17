@@ -1,7 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 
-  "extends": "../isaacscript-tsconfig/tsconfig.base.json",
+  "extends": [
+    "../isaacscript-tsconfig/tsconfig.base.json",
+    "../isaacscript-tsconfig/tsconfig.mod.json",
+  ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
@@ -17,28 +20,12 @@
     // Needed to hide internal functions from the auto-complete of end-users.
     "stripInternal": true,
 
-    // We need to read the version of the library from the "package.json" file.
-    "resolveJsonModule": true,
-
     // Force output of CJS. This is necessary because even though we have '"type": "commonjs"' in
     // the "package.json" file, TypeScript will still output ESM for some reason. We cannot convert
     // the package to ESM because of a bug in TSTL:
     // https://github.com/IsaacScript/isaacscript/issues/63
     // https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1515
     "module": "CommonJS",
-
-    // Recommended as per TypeScriptToLua:
-    // https://typescripttolua.github.io/docs/getting-started/
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "moduleResolution": "Node",
-
-    // We use the Isaac definitions, which also include definitions for the Lua standard library.
-    "types": ["isaac-typescript-definitions"],
-
-    // Decorators are used to reduce some verbosity relating to using a lot of classes. (We can't
-    // use ECMAScript decorators because the TSTL implementation does not provide `context.access`.)
-    "experimentalDecorators": true,
   },
 
   "include": [

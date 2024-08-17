@@ -3,9 +3,14 @@
   // We specify the schema to get auto-complete and validation.
   "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 
-  // We extend the standard IsaacScript config:
-  // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.mod.json
-  "extends": "isaacscript-tsconfig/tsconfig.mod.json",
+  // We extend the standard IsaacScript configs.
+  "extends": [
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
+    "isaacscript-tsconfig/tsconfig.base.json",
+
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.mod.json
+    "isaacscript-tsconfig/tsconfig.mod.json",
+  ],
 
   // A list of the TypeScript files to compile.
   "include": ["./src/**/*.ts"],
