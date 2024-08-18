@@ -1,6 +1,8 @@
 - // TODO: Re-enable.
 
-- GET RID OF ALL: "./**/.*.mjs",
+- redo isaacscript-lint / config in separate repo?
+  - release new version with flat config
+  - GET RID OF ALL: "./**/.*.mjs",
 
 - experiment with adding "scripts/*.ts" in the allowDefaultProject whitelist
 
@@ -10,8 +12,6 @@
   - TRY COMMON INCLUDE PATTERN WITH ${configDir}
 
 - rewrite create docs script to work with latest typedoc-plugin-markdown
-
-- in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
 
 - release tsconfig in dev after this and everything else is sorted out
 
