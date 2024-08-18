@@ -3,10 +3,6 @@ import tseslint from "typescript-eslint";
 /**
  * This ESLint config only contains rules from `@typescript-eslint/eslint-plugin`:
  * https://typescript-eslint.io/rules/
- *
- * Rules are separated into categories:
- * 1) Supported Rules
- * 2) Extension Rules
  */
 export const baseTypeScriptESLint = tseslint.config(
   {
