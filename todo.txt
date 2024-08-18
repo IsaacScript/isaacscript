@@ -1,10 +1,12 @@
+- utils.ts - fix TODO comment
+  https://discord.com/channels/1026804805894672454/1274783430785241220
+
 - // TODO: Re-enable.
 
 - redo isaacscript-lint / config in separate repo?
   - release new version with flat config
   - GET RID OF ALL: "./**/.*.mjs",
 
-- utils.ts - fix TODO comment
 
 - rewrite create docs script to work with latest typedoc-plugin-markdown
 
