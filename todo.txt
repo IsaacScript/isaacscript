@@ -4,20 +4,15 @@
 
 - in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
 
-- make all tsconfig not extends from base (COMPOSITION OVER INHERITANCE)
-
 - // TODO: Uncomment when TypeScript 5.5 is released.
 - delete all "outDir"
 
 - add "// @ts-check" to all eslint configs in the monorepo + the template
+  - actually remove ts check and use checkJs
+  - release tsconfig in dev after this and everything else is sorted out
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
-
-- things to consider before merging flat config branch:
-  - vscode extension no longer in alpha/beta: https://github.com/microsoft/vscode-eslint/releases
-
-- test eslint-plugin-import
 
 - package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
 
