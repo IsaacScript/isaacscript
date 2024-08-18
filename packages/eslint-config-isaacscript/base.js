@@ -52,7 +52,7 @@ export const base = tseslint.config(
     // By default, ESLint ignores "**/node_modules/" and ".git/":
     // https://eslint.org/docs/latest/use/configure/ignore#ignoring-files
     // We also ignore want to ignore the "dist" directory since it is the idiomatic place for
-    // compiled output.
+    // compiled output in TypeScript.
     ignores: ["**/dist/"],
   },
 );
