@@ -1,6 +1,6 @@
 // This is a tsconfig.json intended to be used as a base for all TypeScript projects. It only
 // contains options that have to do with code checking strictness and omits all options having to do
-// with environment or transpilation (besides the "outDir" option).
+// with environment or transpilation (besides the "include" and "outDir" options).
 {
   // We extend the strictest base config:
   // https://github.com/tsconfig/bases/blob/main/bases/strictest.json
@@ -31,4 +31,11 @@
     // idiomatic in the TypeScript ecosystem.
     "outDir": "${configDir}/dist",
   },
+
+  // We standardize the input directory to be the "src" directory, since this is idiomatic in the
+  // TypeScript ecosystem. This is important because projects do not typically want to compile tests
+  // or scripts; those directories typically contain their own "tsconfig.json" files. (By default,
+  // the value for "include" is "**/*", which would include tests, scripts, and other configuration
+  // files.)
+  "include": ["${configDir}/src/**/*.ts", "${configDir}/src/**/*.tsx"],
 }

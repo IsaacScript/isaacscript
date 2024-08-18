@@ -27,8 +27,6 @@
     "skipLibCheck": false,
   },
 
-  "include": ["./src/**/*.ts"],
-
   // TypeScriptToLua settings
   "tstl": {
     "buildMode": "library",

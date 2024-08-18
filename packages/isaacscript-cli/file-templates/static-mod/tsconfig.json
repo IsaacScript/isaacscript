@@ -12,9 +12,6 @@
     "isaacscript-tsconfig/tsconfig.mod.json",
   ],
 
-  // A list of the TypeScript files to compile.
-  "include": ["./src/**/*.ts"],
-
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
@@ -39,7 +36,8 @@
 
   // IsaacScript settings
   "isaacscript": {
-    // A list of objects that represent the custom stages that are in your mod, if any. See:
+    // A list of objects that represent the custom stages that are in your mod, if any. You can
+    // safely delete this section if you do not have any custom stages. See:
     // https://isaacscript.github.io/main/custom-stages
     "customStages": [],
   },

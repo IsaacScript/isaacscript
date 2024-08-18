@@ -1,15 +1,12 @@
+- TRY COMMON INCLUDE PATTERN WITH ${configDir}
+
 - // TODO: Re-enable.
 
 - redo isaacscript-lint / config in separate repo?
   - release new version with flat config
   - GET RID OF ALL: "./**/.*.mjs",
 
-- experiment with adding "scripts/*.ts" in the allowDefaultProject whitelist
-
 - utils.ts - fix TODO comment
-
-- check every include file in tsconfig.json
-  - TRY COMMON INCLUDE PATTERN WITH ${configDir}
 
 - rewrite create docs script to work with latest typedoc-plugin-markdown
 
