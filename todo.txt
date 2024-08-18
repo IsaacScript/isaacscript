@@ -1,3 +1,5 @@
+- check the purpose of __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
+
 !- rewrite create docs script to work with latest typedoc-plugin-markdown
 
 - utils.ts - fix TODO comment

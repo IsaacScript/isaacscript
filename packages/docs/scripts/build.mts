@@ -51,12 +51,12 @@ async function makeITDDocs(repoRoot: string): Promise<void> {
   );
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  await $`tsx ./scripts/fixIsaacTypeScriptDefinitions.mts`;
+  await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacTypeScriptDefinitions.mts`;
 }
 
 async function makeISCDocs(repoRoot: string): Promise<void> {
   const packagePath = path.join(repoRoot, "packages", "isaacscript-common");
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  await $`tsx ./scripts/fixIsaacScriptCommon.mts`;
+  await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacScriptCommon.mts`;
 }

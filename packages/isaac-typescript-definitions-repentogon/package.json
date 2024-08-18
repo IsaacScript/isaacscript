@@ -30,7 +30,6 @@
   ],
   "scripts": {
     "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",
-    "docs": "typedoc",
     "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {

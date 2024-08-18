@@ -10,7 +10,7 @@ In addition to having access to all of the vanilla classes and enums, IsaacScrip
 
 You can explore what `isaacscript-common` offers via the left navigation bar.
 
-If you want to use `isaacscript-common` as a Lua library for your Lua code, see the [using IsaacScript in Lua](../main/isaacscript-in-lua.md) page.
+If you want to use `isaacscript-common` as a Lua library for your Lua code, see the [using IsaacScript in Lua](/main/isaacscript-in-lua) page.
 
 <br />
 
