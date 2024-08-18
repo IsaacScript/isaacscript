@@ -1,8 +1,8 @@
-import { $, $op, $s, buildScript, rm } from "isaacscript-common-node";
+import { $op, $s, buildScript, rm } from "isaacscript-common-node";
 import path from "node:path";
 import { makeECIDocs } from "./docs.mjs";
 
-const DOCS_BUILD_ENABLED = false as boolean;
+const DOCS_BUILD_ENABLED = true as boolean;
 
 const TYPEDOC_PACKAGES = [
   "isaac-typescript-definitions",
@@ -51,12 +51,12 @@ async function makeITDDocs(repoRoot: string): Promise<void> {
   );
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  await $`tsx ./scripts/fixIsaacTypeScriptDefinitions.mts`;
+  // await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacTypeScriptDefinitions.mts`;
 }
 
 async function makeISCDocs(repoRoot: string): Promise<void> {
   const packagePath = path.join(repoRoot, "packages", "isaacscript-common");
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  await $`tsx ./scripts/fixIsaacScriptCommon.mts`;
+  // await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacScriptCommon.mts`;
 }

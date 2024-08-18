@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import { OptionDefaults } from "typedoc";
 
+/** @type {Partial<import('typedoc').TypeDocOptions>} */
 const config = {
   sort: ["source-order"],
   tsconfig: "tsconfig.json",
@@ -19,11 +21,22 @@ const config = {
   ],
   githubPages: false,
 
-  // "typedoc-plugin-markdown" settings
-  hideBreadcrumbs: true,
+  blockTags: [
+    ...OptionDefaults.blockTags,
+    "@allowEmptyVariadic",
+    "@maximum",
+    "@minimum",
+  ],
 };
 
-/** @param {string} packageDirectoryPath The path to the package directory. */
+const configTypeDocPluginMarkdown = {
+  /// hideBreadcrumbs: true,
+};
+
+/**
+ * @param {string} packageDirectoryPath The path to the package directory.
+ * @returns {Partial<import('typedoc').TypeDocOptions>} The generated config.
+ */
 export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
   const out = path.join(import.meta.dirname, "docs", packageName);
@@ -41,6 +54,7 @@ export function getTypeDocConfig(packageDirectoryPath) {
 
   return {
     ...config,
+    ...configTypeDocPluginMarkdown,
     out,
     entryPoints,
   };

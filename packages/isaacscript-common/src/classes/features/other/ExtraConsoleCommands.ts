@@ -24,7 +24,8 @@ declare let __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE:
 
 /**
  * When you enable this feature, many custom commands will be added to the in-game console. See the
- * [dedicated command list](ExtraConsoleCommandsList) for more information about them.
+ * [dedicated command list](/isaacscript-common/features/ExtraConsoleCommandsList) for more
+ * information about them.
  *
  * Note that in order to avoid conflicts, if two or more mods enable this feature, then the first
  * loaded one will control all of the command logic. When this occurs, a global variable of
@@ -241,10 +242,11 @@ export class ExtraConsoleCommands extends Feature {
   /**
    * Helper function to add a custom console command.
    *
-   * The standard library comes with [many existing console commands](ExtraConsoleCommandsList) that
-   * are useful for debugging, but you can also add your own commands that are useful for your
-   * particular mod. It's easier to add commands to the existing command system than to add your own
-   * logic manually to the `EXECUTE_CMD` callback.
+   * The standard library comes with [many existing console
+   * commands](/isaacscript-common/features/ExtraConsoleCommandsList) that are useful for debugging,
+   * but you can also add your own commands that are useful for your particular mod. It's easier to
+   * add commands to the existing command system than to add your own logic manually to the
+   * `EXECUTE_CMD` callback.
    *
    * This function is intended to be called when your mod is first loading.
    *
@@ -290,8 +292,9 @@ export class ExtraConsoleCommands extends Feature {
   /**
    * Helper function to remove a custom console command.
    *
-   * The standard library comes with [many existing console commands](ExtraConsoleCommandsList) that
-   * are useful for debugging. If you want to disable one of them, use this function.
+   * The standard library comes with [many existing console
+   * commands](/isaacscript-common/features/ExtraConsoleCommandsList) that are useful for debugging.
+   * If you want to disable one of them, use this function.
    *
    * This function is intended to be called when your mod is first loading.
    *
@@ -325,9 +328,10 @@ export class ExtraConsoleCommands extends Feature {
   /**
    * Helper function to remove all custom console commands.
    *
-   * The standard library comes with [many existing console commands](ExtraConsoleCommandsList) that
-   * are useful for debugging. If you want to disable all of them after this feature has already
-   * been initialized, use this function.
+   * The standard library comes with [many existing console
+   * commands](/isaacscript-common/features/ExtraConsoleCommandsList) that are useful for debugging.
+   * If you want to disable all of them after this feature has already been initialized, use this
+   * function.
    *
    * In order to use this function, you must upgrade your mod with
    * `ISCFeature.EXTRA_CONSOLE_COMMANDS`.
