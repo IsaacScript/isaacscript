@@ -7434,9 +7434,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell-check-unused-words@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "cspell-check-unused-words@npm:1.2.0"
+"cspell-check-unused-words@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "cspell-check-unused-words@npm:1.2.1"
   dependencies:
     "@commander-js/extra-typings": "npm:^12.1.0"
     chalk: "npm:^5.3.0"
@@ -7445,7 +7445,7 @@ __metadata:
     jsonc-parser: "npm:^3.3.1"
   bin:
     cspell-check-unused-words: dist/main.js
-  checksum: 10c0/2af77ec7e7e5d890d1f8486ed21d9f8a4a72b5023acb42d8d16b1d9dc3ddd903a5d93f8ad2b4ec674cabdf8ed654a56970b8b03077301dd9cec61535424c7824
+  checksum: 10c0/2c460db927f26feccf8668a14f874bcba49e3a0aedcda83735c431bf881be7b1b755699a13097fa94049d2c593b14fdb76009130332b30b2b931c3b42627455d
   languageName: node
   linkType: hard
 
@@ -11290,7 +11290,7 @@ __metadata:
     commander: "npm:^12.1.0"
     confusing-browser-globals: "npm:^1.0.11"
     cspell: "npm:^8.14.1"
-    cspell-check-unused-words: "npm:^1.2.0"
+    cspell-check-unused-words: "npm:^1.2.1"
     diff: "npm:^5.2.0"
     docusaurus-theme-search-typesense: "npm:^0.20.0"
     dotenv: "npm:^16.4.5"

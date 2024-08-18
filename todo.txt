@@ -1,3 +1,9 @@
+- GET RID OF ALL: "./**/.*.mjs",
+
+- experiment with adding "scripts/*.ts" in the allowDefaultProject whitelist
+
+- utils.ts - fix TODO comment
+
 - check every include file in tsconfig.json
   - TRY COMMON INCLUDE PATTERN WITH ${configDir}
 
