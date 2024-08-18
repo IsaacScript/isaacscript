@@ -24,9 +24,9 @@ await buildScript(async ({ packageRoot, outDir }) => {
   // different from the TypeScript source enums. Specifically, the `strict-enums` lint rule will
   // start to complain about e.g. `RoomType` not matching `RoomType`. Thus, we need to copy all of
   // the types into the "dist" directory so that they resolve properly.
-  const indexDTSPath = path.join(packageRoot, outDir, "index.d.ts");
+  const indexDTSPath = path.join(outDir, "index.d.ts");
   prependFile(indexDTSPath, '/// <reference path="./types/index.d.ts" />\n\n');
   const srcPath = path.join(packageRoot, "src", "types");
-  const dstPath = path.join(packageRoot, outDir, "types");
+  const dstPath = path.join(outDir, "types");
   cp(srcPath, dstPath);
 });
