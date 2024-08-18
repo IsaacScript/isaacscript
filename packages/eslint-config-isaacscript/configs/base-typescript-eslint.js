@@ -23,7 +23,17 @@ export const baseTypeScriptESLint = tseslint.config(
         projectService: {
           // We whitelist some specific files that should be linted but should not be included in
           // the compiled output.
-          allowDefaultProject: ["eslint.config.mjs"],
+          allowDefaultProject: [
+            "eslint.config.js",
+            "eslint.config.cjs",
+            "eslint.config.mjs",
+            "prettier.config.js",
+            "prettier.config.cjs",
+            "prettier.config.mjs",
+            "typedoc.config.js",
+            "typedoc.config.cjs",
+            "typedoc.config.mjs",
+          ],
 
           // By default, the whitelisted files above will use the default TypeScript compiler
           // options. However, certain ESLint rules such as

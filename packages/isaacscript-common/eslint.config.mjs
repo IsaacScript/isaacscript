@@ -61,8 +61,4 @@ export default tseslint.config(
       "src/lib/jsonLua.js",
     ],
   },
-
-  {
-    ignores: ["eslint.config.mjs", "typedoc.config.mjs"], // TODO: Remove this when converting `projectService`.
-  },
 );
