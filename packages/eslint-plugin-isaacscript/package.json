@@ -47,7 +47,6 @@
   "dependencies": {
     "@typescript-eslint/type-utils": "^8.1.0",
     "@typescript-eslint/utils": "^8.1.0",
-    "isaacscript-common-ts": "^16.1.0",
     "typescript-eslint": "^8.1.0"
   },
   "peerDependencies": {

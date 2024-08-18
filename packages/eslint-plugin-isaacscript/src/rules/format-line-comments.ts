@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
-import { assertDefined } from "isaacscript-common-ts";
 import { formatText } from "../format.js";
+import { assertDefined } from "../isaacScriptCommon.js";
 import {
   allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,

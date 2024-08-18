@@ -1,5 +1,5 @@
-import { trimPrefix } from "isaacscript-common-ts";
 import { formatText } from "../format.js";
+import { trimPrefix } from "../isaacScriptCommon.js";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc.js";
 import {
   areStringsEqualExcludingTrailingSpaces,

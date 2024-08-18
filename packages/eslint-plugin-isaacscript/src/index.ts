@@ -1,8 +1,8 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import type { ReadonlyRecord } from "isaacscript-common-ts";
 import fs from "node:fs";
 import path from "node:path";
 import { configs } from "./configs.js";
+import type { ReadonlyRecord } from "./isaacScriptCommon.js";
 import { rules } from "./rules.js";
 
 const { name, version } = getPackageJSON();
@@ -18,8 +18,6 @@ const plugin = {
 
 addPluginToConfigs(configs);
 
-// ESLint plugins must have a default export.
-// eslint-disable-next-line import-x/no-default-export
 export default plugin;
 
 /**

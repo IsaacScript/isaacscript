@@ -1,19 +1,12 @@
-// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
-// by VSCode.
+// This is a tsconfig.json intended to be used by scripts in the monorepo.
 {
   "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
 
   "extends": [
-    "../isaacscript-tsconfig/tsconfig.base.json",
-
-    // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
-    "@docusaurus/tsconfig",
+    "../../isaacscript-tsconfig/tsconfig.base.json",
+    "../../isaacscript-tsconfig/tsconfig.node.json",
+    "../../../tsconfig.monorepo.json",
   ],
-
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    "outDir": "build",
-  },
 
   "include": [
     "./**/*.js",
@@ -33,6 +26,4 @@
     "./**/*.tsx",
     "./**/.*.tsx",
   ],
-
-  "exclude": ["build", "scripts"],
 }

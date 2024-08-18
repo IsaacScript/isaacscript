@@ -31,7 +31,7 @@
     "README.md"
   ],
   "scripts": {
-    "lint": "tsx ./scripts/lint.mts"
+    "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
     "@eslint/compat": "^1.1.1",

@@ -1,10 +1,11 @@
+- check every include file in tsconfig.json
+  - TRY COMMON INCLUDE PATTERN WITH ${configDir}
+
 - rewrite create docs script to work with latest typedoc-plugin-markdown
 
 - in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
 
-- add "// @ts-check" to all eslint configs in the monorepo + the template
-  - actually remove ts check and use checkJs
-  - release tsconfig in dev after this and everything else is sorted out
+- release tsconfig in dev after this and everything else is sorted out
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
@@ -32,6 +33,13 @@
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
   - make sure that isaacscript-common still works through link in dev
+
+- test rule import-x/no-default-export once this issue is closed and released:
+  https://github.com/un-ts/eslint-plugin-import-x/issues/121
+  (currently the rule is not working with the flat config, but I suspect that the latest release
+  might fix this)
+  this issue is also relevant:
+  https://github.com/un-ts/eslint-plugin-import-x/issues/29
 
 - lint projects:
   - fix returning `Promise<string[]>`

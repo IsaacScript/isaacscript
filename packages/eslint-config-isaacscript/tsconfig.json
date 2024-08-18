@@ -7,28 +7,5 @@
     "../../tsconfig.monorepo.json",
   ],
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
-  },
-
-  "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
+  "include": ["./**/*.js"],
 }

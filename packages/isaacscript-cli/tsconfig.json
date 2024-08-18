@@ -16,24 +16,5 @@
     "resolveJsonModule": true,
   },
 
-  "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
-
-  "exclude": ["dist", "file-templates", "plugins", "scripts"],
+  "include": ["./src/**/*.ts"],
 }
