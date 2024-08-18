@@ -1,5 +1,3 @@
-- TRY COMMON INCLUDE PATTERN WITH ${configDir}
-
 - // TODO: Re-enable.
 
 - redo isaacscript-lint / config in separate repo?
@@ -39,7 +37,7 @@
   - difficult, do it when I have the courage
   - make sure that isaacscript-common still works through link in dev
 
-- test rule import-x/no-default-export once this issue is closed and released:
+- test rule "import-x/no-default-export" once this issue is closed and released:
   https://github.com/un-ts/eslint-plugin-import-x/issues/121
   (currently the rule is not working with the flat config, but I suspect that the latest release
   might fix this)
