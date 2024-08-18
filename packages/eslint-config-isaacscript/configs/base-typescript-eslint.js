@@ -20,7 +20,19 @@ export const baseTypeScriptESLint = tseslint.config(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: true,
+        projectService: {
+          // We whitelist some specific files that should be linted but should not be included in
+          // the compiled output.
+          allowDefaultProject: ["eslint.config.mjs"],
+
+          // By default, the whitelisted files above will use the default TypeScript compiler
+          // options. However, certain ESLint rules such as
+          // "@typescript-eslint/no-unnecessary-condition" and
+          // "@typescript-eslint/prefer-nullish-coalescing" require "strictNullChecks", which is not
+          // a default option. Thus, we need to specify that whitelisted files should use the
+          // closest "tsconfig.json" file.
+          defaultProject: "tsconfig.json",
+        },
       },
     },
 
