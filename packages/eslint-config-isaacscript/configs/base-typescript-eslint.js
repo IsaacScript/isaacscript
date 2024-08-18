@@ -46,7 +46,7 @@ export const baseTypeScriptESLint = tseslint.config(
           // "@typescript-eslint/no-unnecessary-condition" and
           // "@typescript-eslint/prefer-nullish-coalescing" require "strictNullChecks", which is not
           // a default option. Thus, we need to specify that whitelisted files should use the
-          // closest "tsconfig.json" file.
+          // "tsconfig.json" file that is beside the file in the same directory.
           defaultProject: "tsconfig.json",
         },
       },
