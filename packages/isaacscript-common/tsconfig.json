@@ -26,6 +26,11 @@
     "module": "CommonJS",
   },
 
+  // Even though this default "include" path is specified in the base config, we must explicitly
+  // specify it again here because `api-extractor` parses this file directly to find an include path
+  // and will error otherwise.
+  "include": ["./src/**/*.ts"],
+
   // TypeScriptToLua settings
   "tstl": {
     "buildMode": "library",
