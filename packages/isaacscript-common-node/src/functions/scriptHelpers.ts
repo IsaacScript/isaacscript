@@ -114,7 +114,7 @@ async function getTSConfigJSONOutDir(
   packageRoot: string,
 ): Promise<string | undefined> {
   const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
-  const parseResult = await tsconfck.parse(tsConfigJSONPath);
+  const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
 
   const tsconfig = parseResult.tsconfig as unknown;
   if (!isObject(tsconfig)) {
