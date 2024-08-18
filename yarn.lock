@@ -11791,6 +11791,7 @@ __metadata:
     syncpack: "npm:^12.4.0"
     ts-json-schema-generator: "npm:^2.3.0"
     ts-prune-2: "npm:^0.10.7"
+    tsconfck: "npm:^3.1.1"
     tsconfig-paths: "npm:^4.2.0"
     tsx: "npm:^4.17.0"
     typedoc: "npm:^0.26.5"
@@ -18577,6 +18578,20 @@ __metadata:
   version: 9.6.0
   resolution: "ts-toolbelt@npm:9.6.0"
   checksum: 10c0/838f9a2f0fe881d5065257a23b402c41315b33ff987b73db3e2b39fcb70640c4c7220e1ef118ed5676763543724fdbf4eda7b0e2c17acb667ed1401336af9f8c
+  languageName: node
+  linkType: hard
+
+"tsconfck@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "tsconfck@npm:3.1.1"
+  peerDependencies:
+    typescript: ^5.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  bin:
+    tsconfck: bin/tsconfck.js
+  checksum: 10c0/e133eb308ba37e8db8dbac1905bddaaf4a62f0e01aa88143e19867e274a877b86b35cf69c9a0172ca3e7d1a4bb32400381ac7f7a1429e34250a8d7ae55aee3e7
   languageName: node
   linkType: hard
 
