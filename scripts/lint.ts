@@ -8,7 +8,7 @@ await lintScript(async () => {
     $`prettier --log-level=warn --check .`,
 
     // Type-check the code using the TypeScript compiler.
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
+    $`tsc --noEmit`,
 
     // Use ESLint to lint the TypeScript.
     // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
