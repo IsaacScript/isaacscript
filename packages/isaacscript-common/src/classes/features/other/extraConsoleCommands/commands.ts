@@ -16,8 +16,8 @@ eslint "sort-exports/sort-exports": [
  *
  * This is a list of custom console commands that are included with the standard library. By
  * default, they will not be enabled. You can enable them by upgrading your mod with
- * `ISCFeature.EXTRA_CONSOLE_COMMANDS`. (Also see the [Extra Console Commands](ExtraConsoleCommands)
- * feature documentation.)
+ * `ISCFeature.EXTRA_CONSOLE_COMMANDS`. (Also see the [Extra Console
+ * Commands](/isaacscript-common/features/ExtraConsoleCommands) feature documentation.)
  *
  * As a quality of life feature, you do not have to match the casing of the command. For example,
  * you can type the "addCharges" command as "addcharges", and it will still work the same.
