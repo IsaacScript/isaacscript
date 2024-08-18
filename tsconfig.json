@@ -8,5 +8,5 @@
     "./tsconfig.monorepo.json",
   ],
 
-  "include": ["./scripts/*.ts", "*.mjs"],
+  "include": ["scripts"],
 }
