@@ -8,32 +8,6 @@
     "./tsconfig.monorepo.json",
   ],
 
-  "compilerOptions": {
-    "checkJs": true, // TODO: move to base config
-  },
-
-  // We want to lint every file in the repository. Two entries for each file extension are needed
-  // because TypeScript will exclude files that begin with a period from an asterisk glob by
-  // default.
-  "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
-
   // Needed to avoid spurious errors in VSCode when having scripts open (due to the
   // "typescript.tsserver.experimental.enableProjectDiagnostics" setting).
   "exclude": ["packages"],

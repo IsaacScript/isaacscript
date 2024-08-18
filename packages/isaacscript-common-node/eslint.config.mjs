@@ -29,8 +29,4 @@ export default tseslint.config(
       ],
     },
   },
-
-  {
-    ignores: ["eslint.config.mjs"], // TODO: Remove this when converting `projectService`.
-  },
 );

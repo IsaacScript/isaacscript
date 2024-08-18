@@ -55,8 +55,4 @@ export default tseslint.config(
       "@typescript-eslint/no-redeclare": "off",
     },
   },
-
-  {
-    ignores: ["eslint.config.mjs", "typedoc.config.mjs"], // TODO: Remove this when converting `projectService`.
-  },
 );
