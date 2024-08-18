@@ -1,7 +1,5 @@
 - rewrite create docs script to work with latest typedoc-plugin-markdown
 
-- submit bug report: https://github.com/dominikg/tsconfck/discussions/185#discussioncomment-10318566
-
 - in eslint plugin, now a type error in the script folder won't be found... how can i work around this?
 
 - add "// @ts-check" to all eslint configs in the monorepo + the template
