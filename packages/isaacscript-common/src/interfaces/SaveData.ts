@@ -104,6 +104,7 @@ type SerializableInsideArrayOrMap<T> =
                     : // Disallow functions.
                       // (We can only disallow functions when inside of containers, because we want
                       // to allow classes with methods attached to normal objects.)
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
                       T extends Function
                       ? FunctionIsNotSerializable
                       : // Allow any other object, as long as the values are themselves serializable.
