@@ -21,12 +21,18 @@ export const baseTypeScriptESLint = tseslint.config(
       parser: tseslint.parser,
       parserOptions: {
         projectService: {
-          // We whitelist some specific files that should be linted but should not be included in
-          // the compiled output.
+          // We whitelist some specific configuration files that downstream users may have in their
+          // projects. These files should be linted but should not be included in compiled output.
           allowDefaultProject: [
+            "babel.config.js",
+            "babel.config.cjs",
+            "babel.config.mjs",
             "eslint.config.js",
             "eslint.config.cjs",
             "eslint.config.mjs",
+            "jest.config.js",
+            "jest.config.cjs",
+            "jest.config.mjs",
             "prettier.config.js",
             "prettier.config.cjs",
             "prettier.config.mjs",
@@ -40,7 +46,7 @@ export const baseTypeScriptESLint = tseslint.config(
           // "@typescript-eslint/no-unnecessary-condition" and
           // "@typescript-eslint/prefer-nullish-coalescing" require "strictNullChecks", which is not
           // a default option. Thus, we need to specify that whitelisted files should use the
-          // closest "tsconfig.json" file.
+          // "tsconfig.json" file that is beside the file in the same directory.
           defaultProject: "tsconfig.json",
         },
       },

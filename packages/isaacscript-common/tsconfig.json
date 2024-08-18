@@ -26,26 +26,7 @@
     "module": "CommonJS",
   },
 
-  "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
-
-  "exclude": ["dist", "scripts"],
+  "include": ["./src/**/*.ts"],
 
   // TypeScriptToLua settings
   "tstl": {
