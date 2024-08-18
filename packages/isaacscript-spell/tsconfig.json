@@ -1,5 +1,5 @@
-// We must have a "tsconfig.json" file next to the "eslint.config.mjs" file, which is why this file
-// exists here (instead of being in the "scripts" directory).
+// We must have a "tsconfig.json" file next to the "eslint.config.mjs" file. (Otherwise, we would
+// put it in the "scripts" directory like we do elsewhere in this monorepo.)
 {
   "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
 
