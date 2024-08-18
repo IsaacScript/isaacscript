@@ -21,7 +21,6 @@ const config = {
 
   // "typedoc-plugin-markdown" settings
   hideBreadcrumbs: true,
-  hideInPageTOC: true,
 };
 
 /** @param {string} packageDirectoryPath The path to the package directory. */

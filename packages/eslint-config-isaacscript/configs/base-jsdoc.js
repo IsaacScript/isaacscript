@@ -96,6 +96,12 @@ export const baseJSDoc = tseslint.config(
 
       "jsdoc/informative-docs": "warn",
 
+      /**
+       * Disabled since it is [currently
+       * bugged](https://github.com/gajus/eslint-plugin-jsdoc/issues/1296).
+       */
+      "jsdoc/lines-before-block": "off",
+
       /** Superseded by the `isaacscript/jsdoc-full-sentences` rule. */
       "jsdoc/match-description": "off",
 

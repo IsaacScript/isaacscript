@@ -184,6 +184,10 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-non-null-assertion": "warn",
       "@typescript-eslint/no-redundant-type-constituents": "warn",
       "@typescript-eslint/no-require-imports": "warn",
+
+      /** Disabled since this rule is intended to be used for project-specific types. */
+      "@typescript-eslint/no-restricted-types": "off",
+
       "@typescript-eslint/no-this-alias": "warn",
 
       /** Disabled because this rule is deprecated. */
@@ -203,11 +207,13 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-unsafe-call": "warn",
       "@typescript-eslint/no-unsafe-declaration-merging": "warn",
       "@typescript-eslint/no-unsafe-enum-comparison": "warn",
+      "@typescript-eslint/no-unsafe-function-type": "warn",
       "@typescript-eslint/no-unsafe-member-access": "warn",
       "@typescript-eslint/no-unsafe-return": "warn",
       "@typescript-eslint/no-unsafe-unary-minus": "warn",
       "@typescript-eslint/no-useless-empty-export": "warn",
       "@typescript-eslint/no-var-requires": "warn",
+      "@typescript-eslint/no-wrapper-object-types": "warn",
       "@typescript-eslint/non-nullable-type-assertion-style": "warn",
       "@typescript-eslint/only-throw-error": "warn",
       "@typescript-eslint/parameter-properties": "warn",
