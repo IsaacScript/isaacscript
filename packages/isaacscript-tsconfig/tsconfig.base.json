@@ -44,8 +44,8 @@
     // For pure TypeScript projects, having this set to true is unnecessary.
     "checkJs": false,
 
-    // We standardize the `outDir`.
-    // TODO: Uncomment when TypeScript 5.5 is released.
-    /// "outDir": "${configDir}/dist",
+    // We standardize the destination for compiled output to be the "dist" directory, since this is
+    // idiomatic in the TypeScript ecosystem.
+    "outDir": "${configDir}/dist",
   },
 }
