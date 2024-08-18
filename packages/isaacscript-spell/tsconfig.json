@@ -7,11 +7,6 @@
     "../../tsconfig.monorepo.json",
   ],
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    "outDir": "dist",
-  },
-
   "include": [
     "./**/*.js",
     "./**/.*.js",

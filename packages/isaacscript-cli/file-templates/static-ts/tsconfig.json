@@ -11,11 +11,6 @@
     "isaacscript-tsconfig/tsconfig.node.json",
   ],
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    "outDir": "dist",
-  },
-
   // A list of the TypeScript files to compile.
   "include": ["./src/**/*.ts"],
 }

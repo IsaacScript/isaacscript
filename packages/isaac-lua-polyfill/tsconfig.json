@@ -9,9 +9,8 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "dist",
-
-    // This library intentionally does not create ".d.ts" files.
+    // This library intentionally does not create ".d.ts" files. (Everything in this library
+    // redeclares existing globals.)
 
     // We need the Isaac definitions so that we know what `BitSet128` is.
     "types": ["isaac-typescript-definitions"],

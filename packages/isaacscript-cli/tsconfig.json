@@ -9,8 +9,6 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "dist",
-
     // Needed in order to make "source-map-support" work properly.
     "sourceMap": true,
 
