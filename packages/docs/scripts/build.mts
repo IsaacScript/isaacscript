@@ -2,7 +2,7 @@ import { $, $op, $s, buildScript, rm } from "isaacscript-common-node";
 import path from "node:path";
 import { makeECIDocs } from "./docs.mjs";
 
-const DOCS_BUILD_ENABLED = true as boolean;
+const DOCS_BUILD_ENABLED = false as boolean;
 
 const TYPEDOC_PACKAGES = [
   "isaac-typescript-definitions",
