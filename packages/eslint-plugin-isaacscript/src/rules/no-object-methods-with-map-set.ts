@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { capitalizeFirstLetter, trimPrefix } from "isaacscript-common-ts";
+import { capitalizeFirstLetter, trimPrefix } from "../isaacScriptCommon.js";
 import { getTypeName } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 

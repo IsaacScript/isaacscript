@@ -12,28 +12,7 @@
     // Needed since this is a library.
     "declaration": true,
     "declarationMap": true,
-
-    "checkJs": true, // TODO: move to base config
   },
 
-  "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
-  ],
-
-  "exclude": ["dist", "scripts", "tests", "eslint.config.mjs"],
+  "include": ["./src/**/*.ts"],
 }

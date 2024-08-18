@@ -4,7 +4,7 @@ import { isObject } from "isaacscript-common-ts";
 import path from "node:path";
 import * as tsconfck from "tsconfck";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { mv, rm } from "./file.js";
+import { isFile, mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { fatalError, getArgs } from "./utils.js";
 
@@ -114,6 +114,10 @@ async function getTSConfigJSONOutDir(
   packageRoot: string,
 ): Promise<string | undefined> {
   const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
+  if (!isFile(tsConfigJSONPath)) {
+    return undefined;
+  }
+
   const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
 
   const tsconfig = parseResult.tsconfig as unknown;

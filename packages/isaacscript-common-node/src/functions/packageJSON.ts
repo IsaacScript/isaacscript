@@ -1,8 +1,6 @@
-import chalk from "chalk";
 import type { ReadonlyRecord } from "isaacscript-common-ts";
 import { isObject, setAdd } from "isaacscript-common-ts";
 import { getFilePath, readFile, writeFile } from "./file.js";
-import { fatalError } from "./utils.js";
 
 type PackageJSONDependencyFieldName =
   | "dependencies"
@@ -26,10 +24,8 @@ export function getPackageJSON(
   const packageJSONContents = readFile(filePath);
   const packageJSON = JSON.parse(packageJSONContents) as unknown;
   if (!isObject(packageJSON)) {
-    fatalError(
-      `Failed to parse a "${chalk.green(
-        PACKAGE_JSON,
-      )}" file at the following path: ${chalk.green(filePath)}`,
+    throw new Error(
+      `Failed to parse a "${PACKAGE_JSON}" file at the following path: ${filePath}`,
     );
   }
 
@@ -69,30 +65,22 @@ export function getPackageJSONDependencies(
 
   if (!isObject(field)) {
     if (typeof filePathOrDirPathOrRecord === "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(
-          dependencyFieldName,
-        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
-          filePathOrDirPathOrRecord,
-        )}`,
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "${dependencyFieldName}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
       );
     }
 
-    fatalError(
-      `Failed to parse the "${chalk.green(
-        dependencyFieldName,
-      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+    throw new Error(
+      `Failed to parse the "${dependencyFieldName}" field in a "${PACKAGE_JSON}" file.`,
     );
   }
 
   for (const [key, value] of Object.entries(field)) {
     if (typeof value !== "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(
-          dependencyFieldName,
-        )}" field in a "${chalk.green(
-          PACKAGE_JSON,
-        )}" file since the "${chalk.green(key)}" entry was not a string.`,
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "${dependencyFieldName}" field in a "${PACKAGE_JSON}" file since the "${key}" entry was not a string.`,
       );
     }
   }
@@ -132,19 +120,14 @@ export function getPackageJSONField(
   // functions should be used.
   if (typeof field !== "string") {
     if (typeof filePathOrDirPathOrRecord === "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(
-          fieldName,
-        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
-          filePathOrDirPathOrRecord,
-        )}`,
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "${fieldName}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
       );
     }
 
-    fatalError(
-      `Failed to parse the "${chalk.green(
-        fieldName,
-      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+    throw new Error(
+      `Failed to parse the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
     );
   }
 
@@ -173,10 +156,8 @@ export function getPackageJSONFieldMandatory(
 ): string {
   const field = getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
   if (field === undefined) {
-    fatalError(
-      `Failed to find the "${chalk.green(fieldName)}" field in a "${chalk.green(
-        PACKAGE_JSON,
-      )}" file.`,
+    throw new Error(
+      `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
     );
   }
 
@@ -206,10 +187,8 @@ export function getPackageJSONFieldsMandatory<T extends string>(
   for (const fieldName of fieldNames) {
     const field = getPackageJSONField(packageJSON, fieldName);
     if (field === undefined) {
-      fatalError(
-        `Failed to find the "${chalk.green(
-          fieldName,
-        )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+      throw new Error(
+        `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
       );
     }
 
@@ -247,28 +226,22 @@ export function getPackageJSONScripts(
 
   if (!isObject(scripts)) {
     if (typeof filePathOrDirPathOrRecord === "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(
-          "scripts",
-        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
-          filePathOrDirPathOrRecord,
-        )}`,
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "scripts" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
       );
     }
 
-    fatalError(
-      `Failed to parse the "${chalk.green(
-        "scripts",
-      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+    throw new Error(
+      `Failed to parse the "scripts" field in a "${PACKAGE_JSON}" file.`,
     );
   }
 
   for (const [key, value] of Object.entries(scripts)) {
     if (typeof value !== "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(key)}" script in the "${chalk.green(
-          PACKAGE_JSON,
-        )}" file.`,
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "${key}" script in the "${PACKAGE_JSON}" file.`,
       );
     }
   }
@@ -299,19 +272,14 @@ export function getPackageJSONVersion(
 
   if (version === undefined) {
     if (typeof filePathOrDirPathOrRecord === "string") {
-      fatalError(
-        `Failed to parse the "${chalk.green(
-          "version",
-        )}" field in a "${chalk.green(PACKAGE_JSON)}" file from: ${chalk.green(
-          filePathOrDirPathOrRecord,
-        )}`,
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "version" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
       );
     }
 
-    fatalError(
-      `Failed to parse the "${chalk.green(
-        "version",
-      )}" field in a "${chalk.green(PACKAGE_JSON)}" file.`,
+    throw new Error(
+      `Failed to parse the "version" field in a "${PACKAGE_JSON}" file.`,
     );
   }
 

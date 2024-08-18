@@ -5,33 +5,23 @@
 
   "extends": [
     "../isaacscript-tsconfig/tsconfig.base.json",
+
     // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
     "@docusaurus/tsconfig",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "build",
+    // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
+    "lib": ["DOM", "ES2021"],
   },
 
   "include": [
-    "./**/*.js",
-    "./**/.*.js",
-    "./**/*.cjs",
-    "./**/.*.cjs",
-    "./**/*.mjs",
-    "./**/.*.mjs",
-    "./**/*.jsx",
-    "./**/.*.jsx",
-    "./**/*.ts",
-    "./**/.*.ts",
-    "./**/*.cts",
-    "./**/.*.cts",
-    "./**/*.mts",
-    "./**/.*.mts",
-    "./**/*.tsx",
-    "./**/.*.tsx",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./static/js/*.js",
+    "docusaurus.config.ts",
+    "sidebars.ts",
+    "typedoc.config.base.mjs",
   ],
-
-  "exclude": ["build", "scripts"],
 }

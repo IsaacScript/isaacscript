@@ -1,9 +1,7 @@
-import chalk from "chalk";
 import path from "node:path";
 import { PACKAGE_MANAGER_VALUES } from "../cachedEnumValues.js";
 import { PackageManager } from "../enums/PackageManager.js";
 import { isFile } from "./file.js";
-import { fatalError } from "./utils.js";
 
 const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
   [PackageManager.npm]: "package-lock.json",
@@ -89,21 +87,17 @@ export function getPackageManagerForProject(
 ): PackageManager {
   const packageManagers = getPackageManagersForProject(packageRoot);
   if (packageManagers.length > 1) {
-    fatalError(
+    throw new Error(
       `${
         packageManagers.length
-      } different package manager lock files exist at "${chalk.green(
-        packageRoot,
-      )}". You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
+      } different package manager lock files exist at "${packageRoot}". You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
     );
   }
 
   const packageManager = packageManagers[0];
   if (packageManager === undefined) {
-    fatalError(
-      `No package manager lock files exist at "${chalk.green(
-        packageRoot,
-      )}". You should install dependencies using the package manager of your choice so that this program can correctly detect your package manager.`,
+    throw new Error(
+      `No package manager lock files exist at "${packageRoot}". You should install dependencies using the package manager of your choice so that this program can correctly detect your package manager.`,
     );
   }
 
