@@ -248,7 +248,7 @@ function addCallback(
   mod: ModUpgraded,
   modCallback: ModCallback | ModCallbackCustom,
   priority: CallbackPriority | int,
-  callback: Function,
+  callback: Function, // eslint-disable-line @typescript-eslint/no-unsafe-function-type
   parameters: readonly unknown[],
   vanilla: boolean,
 ) {
