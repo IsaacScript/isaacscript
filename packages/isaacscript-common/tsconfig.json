@@ -8,8 +8,6 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "outDir": "dist",
-
     // Needed so that the output goes to "./dist/index.lua" instead of "./dist/src/index.lua".
     "rootDir": "src",
 
