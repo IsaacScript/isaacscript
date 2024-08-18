@@ -1,10 +1,11 @@
 /* eslint-disable sort-exports/sort-exports */
 
+import { isObject } from "isaacscript-common-ts";
 import path from "node:path";
+import * as tsconfck from "tsconfck";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
-import { getTSConfigJSONOutDir } from "./tsconfigJSON.js";
 import { fatalError, getArgs } from "./utils.js";
 
 type ScriptCallback = (
@@ -15,12 +16,15 @@ interface ScriptCallbackData {
   /** The full path to the directory where the closest "package.json" is located. */
   readonly packageRoot: string;
 
-  /** Equal to the "outDir" setting in the project's "tsconfig.json", if any. */
+  /**
+   * The full path to the directory where the compiled output directory, according to the project's
+   * "tsconfig.json" file. This will be undefined if there is no "outDir" specified.
+   */
   readonly outDir?: string;
 }
 
 /**
- * Removes the "outdir" directory specified in the "tsconfig.json" file (if it exists), then runs
+ * Removes the "outDir" directory specified in the "tsconfig.json" file (if it exists), then runs
  * the provided logic.
  *
  * For more information, see the documentation for the `script` helper function.
@@ -92,10 +96,9 @@ export async function script(
     );
   }
 
-  const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
-  const outDir = getTSConfigJSONOutDir(tsConfigJSONPath);
-
   process.chdir(packageRoot);
+
+  const outDir = await getTSConfigJSONOutDir(packageRoot);
 
   const startTime = Date.now();
   const data = { packageRoot, outDir };
@@ -105,6 +108,30 @@ export async function script(
     const packageName = path.basename(packageRoot);
     printSuccess(startTime, verb, packageName);
   }
+}
+
+async function getTSConfigJSONOutDir(
+  packageRoot: string,
+): Promise<string | undefined> {
+  const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
+  const parseResult = await tsconfck.parse(tsConfigJSONPath);
+
+  const tsconfig = parseResult.tsconfig as unknown;
+  if (!isObject(tsconfig)) {
+    return undefined;
+  }
+
+  const { compilerOptions } = tsconfig;
+  if (!isObject(compilerOptions)) {
+    return undefined;
+  }
+
+  const { outDir } = compilerOptions;
+  if (typeof outDir !== "string") {
+    return undefined;
+  }
+
+  return outDir;
 }
 
 /**
@@ -150,14 +177,13 @@ export function fixMonorepoPackageDistDirectory(
   packageRoot: string,
   outDir: string,
 ): void {
-  const outPath = path.join(packageRoot, outDir);
   const projectName = path.basename(packageRoot);
-  const realOutPath = path.join(outPath, projectName, "src");
+  const realOutDir = path.join(outDir, projectName, "src");
   const tempPath = path.join(packageRoot, projectName);
   rm(tempPath);
-  mv(realOutPath, tempPath);
-  rm(outPath);
-  mv(tempPath, outPath);
+  mv(realOutDir, tempPath);
+  rm(outDir);
+  mv(tempPath, outDir);
 }
 
 export async function sleep(seconds: number): Promise<unknown> {
