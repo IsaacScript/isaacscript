@@ -16,6 +16,4 @@
     // Needed since this library uses the `String.replaceAll` method.
     "target": "ES2021",
   },
-
-  "include": ["./src/**/*.ts"],
 }
