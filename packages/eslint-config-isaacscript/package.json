@@ -44,6 +44,6 @@
     "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-unicorn": "^55.0.0",
-    "typescript-eslint": "^8.1.0"
+    "typescript-eslint": "^8.2.0"
   }
 }

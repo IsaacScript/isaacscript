@@ -26,12 +26,11 @@ import { fatalError } from "./utils.js";
  * Under the hood, this uses the `dotenv` library to get the environment variables from the ".env"
  * file.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getEnv<
   A extends z.ZodRawShape,
   B extends z.UnknownKeysParam,
   C extends z.ZodTypeAny,
->(envSchema: z.ZodObject<A, B, C>) {
+>(envSchema: z.ZodObject<A, B, C>): ReturnType<typeof envSchema.parse> {
   const fromDir = dirOfCaller();
   const packageRoot = findPackageRoot(fromDir);
   if (packageRoot === null) {
