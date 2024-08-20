@@ -235,6 +235,7 @@ function getNumBossSegments(
 
     // 69
     case EntityType.LOKI: {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       return variant === LokiVariant.LOKII ? 2 : 1;
     }
 

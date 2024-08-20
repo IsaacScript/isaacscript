@@ -425,6 +425,7 @@ export function isActiveEnemy(entity: Entity): boolean {
 
       // 912
       case EntityType.MOTHER: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
         if (entity.Variant === MotherVariant.MOTHER_1) {
           const npc = entity.ToNPC();
           if (npc !== undefined && npc.State === NPCState.SPECIAL) {

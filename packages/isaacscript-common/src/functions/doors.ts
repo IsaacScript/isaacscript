@@ -377,6 +377,7 @@ export function isAngelRoomDoor(door: GridEntityDoor): boolean {
  * Room.)
  */
 export function isBlueWombDoor(door: GridEntityDoor): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return door.TargetRoomIndex === GridRoom.BLUE_WOMB;
 }
 
@@ -385,6 +386,7 @@ export function isBlueWombDoor(door: GridEntityDoor): boolean {
  * vanilla, the door will only appear in the Boss Room of the sixth floor.)
  */
 export function isBossRushDoor(door: GridEntityDoor): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return door.TargetRoomIndex === GridRoom.BOSS_RUSH;
 }
 
@@ -493,6 +495,7 @@ export function isHiddenSecretRoomDoor(door: GridEntityDoor): boolean {
  * (In vanilla, the door will only appear in the starting room of The Chest / Dark Room.)
  */
 export function isMegaSatanDoor(door: GridEntityDoor): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return door.TargetRoomIndex === GridRoom.MEGA_SATAN;
 }
 
@@ -501,6 +504,7 @@ export function isMegaSatanDoor(door: GridEntityDoor): boolean {
  * you to the Repentance floor.
  */
 export function isRepentanceDoor(door: GridEntityDoor): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return door.TargetRoomIndex === GridRoom.SECRET_EXIT;
 }
 
@@ -525,6 +529,7 @@ export function isSecretRoomDoor(door: GridEntityDoor): boolean {
  * contains the portal to The Void. (In vanilla, the door will only appear in the Hush Boss Room.)
  */
 export function isVoidDoor(door: GridEntityDoor): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return door.TargetRoomIndex === GridRoom.VOID;
 }
 

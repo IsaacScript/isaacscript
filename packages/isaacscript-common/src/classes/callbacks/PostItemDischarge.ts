@@ -83,6 +83,7 @@ export class PostItemDischarge extends CustomCallback<T> {
     npc: EntityNPC,
     collider: Entity,
   ): boolean | undefined => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (npc.Variant === SuckerVariant.BULB) {
       return this.preNPCCollisionBulb(npc, collider);
     }

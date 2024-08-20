@@ -132,6 +132,7 @@ export function isDaddyLongLegsChildStompEntity(npc: EntityNPC): boolean {
 export function isDyingDump(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.DUMP &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     npc.Variant === DumpVariant.DUMP &&
     npc.State === NPCState.SPECIAL
   );
@@ -145,6 +146,7 @@ export function isDyingDump(npc: EntityNPC): boolean {
 export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.HOPPER &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     npc.Variant === HopperVariant.EGGY &&
     npc.State === NPCState.SUICIDE &&
     npc.StateFrame >= EGGY_STATE_FRAME_OF_FINAL_SPIDER
@@ -160,6 +162,7 @@ export function isDyingEggyWithNoSpidersLeft(npc: EntityNPC): boolean {
 export function isRaglingDeathPatch(npc: EntityNPC): boolean {
   return (
     npc.Type === EntityType.RAGLING &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     npc.Variant === RaglingVariant.RAG_MANS_RAGLING &&
     // They go to `STATE_SPECIAL` when they are patches on the ground.
     npc.State === NPCState.SPECIAL
