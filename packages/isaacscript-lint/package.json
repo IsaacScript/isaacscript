@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "@prettier/plugin-xml": "^3.4.1",
-    "cspell": "^8.14.1",
+    "cspell": "^8.14.2",
     "cspell-check-unused-words": "^1.2.1",
     "eslint": "^9.9.0",
     "eslint-config-isaacscript": "^4.20.0",
