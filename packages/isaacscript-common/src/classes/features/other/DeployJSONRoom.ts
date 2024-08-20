@@ -162,6 +162,7 @@ export class DeployJSONRoom extends Feature {
     let entity: Entity;
     if (
       entityType === EntityType.PICKUP &&
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       variant === PickupVariant.COLLECTIBLE
     ) {
       const collectibleType = asCollectibleType(subType);
@@ -174,6 +175,7 @@ export class DeployJSONRoom extends Feature {
     // For some reason, Pitfalls do not spawn with the correct collision classes.
     if (
       entityType === EntityType.PITFALL &&
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       variant === PitfallVariant.PITFALL
     ) {
       entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;

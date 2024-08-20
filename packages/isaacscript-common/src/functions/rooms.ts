@@ -600,6 +600,7 @@ export function isAllRoomsClear(
 export function isAngelShop(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.ANGEL &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === AngelRoomSubType.SHOP
   );
 }
@@ -615,6 +616,7 @@ export function isAngelShop(roomData: RoomConfig): boolean {
 export function isBeastRoom(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.DUNGEON &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === DungeonSubType.BEAST_ROOM
   );
 }
@@ -635,6 +637,7 @@ export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
   return (
     roomData.Type === RoomType.BOSS &&
     roomData.StageID === StageID.SPECIAL_ROOMS &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === bossID
   );
 }
@@ -647,6 +650,7 @@ export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
 export function isCrawlSpace(roomData: RoomConfig): boolean {
   return (
     roomData.Type === RoomType.DUNGEON &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === DungeonSubType.NORMAL
   );
 }
@@ -669,7 +673,9 @@ export function isCrawlSpaceWithBlackMarketEntrance(
 export function isDeathCertificateArea(roomData: RoomConfig): boolean {
   return (
     roomData.StageID === StageID.HOME &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     (roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
   );
 }
@@ -704,6 +710,7 @@ export function isDogmaRoom(roomData: RoomConfig): boolean {
     roomData.StageID === StageID.HOME &&
     roomData.Type === RoomType.DEFAULT &&
     roomData.Variant === 1000 &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === HomeRoomSubType.LIVING_ROOM
   );
 }
@@ -729,6 +736,7 @@ export function isDoubleTrouble(roomData: RoomConfig): boolean {
  * Helper function to determine if the index of the provided room is equal to `GridRoom.GENESIS`.
  */
 export function isGenesisRoom(roomGridIndex: int): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return roomGridIndex === GridRoom.GENESIS;
 }
 
@@ -741,7 +749,9 @@ export function isGenesisRoom(roomGridIndex: int): boolean {
 export function isHomeCloset(roomData: RoomConfig): boolean {
   return (
     roomData.StageID === StageID.HOME &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     (roomData.Subtype === HomeRoomSubType.CLOSET_LEFT ||
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       roomData.Subtype === HomeRoomSubType.CLOSET_RIGHT)
   );
 }
@@ -755,6 +765,7 @@ export function isLRoom(roomData: RoomConfig): boolean {
  * Helper function to determine if the index of the provided room is equal to `GridRoom.MEGA_SATAN`.
  */
 export function isMegaSatanRoom(roomGridIndex: int): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return roomGridIndex === GridRoom.MEGA_SATAN;
 }
 
@@ -782,6 +793,7 @@ export function isMinibossRoomOf(
   return (
     roomData.Type === RoomType.MINI_BOSS &&
     roomData.StageID === StageID.SPECIAL_ROOMS &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === minibossID
   );
 }
@@ -795,6 +807,7 @@ export function isMirrorRoom(roomData: RoomConfig): boolean {
     roomData.Type === RoomType.DEFAULT &&
     (roomData.StageID === StageID.DOWNPOUR ||
       roomData.StageID === StageID.DROSS) &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     roomData.Subtype === DownpourRoomSubType.MIRROR
   );
 }
@@ -828,6 +841,7 @@ export function isRoomType(
  * floor.
  */
 export function isSecretExit(roomGridIndex: int): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return roomGridIndex === GridRoom.SECRET_EXIT;
 }
 
@@ -848,6 +862,7 @@ export function isSecretRoomType(roomType: RoomType): boolean {
  * the only way to detect them is by using the grid index.
  */
 export function isSecretShop(roomGridIndex: int): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return roomGridIndex === GridRoom.SECRET_SHOP;
 }
 

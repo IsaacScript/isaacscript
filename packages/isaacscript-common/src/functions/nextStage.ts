@@ -41,16 +41,19 @@ export function getNextStage(): LevelStage {
   // Second, handle the special case of being in a specific off-grid room.
   switch (roomGridIndex) {
     // -8
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     case GridRoom.BLUE_WOMB: {
       return LevelStage.BLUE_WOMB;
     }
 
     // -9
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     case GridRoom.VOID: {
       return LevelStage.VOID;
     }
 
     // -10
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     case GridRoom.SECRET_EXIT: {
       if (repentanceStage) {
         // e.g. From Downpour 2 to Mines 1, etc.
@@ -149,6 +152,7 @@ export function getNextStageType(upwards = false): StageType {
   }
 
   // Second, handle the special case of being in a specific off-grid room.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   if (roomGridIndex === GridRoom.SECRET_EXIT) {
     return calculateStageTypeRepentance(nextStage);
   }

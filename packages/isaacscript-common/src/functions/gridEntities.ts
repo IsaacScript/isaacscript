@@ -861,6 +861,7 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
 
   return (
     saveState.Type === GridEntityType.TRAPDOOR &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     saveState.Variant === TrapdoorVariant.VOID_PORTAL &&
     saveState.VarData === 1
   );
@@ -1042,6 +1043,7 @@ export function removeGridEntity(
   // corresponding effect.
   if (gridEntityType === GridEntityType.STATUE) {
     const effectVariant =
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       variant === StatueVariant.DEVIL
         ? EffectVariant.DEVIL
         : EffectVariant.ANGEL;
@@ -1147,15 +1149,19 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
   return (
     topLeft !== undefined &&
     topLeft.GetType() === GridEntityType.POOP &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     topLeft.GetVariant() === PoopGridEntityVariant.GIANT_TOP_LEFT &&
     topRight !== undefined &&
     topRight.GetType() === GridEntityType.POOP &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     topRight.GetVariant() === PoopGridEntityVariant.GIANT_TOP_RIGHT &&
     bottomLeft !== undefined &&
     bottomLeft.GetType() === GridEntityType.POOP &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     bottomLeft.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_LEFT &&
     bottomRight !== undefined &&
     bottomRight.GetType() === GridEntityType.POOP &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     bottomRight.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_RIGHT
   );
 }
