@@ -1,15 +1,13 @@
 // This is the configuration file for ESLint, the TypeScript linter:
 // https://eslint.org/docs/latest/use/configure/
 
-export default {
+/** @type {import("eslint").Linter.Config} */
+const config = {
   extends: [
-    // The linter base is the shared IsaacScript config:
-    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/base.js
-    "eslint-config-isaacscript/base",
+    // The linter base is the IsaacScript mod config:
+    // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js
+    "eslint-config-isaacscript/mod",
   ],
-
-  // Don't bother linting compiled output.
-  ignorePatterns: ["**/dist/**", "*.min.js"],
 
   parserOptions: {
     // ESLint needs to know about the project's TypeScript settings in order for TypeScript-specific
@@ -22,3 +20,5 @@ export default {
     // Insert changed or disabled rules here, if necessary.
   },
 };
+
+module.exports = config;
