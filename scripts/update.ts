@@ -1,9 +1,3 @@
-// - `eslint` is stuck on version 8.57.0 until we can migrate to the flat config.
-// - `typedoc-plugin-markdown` is stuck on version 3.17.1 since version 4 is not compatible with the
-//   complicated build script that reshuffles the file names.
-// - `typescript` is stuck on version 5.4.5 until `@typescript-eslint` works.
-// - `typedoc` is stuck on version 0.25.13 until I can rewrite the complicated docs build script.
-
 import {
   $s,
   PACKAGE_JSON,
