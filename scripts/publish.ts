@@ -27,7 +27,7 @@ enum VersionBump {
   dev = "dev",
 }
 
-const UPDATES_ENABLED = false as boolean;
+const UPDATES_ENABLED = true as boolean;
 const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 const startTime = Date.now();
