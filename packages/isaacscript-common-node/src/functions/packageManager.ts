@@ -7,6 +7,7 @@ const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
   [PackageManager.npm]: "package-lock.json",
   [PackageManager.yarn]: "yarn.lock",
   [PackageManager.pnpm]: "pnpm-lock.yaml",
+  [PackageManager.bun]: "bun.lockb",
 } as const satisfies Record<PackageManager, string>;
 
 export const PACKAGE_MANAGER_LOCK_FILE_NAMES: readonly string[] = Object.values(
@@ -17,6 +18,7 @@ const PACKAGE_MANAGER_EXEC_COMMANDS = {
   [PackageManager.npm]: "npx",
   [PackageManager.yarn]: "npx",
   [PackageManager.pnpm]: "pnpm exec",
+  [PackageManager.bun]: "bunx",
 } as const satisfies Record<PackageManager, string>;
 
 /**
@@ -38,6 +40,10 @@ export function getPackageManagerAddCommand(
 
     case PackageManager.pnpm: {
       return `pnpm add ${dependency}`;
+    }
+
+    case PackageManager.bun: {
+      return `bun add ${dependency}`;
     }
   }
 }
@@ -61,6 +67,10 @@ export function getPackageManagerAddDevCommand(
 
     case PackageManager.pnpm: {
       return `pnpm add ${dependency} --save-dev`;
+    }
+
+    case PackageManager.bun: {
+      return `bun add ${dependency} --dev`;
     }
   }
 }
@@ -122,6 +132,10 @@ export function getPackageManagerInstallCICommand(
 
     case PackageManager.pnpm: {
       return "pnpm install --frozen-lockfile";
+    }
+
+    case PackageManager.bun: {
+      return "bun install --frozen-lockfile";
     }
   }
 }
