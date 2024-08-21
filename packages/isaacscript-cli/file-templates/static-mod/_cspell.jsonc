@@ -13,6 +13,7 @@
     "*.svg",
     ".git/**",
     ".yarn/**",
+    "bun.lockb",
     "dist/**",
     "LICENSE",
     "node_modules/**",
