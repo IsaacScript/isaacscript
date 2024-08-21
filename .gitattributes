@@ -23,6 +23,7 @@ tsconfig*.json linguist-language=JSON-with-Comments
 package-lock.json linguist-generated=true
 yarn.lock linguist-generated=true
 pnpm-lock.yaml linguist-generated=true
+bun.lockb linguist-generated=true
 
 # @template-customization-start
 
