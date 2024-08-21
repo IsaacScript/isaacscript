@@ -22,10 +22,11 @@
     "yarn.lock",
   ],
   "words": [
-    "autocrlf",
     "dbaeumer",
+    "corepack",
     "esbenp",
     "isaacscript",
+    "lockb",
     "knip",
     "packagejson",
     "sarisia",
