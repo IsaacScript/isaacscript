@@ -6,7 +6,7 @@ declare global {
   /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    * @noSelf
    */
   namespace XMLData {
@@ -98,7 +98,7 @@ declare global {
   /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface BossColorsXMLData {
     anm2path?: string;
@@ -113,7 +113,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface Entities2XMLData {
     anm2path: string;
@@ -174,7 +174,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface MetadataXMLData {
     name?: string;
@@ -191,7 +191,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface AchievementsXMLData {
     gfx: string;
@@ -213,7 +213,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface BackdropsXMLData {
     bridge?: string;
@@ -248,7 +248,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface Costumes2XMLData {
     anm2path?: string;
@@ -273,7 +273,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface CursesXMLData {
     id: string;
@@ -290,7 +290,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface ItemsXMLData {
     achievement?: string;
@@ -346,7 +346,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface MusicXMLData {
     id: string;
@@ -370,7 +370,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface PlayersXMLData {
     achievement?: string;
@@ -432,7 +432,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface SoundsXMLData {
     name: string;
@@ -450,7 +450,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface WispsXMLData {
     canshoot?: string;

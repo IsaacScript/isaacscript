@@ -42,7 +42,7 @@ import type { GenericPromptSubmittedSelection } from "../../enums/GenericPromptS
  *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare function GenericPrompt(this: void): GenericPrompt;
 
@@ -50,7 +50,7 @@ declare global {
   /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface GenericPrompt {
     GetCurrentSelection: () => GenericPromptSelection;

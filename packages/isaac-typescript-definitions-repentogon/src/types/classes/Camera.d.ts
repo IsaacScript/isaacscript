@@ -1,7 +1,7 @@
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare interface Camera extends IsaacAPIClass {
   /** Returns whether the specified position is visible within the camera's current view. */

@@ -1,7 +1,7 @@
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare interface History extends IsaacAPIClass {
   /** Returns an array of the list of `HistoryItem` found in the current run. */
