@@ -3,6 +3,12 @@ import type { Keyboard } from "../../enums/Keyboard";
 import type { ModConfigMenuOptionType } from "../../enums/mods/ModConfigMenuOptionType";
 
 declare global {
+  /**
+   * This is the global variable exposed by the third-party Mod Config Menu mod, which provides a
+   * menu and is often utilized by other mods.
+   *
+   * @see https://steamcommunity.com/sharedfiles/filedetails/?id=2681875787
+   */
   const ModConfigMenu: ModConfigMenuInterface | undefined;
 
   /** @noSelf */

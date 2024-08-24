@@ -1,6 +1,9 @@
-// This is the Racing+ sandbox provided by the Electron client.
-
-/** @noSelf */
+/**
+ * This is the Racing+ sandbox provided by the Electron client.
+ *
+ * @see https://isaacracing.net/
+ * @noSelf
+ */
 declare interface Sandbox {
   connect: (
     hostname: string,

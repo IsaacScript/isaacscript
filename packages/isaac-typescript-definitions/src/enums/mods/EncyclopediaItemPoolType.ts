@@ -1,3 +1,9 @@
+/**
+ * This is an enum for the third-party Encyclopedia mod, which provides descriptions for items and
+ * is often utilized by other mods that include items.
+ *
+ * @see https://steamcommunity.com/workshop/filedetails/?id=2376005362
+ */
 export enum EncyclopediaItemPoolType {
   POOL_TREASURE = 1,
   POOL_SHOP = 2,
