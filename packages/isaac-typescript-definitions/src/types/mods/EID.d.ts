@@ -1,3 +1,9 @@
+/**
+ * This is the global variable exposed by the third-party External Item Descriptions mod, which
+ * provides descriptions for items and is often utilized by other mods that include items.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=836319872
+ */
 declare const EID: EIDInterface | undefined;
 
 declare interface EIDDescriptionObject {

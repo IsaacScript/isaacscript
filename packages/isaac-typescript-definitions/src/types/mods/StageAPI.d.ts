@@ -11,6 +11,12 @@ import type { StageType } from "../../enums/StageType";
 import type { StageAPICallback } from "../../enums/mods/StageAPIEnums";
 
 declare global {
+  /**
+   * This is the global variable exposed by the third-party StageAPI mod, which allows mods to
+   * create custom stages.
+   *
+   * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+   */
   const StageAPI: StageAPIInterface | undefined;
 
   interface StageAPICallbackParameters {

@@ -2,6 +2,12 @@ import type { PlayerType } from "../../enums/collections/subTypes";
 import type { EncyclopediaItemPoolType } from "../../enums/mods/EncyclopediaItemPoolType";
 
 declare global {
+  /**
+   * This is the global variable exposed by the third-party Encyclopedia mod, which provides
+   * descriptions for items and is often utilized by other mods that include items.
+   *
+   * @see https://steamcommunity.com/workshop/filedetails/?id=2376005362
+   */
   const Encyclopedia: EncyclopediaInterface | undefined;
 
   /** @noSelf */

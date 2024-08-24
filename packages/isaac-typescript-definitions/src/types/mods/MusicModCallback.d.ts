@@ -1,6 +1,12 @@
 import type { Music } from "../../enums/Music";
 
 declare global {
+  /**
+   * This is the global variable exposed by the third-party Music Mod Callback mod, which is often
+   * utilized by other mods to play custom music tracks.
+   *
+   * @see https://steamcommunity.com/workshop/filedetails/?id=2491006386
+   */
   const MMC: MusicModCallback | undefined;
 
   /** @noSelf */

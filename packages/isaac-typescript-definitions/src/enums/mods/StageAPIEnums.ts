@@ -1,5 +1,10 @@
 // cspell:ignore STAGEAPI GRIDENTITY
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPICallback {
   POST_CHANGE_ROOM_GFX = "POST_CHANGE_ROOM_GFX",
 
@@ -156,6 +161,11 @@ export enum StageAPICallback {
   PRE_UPDATE_GRID_GFX = "PRE_UPDATE_GRID_GFX",
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutButtonVariant {
   ROOM_CLEAR = 0,
   REWARD = 1,
@@ -164,11 +174,21 @@ export enum StageAPILayoutButtonVariant {
   RAIL = 3,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutCornyPoopSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutGridType {
   ROCK = 1000,
   ROCK_ALT = 1002,
@@ -202,22 +222,42 @@ export enum StageAPILayoutGridType {
   PROP_C = 30,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutPitfallVariant {
   NORMAL = 0,
   SUCTION = 1,
   TELEPORT = 2,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutPoopSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutRockSubtype {
   NORMAL = 0,
   NON_REPLACEABLE = 1,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPILayoutSpikesOnOffVariant {
   NORMAL = 0,
   DOWN_1_FIFTH = 1,
@@ -232,6 +272,11 @@ export enum StageAPILayoutSpikesOnOffVariant {
   UP_5_FIFTHS = 10,
 }
 
+/**
+ * This is an enum for the third-party Stage API mod, which allows mods to create custom stages.
+ *
+ * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1348031964
+ */
 export enum StageAPIPickupRandomGroupVariant {
   ANY = 0,
   NOT_CHEST_ITEM = 1,

@@ -7,6 +7,12 @@ import type { RoomShape } from "../../enums/RoomShape";
 import type { RoomType } from "../../enums/RoomType";
 
 declare global {
+  /**
+   * This is the global variable exposed by the third-party MiniMAPI mod, which provides
+   * descriptions for items and is often utilized by other mods that include items.
+   *
+   * @see https://steamcommunity.com/sharedfiles/filedetails/?id=1978904635
+   */
   const MinimapAPI: MinimapAPIInterface | undefined;
 
   interface MinimapAPIInterface {
