@@ -3,7 +3,7 @@
  *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  *
  * @param this
  * @param sprite The sprite used must share the same scope as the beam you are creating, otherwise
@@ -23,7 +23,7 @@ declare function Beam(
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare interface RenderBeam extends IsaacAPIClass {
   /**

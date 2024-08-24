@@ -13,7 +13,7 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface PersistentGameData {
     /** Returns the number of times a specific entity has been killed, according to the bestiary. */

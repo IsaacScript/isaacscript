@@ -15,7 +15,7 @@ declare global {
   /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface ChallengeParams extends IsaacAPIClass {
     /** Returns true if the player does not start off blindfolded in the challenge. */

@@ -5,7 +5,7 @@ declare global {
   /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   interface EntityConfigBaby extends IsaacAPIClass {
     /** Returns the `Achievement` tied to the baby's unlock. */

@@ -2,7 +2,7 @@ export enum ControllerIndex {
   /**
    * Used for Repentogon, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/index.html
+   * @see https://repentogon.com/
    */
   NONE = -1,
 

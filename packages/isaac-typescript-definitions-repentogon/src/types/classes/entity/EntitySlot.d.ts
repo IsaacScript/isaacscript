@@ -3,7 +3,7 @@ import type { CollectibleType } from "isaac-typescript-definitions";
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare global {
   interface EntitySlot extends Entity {

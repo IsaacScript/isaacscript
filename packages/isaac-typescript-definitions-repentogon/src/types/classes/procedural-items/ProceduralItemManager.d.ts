@@ -4,7 +4,7 @@ import type { CollectibleType } from "isaac-typescript-definitions";
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @noSelf
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare namespace ProceduralItemManager {
   /**

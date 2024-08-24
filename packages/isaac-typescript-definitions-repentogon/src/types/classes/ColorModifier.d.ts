@@ -10,7 +10,7 @@
  *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare function ColorModifier(
   r?: float,
@@ -24,7 +24,7 @@ declare function ColorModifier(
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/index.html
+ * @see https://repentogon.com/
  */
 declare interface ColorModifier extends IsaacAPIClass {
   A: float;
