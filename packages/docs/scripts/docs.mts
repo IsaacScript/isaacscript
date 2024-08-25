@@ -38,7 +38,7 @@ type ParentConfig =
   | "unicorn/recommended"
   | "eslint-config-prettier";
 
-const FAIL_ON_MISSING_RULES = false as boolean;
+const FAIL_ON_MISSING_RULES = true as boolean;
 
 const MARKDOWN_HEADER = `# \`eslint-config-isaacscript\`
 
