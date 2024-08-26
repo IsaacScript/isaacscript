@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import figlet from "figlet";
+import figlet from "figlet"; // Cannot be "import * as figlet" or else run-time errors occur.
 import { fatalError, getPackageJSONVersion } from "isaacscript-common-node";
 import { PROJECT_NAME, REPO_ROOT } from "./constants.js";
 
