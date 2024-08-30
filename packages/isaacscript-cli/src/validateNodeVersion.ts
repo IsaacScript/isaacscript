@@ -16,8 +16,12 @@ export function validateNodeVersion(): void {
   }
 
   const { majorVersion, minorVersion } = semanticVersion;
+  if (majorVersion > REQUIRED_NODE_JS_MAJOR_VERSION) {
+    return;
+  }
+
   if (
-    majorVersion >= REQUIRED_NODE_JS_MAJOR_VERSION &&
+    majorVersion === REQUIRED_NODE_JS_MAJOR_VERSION &&
     minorVersion >= REQUIRED_NODE_JS_MINOR_VERSION
   ) {
     return;
