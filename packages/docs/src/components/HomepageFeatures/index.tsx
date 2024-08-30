@@ -1,7 +1,7 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import Heading from "@theme/Heading";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import styles from "./styles.module.css";
 
 interface FeatureItem {
