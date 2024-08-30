@@ -2,7 +2,7 @@ import tseslint from "typescript-eslint";
 import { base } from "../eslint-config-isaacscript/base.js";
 import { mod } from "../eslint-config-isaacscript/mod.js";
 import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
-// @ts-expect-error There are no TypeScript definitions for this plugin.
+// @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
 import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
 export default tseslint.config(
