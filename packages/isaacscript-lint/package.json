@@ -31,7 +31,7 @@
     "cspell-check-unused-words": "^1.2.1",
     "eslint": "^9.9.1",
     "eslint-config-isaacscript": "^4.20.0",
-    "knip": "^5.27.4",
+    "knip": "^5.27.5",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-packagejson": "^2.5.2",
