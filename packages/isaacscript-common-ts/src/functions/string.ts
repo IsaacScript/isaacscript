@@ -1,8 +1,8 @@
 import unidecode from "unidecode";
 import { parseIntSafe } from "./utils.js";
 
-// When regexes are located at the root instead of inside the function, the functions are tested to
-// perform 11% faster.
+// When regular expressions are located at the root instead of inside the function, the functions
+// are tested to perform 11% faster.
 
 const DIACRITIC_REGEX = /\p{Diacritic}/u;
 
