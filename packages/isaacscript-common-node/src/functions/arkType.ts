@@ -9,7 +9,7 @@ import path from "node:path";
  * `upStackBy` position.
  *
  * @param upStackBy Optional. How far to look up the stack. Default is 1.
- * @see https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
+ * @see https://github.com/arktypeio/arktype/blob/main/ark/fs/fs.ts
  */
 export function dirOfCaller(upStackBy = 1): string {
   const filePathString = fileOfCaller(upStackBy + 1);
@@ -25,7 +25,7 @@ export function dirOfCaller(upStackBy = 1): string {
  * We also fix a bug on Windows with an uncapitalized drive letter.
  *
  * @param upStackBy Optional. How far to look up the stack. Default is 1.
- * @see https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
+ * @see https://github.com/arktypeio/arktype/blob/main/ark/fs/fs.ts
  */
 export function fileOfCaller(upStackBy = 1): string {
   const callerFile = caller({ methodName: "fileOfCaller", upStackBy }).file;
@@ -41,5 +41,5 @@ export function fileOfCaller(upStackBy = 1): string {
 
 // We re-export "findPackageRoot" from "@arktype/fs" so that end-users do not have to depend on it.
 // (We cannot wrap it in a helper function since it works with the call stack.)
-// See: https://github.com/arktypeio/arktype/blob/beta/ark/fs/fs.ts
+// See: https://github.com/arktypeio/arktype/blob/main/ark/fs/fs.ts
 export { findPackageRoot } from "@arktype/fs";

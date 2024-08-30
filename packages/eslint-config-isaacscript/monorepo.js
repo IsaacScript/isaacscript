@@ -16,7 +16,7 @@ export const monorepo = tseslint.config(
     files: ["eslint.config.mjs"],
     rules: {
       // ESLint configs in this monorepo intentionally import from the "packages" subdirectory
-      // (because we do not want the complexity of ESLint having to use tsconfig-paths).
+      // (because we do not want the complexity of ESLint using tsconfig-paths).
       "import-x/no-relative-packages": "off",
 
       // ESLint configs import from "typescript-eslint", but this is installed at the monorepo root
