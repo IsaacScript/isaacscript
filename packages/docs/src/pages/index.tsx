@@ -4,7 +4,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import CodeBlock from "@theme/CodeBlock";
 import Heading from "@theme/Heading";
 import Layout from "@theme/Layout";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import HomepageFeatures from "../components/HomepageFeatures/index"; // eslint-disable-line @typescript-eslint/no-restricted-imports
 import styles from "./index.module.css";
 
