@@ -12,7 +12,7 @@ You can go from zero to up-and-running with a new mod in around 5 minutes, depen
 
 ### 1) Install Node.js
 
-In order to write stuff in the TypeScript programming language, we need [Node.js](https://nodejs.org/en/), a JavaScript runtime. If you don't have it installed already, download and install it from the [Node.js download page](https://nodejs.org/en/download/).
+In order to run files that are written in the JavaScript & TypeScript programming language, we need [Node.js](https://nodejs.org/en/), a JavaScript runtime. If you don't have it installed already, download and install it from the [Node.js download page](https://nodejs.org/en/download/).
 
 <br />
 
