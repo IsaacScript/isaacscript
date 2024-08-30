@@ -20,7 +20,7 @@ In order to run files that are written in the JavaScript & TypeScript programmin
 
 [Visual Studio Code](https://code.visualstudio.com/) (or VSCode, for short) is probably the best text editor for TypeScript. If you don't have it installed already, download and install it from the [VSCode download page](https://code.visualstudio.com/download).
 
-(If you usually use a different TypeScript editor like [WebStorm](https://www.jetbrains.com/webstorm/), then feel free to use that instead if you want.)
+(If you usually use a different TypeScript editor like [WebStorm](https://www.jetbrains.com/webstorm/) or [vim](https://www.vim.org/), then feel free to use that instead if you want.)
 
 <br />
 
