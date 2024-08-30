@@ -1,7 +1,7 @@
 // Copied from:
 // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/tests/fixtures/tsconfig.json
 {
-  "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json",
+  "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
   "compilerOptions": {
     "jsx": "preserve",
