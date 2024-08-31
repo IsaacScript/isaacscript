@@ -6,7 +6,7 @@ import * as tsconfck from "tsconfck";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { isFile, mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
-import { fatalError, getArgs } from "./utils.js";
+import { getArgs } from "./utils.js";
 
 type ScriptCallback = (
   scriptCallbackData: ScriptCallbackData,
@@ -113,6 +113,8 @@ async function getTSConfigJSONOutDir(
     return undefined;
   }
 
+  // We must use "parseNative" instead of "parse":
+  // https://github.com/dominikg/tsconfck/issues/188
   const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
 
   const tsconfig = parseResult.tsconfig as unknown;
@@ -132,9 +134,9 @@ async function getTSConfigJSONOutDir(
 
   // eslint-disable-next-line isaacscript/no-template-curly-in-string-fix
   if (outDir.includes("${configDir}")) {
-    fatalError(
-      `The parsed file at "${tsConfigJSONPath}" has an "outDir" of "${outDir}". This includes a "\${configDir}" literal, which means that the parser did not properly instantiate the variable.`,
-    );
+    // The parsed file has an "outDir" of that includes a "${configDir}" literal, which means that
+    // the parser did not properly instantiate the variable.
+    return undefined;
   }
 
   return outDir;
