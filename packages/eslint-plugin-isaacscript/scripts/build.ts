@@ -1,11 +1,4 @@
-import {
-  $s,
-  PACKAGE_JSON,
-  buildScript,
-  cp,
-  mkdir,
-  rm,
-} from "isaacscript-common-node";
+import { $s, buildScript, cp, mkdir, rm } from "isaacscript-common-node";
 import { assertDefined } from "isaacscript-common-ts";
 import path from "node:path";
 
@@ -32,11 +25,13 @@ function copyToMonorepoNodeModules(packageRoot: string, outDir: string) {
     "eslint-plugin-isaacscript",
   );
   rm(monorepoPluginDir);
-
   mkdir(monorepoPluginDir);
-  const newPackageJSONPath = path.join(monorepoPluginDir, PACKAGE_JSON);
-  cp(PACKAGE_JSON, newPackageJSONPath);
 
+  // We only need to copy the "package.json" file and the "dist" directory in order for it to work
+  // properly.
+  const packageJSONPath = path.join(packageRoot, "package.json");
+  const newPackageJSONPath = path.join(monorepoPluginDir, "package.json");
+  cp(packageJSONPath, newPackageJSONPath);
   const monorepoPluginDistDir = path.join(monorepoPluginDir, "dist");
   cp(outDir, monorepoPluginDistDir);
 }
