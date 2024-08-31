@@ -13,6 +13,7 @@ This page lists the changes to the IsaacScript framework.
 
 - Breaking changes:
   - The `isaacscript-tsconfig` package has been rewritten to favor composition over inheritance. Specifically, the `isaacscript-tsconfig/tsconfig.mod.json` and `isaacscript-tsconfig/tsconfig.node.json` configs no longer extend from the base config. Thus, if you want to upgrade to the latest version, you must explicitly extend from the base as demonstrated in the [template "tsconfig.json" file](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/tsconfig.json).
+  - The location for the "tsconfig.json" strict schema has moved from [here](https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-strict-schema.json) to [here](https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json)".
 
 ## May 13th, 2024
 
