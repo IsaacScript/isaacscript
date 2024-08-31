@@ -41,4 +41,6 @@
     // https://isaacscript.github.io/main/custom-stages
     "customStages": [],
   },
+
+  "include": ["/src/**/*.ts"],
 }
