@@ -6,6 +6,7 @@ corepack # Used to install yarn
 dbaeumer # extensions.json
 esbenp # extensions.json
 isaacscript
+lockb # bun.lockb
 NPCID # Custom enum
 packagejson # prettier.config.mjs
 sarisia # ci.yml
