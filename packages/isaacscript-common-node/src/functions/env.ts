@@ -33,12 +33,6 @@ export function getEnv<
 >(envSchema: z.ZodObject<A, B, C>): ReturnType<typeof envSchema.parse> {
   const fromDir = dirOfCaller();
   const packageRoot = findPackageRoot(fromDir);
-  if (packageRoot === null) {
-    fatalError(
-      `Failed to find the package root starting from directory: ${fromDir}`,
-    );
-  }
-
   const envPath = path.join(packageRoot, ".env");
 
   if (!isFile(envPath)) {
