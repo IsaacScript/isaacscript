@@ -8,6 +8,7 @@ export const monorepo = tseslint.config(
   {
     files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
     rules: {
+      // https://github.com/un-ts/eslint-plugin-import-x/issues/141
       "import-x/no-extraneous-dependencies": "off",
     },
   },
@@ -21,6 +22,7 @@ export const monorepo = tseslint.config(
 
       // ESLint configs import from "typescript-eslint", but this is installed at the monorepo root
       // instead of in the individual package "package.json" file.
+      // https://github.com/un-ts/eslint-plugin-import-x/issues/141
       "import-x/no-extraneous-dependencies": "off",
     },
   },

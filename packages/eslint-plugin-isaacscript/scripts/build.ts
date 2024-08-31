@@ -19,10 +19,11 @@ await buildScript(({ outDir, packageRoot }) => {
  */
 function copyToMonorepoNodeModules(packageRoot: string, outDir: string) {
   const monorepoRoot = path.join(packageRoot, "..", "..");
+  const packageName = path.basename(packageRoot);
   const monorepoPluginDir = path.join(
     monorepoRoot,
     "node_modules",
-    "eslint-plugin-isaacscript",
+    packageName,
   );
   rm(monorepoPluginDir);
   mkdir(monorepoPluginDir);
