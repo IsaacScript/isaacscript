@@ -9,13 +9,18 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
-## May 13th, 2023
+## August 31st, 2024
+
+- Breaking changes:
+  - The `isaacscript-tsconfig` package has been rewritten to favor composition over inheritance. Specifically, the `isaacscript-tsconfig/tsconfig.mod.json` and `isaacscript-tsconfig/tsconfig.node.json` configs no longer extend from the base config. Thus, if you want to upgrade to the latest version, you must explicitly extend from the base as demonstrated in the [template "tsconfig.json" file](https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-cli/file-templates/static-mod/tsconfig.json).
+
+## May 13th, 2024
 
 - Added REPENTOGON support. Since this hack changes vanilla classes, you must install a separate package if you want to use it called `isaac-typescript-definitions-repentogon`. Since using REPENTOGON functionality will cause run-time errors on vanilla, you should very carefully gate your mod behind a REPENTOGON check with a clear error message. (Thanks 4Grabs)
 - Added the following helper functions:
   - `isRepentogon`
 
-## January 8th, 2023
+## January 8th, 2024
 
 - Added the following helper functions:
   - `isNormalPillColor`
@@ -28,7 +33,7 @@ This page lists the changes to the IsaacScript framework.
 - Added the following lint rules:
   - `isaacscript/no-unnecessary-assignment`
 
-## January 1st, 2023
+## January 1st, 2024
 
 - Added the following custom commands:
   - `megaSatan`
@@ -928,7 +933,7 @@ pnpm add isaacscript-tsconfig
 ## October 10th, 2022
 
 - `isaacscript-common` has been rewritten to only enable the custom features that you are actually using (rather than all of them). The idea here is to keep the library blazing fast and allow it to scale well into the future as more features are added.
-- Breaking:
+- Breaking changes:
   - All of the extra feature functions in `isaacscript-common` are now attached to the `ModUpgraded` object (instead of being normal functions that you import). The idea here is to eliminate run-time errors from non-upgraded mods. See [the website](https://isaacscript.github.io/isaacscript-common#using-extra-features) for more details.
 - Added the following helper functions:
   - `removeUrnRewards`
@@ -1323,7 +1328,7 @@ pnpm add isaacscript-tsconfig
 ## July 20th, 2022
 
 - The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
-- Breaking:
+- Breaking changes:
   - The `removeAllNPCs` function now takes "entityType", "variant", and "subType" parameters, which moves the location of the "cap" parameter.
 - Added the following helper functions:
   - `getRoomShapeDoorSlot`
@@ -1397,7 +1402,7 @@ pnpm add isaacscript-tsconfig
 
 ## July 12th, 2022
 
-- Breaking:
+- Breaking changes:
   - `addRoomClearCharge` now has an argument of `bigRoomDoubleCharge` (instead of the old argument of `ignoreBigRoomDoubleCharge`), so you will need to invert the boolean.
   - `arrayRemove` will now only remove the first matching element (instead of every matching element). Use `arrayRemoveAll` for that behavior instead.
   - Renamed `ISAAC_FRAMES_PER_SECOND` --> `RENDER_FRAMES_PER_SECOND`
