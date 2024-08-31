@@ -16,7 +16,7 @@ const plugin = {
   rules,
 };
 
-addPluginToConfigs(configs);
+addPluginToConfigs(configs, name);
 
 export default plugin;
 
@@ -24,8 +24,8 @@ export default plugin;
  * We parse the package JSON manually since importing JSON files directly in Node is experimental.
  */
 function getPackageJSON(): Record<string, unknown> {
-  const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
-  const packageJSONPath = path.join(PACKAGE_ROOT, "package.json");
+  const packageRoot = path.join(import.meta.dirname, "..");
+  const packageJSONPath = path.join(packageRoot, "package.json");
   try {
     const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
     return JSON.parse(packageJSONString) as Record<string, unknown>;
@@ -37,12 +37,25 @@ function getPackageJSON(): Record<string, unknown> {
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */
 function addPluginToConfigs(
   configsToMutate: ReadonlyRecord<string, TSESLint.FlatConfig.ConfigArray>,
+  packageName: unknown,
 ) {
+  if (typeof packageName !== "string") {
+    throw new TypeError(
+      'Failed to parse the plugin name from the "package.json" file.',
+    );
+  }
+
+  const packageNameWords = packageName.split("-");
+  const pluginName = packageNameWords.at(-1);
+  if (pluginName === undefined || pluginName === "") {
+    throw new Error("Failed to parse the plugin name from the package name.");
+  }
+
   for (const configArray of Object.values(configsToMutate)) {
     for (const config of configArray) {
       if (config.plugins !== undefined) {
         Object.assign(config.plugins, {
-          isaacscript: plugin,
+          [pluginName]: plugin,
         });
       }
     }
