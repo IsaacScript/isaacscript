@@ -12,6 +12,9 @@
     "isaacscript-tsconfig/tsconfig.mod.json",
   ],
 
+  // A list of the TypeScript files to compile.
+  "include": ["./src/**/*.ts"],
+
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
@@ -41,6 +44,4 @@
     // https://isaacscript.github.io/main/custom-stages
     "customStages": [],
   },
-
-  "include": ["/src/**/*.ts"],
 }
