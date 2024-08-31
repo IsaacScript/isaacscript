@@ -4630,9 +4630,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "@stylistic/eslint-plugin@npm:2.7.1"
+"@stylistic/eslint-plugin@npm:^2.7.2":
+  version: 2.7.2
+  resolution: "@stylistic/eslint-plugin@npm:2.7.2"
   dependencies:
     "@types/eslint": "npm:^9.6.1"
     "@typescript-eslint/utils": "npm:^8.3.0"
@@ -4642,7 +4642,7 @@ __metadata:
     picomatch: "npm:^4.0.2"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10c0/ff01c46b260efddcfe2825aabeda5bfe0491ee649df1026ef29f2cb2ea7cee24c337a6823616b03b47c4028c7f64cfa427467680ad79ef116eba50ccef994b90
+  checksum: 10c0/266bd65bdc252e4562e8c1c3819bafcec9705cebc3c4f41ce6c2ed3deeaa0ed6ccdffd00a108f51422ae201d32618bd1055cd4977aabccbf8a729fbca1e2bf1e
   languageName: node
   linkType: hard
 
@@ -11547,7 +11547,7 @@ __metadata:
     "@mdx-js/react": "npm:^3.0.1"
     "@microsoft/api-extractor": "npm:^7.47.7"
     "@prettier/plugin-xml": "npm:^3.4.1"
-    "@stylistic/eslint-plugin": "npm:^2.7.1"
+    "@stylistic/eslint-plugin": "npm:^2.7.2"
     "@svgr/webpack": "npm:^8.1.0"
     "@tsconfig/node-lts": "npm:^20.1.3"
     "@tsconfig/strictest": "npm:^2.0.5"
@@ -11604,7 +11604,7 @@ __metadata:
     jest-summarizing-reporter: "npm:^1.1.4"
     jsonc-parser: "npm:^3.3.1"
     klaw-sync: "npm:^6.0.0"
-    knip: "npm:^5.27.5"
+    knip: "npm:^5.28.0"
     lua-types: "npm:^2.13.1"
     markdownlint: "npm:^0.35.0"
     markdownlint-cli: "npm:^0.41.0"
@@ -12452,9 +12452,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.27.5":
-  version: 5.27.5
-  resolution: "knip@npm:5.27.5"
+"knip@npm:^5.28.0":
+  version: 5.28.0
+  resolution: "knip@npm:5.28.0"
   dependencies:
     "@nodelib/fs.walk": "npm:1.2.8"
     "@snyk/github-codeowners": "npm:1.1.0"
@@ -12478,7 +12478,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10c0/59ffdb81f8caa8629a66cb832ab2f671671af65ad4d1210519017cd596a7312d523cf0d6ecb6c6ec2b3a4db36b830e47dc64486cccbf023308b7d8f9394958e1
+  checksum: 10c0/b56ed62d3d49a638b47b586ff8fd7d54aa279302a5afe95d49d2568c8e5cd570bb339570db460f20f721b9986e0d62105be63bded753cd99c447e7f2481426a5
   languageName: node
   linkType: hard
 
