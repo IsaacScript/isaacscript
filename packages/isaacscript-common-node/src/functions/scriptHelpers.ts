@@ -90,11 +90,6 @@ export async function script(
 
   const fromDir = dirOfCaller(upStackBy);
   const packageRoot = findPackageRoot(fromDir);
-  if (packageRoot === null) {
-    fatalError(
-      `Failed to find the package root starting from directory: ${fromDir}`,
-    );
-  }
 
   process.chdir(packageRoot);
 
