@@ -21,7 +21,6 @@
 
 import { Command } from "@commander-js/extra-typings";
 import {
-  fatalError,
   findPackageRoot,
   getPackageJSONFieldsMandatory,
   nukeDependencies,
@@ -35,10 +34,6 @@ import { publishCommand } from "./commands/publish/publish.js";
 import { CWD } from "./constants.js";
 
 const packageRoot = findPackageRoot();
-if (packageRoot === null) {
-  fatalError("Failed to find the package root.");
-}
-
 const { name, version, description } = getPackageJSONFieldsMandatory(
   packageRoot,
   "name",
