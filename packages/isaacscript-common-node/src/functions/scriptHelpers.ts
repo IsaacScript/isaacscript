@@ -133,7 +133,7 @@ async function getTSConfigJSONOutDir(
   // eslint-disable-next-line isaacscript/no-template-curly-in-string-fix
   if (outDir.includes("${configDir}")) {
     fatalError(
-      `The parsed file at "${tsConfigJSONPath}" has an "outDir" that includes a "\${configDir}" literal, which means that the parser did not properly instantiate the variable.`,
+      `The parsed file at "${tsConfigJSONPath}" has an "outDir" of "${outDir}". This includes a "\${configDir}" literal, which means that the parser did not properly instantiate the variable.`,
     );
   }
 
