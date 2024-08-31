@@ -1,5 +1,5 @@
-- get rid of include in tsconfig.mod.template once typescript version in package.json template is at
-  max
+- get rid of include in "static-mod/tsconfig.json" once typescript version in package.json template
+  is at max
 
 - check the purpose of __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
 
