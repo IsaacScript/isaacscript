@@ -258,7 +258,7 @@ local vector = Vector(1, 1) + Vector(3, 3) * 6
 let vector = Vector(3, 3).mul(6).add(Vector(1, 1);
 ```
 
-Note that if you really need to, you can restore operator overloading for Vectors by creating a [branded type](https://medium.com/@KevinBGreene/surviving-the-typescript-ecosystem-branding-and-type-tagging-6cf6e516523d) with something along the lines of:
+Note that if you really need to, you can restore operator overloading for Vectors by creating a [branded type](https://egghead.io/blog/using-branded-types-in-typescript) with something along the lines of:
 
 ```ts
 type Vector = number & { readonly __vectorBrand: symbol };
