@@ -13,19 +13,21 @@ function tryEncode(this: void, luaTable: unknown) {
  * Converts a JSON string to a Lua table.
  *
  * In most cases, this function will be used for reading data from a "save#.dat" file. If decoding
- * fails, it will return a blank Lua table instead of throwing an error. (This allows execution to
- * continue in cases where users have no current save data or have manually removed their existing
- * save data.)
+ * fails, it will return undefined instead of throwing an error. (This allows execution to continue
+ * in cases where users have no current save data or have manually removed their existing save
+ * data.)
  *
  * Under the hood, this uses a custom JSON parser that was measured to be 11.8 times faster than the
  * vanilla JSON parser.
  */
-export function jsonDecode(jsonString: string): LuaMap<AnyNotNil, unknown> {
+export function jsonDecode(
+  jsonString: string,
+): LuaMap<AnyNotNil, unknown> | undefined {
   const [ok, luaTableOrErrMsg] = pcall(tryDecode, jsonString);
   if (!ok) {
     // Instead of throwing an error, continue execution of the callback.
     logError(`Failed to convert the JSON string to a Lua table: ${jsonString}`);
-    return new LuaMap();
+    return undefined;
   }
 
   return luaTableOrErrMsg;
