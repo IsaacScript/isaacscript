@@ -10,8 +10,8 @@ type PackageJSONDependencyFieldName =
 export const PACKAGE_JSON = "package.json";
 
 /**
- * Helper function to get a "package.json" file as an object. This will print an error message and
- * exit the program if the "package.json" file cannot be found or is otherwise invalid.
+ * Helper function to get a "package.json" file as an object. This will throw an error if the
+ * "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
@@ -36,8 +36,7 @@ export function getPackageJSON(
  * Helper function to get the "dependencies" or "devDependencies" or "peerDependencies" field from a
  * "package.json" file. If the corresponding field does not exist, `undefined` will be returned.
  *
- * This will print an error message and exit the program if the "package.json" file cannot be found
- * or is otherwise invalid.
+ * This will throw an error if the "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -90,8 +89,8 @@ export function getPackageJSONDependencies(
 
 /**
  * Helper function to get an arbitrary string field from a "package.json" file. If the field does
- * not exist, `undefined` will be returned. This will print an error message and exit the program if
- * the "package.json" file cannot be found or is otherwise invalid.
+ * not exist, `undefined` will be returned. This will throw an error if the "package.json" file
+ * cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -135,9 +134,8 @@ export function getPackageJSONField(
 }
 
 /**
- * Helper function to get an arbitrary string field from a "package.json" file. This will print an
- * error message and exit the program if the field does not exist or if the "package.json" file
- * cannot be found.
+ * Helper function to get an arbitrary string field from a "package.json" file. This will throw an
+ * error if the field does not exist or if the "package.json" file cannot be found.
  *
  * Also see the `getPackageJSONField` function.
  *
@@ -165,9 +163,8 @@ export function getPackageJSONFieldMandatory(
 }
 
 /**
- * Helper function to get N arbitrary string fields from a "package.json" file. This will print an
- * error message and exit the program if any of the fields do not exist or if the "package.json"
- * file cannot be found.
+ * Helper function to get N arbitrary string fields from a "package.json" file. This will throw an
+ * error if any of the fields do not exist or if the "package.json" file cannot be found.
  *
  * Also see the `getPackageJSONFieldMandatory` function.
  *
@@ -200,8 +197,8 @@ export function getPackageJSONFieldsMandatory<T extends string>(
 
 /**
  * Helper function to get the "scripts" field from a "package.json" file. If the field does not
- * exist, `undefined` will be returned. This will print an error message and exit the program if the
- * "package.json" file cannot be found or is otherwise invalid.
+ * exist, `undefined` will be returned. This will throw an error if the "package.json" file cannot
+ * be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -250,9 +247,9 @@ export function getPackageJSONScripts(
 }
 
 /**
- * Helper function to get the "version" field from a "package.json" file. This will print an error
- * message and exit the program if the "package.json" file cannot be found or is otherwise invalid.
- * It will also exit the program if the "version" field does not exist.
+ * Helper function to get the "version" field from a "package.json" file. This will throw an error
+ * if the "package.json" file cannot be found or is otherwise invalid. It will also throw an error
+ * if the "version" field does not exist.
  *
  * If you want to allow for the "version" field not existing, use the `getPackageJSONField` helper
  * function instead.
@@ -288,8 +285,8 @@ export function getPackageJSONVersion(
 
 /**
  * Helper function to check if a "package.json" file has a particular dependency. Both the
- * "dependencies" and the "devDependencies" fields will be checked. This will print an error message
- * and exit the program if the "package.json" file cannot be found or is otherwise invalid.
+ * "dependencies" and the "devDependencies" fields will be checked. This will throw an error if the
+ * "package.json" file cannot be found or is otherwise invalid.
  *
  * This function is variadic, meaning that you can pass as many dependency names as you want to
  * check for. This function will return true if one or more dependencies were found.
@@ -333,9 +330,8 @@ export function isPackageJSONDependency(
 }
 
 /**
- * Helper function to check if a "package.json" file has a particular script. This will print an
- * error message and exit the program if the "package.json" file cannot be found or is otherwise
- * invalid.
+ * Helper function to check if a "package.json" file has a particular script. This will throw an
+ * error if the "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -365,9 +361,8 @@ export function packageJSONHasScript(
 }
 
 /**
- * Helper function to set a dependency in a "package.json" file to a new value. This will print an
- * error message and exit the program if the "package.json" file cannot be found or is otherwise
- * invalid.
+ * Helper function to set a dependency in a "package.json" file to a new value. This will throw an
+ * error if the "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
