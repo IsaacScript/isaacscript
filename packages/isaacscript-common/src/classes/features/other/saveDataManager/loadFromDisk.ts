@@ -23,6 +23,11 @@ export function loadFromDisk(
   const jsonString = readSaveDatFile(mod);
   const newSaveData = jsonDecode(jsonString);
 
+  if (newSaveData === undefined) {
+    // Reading the save data failed.
+    return;
+  }
+
   if (SAVE_DATA_MANAGER_DEBUG) {
     log('Converted data from the "save#.dat" to a Lua table.');
   }
