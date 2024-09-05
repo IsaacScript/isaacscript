@@ -203,7 +203,7 @@ However, fixing this problem is easy. We just have to manually specify what the 
 const EffectVariantCustom = {
   MY_CUSTOM_EFFECT: Isaac.GetEntityVariantByName(
     "My Custom Effect",
-  ) as EntityEffect,
+  ) as EffectVariant,
 } as const;
 ```
 
