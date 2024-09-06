@@ -134,10 +134,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-common@npm:5.2.5":
-  version: 5.2.5
-  resolution: "@algolia/client-common@npm:5.2.5"
-  checksum: 10c0/c1b8597b5661ee1f73d6bd98cf9f94c7bf17b62cc7ce2a05d3b4e4a850d243e9222c2b5f35054dc037644e489b3a82fdaba24b298f1bf585e7a2ed4a164f5414
+"@algolia/client-common@npm:5.3.0":
+  version: 5.3.0
+  resolution: "@algolia/client-common@npm:5.3.0"
+  checksum: 10c0/122fdc508f3b2f724c6d54a394a52aa32c0122c233c8298ead8a796692cc14b04f538ef4dfd2f8cbfeeb43b00df121ccbaf2922f609e36fbd282866e92a4c86f
   languageName: node
   linkType: hard
 
@@ -163,14 +163,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-search@npm:^5.2.5":
-  version: 5.2.5
-  resolution: "@algolia/client-search@npm:5.2.5"
+"@algolia/client-search@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@algolia/client-search@npm:5.3.0"
   dependencies:
-    "@algolia/client-common": "npm:5.2.5"
-    "@algolia/requester-browser-xhr": "npm:5.2.5"
-    "@algolia/requester-node-http": "npm:5.2.5"
-  checksum: 10c0/4fabfd84f3a236b4c57e1675ce5039453e42ed5150979c63943b3dfe1e430469aa422555fd9f3d1a6529aeaec19098027a9a1e1884729c864f39ef9a661dc072
+    "@algolia/client-common": "npm:5.3.0"
+    "@algolia/requester-browser-xhr": "npm:5.3.0"
+    "@algolia/requester-node-http": "npm:5.3.0"
+  checksum: 10c0/afb4096394ea1a8829759b4bfbd77b572cbd30028d13630fb69296921abf8ab1120396fa98d13e3c0b497dd5287ddf87587d5add9c2acf85c66d9200b41865a2
   languageName: node
   linkType: hard
 
@@ -225,12 +225,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-browser-xhr@npm:5.2.5":
-  version: 5.2.5
-  resolution: "@algolia/requester-browser-xhr@npm:5.2.5"
+"@algolia/requester-browser-xhr@npm:5.3.0":
+  version: 5.3.0
+  resolution: "@algolia/requester-browser-xhr@npm:5.3.0"
   dependencies:
-    "@algolia/client-common": "npm:5.2.5"
-  checksum: 10c0/215488dd8c0e49666fbcea4cf2e42754d3ee2da78c9536d021aef1de8a80d1feddd2e160f1a0aaf95bd5ef1e663d5f8173b539b57ed8f78a67b7a94474271f19
+    "@algolia/client-common": "npm:5.3.0"
+  checksum: 10c0/8f2e646714d320cf253eebef8ddabdca570cc3eeabcdd8b9eb95daa35601843f6682a1b67e330dc06c534b31d30d965ec7914475ab78e6bb547020e22d1a76ef
   languageName: node
   linkType: hard
 
@@ -250,12 +250,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-node-http@npm:5.2.5":
-  version: 5.2.5
-  resolution: "@algolia/requester-node-http@npm:5.2.5"
+"@algolia/requester-node-http@npm:5.3.0":
+  version: 5.3.0
+  resolution: "@algolia/requester-node-http@npm:5.3.0"
   dependencies:
-    "@algolia/client-common": "npm:5.2.5"
-  checksum: 10c0/5ba1414b54425eb4eed2175ae987889980676b55735c07339e2b33b66c091af25778847805316a33a24b435bdcd21c830172d832b5455a19c429f8fdf93b8903
+    "@algolia/client-common": "npm:5.3.0"
+  checksum: 10c0/3c0a65217b0472077af98724a7a656141daaa107bed2d056ea737ac2bd91953630b1f3d13c9cdb42b4124cec8e54f87240c5dfe945caa48c4b044640aa5bae34
   languageName: node
   linkType: hard
 
@@ -7768,18 +7768,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell-check-unused-words@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "cspell-check-unused-words@npm:1.2.2"
+"cspell-check-unused-words@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "cspell-check-unused-words@npm:1.3.0"
   dependencies:
     "@commander-js/extra-typings": "npm:^12.1.0"
     chalk: "npm:^5.3.0"
     commander: "npm:^12.1.0"
     execa: "npm:^9.3.1"
     jsonc-parser: "npm:^3.3.1"
+    yaml: "npm:^2.5.1"
   bin:
     cspell-check-unused-words: dist/main.js
-  checksum: 10c0/504ef0a54ce754961d1625d199358e78b593b55e6d06a05fab4d04eb4edffbc2cac3b47a9f1eee118f039e0d0041e838815c9f245879b0fc486735efeee40412
+  checksum: 10c0/a8030d178904072646344ad4b840214e075b53ee9bbbf0d1c8bae1d66ed9a0df5ac1667f94ae73b2e186c2f03a98ce02157ed3e98c8393429472cdebcc8e01c5
   languageName: node
   linkType: hard
 
@@ -11587,7 +11588,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "isaacscript-monorepo@workspace:."
   dependencies:
-    "@algolia/client-search": "npm:^5.2.5"
+    "@algolia/client-search": "npm:^5.3.0"
     "@arktype/fs": "npm:^0.8.0"
     "@babel/core": "npm:^7.25.2"
     "@babel/preset-env": "npm:^7.25.4"
@@ -11640,7 +11641,7 @@ __metadata:
     commander: "npm:^12.1.0"
     confusing-browser-globals: "npm:^1.0.11"
     cspell: "npm:^8.14.2"
-    cspell-check-unused-words: "npm:^1.2.2"
+    cspell-check-unused-words: "npm:^1.3.0"
     diff: "npm:^6.0.0"
     docusaurus-theme-search-typesense: "npm:^0.20.0"
     dotenv: "npm:^16.4.5"
