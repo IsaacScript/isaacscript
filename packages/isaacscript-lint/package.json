@@ -28,10 +28,10 @@
   "dependencies": {
     "@prettier/plugin-xml": "^3.4.1",
     "cspell": "^8.14.2",
-    "cspell-check-unused-words": "^1.2.1",
+    "cspell-check-unused-words": "^1.2.2",
     "eslint": "^9.9.1",
     "eslint-config-isaacscript": "^4.20.0",
-    "knip": "^5.28.0",
+    "knip": "^5.29.2",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-packagejson": "^2.5.2",
