@@ -6,12 +6,14 @@ jobs:
   get-build-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - id: set-matrix
-        run: npx tsx ./scripts/getMonorepoPackageNames.ts build
+        uses: complete-ts/get-package-names@main
+        with:
+          script-name: build
 
   build:
     needs: get-build-packages
@@ -34,12 +36,14 @@ jobs:
   get-lint-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - id: set-matrix
-        run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
+        uses: complete-ts/get-package-names@main
+        with:
+          script-name: lint
 
   lint:
     needs: get-lint-packages
@@ -56,12 +60,14 @@ jobs:
   get-test-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
       - id: set-matrix
-        run: npx tsx ./scripts/getMonorepoPackageNames.ts test
+        uses: complete-ts/get-package-names@main
+        with:
+          script-name: test
 
   test:
     needs: get-test-packages
