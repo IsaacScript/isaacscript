@@ -6,7 +6,7 @@ jobs:
   get-build-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.package-names }}
+      package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - id: set-matrix
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package-name: ${{ fromJson(needs.get-build-packages.outputs.matrix) }}
+        package-name: ${{ fromJson(needs.get-build-packages.outputs.package-names) }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
@@ -35,7 +35,7 @@ jobs:
   get-lint-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.package-names }}
+      package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - id: set-matrix
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package-name: ${{ fromJson(needs.get-lint-packages.outputs.matrix) }}
+        package-name: ${{ fromJson(needs.get-lint-packages.outputs.package-names) }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
@@ -58,7 +58,7 @@ jobs:
   get-test-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.package-names }}
+      package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - id: set-matrix
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package-name: ${{ fromJson(needs.get-test-packages.outputs.matrix) }}
+        package-name: ${{ fromJson(needs.get-test-packages.outputs.package-names) }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
