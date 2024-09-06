@@ -9,7 +9,6 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
       - id: set-matrix
         uses: complete-ts/get-package-names@main
         with:
@@ -39,7 +38,6 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
       - id: set-matrix
         uses: complete-ts/get-package-names@main
         with:
@@ -63,7 +61,6 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/setup
       - id: set-matrix
         uses: complete-ts/get-package-names@main
         with:
