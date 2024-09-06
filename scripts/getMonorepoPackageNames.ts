@@ -4,7 +4,6 @@ import {
   PACKAGE_JSON,
   appendFile,
   echo,
-  fatalError,
   getArgs,
   getFileNamesInDirectory,
   isDirectory,
@@ -26,7 +25,7 @@ function main() {
   // Validate environment variables.
   const gitHubOutputFile = process.env["GITHUB_OUTPUT"];
   if (gitHubOutputFile === undefined || gitHubOutputFile === "") {
-    fatalError("Failed to read the environment variable: GITHUB_OUTPUT");
+    throw new Error("Failed to read the environment variable: GITHUB_OUTPUT");
   }
 
   const args = getArgs();
