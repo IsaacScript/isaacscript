@@ -1,27 +1,30 @@
-import { $, lintScript } from "isaacscript-common-node";
+import { $, lintScript } from "complete-node";
 
 await lintScript(async () => {
   const promises = [
+    // Use TypeScript to type-check the code.
+    $`tsc --noEmit`,
+
+    // Use ESLint to lint the TypeScript code.
+    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
+    $`eslint --max-warnings 0 .`,
+
     // Use Prettier to check formatting.
     // - "--log-level=warn" makes it only output errors.
     $`prettier --log-level=warn --check .`,
 
-    // Type-check the code using the TypeScript compiler.
-    $`tsc --noEmit`,
-
-    // Use ESLint to lint the TypeScript.
-    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    $`eslint --max-warnings 0 .`,
-
-    // Check for unused files, dependencies, and exports.
+    // Use Knip to check for unused files, exports, and dependencies.
     $`knip --no-progress`,
 
-    // Spell check every file using CSpell.
+    // Use CSpell to spell check every file.
     // - "--no-progress" and "--no-summary" make it only output errors.
     $`cspell --no-progress --no-summary .`,
 
-    // Check for unused CSpell words.
+    // Check for unused words in the CSpell configuration file.
     $`cspell-check-unused-words`,
+
+    // Check for template updates.
+    $`isaacscript check-ts`,
   ];
 
   await Promise.all(promises);
