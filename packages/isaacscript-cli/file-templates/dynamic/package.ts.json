@@ -19,17 +19,15 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "nuke": "isaacscript nuke",
-    "publish": "isaacscript publish-ts",
+    "publish": "isaacscript publish",
     "start": "tsx ./src/main.ts",
     "update": "isaacscript update"
   },
   "devDependencies": {
     "@types/node": "^0.0.1",
     "isaacscript": "^0.0.1",
-    "isaacscript-common-node": "^0.0.1",
-    "isaacscript-lint": "^0.0.1",
-    "isaacscript-tsconfig": "^0.0.1",
-    "tsx": "^0.0.1",
+    "complete-lint": "^0.0.1",
+    "complete-tsconfig": "^0.0.1",
     "typescript": "^0.0.1"
   }
 }

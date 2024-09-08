@@ -1,3 +1,5 @@
+- go through eslint-plugin-isaacscript README
+
 - get rid of include in "static-mod/tsconfig.json" once typescript version in package.json template
   is at max
 
@@ -23,13 +25,6 @@
 
 - try removing ESLint parserOptions, since they might not be needed with flat config
 
-- new TSESLint changes:
-  - https://typescript-eslint.io/blog/announcing-typescript-eslint-v8
-  - change project to projectServices
-  - remove tsconfig.eslint.json
-
-- remove eslint-plugin-deprecation when available in tseslint
-
 - re-enable knip in lint.ts
 - re-enable check-ts in lint.ts
 - see top comment of "update.ts" (and uncomment "no-useless-assignment")
@@ -49,6 +44,8 @@
   might fix this)
   this issue is also relevant:
   https://github.com/un-ts/eslint-plugin-import-x/issues/29
+
+----------------------------------------------------------------------------------------------------
 
 - lint projects:
   - fix returning `Promise<string[]>`

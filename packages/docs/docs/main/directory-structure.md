@@ -87,14 +87,6 @@ This is the TypeScript source directory. All of the TypeScript files for your mo
 
 ## Files
 
-### `.eslintrc.cjs`
-
-This is the configuration file for [ESLint](https://eslint.org/), the TypeScript linter.
-
-You can edit this file if you need to disable a specific linting rule.
-
-<br />
-
 ### `.gitattributes`
 
 This contains specific Git attributes that should be applied to this Git repository, if present. By default, it prevent Windows systems from cloning the repository with "\r\n" line endings (since "\n" line endings should always be used for consistency).
@@ -124,6 +116,14 @@ This contains a list of files that should not be automatically formatted. By def
 This is the configuration file for [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
 
 If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". The word will then be recorded in this file and the squiggly line will go away.
+
+<br />
+
+### `eslint.config.mjs`
+
+This is the configuration file for [ESLint](https://eslint.org/), the TypeScript linter.
+
+You can edit this file if you need to disable a specific linting rule.
 
 <br />
 
@@ -185,11 +185,9 @@ This is the README file for your project, which should contain a brief descripti
 
 <br />
 
-### `tsconfig.eslint.json` and `tsconfig.json`
+### `tsconfig.json`
 
-These are the configuration files for the [TypeScript](https://www.typescriptlang.org/) programming language. The main one is `tsconfig.json`. `tsconfig.eslint.json` extends the main one to make ESLint work properly.
-
-Edit `tsconfig.json` if you need to add or remove a particular compiler flag.
+This is the configuration file for the [TypeScript](https://www.typescriptlang.org/) programming language. You can edit it if you need to add or remove a particular compiler flag.
 
 <br />
 

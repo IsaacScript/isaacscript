@@ -145,11 +145,6 @@ function checkTemplateDirectory(
 
     let projectFilePath = path.join(CWD, relativeTemplateFilePath);
     switch (templateFileName) {
-      case "_eslintrc.cjs": {
-        projectFilePath = path.join(projectFilePath, "..", ".eslintrc.cjs");
-        break;
-      }
-
       case "_cspell.jsonc": {
         projectFilePath = path.join(projectFilePath, "..", "cspell.jsonc");
         break;

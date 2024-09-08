@@ -26,7 +26,7 @@ import { validate } from "./validate.js";
 
 export const publishCommand = new Command()
   .command("publish")
-  .description("Bump the version & release on the Steam Workshop.")
+  .description("Bump the version & publish a new release.")
   .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option("--major", "Perform a major version bump.", false)
