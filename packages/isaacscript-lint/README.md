@@ -14,48 +14,6 @@ If you are ready to start, see the [installation instructions](#installation-ins
 
 <br>
 
-## Why Code Formatting is Important
-
-In the 90's, the most popular scripting language in the world was [Perl](https://www.perl.org/), invented by [Larry Wall](https://en.wikipedia.org/wiki/Larry_Wall). One of Larry's slogans was that "There Is Always More Than One Way To Do It", abbreviated as the TIAMTOWTDI principle. In Perl, there were many different ways to do even the most basic thing, like adding an element to an array. This resulted in a Perl ecosystem where programs often looked nothing like each other, where everyone had different coding styles, and where everything was hard to read and comprehend. <!-- cspell:ignore TIAMTOWTDI -->
-
-One of the key insights of [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum), the creator of the [Python](https://www.python.org/) programming language, was that [code is read much more often than it is written](https://www.python.org/dev/peps/pep-0008/). Python was designed to be concise, clean, and readable. It had standard ways of doing things and recommended that everyone follow the [PEP-8 coding standard](https://www.python.org/dev/peps/pep-0008/). And so, in the 90s, there was a massive movement away from Perl and towards Python. Now, Python is the [most popular programming language in the world](https://pypl.github.io/PYPL.html). <!-- cspell:ignore Rossum -->
-
-[Go](https://golang.org/), the programming language designed at Google in 2009, took this concept a step further. They included a code formatter inside of the language itself, called `gofmt` (which is short for "Go formatter"). When you are coding a Go program, it will automatically format all of the code as soon as you save the file. This can be surprising and disturbing for newcomers: "Why does `gofmt` make my code ugly?!" <!-- cspell:ignore gofmt -->
-
-However, once people get used to the formatter, they realize that it saves them a _tremendous amount of time_. By ignoring all formatting and typing out code "raw", and then summoning the formatter to instantly fix everything, you can quite literally code twice as fast. Rob Pike, one of the creators of Go, famously said that "gofmt's style is no one's favorite, yet gofmt is everyone's favorite". ([This YouTube clip](https://www.youtube.com/embed/PAAkCSZUG1c?start=523&end=568) of Rob is a much-watch!)
-
-`gofmt` is nice because it saves people from mundane code formatting. But there is also a benefit that is entirely separate and not readily apparent. When looking at other people's Go code on StackOverflow or GitHub, you realize that it looks exactly like your code. It's easy to read and comprehend. And you can copy-paste code snippets from other programs into your own applications without having to change anything! For programmers, this is not the norm, and it feels great - it's the hidden superpower of Go.
-
-When Rob says that everyone loves `gofmt`, he isn't lying. Programmers across the world have taken this concept and ran with it. People now use [rustfmt](https://github.com/rust-lang/rustfmt) in [Rust](https://www.rust-lang.org/), [Black](https://github.com/psf/black) in [Python](https://www.python.org/), and [Prettier](https://prettier.io/) in [JavaScript](https://www.javascript.com/) & [TypeScript](https://www.typescriptlang.org/). <!-- cspell:ignore rustfmt -->
-
-The root of the problem here is that when people try out a new programming language, they often use the same formatting and conventions that they used in their previous language. This fractures the ecosystem and makes everyone's code inconsistent and hard to read. The lesson of Go is that whenever you code in a new language, you should use the standard style that everyone else uses for that language. In this way, every language can have the superpower that Go has.
-
-<br>
-
-## Why We Use Prettier & ESLint
-
-### Prettier
-
-In JavaScript and TypeScript land, there isn't an official code formatting standard like there is in Go, but we can get close.
-
-[Prettier](https://prettier.io/) is an auto-formatter for JavaScript/TypeScript. First released in 2017, it has become widespread and is probably considered to be the industry standard in 2023. Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make better transformations than other tools.
-
-In `isaacscript-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
-
-Prettier handles almost everything, but the `isaacscript-lint` linting config also has a few formatting-related rules turned on, like [`isaacscript/format-jsdoc-comments`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/format-jsdoc-comments.md) (since Prettier does not format comments).
-
-### ESLint
-
-ESLint is the best tool to lint JavaScript and TypeScript, as it has a massive ecosystem of rules and plugins that can help find errors in your codebase.
-
-With `isaacscript-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-isaacscript`](https://isaacscript.github.io/eslint-config-isaacscript).
-
-### Using Prettier & ESLint Together
-
-In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
-
-<br>
-
 ## Installation Instructions for TypeScript Projects
 
 ### Step 0 - Get a TypeScript Project Set Up

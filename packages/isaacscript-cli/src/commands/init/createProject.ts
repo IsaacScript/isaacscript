@@ -93,7 +93,7 @@ export function createProject(
   console.log(`Successfully created ${noun}: ${chalk.green(projectName)}`);
 }
 
-/** Copy static files, like ".eslintrc.cjs", "tsconfig.json", etc. */
+/** Copy static files, like "eslint.config.mjs", "tsconfig.json", etc. */
 function copyStaticFiles(projectPath: string, typeScript: boolean) {
   // First, copy the static files that are shared between TypeScript projects and IsaacScript mods.
   copyTemplateDirectoryWithoutOverwriting(TEMPLATES_STATIC_DIR, projectPath);

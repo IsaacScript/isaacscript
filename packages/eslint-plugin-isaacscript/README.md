@@ -20,7 +20,7 @@ Alternatively, if you want to get off the ground and running with ESLint + TypeS
 
 ## Configs
 
-- `recommended` - Enables just the recommended rules. (Some rules are not recommended since they are intended for very specific environments.)
+- `recommended` - Currently, every rule in this plugin is recommended.
 
 <br>
 
@@ -83,49 +83,5 @@ Each rule has emojis denoting:
 | [`isaacscript/strict-void-functions`](docs/rules/strict-void-functions.md)                               | Disallows non-empty return statements in functions annotated as returning void                              | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->
-
-<br>
-
-## Automatic Fixing
-
-You probably already use [Prettier](https://prettier.io/), which is helpful to automatically format files. You probably even have your IDE set up to run Prettier every time your save a file. This kind of thing saves you a tremendous amount of time - you can type out a bunch of code completely unformatted, and then press `Ctrl + s` at the end to automatically fix everything. (Alternatively, you could press `Ctrl + shift + f` to format the file without saving it, but it's simpler to just use one hotkey for everything.)
-
-In a similar way to Prettier, this ESLint plugin contains several rules that are designed to automatically apply whenever you save the file (like the [`format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md) rule). These rules are "fixers", which are applied when ESLint is executed with the "--fix" flag. So, in the same way that you configure Prettier to run on save, you should also configure `eslint --fix` to run on save.
-
-For example, if you use [VSCode](https://code.visualstudio.com/), and you have the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extensions installed, you can add the following to your repository's `.vscode/settings.json` file:
-
-```jsonc
-{
-  // Automatically run the formatter when certain files are saved.
-  "[javascript][typescript][javascriptreact][typescriptreact]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit",
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-  },
-}
-```
-
-<br>
-
-## Comment Formatting
-
-For a discussion around comments and the motivations for some of the comment rules in the plugin, see [this page](docs/comments.md).
-
-<br>
-
-## Contributing
-
-Thanks for helping out with this open-source project!
-
-If you are adding a new rule, start by using the `create-rule` script to automate a few things:
-
-```sh
-npm run create-rule foo "This is a description of the foo rule."
-git status # Show what the script did.
-```
-
-Additionally, You can contact me [on Discord](https://discord.gg/KapmKQ2gUD) if you are doing a PR and have questions.
 
 <br>
