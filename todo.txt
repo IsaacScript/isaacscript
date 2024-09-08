@@ -1,3 +1,5 @@
+- remove yarn
+
 - go through eslint-plugin-isaacscript README
 
 - get rid of include in "static-mod/tsconfig.json" once typescript version in package.json template
@@ -12,9 +14,8 @@
 
 - // TODO: Re-enable.
 
-- redo isaacscript-lint / config in separate repo?
-  - release new version with flat config
-  - GET RID OF ALL: "./**/.*.mjs",
+- release new version with flat config
+- GET RID OF ALL: "./**/.*.mjs",
 
 - release tsconfig in dev after this and everything else is sorted out
 
