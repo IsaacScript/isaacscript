@@ -103,12 +103,6 @@ function copyStaticFiles(projectPath: string, typeScript: boolean) {
   const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
   copyTemplateDirectoryWithoutOverwriting(staticDirPath, projectPath);
 
-  // Rename "_eslintrc.cjs" to ".eslintrc.cjs". (If it is kept as ".eslintrc.cjs", then local
-  // linting will fail.)
-  const ESLintConfigPath = path.join(projectPath, "_eslintrc.cjs");
-  const correctESLintConfigPath = path.join(projectPath, ".eslintrc.cjs");
-  renameFile(ESLintConfigPath, correctESLintConfigPath);
-
   // Rename "_gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
   // be committed to git.)
   const gitAttributesPath = path.join(projectPath, "_gitattributes");
