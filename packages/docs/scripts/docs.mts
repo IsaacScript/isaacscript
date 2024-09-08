@@ -109,7 +109,7 @@ Additionally, some ESLint rules are not about catching bugs, but are about code 
 
 With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. And you can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.
 
-If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your \`.eslintrc.cjs\` file. Some rules won't make sense for every project and that's okay!
+If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your \`eslint.config.mjs\` file. Some rules won't make sense for every project and that's okay!
 
 <br />
 
