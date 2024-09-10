@@ -28,15 +28,12 @@ export function getPackageManagerUsedForNewProject(
   return getDefaultPackageManager();
 }
 
+/**
+ * Previously, this function determined the package manager based on certain commands existing, but
+ * this is undesirable because some projects might prefer `npm`, even if they are forced to use
+ * other package managers for other projects.
+ */
 function getDefaultPackageManager(): PackageManager {
-  if (commandExists("yarn")) {
-    return PackageManager.yarn;
-  }
-
-  if (commandExists("pnpm")) {
-    return PackageManager.pnpm;
-  }
-
   return PackageManager.npm;
 }
 
