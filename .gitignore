@@ -7,6 +7,7 @@
 thumbs.db
 
 # Docusaurus artifacts
+# https://github.com/facebook/docusaurus/blob/main/packages/create-docusaurus/templates/shared/gitignore
 build
 .docusaurus
 .cache-loader
