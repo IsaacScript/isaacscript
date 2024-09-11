@@ -23,7 +23,7 @@ await buildScript(async (packageRoot) => {
   copyIsaacScriptCommonFiles(packageRoot);
 
   const promises = [
-    compile(packageRoot, "dist"),
+    compile(packageRoot),
     generateJSONSchemaForTSConfigJSON(),
     generateJSONSchemaForIsaacScriptJSON(),
     compilePlugins(packageRoot),
@@ -236,9 +236,9 @@ function getCopiedFileHeader(packageName: string): string {
 `.trimStart();
 }
 
-async function compile(packageRoot: string, outDir: string) {
+async function compile(packageRoot: string) {
   await $`tsc`;
-  fixMonorepoPackageDistDirectory(packageRoot, outDir);
+  fixMonorepoPackageDistDirectory(packageRoot);
 }
 
 /** Generate the JSON schema for the special "isaacscript" section in "tsconfig.json". */
