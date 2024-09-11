@@ -6,13 +6,9 @@ These are CSpell dictionaries for [_The Binding of Isaac: Repentance_](https://s
 
 [IsaacScript](https://isaacscript.github.io/) mods are automatically configured to use these dictionaries.
 
-<br>
-
 ## Dictionaries
 
 This package contains two dictionaries. Each dictionary is composed of multiple word lists.
-
-<br>
 
 ### `isaac`
 
@@ -23,13 +19,9 @@ This package contains two dictionaries. Each dictionary is composed of multiple 
 | lua.txt   | These are words in the Lua programming language.                                                                                              |
 | other.txt | These are words that apply to Isaac modding in general.                                                                                       |
 
-<br>
-
 ### `isaacscript`
 
 | Word List         | Description                                                                                    |
 | ----------------- | ---------------------------------------------------------------------------------------------- |
 | isaacscript.txt   | These are words contained within IsaacScript template files and elsewhere within the monorepo. |
 | missing-words.txt | These are general-purpose words that should be in the CSpell base dictionary.                  |
-
-<br>

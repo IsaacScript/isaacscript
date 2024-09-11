@@ -5,8 +5,8 @@
 
   // We extend the standard IsaacScript configs.
   "extends": [
-    // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.base.json
-    "isaacscript-tsconfig/tsconfig.base.json",
+    // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json
+    "complete-tsconfig/tsconfig.base.json",
 
     // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.mod.json
     "isaacscript-tsconfig/tsconfig.mod.json",
