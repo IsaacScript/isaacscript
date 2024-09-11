@@ -3,8 +3,8 @@
 
 // @ts-check
 
-import { completeConfigBase } from "eslint-config-complete";
-import tseslint from "typescript-eslint";
+import { completeConfigBase } from "eslint-config-complete"; // eslint-disable-line import-x/no-extraneous-dependencies
+import tseslint from "typescript-eslint"; // eslint-disable-line import-x/no-extraneous-dependencies
 
 export default tseslint.config(
   // We use "eslint-config-complete" as the base of the config:
