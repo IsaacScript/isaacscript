@@ -9,6 +9,17 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## September 11th, 2024
+
+- Breaking changes:
+  - `isaacscript-lint` has been split up into `isaacscript-lint` and `complete-lint`.
+  - `eslint-plugin-isaacscript` has been split up into `eslint-plugin-isaacscript` and `eslint-plugin-complete`.
+  - `eslint-config-isaacscript` has been split up into `eslint-config-isaacscript` and `eslint-config-complete`.
+  - `isaacscript-common-ts` has been moved to `complete-common`.
+  - `isaacscript-common-node` has been moved to `complete-node`.
+  - All ESLint related packages now use the "flat config", which is new ESLint config file format.
+  - If you want to upgrade your mod's dependencies, you will need to rewrite your ESLint configuration. For reference, you can init a new mod and inspect the "eslint.config.mjs" file.
+
 ## August 31st, 2024
 
 - Breaking changes:
