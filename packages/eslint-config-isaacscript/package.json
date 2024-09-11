@@ -34,7 +34,7 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "eslint-plugin-isaacscript": "^3.12.2",
+    "eslint-plugin-isaacscript": "^4.0.0",
     "typescript-eslint": "^8.5.0"
   },
   "devDependencies": {
