@@ -103,6 +103,36 @@ jobs:
   #         name: docs-build
   #         path: ./packages/docs/build
 
+  #    - name: Check if the "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
+  #      if: ${{ secret.DOCS_SSH_PRIVATE_KEY == '' }}
+  #      run: |
+  #        echo "Error: The GitHub secret of \"DOCS_SSH_PRIVATE_KEY\" is not set."
+  #        exit 1
+
+  #    - name: Check if the "TYPESENSE_API_KEY" GitHub secret is set
+  #      if: ${{ secret.TYPESENSE_API_KEY == '' }}
+  #      run: |
+  #        echo "Error: The GitHub secret of \"TYPESENSE_API_KEY\" is not set."
+  #        exit 1
+
+  #    - name: Check if the "TYPESENSE_HOST" GitHub secret is set
+  #      if: ${{ secret.TYPESENSE_HOST == '' }}
+  #      run: |
+  #        echo "Error: The GitHub secret of \"TYPESENSE_HOST\" is not set."
+  #        exit 1
+
+  #    - name: Check if the "TYPESENSE_PORT" GitHub secret is set
+  #      if: ${{ secret.TYPESENSE_PORT == '' }}
+  #      run: |
+  #        echo "Error: The GitHub secret of \"TYPESENSE_PORT\" is not set."
+  #        exit 1
+
+  #    - name: Check if the "TYPESENSE_PROTOCOL" GitHub secret is set
+  #      if: ${{ secret.TYPESENSE_PROTOCOL == '' }}
+  #      run: |
+  #        echo "Error: The GitHub secret of \"TYPESENSE_PROTOCOL\" is not set."
+  #        exit 1
+
   #     - name: Checkout the docs repository
   #       uses: actions/checkout@v4
   #       with:
