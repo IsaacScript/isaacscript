@@ -41,7 +41,7 @@ export function defaultMapGetNPC<V, Args extends unknown[]>(
  * `mapSetNPC` helper function.
  */
 export function defaultMapSetNPC<V>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PtrHash, V>,
   npc: EntityNPC,
   value: V,
@@ -54,7 +54,7 @@ export function defaultMapSetNPC<V>(
  * `Map.delete` method if you have a set of this type.
  */
 export function mapDeleteNPC(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PtrHash, unknown>,
   npc: EntityNPC,
 ): boolean {
@@ -123,7 +123,7 @@ export function mapHasNPC<V>(
  * ```
  */
 export function mapSetNPC<V>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PtrHash, V>,
   npc: EntityNPC,
   value: V,
@@ -136,7 +136,7 @@ export function mapSetNPC<V>(
  * Helper function to make using sets with an type of `PtrHash` easier. Use this instead of the
  * `Set.add` method if you have a set of this type.
  */
-// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+// eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function setAddNPC(set: Set<PtrHash>, npc: EntityNPC): void {
   const ptrHash = GetPtrHash(npc);
   set.add(ptrHash);
@@ -146,7 +146,7 @@ export function setAddNPC(set: Set<PtrHash>, npc: EntityNPC): void {
  * Helper function to make using sets with an type of `PtrHash` easier. Use this instead of the
  * `Set.delete` method if you have a set of this type.
  */
-// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+// eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function setDeleteNPC(set: Set<PtrHash>, npc: EntityNPC): boolean {
   const ptrHash = GetPtrHash(npc);
   return set.delete(ptrHash);

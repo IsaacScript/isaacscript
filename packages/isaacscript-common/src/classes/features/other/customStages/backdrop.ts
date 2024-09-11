@@ -57,7 +57,7 @@ const ROOM_SHAPE_WALL_ANM2_LAYERS = {
 } as const satisfies Record<RoomShape, int>;
 
 // We don't use `as const` since we need the object to be indexable by all `RoomShape`.
-// eslint-disable-next-line isaacscript/require-capital-const-assertions
+// eslint-disable-next-line complete/require-capital-const-assertions
 const ROOM_SHAPE_WALL_EXTRA_ANM2_LAYERS: Readonly<
   Partial<Record<RoomShape, int>>
 > = {

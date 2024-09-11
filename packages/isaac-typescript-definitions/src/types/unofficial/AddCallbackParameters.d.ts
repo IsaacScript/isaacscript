@@ -1,4 +1,4 @@
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 import type { ActiveSlot } from "../../enums/ActiveSlot";
 import type { ButtonAction } from "../../enums/ButtonAction";

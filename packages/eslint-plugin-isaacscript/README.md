@@ -21,9 +21,9 @@ Each rule has emojis denoting:
 
 | Name                                                                                       | Description                                                             | :white_check_mark: | :wrench: | :thought_balloon: |
 | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- | ------------------ | -------- | ----------------- |
-| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md) | Disallows numbers next to letters in enum members                       |                    |          |                   |
-| [`isaacscript/no-invalid-default-map`](docs/rules/no-invalid-default-map.md)               | Disallows invalid constructors for the DefaultMap class                 |                    |          | :thought_balloon: |
-| [`isaacscript/no-throw`](docs/rules/no-throw.md)                                           | Disallows the usage of "throw"                                          |                    |          |                   |
-| [`isaacscript/require-v-registration`](docs/rules/require-v-registration.md)               | Require variables named "v" to be registered with the save data manager |                    |          |                   |
+| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md) | Disallows numbers next to letters in enum members                       | :white_check_mark: |          |                   |
+| [`isaacscript/no-invalid-default-map`](docs/rules/no-invalid-default-map.md)               | Disallows invalid constructors for the DefaultMap class                 | :white_check_mark: |          | :thought_balloon: |
+| [`isaacscript/no-throw`](docs/rules/no-throw.md)                                           | Disallows the usage of "throw"                                          | :white_check_mark: |          |                   |
+| [`isaacscript/require-v-registration`](docs/rules/require-v-registration.md)               | Require variables named "v" to be registered with the save data manager | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->

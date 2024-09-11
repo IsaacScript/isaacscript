@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { assertDefined } from "complete-common";
 import { $, echo, exit, lintScript, readFile } from "complete-node";
 import path from "node:path";
@@ -50,12 +49,8 @@ async function checkGenerateChangedFiles() {
     );
     if (oldFileContents !== newFileContents) {
       changed = true;
-      echo(
-        `The "${chalk.green(
-          "generate.ts",
-        )}" script changed the following file: ${chalk.green(filePath)}`,
-      );
-      echo(`Run: ${chalk.green("npm run generate")}`);
+      echo(`The "generate.ts" script changed the following file: ${filePath}`);
+      echo('Run: "npm run generate"');
     }
   }
 

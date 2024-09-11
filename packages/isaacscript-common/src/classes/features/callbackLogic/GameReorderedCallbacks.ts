@@ -60,18 +60,18 @@ export class GameReorderedCallbacks extends Feature {
       [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
 
       // 15
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_GAME_STARTED, this.postGameStarted],
 
       // 17
       [ModCallback.PRE_GAME_EXIT, this.preGameExit],
 
       // 18
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
 
       // 19
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_NEW_ROOM, this.postNewRoom],
     ];
 

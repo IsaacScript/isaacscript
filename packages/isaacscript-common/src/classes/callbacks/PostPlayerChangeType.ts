@@ -15,7 +15,7 @@ const v = {
       PlayerIndex,
       PlayerType,
       [character: PlayerType]
-    >((character: PlayerType) => character), // eslint-disable-line isaacscript/strict-enums
+    >((character: PlayerType) => character), // eslint-disable-line complete/strict-enums
   },
 };
 

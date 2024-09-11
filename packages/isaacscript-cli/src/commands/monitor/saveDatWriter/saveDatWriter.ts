@@ -55,7 +55,7 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
   writeSaveDatToDisk(type, data, saveDat, numRetries);
 }
 
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 function readSaveDatFromDisk(): SaveDatMessage[] {
   let saveDat: SaveDatMessage[];
   if (isFile(saveDatPath)) {

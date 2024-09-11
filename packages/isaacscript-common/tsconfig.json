@@ -5,8 +5,7 @@
     // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json
     "complete-tsconfig/tsconfig.base.json",
 
-    // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.node.json
-    "complete-tsconfig/tsconfig.node.json",
+    "../isaacscript-tsconfig/tsconfig.mod.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html

@@ -96,7 +96,7 @@ function Random(): int {
   return 1;
 }
 
-globalThis.Random = Random; // eslint-disable-line deprecation/deprecation
+globalThis.Random = Random; // eslint-disable-line @typescript-eslint/no-deprecated
 
 function RNG(): RNG {
   return {

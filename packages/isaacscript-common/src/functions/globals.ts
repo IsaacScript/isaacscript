@@ -255,7 +255,7 @@ export function setLogFunctionsGlobal(): void {
   const globals = _G as Record<string, unknown>;
 
   for (const exports of [logExports, logMiscExports, logEntitiesExports]) {
-    // eslint-disable-next-line isaacscript/no-object-any
+    // eslint-disable-next-line complete/no-object-any
     for (const [logFuncName, logFunc] of Object.entries(exports)) {
       globals[logFuncName] = logFunc;
     }

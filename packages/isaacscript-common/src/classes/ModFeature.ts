@@ -225,7 +225,7 @@ function initDecoratedCallbacks(
         modFeature,
         modFeatureConstructor,
         mod,
-        modCallback, // eslint-disable-line isaacscript/strict-enums
+        modCallback, // eslint-disable-line complete/strict-enums
         priority,
         callback,
         parameters,
@@ -235,7 +235,7 @@ function initDecoratedCallbacks(
       removeCallback(
         modFeatureConstructor,
         mod,
-        modCallback, // eslint-disable-line isaacscript/strict-enums
+        modCallback, // eslint-disable-line complete/strict-enums
         vanilla,
       );
     }

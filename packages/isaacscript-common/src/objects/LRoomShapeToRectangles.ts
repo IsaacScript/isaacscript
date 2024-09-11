@@ -16,7 +16,7 @@ const TWO_BY_TWO_BOTTOM_RIGHT = newReadonlyVector(25, 13);
  * wall would be at "Vector(-1, -1)".)
  */
 // We don't use `as const` since we need the object to be indexable by all `RoomShape`.
-// eslint-disable-next-line isaacscript/require-capital-const-assertions
+// eslint-disable-next-line complete/require-capital-const-assertions
 export const L_ROOM_SHAPE_TO_RECTANGLES: Readonly<
   Partial<Record<RoomShape, LRoomRectangles>>
 > = {

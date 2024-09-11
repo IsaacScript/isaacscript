@@ -7,7 +7,7 @@ export const enumMemberNumberSeparation = createRule({
     type: "problem",
     docs: {
       description: "Disallows numbers next to letters in enum members",
-      recommended: false,
+      recommended: true,
       requiresTypeChecking: false,
     },
     schema: [],

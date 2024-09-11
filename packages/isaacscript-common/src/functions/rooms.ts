@@ -777,7 +777,7 @@ export function isMineShaft(roomData: RoomConfig): boolean {
   return (
     (roomData.StageID === StageID.MINES ||
       roomData.StageID === StageID.ASHPIT) &&
-    // eslint-disable-next-line isaacscript/strict-enums
+    // eslint-disable-next-line complete/strict-enums
     MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomData.Subtype)
   );
 }

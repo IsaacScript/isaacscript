@@ -26,25 +26,8 @@ const BASE_CONFIG = [
     // The "plugins" property is populated in the "index.ts" file.
     plugins: {},
 
-    rules: {
-      // The ESLint "eqeqeq" rule will conflict with the "isaacscript/eqeqeq-fix" rule.
-      eqeqeq: "off",
-
-      // The ESLint "no-template-curly-in-string" rule will conflict with the
-      // "isaacscript/no-template-curly-in-string-fix" rule.
-      "no-template-curly-in-string": "off",
-    },
-  },
-
-  // Disable some TypeScript-specific rules in JavaScript files.
-  {
-    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
-    rules: {
-      "isaacscript/no-let-any": "off",
-      "isaacscript/no-object-any": "off",
-      "isaacscript/require-capital-const-assertions": "off",
-      "isaacscript/require-capital-read-only": "off",
-    },
+    // The "rules" property is populated below.
+    rules: {},
   },
 ] as const satisfies TSESLint.FlatConfig.ConfigArray;
 

@@ -32,7 +32,6 @@ const EntityPartitionInternal = {
    *             Since effects do not have collision, they will never be returned. Thus, this enum
    *             is useless.
    */
-  // eslint-disable-next-line deprecation/deprecation
   EFFECT: 1 << 6,
 } as const;
 

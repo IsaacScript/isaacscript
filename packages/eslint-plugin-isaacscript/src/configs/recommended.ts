@@ -7,15 +7,11 @@ import type { TSESLint } from "@typescript-eslint/utils";
 export const recommended: TSESLint.FlatConfig.ConfigArray = [
   {
     plugins: {},
-    rules: { eqeqeq: "off", "no-template-curly-in-string": "off" },
-  },
-  {
-    files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
-      "isaacscript/no-let-any": "off",
-      "isaacscript/no-object-any": "off",
-      "isaacscript/require-capital-const-assertions": "off",
-      "isaacscript/require-capital-read-only": "off",
+      "isaacscript/enum-member-number-separation": "error",
+      "isaacscript/no-invalid-default-map": "error",
+      "isaacscript/no-throw": "error",
+      "isaacscript/require-v-registration": "error",
     },
   },
 ];

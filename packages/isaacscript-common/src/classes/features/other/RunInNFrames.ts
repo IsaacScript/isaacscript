@@ -347,7 +347,7 @@ export class RunInNFrames extends Feature {
 }
 
 function checkExecuteQueuedFunctions(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   queuedFunctions: QueuedFunction[],
   frameCount: int,
   newNumRoomsEntered: int,
@@ -368,7 +368,7 @@ function checkExecuteQueuedFunctions(
 }
 
 function checkExecuteIntervalFunctions(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   intervalFunctions: IntervalFunction[],
   frameCount: int,
   newNumRoomsEntered: int,

@@ -603,7 +603,7 @@ export class ModdedElementSets extends Feature {
           }
         }
 
-        collectibleType--; // eslint-disable-line isaacscript/strict-enums
+        collectibleType--; // eslint-disable-line complete/strict-enums
       } while (itemConfigItem !== undefined);
     }
 

@@ -2,7 +2,7 @@ import type { DefaultMap } from "../classes/DefaultMap";
 import { sumArray } from "./array";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function copyMap<K, V>(oldMap: ReadonlyMap<K, V>): Map<K, V> {
   const newMap = new Map<K, V>();
   for (const [key, value] of oldMap) {
@@ -33,7 +33,7 @@ export function defaultMapGetHash<V, A extends unknown[]>(
  * `mapSetHash` helper function.
  */
 export function defaultMapSetHash<V>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PtrHash, V>,
   entity: Entity,
   value: V,
@@ -79,7 +79,7 @@ export function getReversedMap<K, V>(
  * the map uses `PtrHash` as an index.
  */
 export function mapSetHash<V>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PtrHash, V>,
   entity: Entity,
   value: V,
@@ -101,7 +101,7 @@ export function mapSetHash<V>(
  *
  * Also see the `objectToReadonlyMap` function.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function objectToMap<K extends string | number | symbol, V>(
   object: Record<K, V>,
 ): Map<K, V> {

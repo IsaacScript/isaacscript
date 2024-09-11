@@ -165,10 +165,13 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
   }
 }
 
-// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
 /**
  * A function that creates the default value for your `DefaultMap`. For example, if it was a
- * `DefaultMap` containing maps, the factory function would be: `() => new Map()`
+ * `DefaultMap` containing maps, the factory function would be:
+ *
+ * ```ts
+ * () => new Map()
+ * ```
  */
 export type FactoryFunction<V, Args extends unknown[]> = (...args: Args) => V;
 

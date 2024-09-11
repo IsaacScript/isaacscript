@@ -10,7 +10,7 @@ import { isPrimitive } from "./types";
  * This function is variadic, meaning that you can specify N sets to add to the first set.
  */
 export function addSetsToSet<T>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   mainSet: Set<T>,
   ...setsToAdd: ReadonlyArray<ReadonlySet<T>>
 ): void {
@@ -26,7 +26,7 @@ export function addSetsToSet<T>(
  *
  * This function is variadic, meaning that you can specify N sets.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
@@ -39,7 +39,7 @@ export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
   const newSet = new Set<T>();
   for (const value of oldSet) {
@@ -56,7 +56,7 @@ export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
  * This function is variadic, meaning that you can specify N sets to remove from the first set.
  */
 export function deleteSetsFromSet<T>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   mainSet: Set<T>,
   ...setsToRemove: ReadonlyArray<ReadonlySet<T>>
 ): void {
@@ -123,7 +123,7 @@ export function getSetCombinations<T extends number | string>(
  * Normally, set values are returned in insertion order, so use this function when the ordering of
  * the contents is important.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function getSortedSetValues<T extends number | string>(
   set: ReadonlySet<T>,
 ): T[] {
@@ -167,7 +167,7 @@ export function objectKeysToReadonlySet<K extends string | number | symbol, V>(
  *
  * Also see the `objectKeysToReadonlySet` function.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function objectKeysToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
 ): Set<K> {
@@ -203,7 +203,7 @@ export function objectValuesToReadonlySet<
  *
  * Also see the `objectValuesToReadonlySet` function.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function objectValuesToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
 ): Set<V> {
@@ -222,7 +222,7 @@ export function objectValuesToSet<K extends string | number | symbol, V>(
  *
  * This function is variadic, meaning that you can pass as many things as you want to add.
  */
-// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+// eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function setAdd<T>(set: Set<T>, ...elements: readonly T[]): void {
   for (const element of elements) {
     set.add(element);

@@ -131,7 +131,7 @@ function mergeSerializedArray(
 }
 
 function mergeSerializedTSTLObject(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
   newTable: LuaMap<AnyNotNil, unknown>,
   traversalDescription: string,

@@ -8,7 +8,7 @@ import { CustomCallback } from "../private/CustomCallback";
 const v = {
   run: {
     stateMap: new DefaultMap<PtrHash, NPCState, [NPCState]>(
-      (state) => state, // eslint-disable-line isaacscript/strict-enums
+      (state) => state, // eslint-disable-line complete/strict-enums
     ),
   },
 };
