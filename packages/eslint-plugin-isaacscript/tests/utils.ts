@@ -1,4 +1,4 @@
-import { RuleTester } from "@typescript-eslint/rule-tester"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { RuleTester } from "@typescript-eslint/rule-tester";
 import path from "node:path";
 
 /** @see https://typescript-eslint.io/packages/rule-tester */

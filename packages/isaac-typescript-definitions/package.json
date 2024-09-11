@@ -35,5 +35,9 @@
   },
   "dependencies": {
     "lua-types": "^2.13.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-sort-exports": "^0.9.1",
+    "typescript-to-lua": "^1.26.2"
   }
 }

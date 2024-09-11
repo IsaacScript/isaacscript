@@ -1,4 +1,4 @@
-import { $op, getMonorepoPackageNames, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { $op, getMonorepoPackageNames, lintScript } from "complete-node";
 import path from "node:path";
 
 // This script runs the lint scripts for each individual package. It does not run the lint scripts
