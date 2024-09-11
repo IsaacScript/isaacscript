@@ -2,7 +2,6 @@ import {
   $,
   $op,
   buildScript,
-  fixMonorepoPackageDistDirectory,
   getFileNamesInDirectory,
   mkdir,
   mv,
@@ -23,10 +22,10 @@ await buildScript(async (packageRoot) => {
   copyIsaacScriptCommonFiles(packageRoot);
 
   const promises = [
-    compile(packageRoot),
+    compile(),
+    compilePlugins(packageRoot),
     generateJSONSchemaForTSConfigJSON(),
     generateJSONSchemaForIsaacScriptJSON(),
-    compilePlugins(packageRoot),
   ];
 
   await Promise.all(promises);
@@ -236,24 +235,8 @@ function getCopiedFileHeader(packageName: string): string {
 `.trimStart();
 }
 
-async function compile(packageRoot: string) {
+async function compile() {
   await $`tsc`;
-  fixMonorepoPackageDistDirectory(packageRoot);
-}
-
-/** Generate the JSON schema for the special "isaacscript" section in "tsconfig.json". */
-async function generateJSONSchemaForTSConfigJSON() {
-  const TSCONFIG_SCHEMA_PATH =
-    "schemas/tsconfig-isaacscript-section-schema.json";
-  await $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig tsconfig.json --out ${TSCONFIG_SCHEMA_PATH}`;
-  await $`prettier ${TSCONFIG_SCHEMA_PATH} --write --log-level=warn`;
-}
-
-/** Generate the JSON schema for the "isaacscript.json" file. */
-async function generateJSONSchemaForIsaacScriptJSON() {
-  const ISAACSCRIPT_SCHEMA_PATH = "schemas/isaacscript-schema.json";
-  await $`ts-json-schema-generator --path src/classes/Config.ts --tsconfig tsconfig.json --out ${ISAACSCRIPT_SCHEMA_PATH}`;
-  await $`prettier ${ISAACSCRIPT_SCHEMA_PATH} --write --log-level=warn`;
 }
 
 async function compilePlugins(packageRoot: string) {
@@ -273,4 +256,19 @@ function renamePluginJSToCJS(pluginsDirPath: string) {
       mv(oldFilePath, newFilePath);
     }
   }
+}
+
+/** Generate the JSON schema for the special "isaacscript" section in "tsconfig.json". */
+async function generateJSONSchemaForTSConfigJSON() {
+  const TSCONFIG_SCHEMA_PATH =
+    "schemas/tsconfig-isaacscript-section-schema.json";
+  await $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig tsconfig.json --out ${TSCONFIG_SCHEMA_PATH}`;
+  await $`prettier ${TSCONFIG_SCHEMA_PATH} --write --log-level=warn`;
+}
+
+/** Generate the JSON schema for the "isaacscript.json" file. */
+async function generateJSONSchemaForIsaacScriptJSON() {
+  const ISAACSCRIPT_SCHEMA_PATH = "schemas/isaacscript-schema.json";
+  await $`ts-json-schema-generator --path src/classes/Config.ts --tsconfig tsconfig.json --out ${ISAACSCRIPT_SCHEMA_PATH}`;
+  await $`prettier ${ISAACSCRIPT_SCHEMA_PATH} --write --log-level=warn`;
 }

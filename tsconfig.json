@@ -4,8 +4,11 @@
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
   "extends": [
-    "./packages/isaacscript-tsconfig/tsconfig.base.json",
-    "./packages/isaacscript-tsconfig/tsconfig.node.json",
+    // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json
+    "complete-tsconfig/tsconfig.base.json",
+
+    // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.node.json
+    "complete-tsconfig/tsconfig.node.json",
   ],
 
   "include": ["./scripts/*.ts"],

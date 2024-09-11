@@ -1,4 +1,4 @@
-// This is a tsconfig.json intended to be used by IsaacScript mods.
+// This is a TypeScript configuration intended to be used by IsaacScript mods.
 {
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
