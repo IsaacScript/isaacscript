@@ -104,31 +104,41 @@ jobs:
   #         path: ./packages/docs/build
 
   #    - name: Check if the "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
-  #      if: ${{ secret.DOCS_SSH_PRIVATE_KEY == '' }}
+  #      env:
+  #        SECRET_CHECK: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
+  #      if: ${{ env.SECRET_CHECK == '' }}
   #      run: |
   #        echo "Error: The GitHub secret of \"DOCS_SSH_PRIVATE_KEY\" is not set."
   #        exit 1
 
   #    - name: Check if the "TYPESENSE_API_KEY" GitHub secret is set
-  #      if: ${{ secret.TYPESENSE_API_KEY == '' }}
+  #      env:
+  #        SECRET_CHECK: ${{ secrets.TYPESENSE_API_KEY }}
+  #      if: ${{ env.SECRET_CHECK == '' }}
   #      run: |
   #        echo "Error: The GitHub secret of \"TYPESENSE_API_KEY\" is not set."
   #        exit 1
 
   #    - name: Check if the "TYPESENSE_HOST" GitHub secret is set
-  #      if: ${{ secret.TYPESENSE_HOST == '' }}
+  #      env:
+  #        SECRET_CHECK: ${{ secrets.TYPESENSE_HOST }}
+  #      if: ${{ env.SECRET_CHECK == '' }}
   #      run: |
   #        echo "Error: The GitHub secret of \"TYPESENSE_HOST\" is not set."
   #        exit 1
 
   #    - name: Check if the "TYPESENSE_PORT" GitHub secret is set
-  #      if: ${{ secret.TYPESENSE_PORT == '' }}
+  #      env:
+  #        SECRET_CHECK: ${{ secrets.TYPESENSE_PORT }}
+  #      if: ${{ env.SECRET_CHECK == '' }}
   #      run: |
   #        echo "Error: The GitHub secret of \"TYPESENSE_PORT\" is not set."
   #        exit 1
 
   #    - name: Check if the "TYPESENSE_PROTOCOL" GitHub secret is set
-  #      if: ${{ secret.TYPESENSE_PROTOCOL == '' }}
+  #      env:
+  #        SECRET_CHECK: ${{ secrets.TYPESENSE_PROTOCOL }}
+  #      if: ${{ env.SECRET_CHECK == '' }}
   #      run: |
   #        echo "Error: The GitHub secret of \"TYPESENSE_PROTOCOL\" is not set."
   #        exit 1
