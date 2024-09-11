@@ -12,13 +12,10 @@
     "isaacscript-tsconfig/tsconfig.mod.json",
   ],
 
-  // A list of the TypeScript files to compile.
-  "include": ["./src/**/*.ts"],
-
   // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
-    "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file.
+    "luaBundle": "main.lua", // Will bundle all output Lua files into a single file of "./mod/main.lua".
     "luaBundleEntry": "./src/bundleEntry.ts",
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file.

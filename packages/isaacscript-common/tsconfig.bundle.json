@@ -12,8 +12,7 @@
   "tstl": {
     "buildMode": "default", // Needed since we cannot bundle a library.
     "luaTarget": "5.3",
-    "luaBundle": "isaacscript-common.lua", // Will bundle all output Lua files into a single file.
-    // Also exports everything from `isaac-typescript-definitions`
+    "luaBundle": "isaacscript-common.lua",
     "luaBundleEntry": "./src/indexLua.ts",
     "luaPlugins": [
       // A plugin to add an explanatory comment at the top of the compiled "main.lua" file (for
