@@ -1,4 +1,4 @@
-import { $, $s, commandExists, lintScript } from "complete-node";
+import { $, $s, commandExists, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
 
 await lintScript(async () => {
   const promises = [
