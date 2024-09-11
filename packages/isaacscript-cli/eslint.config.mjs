@@ -12,14 +12,15 @@ export default tseslint.config(
   ...completeConfigMonorepo,
 
   {
+    files: ["**/copied/*.ts"],
     rules: {
       /**
-       * Defined in: "isaacscript/recommended"
+       * Defined in: "complete/recommended"
        *
        * Enums that are used with the API must be numbers since that is what the API expects. We
        * also prefer that unofficial enums are also number enums for consistency.
        */
-      "isaacscript/no-number-enums": "off",
+      "complete/no-number-enums": "off",
     },
   },
 
