@@ -4,7 +4,7 @@ import tseslint from "typescript-eslint";
  * This ESLint config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua
  * projects).
  */
-export const mod = tseslint.config({
+export const isaacScriptModConfigBase = tseslint.config({
   rules: {
     /**
      * Defined at: base-typescript-eslint.js

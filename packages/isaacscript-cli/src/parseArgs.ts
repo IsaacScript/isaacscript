@@ -24,7 +24,7 @@ import {
   findPackageRoot,
   getPackageJSONFieldsMandatory,
   nukeDependencies,
-  updatePackageJSON,
+  updatePackageJSONDependencies,
 } from "complete-node";
 import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
@@ -86,7 +86,7 @@ const updateCommand = new Command()
   .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .action(() => {
-    const hasNewDependencies = updatePackageJSON(CWD);
+    const hasNewDependencies = updatePackageJSONDependencies(CWD);
     const msg = hasNewDependencies
       ? "Successfully installed new Node.js dependencies."
       : "There were no new dependency updates from npm.";

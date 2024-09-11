@@ -7,7 +7,7 @@ import {
   getPackageManagerInstallCommand,
   isFile,
   readFile,
-  updatePackageJSON,
+  updatePackageJSONDependencies,
   writeFile,
 } from "complete-node";
 import {
@@ -100,7 +100,7 @@ function updateDependencies(
   }
 
   console.log('Updating dependencies in the "package.json" file...');
-  const hasNewDependencies = updatePackageJSON(undefined);
+  const hasNewDependencies = updatePackageJSONDependencies(undefined);
   if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);
     execShellString(command, verbose);

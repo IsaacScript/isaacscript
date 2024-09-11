@@ -1,8 +1,14 @@
-{
-  "$schema": "https://unpkg.com/knip@3/schema-jsonc.json",
-  "workspaces": {
+// This is the configuration file for Knip:
+// https://knip.dev/overview/configuration
+
+// @ts-check
+
+/** @type {import("knip").KnipConfig} */
+const config = {
+  workspaces: {
+    "packages/*": {},
     "packages/docs": {
-      "ignore": [
+      ignore: [
         "babel.config.js",
         "docusaurus.config.ts",
         "scripts/**",
@@ -13,10 +19,10 @@
       ],
     },
     "packages/eslint-config-isaacscript": {
-      "entry": ["base.js", "mod.js"],
+      entry: ["base.js", "mod.js"],
     },
     "packages/eslint-plugin-isaacscript": {
-      "ignore": [
+      ignore: [
         "src/template.ts",
         "tests/fixtures/file.ts",
         "tests/template.ts",
@@ -24,18 +30,18 @@
     },
     "packages/isaac-lua-polyfill": {},
     "packages/isaac-typescript-definitions": {
-      "ignore": ["typedoc.config.mjs"],
+      ignore: ["typedoc.config.mjs"],
     },
     "packages/isaac-typescript-definitions-repentogon": {
-      "ignore": ["typedoc.config.mjs"],
+      ignore: ["typedoc.config.mjs"],
     },
     "packages/isaacscript-cli": {
-      "entry": [
+      entry: [
         "src/main.ts",
         "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
         "src/commands/monitor/saveDatWriter/saveDatWriter.ts",
       ],
-      "ignore": [
+      ignore: [
         "**/copied/**",
         "file-templates/**",
         "plugins/**",
@@ -43,7 +49,7 @@
       ],
     },
     "packages/isaacscript-common": {
-      "ignore": [
+      ignore: [
         "src/classes/features/other/extraConsoleCommands/commands.ts",
         "src/lib/jsonLua.js",
         "typedoc.config.mjs",
@@ -51,5 +57,7 @@
     },
     "packages/isaacscript-spell": {},
   },
-  "ignoreDependencies": ["eslint-plugin-isaacscript"],
-}
+  ignoreDependencies: ["eslint-plugin-isaacscript"],
+};
+
+export default config;

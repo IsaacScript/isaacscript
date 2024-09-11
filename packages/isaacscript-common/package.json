@@ -38,5 +38,8 @@
   },
   "dependencies": {
     "isaac-typescript-definitions": "^42.2.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.47.8"
   }
 }

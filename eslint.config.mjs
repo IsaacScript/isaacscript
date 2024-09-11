@@ -1,4 +1,8 @@
-import { base } from "./packages/eslint-config-isaacscript/base.js";
-import { monorepo } from "./packages/eslint-config-isaacscript/monorepo.js";
+// @ts-check
 
-export default [...base, ...monorepo];
+import {
+  completeConfigBase,
+  completeConfigMonorepo,
+} from "eslint-config-complete";
+
+export default [...completeConfigBase, ...completeConfigMonorepo];

@@ -19,7 +19,7 @@ import {
   makeDirectory,
   readFile,
   renameFile,
-  updatePackageJSON,
+  updatePackageJSONDependencies,
   writeFile,
 } from "complete-node";
 import path from "node:path";
@@ -77,7 +77,7 @@ export function createProject(
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  const updated = updatePackageJSON(projectPath, false, true);
+  const updated = updatePackageJSONDependencies(projectPath, false, true);
   if (!updated) {
     fatalError('Failed to update the dependencies in the "package.json" file.');
   }

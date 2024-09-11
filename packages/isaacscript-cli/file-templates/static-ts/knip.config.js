@@ -1,3 +1,8 @@
+// This is the configuration file for Knip:
+// https://knip.dev/overview/configuration
+
+// @ts-check
+
 /** @type {import("knip").KnipConfig} */
 const config = {
   ignore: ["eslint.config.mjs", "prettier.config.mjs"],

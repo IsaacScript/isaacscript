@@ -6,5 +6,5 @@
     "../isaacscript-tsconfig/tsconfig.node.json",
   ],
 
-  "include": ["./**/*.js"],
+  "include": ["./src/**/*.js"],
 }
