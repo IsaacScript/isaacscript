@@ -2,27 +2,11 @@
 
 <img src="https://isaacscript.github.io/img/items/magic-mushroom.png" alt="Magic Mushroom">
 
-`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your TypeScript code more safe or more strict.
-
-If you already have ESLint set up in your project, then you can try enabling the [`isaacscript/recommend`](#configs) config to get all of the goodness from this plugin in your project at once. Alternatively, if you want more control, feel free to enable the specific rules that you need.
-
-Alternatively, if you want to get off the ground and running with ESLint + TypeScript in a new project, then you should check out the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-package.
-
-<br>
-
-## Install / Usage
-
-- `npm install --save-dev eslint eslint-plugin-isaacscript`
-- Add `"plugin:isaacscript/recommended"` to the `extends` section of your `.eslintrc.cjs` file. (This will automatically add the plugin and add all of the recommended rules.)
-  - Alternatively, if you want to only enable some specific rules, then add `"isaacscript"` to the `plugins` section of your `.eslintrc.cjs` file, and then add the specific rules that you want in the `rules` section.
-
-<br>
+`eslint-plugin-isaacscript` is a collection of [ESLint](https://eslint.org/) rules for IsaacScript mods. (By default, IsaacScript mods are automatically configured to use these rules.)
 
 ## Configs
 
 - `recommended` - Currently, every rule in this plugin is recommended.
-
-<br>
 
 ## Rules
 
@@ -43,5 +27,3 @@ Each rule has emojis denoting:
 | [`isaacscript/require-v-registration`](docs/rules/require-v-registration.md)               | Require variables named "v" to be registered with the save data manager |                    |          |                   |
 
 <!-- /RULES_TABLE -->
-
-<br>

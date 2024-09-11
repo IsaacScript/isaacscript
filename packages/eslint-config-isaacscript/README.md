@@ -2,6 +2,6 @@
 
 [![npm version](https://img.shields.io/npm/v/eslint-config-isaacscript.svg)](https://www.npmjs.com/package/eslint-config-isaacscript)
 
-This is a sharable configuration for [ESLint](https://eslint.org/) that is intended to be used in TypeScript projects.
+This is a shared TypeScript configuration file that is intended to be used in [IsaacScript](https://isaacscript.github.io/) mods. (By default, IsaacScript mods are automatically configured to use this config.)
 
-Please see the [docs](https://isaacscript.github.io/eslint-config-isaacscript) for more information.
+This is a shared configuration for [ESLint](https://eslint.org/) that is intended to be used in [IsaacScript](https://isaacscript.github.io/) mods. (By default, IsaacScript mods are automatically configured to use this config.)
