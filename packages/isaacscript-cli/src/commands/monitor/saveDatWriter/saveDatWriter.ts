@@ -1,10 +1,5 @@
-import {
-  getArgs,
-  isFile,
-  makeDirectory,
-  readFile,
-} from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { assertDefined } from "complete-common";
+import { getArgs, isFile, makeDirectory, readFile } from "complete-node";
 import * as JSONC from "jsonc-parser";
 import fs from "node:fs";
 import path from "node:path";

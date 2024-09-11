@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { sortCaseInsensitive } from "complete-common";
 import {
   $,
   diff,
@@ -8,11 +9,10 @@ import {
   isDirectory,
   lintScript,
   readFile,
-} from "isaacscript-common-node";
-import { sortCaseInsensitive } from "isaacscript-common-ts";
+} from "complete-node";
 import path from "node:path";
 
-await lintScript(async ({ packageRoot }) => {
+await lintScript(async (packageRoot) => {
   const promises = [$`tsc --noEmit`, $`eslint --max-warnings 0 .`];
   await Promise.all(promises);
 

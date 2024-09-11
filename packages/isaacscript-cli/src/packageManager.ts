@@ -5,7 +5,7 @@ import {
   fatalError,
   getPackageManagerLockFileName,
   getPackageManagersForProject,
-} from "isaacscript-common-node";
+} from "complete-node";
 import { CWD } from "./constants.js";
 
 export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.yarn;

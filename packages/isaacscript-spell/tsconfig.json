@@ -6,7 +6,6 @@
   "extends": [
     "../isaacscript-tsconfig/tsconfig.base.json",
     "../isaacscript-tsconfig/tsconfig.node.json",
-    "../../tsconfig.monorepo.json",
   ],
 
   "include": ["./scripts/*.ts"],

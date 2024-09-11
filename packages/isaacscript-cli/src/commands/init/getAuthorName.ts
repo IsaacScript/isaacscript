@@ -1,4 +1,4 @@
-import { fatalError } from "isaacscript-common-node";
+import { fatalError } from "complete-node";
 import { getGitHubUsername } from "../../git.js";
 import { getInputString } from "../../prompt.js";
 

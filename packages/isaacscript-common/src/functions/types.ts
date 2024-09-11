@@ -225,7 +225,7 @@ export function isUserdata(variable: unknown): variable is LuaUserdata {
  *
  * Under the hood, this uses the built-in `tonumber` and `math.floor` functions.
  *
- * This is named `parseIntSafe` in order to match the helper function in `isaacscript-common-ts`.
+ * This is named `parseIntSafe` in order to match the helper function from `complete-common`.
  */
 export function parseIntSafe(string: string): int | undefined {
   if (!isString(string)) {

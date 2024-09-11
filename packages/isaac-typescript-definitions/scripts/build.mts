@@ -1,13 +1,7 @@
-import { $, buildScript, cp, prependFile } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { $, buildScript, cp, prependFile } from "complete-node";
 import path from "node:path";
 
-await buildScript(async ({ packageRoot, outDir }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-
+await buildScript(async (packageRoot) => {
   const promises = [
     $`tstl`,
 
@@ -24,6 +18,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
   // different from the TypeScript source enums. Specifically, the `strict-enums` lint rule will
   // start to complain about e.g. `RoomType` not matching `RoomType`. Thus, we need to copy all of
   // the types into the "dist" directory so that they resolve properly.
+  const outDir = "dist";
   const indexDTSPath = path.join(outDir, "index.d.ts");
   prependFile(indexDTSPath, '/// <reference path="./types/index.d.ts" />\n\n');
   const srcPath = path.join(packageRoot, "src", "types");

@@ -1,10 +1,10 @@
 import chalk from "chalk";
+import { isEnumValue, isSemanticVersion } from "complete-common";
 import {
   $o,
   $op,
   $s,
   $sq,
-  PACKAGE_JSON,
   echo,
   exit,
   fatalError,
@@ -15,8 +15,7 @@ import {
   isDirectory,
   isGitRepositoryClean,
   isLoggedInToNPM,
-} from "isaacscript-common-node";
-import { isEnumValue, isSemanticVersion } from "isaacscript-common-ts";
+} from "complete-node";
 import path from "node:path";
 import { updateIsaacScriptMonorepo } from "./update.js";
 
@@ -109,7 +108,7 @@ if (isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev) {
 }
 
 // Manually make a Git commit. (See above comment.)
-const packageJSONPath = path.join(packagePath, PACKAGE_JSON);
+const packageJSONPath = path.join(packagePath, "package.json");
 $sq`git add ${packageJSONPath}`;
 const newVersion = getPackageJSONVersion(packagePath);
 const tag = `${packageName}-${newVersion}`;

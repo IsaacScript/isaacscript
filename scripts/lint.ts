@@ -1,4 +1,4 @@
-import { $, exit, lintScript } from "isaacscript-common-node";
+import { $, exit, lintScript } from "complete-node";
 import { packageJSONLint } from "./packageJSONLint.js";
 
 await lintScript(async () => {

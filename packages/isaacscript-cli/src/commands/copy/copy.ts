@@ -1,10 +1,10 @@
 import { Command } from "@commander-js/extra-typings";
-import type { PackageManager } from "isaacscript-common-node";
+import type { PackageManager } from "complete-node";
 import {
   copyFileOrDirectory,
   deleteFileOrDirectory,
   getPackageManagerExecCommand,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import { getConfigFromFile } from "../../configFile.js";
 import { MOD_SOURCE_PATH } from "../../constants.js";

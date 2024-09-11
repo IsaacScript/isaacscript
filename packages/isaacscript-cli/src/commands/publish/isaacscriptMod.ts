@@ -6,7 +6,7 @@ import {
   isDirectory,
   isFile,
   readFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import { getConfigFromFile } from "../../configFile.js";
 import {

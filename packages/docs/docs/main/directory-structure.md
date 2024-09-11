@@ -152,8 +152,8 @@ IsaacScript projects start with some dependencies: <!-- This corresponds to "pac
 
 It also starts with some development dependencies (which are only used when compiling, linting, and so on):
 
+1. `complete-node` - Provides helper functions to use in scripts.
 1. `isaacscript` - Provides the command-line program that monitors your project.
-1. `isaacscript-common-node` - Provides helper functions to use in scripts.
 1. `isaacscript-lint` - Provides `eslint` and all of the linting-related packages that `eslint` uses, including the official IsaacScript linting rule-set.
 1. `isaacscript-spell` - Provides spell checking dictionaries for The Binding of Isaac words and IsaacScript words.
 1. `isaacscript-tsconfig` - Provides a standard TypeScript configuration file ("tsconfig.json").

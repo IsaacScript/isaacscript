@@ -1,6 +1,6 @@
 import chalk from "chalk";
+import { fatalError, getPackageJSONVersion } from "complete-node";
 import figlet from "figlet"; // Cannot be "import * as figlet" or else run-time errors occur.
-import { fatalError, getPackageJSONVersion } from "isaacscript-common-node";
 import { PROJECT_NAME, REPO_ROOT } from "./constants.js";
 
 export function printBanner(): void {

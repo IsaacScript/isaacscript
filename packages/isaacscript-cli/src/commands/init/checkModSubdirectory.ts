@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { fatalError, isSubdirectoryOf } from "isaacscript-common-node";
+import { fatalError, isSubdirectoryOf } from "complete-node";
 import { CWD } from "../../constants.js";
 
 export function checkModSubdirectory(

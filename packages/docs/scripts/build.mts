@@ -1,4 +1,4 @@
-import { $, $op, $s, buildScript, rm } from "isaacscript-common-node";
+import { $, $op, $s, buildScript, rm } from "complete-node";
 import path from "node:path";
 import { makeECIDocs } from "./docs.mjs";
 
@@ -14,7 +14,7 @@ const GENERATED_DOC_DIRECTORY_NAMES = [
   "eslint-config-isaacscript",
 ] as const;
 
-await buildScript(async ({ packageRoot }) => {
+await buildScript(async (packageRoot) => {
   if (!DOCS_BUILD_ENABLED) {
     return;
   }

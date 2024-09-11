@@ -1,7 +1,7 @@
 // This generates the files in the "src/configs" directory.
 
 import type { TSESLint } from "@typescript-eslint/utils";
-import { writeFile } from "isaacscript-common-node";
+import { writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";

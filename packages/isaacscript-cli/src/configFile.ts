@@ -1,10 +1,5 @@
-import {
-  fatalError,
-  getJSONC,
-  isFile,
-  writeFile,
-} from "isaacscript-common-node";
-import type { ReadonlyRecord } from "isaacscript-common-ts";
+import type { ReadonlyRecord } from "complete-common";
+import { fatalError, getJSONC, isFile, writeFile } from "complete-node";
 import path from "node:path";
 import { Config } from "./classes/Config.js";
 import type { ValidatedConfig } from "./classes/ValidatedConfig.js";

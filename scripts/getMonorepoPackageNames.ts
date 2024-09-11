@@ -1,7 +1,6 @@
 // This is a script intended to be used inside of a GitHub Actions YAML file.
 
 import {
-  PACKAGE_JSON,
   appendFile,
   echo,
   getArgs,
@@ -10,7 +9,7 @@ import {
   isFile,
   isMain,
   packageJSONHasScript,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 
 const REPO_ROOT = path.join(import.meta.dirname, "..");
@@ -65,7 +64,11 @@ export function getMonorepoPackageNames(
   }
 
   return packageNames.filter((packageName) => {
-    const packageJSONPath = path.join(PACKAGES_PATH, packageName, PACKAGE_JSON);
+    const packageJSONPath = path.join(
+      PACKAGES_PATH,
+      packageName,
+      "package.json",
+    );
     if (!isFile(packageJSONPath)) {
       return false;
     }

@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { appendFile, isFile, readFile } from "isaacscript-common-node";
+import { appendFile, isFile, readFile } from "complete-node";
 import path from "node:path";
 import { HOME_DIR, PROJECT_NAME } from "./constants.js";
 import { getInputYesNo } from "./prompt.js";

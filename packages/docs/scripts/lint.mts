@@ -1,4 +1,4 @@
-import { $, lintScript } from "isaacscript-common-node";
+import { $, lintScript } from "complete-node";
 
 await lintScript(async () => {
   const promises = [
@@ -6,5 +6,6 @@ await lintScript(async () => {
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
     $`eslint --max-warnings 0 .`,
   ];
+
   await Promise.all(promises);
 });

@@ -1,12 +1,11 @@
 import chalk from "chalk";
 import {
-  PACKAGE_JSON,
   fatalError,
   isFile,
   isGitRepository,
   isGitRepositoryClean,
   isLoggedInToNPM,
-} from "isaacscript-common-node";
+} from "complete-node";
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { execPowershell } from "../../exec.js";
 
@@ -27,9 +26,9 @@ export function validate(
     );
   }
 
-  if (!isFile(PACKAGE_JSON)) {
+  if (!isFile("package.json")) {
     fatalError(
-      `Failed to find the "${PACKAGE_JSON}" file in the current working directory.`,
+      'Failed to find the "package.json" file in the current working directory.',
     );
   }
 

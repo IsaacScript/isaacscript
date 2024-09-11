@@ -4,7 +4,6 @@
   "extends": [
     "../isaacscript-tsconfig/tsconfig.base.json",
     "../isaacscript-tsconfig/tsconfig.node.json",
-    "../../tsconfig.monorepo.json",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html

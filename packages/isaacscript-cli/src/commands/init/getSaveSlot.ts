@@ -1,4 +1,4 @@
-import { fatalError } from "isaacscript-common-node";
+import { fatalError } from "complete-node";
 import { getInputInt } from "../../prompt.js";
 
 export async function getSaveSlot(

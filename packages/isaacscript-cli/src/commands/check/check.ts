@@ -1,5 +1,6 @@
 import { Command } from "@commander-js/extra-typings";
 import chalk from "chalk";
+import { ReadonlySet, getEnumValues, trimPrefix } from "complete-common";
 import {
   PACKAGE_MANAGER_LOCK_FILE_NAMES,
   PackageManager,
@@ -9,8 +10,7 @@ import {
   isFile,
   readFile,
   writeFile,
-} from "isaacscript-common-node";
-import { ReadonlySet, getEnumValues, trimPrefix } from "isaacscript-common-ts";
+} from "complete-node";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {

@@ -1,4 +1,4 @@
-import { echo, isMain } from "isaacscript-common-node";
+import { echo, isMain } from "complete-node";
 import { generateConfigs } from "./generateConfigs.js";
 import { generateReadme } from "./generateReadme.js";
 import { generateRules } from "./generateRules.js";

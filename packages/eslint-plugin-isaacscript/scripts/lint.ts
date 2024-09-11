@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { $, echo, exit, lintScript, readFile } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { assertDefined } from "complete-common";
+import { $, echo, exit, lintScript, readFile } from "complete-node";
 import path from "node:path";
 import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
@@ -23,6 +23,7 @@ await lintScript(async () => {
     $`tsc --noEmit --project ./tests/tsconfig.json`,
     $`eslint --max-warnings 0 .`,
   ];
+
   await Promise.all(promises);
 
   // We cannot do generation at the same time as the other linting because it changes the

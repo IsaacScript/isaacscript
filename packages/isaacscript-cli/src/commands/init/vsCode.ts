@@ -1,9 +1,4 @@
-import {
-  commandExists,
-  fatalError,
-  getJSONC,
-  isFile,
-} from "isaacscript-common-node";
+import { commandExists, fatalError, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { execShell } from "../../exec.js";
 import { getInputYesNo } from "../../prompt.js";

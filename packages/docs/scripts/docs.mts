@@ -2,13 +2,8 @@
 
 import ESLintJS from "@eslint/js";
 import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
-import type { Linter } from "eslint";
-import ESLintConfigPrettier from "eslint-config-prettier";
-import ESLintPluginImportX from "eslint-plugin-import-x";
-import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
-import ESLintPluginN from "eslint-plugin-n";
-import ESLintPluginUnicorn from "eslint-plugin-unicorn";
-import extractComments from "extract-comments";
+import type { ReadonlyRecord } from "complete-common";
+import { assertDefined, isArray, isObject } from "complete-common";
 import {
   echo,
   fatalError,
@@ -17,9 +12,14 @@ import {
   mkdir,
   readFile,
   writeFile,
-} from "isaacscript-common-node";
-import type { ReadonlyRecord } from "isaacscript-common-ts";
-import { assertDefined, isArray, isObject } from "isaacscript-common-ts";
+} from "complete-node";
+import type { Linter } from "eslint";
+import ESLintConfigPrettier from "eslint-config-prettier";
+import ESLintPluginImportX from "eslint-plugin-import-x";
+import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
+import ESLintPluginN from "eslint-plugin-n";
+import ESLintPluginUnicorn from "eslint-plugin-unicorn";
+import extractComments from "extract-comments";
 import path from "node:path";
 import url from "node:url";
 

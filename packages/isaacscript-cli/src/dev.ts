@@ -1,4 +1,4 @@
-import { fatalError, isDirectory } from "isaacscript-common-node";
+import { fatalError, isDirectory } from "complete-node";
 import path from "node:path";
 
 export function getAndValidateIsaacScriptMonorepoDirectory(

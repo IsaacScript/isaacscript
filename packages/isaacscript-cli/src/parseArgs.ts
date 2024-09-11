@@ -25,7 +25,7 @@ import {
   getPackageJSONFieldsMandatory,
   nukeDependencies,
   updatePackageJSON,
-} from "isaacscript-common-node";
+} from "complete-node";
 import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand, initTSCommand } from "./commands/init/init.js";

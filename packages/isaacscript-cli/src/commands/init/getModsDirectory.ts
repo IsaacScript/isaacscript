@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { fatalError, isDirectory } from "isaacscript-common-node";
+import { fatalError, isDirectory } from "complete-node";
 import path from "node:path";
 import { HOME_DIR } from "../../constants.js";
 import { getInputString } from "../../prompt.js";

@@ -1,5 +1,5 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import { kebabCaseToCamelCase } from "isaacscript-common-ts";
+import { kebabCaseToCamelCase } from "complete-common";
 import * as prettier from "prettier";
 import { PLUGIN_NAME, REPO_ROOT } from "./constants.js";
 

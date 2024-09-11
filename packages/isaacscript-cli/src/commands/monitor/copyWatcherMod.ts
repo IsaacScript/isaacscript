@@ -4,7 +4,7 @@ import {
   isFile,
   readFile,
   writeFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import {

@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { fatalError } from "isaacscript-common-node";
-import { parseSemanticVersion } from "isaacscript-common-ts";
+import { parseSemanticVersion } from "complete-common";
+import { fatalError } from "complete-node";
 import { PROJECT_NAME } from "./constants.js";
 
 // 20.11 is the minimum version that supports `import.meta.dirname`.

@@ -8,7 +8,7 @@ import {
   exit,
   lintScript,
   readFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 
 const REPO_ROOT = path.join(import.meta.dirname, "..");

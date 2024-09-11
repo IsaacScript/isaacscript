@@ -3,9 +3,9 @@ import {
   InvalidOptionArgumentError,
 } from "@commander-js/extra-typings";
 import chalk from "chalk";
-import type { PackageManager } from "isaacscript-common-node";
-import { getPackageManagerExecCommand } from "isaacscript-common-node";
-import { parseIntSafe } from "isaacscript-common-ts";
+import { parseIntSafe } from "complete-common";
+import type { PackageManager } from "complete-node";
+import { getPackageManagerExecCommand } from "complete-node";
 import path from "node:path";
 import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";

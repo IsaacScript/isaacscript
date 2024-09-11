@@ -1,20 +1,7 @@
-import {
-  $,
-  $sq,
-  appendFile,
-  buildScript,
-  cp,
-  rm,
-} from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { $, $sq, appendFile, buildScript, cp, rm } from "complete-node";
 import path from "node:path";
 
-await buildScript(async ({ packageRoot, outDir }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-
+await buildScript(async (packageRoot) => {
   // In addition to the normal compilation, we want to bundle the entire library into one file
   // specifically for Lua consumers. We also include `isaac-typescript-definitions` in the bundled
   // exports so that Lua users do not have to consume two separate libraries.

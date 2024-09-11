@@ -4,7 +4,7 @@ import {
   fatalError,
   fileOrDirectoryExists,
   isDirectory,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import { PROJECT_NAME } from "../../constants.js";
 import { getInputYesNo } from "../../prompt.js";

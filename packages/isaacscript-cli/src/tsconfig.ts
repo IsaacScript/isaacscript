@@ -1,7 +1,7 @@
 import ajvModule from "ajv";
 import chalk from "chalk";
-import { fatalError, getJSONC } from "isaacscript-common-node";
-import { isObject } from "isaacscript-common-ts";
+import { isObject } from "complete-common";
+import { fatalError, getJSONC } from "complete-node";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
   PROJECT_NAME,

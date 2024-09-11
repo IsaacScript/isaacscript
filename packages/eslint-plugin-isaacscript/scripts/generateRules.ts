@@ -1,6 +1,6 @@
 // Generates the "src/rules.ts" file.
 
-import { getFileNamesInDirectory, writeFile } from "isaacscript-common-node";
+import { getFileNamesInDirectory, writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import {

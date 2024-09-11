@@ -8,8 +8,7 @@ import {
   mv,
   readFile,
   writeFile,
-} from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+} from "complete-node";
 import path from "node:path";
 
 const INTERFACE_FILE_NAMES = ["CustomStageTSConfig", "JSONRoomsFile"] as const;
@@ -20,16 +19,11 @@ const OBJECT_FILE_NAMES = [
   "roomShapeToDoorSlotCoordinates",
 ] as const;
 
-await buildScript(async ({ packageRoot, outDir }) => {
-  assertDefined(
-    outDir,
-    'Failed to get the "outDir" from the "tsconfig.json" file.',
-  );
-
+await buildScript(async (packageRoot) => {
   copyIsaacScriptCommonFiles(packageRoot);
 
   const promises = [
-    compile(packageRoot, outDir),
+    compile(packageRoot, "dist"),
     generateJSONSchemaForTSConfigJSON(),
     generateJSONSchemaForIsaacScriptJSON(),
     compilePlugins(packageRoot),
@@ -45,10 +39,7 @@ await buildScript(async ({ packageRoot, outDir }) => {
  * https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1514
  *
  * Additionally, we do not want to create a "isaacscript-common-types" package because then it
- * becomes harder to get the types documented on the Docusaurus website. Furthermore, a hypothetical
- * "isaacscript-common-types" package would have to contain a copied `Immutable` type, since
- * "isaacscript-common-types" would not be able to import from either "isaacscript-common" or
- * "isaacscript-common-ts".
+ * becomes harder to get the types documented on the Docusaurus website.
  */
 function copyIsaacScriptCommonFiles(packageRoot: string) {
   copyITDEnums(packageRoot);
@@ -169,7 +160,7 @@ function copyISCInterfaces(packageRoot: string) {
       case "CustomStageTSConfig": {
         fileContents = fileContents.replace(
           'import type { Immutable } from "../types/Immutable";',
-          'import type { Immutable } from "isaacscript-common-ts";',
+          'import type { Immutable } from "complete-common";',
         );
         break;
       }

@@ -1,4 +1,4 @@
-import { fatalError } from "isaacscript-common-node";
+import { fatalError } from "complete-node";
 import type { ChildProcess } from "node:child_process";
 import { fork } from "node:child_process";
 import path from "node:path";
