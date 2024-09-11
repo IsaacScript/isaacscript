@@ -1,6 +1,11 @@
 import chalk from "chalk";
 import {
-  PACKAGE_JSON,
+  parseSemanticVersion,
+  removeLinesBetweenMarkers,
+  removeLinesMatching,
+  repeat,
+} from "complete-common";
+import {
   PackageManager,
   copyFileOrDirectory,
   deleteFileOrDirectory,
@@ -16,13 +21,7 @@ import {
   renameFile,
   updatePackageJSON,
   writeFile,
-} from "isaacscript-common-node";
-import {
-  parseSemanticVersion,
-  removeLinesBetweenMarkers,
-  removeLinesMatching,
-  repeat,
-} from "isaacscript-common-ts";
+} from "complete-node";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
 import { createConfigFile } from "../../configFile.js";
@@ -202,7 +201,7 @@ function copyDynamicFiles(
       .replaceAll("PROJECT_NAME", projectName)
       .replaceAll("AUTHOR_NAME", authorName ?? "unknown");
 
-    const destinationPath = path.join(projectPath, PACKAGE_JSON);
+    const destinationPath = path.join(projectPath, "package.json");
     writeFile(destinationPath, packageJSON);
   }
 

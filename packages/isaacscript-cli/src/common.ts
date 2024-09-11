@@ -1,7 +1,7 @@
 // These are functions copied from `isaacscript-common`.
 
-import { fatalError } from "isaacscript-common-node";
-import { parseIntSafe } from "isaacscript-common-ts";
+import { parseIntSafe } from "complete-common";
+import { fatalError } from "complete-node";
 import type { DoorSlot } from "./enums/copied/DoorSlot.js";
 import type { DoorSlotFlag } from "./enums/copied/DoorSlotFlag.js";
 import type { RoomShape } from "./enums/copied/RoomShape.js";

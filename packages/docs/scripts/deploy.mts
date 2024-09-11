@@ -11,7 +11,7 @@ import {
   mv,
   rm,
   sleep,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 
 const DOCS_REPO_NAME = "isaacscript.github.io";

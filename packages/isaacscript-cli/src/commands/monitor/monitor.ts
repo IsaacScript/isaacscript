@@ -8,7 +8,7 @@ import {
   isDirectory,
   isLink,
   touch,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import { printBanner } from "../../banner.js";
 import { getConfigFromFile } from "../../configFile.js";

@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { fatalError } from "isaacscript-common-node";
+import { fatalError } from "complete-node";
 import type { SpawnSyncReturns } from "node:child_process";
 import { execFileSync, execSync, spawnSync } from "node:child_process";
 import { CWD } from "./constants.js";

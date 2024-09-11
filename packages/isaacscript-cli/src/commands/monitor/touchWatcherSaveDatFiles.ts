@@ -1,9 +1,4 @@
-import {
-  isDirectory,
-  isFile,
-  makeDirectory,
-  touch,
-} from "isaacscript-common-node";
+import { isDirectory, isFile, makeDirectory, touch } from "complete-node";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";

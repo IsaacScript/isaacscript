@@ -37,7 +37,12 @@ custom_edit_url: null
 
 */
 
-import { globSync } from "glob";
+import {
+  ReadonlyMap,
+  assertDefined,
+  capitalizeFirstLetter,
+  trimSuffix,
+} from "complete-common";
 import {
   deleteFileOrDirectory,
   echo,
@@ -46,13 +51,8 @@ import {
   readFile,
   renameFile,
   writeFile,
-} from "isaacscript-common-node";
-import {
-  ReadonlyMap,
-  assertDefined,
-  capitalizeFirstLetter,
-  trimSuffix,
-} from "isaacscript-common-ts";
+} from "complete-node";
+import { globSync } from "glob";
 import fs from "node:fs";
 import path from "node:path";
 

@@ -1,18 +1,18 @@
 // See the comment in "fixIsaacScriptCommon.ts".
 
 import {
+  ReadonlyMap,
+  assertDefined,
+  capitalizeFirstLetter,
+  trimSuffix,
+} from "complete-common";
+import {
   deleteFileOrDirectory,
   isMain,
   readFile,
   renameFile,
   writeFile,
-} from "isaacscript-common-node";
-import {
-  ReadonlyMap,
-  assertDefined,
-  capitalizeFirstLetter,
-  trimSuffix,
-} from "isaacscript-common-ts";
+} from "complete-node";
 import fs from "node:fs";
 import path from "node:path";
 

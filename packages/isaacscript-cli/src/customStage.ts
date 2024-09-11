@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import type { PackageManager } from "isaacscript-common-node";
+import { parseFloatSafe, parseIntSafe } from "complete-common";
+import type { PackageManager } from "complete-node";
 import {
-  PACKAGE_JSON,
   copyFileOrDirectory,
   fatalError,
   getFileNamesInDirectory,
@@ -11,8 +11,7 @@ import {
   makeDirectory,
   readFile,
   writeFile,
-} from "isaacscript-common-node";
-import { parseFloatSafe, parseIntSafe } from "isaacscript-common-ts";
+} from "complete-node";
 import path from "node:path";
 import xml2js from "xml2js";
 import { getJSONRoomDoorSlotFlags } from "./common.js";
@@ -233,7 +232,7 @@ function validateMetadataLuaFileExists(packageManager: PackageManager) {
       ISAACSCRIPT_COMMON,
     );
     fatalError(
-      `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "${PACKAGE_JSON}" file. You can add it with the following command:\n${chalk.green(
+      `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:\n${chalk.green(
         addCommand,
       )}`,
     );

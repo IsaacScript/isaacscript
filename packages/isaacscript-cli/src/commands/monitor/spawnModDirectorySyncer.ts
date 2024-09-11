@@ -1,4 +1,4 @@
-import { fatalError } from "isaacscript-common-node";
+import { fatalError } from "complete-node";
 import { fork } from "node:child_process";
 import path from "node:path";
 import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";

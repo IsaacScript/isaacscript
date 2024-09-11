@@ -1,3 +1,5 @@
+- remove monorepo.js (should be inherited from complete)
+
 - remove yarn
 
 - go through eslint-plugin-isaacscript README

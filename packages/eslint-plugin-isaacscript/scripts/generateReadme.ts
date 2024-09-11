@@ -1,7 +1,7 @@
 // Generates the rules table in "README.md".
 
-import { readFile, writeFile } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { assertDefined } from "complete-common";
+import { readFile, writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";

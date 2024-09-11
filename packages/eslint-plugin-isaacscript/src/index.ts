@@ -1,8 +1,8 @@
 import type { TSESLint } from "@typescript-eslint/utils";
+import type { ReadonlyRecord } from "complete-common";
 import fs from "node:fs";
 import path from "node:path";
 import { configs } from "./configs.js";
-import type { ReadonlyRecord } from "./isaacScriptCommon.js";
 import { rules } from "./rules.js";
 
 const { name, version } = getPackageJSON();

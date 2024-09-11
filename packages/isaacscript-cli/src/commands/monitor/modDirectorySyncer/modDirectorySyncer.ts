@@ -1,6 +1,6 @@
 import syncDirectory from "@zamiell/sync-directory";
-import { getArgs } from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { assertDefined } from "complete-common";
+import { getArgs } from "complete-node";
 import { FILE_SYNCED_MESSAGE } from "../../../constants.js";
 
 const SUBPROCESS_NAME = "directory syncer";

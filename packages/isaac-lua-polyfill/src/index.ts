@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import type { ReadonlyRecord } from "isaacscript-common-ts";
-import { parseIntSafe } from "isaacscript-common-ts";
+import type { ReadonlyRecord } from "complete-common";
+import { parseIntSafe } from "complete-common";
 
 // --------------------
 // Lua global functions

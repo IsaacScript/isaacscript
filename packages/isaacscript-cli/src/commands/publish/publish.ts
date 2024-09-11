@@ -1,7 +1,6 @@
 import { Command } from "@commander-js/extra-typings";
-import type { PackageManager } from "isaacscript-common-node";
+import type { PackageManager } from "complete-node";
 import {
-  PACKAGE_JSON,
   fatalError,
   getPackageJSONField,
   getPackageJSONVersion,
@@ -10,7 +9,7 @@ import {
   readFile,
   updatePackageJSON,
   writeFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import {
   CONSTANTS_TS_PATH,
   CWD,
@@ -100,7 +99,7 @@ function updateDependencies(
     return;
   }
 
-  console.log(`Updating dependencies in the "${PACKAGE_JSON}" file...`);
+  console.log('Updating dependencies in the "package.json" file...');
   const hasNewDependencies = updatePackageJSON(undefined);
   if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);

@@ -1,4 +1,4 @@
-import { findPackageRoot } from "isaacscript-common-node";
+import { findPackageRoot } from "complete-node";
 import path from "node:path";
 
 const packageRoot = findPackageRoot();

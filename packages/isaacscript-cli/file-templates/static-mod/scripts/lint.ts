@@ -1,4 +1,4 @@
-import { $, $s, commandExists, lintScript } from "isaacscript-common-node";
+import { $, $s, commandExists, lintScript } from "complete-node";
 
 await lintScript(async () => {
   const promises = [

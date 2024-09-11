@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { fatalError } from "isaacscript-common-node";
-import { hasWhitespace, isKebabCase } from "isaacscript-common-ts";
+import { hasWhitespace, isKebabCase } from "complete-common";
+import { fatalError } from "complete-node";
 import path from "node:path";
 import { CURRENT_DIRECTORY_NAME, CWD } from "../../constants.js";
 import { getInputString, getInputYesNo } from "../../prompt.js";

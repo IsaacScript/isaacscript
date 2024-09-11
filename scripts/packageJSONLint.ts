@@ -1,8 +1,8 @@
 // Performs various checks on every "package.json" file in the repository.
 
-import { globSync } from "glob";
+import type { ReadonlyRecord } from "complete-common";
+import { isKebabCase } from "complete-common";
 import {
-  PACKAGE_JSON,
   echo,
   exit,
   getArgs,
@@ -11,13 +11,12 @@ import {
   isFile,
   isMain,
   readFile,
-} from "isaacscript-common-node";
-import type { ReadonlyRecord } from "isaacscript-common-ts";
-import { isKebabCase } from "isaacscript-common-ts";
+} from "complete-node";
+import { globSync } from "glob";
 import path from "node:path";
 
 const REPO_ROOT = path.join(import.meta.dirname, "..");
-const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, PACKAGE_JSON);
+const REPO_ROOT_PACKAGE_JSON_PATH = path.join(REPO_ROOT, "package.json");
 
 if (isMain()) {
   main();
@@ -47,7 +46,7 @@ export function packageJSONLint(verbose: boolean): boolean {
   }
   const rootDeps = getDeps(REPO_ROOT_PACKAGE_JSON_PATH);
 
-  const packageJSONPaths = globSync(`./packages/**/${PACKAGE_JSON}`, {
+  const packageJSONPaths = globSync("./packages/**/package.json", {
     ignore: ["**/dist/**", "**/node_modules/**"],
     cwd: REPO_ROOT,
   });
@@ -335,7 +334,7 @@ function checkDeps(
         REPO_ROOT,
         "packages",
         key,
-        PACKAGE_JSON,
+        "package.json",
       );
       const depPackageJSON = getPackageJSON(depPackageJSONPath);
       const depVersion = depPackageJSON["version"];

@@ -4,7 +4,7 @@ import {
   fatalError,
   fileOrDirectoryExists,
   isDirectory,
-} from "isaacscript-common-node";
+} from "complete-node";
 import { CWD } from "../../constants.js";
 import { getInputYesNo } from "../../prompt.js";
 

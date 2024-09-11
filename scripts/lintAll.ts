@@ -1,8 +1,8 @@
-import { $op, lintScript } from "isaacscript-common-node";
+import { $op, lintScript } from "complete-node";
 import path from "node:path";
 import { getMonorepoPackageNames } from "./getMonorepoPackageNames.js";
 
-await lintScript(async ({ packageRoot }) => {
+await lintScript(async (packageRoot) => {
   const lintPackages = getMonorepoPackageNames("lint");
 
   const promises: Array<Promise<unknown>> = [];

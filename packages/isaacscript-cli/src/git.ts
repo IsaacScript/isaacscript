@@ -4,7 +4,7 @@ import {
   getPackageJSONVersion,
   isFile,
   readFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME, REPO_ROOT } from "./constants.js";

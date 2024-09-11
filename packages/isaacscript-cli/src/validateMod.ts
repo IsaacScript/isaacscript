@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import {
-  PACKAGE_JSON,
   fatalError,
   getFilePath,
   getPackageJSON,
@@ -9,7 +8,7 @@ import {
   getPackageManagerInstallCommand,
   isDirectory,
   isFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 import { CWD, METADATA_XML, PROJECT_NAME } from "./constants.js";
 import { execShellString } from "./exec.js";
@@ -45,7 +44,7 @@ export function getIsaacScriptModMissingFile(
   directoryPath: string,
 ): string | undefined {
   // Files
-  for (const fileName of [PACKAGE_JSON]) {
+  for (const fileName of ["package.json"]) {
     const filePath = path.join(directoryPath, fileName);
     if (!isFile(filePath)) {
       return filePath;
@@ -91,7 +90,7 @@ function errorNotExists(filePath: string) {
 }
 
 export function validatePackageJSONDependencies(): void {
-  const packageJSONPath = getFilePath(PACKAGE_JSON, CWD);
+  const packageJSONPath = getFilePath("package.json", CWD);
   const packageJSON = getPackageJSON(packageJSONPath);
   const dependencies =
     getPackageJSONDependencies(packageJSON, "dependencies") ?? {};

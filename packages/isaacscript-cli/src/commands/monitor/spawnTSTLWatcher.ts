@@ -1,10 +1,10 @@
-import type { PackageManager } from "isaacscript-common-node";
+import type { PackageManager } from "complete-node";
 import {
   appendFile,
   fatalError,
   getPackageManagerExecCommand,
   isFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import type { Config } from "../../classes/Config.js";
