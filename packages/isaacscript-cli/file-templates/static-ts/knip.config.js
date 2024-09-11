@@ -4,8 +4,11 @@ const config = {
   ignoreDependencies: [
     "complete-lint", // This is a linting meta-package.
     "complete-node", // This is provided by "complete-lint".
+    "complete-tsconfig", // This is provided by "complete-lint".
   ],
-  ignoreBinaries: ["tsx"], // This is provided by "complete-lint".
+  ignoreBinaries: [
+    "tsx", // This is provided by "complete-lint".
+  ],
 };
 
 export default config;
