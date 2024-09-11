@@ -7,7 +7,6 @@ import { completeConfigBase } from "eslint-config-complete"; // eslint-disable-l
 import tseslint from "typescript-eslint"; // eslint-disable-line import-x/no-extraneous-dependencies
 
 export default tseslint.config(
-  // We use "eslint-config-complete" as the base of the config:
   // https://github.com/complete-ts/complete/blob/main/packages/eslint-config-complete/src/base.js
   ...completeConfigBase,
 
