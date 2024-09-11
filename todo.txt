@@ -32,6 +32,7 @@
 
 - waiting on:
   - upgrading TypeScript; see "update.ts"
+  - change typescript version in "packages\isaacscript-cli\file-templates\dynamic\package.ts.json"
 
 ----------------------------------------------------------------------------------------------------
 

@@ -3,11 +3,12 @@
 
 // @ts-check
 
-import { isaacscriptConfigBase } from "eslint-config-isaacscript";
-import tseslint from "typescript-eslint";
+import { isaacscriptConfigBase } from "eslint-config-isaacscript"; // eslint-disable-line import-x/no-extraneous-dependencies
+import tseslint from "typescript-eslint"; // eslint-disable-line import-x/no-extraneous-dependencies
 
 export default tseslint.config(
-  // We use "eslint-config-isaacscript" as the base of the config:
+  //
+
   // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/src/base.js
   ...isaacscriptConfigBase,
 

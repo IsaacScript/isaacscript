@@ -26,6 +26,6 @@
   "devDependencies": {
     "isaacscript": "^0.0.1",
     "complete-lint": "^0.0.1",
-    "typescript": "^0.0.1"
+    "typescript": "5.5.4"
   }
 }
