@@ -20,6 +20,9 @@
     // the standard library. (The standard library does not use ECMAScript decorators due to
     // limitations in TSTL.)
     "experimentalDecorators": true,
+
+    // We need to override the "outDir" specified by the base config.
+    "outDir": "${configDir}/mod",
   },
 
   // We cannot add values to the "tstl" object here (for TypeScriptToLua), since the entire object
