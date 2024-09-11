@@ -10,4 +10,5 @@ lockb # bun.lockb
 NPCID # Custom enum
 packagejson # prettier.config.mjs
 sarisia # ci.yml
+tseslint
 tstl
