@@ -1,5 +1,4 @@
-import { $, exit, lintScript } from "complete-node";
-import { packageJSONLint } from "./packageJSONLint.js";
+import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
 
 await lintScript(async () => {
   const promises = [
@@ -15,10 +14,8 @@ await lintScript(async () => {
     $`prettier --log-level=warn --check .`,
 
     // Use Knip to check for unused files, exports, and dependencies.
-    // TODO: Re-enable knip
-    // https://github.com/webpro/knip/issues/570
-    /// $`knip --exclude dependencies`,
-    // (Knip cannot handle Google-style monorepos, so we have to exclude dependencies.)
+    // TODO
+    /// $`knip --no-progress`,
 
     // Use CSpell to spell check every file.
     // - "--no-progress" and "--no-summary" make it only output errors.
@@ -28,14 +25,11 @@ await lintScript(async () => {
     $`cspell-check-unused-words`,
 
     // Check for template updates.
-    /// TODO
-    /// $`tsx ./packages/isaacscript-cli/src/main.ts check --ignore bundleEntry.ts,ci.yml,eslint.config.mjs,lint.ts,tsconfig.eslint.json,tsconfig.json`,
+    $`tsx ./packages/isaacscript-cli/src/main.ts check --ignore bundleEntry.ts,ci.yml,eslint.config.mjs,lint.ts,tsconfig.json`,
+
+    // Check to see if the child "package.json" files are up to date.
+    lintMonorepoPackageJSONs(),
   ];
 
   await Promise.all(promises);
-
-  // The "packageJSONLint.ts" script uses synchronous APIs, so we must run it separately.
-  if (!packageJSONLint(false)) {
-    exit(1);
-  }
 });

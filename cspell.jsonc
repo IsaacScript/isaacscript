@@ -37,9 +37,7 @@
     // @template-customization-end
   ],
   "words": [
-    "adduser",
     "APPDATA",
-    "arktype",
     "Basarat",
     "celsiusnarhwal",
     "chunkname",
@@ -53,7 +51,6 @@
     "nonblock",
     "nonconstructor",
     "nonoctal",
-    "preid",
     "pypi",
     "pyproject",
     "remarkrc",

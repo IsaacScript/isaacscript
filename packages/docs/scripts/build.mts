@@ -1,6 +1,5 @@
 import { $, $op, $s, buildScript, rm } from "complete-node";
 import path from "node:path";
-import { makeECIDocs } from "./docs.mjs";
 
 const DOCS_BUILD_ENABLED = false as boolean;
 
@@ -26,11 +25,7 @@ await buildScript(async (packageRoot) => {
 
   const repoRoot = path.join(packageRoot, "..", "..");
 
-  const promises = [
-    makeITDDocs(repoRoot),
-    makeISCDocs(repoRoot),
-    makeECIDocs(true),
-  ];
+  const promises = [makeITDDocs(repoRoot), makeISCDocs(repoRoot)];
 
   await Promise.all(promises);
 

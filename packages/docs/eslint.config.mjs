@@ -1,8 +1,10 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import {
+  completeConfigBase,
+  completeConfigMonorepo,
+} from "eslint-config-complete";
 import path from "node:path";
 import tseslint from "typescript-eslint";
-import { base } from "../eslint-config-isaacscript/base.js";
-import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
 
 const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
 
@@ -11,8 +13,8 @@ const compat = new FlatCompat({
 });
 
 export default tseslint.config(
-  ...base,
-  ...monorepo,
+  ...completeConfigBase,
+  ...completeConfigMonorepo,
   ...compat.extends("plugin:@docusaurus/recommended"),
 
   {

@@ -2,6 +2,8 @@
 // https://jestjs.io/docs/getting-started#using-typescript
 // (Babel does not support ESM config files as of August 2024, so this file must remain as CJS.)
 
+// @ts-check
+
 module.exports = {
   presets: [
     ["@babel/preset-env", { targets: { node: "current" } }],

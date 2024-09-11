@@ -1,7 +1,5 @@
 - remove monorepo.js (should be inherited from complete)
 
-- remove yarn
-
 - go through eslint-plugin-isaacscript README
 
 - get rid of include in "static-mod/tsconfig.json" once typescript version in package.json template

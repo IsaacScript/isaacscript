@@ -49,6 +49,11 @@
     "@typescript-eslint/utils": "^8.5.0",
     "typescript-eslint": "^8.5.0"
   },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-typescript": "^7.24.7"
+  },
   "peerDependencies": {
     "eslint": ">= 9.0.0",
     "typescript": ">= 5.0.0"

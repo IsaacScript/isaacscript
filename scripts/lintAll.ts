@@ -1,9 +1,10 @@
-import { $op, lintScript } from "complete-node";
+import { $op, getMonorepoPackageNames, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
 import path from "node:path";
-import { getMonorepoPackageNames } from "./getMonorepoPackageNames.js";
 
+// This script runs the lint scripts for each individual package. It does not run the lint scripts
+// for the monorepo itself. For that, use the "lint.ts" script.
 await lintScript(async (packageRoot) => {
-  const lintPackages = getMonorepoPackageNames("lint");
+  const lintPackages = await getMonorepoPackageNames(packageRoot, "lint");
 
   const promises: Array<Promise<unknown>> = [];
 
