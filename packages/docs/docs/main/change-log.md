@@ -15,6 +15,7 @@ This page lists the changes to the IsaacScript framework.
   - `isaacscript-lint` has been split up into `isaacscript-lint` and `complete-lint`.
   - `eslint-plugin-isaacscript` has been split up into `eslint-plugin-isaacscript` and `eslint-plugin-complete`.
   - `eslint-config-isaacscript` has been split up into `eslint-config-isaacscript` and `eslint-config-complete`.
+  - `isaacscript-tsconfig` has been split up into `isaacscript-tsconfig` and `isaacscript-complete`.
   - `isaacscript-common-ts` has been moved to `complete-common`.
   - `isaacscript-common-node` has been moved to `complete-node`.
   - All ESLint related packages now use the "flat config", which is new ESLint config file format.
