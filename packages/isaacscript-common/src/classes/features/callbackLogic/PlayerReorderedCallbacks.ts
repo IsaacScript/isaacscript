@@ -48,15 +48,15 @@ export class PlayerReorderedCallbacks extends Feature {
 
     this.callbacksUsed = [
       // 4
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_PEFFECT_UPDATE, this.postPEffectUpdate],
 
       // 31
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_PLAYER_UPDATE, this.postPlayerUpdate],
 
       // 32
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
     ];
 
@@ -125,7 +125,7 @@ export class PlayerReorderedCallbacks extends Feature {
 }
 
 function dequeue(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   queue: QueueElement[],
   fireFunc: (player: EntityPlayer, renderOffset: Vector) => void,
 ) {

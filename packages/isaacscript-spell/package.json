@@ -28,5 +28,10 @@
   ],
   "scripts": {
     "lint": "tsx ./scripts/lint.ts"
+  },
+  "devDependencies": {
+    "complete-common": "^1.0.0",
+    "complete-node": "^1.3.0",
+    "typescript-eslint": "^8.5.0"
   }
 }

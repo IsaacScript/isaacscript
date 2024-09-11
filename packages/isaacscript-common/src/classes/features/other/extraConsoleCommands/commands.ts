@@ -414,7 +414,7 @@ export function cards(): void {
 
       const worldPosition = gridCoordinatesToWorldPosition(x, y);
       spawnCard(cardType, worldPosition);
-      cardType++; // eslint-disable-line isaacscript/strict-enums
+      cardType++; // eslint-disable-line complete/strict-enums
     }
   }
 }
@@ -1115,7 +1115,7 @@ export function pills(): void {
 
     const worldPosition = gridCoordinatesToWorldPosition(x, y);
     spawnPill(pillColor, worldPosition);
-    pillColor++; // eslint-disable-line isaacscript/strict-enums
+    pillColor++; // eslint-disable-line complete/strict-enums
   }
 
   y = 2;
@@ -1127,7 +1127,7 @@ export function pills(): void {
 
     const worldPosition = gridCoordinatesToWorldPosition(x, y);
     spawnPill(pillColor, worldPosition);
-    pillColor++; // eslint-disable-line isaacscript/strict-enums
+    pillColor++; // eslint-disable-line complete/strict-enums
   }
 
   y = 3;

@@ -816,7 +816,7 @@ export function isGridEntityBroken(gridEntity: GridEntity): boolean {
  * the `PRE_ROOM_ENTITY_SPAWN` callback for narrowing the type of the first argument.
  */
 export function isGridEntityXMLType(num: number): num is GridEntityXMLType {
-  return GRID_ENTITY_XML_TYPES_SET.has(num); // eslint-disable-line isaacscript/strict-enums
+  return GRID_ENTITY_XML_TYPES_SET.has(num); // eslint-disable-line complete/strict-enums
 }
 
 /**

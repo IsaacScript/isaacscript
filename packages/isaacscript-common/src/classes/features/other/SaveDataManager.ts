@@ -104,7 +104,7 @@ export class SaveDataManager extends Feature {
 
       // 18
       // We want to avoid a needless dependency on the `GameReorderedCallbacks` feature.
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
     ];
 

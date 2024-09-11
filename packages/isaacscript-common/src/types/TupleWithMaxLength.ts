@@ -14,7 +14,7 @@ export type TupleWithMaxLength<T, MaxLength extends number> = readonly T[] & {
 // -----
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable isaacscript/require-unannotated-const-assertions */
+/* eslint-disable complete/require-unannotated-const-assertions */
 
 // Tuple of length 0 with max length 0.
 const zeroZero: TupleWithMaxLength<string, 0> = [] as const;
@@ -44,4 +44,4 @@ const twoTwo: TupleWithMaxLength<string, 2> = ["1", "2"] as const;
 const threeTwo: TupleWithMaxLength<string, 2> = ["1", "2", "3"] as const;
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
-/* eslint-enable isaacscript/require-unannotated-const-assertions */
+/* eslint-enable complete/require-unannotated-const-assertions */

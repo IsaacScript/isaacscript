@@ -57,7 +57,7 @@
     "@types/glob": "^8.1.0",
     "@types/node": "^22.5.4",
     "@zamiell/typedoc-plugin-not-exported": "^0.3.0",
-    "complete-lint": "^1.6.1",
+    "complete-lint": "^1.7.0",
     "glob": "^11.0.0",
     "typedoc": "^0.26.7",
     "typedoc-plugin-markdown": "^4.2.7",

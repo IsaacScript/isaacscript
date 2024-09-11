@@ -39,7 +39,7 @@ export function defaultMapGetPlayer<V, Args extends unknown[]>(
  * `mapSetPlayer` helper function.
  */
 export function defaultMapSetPlayer<V>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PlayerIndex, V>,
   player: EntityPlayer,
   value: V,
@@ -52,7 +52,7 @@ export function defaultMapSetPlayer<V>(
  * `Map.delete` method if you have a set of this type.
  */
 export function mapDeletePlayer(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PlayerIndex, unknown>,
   player: EntityPlayer,
 ): boolean {
@@ -121,7 +121,7 @@ export function mapHasPlayer<V>(
  * ```
  */
 export function mapSetPlayer<V>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   map: Map<PlayerIndex, V>,
   player: EntityPlayer,
   value: V,
@@ -135,7 +135,7 @@ export function mapSetPlayer<V>(
  * `Set.add` method if you have a set of this type.
  */
 export function setAddPlayer(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   set: Set<PlayerIndex>,
   player: EntityPlayer,
 ): void {
@@ -148,7 +148,7 @@ export function setAddPlayer(
  * `Set.delete` method if you have a set of this type.
  */
 export function setDeletePlayer(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   set: Set<PlayerIndex>,
   player: EntityPlayer,
 ): boolean {

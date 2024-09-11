@@ -197,7 +197,7 @@ export class ModUpgraded implements Mod {
   ): void {
     const callbackClass = this.callbacks[modCallbackCustom];
     // @ts-expect-error The compiler is not smart enough to figure out that the parameters match.
-    // eslint-disable-next-line isaacscript/require-variadic-function-argument
+    // eslint-disable-next-line complete/require-variadic-function-argument
     callbackClass.addSubscriber(priority, ...args);
     this.initFeature(callbackClass);
   }

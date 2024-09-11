@@ -12,7 +12,7 @@ const DOWN = LEVEL_GRID_ROW_WIDTH;
  * top right corner in the case of `RoomShape.LTL`).
  */
 // We don't use `as const` since we need the map to be indexable by all `DoorSlot`.
-// eslint-disable-next-line isaacscript/require-capital-const-assertions
+// eslint-disable-next-line complete/require-capital-const-assertions
 export const ROOM_SHAPE_TO_DOOR_SLOTS_TO_GRID_INDEX_DELTA: Readonly<
   Record<RoomShape, ReadonlyMap<DoorSlot, int>>
 > = {

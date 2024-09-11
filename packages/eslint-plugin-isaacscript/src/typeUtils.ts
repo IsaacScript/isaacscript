@@ -43,43 +43,8 @@ export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
   return signatures.length > 0;
 }
 
-/**
- * @param symbol The symbol to check.
- * @param flagsToCheck The composition of one or more `ts.SymbolFlags`.
- */
-export function isSymbolFlagSet(
-  symbol: ts.Symbol,
-  flagsToCheck: number | ts.SymbolFlags,
-): boolean {
-  return isFlagSet(symbol.flags, flagsToCheck);
-}
-
-/**
- * Checks if the given type is either an array/tuple type, or a union made up solely of array/tuple
- * types.
- *
- * Based on the `isTypeArrayTypeOrUnionOfArrayTypes` from `typescript-eslint`, but modified to also
- * match tuples.
- */
-export function isTypeArrayTupleTypeOrUnionOfArrayTupleTypes(
-  type: ts.Type,
-  checker: ts.TypeChecker,
-): boolean {
-  for (const t of unionTypeParts(type)) {
-    if (!checker.isArrayType(t) && !checker.isTupleType(t)) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-export function isAny(type: ts.Type): boolean {
-  return isTypeFlagSet(type, ts.TypeFlags.Any);
-}
-
 /** Returns all types of a union type or an array containing `type` itself if it's no union type. */
-export function unionTypeParts(type: ts.Type): readonly ts.Type[] {
+function unionTypeParts(type: ts.Type): readonly ts.Type[] {
   return isUnion(type) ? type.types : [type];
 }
 
@@ -103,6 +68,6 @@ export function isTypeFlagSet(
   return isFlagSet(flags, flagsToCheck);
 }
 
-export function isFlagSet(flags: number, flag: number): boolean {
+function isFlagSet(flags: number, flag: number): boolean {
   return (flags & flag) !== 0;
 }

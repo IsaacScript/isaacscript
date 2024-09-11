@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { sortCaseInsensitive } from "complete-common";
 import {
   $,
@@ -61,7 +60,7 @@ function checkDictionaries(packageRoot: string) {
       const sortedWordsString = sortedWords.join("\n");
       if (wordsString !== sortedWordsString) {
         oneOrMoreFailures = true;
-        echo(`The "${chalk.green(filePath)}" is not sorted:`);
+        echo(`The "${filePath}" file is not sorted:`);
         diff(wordsString, sortedWordsString);
         echo();
       }

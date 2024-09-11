@@ -53,7 +53,7 @@ export const VANILLA_COLLECTIBLE_TYPE_RANGE: readonly int[] = iRange(
  *
  * If you need to do O(1) lookups, use the `VANILLA_COLLECTIBLE_TYPES_SET` constant instead.
  */
-// eslint-disable-next-line isaacscript/strict-enums
+// eslint-disable-next-line complete/strict-enums
 export const VANILLA_COLLECTIBLE_TYPES: readonly CollectibleType[] =
   VANILLA_COLLECTIBLE_TYPE_RANGE.filter((potentialCollectibleType) => {
     const collectibleType = asCollectibleType(potentialCollectibleType);
@@ -93,7 +93,7 @@ export const VANILLA_TRINKET_TYPE_RANGE: readonly int[] = iRange(
  *
  * If you need to do O(1) lookups, use the `VANILLA_TRINKET_TYPES_SET` constant instead.
  */
-// eslint-disable-next-line isaacscript/strict-enums
+// eslint-disable-next-line complete/strict-enums
 export const VANILLA_TRINKET_TYPES: readonly TrinketType[] =
   VANILLA_TRINKET_TYPE_RANGE.filter((potentialTrinketType) => {
     const trinketType = asTrinketType(potentialTrinketType);
@@ -130,7 +130,7 @@ export const VANILLA_CARD_TYPE_RANGE: readonly int[] = iRange(
  *
  * If you need to do O(1) lookups, use the `VANILLA_CARD_TYPES_SET` constant instead.
  */
-// eslint-disable-next-line isaacscript/strict-enums
+// eslint-disable-next-line complete/strict-enums
 export const VANILLA_CARD_TYPES: readonly CardType[] =
   VANILLA_CARD_TYPE_RANGE.filter((potentialCardType) => {
     const cardType = asCardType(potentialCardType);
@@ -167,7 +167,7 @@ export const VANILLA_PILL_EFFECT_RANGE: readonly int[] = iRange(
  *
  * If you need to do O(1) lookups, use the `VANILLA_PILL_EFFECT_SET` constant instead.
  */
-// eslint-disable-next-line isaacscript/strict-enums
+// eslint-disable-next-line complete/strict-enums
 export const VANILLA_PILL_EFFECTS: readonly PillEffect[] =
   VANILLA_PILL_EFFECT_RANGE.filter((potentialPillEffect) => {
     const pillEffect = asPillEffect(potentialPillEffect);

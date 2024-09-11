@@ -19,7 +19,7 @@ export type TupleWithLengthBetween<
 // -----
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable isaacscript/require-unannotated-const-assertions */
+/* eslint-disable complete/require-unannotated-const-assertions */
 
 // @ts-expect-error Tuple of length 0 with min length 1 and max length 2.
 const zeroOneTwo: TupleWithLengthBetween<string, 1, 2> = [] as const;
@@ -38,6 +38,6 @@ const threeOneTwo: TupleWithLengthBetween<string, 1, 2> = [
 ] as const;
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
-/* eslint-enable isaacscript/require-unannotated-const-assertions */
+/* eslint-enable complete/require-unannotated-const-assertions */
 
 // See "TupleWithMaxLength.ts" for more tests.

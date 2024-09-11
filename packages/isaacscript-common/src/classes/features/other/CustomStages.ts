@@ -300,7 +300,7 @@ export class CustomStages extends Feature {
     const level = game.GetLevel();
     const stage = customStage.baseStage ?? DEFAULT_BASE_STAGE;
     const stageType = customStage.baseStageType ?? DEFAULT_BASE_STAGE_TYPE;
-    level.SetStage(stage, stageType); // eslint-disable-line isaacscript/strict-enums
+    level.SetStage(stage, stageType); // eslint-disable-line complete/strict-enums
 
     return undefined;
   };
@@ -523,7 +523,7 @@ export class CustomStages extends Feature {
         ? DEFAULT_BASE_STAGE
         : (customStage.baseStage as LevelStage);
     if (!firstFloor) {
-      baseStage++; // eslint-disable-line isaacscript/strict-enums
+      baseStage++; // eslint-disable-line complete/strict-enums
     }
 
     const baseStageType: StageType =
