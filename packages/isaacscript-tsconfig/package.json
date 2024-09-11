@@ -1,6 +1,6 @@
 {
   "name": "isaacscript-tsconfig",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "A sharable TypeScript config for TypeScript and IsaacScript projects.",
   "keywords": [
     "isaacscript",
