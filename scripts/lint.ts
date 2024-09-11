@@ -1,4 +1,4 @@
-import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
 await lintScript(async () => {
   const promises = [
