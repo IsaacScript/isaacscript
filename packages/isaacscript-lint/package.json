@@ -29,7 +29,7 @@
     "complete-lint": "^1.7.1",
     "eslint-config-isaacscript": "^5.0.2",
     "eslint-import-resolver-typescript": "^3.6.3",
-    "isaacscript-spell": "^1.15.1",
+    "isaacscript-spell": "^1.15.2",
     "isaacscript-tsconfig": "^7.0.1",
     "ts-prune-2": "^0.10.7"
   },
