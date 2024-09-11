@@ -22,6 +22,7 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "module",
+  "main": "./src/index.js",
   "files": [
     "LICENSE",
     "package.json",
