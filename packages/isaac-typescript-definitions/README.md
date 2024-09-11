@@ -1,4 +1,4 @@
-# isaac-typescript-definitions
+# `isaac-typescript-definitions`
 
 [![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions.svg)](https://www.npmjs.com/package/isaac-typescript-definitions)
 

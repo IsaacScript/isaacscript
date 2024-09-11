@@ -1,4 +1,4 @@
-# isaacscript-cli
+# `isaacscript-cli`
 
 [![npm version](https://img.shields.io/npm/v/isaacscript.svg)](https://www.npmjs.com/package/isaacscript)
 

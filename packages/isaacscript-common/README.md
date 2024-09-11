@@ -1,4 +1,4 @@
-# isaacscript-common
+# `isaacscript-common`
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-common.svg)](https://www.npmjs.com/package/isaacscript-common)
 

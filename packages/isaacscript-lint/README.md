@@ -1,4 +1,4 @@
-# isaacscript-lint
+# `isaacscript-lint`
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-lint.svg)](https://www.npmjs.com/package/isaacscript-lint)
 

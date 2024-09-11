@@ -1,6 +1,0 @@
-// This is a tsconfig.json intended to be used by TypeScript programs used in a Node.js environment.
-{
-  // We extend the recommended Node config:
-  // https://github.com/tsconfig/bases/blob/main/bases/node-lts.json
-  "extends": "@tsconfig/node-lts/tsconfig.json",
-}
