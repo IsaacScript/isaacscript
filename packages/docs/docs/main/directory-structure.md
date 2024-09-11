@@ -111,7 +111,7 @@ This contains a list of files that should not be automatically formatted. By def
 
 <br />
 
-### `cspell.jsonc`
+### `cspell.config.jsonc`
 
 This is the configuration file for [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for code.
 

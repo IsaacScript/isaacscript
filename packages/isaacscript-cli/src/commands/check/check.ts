@@ -145,8 +145,12 @@ function checkTemplateDirectory(
 
     let projectFilePath = path.join(CWD, relativeTemplateFilePath);
     switch (templateFileName) {
-      case "_cspell.jsonc": {
-        projectFilePath = path.join(projectFilePath, "..", "cspell.jsonc");
+      case "_cspell.config.jsonc": {
+        projectFilePath = path.join(
+          projectFilePath,
+          "..",
+          "cspell.config.jsonc",
+        );
         break;
       }
 
@@ -415,7 +419,10 @@ export function getTruncatedText(
     }
 
     // End-users can have different ignored words.
-    if (fileName === "cspell.jsonc" || fileName === "_cspell.jsonc") {
+    if (
+      fileName === "cspell.config.jsonc" ||
+      fileName === "_cspell.config.jsonc"
+    ) {
       if (line.match(/"words": \[.*]/) !== null) {
         continue;
       }

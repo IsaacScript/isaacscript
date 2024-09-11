@@ -108,10 +108,10 @@ function copyStaticFiles(projectPath: string, typeScript: boolean) {
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
   renameFile(gitAttributesPath, correctGitAttributesPath);
 
-  // Rename "_cspell.jsonc" to "cspell.jsonc". (If it is kept as "cspell.jsonc", then local spell
-  // checking will fail.)
-  const cSpellConfigPath = path.join(projectPath, "_cspell.jsonc");
-  const correctCSpellConfigPath = path.join(projectPath, "cspell.jsonc");
+  // Rename "_cspell.config.jsonc" to "cspell.config.jsonc". (If it is kept as
+  // "cspell.config.jsonc", then local spell checking will fail.)
+  const cSpellConfigPath = path.join(projectPath, "_cspell.config.jsonc");
+  const correctCSpellConfigPath = path.join(projectPath, "cspell.config.jsonc");
   renameFile(cSpellConfigPath, correctCSpellConfigPath);
 }
 
