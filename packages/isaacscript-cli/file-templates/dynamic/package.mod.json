@@ -18,13 +18,9 @@
     "isaacscript-common": "^0.0.1"
   },
   "devDependencies": {
-    "complete-node": "^0.0.1",
     "isaacscript": "^0.0.1",
     "isaacscript-lint": "^0.0.1",
-    "isaacscript-spell": "^0.0.1",
-    "isaacscript-tsconfig": "^0.0.1",
-    "tsx": "^0.0.1",
-    "typescript": "5.3.3",
+    "typescript": "5.5.2",
     "typescript-to-lua": "^0.0.1"
   }
 }
