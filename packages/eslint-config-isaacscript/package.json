@@ -23,12 +23,10 @@
   "author": "Zamiell",
   "type": "module",
   "files": [
-    "configs",
-    "base.js",
     "LICENSE",
-    "mod.js",
     "package.json",
-    "README.md"
+    "README.md",
+    "src"
   ],
   "scripts": {
     "lint": "tsx ./scripts/lint.ts"
