@@ -1,4 +1,4 @@
-# isaac-typescript-definitions-repentogon
+# `isaac-typescript-definitions-repentogon`
 
 [![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions-repentogon.svg)](https://www.npmjs.com/package/isaac-typescript-definitions-repentogon)
 

@@ -34,13 +34,7 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin": "^2.8.0",
-    "eslint-import-resolver-typescript": "^3.6.3",
-    "eslint-plugin-import-x": "^4.2.1",
     "eslint-plugin-isaacscript": "^3.12.2",
-    "eslint-plugin-jsdoc": "^50.2.2",
-    "eslint-plugin-n": "^17.10.2",
-    "eslint-plugin-unicorn": "^55.0.0",
     "typescript-eslint": "^8.5.0"
   }
 }

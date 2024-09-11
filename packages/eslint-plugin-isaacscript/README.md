@@ -1,4 +1,4 @@
-# eslint-plugin-isaacscript
+# `eslint-plugin-isaacscript`
 
 <img src="https://isaacscript.github.io/img/items/magic-mushroom.png" alt="Magic Mushroom">
 

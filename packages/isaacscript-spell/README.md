@@ -1,4 +1,4 @@
-# isaacscript-spell
+# `isaacscript-spell`
 
 [![npm version](https://img.shields.io/npm/v/isaacscript-spell.svg)](https://www.npmjs.com/package/isaacscript-spell)
 

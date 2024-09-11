@@ -1,4 +1,4 @@
-# isaac-lua-polyfill
+# `isaac-lua-polyfill`
 
 [![npm version](https://img.shields.io/npm/v/isaac-lua-polyfill.svg)](https://www.npmjs.com/package/isaac-lua-polyfill)
 
