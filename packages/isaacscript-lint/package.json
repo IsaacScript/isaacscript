@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "complete-lint": "^1.7.1",
-    "eslint-config-isaacscript": "^4.20.0",
+    "eslint-config-isaacscript": "^5.0.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "isaacscript-tsconfig": "^7.0.0",
     "ts-prune-2": "^0.10.7"
