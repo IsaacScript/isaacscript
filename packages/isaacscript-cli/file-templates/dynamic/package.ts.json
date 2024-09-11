@@ -24,10 +24,8 @@
     "update": "isaacscript update"
   },
   "devDependencies": {
-    "@types/node": "^0.0.1",
     "isaacscript": "^0.0.1",
     "complete-lint": "^0.0.1",
-    "complete-tsconfig": "^0.0.1",
     "typescript": "^0.0.1"
   }
 }
