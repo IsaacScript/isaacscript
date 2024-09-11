@@ -30,7 +30,7 @@
     "eslint-config-isaacscript": "^5.0.1",
     "eslint-import-resolver-typescript": "^3.6.3",
     "isaacscript-spell": "^1.15.1",
-    "isaacscript-tsconfig": "^7.0.0",
+    "isaacscript-tsconfig": "^7.0.1",
     "ts-prune-2": "^0.10.7"
   },
   "peerDependencies": {
