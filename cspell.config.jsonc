@@ -49,8 +49,6 @@
     "ssmacro",
     "sublist",
     "syncer",
-    "TSES",
-    "tseslint",
     "typedoc",
     "typesense",
   ],
