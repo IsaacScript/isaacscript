@@ -10,6 +10,9 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
+    // We need to negate the default "outDir" of "mod".
+    "outDir": "${configDir}/dist",
+
     // Needed so that the output goes to "./dist/index.lua" instead of "./dist/src/index.lua".
     "rootDir": "src",
 
