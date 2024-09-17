@@ -45,46 +45,6 @@ function getIsaacScriptSection(): Record<string, unknown> | undefined {
   return undefined;
 }
 
-export function getFirstTSConfigIncludePath(): string {
-  const tsConfig = getTSConfigJSON();
-
-  const { include } = tsConfig;
-  if (include === undefined) {
-    fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file does not have an "include" field, which is surely a mistake. ${ADVICE}`,
-    );
-  }
-
-  if (!Array.isArray(include)) {
-    fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has an "include" field that is not an array, which is surely a mistake. ${ADVICE}`,
-    );
-  }
-
-  const firstInclude = include[0] as unknown;
-  if (firstInclude === undefined) {
-    fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has an empty "include" field, which is surely a mistake. ${ADVICE}`,
-    );
-  }
-
-  if (typeof firstInclude !== "string") {
-    fatalError(
-      `Your "${chalk.green(
-        TSCONFIG_JSON_PATH,
-      )}" file has a non-string "include" value, which is surely a mistake. ${ADVICE}`,
-    );
-  }
-
-  return firstInclude;
-}
-
 /**
  * Parses the "tsconfig.json" file and returns the "customStages" section. If the section does not
  * exist, returns an empty array.
