@@ -125,8 +125,10 @@ async function monitor(options: MonitorOptions): Promise<void> {
     notifyGamePing();
   }, 1000); // Every second
 
+  const srcDir = path.join(CWD, "src");
+
   console.log("Automatically monitoring the following for changes:");
-  console.log(`1) your TypeScript code:     ${chalk.green("./src/**/*.ts")}`);
+  console.log(`1) your TypeScript code:     ${chalk.green(srcDir)}`);
   console.log(`2) the source mod directory: ${chalk.green(MOD_SOURCE_PATH)}`);
   console.log("");
   console.log(`Copying files to:            ${chalk.green(modTargetPath)}`);
