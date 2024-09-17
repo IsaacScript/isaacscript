@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.47.9",
-    "complete-node": "^1.5.0",
+    "complete-node": "^1.5.1",
     "eslint-plugin-sort-exports": "^0.9.1",
     "typescript-eslint": "^8.6.0",
     "typescript-to-lua": "^1.26.2"

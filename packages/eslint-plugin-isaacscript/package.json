@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@typescript-eslint/type-utils": "^8.5.0",
-    "@typescript-eslint/utils": "^8.5.0",
+    "@typescript-eslint/utils": "^8.6.0",
     "typescript-eslint": "^8.5.0"
   },
   "devDependencies": {
