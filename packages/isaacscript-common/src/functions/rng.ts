@@ -17,7 +17,8 @@ export type SerializedRNG = LuaMap<string, unknown> & {
 /**
  * This is the ShiftIdx that Blade recommended after having reviewing the game's internal functions.
  * Any value between 0 and 80 should work equally well.
- * https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf
+ *
+ * @see https://www.jstatsoft.org/article/view/v008i14/xorshift.pdf
  */
 const RECOMMENDED_SHIFT_IDX = 35;
 
@@ -171,5 +172,6 @@ export function setSeed(rng: RNG, seed: Seed): void {
   }
 
   // The game expects seeds in the range of 1 to 4294967295 (1^32 - 1).
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   rng.SetSeed(seed, RECOMMENDED_SHIFT_IDX);
 }
