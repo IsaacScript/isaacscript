@@ -109,6 +109,7 @@ export function getBossID(): BossID | undefined {
 
   const room = game.GetRoom();
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const bossID = room.GetBossID();
   if (bossID === 0) {
     return undefined;
