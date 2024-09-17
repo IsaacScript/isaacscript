@@ -20,7 +20,6 @@ import {
   PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
   getPackageManagerUsedForExistingProject,
 } from "../../packageManager.js";
-import { getFirstTSConfigIncludePath } from "../../tsconfig.js";
 import { getModTargetDirectoryName } from "../../utils.js";
 import {
   validateDepsInstalled,
@@ -69,8 +68,6 @@ async function monitor(options: MonitorOptions): Promise<void> {
   const config = await getConfigFromFile();
 
   // Read the "tsconfig.json" file.
-  const tsConfigInclude = getFirstTSConfigIncludePath();
-  const resolvedIncludePath = path.resolve(CWD, tsConfigInclude);
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
@@ -129,9 +126,7 @@ async function monitor(options: MonitorOptions): Promise<void> {
   }, 1000); // Every second
 
   console.log("Automatically monitoring the following for changes:");
-  console.log(
-    `1) your TypeScript code:     ${chalk.green(resolvedIncludePath)}`,
-  );
+  console.log(`1) your TypeScript code:     ${chalk.green("./src/**/*.ts")}`);
   console.log(`2) the source mod directory: ${chalk.green(MOD_SOURCE_PATH)}`);
   console.log("");
   console.log(`Copying files to:            ${chalk.green(modTargetPath)}`);
