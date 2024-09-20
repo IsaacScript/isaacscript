@@ -50,11 +50,11 @@ async function checkGenerateChangedFiles() {
     if (oldFileContents !== newFileContents) {
       changed = true;
       echo(`The "generate.ts" script changed the following file: ${filePath}`);
-      echo('Run: "npm run generate"');
     }
   }
 
   if (changed) {
+    echo('Run "npm run generate" and commit the changes.');
     exit(1);
   }
 }

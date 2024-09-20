@@ -5,6 +5,10 @@
 
 /** @type {import("knip").KnipConfig} */
 const config = {
+  // Ignore all dependencies in the root. (This is checked by the `lintMonorepoPackageJSONs` helper
+  // function.)
+  ignoreDependencies: [".+"],
+
   workspaces: {
     "packages/*": {},
     "packages/docs": {
@@ -57,7 +61,6 @@ const config = {
     },
     "packages/isaacscript-spell": {},
   },
-  ignoreDependencies: ["eslint-plugin-isaacscript"],
 };
 
 export default config;
