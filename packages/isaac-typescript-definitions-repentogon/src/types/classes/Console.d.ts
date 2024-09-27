@@ -53,6 +53,6 @@ declare global {
      * Registers a macro to execute a sequence of commands. Macros are accessible via the "macro"
      * command.
      */
-    function RegisterMacro(name: string, commands: string[]): void;
+    function RegisterMacro(name: string, commands: readonly string[]): void;
   }
 }

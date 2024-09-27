@@ -78,6 +78,7 @@ function readSaveDatFromDisk(): SaveDatMessage[] {
 
 function addMessageToSaveDat(
   type: SaveDatMessageType,
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   saveDat: SaveDatMessage[],
   data: string,
 ) {
