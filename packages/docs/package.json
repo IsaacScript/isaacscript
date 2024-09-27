@@ -55,15 +55,15 @@
     "@docusaurus/types": "^3.5.2",
     "@eslint/eslintrc": "^3.1.0",
     "@types/glob": "^8.1.0",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.7.4",
     "@zamiell/typedoc-plugin-not-exported": "^0.3.0",
     "complete-common": "^1.0.0",
     "complete-node": "^1.5.1",
     "glob": "^11.0.0",
     "typedoc": "^0.26.7",
-    "typedoc-plugin-markdown": "^4.2.7",
+    "typedoc-plugin-markdown": "^4.2.8",
     "typedoc-plugin-rename": "^1.1.1",
     "typescript": "5.5.2",
-    "typescript-eslint": "^8.6.0"
+    "typescript-eslint": "^8.7.0"
   }
 }
