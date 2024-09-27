@@ -44,7 +44,7 @@ export function getTypeDocConfig(packageDirectoryPath) {
   // We want one entry point for each export source file, which will correspond to one Markdown file
   // for each source file.
   const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
-  const typeScriptFileExports = getTypeScriptFileExports(indexTSPath);
+  const typeScriptFileExports = getIndexTSExports(indexTSPath);
   const exportsWithSrcPrefix = typeScriptFileExports.map((entryPoint) =>
     entryPoint.replaceAll("./", "./src/"),
   );
@@ -61,15 +61,21 @@ export function getTypeDocConfig(packageDirectoryPath) {
 }
 
 /**
+ * By default, TypeDoc will create a page for each individual function (even if the
+ * "entryPointStrategy" is set to "expand"). Instead, we want to create a page per function
+ * category.
+ *
+ * This function parses the "index.ts" file to find all of the individual pages.
+ *
  * @param {string} typeScriptFilePath The path to the ".ts" file.
  * @returns {readonly string[]} An array of exported file paths.
  */
-function getTypeScriptFileExports(typeScriptFilePath) {
+function getIndexTSExports(typeScriptFilePath) {
   const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf8");
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   return exportLines.map((line) => {
-    const match = line.match(/"(.+)"/);
+    const match = line.match(/export \* from "(.+)";/);
     if (match === null) {
       throw new Error(`Failed to parse line: ${line}`);
     }

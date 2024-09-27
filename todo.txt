@@ -12,8 +12,6 @@
 - release new version with flat config
 - GET RID OF ALL: "./**/.*.mjs",
 
-- release tsconfig in dev after this and everything else is sorted out
-
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
 
