@@ -20,6 +20,7 @@ jobs:
     strategy:
       matrix:
         package-name: ${{ fromJson(needs.get-build-packages.outputs.package-names) }}
+      fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
@@ -49,6 +50,7 @@ jobs:
     strategy:
       matrix:
         package-name: ${{ fromJson(needs.get-lint-packages.outputs.package-names) }}
+      fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
@@ -72,6 +74,7 @@ jobs:
     strategy:
       matrix:
         package-name: ${{ fromJson(needs.get-test-packages.outputs.package-names) }}
+      fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
