@@ -1,11 +1,24 @@
 declare interface EntityLaser extends Entity {
+  /** Returns the laser's damage multiplier. */
   GetDamageMultiplier: () => number;
-  GetDisableFollowParent: () => boolean;
-  GetHitList: () => int[];
-  GetOneHit: () => int;
 
-  /** Returns whether the laser timed out. */
-  GetTimeout: () => boolean;
+  /** Returns whether the laser's origin point doesn't follow its parent's position. */
+  GetDisableFollowParent: () => boolean;
+
+  /** Returns an array of entity indexes that the laser is hitting. */
+  GetHitList: () => int[];
+
+  /** Returns whether entities can only take damage once from the laser during its lifetime. */
+  GetOneHit: () => boolean;
+
+  /** Returns the laser's scale. */
+  GetScale: () => number;
+
+  /** Returns whether the laser has shrunk. */
+  GetShrink: () => boolean;
+
+  /** Returns how many frames until the laser times out and is removed. */
+  GetTimeout: () => int;
 
   /** Returns whether the laser was created through the Multidimensional Baby effect. */
   IsMultidimensionalTouched: () => boolean;
@@ -37,7 +50,7 @@ declare interface EntityLaser extends Entity {
   SetDamageMultiplier: (multiplier: number) => void;
 
   /** Sets whether the laser should not follow its parent. */
-  SetDisableFollowParent: (followParent: boolean) => void;
+  SetDisableFollowParent: (disabled: boolean) => void;
 
   /** Sets whether the laser was created through the Angelic Prism effect. */
   SetPrismTouched: (touched: boolean) => void;
