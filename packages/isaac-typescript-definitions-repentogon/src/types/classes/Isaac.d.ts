@@ -71,19 +71,20 @@ declare global {
     /**
      * Spawns a timer effect.
      *
-     * The timer is called every game update, meaning only frames in which the game is actively
-     * running and not paused are taken into consideration.
+     * The timer function is called every game update, meaning only frames in which the game is
+     * actively running and not paused are taken into consideration. If your use case requires a
+     * timer that takes paused time into account, stick with a custom timer running on a render
+     * callback.
      *
-     * If your use case requires a timer that takes paused time into account, stick with a custom
-     * timer running on a render callback.
-     *
-     * @param callback Ran after `interval` amount of frames has passed.
-     * @param interval The interval in frames for `callback` to be ran.
+     * @param timerFunction
+     * @param delay The delay in frames between each time `timerFunction` is ran.
+     * @param times How many times `timerFunction` is ran.
      * @param persistent Whether the timer persists across rooms.
      */
     function CreateTimer(
-      callback: () => void,
-      interval: int,
+      timerFunction: () => void,
+      delay: int,
+      times: int,
       persistent: boolean,
     ): EntityEffect;
 
@@ -135,8 +136,19 @@ declare global {
      */
     function FindInCapsule(
       capsule: Capsule,
-      partitions: BitFlags<EntityPartition>,
+      partitions: EntityPartition | BitFlags<EntityPartition>,
     ): Entity[];
+
+    /**
+     * @param position
+     * @param targetPosition
+     * @param pitIndex Optional. Default is -1.
+     */
+    function FindTargetPit(
+      position: Vector,
+      targetPosition: Vector,
+      pitIndex?: int,
+    ): int;
 
     /**
      * This method is meant to be used when creating local enums that represent custom achievements.
@@ -174,6 +186,7 @@ declare global {
      */
     function GetClipboard(): string | undefined;
 
+    /** Returns the corrected position a collectible would spawn at. */
     function GetCollectibleSpawnPosition(position: Vector): Vector;
 
     /** Returns a completion mark value for the specified character. */
@@ -208,6 +221,7 @@ declare global {
      */
     function GetCutsceneIdByName(name: string): Cutscene;
 
+    /** Returns the window's current Dwm attribute. */
     function GetDwmWindowAttribute(): DwmWindowAttribute;
 
     /**
@@ -245,7 +259,7 @@ declare global {
      * Returns an array of all of the loaded script files. The key for each element is the file's
      * path and the value is what the file returns.
      */
-    function GetLoadedModules(): Array<LuaTable<string, unknown>>;
+    function GetLoadedModules(): Array<LuaMap<string, unknown>>;
 
     /**
      * Returns the translation string associated with the specified key in the specified category.
@@ -278,6 +292,9 @@ declare global {
      */
     function GetNullItemIdByName(name: string): NullItemID;
 
+    /**
+     * Returns the game's `PersistentGameData` object, which is used to manage persistent game data.
+     */
     function GetPersistentGameData(): PersistentGameData;
 
     /**
@@ -293,9 +310,11 @@ declare global {
      *
      * Returns -1 if no item pool with the specified name was found.
      */
-    function GetPoolByName(itemPool: string): ItemPoolType | -1;
+    function GetPoolIdByName(itemPool: string): ItemPoolType | -1;
 
     /**
+     * Returns the render position from the provided position in world coordinates.
+     *
      * @param position
      * @param scale Optional. Default is true.
      */
@@ -307,6 +326,7 @@ declare global {
      */
     function GetString(category: string, key: LanguageAbbreviation): string;
 
+    /** Returns the appended text on the game's window title. */
     function GetWindowTitle(): string;
 
     /** Returns whether the specified challenge is complete. */
@@ -325,7 +345,8 @@ declare global {
      * Plays the specified cutscene.
      *
      * @param cutscene
-     * @param clearGameState Optional. Default is false.
+     * @param clearGameState Optional. If true, the run will end and the player is taken back to the
+     *                       main menu once the cutscene is finished. Default is false.
      */
     function PlayCutscene(cutscene: Cutscene, clearGameState?: boolean): void;
 
@@ -369,8 +390,17 @@ declare global {
      */
     function SetCurrentFlorName(name: string): void;
 
+    /** Sets the game's Dwm window attribute. */
     function SetDwmWindowAttribute(attribute: DwmWindowAttribute): void;
 
+    /**
+     * Sets the game's taskbar icon.
+     *
+     * @param windowIcon You can choose to either pass `WindowIcon` to use one of the two vanilla
+     *                   game icons or pass a path to an .ico file to use as the game's taskbar
+     *                   icon.
+     * @param bypassResolutionLimit Optional. If true, the 16x16 resolution cap is bypassed.
+     */
     function SetIcon(
       windowIcon: WindowIcon | string,
       bypassResolutionLimit: boolean,
@@ -382,6 +412,11 @@ declare global {
     /**
      * Displays a Win32 message box. Returns a `DialogReturn` value which indicates the button
      * pressed.
+     *
+     * It's a good idea to not heavily rely on this function as:
+     *  - Players using a gamepad are unable to navigate the popup. They will have to use a mouse,
+     *    keyboard, or touchscreen.
+     * - The window title will not show up in some environments such as the Steam Deck.
      *
      * @param title
      * @param text
