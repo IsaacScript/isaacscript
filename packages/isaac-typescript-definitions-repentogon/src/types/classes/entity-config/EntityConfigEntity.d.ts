@@ -28,7 +28,7 @@ declare global {
      */
     CanShutDoors: () => boolean;
 
-    /** Returns a path to the entity's .anm2 file, , as defined in `entities2.xml`. */
+    /** Returns a path to the entity's .anm2 file, as defined in `entities2.xml`. */
     GetAnm2Path: () => string;
 
     /** Returns the entity's base HP, as defined in `entities2.xml`. */
@@ -68,13 +68,13 @@ declare global {
     GetCollisionInterval: () => int;
 
     /** Returns the entity's collision radius, as defined in `entities2.xml`. */
-    GetCollisionRadius: () => int;
+    GetCollisionRadius: () => number;
 
     /**
      * Returns a read-only `Vector` of the entity's collision radius multiplier, as defined in
      * `entities2.xml`.
      */
-    readonly GetCollisionRadiusMultiplier: () => Vector;
+    GetCollisionRadiusMultiplier: () => Readonly<Vector>;
 
     /**
      * Returns an array containing all of the tags defined in the entity's `customtags` attribute in
@@ -131,7 +131,13 @@ declare global {
     HasCustomTag: (tag: string) => boolean;
 
     /** Returns true if the entity has all of the entity tags in the provided bitset. */
-    HasEntityTags: (tags: BitFlags<EntityTag>) => boolean;
+    HasEntityTags: (tags: BitFlags<EntityTag> | EntityTag) => boolean;
+
+    /** Returns whether the entity has floor alts. */
+    HasFloorAlts: () => boolean;
+
+    /** Returns whether the entity has all of the gib flags in the provided bitset. */
+    HasGibFlags: (flags: GibFlag | BitFlags<GibFlag>) => boolean;
 
     /** Returns true if the entity is a boss, as defined in `entities2.xml`. */
     IsBoss: () => boolean;
