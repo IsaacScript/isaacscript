@@ -36,7 +36,11 @@ declare global {
     AddBrimstoneMark: (source: EntityRef, duration: int) => void;
 
     /**
-     * Adds an ice effect to the entity.
+     * Adds the ice status effect to the entity.
+     *
+     * There is no visual indicator that determines if the status effect is active. If the entity
+     * dies while the status effect is active, they will be frozen similar to how Uranus tears
+     * freezes enemies.
      *
      * @param source Required. If you do not want the effect to have a source, pass
      *               `EntityRef(undefined)`.
@@ -51,8 +55,8 @@ declare global {
      * @param source Required. If you do not want the effect to have a source, pass
      *               `EntityRef(undefined)`.
      * @param pushDirection The direction to push the entity.
-     * @param duration The number of frames that the effect should apply for. This must be between 2
-     *                 to 15.
+     * @param duration The number of frames that the effect should apply for. This is capped at 15
+     *                 frames / 0.5 seconds.
      * @param takeImpactDamage Whether the entity should take damage if they collide into a solid
      *                         grid entity while the knockback effect is active.
      */
@@ -83,10 +87,7 @@ declare global {
      */
     AddWeakness: (source: EntityRef, duration: int) => void;
 
-    ComputeStatusEffectDuration: (
-      initialLength: int,
-      source: EntityRef,
-    ) => void;
+    ComputeStatusEffectDuration: (initialLength: int, source: EntityRef) => int;
 
     /**
      * Copies the entity's status effects onto the specified target.
@@ -98,8 +99,14 @@ declare global {
      */
     CopyStatusEffects: (target?: Entity, overwrite?: boolean) => void;
 
-    /** Fires all related collision related callbacks with the provided parameters. */
-    ForceCollide: (target: Entity, low: boolean) => void;
+    /**
+     * Attempts force the game to detect a collision between the entity and the provided `target`,
+     * triggering all collision related code such as contact damage.
+     *
+     * @param target
+     * @param low Optional. Default is false.
+     */
+    ForceCollide: (target: Entity, low?: boolean) => boolean;
 
     /** Returns how many frames are left until the baited status effect goes away. */
     GetBaitedCountdown: () => int;
@@ -127,21 +134,28 @@ declare global {
     /** Returns how many frames are left until the charmed status effect goes away. */
     GetCharmedCountdown: () => int;
 
-    /** Returns the entity's collision capsule. */
-    GetCollisionCapsule: () => Capsule;
+    /**
+     * Returns the entity's collision capsule.
+     *
+     * @param offset Optional. Default is `VectorZero`.
+     */
+    GetCollisionCapsule: (offset?: Vector) => Capsule;
 
-    /** Returns an array of all of the entity's `ColorParams`. */
+    /**
+     * Returns an array of all of the entity's `ColorParams` queued by the `Entity.SetColor` method.
+     */
     GetColorParams: () => ColorParams[];
 
     /** Returns how many frames are left until the confusion status effect goes away. */
     GetConfusionCountdown: () => int;
 
     /**
-     * Returns how many frames until the entity can take damage with `DamageFlag.COUNTDOWN` again.
-     * This cooldown is only present when the entity takes damage with the `DamageFlag.COUNTDOWN`
-     * flag.
+     * Returns how many frames until the entity can take damage with the `DamageFlag.COUNTDOWN`
+     * damage flag again. This cooldown is only present when the entity takes damage with the
+     * `DamageFlag.COUNTDOWN` flag.
      *
-     * This is not the same as the player's invincibility frames (`EntityPlayer.GetDamageCooldown`).
+     * This is not the same as the player's invincibility frames. If you wish to see how many more
+     * invincible frames the player has, use the `EntityPlayer.GetDamageCooldown` method.
      */
     GetDamageCountdown: () => int;
 
@@ -150,7 +164,7 @@ declare global {
      *
      * @param unknown The behavior of this parameter is currently unknown and remains undocumented.
      */
-    GetDebugShape: () => Shape;
+    GetDebugShape: (unknown: boolean) => Shape;
 
     /** Returns the entity's corresponding `EntityConfigEntity`. */
     GetEntityConfigEntity: () => EntityConfigEntity;
@@ -164,6 +178,7 @@ declare global {
     /** Returns how many frames are left until the freeze status effect goes away. */
     GetFreezeCountdown: () => int;
 
+    /** Returns the entity's hit list index. */
     GetHitListIndex: () => int;
 
     /** Returns how many frames are left until the ice status effect goes away. */
@@ -191,13 +206,13 @@ declare global {
     GetMinecart: () => EntityNPC | undefined;
 
     /** Returns the entity's null capsule. */
-    GetNullCapsule: (nullLayerName: string) => Capsule;
+    GetNullCapsule: (nullLayerNameOrId: string | int) => Capsule;
 
     /**
      * Returns the position of the null layer mark. If the layer is not visible or no frame is
-     * available for the current animation, `Vector.Zero` is returned instead.
+     * available for the current animation, `VectorZero` is returned instead.
      */
-    GetNullOffset: (nullLayerName: string) => Vector;
+    GetNullOffset: (nullLayerNameOrId: string | undefined) => Vector;
 
     /** Returns how many frames are left until the pause status effect goes away. */
     GetPauseTime: () => int;
@@ -208,7 +223,7 @@ declare global {
     /** Returns how many frames until the entity takes damage from the poison status effect. */
     GetPoisonDamageTimer: () => int;
 
-    /** Returns the entity's position and velocity. */
+    /** Returns a dictionary with fields containing the entity's position and velocity. */
     GetPosVel: () => PosVel;
 
     /**
@@ -219,7 +234,7 @@ declare global {
      *              a value of 1 would predict where the target's velocity would take them on the
      *              next update.
      */
-    GetPredictedTargetPosition: (target: Entity, delay: number) => void;
+    GetPredictedTargetPosition: (target: Entity, delay: number) => Vector;
 
     /** Returns the size of the entity's shadow. */
     GetShadowSize: () => number;
@@ -245,11 +260,26 @@ declare global {
     GiveMinecart: (position: Vector, velocity: Vector) => EntityNPC;
 
     /** Returns whether the entity should ignore status effects from the provided `EntityRef`. */
-    IgnoreEffectFromFriendly: (source: EntityRef) => void;
+    IgnoreEffectFromFriendly: (source: EntityRef) => boolean;
 
     /**
-     * Spawns two blood explosion effects, one with a sub-type of `Poof2SubType.LARGE_BLOOD_POOF`
-     * and `Poof2SubType.LARGE_BLOOD_POOF_FOREGROUND`. The former is returned with the latter set as
+     * Spawns two blood poof effects, one with a sub-type of `Poof2SubType.LARGE_BLOOD_POOF` and
+     * `Poof2SubType.LARGE_BLOOD_POOF_FOREGROUND`. The former is returned with the latter set as its
+     * child.
+     *
+     * @param position Optional. Default is the entity's current position.
+     * @param color Optional.
+     * @param scale Optional. Default is 1.
+     */
+    MakeBloodPoof: (
+      position?: Vector,
+      color?: Color,
+      scale?: number,
+    ) => EntityEffect;
+
+    /**
+     * Spawns two poof effects, one with a sub-type of `Poof2SubType.LARGE_GROUND_POOF` and
+     * `Poof2SubType.LARGE_GROUND_POOF_FOREGROUND`. The former is returned with the latter set as
      * its child.
      *
      * @param position Optional. Default is the entity's current position.
@@ -317,7 +347,7 @@ declare global {
      * Updates the remaining frames until the entity can take damage from the `DamageFlag.COUNTDOWN`
      * flag again.
      *
-     * This is not the same as the player's invincibility frames (EntityPlayer.GetDamageCooldown`).
+     * This is not the same as the player's invincibility frames.
      */
     SetDamageCountdown: (countdown: int) => void;
 
@@ -435,7 +465,8 @@ declare global {
     ) => EntityEffect;
 
     /**
-     * Spawns a water impact effect. If `Room.GetWaterAmount` is less than 0.2, nothing will spawn.
+     * Spawns a water impact effect. If `Room.GetWaterAmount` is less than or equal to 0.2, nothing
+     * will spawn.
      */
     SpawnWaterImpactEffects: (
       position: Vector,
@@ -451,10 +482,22 @@ declare global {
      */
     ToDelirium: () => EntityDelirium | undefined;
 
+    /**
+     * Casts an `Entity` into an `EntitySlot`, which has delirium-specific methods and properties.
+     * If the associated entity is not a slot, then this method will return undefined.
+     */
+    ToSlot: () => EntitySlot | undefined;
+
+    /**
+     * Attempts to throw the entity. This is the same effect as when the player is knocked up from a
+     * Quakey stomping.
+     *
+     * Returns whether the entity was thrown successfully.
+     */
     TryThrow: (
       source: EntityRef,
       throwDirection: Vector,
       force: number,
-    ) => void;
+    ) => boolean;
   }
 }

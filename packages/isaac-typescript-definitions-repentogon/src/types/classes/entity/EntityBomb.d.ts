@@ -8,8 +8,13 @@ declare global {
     /** Returns how many frames until the bomb explodes. */
     GetExplosionCountdown: () => int;
 
+    /** Returns the bomb's falling speed. */
     GetFallingSpeed: () => number;
+
+    /** Returns how high the bomb is from the ground. */
     GetHeight: () => number;
+
+    /** Returns an array containing all of the entity indexes the bomb hit with its explosion. */
     GetHitList: () => int[];
 
     /**
@@ -35,9 +40,14 @@ declare global {
     /** Returns whether the bomb was created through the Angelic Prism effect. */
     IsPrismTouched: () => boolean;
 
+    /** Sets the bomb's falling speed. */
     SetFallingSpeed: (speed: number) => void;
-    SetHeight: () => void;
-    SetLoadCostumes: (load: number) => void;
+
+    /** Sets the bomb's height. */
+    SetHeight: (height: number) => void;
+
+    /** Sets whether the bomb should load the costumes. */
+    SetLoadCostumes: (load: boolean) => void;
 
     /** Sets whether the bomb was created through the Angelic Prism effect. */
     SetPrismTouched: (touched: boolean) => void;
@@ -54,9 +64,13 @@ declare global {
      */
     SetRocketSpeed: (speed: number) => void;
 
-    /** Sets the bomb's scale. This should be used with the `EntityBomb.SetLoadCostumes` method. */
+    /**
+     * Sets the bomb's scale. This should be used with the `EntityBomb.SetLoadCostumes` method so
+     * the costumes can update properly.
+     */
     SetScale: (scale: number) => void;
 
+    /** Updates the color of the dirt particles the bomb, if it exists. */
     UpdateDirtColor: () => void;
   }
 }

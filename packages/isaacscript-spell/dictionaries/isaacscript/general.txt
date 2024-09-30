@@ -14,6 +14,7 @@ codebases
 cyclomatic
 decompilation
 decrementation
+desyncs
 easings
 gamepad
 grimoire

@@ -19,9 +19,9 @@
 declare function Capsule(
   this: void,
   position: Vector,
-  sizeMultiplier: Vector,
-  rotation: number,
-  size: number,
+  sizeMultiplierOrTargetPosition: Vector,
+  rotationOrSize: number,
+  size?: number,
 ): Capsule;
 
 /**
@@ -30,11 +30,65 @@ declare function Capsule(
  * @see https://repentogon.com/
  */
 declare interface Capsule extends IsaacAPIClass {
+  /**
+   * Attempts to trigger a collision between two capsules at a specific position. Returns whether
+   * the capsules have collided or not.
+   */
   Collide: (capsule: Capsule, point: Vector) => boolean;
+
+  /**
+   * Returns a unit vector corresponding to the direction the capsule relative to its origin. This
+   * takes its rotation and size into account.
+   */
   GetDirection: () => Vector;
-  GetF1: () => number;
-  GetF2: () => number;
+
+  /**
+   * Returns the capsule's radius.
+   *
+   * The original name of this method is `GetF1` as the purpose of the function has remained unknown
+   * for some time. When compiling the mod, the compiler will rename this method from "GetRadius" to
+   * "GetF1" to prevent errors. REPENTOGON will give these methods proper names in a later update.
+   *
+   * @customName GetF1
+   */
+  GetRadius: () => number;
+
+  /**
+   * Returns the distance between the two endpoints of the capsule.
+   *
+   * The original name of this method is `GetF2` as the purpose of the function has remained unknown
+   * for some time. When compiling the mod, the compiler will rename this method from
+   * "GetEndpointsDistance" to "GetF2" to prevent errors. REPENTOGON will give these methods proper
+   * names in a later update.
+   *
+   * @customName GetF2
+   */
+  GetEndpointsDistance: () => number;
+
+  /** Returns the capsule's position. */
   GetPosition: () => Vector;
-  GetVec2: () => Vector;
-  GetVec3: () => Vector;
+
+  /**
+   * Returns the position of one of the two capsule's endpoints.
+   *
+   * The original name of this method is `GetVec2` as the purpose of the function has remained
+   * unknown for some time. When compiling the mod, the compiler will rename this method from
+   * "GetEndpoint1Position" to "GetVec2" to prevent errors. REPENTOGON will give these methods
+   * proper names in a later update.
+   *
+   * @customName GetVec2
+   */
+  GetEndpoint1Position: () => Vector;
+
+  /**
+   * Returns the position of one of the two capsule's endpoints.
+   *
+   * The original name of this method is `GetVec2` as the purpose of the function has remained
+   * unknown for some time. When compiling the mod, the compiler will rename this method from
+   * "GetEndpoint2Position" to "GetVec3" to prevent errors. REPENTOGON will give these methods
+   * proper names in a later update.
+   *
+   * @customName GetVec3
+   */
+  GetEndpoint2Position: () => Vector;
 }

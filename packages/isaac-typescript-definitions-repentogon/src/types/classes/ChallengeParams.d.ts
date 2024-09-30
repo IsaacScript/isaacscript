@@ -21,9 +21,7 @@ declare global {
     /** Returns true if the player does not start off blindfolded in the challenge. */
     CanShoot: () => boolean;
 
-    /**
-     * Returns an array of all of the achievements that are granted upon completing the challenge.
-     */
+    /** Returns an array of all of the achievements required for the challenge to be unlocked. */
     GetAchievementList: () => Achievement[];
 
     GetAddDamage: () => number;
@@ -61,6 +59,7 @@ declare global {
     /** Returns the amount of red heart containers the player starts with in the challenge. */
     GetMaxHearts: () => int;
 
+    /** Returns the minimum fire rate the player has in the challenge. */
     GetMinFireRate: () => number;
 
     /** Returns the name of the challenge. */
@@ -84,15 +83,21 @@ declare global {
     /** Returns an array of trinkets that the player starts with in the challenge. */
     GetTrinketList: () => TrinketType[];
 
-    /** Returns true if the challenge goes through the alt path. */
     IsAltPath: () => boolean;
 
+    /** Returns whether the player's range is forced to be at its maximum value at 16.50. */
     IsBigRangeEnabled: () => boolean;
+
+    /** Returns whether the player's damage is forced to be at its maximum value at 100. */
     IsMaxDamageEnabled: () => boolean;
 
     /** Returns true if the end-boss of the challenge is Mega Satan. */
     IsMegaSatanRun: () => boolean;
+
+    /** Returns whether the player has a minimum shot speed cap. */
     IsMinShotSpeedEnabled: () => boolean;
+
+    /** Returns whether the challenge takes the player through the Repentance path. */
     IsSecretPath: () => boolean;
   }
 }
