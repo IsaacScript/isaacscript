@@ -46,7 +46,7 @@ declare global {
     /** Sets the bomb's height. */
     SetHeight: (height: number) => void;
 
-    /** Sets whether the bomb should load the costumes */
+    /** Sets whether the bomb should load the costumes. */
     SetLoadCostumes: (load: boolean) => void;
 
     /** Sets whether the bomb was created through the Angelic Prism effect. */

@@ -56,7 +56,7 @@ declare global {
      *               `EntityRef(undefined)`.
      * @param pushDirection The direction to push the entity.
      * @param duration The number of frames that the effect should apply for. This is capped at 15
-     * frames / 0.5 seconds.
+     *                 frames / 0.5 seconds.
      * @param takeImpactDamage Whether the entity should take damage if they collide into a solid
      *                         grid entity while the knockback effect is active.
      */
@@ -142,8 +142,7 @@ declare global {
     GetCollisionCapsule: (offset?: Vector) => Capsule;
 
     /**
-     * Returns an array of all of the entity's `ColorParams` queued by the `Entity.SetColor`
-     * method.
+     * Returns an array of all of the entity's `ColorParams` queued by the `Entity.SetColor` method.
      */
     GetColorParams: () => ColorParams[];
 
@@ -264,9 +263,9 @@ declare global {
     IgnoreEffectFromFriendly: (source: EntityRef) => boolean;
 
     /**
-     * Spawns two blood poof effects, one with a sub-type of `Poof2SubType.LARGE_BLOOD_POOF`
-     * and `Poof2SubType.LARGE_BLOOD_POOF_FOREGROUND`. The former is returned with the latter set
-     * as its child.
+     * Spawns two blood poof effects, one with a sub-type of `Poof2SubType.LARGE_BLOOD_POOF` and
+     * `Poof2SubType.LARGE_BLOOD_POOF_FOREGROUND`. The former is returned with the latter set as its
+     * child.
      *
      * @param position Optional. Default is the entity's current position.
      * @param color Optional.
@@ -279,9 +278,9 @@ declare global {
     ) => EntityEffect;
 
     /**
-     * Spawns two poof effects, one with a sub-type of `Poof2SubType.LARGE_GROUND_POOF`
-     * and `Poof2SubType.LARGE_GROUND_POOF_FOREGROUND`. The former is returned with the latter set
-     * as its child.
+     * Spawns two poof effects, one with a sub-type of `Poof2SubType.LARGE_GROUND_POOF` and
+     * `Poof2SubType.LARGE_GROUND_POOF_FOREGROUND`. The former is returned with the latter set as
+     * its child.
      *
      * @param position Optional. Default is the entity's current position.
      * @param color Optional.
@@ -484,14 +483,14 @@ declare global {
     ToDelirium: () => EntityDelirium | undefined;
 
     /**
-     * Casts an `Entity` into an `EntitySlot`, which has delirium-specific methods and
-     * properties. If the associated entity is not a slot, then this method will return undefined.
+     * Casts an `Entity` into an `EntitySlot`, which has delirium-specific methods and properties.
+     * If the associated entity is not a slot, then this method will return undefined.
      */
     ToSlot: () => EntitySlot | undefined;
 
     /**
-     * Attempts to throw the entity. This is the same effect as when the player is knocked up from
-     * a Quakey stomping.
+     * Attempts to throw the entity. This is the same effect as when the player is knocked up from a
+     * Quakey stomping.
      *
      * Returns whether the entity was thrown successfully.
      */
