@@ -76,6 +76,7 @@
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
 /// <reference path="./classes/sprite/Sprite.d.ts"/>
 /// <reference path="./classes/Ambush.d.ts"/>
+/// <reference path="./classes/Backdrop.d.ts"/>
 /// <reference path="./classes/Camera.d.ts"/>
 /// <reference path="./classes/Capsule.d.ts"/>
 /// <reference path="./classes/ChallengeParams.d.ts"/>
