@@ -40,9 +40,14 @@ declare interface EntityTear extends Entity {
    * Behaves the same as `EntityTear.ResetSpriteScale` except you can now choose to have it
    * re-evaluate which scale animation to play.
    *
+   * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+   * definitions. However, when the project compiles the method's name will change to what it's
+   * supposed to be.
+   *
    * @param force Optional. Default is false.
+   * @customName ResetSpriteScale
    */
-  ResetSpriteScale: (force?: boolean) => void;
+  ResetSpriteScaleEx: (force?: boolean) => void;
 
   /** Sets whether the tear was created through the Multidimensional Baby effect. */
   SetMultidimensionalTouched: (touched: boolean) => void;
