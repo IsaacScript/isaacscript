@@ -29,8 +29,8 @@ corecolor # REPENTOGON API
 coregfx # REPENTOGON API
 costumesuffix # REPENTOGON API
 craftable
-customcache # REPENTOGON API
 Cucco # Creator of Job
+customcache # REPENTOGON API
 customtags # REPENTOGON API
 damagemodifier # REPENTOGON API
 damagemultiplier # REPENTOGON API
