@@ -33,6 +33,6 @@ declare interface Backdrop {
    */
   GetFloorANM2: () => Sprite;
 
-  // GetWallImage and GetFloorImage are not implemented due to the Image buffer class not being
+  // `GetWallImage` and `GetFloorImage` are not implemented due to the Image buffer class not being
   // implemented yet.
 }
