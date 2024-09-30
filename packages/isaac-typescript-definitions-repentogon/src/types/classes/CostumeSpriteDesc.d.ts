@@ -8,41 +8,45 @@ declare global {
    * @noSelf
    */
   interface CostumeSpriteDesc extends IsaacAPIClass {
-    /** Returns whether the costume can change the player's color. */
+    /*** Returns whether the costume overrides the character's body color. */
     CanOverwriteColor: () => boolean;
 
-    /** Returns the base `SkinColor` of the costume's body. */
+    /** Returns the costume body's `SkinColor`. */
     GetBodyColor: () => SkinColor;
 
-    /** Returns the base `SkinColor` of the costume's head. */
+    /** Returns the costume head's `SkinColor`. */
     GetHeadColor: () => SkinColor;
 
-    /** Returns the `ItemConfigItem` of the collectible associated with this costume. */
+    /** Returns the `ItemConfigItem` associated with the costume. */
     GetItemConfig: () => ItemConfigItem;
 
     /** Returns the `PlayerType` of the player wearing the costume. */
     GetPlayerType: () => PlayerType;
 
-    /** Returns the display priority of the costume. */
+    /** Returns the costume's display priority. */
     GetPriority: () => int;
 
     /** Returns the costume's sprite. */
     GetSprite: () => Sprite;
 
-    /** Returns whether the costume is an overlay. */
+    /** Returns whether the costume has an overlay effect. */
     HasOverlay: () => boolean;
 
-    /** Returns whether the costume has an alternate version based on the player's skin color. */
+    /** Returns whether the costume has alternative versions for other skin colors. */
     HasSkinAlt: () => boolean;
 
-    /** Returns whether the costume grants flying. */
+    /**
+     * Returns whether the costume displays the player as flying. This does not actually grant
+     * flying.
+     */
     IsFlying: () => boolean;
 
+    /** Returns whether the costume's item animation is playing. */
     IsItemAnimPlaying: () => boolean;
 
     /**
-     * Returns whether or not the costume is only applied when the collectible it is associated with
-     * is in a special state.
+     * Returns whether or not the costume is only visible when the player's item state matches is
+     * the same as the associated collectible.
      */
     IsItemStateOnly: () => boolean;
   }
