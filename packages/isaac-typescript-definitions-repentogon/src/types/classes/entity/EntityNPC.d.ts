@@ -50,12 +50,6 @@ declare global {
       params: ProjectileParams,
     ) => EntityProjectile[];
 
-    /**
-     * Returns the NPC's boss color index, as specified in `bosscolors.xml`. Returns -1 if the NPC
-     * is not a boss or if the boss color index is not defined.
-     */
-    GetBossColorIdx: () => int;
-
     /** Returns the NPC's `ControllerIndex`, which indicates a player is controlling it. */
     GetControllerId: () => ControllerIndex;
 
@@ -68,16 +62,21 @@ declare global {
     /** Returns the NPC's dynamic dirt color. */
     GetDirtColor: () => Color;
 
+    /** Returns a unique `LootList` used by fireplaces when they are extinguished. */
     GetFireplaceLoot: () => LootList;
 
+    /** Returns an array of entity indexes that the NPC is hitting. */
     GetHitList: () => int[];
 
     /** Returns the NPC's shield strength/armor. */
     GetShieldStrength: () => number;
 
+    /** Returns a unique `LootList` used by Shopkeepers when they are blown up. */
     GetShopkeeperLoot: () => LootList;
 
     GetSirenPlayerEntity: () => EntityPlayer | undefined;
+
+    /** Returns whether the entity has a boss champion color. */
     IsBossColor: () => boolean;
 
     /**
@@ -153,6 +152,13 @@ declare global {
       doScreenEffects?: boolean,
     ) => boolean;
 
+    /**
+     * Attempts to throw the NPC. Returns whether the NPC was thrown.
+     *
+     * @param source
+     * @param direction
+     * @param force This is only used by `EntityNPC` poops.
+     */
     TryThrow: (source: EntityRef, direction: Vector, force: number) => boolean;
 
     /**
