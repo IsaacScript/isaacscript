@@ -10,8 +10,11 @@ declare global {
     CanRerollCollectible: (collectible: CollectibleType) => boolean;
 
     /** Returns an array of `ItemConfigItem` that match the specified tags. */
-    GetTaggedItems: (tags: BitFlags<ItemConfigTag>) => ItemConfigItem[];
+    GetTaggedItems: (
+      tags: ItemConfigTag | BitFlags<ItemConfigTag>,
+    ) => ItemConfigItem[];
 
+    /** Returns whether the trinket is valid. */
     IsValidTrinket: (trinketType: TrinketType) => boolean;
   }
 }
