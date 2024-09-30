@@ -8,7 +8,7 @@ declare global {
    * @noSelf
    */
   interface CostumeSpriteDesc extends IsaacAPIClass {
-    /*** Returns whether the costume overrides the character's body color. */
+    /** Returns whether the costume overrides the character's body color. */
     CanOverwriteColor: () => boolean;
 
     /** Returns the costume body's `SkinColor`. */

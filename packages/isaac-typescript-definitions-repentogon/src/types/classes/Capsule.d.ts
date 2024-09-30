@@ -19,17 +19,9 @@
 declare function Capsule(
   this: void,
   position: Vector,
-  sizeMultiplier: Vector,
-  rotation: number,
-  size: number,
-): Capsule;
-
-// eslint-disable-line @typescript-eslint/unified-signatures
-declare function Capsule(
-  this: void,
-  position: Vector,
-  targetPosition: Vector,
-  size: number,
+  sizeMultiplierOrTargetPosition: Vector,
+  rotationOrSize: number,
+  size?: number,
 ): Capsule;
 
 /**
@@ -81,8 +73,8 @@ declare interface Capsule extends IsaacAPIClass {
    *
    * The original name of this method is `GetVec2` as the purpose of the function has remained
    * unknown for some time. When compiling the mod, the compiler will rename this method from
-   * in a later "GetEndpoint1Position" to "GetVec2" to prevent errors. REPENTOGON will give these
-   * methods proper names update.
+   * "GetEndpoint1Position" to "GetVec2" to prevent errors. REPENTOGON will give these methods
+   * proper names in a later update.
    *
    * @customName GetVec2
    */
@@ -91,10 +83,10 @@ declare interface Capsule extends IsaacAPIClass {
   /**
    * Returns the position of one of the two capsule's endpoints.
    *
-   * The original name of this method is `GetVec3` as the purpose of the function has remained
+   * The original name of this method is `GetVec2` as the purpose of the function has remained
    * unknown for some time. When compiling the mod, the compiler will rename this method from
-   * in a later "GetEndpoint2Position" to "GetVec3" to prevent errors. REPENTOGON will give these
-   * methods proper names update.
+   * "GetEndpoint2Position" to "GetVec3" to prevent errors. REPENTOGON will give these methods
+   * proper names in a later update.
    *
    * @customName GetVec3
    */

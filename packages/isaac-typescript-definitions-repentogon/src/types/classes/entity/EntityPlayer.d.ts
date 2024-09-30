@@ -75,9 +75,9 @@ declare global {
      * Adds a collectible effect associated with the provided `collectibleType`.
      *
      * Collectible effects are not intended to be used as a fake or temporary copy of items. For
-     * instance, every single active item grants a collectible effect on use and are often tied
-     * to its effect. Therefore, collectible effects can be seen as more tied to an item's state,
-     * such as:
+     * instance, every single active item grants a collectible effect on use and are often tied to
+     * its effect. Therefore, collectible effects can be seen as more tied to an item's state, such
+     * as:
      *  - The Holy Mantle tracking how many shield charges the player has.
      *  - How most familiars are granted to the player.
      *  - Activating the effects of Whore of Babylon and Crown of Light.
@@ -144,15 +144,14 @@ declare global {
      * Adds a collectible effect associated with the provided `nullItemId`.
      *
      * Collectible effects are not intended to be used as a fake or temporary copy of items. For
-     * instance, every single active item grants a collectible effect on use and are often tied
-     * to its effect. Therefore, collectible effects can be seen as more tied to an item's state,
-     * such as:
+     * instance, every single active item grants a collectible effect on use and are often tied to
+     * its effect. Therefore, collectible effects can be seen as more tied to an item's state, such
+     * as:
      *  - The Holy Mantle tracking how many shield charges the player has.
      *  - How most familiars are granted to the player.
      *  - Activating the effects of Whore of Babylon and Crown of Light.
      *
-     * This method is a shortcut to `TemporaryEffects.AddNullEffect` with extra cooldown
-     * arguments.
+     * This method is a shortcut to `TemporaryEffects.AddNullEffect` with extra cooldown arguments.
      *
      * @param collectibleType
      * @param applyCostume
@@ -181,8 +180,8 @@ declare global {
     ) => boolean;
 
     /**
-     * Adds charges to the player's Urn of Souls if they are currently holding it. This is capped
-     * at 20 souls.
+     * Adds charges to the player's Urn of Souls if they are currently holding it. This is capped at
+     * 20 souls.
      *
      * The game always keeps track of the amount of souls the player has, even if they do not have
      * the Urn of Souls in their inventory.
@@ -255,8 +254,8 @@ declare global {
     /**
      * Stops the currently playing costume animation tied to the provided `collectible`.
      *
-     * This method seems to only apply to costumes where they have multiple animations instead of
-     * a single one (i.e Monstros Lung, Larynx, etc.).
+     * This method seems to only apply to costumes where they have multiple animations instead of a
+     * single one (i.e Monstros Lung, Larynx, etc.).
      */
     ClearCollectibleAnim: (collectible: CollectibleType) => void;
 
@@ -278,8 +277,8 @@ declare global {
     /**
      * Stops the currently playing costume animation tied to the provided `collectible`.
      *
-     * This method seems to only apply to costumes where they have multiple animations instead of
-     * a single one (i.e Monstros Lung, Larynx, etc.).
+     * This method seems to only apply to costumes where they have multiple animations instead of a
+     * single one (i.e Monstros Lung, Larynx, etc.).
      */
     ClearItemAnimCollectible: (collectible: CollectibleType) => void;
 
@@ -314,9 +313,9 @@ declare global {
     ) => void;
 
     /**
-     * Removes the collectible from the player's inventory based on the provided index and
-     * spawns a pedestal containing the collectible. If `existingPedestal` is defined, this method
-     * returns an `EntityPickupCollectible`. Otherwise, this method returns undefined.
+     * Removes the collectible from the player's inventory based on the provided index and spawns a
+     * a pedestal containing the collectible. If `existingPedestal` is defined, this method returns
+     * an `EntityPickupCollectible`. Otherwise, this method returns undefined.
      *
      * @param index The history index starts at 0.
      * @param existingPedestal Optional. If defined, the collectible the pedestal contains will be
@@ -332,8 +331,8 @@ declare global {
     EnableWeaponType: (weaponType: WeaponType, set: boolean) => void;
 
     /**
-     * Fires a Brimstone ball. If the player has Tech X, they will fire a laser as well, with
-     * the brimstone ball being its parent. Returns the spawned Brimstone Ball.
+     * Fires a Brimstone ball. If the player has Tech X, they will fire a laser as well, with the
+     * brimstone ball being its parent. Returns the spawned Brimstone Ball.
      *
      * @param position
      * @param velocity
@@ -353,14 +352,13 @@ declare global {
     GetActiveItemDesc: (activeSlot?: ActiveSlot) => ActiveItemDesc;
 
     /**
-     * Returns the `ActiveSlot` that the player has the provided `collectibleType` in. -1 if the
-     * player does not have the collectible in any slot.
+     * Returns the `ActiveSlot` that the player has the provided `collectibleType` in. Returns -1 if
+     * the player does not have the collectible in any slot.
      *
      * If the player has multiple copies of the collectible, this method only returns the slot with
      * the highest priority depending on its value, with `ActiveSlot.PRIMARY` being the highest and
      * `ActiveSlot.POCKET_SINGLE_USE` being the lowest. If you need to get all of the active slots,
      * use Isaacscript Common's `getActiveItemSlots` helper function instead.
-     *
      */
     GetActiveItemSlot: (collectibleType: CollectibleType) => ActiveSlot | -1;
 
@@ -391,9 +389,7 @@ declare global {
      */
     GetBagOfCraftingOutput: () => CollectibleType;
 
-    /**
-     * Returns the `BagOfCraftingPickup` in the player's Bag of Crafting at the provided index.
-     */
+    /** Returns the `BagOfCraftingPickup` in the player's Bag of Crafting at the provided index. */
     GetBagOfCraftingSlot: (slot: int) => BagOfCraftingPickup;
 
     /**
@@ -455,8 +451,8 @@ declare global {
     ) => int;
 
     /**
-     * Returns a bitmask corresponding to which familiars have been spawned by Cambion Conception
-     * or Immaculate Conception.
+     * Returns a bitmask corresponding to which familiars have been spawned by Cambion Conception or
+     * Immaculate Conception.
      */
     GetConceptionFamiliarFlags: () => BitFlags<ConceptionFamiliarFlag>;
 
@@ -510,12 +506,12 @@ declare global {
      * }
      * ```
      */
-    GetCostumeLayerMap: () => {
+    GetCostumeLayerMap: () => Array<{
       costumeIndex: int;
       layerID: int;
       priority: int;
       isBodyLayer: boolean;
-    }[];
+    }>;
 
     /** Returns an array of all of the player's `CostumeSpriteDesc`. */
     GetCostumeSpriteDescs: () => CostumeSpriteDesc[];
@@ -659,8 +655,8 @@ declare global {
     GetHeldSprite: () => Sprite;
 
     /**
-     * Returns the player's `History`. This is used to keep track of the collectibles the player
-     * has gotten throughout the run.
+     * Returns the player's `History`. This is used to keep track of the collectibles the player has
+     * gotten throughout the run.
      */
     GetHistory: () => History;
 
@@ -910,8 +906,8 @@ declare global {
      * Initializes a new player that is controlled by the player's controller.
      *
      * This method is currently bugged as the spawned twin will desyncs upon exiting a run and
-     * continuing it. This results in the game prompting the player for a controller, resulting in
-     * a soft lock.
+     * continuing it. This results in the game prompting the player for a controller, resulting in a
+     * soft lock.
      *
      * This method is intended to only work on vanilla characters as this method is hardcoded, as
      * confirmed by _Kilburn.
@@ -1036,7 +1032,6 @@ declare global {
      * Poop spells are only used by Tainted Blue Baby.
      *
      * @param queuePosition Optional. Default is 0.
-     *
      */
     RemovePoopSpell: (queuePosition?: int) => void;
 
@@ -1067,13 +1062,13 @@ declare global {
     ) => void;
 
     /**
-     * Spawns a series of pickups the same way Tainted Cain does upon picking up a collectible.
-     * The salvaged pickup is removed.
+     * Spawns a series of pickups the same way Tainted Cain does upon picking up a collectible. The
+     * salvaged pickup is removed.
      *
      * The original name of this method was "SalvageCollectible". However, due to Typescript's poor
      * support with method overloads in interfaces, this overload was renamed to `SalvagePickup`.
-     * When the mod is compiled, all references to `SalvagePickup" are renamed to
-     * "SalvageCollectible".
+     * When the mod is compiled, all references to `SalvagePickup` are renamed to
+     * `SalvageCollectible`.
      *
      * @param pickup
      * @param rng Optional. Default is the pickup's drop RNG.
@@ -1118,7 +1113,6 @@ declare global {
      * This method does not change the player's damage and color stat immediately. You will need to
      * add the appropriate cache flags and call `EntityPlayer.EvaluateItems` if you wish to
      * immediately change them.
-     *
      */
     SetBloodLustCounter: (counter: int) => void;
 
@@ -1158,8 +1152,8 @@ declare global {
     SetEdenDamage: (damage: number) => void;
 
     /**
-     * Sets the offset of the player's fire delay stat for Eden's random stats. Has no effect if
-     * the player isn't Eden or Tainted Eden.
+     * Sets the offset of the player's fire delay stat for Eden's random stats. Has no effect if the
+     * player isn't Eden or Tainted Eden.
      */
     SetEdenFireDelay: (fireDelay: number) => void;
 
@@ -1207,8 +1201,8 @@ declare global {
     SetGnawedLeafTimer: (timer: int) => void;
 
     /**
-     * Sets how many frames until the player's stat boost from standing in the aura of
-     * Hallowed Ground/Star of Bethlehem goes away.
+     * Sets how many frames until the player's stat boost from standing in the aura of Hallowed
+     * Ground/Star of Bethlehem goes away.
      */
     SetHallowedGroundCountdown: (countdown: int) => void;
 
@@ -1404,8 +1398,8 @@ declare global {
     ) => void;
 
     /**
-     * Spawns a copy of the player at its current position. The fake player will play the
-     * death sound and animation.
+     * Spawns a copy of the player at its current position. The fake player will play the death
+     * sound and animation.
      *
      * Returns whether the fake player was spawned successfully.
      */

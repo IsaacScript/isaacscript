@@ -53,8 +53,8 @@ declare global {
      * @param showOnMenu Whether the command will show up in the autofill while on the main menu.
      * @param autocompleteType Determines the autocomplete behavior for this command. If it's set to
      *                         `AutocompleteType.CUSTOM`, you will need to use the
-     *                         `ModCallbackRepentogon.CONSOLE_AUTOCOMPLETE` callback to handle
-     *                         which autocomplete entries show up.
+     *                         `ModCallbackRepentogon.CONSOLE_AUTOCOMPLETE` callback to handle which
+     *                         autocomplete entries show up.
      */
     function RegisterCommand(
       name: string,
@@ -68,6 +68,6 @@ declare global {
      * Registers a macro to execute a sequence of commands. Macros are accessible via the "macro"
      * command.
      */
-    function RegisterMacro(name: string, commands: string[]): void;
+    function RegisterMacro(name: string, commands: readonly string[]): void;
   }
 }

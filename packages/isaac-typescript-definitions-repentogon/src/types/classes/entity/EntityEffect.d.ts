@@ -1,8 +1,8 @@
 /** @noSelf */
 declare namespace EntityEffect {
   /**
-   * Spawns a light source. The light illuminates the room and is used by various entities such
-   * as the player and fireplaces.
+   * Spawns a light source. The light illuminates the room and is used by various entities such as
+   * the player and fireplaces.
    *
    * @param position
    * @param scale Optional. Default is a random number between [0, 1].
