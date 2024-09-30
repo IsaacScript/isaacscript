@@ -21,7 +21,7 @@ declare global {
     /** Returns true if the player does not start off blindfolded in the challenge. */
     CanShoot: () => boolean;
 
-    /** Returns an array of all of the Achievements required for the challenge to be unlocked. */
+    /** Returns an array of all of the achievements required for the challenge to be unlocked. */
     GetAchievementList: () => Achievement[];
 
     GetAddDamage: () => number;
