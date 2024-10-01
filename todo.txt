@@ -10,14 +10,11 @@
 - // TODO: Re-enable.
 
 - release new version with flat config
-- GET RID OF ALL: "./**/.*.mjs",
 
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
 
 - package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
-
-- re-enable knip in lint.ts
 
 - import eslint-plugin-plugin
 
