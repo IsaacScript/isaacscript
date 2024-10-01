@@ -14,8 +14,7 @@ await lintScript(async () => {
     $`prettier --log-level=warn --check .`,
 
     // Use Knip to check for unused files, exports, and dependencies.
-    // TODO: https://discord.com/channels/1143209786612125696/1285734848224432138
-    /// $`knip --no-progress`,
+    $`knip --no-progress`,
 
     // Use CSpell to spell check every file.
     // - "--no-progress" and "--no-summary" make it only output errors.

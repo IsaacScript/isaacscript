@@ -5,6 +5,14 @@
 
 /** @type {import("knip").KnipConfig} */
 const config = {
+  // Knip cannot exclude enum members per package:
+  // https://github.com/webpro-nl/knip/issues/794
+  exclude: ["enumMembers"],
+
+  ignoreBinaries: [
+    "tsx", // This is provided by "complete-lint".
+  ],
+
   // Ignore all dependencies in the root. (This is checked by the `lintMonorepoPackageJSONs` helper
   // function.)
   ignoreDependencies: [".+"],
