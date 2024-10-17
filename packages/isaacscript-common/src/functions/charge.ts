@@ -45,8 +45,7 @@ export function addCharge(
   // add too many charges, it will grant orange "battery" charges, even if the player does not have
   // The Battery.)
   const chargesAwayFromMax = getChargesAwayFromMax(player, activeSlot);
-  const chargesToAdd =
-    numCharges > chargesAwayFromMax ? chargesAwayFromMax : numCharges;
+  const chargesToAdd = Math.min(numCharges, chargesAwayFromMax);
 
   // The AAA Battery trinket might grant an additional charge.
   const modifiedChargesToAdd = getChargesToAddWithAAAModifier(

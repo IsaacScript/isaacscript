@@ -127,7 +127,7 @@ export function arrayRemoveInPlace<T>(
 
   for (const element of elementsToRemove) {
     const index = array.indexOf(element);
-    if (index > -1) {
+    if (index !== -1) {
       const removedElement = array.splice(index, 1);
       removedElements.push(...removedElement);
     }
