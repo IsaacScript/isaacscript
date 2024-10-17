@@ -348,7 +348,7 @@ export class CustomGridEntities extends Feature {
    * @public
    */
   @Exported
-  public getCustomGridEntities(): Array<{
+  public getCustomGridEntities(): ReadonlyArray<{
     gridEntity: GridEntity;
     data: GridEntityCustomData;
   }> {

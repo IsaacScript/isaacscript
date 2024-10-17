@@ -186,6 +186,7 @@ export class PickupIndexCreation extends Feature {
    * pickup could re-appear during The Ascent. If this is the case, we store the metadata on a
    * separate map to reference later.
    */
+  // eslint-disable-next-line complete/no-mutable-return
   private getPickupDataMapForCurrentRoom():
     | Map<PickupIndex, PickupDescription>
     | undefined {

@@ -574,7 +574,7 @@ export class ModdedElementSets extends Feature {
   @Exported
   public getPlayerCollectibleMap(
     player: EntityPlayer,
-  ): Map<CollectibleType, int> {
+  ): ReadonlyMap<CollectibleType, int> {
     const collectibleArray = this.getCollectibleTypes();
 
     const collectibleMap = new Map<CollectibleType, int>();
@@ -976,7 +976,7 @@ export class ModdedElementSets extends Feature {
   public getPlayerTrinketsWithCacheFlag(
     player: EntityPlayer,
     cacheFlag: CacheFlag,
-  ): Map<TrinketType, int> {
+  ): ReadonlyMap<TrinketType, int> {
     const trinketTypesWithCacheFlag =
       this.getTrinketsTypesWithCacheFlag(cacheFlag);
 

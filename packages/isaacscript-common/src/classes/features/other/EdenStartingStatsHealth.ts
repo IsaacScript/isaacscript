@@ -130,7 +130,9 @@ export class EdenStartingStatsHealth extends Feature {
    * @public
    */
   @Exported
-  public getEdenStartingCollectibles(player: EntityPlayer): CollectibleType[] {
+  public getEdenStartingCollectibles(
+    player: EntityPlayer,
+  ): readonly CollectibleType[] {
     const collectibleTypes: CollectibleType[] = [];
 
     const activeCollectibleType = mapGetPlayer(

@@ -253,7 +253,7 @@ function validateMetadataLuaFileExists(packageManager: PackageManager) {
  */
 async function getCustomStagesWithMetadata(
   customStagesTSConfig: readonly CustomStageTSConfig[],
-): Promise<CustomStageLua[]> {
+): Promise<readonly CustomStageLua[]> {
   if (!isFile(METADATA_LUA_PATH)) {
     fatalError(
       `${chalk.red(
