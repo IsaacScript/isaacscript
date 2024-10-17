@@ -14,6 +14,7 @@ declare namespace ItemOverlay {
    */
   function GetDelay(): int;
 
+  /** Returns the sprite used to play the the Mega Mush transformation animation. */
   function GetMegaMushPlayerSprite(): Sprite;
 
   /** Returns the `GiantbookType` of the last played giantbook animation. */

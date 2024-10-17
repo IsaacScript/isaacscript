@@ -30,6 +30,7 @@ coregfx # REPENTOGON API
 costumesuffix # REPENTOGON API
 craftable
 Cucco # Creator of Job
+customcache # REPENTOGON API
 customtags # REPENTOGON API
 damagemodifier # REPENTOGON API
 damagemultiplier # REPENTOGON API

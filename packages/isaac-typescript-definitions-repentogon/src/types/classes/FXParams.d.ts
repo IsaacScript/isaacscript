@@ -13,7 +13,7 @@ declare interface FXParams extends IsaacAPIClass {
   ColorModifier: ColorModifier;
 
   /** The base color. */
-  KColor: KColor;
+  LightColor: KColor;
 
   /** Opacity of the room's shadow overlay. */
   ShadowAlpha: number;
@@ -24,8 +24,12 @@ declare interface FXParams extends IsaacAPIClass {
   /** Enables the reflective water shader. */
   UseWaterV2: boolean;
 
+  /** The water's color. */
+  WaterColor: KColor;
+
   /** A multiplier applied to the water color. */
   WaterColorMultiplier: KColor;
 
+  /** The water effects' color. */
   WaterEffectColor: Color;
 }

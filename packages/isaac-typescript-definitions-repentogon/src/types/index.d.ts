@@ -32,6 +32,7 @@
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts"/>
 /// <reference path="./classes/hud/ScoreSheet.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfig.d.ts"/>
+/// <reference path="./classes/item-config/ItemConfigCard.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfigItem.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfigPillEffect.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts"/>

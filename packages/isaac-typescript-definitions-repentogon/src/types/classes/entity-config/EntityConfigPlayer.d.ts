@@ -47,7 +47,7 @@ declare global {
     GetCoins: () => int;
 
     /** Returns an array of collectibles the player starts with. */
-    GetCollectibles: () => CollectibleType;
+    GetCollectibles: () => CollectibleType[];
 
     /**
      * Returns the player's starting costume ID, as defined in `players.xml`. If the player has no
