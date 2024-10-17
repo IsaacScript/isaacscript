@@ -26,7 +26,7 @@
     "README.md"
   ],
   "dependencies": {
-    "complete-lint": "^1.9.5",
+    "complete-lint": "^1.9.6",
     "eslint-config-isaacscript": "^5.0.2",
     "eslint-import-resolver-typescript": "^3.6.3",
     "isaacscript-spell": "^1.15.2",
