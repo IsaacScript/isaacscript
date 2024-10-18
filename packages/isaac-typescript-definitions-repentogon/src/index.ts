@@ -1,4 +1,5 @@
 export * from "./enums/Achievement";
+export * from "./enums/AltRockType";
 export * from "./enums/AutocompleteType";
 export * from "./enums/BagOfCraftingPickup";
 export * from "./enums/BlendFactor";

@@ -23,6 +23,7 @@
 /// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts"/>
 /// <reference path="./classes/grid-entity/GridEntity.d.ts"/>
 /// <reference path="./classes/grid-entity/GridEntityDoor.d.ts"/>
+/// <reference path="./classes/grid-entity/GridEntityRock.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
 /// <reference path="./classes/hud/DebugRenderer.d.ts"/>
