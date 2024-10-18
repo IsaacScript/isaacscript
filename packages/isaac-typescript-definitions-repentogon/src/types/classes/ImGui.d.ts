@@ -42,7 +42,7 @@ declare global {
     function AddCallback(
       elementID: string,
       callbackType: ImGuiCallback,
-      callbackFunction: () => void,
+      callbackFunction: (clickCount: int) => void,
     ): void;
 
     /**
