@@ -80,9 +80,9 @@
     "typedoc": "^0.26.10",
     "typedoc-plugin-markdown": "^4.2.9",
     "typedoc-plugin-rename": "^1.1.1",
-    "typescript": "5.5.2",
+    "typescript": "^5.5.2",
     "typescript-eslint": "^8.9.0",
-    "typescript-to-lua": "1.26.2",
+    "typescript-to-lua": "^1.26.2",
     "xml2js": "^0.6.2",
     "yaml": "^2.6.0"
   },
