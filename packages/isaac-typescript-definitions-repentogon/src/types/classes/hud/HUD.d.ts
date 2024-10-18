@@ -23,25 +23,29 @@ declare interface HUD extends IsaacAPIClass {
   /** Returns the sprite used to render the fortune popup window. */
   GetFortuneSprite: () => Sprite;
 
+  /** Returns the sprite used to render health. */
   GetHeartsSprite: () => Sprite;
 
   /** Returns the sprite used to render Tainted Isaac's inventory. */
   GetInventorySprite: () => Sprite;
 
+  /** Returns the sprite used to render the pickups HUD. */
   GetPickupsHUDSprite: () => Sprite;
 
   /**
+   * Returns the `PlayerHUD` from the provided index.
+   *
    * @param index Optional. The index must be between 0 - 7, otherwise an error is thrown. Default
    *              is 0.
    */
-  GetPlayerHUD: (index: int) => PlayerHUD;
+  GetPlayerHUD: (index?: int) => PlayerHUD;
 
   /** Returns the sprite used to render Tainted Blue Baby's poop spells. */
   GetPoopSpellSprite: () => Sprite;
 
   /**
-   * Returns the sprite used to render streak popups (Picking up items, displaying floor names,
-   * etc.).
+   * Returns the sprite used to render streak popups (e.g. Picking up items, displaying floor
+   * names).
    */
   GetStreakSprite: () => Sprite;
 
