@@ -13,6 +13,7 @@ declare global {
      *                 type is a mushroom. Default is `BackdropType.NULL` (The current backdrop).
      */
     GetAltRockType: (backdropType?: BackdropType) => int;
+
     /**
      * Plays the grid break sound.
      *
@@ -24,9 +25,12 @@ declare global {
       gridEntityType: GridEntityType,
       backdrop?: BackdropType,
     ) => void;
+
     /** Forces the game to treat the rock as if it's been destroyed. */
     RegisterRockDestroyed: (gridEntityType: GridEntityType) => void;
+
     RenderTop: (offset: Vector) => void;
+
     /**
      * @param gridEntityType
      * @param gridVariant
@@ -41,10 +45,13 @@ declare global {
       unknown: boolean,
       backdrop: BackdropType,
     ) => void;
+
     TrySpawnLadder: () => void;
     TrySpawnWorms: () => void;
+
     /** Updates the rock's collision. */
     UpdateCollision: () => void;
+
     UpdateNeighbors: () => void;
   }
 }
