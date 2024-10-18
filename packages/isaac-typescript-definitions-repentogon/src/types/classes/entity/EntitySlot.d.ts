@@ -24,6 +24,7 @@ declare global {
      * The donation value can be overridden by using `EntitySlot.SetDonationValue`.
      */
     GetDonationValue: () => int;
+
     /**
      * Returns the collectible that the slot will pay out with. This is only used by Crane Game and
      * Hell Game.
