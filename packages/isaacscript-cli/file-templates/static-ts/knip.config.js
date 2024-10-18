@@ -5,7 +5,10 @@
 
 /** @type {import("knip").KnipConfig} */
 const config = {
-  ignore: ["eslint.config.mjs", "prettier.config.mjs"],
+  ignore: [
+    "eslint.config.mjs", // ESLint is provided by "complete-lint".
+    "prettier.config.mjs", // Prettier is provided by "complete-lint".
+  ],
   ignoreBinaries: [
     "tsx", // This is provided by "complete-lint".
   ],
