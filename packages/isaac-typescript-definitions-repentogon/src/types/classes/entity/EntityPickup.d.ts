@@ -5,13 +5,14 @@ import type {
 
 declare global {
   interface EntityPickup extends Entity {
-    /** Adds a collectible to the cycle, if the pickup is a pedestal. */
+    /** Adds a collectible to the cycle if the pickup is a collectible pedestal. */
     AddCollectibleCycle: (collectible: CollectibleType) => boolean;
 
     /** Returns whether the pickup can be rerolled. */
     CanReroll: () => boolean;
 
-    GetAlternatePedestal: () => int;
+    /** Returns the pickup's `CollectiblePedestalType`. */
+    GetAlternatePedestal: () => CollectiblePedestalType;
 
     /**
      * Returns an array of all of the collectibles being used in the pickup's collectible cycle, if
@@ -19,16 +20,26 @@ declare global {
      */
     GetCollectibleCycle: () => CollectibleType[];
 
+    /** Returns the pickup's drop delay. */
     GetDropDelay: () => int;
 
-    /** @param shouldAdvance Optional. Default is false. */
-    GetLootList: (shouldAdvance?: boolean) => LootList;
+    /**
+     * Returns a read-only version of the pickup's `LootList`.
+     *
+     * @param shouldAdvance Optional. Default is false.
+     */
+    GetLootList: (shouldAdvance?: boolean) => Readonly<LootList>;
 
+    /**
+     * Returns the ghost effect that is visible if a player has Guppy's Eye. Returns undefined if
+     * the ghost isn't visible.
+     */
     GetPickupGhost: () => EntityEffect | undefined;
 
     /** Returns sprite used by the pickup's price label. */
     GetPriceSprite: () => Sprite;
 
+    /** Returns the pickup's `VarData`. */
     GetVarData: () => int;
 
     /**
@@ -40,12 +51,16 @@ declare global {
      */
     IsBlind: () => boolean;
 
+    /** Turns the pickup into a shop item, automatically assigning its price. */
     MakeShopItem: (shopItemID: int) => void;
+
+    /** Stops the collectible cycle if the pickup is a collectible pedestal. */
     RemoveCollectibleCycle: () => void;
 
     /** Sets the graphics of the item pedestal. Does nothing if the pickup is not a collectible. */
     SetAlternatePedestal: (pedestalType: CollectiblePedestalType) => void;
 
+    /** Sets the pickup's drop delay. */
     SetDropDelay: (delay: int) => void;
 
     /**
@@ -54,6 +69,7 @@ declare global {
      */
     SetForceBlind: (blind: boolean) => void;
 
+    /** Sets the pickup's Options index and returns the new pickup index. */
     SetNewOptionsIndex: () => int;
 
     /**
@@ -70,6 +86,10 @@ declare global {
      */
     TryFlip: () => boolean;
 
+    /**
+     * Causes the pedestal to start cycling through the provided amount of collectibles, including
+     * its own collectible type.
+     */
     TryInitOptionCycle: (numCycle: int) => boolean;
 
     /**
@@ -80,6 +100,7 @@ declare global {
      */
     TryRemoveCollectible: () => boolean;
 
+    /** Updates the ghost entity effect in accordance to the pickup's `LootList`. */
     UpdatePickupGhosts: () => void;
   }
 
