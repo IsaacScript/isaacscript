@@ -2,6 +2,7 @@ import type {
   BackdropType,
   GridEntityType,
 } from "isaac-typescript-definitions";
+
 declare global {
   interface GridEntityRock extends GridEntity {
     /**
