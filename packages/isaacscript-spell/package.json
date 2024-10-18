@@ -32,6 +32,6 @@
   "devDependencies": {
     "complete-common": "^1.0.0",
     "complete-node": "^1.5.1",
-    "typescript-eslint": "^8.9.0"
+    "typescript-eslint": "^8.10.0"
   }
 }
