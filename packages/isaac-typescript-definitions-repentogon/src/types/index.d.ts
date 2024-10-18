@@ -23,6 +23,7 @@
 /// <reference path="./classes/entity-config/EntityConfigPlayer.d.ts"/>
 /// <reference path="./classes/grid-entity/GridEntity.d.ts"/>
 /// <reference path="./classes/grid-entity/GridEntityDoor.d.ts"/>
+/// <reference path="./classes/grid-entity/GridEntityRock.d.ts"/>
 /// <reference path="./classes/history/History.d.ts"/>
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
 /// <reference path="./classes/hud/DebugRenderer.d.ts"/>
@@ -32,6 +33,7 @@
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts"/>
 /// <reference path="./classes/hud/ScoreSheet.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfig.d.ts"/>
+/// <reference path="./classes/item-config/ItemConfigCard.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfigItem.d.ts"/>
 /// <reference path="./classes/item-config/ItemConfigPillEffect.d.ts"/>
 /// <reference path="./classes/level-generator/LevelGeneratorRoom.d.ts"/>
