@@ -22,6 +22,7 @@ export * from "./enums/flags/ButtonActionFlag";
 export * from "./enums/flags/ConceptionFamiliarFlag";
 export * from "./enums/flags/DebugFlag";
 export * from "./enums/flags/EntityTag";
+export * from "./enums/flags/GetCollectibleFlag";
 export * from "./enums/flags/GibFlag";
 export * from "./enums/flags/WeaponModifierFlag";
 export * from "./enums/FollowerPriority";
