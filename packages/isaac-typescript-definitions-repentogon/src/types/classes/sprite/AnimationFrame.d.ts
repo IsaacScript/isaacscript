@@ -25,6 +25,9 @@ declare interface AnimationFrame extends IsaacAPIClass {
   /** Returns the frame's scale. */
   GetScale: () => Readonly<Vector>;
 
+  /** Returns the starting frame. */
+  GetStartFrame: () => number;
+
   /** Returns the frame's width. */
   GetWidth: () => number;
 
