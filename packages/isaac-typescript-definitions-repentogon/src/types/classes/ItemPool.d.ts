@@ -6,6 +6,7 @@ import type {
   PillEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
+import type { GetCollectibleFlag } from "../../enums/flags/GetCollectibleFlag";
 
 declare global {
   interface ItemPool extends IsaacAPIClass {
@@ -21,7 +22,7 @@ declare global {
       ignoreLocked: boolean,
     ) => boolean;
 
-    /** Returns the number of Bible collectibles added to the specified `ItemPoolType`. */
+    /** Returns the number of Bible collectibles added to provided `itemPool`. */
     GetBibleUpgrades: (itemPool: ItemPoolType) => int;
 
     /**
@@ -60,6 +61,7 @@ declare global {
     GetCollectiblesFromPool: (poolType: ItemPoolType) => Array<{
       decreaseBy: float;
       initialWeight: float;
+      isUnlocked: boolean;
       itemID: CollectibleType;
       removeOn: float;
       weight: float;
@@ -82,6 +84,27 @@ declare global {
      */
     GetPillColor: (pillEffect: PillEffect) => PillColor;
 
+    /**
+     * Returns a random item pool that is present in the current game mode. The pool selection is
+     * weighted, meaning item pools with more collectibles have a higher chance of being selected.
+     *
+     * @param rng
+     * @param advancedSearch Optional. If true, the game will return any item pool in the game,
+     *                       including those not present in the current game mode. Furthermore,
+     *                       setting it to true will allow you to make use of the `filter` argument.
+     *                       Default is false.
+     * @param filter Optional. The list of filtered item pools. Default is an empty array.
+     * @param isWhitelist Optional. If true, the game will only select item pools from the filter.
+     *                    Otherwise, the game will not select item pools from the filter. Default is
+     *                    false.
+     */
+    GetRandomPool: (
+      rng: RNG,
+      advancedSearch?: boolean,
+      filter?: ItemPoolType[],
+      isWhitelist?: boolean,
+    ) => ItemPoolType;
+
     /** Returns an array of collectibles removed from all pools. */
     GetRemovedCollectibles: () => CollectibleType[];
 
@@ -93,6 +116,52 @@ declare global {
 
     /** Returns whether the specified trinket is available in the trinket pool. */
     HasTrinket: (trinket: TrinketType) => boolean;
+
+    /**
+     * Returns the raw result of `ItemPool.GetCollectible` without applying the filtering used in
+     * `ItemPool.GetCollectible`. Returns undefined if the provided `itemPool` has no collectibles
+     * remaining.
+     *
+     * **Differences with `ItemPool.GetCollectible`**
+     *
+     * - The game does not select glitched items, even if a player has TMTRAINER.
+     * - The game does not randomize the pool if a player has Chaos.
+     * - The game does not attempt to return a collectible from `ItemPoolType.TREASURE` or
+     *   `CollectibleType.BREAKFAST` if it fails to pick a random collectible.
+     * - The game does not attempt to morph the collectible into `CollectibleType.BIBLE`,
+     *   `CollectibleType.MAGIC_SKIN`, or `CollectibleType.ROSARY`.
+     * - The game does not trigger `ModCallbackRepentogon.PRE_GET_COLLECTIBLE` and
+     *   `ModCallbackRepentogon.POST_GET_COLLECTIBLE`.
+     *
+     * @param itemPool
+     * @param decrease Optional. Default is false.
+     * @param rng Optional. Default is a new RNG object seeded with `Random()`.
+     * @param flags Optional. Default is `GetCollectibleFlagZero`.
+     */
+    PickCollectible: (
+      itemPool: ItemPoolType,
+      decrease?: boolean,
+      rng?: RNG,
+      flags?: GetCollectibleFlag | BitFlags<GetCollectibleFlag>,
+    ) =>
+      | {
+          itemID: CollectibleType;
+          initialWeight: float;
+          weight: float;
+          decreaseBy: float;
+          removeOn: float;
+          isUnlocked: boolean;
+        }
+      | undefined;
+
+    /**
+     * Makes the provided collectible available again in every item pool. Its `initialWeight` is
+     * also restored.
+     */
+    ResetCollectible: (collectible: CollectibleType) => void;
+
+    /** Sets the currently selected `ItemPoolType`. */
+    SetLastPool: (pool: ItemPoolType) => void;
 
     /** Resets the specified `PillColor` back to its unidentified state. */
     UnidentifyPill: (pill: PillColor) => void;

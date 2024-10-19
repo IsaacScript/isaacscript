@@ -8,14 +8,18 @@
  *                              `spritesheetCoordinate` of 0 and 64 will render the spritesheet
  *                              starting from `y = 0` to `y = 64`, while an additional third point
  *                              of 0 will draw it in reverse from `y = 64` to `y = 0`.
- * @param widthMultiplier A multiplier for how wide the beam should be. This is interpolated between
- *                        points.
+ * @param widthMultiplier Optional. A multiplier for how wide the beam should be. This is
+ *                        interpolated between points. Default is 1.
+ * @param color Optional. Default is `ColorDefault`.
+ * @param isWorldSpace Optional. Default is false.
  */
 declare function Point(
   this: void,
   position: Vector,
   spritesheetCoordinate: number,
-  widthMultiplier: number,
+  widthMultiplier?: number,
+  color?: Color,
+  isWorldSpace?: boolean,
 ): Point;
 
 /**
@@ -24,6 +28,15 @@ declare function Point(
  * @see https://repentogon.com/
  */
 declare interface Point extends IsaacAPIClass {
+  /** Returns the point's color. */
+  GetColor: () => Color;
+
+  /**
+   * Returns whether the game automatically converts the point's position from world space to screen
+   * space when rendering.
+   */
+  GetIsWorldSpace: () => boolean;
+
   /** Returns the vertical position of the point. */
   GetSpritesheetCoordinate: () => number;
 
@@ -32,6 +45,15 @@ declare interface Point extends IsaacAPIClass {
 
   /** Returns the position of the point. */
   GetPosition: () => Vector;
+
+  /** Sets the point's color. */
+  SetColor: (color: Color) => void;
+
+  /**
+   * Sets whether the game automatically converts the point's position from world space to screen
+   * space when rendering.
+   */
+  SetIsWorldSpace: (isWorldSpace: boolean) => void;
 
   /** Sets the vertical position of the point. */
   SetSpritesheetCoordinate: (height: number) => void;

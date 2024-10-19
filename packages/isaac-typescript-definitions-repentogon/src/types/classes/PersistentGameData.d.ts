@@ -1,4 +1,5 @@
 import type {
+  BossID,
   Challenge,
   CollectibleType,
   EntityType,
@@ -16,6 +17,16 @@ declare global {
    * @see https://repentogon.com/
    */
   interface PersistentGameData {
+    /**
+     * Adds a kill to the bestiary entry.
+     *
+     * @param variant Optional. Default is 0.
+     */
+    AddBestiaryKill: (entityType: EntityType, variant?: int) => void;
+
+    /** Marks the boss as killed and unlocks its relevant achievements if conditions are met. */
+    AddBossKilled: (bossID: BossID) => void;
+
     /** Returns the number of times a specific entity has been killed, according to the bestiary. */
     GetBestiaryDeathCount: (entityType: EntityType, variant: int) => int;
 
@@ -36,6 +47,9 @@ declare global {
     /** Increases the value of a specified persistent event counter by the provided amount. */
     IncreaseEventCounter: (event: EventCounter, count: int) => void;
 
+    /** Returns whether the boss has been killed. This is used for tracking numerous unlocks. */
+    IsBossKilled: (bossID: BossID) => boolean;
+
     /** Returns whether the provided `Challenge` has been completed. */
     IsChallengeComplete: (challenge: Challenge) => boolean;
 
@@ -46,7 +60,8 @@ declare global {
      * Tries to unlock the provided `Achievement`. Returns whether the achievement was unlocked
      * successfully.
      *
-     * @param hideNotification Optional. Default is false.
+     * @param hideNotification Optional. If true, the achievement paper will not appear. This is
+     *                         only used by modded achievements. Default is false.
      */
     TryUnlock: (unlock: Achievement, hideNotification?: boolean) => boolean;
 

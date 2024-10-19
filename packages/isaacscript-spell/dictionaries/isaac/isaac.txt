@@ -22,6 +22,7 @@ collisionradius # REPENTOGON API
 collisionradiusxmulti # REPENTOGON API
 collisionradiusymulti # REPENTOGON API
 colorblood # REPENTOGON API
+coloroffset # Game shader
 combobox # ImGui element
 completionparent # REPENTOGON API
 contentfolder # metadata.vdf

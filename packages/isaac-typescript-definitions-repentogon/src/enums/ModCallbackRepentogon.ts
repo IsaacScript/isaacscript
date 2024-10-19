@@ -105,6 +105,24 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_COLLISION = 33,
 
   /**
+   * A modified version of `ModCallback.POST_PICKUP_SELECTION`.
+   *
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postPickupSelection(
+   *   pickup: EntityPickup,
+   *   variant: PickupVariant,
+   *   subType: int,
+   *   requestedVariant: PickupVariant,
+   *   requestedSubType: int,
+   *   rng: RNG,
+   * ): [pickupVariant: PickupVariant, subType: int, continueSelection: boolean] | undefined {}
+   * ```
+   */
+  POST_PICKUP_SELECTION = 37,
+
+  /**
    * A modified version of `ModCallback.PRE_PICKUP_COLLISION`. This callback now allows an interface
    * to be returned to further modify the collision behavior.
    *
@@ -2598,6 +2616,51 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BedSubType` provided.
+   *
+   * ```ts
+   * function preTriggerBedSleepEffect(
+   *   player: EntityPlayer,
+   *   bed: EntityPickup
+   * ): boolean | undefined {}
+   * ```
+   */
+  PRE_TRIGGER_BED_SLEEP_EFFECT = 1285,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BedSubType` provided.
+   *
+   * ```ts
+   * function postTriggerBedSleepEffect(player: EntityPlayer, bed: EntityPickup): void {}
+   * ```
+   */
+  POST_TRIGGER_BED_SLEEP_EFFECT = 1286,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function prePlayerPocketItemSwap(player: EntityPlayer): boolean | undefined {}
+   * ```
+   */
+  PRE_PLAYER_POCKET_ITEMS_SWAP = 1287,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `BedSubType` provided.
+   *
+   * ```ts
+   * function preBedSleep(player: EntityPlayer, bed: EntityPickup): boolean | undefined {}
+   * ```
+   */
+  PRE_BED_SLEEP = 1288,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
@@ -3687,4 +3750,40 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_ITEM_TEXT_DISPLAY = 1484,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   *
+   * ```ts
+   * function preEntitySetColor(
+   *   entity: Entity,
+   *   color: Color,
+   *   duration: int,
+   *   priority: int,
+   *   fadeOut: boolean,
+   *   share: boolean
+   * ): Color | boolean | undefined {}
+   * ```
+   */
+  PRE_ENTITY_SET_COLOR = 1486,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   *
+   * ```ts
+   * function postEntitySetColor(
+   *   entity: Entity,
+   *   color: Color,
+   *   duration: int,
+   *   priority: int,
+   *   fadeOut: boolean,
+   *   share: boolean
+   * ): void {}
+   * ```
+   */
+  POST_ENTITY_SET_COLOR = 1487,
 }

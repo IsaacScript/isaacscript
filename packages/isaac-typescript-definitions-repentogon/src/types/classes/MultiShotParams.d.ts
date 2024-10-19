@@ -13,7 +13,7 @@ declare global {
      */
     GetMultiEyeAngle: () => number;
 
-    /** the number of active eyes that shoots simultaneously (e.g. 2 for The Wiz). */
+    /** Returns the number of active eyes that shoots simultaneously (e.g. 2 for The Wiz). */
     GetNumEyesActive: () => int;
 
     /**
@@ -25,8 +25,11 @@ declare global {
     /** Returns the number of tears fired in random directions, similar to the Eye Sore effect. */
     GetNumRandomDirTears: () => int;
 
+    /** Returns the amount of tears the player can simultaneously fire. */
+    GetNumTears: () => int;
+
     /** Returns the spread angle of the specified `WeaponType`. */
-    GetSpreadAngle: (weaponType: WeaponType) => void;
+    GetSpreadAngle: (weaponType: WeaponType) => number;
 
     /** Returns whether the cross-eyed effect is active, similar to The Wiz. */
     IsCrossEyed: () => boolean;
@@ -57,6 +60,9 @@ declare global {
 
     /** Sets the number of lanes tears are spread into per eye. */
     SetNumLanesPerEye: (lanes: int) => void;
+
+    /** Sets the number of tears fired in random directions, similar to the Eye Sore effect. */
+    SetNumRandomDirTears: (tears: int) => void;
 
     /** Sets the maximum number of tears the player can fire simultaneously. */
     SetNumTears: (tears: int) => void;

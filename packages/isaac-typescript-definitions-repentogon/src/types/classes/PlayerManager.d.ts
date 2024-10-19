@@ -1,5 +1,7 @@
 import type {
+  BabySubType,
   CollectibleType,
+  ControllerIndex,
   PlayerType,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -60,6 +62,15 @@ declare global {
     ): boolean;
 
     /**
+     * Returns the first player whose type matches the provided `playerType` that picked up
+     * Birthright. Returns undefined if no players of the provided `playerType` has picked up
+     * Birthright.
+     */
+    function FirstBirthrightOwner(
+      playerType: PlayerType,
+    ): EntityPlayer | undefined;
+
+    /**
      * Returns the first player who picked up the provided `CollectibleType` for the first time in
      * the current run. Returns undefined if the collectible has not been picked up yet.
      *
@@ -93,6 +104,7 @@ declare global {
       lazarusSharedGlobalTag?: boolean,
     ): EntityPlayer | undefined;
 
+    /** @param index Optional. Default is 0. */
     function GetEsauJrState(index?: int): EntityPlayer;
 
     /**
@@ -118,12 +130,20 @@ declare global {
     /**
      * Safely removes extra player entities such as Strawman.
      *
-     * It is not recommended to pass the main player entity to this method.
+     * This method is extremely dangerous to use as passing the main player entity to this will
+     * cause the game to crash. Ensure that this method is only used to remove co-players spawned by
+     * `SpawnCoPlayer2`.
      */
     function RemoveCoPlayer(player: EntityPlayer): void;
 
     /** Spawns a second player of the provided `PlayerType`. */
     function SpawnCoPlayer2(playerType: PlayerType): EntityPlayer;
+
+    /** Spawns a co-op baby tied to the provided controller index. */
+    function SpawnSelectedBaby(
+      babySubType: BabySubType,
+      controllerIndex: ControllerIndex,
+    ): void;
 
     /** Triggers the room clear event. */
     function TriggerRoomClear(): void;

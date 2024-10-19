@@ -7,6 +7,8 @@ declare global {
    * @see https://repentogon.com/
    */
   interface EntitiesSaveStateVector extends IsaacAPIClass {
+    Clear: () => void;
+
     Get: (index: int) => EntitiesSaveState | undefined;
 
     /**
@@ -19,5 +21,7 @@ declare global {
       variant?: int,
       subType?: int,
     ) => EntitiesSaveState | undefined;
+
+    len: LuaLengthMethod<int>;
   }
 }

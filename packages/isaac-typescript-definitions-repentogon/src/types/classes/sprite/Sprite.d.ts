@@ -10,10 +10,10 @@ declare global {
 
   interface Sprite extends IsaacAPIClass {
     /** Clears the custom shader. */
-    ClearCustomShader: () => void;
+    ClearCustomChampionShader: () => void;
 
     /** Clears the custom shader. */
-    ClearCustomChampionShader: () => void;
+    ClearCustomShader: () => void;
 
     /**
      * If the animation is currently stopped, it will start playing again from the current frame.
@@ -34,20 +34,26 @@ declare global {
      */
     ContinueOverlay: () => void;
 
+    /** Returns an array of all `LayerState` in the sprite. */
+    GetAllLayers: () => LayerState[];
+
     /**
      * Returns an array of `AnimationData` representing all of the animations in the sprite's .anm2
      * file.
      */
     GetAllAnimationData: () => AnimationData[];
 
-    /** Returns an array of all `LayerState` in the sprite. */
-    GetAllLayers: () => LayerState[];
-
     /** Returns the current animation data. */
     GetCurrentAnimationData: () => AnimationData;
 
     /** Returns the layer data from the specified layer id. Returns undefined if none were found. */
     GetLayer: (layerIdOrName: string | int) => LayerState | undefined;
+
+    /**
+     * Returns the `AnimationFrame` currently being displayed on the provided layer ID of the
+     * current animation. Returns undefined if the layer ID is invalid.
+     */
+    GetLayerFrameData: (layerId: int) => AnimationFrame | undefined;
 
     /**
      * Returns the null frame from the specified layer name. Returns undefined if the null frame
@@ -62,6 +68,12 @@ declare global {
     GetOverlayAnimationData: () => AnimationData | undefined;
 
     /**
+     * Returns the `AnimationFrame` currently being displayed on the provided layer ID of the
+     * current overlay animation. Returns undefined if the layer ID is invalid.
+     */
+    GetOverlayLayerFrameData: (layerId: int) => AnimationFrame | undefined;
+
+    /**
      * Returns the null frame from the specified layer name of the current overlay animation.
      * Returns undefined if the null frame does not exist.
      */
@@ -71,10 +83,10 @@ declare global {
     GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomShader: (path: string) => boolean;
+    HasCustomChampionShader: (path: string) => boolean;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomChampionShader: (path: string) => boolean;
+    HasCustomShader: (path: string) => boolean;
 
     /**
      * Returns true if the specified event in the overlay animation is currently being triggered.
@@ -103,20 +115,29 @@ declare global {
     ) => void;
 
     /**
-     * Overrides the default color offset shader the sprite uses.
+     * Overrides the `coloroffset_champion` shader the sprite uses with a custom one. This shader is
+     * only used if the entity is a champion.
      *
-     * @param shaderPath A path to the folder containing the shaders. The path starts on the
-     *                   resources folder and expects to find both a `.vs` and `.fs` file.
-     */
-    SetCustomShader: (shaderPath: string) => void;
-
-    /**
-     * Overrides the champion color offset shader the sprite uses.
+     * The custom shader must take the same inputs as the `coloroffset_champion` shader the game
+     * uses.
      *
      * @param shaderPath A path to the folder containing the shaders. The path starts on the
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
     SetCustomChampionShader: (shaderPath: string) => void;
+
+    /**
+     * Overrides the `coloroffset` shader the sprite uses with a custom one.
+     *
+     * The game will not use the shader if the entity is a champion or if the Gold/Dogma shader is
+     * active.
+     *
+     * The custom shader must take the exact same inputs as the `coloroffset` shader the game uses.
+     *
+     * @param shaderPath A path to the folder containing the shaders. The path starts on the
+     *                   resources folder and expects to find both a `.vs` and `.fs` file.
+     */
+    SetCustomShader: (shaderPath: string) => void;
 
     /**
      * Repentogon's modified `Sprite.SetOverlayFrame` method.
@@ -131,6 +152,9 @@ declare global {
      * @customName SetOverlayFrame
      */
     SetOverlayFrameEx: (frameNumber: int) => void;
+
+    /** Sets the overlay layer's frame. */
+    SetOverlayLayerFrame: (layer: int, frame: int) => void;
 
     /** Sets the animation's render flags. */
     SetRenderFlags: (

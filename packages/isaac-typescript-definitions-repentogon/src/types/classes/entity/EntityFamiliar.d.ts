@@ -27,6 +27,7 @@ declare global {
      */
     GetItemConfig: () => ItemConfigItem | undefined;
 
+    /** Returns the familiar's move delay. */
     GetMoveDelayNum: () => int;
 
     /**
@@ -56,11 +57,19 @@ declare global {
     /** Returns whether the familiar is charmed. */
     IsCharmed: () => boolean;
 
+    /** Returns whether the familiar is one of Lil Delirium's morphs. */
+    IsLilDelirium: () => boolean;
+
     /** Removes the familiar from the player. */
     RemoveFromPlayer: () => void;
 
+    /** Sets whether the familiar is one of Lil Delirium's forms. */
+    SetLilDelirium: (isLilDelirium: boolean) => void;
+
+    /** Sets the familiar's move delay. */
     SetMoveDelayNum: (delay: int) => void;
 
+    /** Triggers the familiar's room clear events. */
     TriggerRoomClear: () => void;
 
     /**
@@ -74,6 +83,7 @@ declare global {
       direction: Direction,
     ) => Vector | undefined;
 
+    /** Updates the familiar's dirt color. */
     UpdateDirtColor: () => void;
   }
 }
