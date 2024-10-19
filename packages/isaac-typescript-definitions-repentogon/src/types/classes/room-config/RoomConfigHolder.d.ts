@@ -3,6 +3,7 @@ import type {
   RoomType,
   StageID,
 } from "isaac-typescript-definitions";
+import type { GameMode } from "../../../enums/GameMode";
 
 declare global {
   /**
@@ -26,7 +27,7 @@ declare global {
      * @param maxDifficulty Optional. Default is 10.
      * @param requiredDoors Optional. Default is 0.
      * @param subType Optional. Default is -1.
-     * @param mode Optional. Default is -1.
+     * @param mode Optional. Default is the current game mode.
      */
     function GetRandomRoom(
       seed: Seed,
@@ -40,7 +41,7 @@ declare global {
       maxDifficulty?: int,
       requiredDoors?: int,
       subType?: int,
-      mode?: int,
+      mode?: GameMode,
     ): RoomConfig | undefined;
 
     /**
