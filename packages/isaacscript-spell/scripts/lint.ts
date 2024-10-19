@@ -12,9 +12,7 @@ import {
 import path from "node:path";
 
 await lintScript(async (packageRoot) => {
-  const promises = [$`tsc --noEmit`, $`eslint --max-warnings 0 .`];
-  await Promise.all(promises);
-
+  await Promise.all([$`tsc --noEmit`, $`eslint --max-warnings 0 .`]);
   checkDictionaries(packageRoot);
 });
 

@@ -21,14 +21,12 @@ const OBJECT_FILE_NAMES = [
 await buildScript(async (packageRoot) => {
   copyIsaacScriptCommonFiles(packageRoot);
 
-  const promises = [
+  await Promise.all([
     compile(),
     compilePlugins(packageRoot),
     generateJSONSchemaForTSConfigJSON(),
     generateJSONSchemaForIsaacScriptJSON(),
-  ];
-
-  await Promise.all(promises);
+  ]);
 });
 
 /**

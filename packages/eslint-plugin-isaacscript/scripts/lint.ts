@@ -16,14 +16,12 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
 ] as const;
 
 await lintScript(async () => {
-  const promises = [
+  await Promise.all([
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
     $`tsc --noEmit --project ./tests/tsconfig.json`,
     $`eslint --max-warnings 0 .`,
-  ];
-
-  await Promise.all(promises);
+  ]);
 
   // We cannot do generation at the same time as the other linting because it changes the
   // compilation output, creating a race condition.

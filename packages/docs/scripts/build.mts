@@ -25,9 +25,7 @@ await buildScript(async (packageRoot) => {
 
   const repoRoot = path.join(packageRoot, "..", "..");
 
-  const promises = [makeITDDocs(repoRoot), makeISCDocs(repoRoot)];
-
-  await Promise.all(promises);
+  await Promise.all([makeITDDocs(repoRoot), makeISCDocs(repoRoot)]);
 
   // Format the Markdown output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories

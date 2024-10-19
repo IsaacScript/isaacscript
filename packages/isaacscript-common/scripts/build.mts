@@ -10,7 +10,7 @@ await buildScript(async (packageRoot) => {
   cp(indexTSPath, indexLuaTSPath);
   appendFile(indexLuaTSPath, 'export * from "isaac-typescript-definitions";');
 
-  const promises = [
+  await Promise.all([
     $`tstl`,
     $`tstl --project tsconfig.bundle.json --declaration false --declarationMap false`,
 
@@ -18,9 +18,7 @@ await buildScript(async (packageRoot) => {
     // be usable in Jest tests. We disable declarations because running `tstl` will create
     // declarations and we don't want the two processes to stomp on each other.
     $`tsc --declaration false --declarationMap false`,
-  ];
-
-  await Promise.all(promises);
+  ]);
 
   rm(indexLuaTSPath);
 

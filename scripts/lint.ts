@@ -1,7 +1,7 @@
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
 await lintScript(async () => {
-  const promises = [
+  await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
 
@@ -28,7 +28,5 @@ await lintScript(async () => {
 
     // Check to see if the child "package.json" files are up to date.
     lintMonorepoPackageJSONs(),
-  ];
-
-  await Promise.all(promises);
+  ]);
 });

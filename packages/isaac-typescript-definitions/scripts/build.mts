@@ -2,16 +2,14 @@ import { $, buildScript, cp, prependFile } from "complete-node";
 import path from "node:path";
 
 await buildScript(async (packageRoot) => {
-  const promises = [
+  await Promise.all([
     $`tstl`,
 
     // We need to create JavaScript files in addition to Lua files because we want this package to
     // be usable in Jest tests. We disable declarations because running `tstl` will create
     // declarations and we don't want the two processes to stomp on each other.
     $`tsc --declaration false --declarationMap false`,
-  ];
-
-  await Promise.all(promises);
+  ]);
 
   // If we let the triple slash reference in the "./dist/index.ts" file point to the
   // "./src/types/index.d.ts", things will not work properly because the compiled enums are

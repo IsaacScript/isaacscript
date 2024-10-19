@@ -1,14 +1,5 @@
 import chalk from "chalk";
-import {
-  $,
-  $s,
-  commandExists,
-  diff,
-  echo,
-  exit,
-  lintScript,
-  readFile,
-} from "complete-node";
+import { $, $s, diff, echo, exit, lintScript, readFile } from "complete-node";
 import path from "node:path";
 
 const REPO_ROOT = path.join(import.meta.dirname, "..");
@@ -22,19 +13,15 @@ const GITIGNORE_URL =
   "https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore";
 
 await lintScript(async () => {
-  const promises = [
+  $s`pip install isaac-xml-validator --upgrade --quiet`;
+
+  await Promise.all([
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
     $`eslint --max-warnings 0 .`,
+    $`isaac-xml-validator --quiet`,
     checkGitIgnoreUpdates(),
-  ];
-
-  if (commandExists("python")) {
-    $s`pip install isaac-xml-validator --upgrade --quiet`;
-    promises.push($`isaac-xml-validator --quiet`);
-  }
-
-  await Promise.all(promises);
+  ]);
 });
 
 async function checkGitIgnoreUpdates(): Promise<void> {
