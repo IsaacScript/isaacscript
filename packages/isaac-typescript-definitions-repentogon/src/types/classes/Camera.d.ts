@@ -32,4 +32,11 @@ declare interface Camera extends IsaacAPIClass {
    * This method does not work if `Options.CameraStyle` is not equal to `CameraStyle.ON`.
    */
   SnapToPosition: (position: Vector) => void;
+
+  /**
+   * Updates the camera.
+   *
+   * @param interpolated Optional. Default is false.
+   */
+  Update: (interpolated?: boolean) => void;
 }
