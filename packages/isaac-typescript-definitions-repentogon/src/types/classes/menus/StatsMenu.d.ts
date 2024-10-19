@@ -24,9 +24,15 @@ declare namespace StatsMenu {
   function GetSecretsMiniSprite8(): Sprite;
   function GetSecretsMiniSprite9(): Sprite;
 
+  /** Returns the selected element. */
+  function GetSelectedElement(): int;
+
   /** Returns the sprites used by the stats menu. */
   function GetStatsMenuSprite(): Sprite;
 
   /** Returns whether the secrets menu is active. */
   function IsSecretsMenuVisible(): boolean;
+
+  /** Sets the menu's selected element. */
+  function SetSelectedMenu(): boolean;
 }
