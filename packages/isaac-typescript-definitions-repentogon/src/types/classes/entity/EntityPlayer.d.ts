@@ -344,6 +344,9 @@ declare global {
       offset?: Vector,
     ) => EntityEffect;
 
+    /** Returns how many frames the player has been holding the drop trinket button. */
+    GetActionHoldDrop: () => int;
+
     /**
      * Returns an `ActiveItemDesc` corresponding to the provided `activeSlot`.
      *
@@ -1081,6 +1084,9 @@ declare global {
       itemPool?: ItemPoolType,
     ) => void;
 
+    /** Sets how many frames the player has been holding the drop trinket button. */
+    SetActionHoldDrop: (frames: int) => void;
+
     /** Sets the `VarData` of the collectible at the provided active slot. */
     SetActiveVarData: (varData: int, slot: ActiveSlot) => void;
 
@@ -1355,11 +1361,13 @@ declare global {
      * If the player is The Forgotten/The Soul, the two will swap forms. Otherwise, this method does
      * nothing.
      *
+     * Returns whether the swap was successful.
+     *
      * @param force Optional. If true, the two will swap even if the sub-player doesn't have any
      *              health or while a room/stage transition is active. Default is false.
      * @param noEffects Optional. If true, the dust and fade effect will not play. Default is false.
      */
-    SwapForgottenForm: (force?: boolean, noEffects?: boolean) => void;
+    SwapForgottenForm: (force?: boolean, noEffects?: boolean) => boolean;
 
     SyncConsumableCounts: (player: EntityPlayer, collectibleFlags: int) => void;
 
