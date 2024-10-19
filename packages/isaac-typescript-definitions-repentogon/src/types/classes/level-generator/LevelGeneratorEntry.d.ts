@@ -9,7 +9,7 @@ declare global {
   interface LevelGeneratorEntry extends IsaacAPIClass {
     SetAllowedDoors: (
       room: LevelGeneratorRoom,
-      doors: BitFlags<DoorSlotFlag>,
+      doors: DoorSlotFlag | BitFlags<DoorSlotFlag>,
     ) => void;
 
     SetColIdx: (room: LevelGeneratorRoom, columnIndex: int) => void;
