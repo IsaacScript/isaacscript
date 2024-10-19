@@ -24,6 +24,7 @@ declare global {
     /** Returns the current color modifier of the menu. */
     function GetCurrentColorModifier(): ColorModifier;
 
+    /** Returns a bitmask of the allowed inputs on the main menu. */
     function GetInputMask(): BitFlags<ButtonActionFlag>;
 
     /** Returns the sprite used for the select widget. */
@@ -51,7 +52,10 @@ declare global {
       rate?: number,
     ): void;
 
-    function SetInputMask(mask: BitFlags<ButtonActionFlag>): void;
+    /** Sets the allowed inputs on the main menu. */
+    function SetInputMask(
+      mask: ButtonActionFlag | BitFlags<ButtonActionFlag>,
+    ): void;
 
     /** Sets the position of the main menu camera. */
     function SetViewPosition(position: Vector): void;
