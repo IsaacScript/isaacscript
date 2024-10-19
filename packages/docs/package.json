@@ -41,7 +41,7 @@
   "dependencies": {
     "@docusaurus/core": "^3.5.2",
     "@docusaurus/preset-classic": "^3.5.2",
-    "@mdx-js/react": "^3.0.1",
+    "@mdx-js/react": "^3.1.0",
     "clsx": "^2.1.1",
     "docusaurus-theme-search-typesense": "^0.22.0",
     "prism-react-renderer": "^2.4.0",
@@ -55,7 +55,7 @@
     "@docusaurus/types": "^3.5.2",
     "@eslint/eslintrc": "^3.1.0",
     "@types/glob": "^8.1.0",
-    "@types/node": "^22.7.6",
+    "@types/node": "^22.7.7",
     "@zamiell/typedoc-plugin-not-exported": "^0.3.0",
     "complete-common": "^1.0.0",
     "complete-node": "^1.5.1",
