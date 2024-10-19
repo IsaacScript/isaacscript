@@ -8,10 +8,10 @@ declare global {
    */
   interface LayerState extends IsaacAPIClass {
     /** Clears the custom shader. */
-    ClearCustomShader: () => void;
+    ClearCustomChampionShader: () => void;
 
     /** Clears the custom shader. */
-    ClearCustomChampionShader: () => void;
+    ClearCustomShader: () => void;
 
     /** Returns the layer's `BlendMode`. */
     GetBlendMode: () => BlendMode;
@@ -56,10 +56,10 @@ declare global {
     GetWrapTMode: () => int;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomShader: (path: string) => boolean;
+    HasCustomChampionShader: (path: string) => boolean;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomChampionShader: (path: string) => boolean;
+    HasCustomShader: (path: string) => boolean;
 
     /** Returns whether the layer is visible. */
     IsVisible: () => boolean;
@@ -71,20 +71,29 @@ declare global {
     SetCropOffset: (cropOffset: Vector) => void;
 
     /**
-     * Overrides the default color offset shader the sprite uses.
+     * Overrides the `coloroffset_champion` shader the sprite uses with a custom one. This shader is
+     * only used if the entity is a champion.
      *
-     * @param shaderPath A path to the folder containing the shaders. The path starts on the
-     *                   resources folder and expects to find both a `.vs` and `.fs` file.
-     */
-    SetCustomShader: (shaderPath: string) => void;
-
-    /**
-     * Overrides the champion color offset shader the sprite uses.
+     * The custom shader must take the same inputs as the `coloroffset_champion` shader the game
+     * uses.
      *
      * @param shaderPath A path to the folder containing the shaders. The path starts on the
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
     SetCustomChampionShader: (shaderPath: string) => void;
+
+    /**
+     * Overrides the `coloroffset` shader the sprite uses with a custom one.
+     *
+     * The game will not use the shader if the entity is a champion or if the Gold/Dogma shader is
+     * active.
+     *
+     * The custom shader must take the exact same inputs as the `coloroffset` shader the game uses.
+     *
+     * @param shaderPath A path to the folder containing the shaders. The path starts on the
+     *                   resources folder and expects to find both a `.vs` and `.fs` file.
+     */
+    SetCustomShader: (shaderPath: string) => void;
 
     /** Sets whether the layer is flipped on the X axis. */
     SetFlipX: (flipped: boolean) => void;
@@ -96,7 +105,9 @@ declare global {
     SetPos: (position: Vector) => void;
 
     /** Sets the layer's animation render flags. */
-    SetRenderFlags: (flags: BitFlags<AnimationRenderFlag>) => void;
+    SetRenderFlags: (
+      flags: AnimationRenderFlag | BitFlags<AnimationRenderFlag>,
+    ) => void;
 
     /** Sets the layer's rotation. */
     SetRotation: (rotation: number) => void;
