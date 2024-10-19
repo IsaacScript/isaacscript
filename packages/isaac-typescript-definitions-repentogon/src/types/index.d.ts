@@ -99,6 +99,8 @@
 /// <reference path="./classes/Level.d.ts"/>
 /// <reference path="./classes/LootList.d.ts"/>
 /// <reference path="./classes/LootListEntry.d.ts"/>
+/// <reference path="./classes/LRoomAreaDesc.d.ts"/>
+/// <reference path="./classes/LRoomTileDesc.d.ts"/>
 /// <reference path="./classes/Mod.d.ts"/>
 /// <reference path="./classes/ModUpgraded.d.ts"/>
 /// <reference path="./classes/MultiShotParams.d.ts"/>

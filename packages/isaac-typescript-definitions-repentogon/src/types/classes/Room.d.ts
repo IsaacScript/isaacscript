@@ -3,62 +3,34 @@ import type {
   EntityType,
   GridEntityType,
   ItemPoolType,
+  Music,
   PickupVariant,
 } from "isaac-typescript-definitions";
 import type { StbRailVariant } from "../../enums/StbRailVariant";
 
 declare global {
   interface Room extends IsaacAPIClass {
-    /**
-     * Repentogon's modified `Room.SpawnGridEntity` method.
-     *
-     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
-     * definitions. However, when the project compiles the method's name will change to what it's
-     * supposed to be.
-     *
-     * @param gridIndex
-     * @param gridEntityType
-     * @param variant Optional. Default is 0.
-     * @param seed Optional.
-     * @param varData Optional. Default is 0.
-     * @param descriptor
-     * @customName SpawnGridEntity
-     */
-    SpawnGridEntityEx: ((
-      gridIndex: int,
-      gridEntityType: GridEntityType,
-      variant?: int,
-      seed?: Seed,
-      varData?: int,
-    ) => void) &
-      ((gridIndex: int, descriptor: GridEntityDesc) => void);
-
-    /**
-     * Repentogon's modified `Room.TrySpawnSpecialQuestDoor` method.
-     *
-     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
-     * definitions. However, when the project compiles the method's name will change to what it's
-     * supposed to be.
-     *
-     * @param ignoreStageType Optional. Whether the Mirror & Mineshaft door can spawn outside of
-     *                        stages outside of the alt-floor. Default is false.
-     * @customName TrySpawnSpecialQuestDoor
-     */
-    TrySpawnSpecialQuestDoorEx: (ignoreStageType?: boolean) => boolean;
-
     /** Returns whether the grid entity with the specified GridIndex can be picked up. */
     CanPickupGridEntity: (gridIndex: int) => boolean;
 
-    CanSpawnObstacleAtPosition: (gridIndex: int, force: boolean) => void;
+    /** Returns whether an obstacle can be spawned at the provided grid index. */
+    CanSpawnObstacleAtPosition: (gridIndex: int, force: boolean) => boolean;
 
     /**
      * Creates a lightning strike effect as seen in Downpour.
      *
-     * @param seed Optional. The seed determines the intensity and sound pitch.
+     * @param seed Optional. The seed determines the intensity and sound pitch. The game calculates
+     *             the intensity and pitch using the following formulas: `1.3 + RNG.RandomFloat() *
+     *             0.6` and `0.9 + RNG.RandomFloat() * 0.2` respectively. Default is a randomized
+     *             seed.
      */
     DoLightningStrike: (seed?: Seed) => void;
 
-    // `GetBackdrop` is currently unimplemented as the `Image` class is not complete.
+    /** Returns the room's `Backdrop` object. */
+    GetBackdrop: () => Backdrop;
+
+    /** Returns the room's boss victory jingle. */
+    GetBossVictoryJingle: () => Music;
 
     /** Returns a `Camera` object. */
     GetCamera: () => Camera;
@@ -80,7 +52,8 @@ declare global {
      * Returns the grid index from the specified row and column. Returns -1 if no grid index exists
      * at that point.
      */
-    GetGridIndexByTile: (row: int, column: int) => int;
+    GetGridIndexByTile: ((row: int, column: int) => int) &
+      ((tile: [int, int]) => int);
 
     /**
      * Returns the room's current item pool.
@@ -91,20 +64,32 @@ declare global {
     GetItemPool: (seed?: Seed, raw?: boolean) => void;
 
     /** Returns the intensity of the lightning effect. */
-    GetLightningIntensity: () => number;
+    GetLightningIntensity: () => float;
+
+    /** Returns a descriptor of the corners of an L-room shape in world coordinates. */
+    GetLRoomAreaDesc: () => LRoomAreaDesc;
+
+    /** Returns a descriptor of the corners of an L-room shape in grid coordinates. */
+    GetLRoomTileDesc: () => LRoomTileDesc;
 
     /**
      * Returns the approximate number of areas in a room that spawn a rain effect in a tight radius.
      */
     GetNumRainSpawners: () => int;
 
+    /**
+     * Returns the `StbRailVariant` at the provided grid index. Returns undefined if there is no
+     * rail.
+     */
     GetRail: (gridIndex: int) => StbRailVariant | undefined;
 
+    /** Returns the room's `RailManager` object. */
     GetRailManager: () => RailManager;
 
     /** Returns the rain intensity in the room. */
     GetRainIntensity: () => float;
 
+    /** Returns the room clear delay. */
     GetRoomClearDelay: () => int;
 
     /** Returns the price of the item in the current room. */
@@ -125,6 +110,7 @@ declare global {
     /** Returns the color of the water in the current room. */
     GetWaterColor: () => KColor;
 
+    /** Returns the water's color multiplier. */
     GetWaterColorMultiplier: () => KColor;
 
     /** Returns whether boss spawns in this room will be champions. */
@@ -167,7 +153,12 @@ declare global {
     /** Sets the greed wave timer. */
     SetGreedWaveTimer: (time: int) => void;
 
-    /** Sets the room's item pool. */
+    /**
+     * Sets the room's item pool. This takes priority over the game's regular pool selection code.
+     * Passing `ItemPoolType.NULL` will have the game handle item pool selection.
+     *
+     * This is reset upon leaving the room.
+     */
     SetItemPool: (poolType: ItemPoolType) => void;
 
     /** Sets the intensity of the lava in the room. */
@@ -176,9 +167,22 @@ declare global {
     /** Sets the intensity of the lightning effect in the room. */
     SetLightningIntensity: (intensity: float) => void;
 
+    /**
+     * Sets how many frames the room is paused for. When the room is paused, the AI and animations
+     * of all NPCs and effects stop updating.
+     *
+     * NPCs and effects that are spawned while the room is still paused will still update until the
+     * method is called again.
+     */
     SetPauseTimer: (duration: int) => void;
+
+    /** Adds a rail at the provided grid index. */
     SetRail: (gridIndex: int, railVariant: StbRailVariant) => void;
+
+    /** Sets the room's rain intensity. This is used by the rain effect spawners in Downpour. */
     SetRainIntensity: (intensity: number) => void;
+
+    /** Sets the room's clear delay. */
     SetRoomClearDelay: (delay: int) => void;
 
     /**
@@ -189,6 +193,9 @@ declare global {
     /** Sets the color of the water in the room. */
     SetWaterColor: (color: KColor) => void;
 
+    /** Sets the water's color multiplier. */
+    SetWaterColorMultiplier: (color: KColor) => void;
+
     /**
      * Sets the strength of the water current in the room. The water current particles and sounds
      * are automatically handled by the game.
@@ -197,7 +204,45 @@ declare global {
      */
     SetWaterCurrent: (current: Vector) => void;
 
+    /**
+     * Repentogon's modified `Room.SpawnGridEntity` method.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param gridIndex
+     * @param gridEntityType
+     * @param variant Optional. Default is 0.
+     * @param seed Optional. Default is a random seed.
+     * @param varData Optional. Default is 0.
+     * @param descriptor
+     * @customName SpawnGridEntity
+     */
+    SpawnGridEntityEx: ((
+      gridIndex: int,
+      gridEntityType: GridEntityType,
+      variant?: int,
+      seed?: Seed,
+      varData?: int,
+    ) => void) &
+      ((gridIndex: int, descriptor: GridEntityDesc) => void);
+
+    /** Returns a discounted price of a shop item. */
     TryGetShopDiscount: (shopItem: int, price: int) => int;
+
+    /**
+     * Repentogon's modified `Room.TrySpawnSpecialQuestDoor` method.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @param ignoreStageType Optional. Whether the Mirror & Mineshaft door can spawn outside of
+     *                        stages outside of the alt-floor. Default is false.
+     * @customName TrySpawnSpecialQuestDoor
+     */
+    TrySpawnSpecialQuestDoorEx: (ignoreStageType?: boolean) => boolean;
 
     /**
      * Updates the room's color correction with the copy of `FXParams.ColorModifier`.
