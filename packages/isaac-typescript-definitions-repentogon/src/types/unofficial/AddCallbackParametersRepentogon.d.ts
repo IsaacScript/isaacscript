@@ -1,6 +1,7 @@
 import type {
   ActiveSlot,
   BackdropType,
+  BedSubType,
   BombVariant,
   BossID,
   ButtonAction,
@@ -118,6 +119,24 @@ declare global {
         | { Collide?: boolean; SkipCollisionEffects?: boolean }
         | undefined,
       playerVariant?: PlayerVariant,
+    ];
+
+    // 37
+    [ModCallbackRepentogon.POST_PICKUP_SELECTION]: [
+      callback: (
+        pickup: EntityPickup,
+        variant: PickupVariant,
+        subType: int,
+        requestedVariant: PickupVariant,
+        requestedSubType: int,
+        rng: RNG,
+      ) =>
+        | [
+            pickupVariant: PickupVariant,
+            subType: int,
+            continueSelection: boolean,
+          ]
+        | undefined,
     ];
 
     // 38
@@ -1646,6 +1665,32 @@ declare global {
       callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
     ];
 
+    // 1285
+    [ModCallbackRepentogon.PRE_TRIGGER_BED_SLEEP_EFFECT]: [
+      callback: (
+        player: EntityPlayer,
+        bed: EntityPickup,
+      ) => boolean | undefined,
+      bedSubType?: BedSubType,
+    ];
+
+    // 1286
+    [ModCallbackRepentogon.POST_TRIGGER_BED_SLEEP_EFFECT]: [
+      callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
+      bedSubType?: BedSubType,
+    ];
+
+    // 1287
+    [ModCallbackRepentogon.PRE_PLAYER_POCKET_ITEMS_SWAP]: [
+      callback: (player: EntityPlayer) => boolean | undefined,
+    ];
+
+    // 1288
+    [ModCallbackRepentogon.PRE_BED_SLEEP]: [
+      callback: (player: EntityPlayer, bed: BedSubType) => boolean | undefined,
+      bedSubType?: BedSubType,
+    ];
+
     // 1300
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_SAVE]: [
       callback: (slot: int) => void,
@@ -2282,6 +2327,32 @@ declare global {
         isSticky: boolean,
         isCurseDisplay: boolean,
       ) => boolean | undefined,
+    ];
+
+    // 1486
+    [ModCallbackRepentogon.PRE_ENTITY_SET_COLOR]: [
+      callback: (
+        entity: Entity,
+        color: Color,
+        duration: int,
+        priority: int,
+        fadeOut: boolean,
+        share: boolean,
+      ) => Color | boolean | undefined,
+      entityType?: EntityType,
+    ];
+
+    // 1486
+    [ModCallbackRepentogon.POST_ENTITY_SET_COLOR]: [
+      callback: (
+        entity: Entity,
+        color: Color,
+        duration: int,
+        priority: int,
+        fadeOut: boolean,
+        share: boolean,
+      ) => void,
+      entityType?: EntityType,
     ];
   }
 }
