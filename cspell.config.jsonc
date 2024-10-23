@@ -2,9 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   // @template-ignore-next-line
-  "import": ["./packages/isaacscript-spell/cspell-isaacscript.json"],
-  "files": ["**"],
-  "enableFiletypes": ["*"],
+  "import": [
+    "./packages/isaacscript-spell/cspell-isaacscript.json"
+  ],
+  "files": [
+    "**"
+  ],
+  "enableFiletypes": [
+    "*"
+  ],
   "enableGlobDot": true,
   "useGitignore": true,
   "ignorePaths": [
@@ -33,12 +39,13 @@
     "**/.docusaurus/**",
     "Node.gitignore",
     "packages/docs/docs/isaacscript-common/**",
-    "packages/docs/docs/isaac-typescript-definitions/**",
+    "packages/docs/docs/isaac-typescript-definitions/**"
     // @template-customization-end
   ],
   "words": [
     "celsiusnarhwal",
     "docsearch",
+    "ignorecase",
     "klaw",
     "lualib",
     "markdownlintignore",
@@ -48,6 +55,6 @@
     "sublist",
     "syncer",
     "typedoc",
-    "typesense",
-  ],
+    "typesense"
+  ]
 }
