@@ -58,7 +58,7 @@
     "@types/node": "^22.7.9",
     "@zamiell/typedoc-plugin-not-exported": "^0.3.0",
     "complete-common": "^1.0.0",
-    "complete-node": "^1.7.0",
+    "complete-node": "^1.6.0",
     "glob": "^11.0.0",
     "typedoc": "^0.26.10",
     "typedoc-plugin-markdown": "^4.2.9",
