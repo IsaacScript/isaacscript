@@ -2,10 +2,10 @@ import { Command } from "@commander-js/extra-typings";
 import chalk from "chalk";
 import { ReadonlySet, getEnumValues, trimPrefix } from "complete-common";
 import {
-  PACKAGE_MANAGER_LOCK_FILE_NAMES,
   PackageManager,
   deleteFileOrDirectory,
   fatalError,
+  getPackageManagerLockFileNames,
   isDirectory,
   isFile,
   readFile,
@@ -40,7 +40,7 @@ const PACKAGE_MANAGER_STRINGS = [
   "PACKAGE_MANAGER_INSTALL_COMMAND",
   "PACKAGE_MANAGER_LOCK_FILE_NAME",
   ...getEnumValues(PackageManager),
-  ...PACKAGE_MANAGER_LOCK_FILE_NAMES,
+  ...getPackageManagerLockFileNames(),
 ] as const;
 
 export const checkCommand = new Command()
