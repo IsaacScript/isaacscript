@@ -20,7 +20,7 @@
   "devDependencies": {
     "isaacscript": "^0.0.1",
     "isaacscript-lint": "^0.0.1",
-    "typescript": "5.5.2",
+    "typescript": "0.0.1",
     "typescript-to-lua": "^0.0.1"
   }
 }

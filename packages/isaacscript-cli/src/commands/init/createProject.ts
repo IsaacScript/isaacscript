@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import {
+  isObject,
   parseSemanticVersion,
   removeLinesBetweenMarkers,
   removeLinesMatching,
@@ -42,7 +43,7 @@ import {
 import { execShell, execShellString } from "../../exec.js";
 import { initGitRepository } from "../../git.js";
 
-export function createProject(
+export async function createProject(
   projectName: string,
   authorName: string | undefined,
   projectPath: string,
@@ -55,7 +56,7 @@ export function createProject(
   typeScript: boolean,
   dev: boolean,
   verbose: boolean,
-): void {
+): Promise<void> {
   if (createNewDir) {
     makeDirectory(projectPath);
   }
@@ -66,7 +67,7 @@ export function createProject(
   }
 
   copyStaticFiles(projectPath, typeScript);
-  copyDynamicFiles(
+  await copyDynamicFiles(
     projectName,
     authorName,
     projectPath,
@@ -130,7 +131,7 @@ function copyTemplateDirectoryWithoutOverwriting(
 }
 
 /** Copy files that need to have text replaced inside of them. */
-function copyDynamicFiles(
+async function copyDynamicFiles(
   projectName: string,
   authorName: string | undefined,
   projectPath: string,
@@ -187,7 +188,7 @@ function copyDynamicFiles(
 
   // `package.json`
   {
-    // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
+    // There are two versions of the template: one for TypeScript and one for IsaacScript mods.
     const packageJSONTemplateFileName = typeScript
       ? "package.ts.json"
       : "package.mod.json";
@@ -197,9 +198,39 @@ function copyDynamicFiles(
     );
     const template = readFile(templatePath);
 
-    const packageJSON = template
+    let packageJSON = template
       .replaceAll("PROJECT_NAME", projectName)
       .replaceAll("AUTHOR_NAME", authorName ?? "unknown");
+
+    if (!typeScript) {
+      // We need the get the version of TypeScript that corresponds to the latest version of
+      // TypeScriptToLua.
+      const response = await fetch(
+        "https://raw.githubusercontent.com/TypeScriptToLua/TypeScriptToLua/refs/heads/master/package.json",
+      );
+      const TSTLPackageJSON = await response.json();
+      if (!isObject(TSTLPackageJSON)) {
+        throw new Error("Failed to parse the TSTL package.json file.");
+      }
+      const { peerDependencies } = TSTLPackageJSON;
+      if (!isObject(peerDependencies)) {
+        throw new Error(
+          "Failed to parse the peer dependencies in the TSTL package.json file.",
+        );
+      }
+
+      const TSTLTypeScriptVersion = peerDependencies["typescript"];
+      if (typeof TSTLTypeScriptVersion !== "string") {
+        throw new TypeError(
+          'Failed to parse the "typescript" peer dependency in the TSTL package.json file.',
+        );
+      }
+
+      packageJSON = packageJSON.replaceAll(
+        '"typescript": "0.0.1"',
+        `"typescript": "${TSTLTypeScriptVersion}"`,
+      );
+    }
 
     const destinationPath = path.join(projectPath, "package.json");
     writeFile(destinationPath, packageJSON);

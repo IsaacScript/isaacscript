@@ -194,7 +194,7 @@ async function init(
     : await getSaveSlot(saveSlotOption, yes);
 
   // Now that we have asked the user all of the questions we need, we can create the project.
-  createProject(
+  await createProject(
     projectName,
     authorName,
     projectPath,
