@@ -76,7 +76,7 @@ function copyITDEnums(packageRoot: string) {
         break;
       }
 
-      default: {
+      case "DoorSlot": {
         break;
       }
     }
@@ -162,7 +162,7 @@ function copyISCInterfaces(packageRoot: string) {
         break;
       }
 
-      default: {
+      case "JSONRoomsFile": {
         break;
       }
     }
