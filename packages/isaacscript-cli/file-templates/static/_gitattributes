@@ -8,7 +8,7 @@ core.autocrlf=false
 # Default value: false (on Linux machines) or true (on Windows machines)
 # Explicitly setting it to false prevents the issue where Windows users cannot pull down
 # casing-related file renames.
-core.ignorecase=false
+core.ignoreCase=false
 
 # https://git-scm.com/docs/git-config/#Documentation/git-config.txt-pullrebase
 # Default value: false
