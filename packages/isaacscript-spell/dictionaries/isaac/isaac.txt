@@ -13,6 +13,7 @@ Bonies
 bossid # REPENTOGON API
 brokenhearts # REPENTOGON API
 bskinparent # REPENTOGON API
+Catinsurance # YouTube tutorial maker
 Chronometrics # Creator of Basement Renovator
 cleareffectsonremove # REPENTOGON API
 collisiondamage # REPENTOGON API
@@ -95,7 +96,6 @@ Losts
 luacheck
 luarooms
 luckmodifier # REPENTOGON API
-Lytebringr # YouTube tutorial maker
 MAPI # MiniMAPI, a common mod
 modcostume # REPENTOGON API
 modders
