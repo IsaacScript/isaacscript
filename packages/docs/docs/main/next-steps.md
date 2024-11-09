@@ -78,7 +78,7 @@ end
 
 As you can see, besides some shenanigans with Lua using colons, and having to include the types inside of the function declaration, the code is almost identical. For this reason, you can pretty easily use any Isaac modding tutorial that is made for Lua and then apply it in IsaacScript. Coding in IsaacScript has the advantage of type safety - you get a red squiggly line in your editor when you make a typo.
 
-With that said, if you are brand new to coding, you might want to make things easier on yourself by switching to Lua. That way, you can follow along exactly with what the tutorial is doing without having to worry about converting code back and forth between Lua and TypeScript. You can always come back to TypeScript later on once you have a better grasp on modding in Lua. In addition, much more modders use Lua than IsaacScript, and may not be entirely familiar with IsaacScript when you run into an issue and ask for help. (but remember that converting between the two is usually a simple change in syntax!)
+With that said, if you are brand new to coding, you might want to make things easier on yourself by switching to Lua. That way, you can follow along exactly with what the tutorial is doing without having to worry about converting code back and forth between Lua and TypeScript. You can always come back to TypeScript later on once you have a better grasp on modding in Lua.
 
 It you feel shaky on the act of programming itself, that is more of something that you learn over time with lots of practice. I personally prefer to learn by doing, but there are plenty of coding tutorials that you can do online, such as [Code Academy](https://www.codecademy.com/).
 
