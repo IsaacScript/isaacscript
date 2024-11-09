@@ -30,9 +30,9 @@ If you already know how the Isaac API works, then you are in a good spot, becaus
 
 Novice programmers or people without any previous Isaac modding experience might not be "off to the races" after finishing the Green Candle tutorial. If you look through the [API reference documentation](https://wofsauge.github.io/IsaacDocs/rep/) and you feel completely lost about how to start doing what you want to do, then you probably fall into this camp.
 
-One option for beginners is to watch the [Lytebringr video tutorial series on YouTube](https://www.youtube.com/playlist?list=PLMZJyHSWa_My5DDoTQcKCgs475xIpQHSF). As you can see, he covers a lot of different topics, so watching a bunch of his videos should give you a nice overview of the kinds of things that are possible. And you can follow along with him step by step so that you can learn how to do it.
+One option for beginners is to watch the [Catinsurance video tutorial series on YouTube](https://www.youtube.com/playlist?list=PLkIbky8_pFUpqAF9l7dh_YsEV-zpJ4q50). As you can see, the videos cover a lot of different topics, so watching a few of these videos should give you a nice overview of the kinds of things that are possible, and you can follow along step by step so that you can learn how to do it.
 
-Note that Lytebringr's videos are made for Lua, since they were created before IsaacScript existed. And in general, you probably won't find any IsaacScript-specific tutorials in the wild. But remember that the API is completely identical between Lua and TypeScript - the only difference is the language. In other words, you only have to worry about cosmetic things like using curly brackets instead of "then", using parenthesis around if statements, adding type annotations, and so on.
+Note that Catinsurance's videos are made for Lua, and in general, you probably won't find any IsaacScript-specific tutorials in the wild. But remember that the API is completely identical between Lua and TypeScript - the only difference is the language. In other words, you only have to worry about cosmetic things like using curly brackets instead of "then", using parenthesis around if statements, adding type annotations, and so on.
 
 To give you an idea of what I mean, here is a `setBlindfold` function in both TypeScript and Lua:
 
@@ -78,7 +78,9 @@ end
 
 As you can see, besides some shenanigans with Lua using colons, and having to include the types inside of the function declaration, the code is almost identical. For this reason, you can pretty easily use any Isaac modding tutorial that is made for Lua and then apply it in IsaacScript. Coding in IsaacScript has the advantage of type safety - you get a red squiggly line in your editor when you make a typo.
 
-With that said, if you are brand new to coding, you might want to make things easier on yourself by switching to Lua. That way, you can follow along exactly with what the tutorial is doing without having to worry about converting code back and forth between Lua and TypeScript. You can always come back to TypeScript later on once you have a better grasp on modding in Lua.
+Further help can be found in [the IsaacScript Discord server](discord.md), or the more general [Modding of Isaac Discord server](https://discord.gg/modding-of-isaac-962027940131008653) for general modding advice, including programming, spritework, and more (though note most people there use Lua.)
+
+With that said, if you are brand new to coding, you might want to make things easier on yourself by switching to Lua. That way, you can follow along exactly with what the tutorial is doing without having to worry about converting code back and forth between Lua and TypeScript. You can always come back to TypeScript later on once you have a better grasp on modding in Lua. In addition, much more modders use Lua than IsaacScript, and may not be entirely familiar with IsaacScript when you run into an issue and ask for help. (but remember that converting between the two is usually a simple change in syntax!)
 
 It you feel shaky on the act of programming itself, that is more of something that you learn over time with lots of practice. I personally prefer to learn by doing, but there are plenty of coding tutorials that you can do online, such as [Code Academy](https://www.codecademy.com/).
 
@@ -86,9 +88,9 @@ It you feel shaky on the act of programming itself, that is more of something th
 
 ## Example Mods
 
-Sometimes, studying other people's code can also be helpful. If you want a real-life project to look at, you can take a look at [Racing+](https://github.com/Zamiell/racing-plus), which is one of the biggest Isaac mods in existence. Or, if you want to focus on a smaller project, take a look through the `#mod-showcase` channel of [the Discord server](discord.md), of which there are many to pick from.
+Sometimes, studying other people's code can also be helpful. If you want a real-life project to look at, you can take a look at [Racing+](https://github.com/Zamiell/racing-plus), which is one of the biggest IsaacScript mods in existence. Or, if you want to focus on a smaller project, take a look through the `#mod-showcase` channel of [the Discord server](discord.md), of which there are many to pick from.
 
-Remember that because Lua is so similar to TypeScript, you can also download any popular mod from the Steam Workshop and then directly read the Lua code that it comes with in order to see how they are accomplishing things. But be aware that in general, the code quality of Lua mods is usually pretty low.
+Remember that because Lua is so similar to TypeScript, you can also download any popular mod from the Steam Workshop and then directly read the Lua code that it comes with in order to see how they are accomplishing things (but be aware that the code quality many mods can be low.)
 
 <br />
 
