@@ -86,7 +86,7 @@ It you feel shaky on the act of programming itself, that is more of something th
 
 ## Example Mods
 
-Sometimes, studying other people's code can also be helpful. If you want a real-life project to look at, you can take a look at [Racing+](https://github.com/Zamiell/racing-plus), which is one of the biggest IsaacScript mods in existence. Or, if you want to focus on a smaller project, take a look through the `#mod-showcase` channel of [the Discord server](discord.md), of which there are many to pick from.
+Sometimes, studying other people's code can also be helpful. If you want a real-life project to look at, you can take a look at [Racing+](https://github.com/Zamiell/racing-plus), which is one of the biggest Isaac mods in existence. Or, if you want to focus on a smaller project, take a look through the `#mod-showcase` channel of [the Discord server](discord.md), of which there are many to pick from.
 
 Remember that because Lua is so similar to TypeScript, you can also download any popular mod from the Steam Workshop and then directly read the Lua code that it comes with in order to see how they are accomplishing things (but be aware that the code quality many mods can be low.)
 
