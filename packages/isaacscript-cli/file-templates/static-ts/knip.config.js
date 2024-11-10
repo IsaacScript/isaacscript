@@ -14,7 +14,6 @@ const config = {
   ],
   ignoreDependencies: [
     "complete-lint", // This is a linting meta-package.
-    "complete-tsconfig", // This is provided by "complete-lint".
   ],
 };
 
