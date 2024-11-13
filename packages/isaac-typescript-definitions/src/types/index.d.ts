@@ -96,8 +96,6 @@
 // Unofficial Classes and Types
 // ----------------------------
 
-/// <reference path="./unofficial/primitives.d.ts" />
-
 /// <reference path="./unofficial/AddCallbackParameters.d.ts" />
 /// <reference path="./unofficial/APIVersion.d.ts" />
 /// <reference path="./unofficial/BitFlag.d.ts" />
@@ -105,6 +103,7 @@
 /// <reference path="./unofficial/BitFlags.d.ts" />
 /// <reference path="./unofficial/EntitySubPlayer.d.ts" />
 /// <reference path="./unofficial/IsaacAPIClass.d.ts" />
+/// <reference path="./unofficial/primitives.d.ts" />
 /// <reference path="./unofficial/PtrHash.d.ts" />
 /// <reference path="./unofficial/Quality.d.ts" />
 /// <reference path="./unofficial/Seed.d.ts" />

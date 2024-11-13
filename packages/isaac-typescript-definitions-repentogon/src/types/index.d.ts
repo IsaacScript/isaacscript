@@ -1,3 +1,10 @@
+/**
+ * In a file where any import occurs, the "declare global" directive must be used:
+ * https://stackoverflow.com/questions/39040108/import-class-in-definition-file-d-ts
+ *
+ * In a file without imports, "declare global" cannot be used.
+ */
+
 // -------
 // Classes
 // -------
@@ -64,6 +71,7 @@
 /// <reference path="./classes/rendering/DestinationQuad.d.ts"/>
 /// <reference path="./classes/rendering/Point.d.ts"/>
 /// <reference path="./classes/rendering/Shape.d.ts"/>
+/// <reference path="./classes/rendering/SourceQuad.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveState.d.ts"/>
 /// <reference path="./classes/room-config/EntitiesSaveStateVector.d.ts"/>
 /// <reference path="./classes/room-config/GridEntitiesSaveStateVector.d.ts"/>
@@ -78,6 +86,7 @@
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
 /// <reference path="./classes/sprite/NullLayer.d.ts"/>
 /// <reference path="./classes/sprite/Sprite.d.ts"/>
+/// <reference path="./classes/ActiveItemDesc.d.ts"/>
 /// <reference path="./classes/Ambush.d.ts"/>
 /// <reference path="./classes/Backdrop.d.ts"/>
 /// <reference path="./classes/Camera.d.ts"/>
