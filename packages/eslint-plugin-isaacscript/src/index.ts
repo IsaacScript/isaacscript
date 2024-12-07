@@ -18,6 +18,8 @@ const plugin = {
 
 addPluginToConfigs(configs, name);
 
+// ESLint plugins must provide a default export by design.
+// eslint-disable-next-line
 export default plugin;
 
 /**
