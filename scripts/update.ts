@@ -1,5 +1,6 @@
 // Packages held back:
-// - typescript - TSTL is bound to version 5.6.2.
+// - "react" - Docusaurus requires v18.
+// - "react-dom" - Docusaurus requires v18.
 
 import { updatePackageJSONDependenciesMonorepo } from "complete-node";
 

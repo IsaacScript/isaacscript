@@ -58,7 +58,7 @@
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21",
     "xml2js": "^0.6.2",
-    "yaml": "^2.6.0"
+    "yaml": "^2.6.1"
   },
   "devDependencies": {
     "@types/figlet": "^1.7.0",
@@ -67,7 +67,7 @@
     "@types/source-map-support": "^0.5.10",
     "@types/xml2js": "^0.4.14",
     "ts-json-schema-generator": "^2.3.0",
-    "typescript-eslint": "^8.14.0"
+    "typescript-eslint": "^8.17.0"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0",
