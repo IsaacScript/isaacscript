@@ -15,7 +15,7 @@ export async function getAuthorName(
     return undefined;
   }
 
-  return getNewAuthorName();
+  return await getNewAuthorName();
 }
 
 async function getNewAuthorName(): Promise<string> {
