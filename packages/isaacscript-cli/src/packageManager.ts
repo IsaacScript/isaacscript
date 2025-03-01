@@ -29,9 +29,9 @@ export function getPackageManagerUsedForNewProject(
 }
 
 /**
- * Previously, this function determined the package manager based on certain commands existing, but
- * this is undesirable because some projects might prefer `npm`, even if they are forced to use
- * other package managers for other projects.
+ * Previously, this function determined the package manager based on certain commands existing.
+ * However, this is undesirable because some projects might prefer `npm`, even if they are forced to
+ * use other package managers for other projects.
  */
 function getDefaultPackageManager(): PackageManager {
   return PackageManager.npm;
@@ -77,7 +77,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
     const npmExists = commandExists("npm");
     if (!npmExists) {
       fatalError(
-        `You specified the "--npm" flag, but "${chalk.green(
+        `You specified the "--npm" option, but "${chalk.green(
           "npm",
         )}" does not seem to be a valid command.`,
       );
@@ -90,7 +90,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
     const yarnExists = commandExists("yarn");
     if (!yarnExists) {
       fatalError(
-        `You specified the "--yarn" flag, but "${chalk.green(
+        `You specified the "--yarn" option, but "${chalk.green(
           "yarn",
         )}" does not seem to be a valid command.`,
       );
@@ -103,7 +103,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
     const pnpmExists = commandExists("pnpm");
     if (!pnpmExists) {
       fatalError(
-        `You specified the "--pnpm" flag, but "${chalk.green(
+        `You specified the "--pnpm" option, but "${chalk.green(
           "pnpm",
         )}" does not seem to be a valid command.`,
       );

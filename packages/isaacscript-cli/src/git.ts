@@ -1,13 +1,8 @@
 import chalk from "chalk";
-import {
-  commandExists,
-  getPackageJSONVersion,
-  isFile,
-  readFile,
-} from "complete-node";
+import { commandExists, isFile, readFile } from "complete-node";
 import path from "node:path";
 import yaml from "yaml";
-import { HOME_DIR, PROJECT_NAME, REPO_ROOT } from "./constants.js";
+import { HOME_DIR, PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
 import { execShell, execShellString } from "./exec.js";
 import type { GitHubCLIHostsYAML } from "./interfaces/GitHubCLIHostsYAML.js";
 import { getInputString, getInputYesNo } from "./prompt.js";
@@ -190,8 +185,7 @@ export function initGitRepository(
 
   if (isGitNameAndEmailConfigured(verbose)) {
     execShellString("git add --all", verbose, false, projectPath);
-    const isaacScriptCLIVersion = getPackageJSONVersion(REPO_ROOT);
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${isaacScriptCLIVersion} template`;
+    const commitMessage = `chore: add files from ${PROJECT_NAME} ${PROJECT_VERSION} template`;
     execShell(
       "git",
       ["commit", "--message", commitMessage],
@@ -209,7 +203,7 @@ export function initGitRepository(
   }
 }
 
-function isGitNameAndEmailConfigured(verbose: boolean) {
+function isGitNameAndEmailConfigured(verbose: boolean): boolean {
   const nameExitStatus = execShellString(
     "git config --global user.name",
     verbose,

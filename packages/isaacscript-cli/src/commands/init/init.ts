@@ -158,7 +158,7 @@ async function init(
   const packageManager = getPackageManagerUsedForNewProject(options);
 
   // Prompt the end-user for some information (and validate it as we go).
-  const [projectPath, createNewDir] = await getProjectPath(
+  const { projectPath, createNewDir } = await getProjectPath(
     name,
     useCurrentDirectory,
     customDirectory,

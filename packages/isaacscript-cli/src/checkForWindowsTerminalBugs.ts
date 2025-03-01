@@ -11,17 +11,12 @@ const BASH_PROFILE_PATH = path.join(HOME_DIR, ".bash_profile");
  * library. Try to detect this and warn the end-user.
  */
 export async function checkForWindowsTerminalBugs(): Promise<void> {
-  if (process.platform !== "win32") {
-    return;
-  }
-
   if (
-    process.env["SHELL"] !== String.raw`C:\Program Files\Git\usr\bin\bash.exe`
+    process.platform === "win32" &&
+    process.env["SHELL"] === String.raw`C:\Program Files\Git\usr\bin\bash.exe`
   ) {
-    return;
+    await checkForWindowsBugColor();
   }
-
-  await checkForWindowsBugColor();
 }
 
 async function checkForWindowsBugColor() {

@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { parseSemanticVersion } from "complete-common";
-import { fatalError } from "complete-node";
 import { PROJECT_NAME } from "./constants.js";
 
 // 20.11 is the minimum version that supports `import.meta.dirname`.
@@ -12,7 +11,7 @@ export function validateNodeVersion(): void {
 
   const semanticVersion = parseSemanticVersion(version);
   if (semanticVersion === undefined) {
-    fatalError(`Failed to parse the Node version: ${version}`);
+    throw new Error(`Failed to parse the Node version: ${version}`);
   }
 
   const { majorVersion, minorVersion } = semanticVersion;

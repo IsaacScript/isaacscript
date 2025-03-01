@@ -24,7 +24,7 @@ export async function getProjectPath(
   customDirectory: string | undefined,
   yes: boolean,
   forceName: boolean,
-): Promise<[string, boolean]> {
+): Promise<{ projectPath: string; createNewDir: boolean }> {
   let projectName = name;
   let projectPath: string;
   let createNewDir: boolean;
@@ -54,7 +54,7 @@ export async function getProjectPath(
   validateProjectName(projectName, forceName);
 
   console.log(`Using a project name of: ${chalk.green(projectName)}`);
-  return [projectPath, createNewDir];
+  return { projectPath, createNewDir };
 }
 
 async function getNewProjectName(): Promise<[string, string, boolean]> {

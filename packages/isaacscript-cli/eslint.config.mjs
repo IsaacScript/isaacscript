@@ -34,8 +34,8 @@ export default tseslint.config(
 
   {
     ignores: [
-      // We don't want to lint template files, since they won't actually have valid code inside of
-      // them yet.
+      // We do not want to lint template files, since they do not have valid code inside of them
+      // yet.
       "**/file-templates/**",
 
       // We do not want to lint the compiled plugins. (Unlike other files, they are compiled to the

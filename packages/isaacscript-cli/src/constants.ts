@@ -1,3 +1,4 @@
+import { findPackageRoot, getPackageJSONFieldsMandatory } from "complete-node";
 import os from "node:os";
 import path from "node:path";
 
@@ -8,7 +9,18 @@ export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
 export const MOD_UPLOADER_PATH = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe`;
-export const PROJECT_NAME = "IsaacScript";
+
+const packageRoot = findPackageRoot();
+const { version, description } = getPackageJSONFieldsMandatory(
+  packageRoot,
+  "name",
+  "version",
+  "description",
+);
+
+export const PROJECT_NAME = "IsaacScript"; // We want to capitalize the name.
+export const PROJECT_VERSION = version;
+export const PROJECT_DESCRIPTION = description;
 
 // `isaacscript`
 export const REPO_ROOT = path.join(import.meta.dirname, "..");
