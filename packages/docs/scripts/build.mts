@@ -23,7 +23,7 @@ await buildScript(async (packageRoot) => {
   );
   rm(...generatedDocPaths);
 
-  const repoRoot = path.join(packageRoot, "..", "..");
+  const repoRoot = path.resolve(packageRoot, "..", "..");
 
   await Promise.all([makeITDDocs(repoRoot), makeISCDocs(repoRoot)]);
 

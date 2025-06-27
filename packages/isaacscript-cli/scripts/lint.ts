@@ -2,9 +2,9 @@ import chalk from "chalk";
 import { $, $s, diff, echo, exit, lintScript, readFile } from "complete-node";
 import path from "node:path";
 
-const REPO_ROOT = path.join(import.meta.dirname, "..");
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 const LOCAL_GITIGNORE_PATH = path.join(
-  REPO_ROOT,
+  PACKAGE_ROOT,
   "file-templates",
   "dynamic",
   "Node.gitignore",

@@ -18,9 +18,9 @@ const DOCS_REPO_NAME = "isaacscript.github.io";
 const GITHUB_PAGES_URL = `https://${DOCS_REPO_NAME}/isaacscript-common/core/constants/index.html`;
 const SECONDS_TO_SLEEP = 10;
 
-const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 const BUILD_DIRECTORY_PATH = path.join(PACKAGE_ROOT, "build");
-const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
+const REPO_ROOT = path.resolve(PACKAGE_ROOT, "..", "..");
 const DOCS_REPO = path.join(REPO_ROOT, DOCS_REPO_NAME);
 const DOCS_REPO_GIT = path.join(DOCS_REPO, ".git");
 const DOCS_REPO_GIT_BACKUP = `/tmp/${DOCS_REPO_NAME}.git`;

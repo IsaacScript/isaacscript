@@ -17,7 +17,7 @@ export function spawnSaveDatWriter(config: ValidatedConfig): void {
     SUBPROCESS_NAME,
     SUBPROCESS_NAME,
   );
-  const modsDataPath = path.join(config.modsDirectory, "..", "data");
+  const modsDataPath = path.resolve(config.modsDirectory, "..", "data");
   const watcherModDataPath = path.join(modsDataPath, WATCHER_MOD_NAME);
   const saveDatFileName = `save${config.saveSlot}.dat`;
   const saveDatPath = path.join(watcherModDataPath, saveDatFileName);

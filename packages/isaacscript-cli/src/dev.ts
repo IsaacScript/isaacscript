@@ -4,7 +4,7 @@ import path from "node:path";
 export function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,
 ): string {
-  const isaacScriptMonorepoDirectory = path.join(
+  const isaacScriptMonorepoDirectory = path.resolve(
     projectPath,
     "..",
     "isaacscript",

@@ -10,5 +10,5 @@ if (pluginName === undefined || pluginName === "") {
 }
 
 export const PLUGIN_NAME = pluginName;
-export const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
-export const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
+export const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
+export const REPO_ROOT = path.resolve(PACKAGE_ROOT, "..", "..");

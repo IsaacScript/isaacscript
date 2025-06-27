@@ -4,7 +4,7 @@ import type { ValidatedConfig } from "../../classes/ValidatedConfig.js";
 import { WATCHER_MOD_NAME } from "../../constants.js";
 
 export function touchWatcherSaveDatFiles(config: ValidatedConfig): void {
-  const modsDataPath = path.join(config.modsDirectory, "..", "data");
+  const modsDataPath = path.resolve(config.modsDirectory, "..", "data");
   const watcherModDataPath = path.join(modsDataPath, WATCHER_MOD_NAME);
   if (!isDirectory(watcherModDataPath)) {
     makeDirectory(watcherModDataPath);

@@ -47,7 +47,7 @@ function copyIsaacScriptCommonFiles(packageRoot: string) {
 
 function copyITDEnums(packageRoot: string) {
   const sourcePackage = "isaac-typescript-definitions";
-  const sourceDirectoryPath = path.join(
+  const sourceDirectoryPath = path.resolve(
     packageRoot,
     "..",
     sourcePackage,

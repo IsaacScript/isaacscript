@@ -23,7 +23,7 @@ export const PROJECT_VERSION = version;
 export const PROJECT_DESCRIPTION = description;
 
 // `isaacscript`
-const REPO_ROOT = path.join(import.meta.dirname, "..");
+const REPO_ROOT = path.resolve(import.meta.dirname, "..");
 
 // `isaacscript/custom-stage`
 const CUSTOM_STAGE_PATH = path.join(REPO_ROOT, "custom-stage");

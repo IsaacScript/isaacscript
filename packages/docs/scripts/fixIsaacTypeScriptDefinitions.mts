@@ -17,7 +17,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const PACKAGE_NAME = "isaac-typescript-definitions";
-const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 const MARKDOWN_DOCS_DIR = path.join(PACKAGE_ROOT, "docs");
 const PACKAGE_DOCS_DIR = path.join(MARKDOWN_DOCS_DIR, PACKAGE_NAME);
 const MODULES_DIR = path.join(PACKAGE_DOCS_DIR, "modules");
