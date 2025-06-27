@@ -45,10 +45,10 @@ export function getTSTLClassName(object: unknown): string | undefined {
 }
 
 /**
- * Helper function to determine if a given object is a TypeScriptToLua `Map`.
+ * Helper function to determine if a given object is a `DefaultMap` from `isaacscript-common`.
  *
  * It is not reliable to use the `instanceof` operator to determine this because each Lua module has
- * their own copies of the entire lualib and thus their own instantiated version of a `Map`.
+ * their own copies of the entire lualib and thus their own instantiated version of a `DefaultMap`.
  */
 export function isDefaultMap(
   object: unknown,
