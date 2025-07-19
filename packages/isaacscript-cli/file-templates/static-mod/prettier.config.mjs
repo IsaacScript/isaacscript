@@ -20,6 +20,14 @@ const config = {
       },
     },
 
+    // Ensure that TypeScript files are recognized as TypeScript files.
+    {
+      files: ["**/*.ts"],
+      options: {
+        parser: "typescript",
+      },
+    },
+
     // Allow proper formatting of XML files:
     // https://github.com/prettier/plugin-xml#configuration
     {
