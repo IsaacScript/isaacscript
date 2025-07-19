@@ -8,7 +8,9 @@ const config = {
   plugins: [
     "prettier-plugin-organize-imports", // Prettier does not format imports by default.
     "prettier-plugin-packagejson", // Prettier does not format "package.json" by default.
-    "@prettier/plugin-xml", // Prettier does not format XML files by default.
+    // TODO: This plugin is bugged with the latest version of Prettier and tries to format
+    // TypeScript files as XML files.
+    /// "@prettier/plugin-xml", // Prettier does not format XML files by default.
   ],
 
   overrides: [
@@ -17,14 +19,6 @@ const config = {
       files: ["**/.vscode/*.json", "**/tsconfig.json", "**/tsconfig.*.json"],
       options: {
         parser: "jsonc",
-      },
-    },
-
-    // Ensure that TypeScript files are recognized as TypeScript files.
-    {
-      files: ["**/*.ts"],
-      options: {
-        parser: "typescript",
       },
     },
 
