@@ -60,10 +60,10 @@
     "complete-common": "^1.0.1",
     "complete-node": "^1.7.4",
     "glob": "^11.0.0",
-    "typedoc": "^0.27.3",
-    "typedoc-plugin-markdown": "^4.3.1",
+    "typedoc": "0.27.3",
+    "typedoc-plugin-markdown": "4.3.1",
     "typedoc-plugin-rename": "^1.1.1",
-    "typescript": "^5.7.2",
+    "typescript": "5.8.2",
     "typescript-eslint": "^8.17.0"
   }
 }

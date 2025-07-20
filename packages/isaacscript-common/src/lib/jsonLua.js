@@ -495,7 +495,7 @@ var lua_libs = {},
     },
     rawset: function (a, b, c) {
       if ("object" == typeof a && null != a && null != b)
-        return lua_rawset(a, b, c), [a];
+        return (lua_rawset(a, b, c), [a]);
       throw Error("Unable set key " + b + " in " + a);
     },
     select: function (a) {
@@ -901,7 +901,7 @@ lua_libs.table = {
     if (a.arraymode) return [a.uints.length];
     var b = 0,
       c;
-    for (c in a.uints) (a = parseFloat(c)), a > b && (b = a);
+    for (c in a.uints) ((a = parseFloat(c)), a > b && (b = a));
     return [b];
   },
   remove: function (a, b) {

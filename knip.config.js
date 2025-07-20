@@ -9,6 +9,8 @@ const config = {
   // https://github.com/webpro-nl/knip/issues/794
   exclude: ["enumMembers"],
 
+  ignore: ["eslint.config.mjs"],
+
   ignoreBinaries: [
     "tsx", // This is provided by "complete-lint".
   ],
@@ -23,6 +25,7 @@ const config = {
       ignore: [
         "babel.config.js",
         "docusaurus.config.ts",
+        "eslint.config.mjs",
         "scripts/**",
         "sidebars.ts",
         "src/**/index.tsx",
@@ -30,31 +33,31 @@ const config = {
         "typedoc.config.base.mjs",
       ],
     },
-    "packages/eslint-config-isaacscript": {
-      entry: ["base.js", "mod.js"],
-    },
     "packages/eslint-plugin-isaacscript": {
       ignore: [
+        "eslint.config.mjs",
         "src/template.ts",
         "tests/fixtures/file.ts",
         "tests/template.ts",
       ],
     },
-    "packages/isaac-lua-polyfill": {},
+    "packages/isaac-lua-polyfill": {
+      ignore: ["eslint.config.mjs"],
+    },
     "packages/isaac-typescript-definitions": {
-      ignore: ["typedoc.config.mjs"],
+      ignore: ["eslint.config.mjs", "typedoc.config.mjs"],
     },
     "packages/isaac-typescript-definitions-repentogon": {
-      ignore: ["typedoc.config.mjs"],
+      ignore: ["eslint.config.mjs", "typedoc.config.mjs"],
     },
     "packages/isaacscript-cli": {
       entry: [
-        "src/main.ts",
         "src/commands/monitor/modDirectorySyncer/modDirectorySyncer.ts",
         "src/commands/monitor/saveDatWriter/saveDatWriter.ts",
       ],
       ignore: [
         "**/copied/**",
+        "eslint.config.mjs",
         "file-templates/**",
         "plugins/**",
         "src/interfaces/IsaacScriptTSConfig.ts",
@@ -62,12 +65,15 @@ const config = {
     },
     "packages/isaacscript-common": {
       ignore: [
+        "eslint.config.mjs",
         "src/classes/features/other/extraConsoleCommands/commands.ts",
         "src/lib/jsonLua.js",
         "typedoc.config.mjs",
       ],
     },
-    "packages/isaacscript-spell": {},
+    "packages/isaacscript-spell": {
+      ignore: ["eslint.config.mjs"],
+    },
   },
 };
 

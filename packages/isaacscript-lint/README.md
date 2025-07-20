@@ -8,6 +8,7 @@ This is a meta package to install all of the dependencies necessary for [Prettie
 
 ## Package Documentation
 
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in Binding of Isaac mods.
 - [`complete-lint`](https://complete-ts.github.io/overview.html) - A meta-package to install all of the necessary ESLint and Prettier dependencies.
 - [`isaacscript-spell](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-spell) - A collection of CSpell dictionaries for IsaacScript mods.
 - [`isaacscript-tsconfig`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-tsconfig) - A TypeScript configuration file for IsaacScript mods.

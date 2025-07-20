@@ -1,5 +1,4 @@
 import { FlatCompat } from "@eslint/eslintrc";
-// eslint-disable-next-line import-x/no-extraneous-dependencies
 import { completeConfigBase } from "eslint-config-complete";
 import tseslint from "typescript-eslint";
 
