@@ -53,9 +53,7 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
 
     const ptrHash = GetPtrHash(collectible);
     let oldCollectibleType = v.room.collectibleTypeMap.get(ptrHash);
-    if (oldCollectibleType === undefined) {
-      oldCollectibleType = collectible.SubType;
-    }
+    oldCollectibleType ??= collectible.SubType;
     v.room.collectibleTypeMap.set(ptrHash, collectible.SubType);
 
     if (oldCollectibleType !== collectible.SubType) {

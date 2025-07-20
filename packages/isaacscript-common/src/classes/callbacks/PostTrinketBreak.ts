@@ -55,9 +55,7 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
     for (const trinketType of TRINKETS_THAT_CAN_BREAK) {
       const numTrinketsHeld = player.GetTrinketMultiplier(trinketType);
       let oldNumTrinketsHeld = trinketMap.get(trinketType);
-      if (oldNumTrinketsHeld === undefined) {
-        oldNumTrinketsHeld = 0;
-      }
+      oldNumTrinketsHeld ??= 0;
 
       if (numTrinketsHeld >= oldNumTrinketsHeld) {
         continue;

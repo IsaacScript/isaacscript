@@ -44,9 +44,7 @@ export function spawnCollectible(
   forceFreeItem = false,
   spawner?: Entity,
 ): EntityPickupCollectible {
-  if (seedOrRNG === undefined) {
-    seedOrRNG = getRandomSeed();
-  }
+  seedOrRNG ??= getRandomSeed();
 
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   const collectible = spawnPickupWithSeed(

@@ -295,9 +295,7 @@ export class ModUpgraded implements Mod {
     feature.initialized = true;
 
     if (feature.v !== undefined) {
-      if (feature.featuresUsed === undefined) {
-        feature.featuresUsed = [];
-      }
+      feature.featuresUsed ??= [];
       if (!feature.featuresUsed.includes(ISCFeature.SAVE_DATA_MANAGER)) {
         feature.featuresUsed.unshift(ISCFeature.SAVE_DATA_MANAGER);
       }

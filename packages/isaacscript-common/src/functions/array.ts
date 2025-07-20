@@ -250,8 +250,8 @@ export function copyArray<T>(oldArray: readonly T[], numElements?: int): T[] {
 
 /** Helper function to remove all of the elements in an array in-place. */
 // eslint-disable-next-line complete/prefer-readonly-parameter-types
-export function emptyArray<T>(array: T[]): void {
-  array.splice(0, array.length);
+export function emptyArray(array: unknown[]): void {
+  array.splice(0);
 }
 
 /**
@@ -386,7 +386,7 @@ export function getArrayDuplicateElements<T extends number | string>(
  * due to implementation details of TypeScriptToLua, this results in an array of 1 through N
  * (instead of an array of 0 through N -1).
  */
-export function getArrayIndexes<T>(array: readonly T[]): readonly int[] {
+export function getArrayIndexes(array: readonly unknown[]): readonly int[] {
   return eRange(array.length);
 }
 
@@ -510,8 +510,8 @@ export function getRandomArrayElementAndRemove<T>(
  * @param exceptions Optional. An array of indexes that will be skipped over when getting the random
  *                   index. Default is an empty array.
  */
-export function getRandomArrayIndex<T>(
-  array: readonly T[],
+export function getRandomArrayIndex(
+  array: readonly unknown[],
   seedOrRNG: Seed | RNG | undefined,
   exceptions: readonly int[] = [],
 ): int {
@@ -597,9 +597,7 @@ export function isArray(
 export function isArrayContiguous(array: readonly int[]): boolean {
   let lastValue: int | undefined;
   for (const element of array) {
-    if (lastValue === undefined) {
-      lastValue = element - 1;
-    }
+    lastValue ??= element - 1;
 
     if (element !== lastValue - 1) {
       return false;
@@ -672,9 +670,9 @@ export function shuffleArray<T>(
  *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
  *                  a random seed.
  */
-export function shuffleArrayInPlace<T>(
+export function shuffleArrayInPlace(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
-  array: T[],
+  array: unknown[],
   seedOrRNG: Seed | RNG | undefined,
 ): void {
   let currentIndex = array.length;
@@ -697,8 +695,12 @@ export function sumArray(array: readonly number[]): number {
 /**
  * Helper function to swap two different array elements. (The elements will be swapped in-place.)
  */
-// eslint-disable-next-line complete/prefer-readonly-parameter-types
-export function swapArrayElements<T>(array: T[], i: number, j: number): void {
+export function swapArrayElements(
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
+  array: unknown[],
+  i: number,
+  j: number,
+): void {
   const value1 = array[i]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
   const value2 = array[j]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
 

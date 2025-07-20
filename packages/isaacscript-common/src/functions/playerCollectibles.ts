@@ -315,9 +315,7 @@ export function setActiveItem(
   const primaryCharge = player.GetActiveCharge(ActiveSlot.PRIMARY);
   const secondaryCollectibleType = player.GetActiveItem(ActiveSlot.SECONDARY);
 
-  if (charge === undefined) {
-    charge = getCollectibleMaxCharges(collectibleType);
-  }
+  charge ??= getCollectibleMaxCharges(collectibleType);
 
   if (!keepInPools) {
     itemPool.RemoveCollectible(collectibleType);

@@ -55,9 +55,7 @@ export class PostTransformation extends CustomCallback<T> {
     for (const playerForm of PLAYER_FORM_VALUES) {
       const hasForm = player.HasPlayerForm(playerForm);
       let storedForm = playerTransformationsMap.get(playerForm);
-      if (storedForm === undefined) {
-        storedForm = false;
-      }
+      storedForm ??= false;
 
       if (hasForm !== storedForm) {
         playerTransformationsMap.set(playerForm, hasForm);

@@ -69,9 +69,7 @@ export function getMysteriousPaperEffectForFrame(
   player: EntityPlayer,
   frameCount?: int,
 ): MysteriousPaperEffect | undefined {
-  if (frameCount === undefined) {
-    frameCount = player.FrameCount;
-  }
+  frameCount ??= player.FrameCount;
 
   if (!player.HasTrinket(TrinketType.MYSTERIOUS_PAPER)) {
     return undefined;

@@ -531,9 +531,7 @@ export function isRedKeyRoom(roomGridIndex: int): boolean {
  * @param roomGridIndex Optional. Default is the current room index.
  */
 export function isRoomInsideGrid(roomGridIndex?: int): boolean {
-  if (roomGridIndex === undefined) {
-    roomGridIndex = getRoomGridIndex();
-  }
+  roomGridIndex ??= getRoomGridIndex();
 
   return roomGridIndex >= 0 && roomGridIndex <= MAX_LEVEL_GRID_INDEX;
 }
@@ -567,9 +565,8 @@ export function newRoom(
 ): int | undefined {
   const level = game.GetLevel();
 
-  if (seedOrRNG === undefined) {
-    seedOrRNG = level.GetDungeonPlacementSeed();
-  }
+  seedOrRNG ??= level.GetDungeonPlacementSeed();
+
   const rng = isRNG(seedOrRNG) ? seedOrRNG : newRNG(seedOrRNG);
 
   const newRoomCandidate = getNewRoomCandidate(rng, ensureDeadEnd);

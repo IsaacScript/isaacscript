@@ -24,13 +24,8 @@ export function getMusicForStage(
 ): Music {
   const level = game.GetLevel();
 
-  if (stage === undefined) {
-    stage = level.GetStage();
-  }
-
-  if (stageType === undefined) {
-    stageType = level.GetStageType();
-  }
+  stage ??= level.GetStage();
+  stageType ??= level.GetStageType();
 
   const stageTypeToMusic = STAGE_TO_MUSIC[stage];
   return stageTypeToMusic[stageType];

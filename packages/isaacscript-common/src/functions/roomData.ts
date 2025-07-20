@@ -65,9 +65,7 @@ export function getRoomData(roomGridIndex?: int): RoomConfig | undefined {
 export function getRoomDescriptor(roomGridIndex?: int): RoomDescriptor {
   const level = game.GetLevel();
 
-  if (roomGridIndex === undefined) {
-    roomGridIndex = getRoomGridIndex();
-  }
+  roomGridIndex ??= getRoomGridIndex();
 
   return level.GetRoomByIdx(roomGridIndex);
 }
