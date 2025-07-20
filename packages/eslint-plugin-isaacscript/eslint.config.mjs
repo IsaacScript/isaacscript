@@ -8,11 +8,7 @@ export default tseslint.config(
 
   {
     rules: {
-      /**
-       * Defined at: base-unicorn.js
-       *
-       * This is a common pattern in the testing files.
-       */
+      /** This is a common pattern in the testing files. */
       "unicorn/no-array-push-push": "off",
 
       /**

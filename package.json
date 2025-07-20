@@ -27,7 +27,6 @@
     "@babel/preset-typescript": "^7.26.0",
     "@commander-js/extra-typings": "^12.1.0",
     "@docusaurus/core": "^3.6.3",
-    "@docusaurus/eslint-plugin": "^3.6.3",
     "@docusaurus/module-type-aliases": "^3.6.3",
     "@docusaurus/preset-classic": "^3.6.3",
     "@docusaurus/tsconfig": "^3.6.3",
@@ -88,6 +87,6 @@
     "yaml": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "9.31.0"
+    "eslint": "^9.31.0"
   }
 }

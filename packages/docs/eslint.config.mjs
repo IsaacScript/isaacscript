@@ -1,14 +1,8 @@
-import { FlatCompat } from "@eslint/eslintrc";
 import { completeConfigBase } from "eslint-config-complete";
 import tseslint from "typescript-eslint";
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
 export default tseslint.config(
   ...completeConfigBase,
-  ...compat.extends("plugin:@docusaurus/recommended"),
 
   {
     rules: {
@@ -19,6 +13,6 @@ export default tseslint.config(
   },
 
   {
-    ignores: ["**/build/", "**/.docusaurus/"],
+    ignores: ["**/.docusaurus/", "**/build/"],
   },
 );
