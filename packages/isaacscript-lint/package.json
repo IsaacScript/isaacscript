@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "@prettier/plugin-xml": "^3.4.2",
-    "complete-lint": "^3.0.2",
+    "complete-lint": "^3.0.3",
     "eslint-config-isaacscript": "^5.0.2",
     "eslint-import-resolver-typescript": "^3.7.0",
     "isaacscript-spell": "^1.15.2",
