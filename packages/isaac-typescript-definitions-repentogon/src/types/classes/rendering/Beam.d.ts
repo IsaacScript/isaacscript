@@ -4,7 +4,6 @@
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/
- *
  * @param this
  * @param sprite The sprite used must share the same scope as the beam you are creating, otherwise
  *               the beam won't work.

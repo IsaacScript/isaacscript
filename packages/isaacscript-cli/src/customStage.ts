@@ -216,7 +216,7 @@ async function insertEmptyShader() {
 async function fillCustomStageMetadata(
   customStagesTSConfig: readonly CustomStageTSConfig[],
   packageManager: PackageManager,
-): Promise<void> {
+) {
   validateMetadataLuaFileExists(packageManager);
 
   const customStages = await getCustomStagesWithMetadata(customStagesTSConfig);

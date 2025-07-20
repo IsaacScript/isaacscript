@@ -27,7 +27,7 @@ export const copyCommand = new Command()
 const copyOptions = copyCommand.opts();
 type CopyOptions = typeof copyOptions;
 
-async function copy(options: CopyOptions): Promise<void> {
+async function copy(options: CopyOptions) {
   const { verbose } = options;
 
   const packageManager = getPackageManagerUsedForExistingProject();
