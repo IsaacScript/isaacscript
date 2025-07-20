@@ -1,9 +1,6 @@
 import { FlatCompat } from "@eslint/eslintrc";
 // eslint-disable-next-line import-x/no-extraneous-dependencies
-import {
-  completeConfigBase,
-  completeConfigMonorepo,
-} from "eslint-config-complete";
+import { completeConfigBase } from "eslint-config-complete";
 import tseslint from "typescript-eslint";
 
 const compat = new FlatCompat({
@@ -12,7 +9,6 @@ const compat = new FlatCompat({
 
 export default tseslint.config(
   ...completeConfigBase,
-  ...completeConfigMonorepo,
   ...compat.extends("plugin:@docusaurus/recommended"),
 
   {
