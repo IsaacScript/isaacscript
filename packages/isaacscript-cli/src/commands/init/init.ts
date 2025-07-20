@@ -9,13 +9,15 @@ import { getPackageManagerExecCommand } from "complete-node";
 import path from "node:path";
 import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";
-import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
+import {
+  getGitHubUsername,
+  promptGitHubRepoOrGitRemoteURL,
+} from "../../git.js";
 import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
 import { checkModTargetDirectory } from "./checkModTargetDirectory.js";
 import { createProject } from "./createProject.js";
-import { getAuthorName } from "./getAuthorName.js";
 import { getModsDirectory } from "./getModsDirectory.js";
 import { getProjectPath } from "./getProjectPath.js";
 import { getSaveSlot } from "./getSaveSlot.js";
@@ -72,7 +74,7 @@ export const initCommand = new Command()
   )
   .option("-v, --verbose", "Enable verbose output.", false)
   .action(async (name, options) => {
-    await init(name, options, false);
+    await init(name, options);
   });
 
 function validateSaveSlot(valueString: string): number {
@@ -92,56 +94,11 @@ function validateSaveSlot(valueString: string): number {
   return valueNumber;
 }
 
-export const initTSCommand = new Command()
-  .command("init-ts [name]")
-  .description("Initialize a new TypeScript project.")
-  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
-  .helpOption("-h, --help", "Display the list of options for this command.")
-  .option(
-    "-y, --yes",
-    'Answer yes to every dialog option, similar to how "npm init --yes" works.',
-    false,
-  )
-  .option(
-    "--use-current-directory",
-    "Use the current directory as the root for the project.",
-    false,
-  )
-  .option(
-    "--custom-directory <directory>",
-    "The directory to create the project in (instead of the current working directory).",
-  )
-  .option("--vscode", "Open the project in VSCode after initialization.", false)
-  .option("--npm", "Use npm as the package manager.", false)
-  .option("--yarn", "Use Yarn as the package manager.", false)
-  .option("--pnpm", "Use pnpm as the package manager.", false)
-  .option("--skip-git", "Do not initialize Git.", false) // https://github.com/tj/commander.js/issues/2068
-  .option(
-    "--skip-install",
-    "Do not automatically install the dependencies after initializing the project.",
-    false,
-  )
-  .option(
-    "-f, --force-name",
-    "Allow project names that are normally illegal",
-    false,
-  )
-  .option("-v, --verbose", "Enable verbose output.", false)
-  .action(async (name, options) => {
-    await init(name, options, true);
-  });
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const initOptions = initCommand.opts();
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const initTSOptions = initTSCommand.opts();
-type InitOptions = typeof initOptions | typeof initTSOptions;
+type InitOptions = typeof initOptions;
 
-async function init(
-  name: string | undefined,
-  options: InitOptions,
-  typeScript: boolean,
-) {
+async function init(name: string | undefined, options: InitOptions) {
   const {
     forceName,
     skipGit,
@@ -168,7 +125,7 @@ async function init(
   await checkIfProjectPathExists(projectPath, yes);
 
   const projectName = path.basename(projectPath);
-  const authorName = await getAuthorName(typeScript);
+  const authorName = await getGitHubUsername();
   const dev = "dev" in options ? options.dev : false;
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
@@ -180,18 +137,12 @@ async function init(
 
   const modsDirectoryOption =
     "modsDirectory" in options ? options.modsDirectory : undefined;
-  const modsDirectory = typeScript
-    ? undefined
-    : await getModsDirectory(modsDirectoryOption);
-  if (modsDirectory !== undefined) {
-    checkModSubdirectory(projectPath, modsDirectory);
-    await checkModTargetDirectory(modsDirectory, projectName, yes);
-  }
+  const modsDirectory = await getModsDirectory(modsDirectoryOption);
+  checkModSubdirectory(projectPath, modsDirectory);
+  await checkModTargetDirectory(modsDirectory, projectName, yes);
 
   const saveSlotOption = "saveSlot" in options ? options.saveSlot : undefined;
-  const saveSlot = typeScript
-    ? undefined
-    : await getSaveSlot(saveSlotOption, yes);
+  const saveSlot = await getSaveSlot(saveSlotOption, yes);
 
   // Now that we have asked the user all of the questions we need, we can create the project.
   await createProject(
@@ -204,15 +155,12 @@ async function init(
     gitRemoteURL,
     skipInstall,
     packageManager,
-    typeScript,
     dev,
     verbose,
   );
 
   await vsCodeInit(projectPath, vscode, yes, verbose);
-  if (!typeScript) {
-    printIsaacScriptMessage(projectPath, projectName, packageManager);
-  }
+  printIsaacScriptMessage(projectPath, projectName, packageManager);
 }
 
 function printIsaacScriptMessage(

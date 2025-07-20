@@ -32,7 +32,7 @@ import { Command } from "@commander-js/extra-typings";
 import { nukeDependencies, updatePackageJSONDependencies } from "complete-node";
 import { checkCommand, checkTSCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
-import { initCommand, initTSCommand } from "./commands/init/init.js";
+import { initCommand } from "./commands/init/init.js";
 import { monitorCommand } from "./commands/monitor/monitor.js";
 import { publishCommand } from "./commands/publish/publish.js";
 import { CWD, PROJECT_DESCRIPTION, PROJECT_VERSION } from "./constants.js";
@@ -50,7 +50,6 @@ export async function parseArgs(): Promise<void> {
     .addCommand(checkTSCommand)
     .addCommand(copyCommand)
     .addCommand(initCommand)
-    .addCommand(initTSCommand)
     .addCommand(nukeCommand)
     .addCommand(publishCommand)
     .addCommand(updateCommand)

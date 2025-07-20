@@ -19,9 +19,11 @@ import {
   isFile,
   makeDirectory,
   readFile,
+  readFileAsync,
   renameFile,
   updatePackageJSONDependencies,
   writeFile,
+  writeFileAsync,
 } from "complete-node";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
@@ -53,7 +55,6 @@ export async function createProject(
   gitRemoteURL: string | undefined,
   skipInstall: boolean,
   packageManager: PackageManager,
-  typeScript: boolean,
   dev: boolean,
   verbose: boolean,
 ): Promise<void> {
@@ -61,20 +62,11 @@ export async function createProject(
     makeDirectory(projectPath);
   }
 
-  if (!typeScript) {
-    const config = new Config(modsDirectory, saveSlot, dev);
-    createConfigFile(projectPath, config);
-  }
+  const config = new Config(modsDirectory, saveSlot, dev);
+  createConfigFile(projectPath, config);
 
-  copyStaticFiles(projectPath, typeScript);
-  await copyDynamicFiles(
-    projectName,
-    authorName,
-    projectPath,
-    packageManager,
-    dev,
-    typeScript,
-  );
+  copyStaticFiles(projectPath);
+  copyDynamicFiles(projectName, authorName, projectPath, packageManager, dev);
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
@@ -83,23 +75,25 @@ export async function createProject(
     fatalError('Failed to update the dependencies in the "package.json" file.');
   }
 
+  await fixTypeScriptVersionInPackageJSON(projectPath);
+
   installNodeModules(projectPath, skipInstall, packageManager, verbose);
   formatFiles(projectPath, packageManager, verbose);
 
   // Only make the initial commit once all of the files have been copied and formatted.
   await initGitRepository(projectPath, gitRemoteURL, verbose);
 
-  const noun = typeScript ? "project" : "mod";
+  const noun = "mod";
   console.log(`Successfully created ${noun}: ${chalk.green(projectName)}`);
 }
 
 /** Copy static files, like "eslint.config.mjs", "tsconfig.json", etc. */
-function copyStaticFiles(projectPath: string, typeScript: boolean) {
+function copyStaticFiles(projectPath: string) {
   // First, copy the static files that are shared between TypeScript projects and IsaacScript mods.
   copyTemplateDirectoryWithoutOverwriting(TEMPLATES_STATIC_DIR, projectPath);
 
   // Second, copy the files that are specific to either a TypeScript project or an IsaacScript mod.
-  const staticDirSuffix = typeScript ? "ts" : "mod";
+  const staticDirSuffix = "mod";
   const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
   copyTemplateDirectoryWithoutOverwriting(staticDirPath, projectPath);
 
@@ -131,20 +125,19 @@ function copyTemplateDirectoryWithoutOverwriting(
 }
 
 /** Copy files that need to have text replaced inside of them. */
-async function copyDynamicFiles(
+function copyDynamicFiles(
   projectName: string,
   authorName: string | undefined,
   projectPath: string,
   packageManager: PackageManager,
   dev: boolean,
-  typeScript: boolean,
 ) {
   // `.github/workflows/setup/action.yml`
   {
     const fileName = ACTION_YML;
     const templatePath = ACTION_YML_TEMPLATE_PATH;
     const templateRaw = readFile(templatePath);
-    const template = parseTemplate(templateRaw, typeScript);
+    const template = parseTemplate(templateRaw);
 
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const installCommand = getPackageManagerInstallCICommand(packageManager);
@@ -163,7 +156,7 @@ async function copyDynamicFiles(
   {
     const templatePath = GITIGNORE_TEMPLATE_PATH;
     const templateRaw = readFile(templatePath);
-    const template = parseTemplate(templateRaw, typeScript);
+    const template = parseTemplate(templateRaw);
 
     // Prepend a header with the project name.
     let separatorLine = "# ";
@@ -189,48 +182,16 @@ async function copyDynamicFiles(
   // `package.json`
   {
     // There are two versions of the template: one for TypeScript and one for IsaacScript mods.
-    const packageJSONTemplateFileName = typeScript
-      ? "package.ts.json"
-      : "package.mod.json";
+    const packageJSONTemplateFileName = "package.mod.json";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       packageJSONTemplateFileName,
     );
     const template = readFile(templatePath);
 
-    let packageJSON = template
+    const packageJSON = template
       .replaceAll("PROJECT_NAME", projectName)
       .replaceAll("AUTHOR_NAME", authorName ?? "unknown");
-
-    if (!typeScript) {
-      // We need the get the version of TypeScript that corresponds to the latest version of
-      // TypeScriptToLua.
-      const response = await fetch(
-        "https://raw.githubusercontent.com/TypeScriptToLua/TypeScriptToLua/refs/heads/master/package.json",
-      );
-      const TSTLPackageJSON = await response.json();
-      if (!isObject(TSTLPackageJSON)) {
-        throw new Error("Failed to parse the TSTL package.json file.");
-      }
-      const { peerDependencies } = TSTLPackageJSON;
-      if (!isObject(peerDependencies)) {
-        throw new Error(
-          "Failed to parse the peer dependencies in the TSTL package.json file.",
-        );
-      }
-
-      const TSTLTypeScriptVersion = peerDependencies["typescript"];
-      if (typeof TSTLTypeScriptVersion !== "string") {
-        throw new TypeError(
-          'Failed to parse the "typescript" peer dependency in the TSTL package.json file.',
-        );
-      }
-
-      packageJSON = packageJSON.replaceAll(
-        '"typescript": "0.0.1"',
-        `"typescript": "${TSTLTypeScriptVersion}"`,
-      );
-    }
 
     const destinationPath = path.join(projectPath, "package.json");
     writeFile(destinationPath, packageJSON);
@@ -239,9 +200,7 @@ async function copyDynamicFiles(
   // `README.md`
   {
     // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const readmeMDTemplateFileName = typeScript
-      ? "README.ts.md"
-      : "README.mod.md";
+    const readmeMDTemplateFileName = "README.mod.md";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       readmeMDTemplateFileName,
@@ -259,7 +218,7 @@ async function copyDynamicFiles(
   }
 
   // `mod/metadata.xml`
-  if (!typeScript) {
+  {
     const modPath = path.join(projectPath, "mod");
     makeDirectory(modPath);
 
@@ -275,7 +234,7 @@ async function copyDynamicFiles(
   makeDirectory(srcPath);
 
   // `src/main.ts` (TypeScript projects use the simple version from the "static-ts" directory.)
-  if (!typeScript) {
+  {
     // Convert snake_case and kebab-case to camelCase. (Kebab-case in particular will make the
     // example TypeScript file fail to compile.)
     const fileName = MAIN_TS;
@@ -288,7 +247,7 @@ async function copyDynamicFiles(
 
   // If we are initializing an IsaacScript project intended to be used for development, we can
   // include a better starter file.
-  if (!typeScript && dev) {
+  if (dev) {
     const fileName = MAIN_TS;
     const templatePath = MAIN_DEV_TS_TEMPLATE_PATH;
     const template = readFile(templatePath);
@@ -298,8 +257,8 @@ async function copyDynamicFiles(
   }
 }
 
-function parseTemplate(template: string, typeScript: boolean): string {
-  const otherTemplateKind = typeScript ? "mod" : "ts";
+function parseTemplate(template: string): string {
+  const otherTemplateKind = "ts";
   const otherTemplateMarker = `@template-${otherTemplateKind}`;
   const templateWithoutMarkers = removeLinesBetweenMarkers(
     template,
@@ -371,6 +330,44 @@ function upgradeYarn(
   //   simpler than running commands or manually editing the file.
   const yarnConfigPath = path.join(projectPath, ".yarnrc.yml");
   writeFile(yarnConfigPath, "nodeLinker: node-modules\n");
+}
+
+/**
+ * Since TypeScriptToLua needs a specific version of TypeScript, the latest version of TypeScript at
+ * the time of mod initialization may not work. Thus, we manually retrieve the correct version and
+ * manually set it.
+ */
+async function fixTypeScriptVersionInPackageJSON(projectPath: string) {
+  // We need the get the version of TypeScript that corresponds to the latest version of
+  // TypeScriptToLua.
+  const response = await fetch(
+    "https://raw.githubusercontent.com/TypeScriptToLua/TypeScriptToLua/refs/heads/master/package.json",
+  );
+  const TSTLPackageJSON = await response.json();
+  if (!isObject(TSTLPackageJSON)) {
+    throw new Error("Failed to parse the TSTL package.json file.");
+  }
+  const { peerDependencies } = TSTLPackageJSON;
+  if (!isObject(peerDependencies)) {
+    throw new Error(
+      "Failed to parse the peer dependencies in the TSTL package.json file.",
+    );
+  }
+
+  const TSTLTypeScriptVersion = peerDependencies["typescript"];
+  if (typeof TSTLTypeScriptVersion !== "string") {
+    throw new TypeError(
+      'Failed to parse the "typescript" peer dependency in the TSTL package.json file.',
+    );
+  }
+
+  const packageJSONPath = path.join(projectPath, "package.json");
+  const packageJSON = await readFileAsync(packageJSONPath);
+  const updatedPackageJSON = packageJSON.replace(
+    /"typescript": "[^"]*"/,
+    `"typescript": "${TSTLTypeScriptVersion}"`,
+  );
+  await writeFileAsync(packageJSONPath, updatedPackageJSON);
 }
 
 function installNodeModules(
