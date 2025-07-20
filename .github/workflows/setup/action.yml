@@ -6,7 +6,8 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: lts/*
-        cache: npm
+        #cache: npm
+        # TODO:
 
     - name: Install dependencies
       # TODO: Update dependencies to latest.
