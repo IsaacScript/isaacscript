@@ -55,7 +55,7 @@
     "clsx": "^2.1.1",
     "commander": "^12.1.0",
     "complete-common": "^1.0.1",
-    "complete-lint": "^3.0.2",
+    "complete-lint": "^3.0.3",
     "complete-node": "^1.7.4",
     "docusaurus-theme-search-typesense": "^0.22.0",
     "eslint-import-resolver-typescript": "^3.7.0",
