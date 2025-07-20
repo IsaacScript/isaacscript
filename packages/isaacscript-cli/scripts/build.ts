@@ -1,6 +1,5 @@
 import {
   $,
-  $op,
   buildScript,
   getFileNamesInDirectory,
   mkdir,
@@ -239,7 +238,7 @@ async function compile() {
 
 async function compilePlugins(packageRoot: string) {
   const pluginsDirPath = path.join(packageRoot, "plugins");
-  const $$ = $op({ cwd: pluginsDirPath });
+  const $$ = $({ cwd: pluginsDirPath });
   await $$`tsc`;
   renamePluginJSToCJS(pluginsDirPath);
 }

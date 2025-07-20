@@ -1,4 +1,4 @@
-import { $op, getMonorepoPackageNames, lintScript } from "complete-node";
+import { $, getMonorepoPackageNames, lintScript } from "complete-node";
 import path from "node:path";
 
 // This script runs the lint scripts for each individual package. It does not run the lint scripts
@@ -10,7 +10,7 @@ await lintScript(async (packageRoot) => {
 
   for (const lintPackage of lintPackages) {
     const packagePath = path.join(packageRoot, "packages", lintPackage);
-    const $$ = $op({ cwd: packagePath });
+    const $$ = $({ cwd: packagePath });
     promises.push($$`npm run lint`);
   }
 

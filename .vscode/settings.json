@@ -67,7 +67,8 @@
 
   // Show TypeScript errors for files that don't happen to be currently open, which makes TypeScript
   // work similar to other compiled languages like Golang or Rust.
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  // @template-ignore-next-line This causes massive lag for some reason.
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
 
   // Automatically run the formatter when certain files are saved.
   "[javascript][typescript][javascriptreact][typescriptreact]": {

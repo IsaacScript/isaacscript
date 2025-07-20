@@ -24,14 +24,15 @@ export async function promptGitHubRepoOrGitRemoteURL(
   }
 
   // We do not need to prompt the user if they do not have Git installed.
-  if (!commandExists("git")) {
+  const gitExists = await commandExists("git");
+  if (!gitExists) {
     console.log(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
     );
     return undefined;
   }
 
-  const gitHubUsername = getGitHubUsername();
+  const gitHubUsername = await getGitHubUsername();
   if (gitHubUsername !== undefined) {
     const { exitStatus } = execShell(
       "gh",
@@ -107,8 +108,9 @@ If you don't want to initialize a Git repository for this project, press enter t
  * If the GitHub CLI is installed, we can derive the user's GitHub username from their YAML
  * configuration.
  */
-export function getGitHubUsername(): string | undefined {
-  if (!commandExists("gh")) {
+export async function getGitHubUsername(): Promise<string | undefined> {
+  const ghExists = await commandExists("gh");
+  if (!ghExists) {
     return undefined;
   }
 
@@ -155,12 +157,13 @@ function getGitRemoteURL(projectName: string, gitHubUsername: string) {
   return `git@github.com:${gitHubUsername}/${projectName}.git`;
 }
 
-export function initGitRepository(
+export async function initGitRepository(
   projectPath: string,
   gitRemoteURL: string | undefined,
   verbose: boolean,
-): void {
-  if (!commandExists("git")) {
+): Promise<void> {
+  const gitExists = await commandExists("git");
+  if (!gitExists) {
     return;
   }
 

@@ -155,7 +155,7 @@ async function init(
 
   printBanner();
 
-  const packageManager = getPackageManagerUsedForNewProject(options);
+  const packageManager = await getPackageManagerUsedForNewProject(options);
 
   // Prompt the end-user for some information (and validate it as we go).
   const { projectPath, createNewDir } = await getProjectPath(

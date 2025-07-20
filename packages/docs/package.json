@@ -39,30 +39,30 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^3.6.3",
-    "@docusaurus/preset-classic": "^3.6.3",
-    "@mdx-js/react": "^3.1.0",
-    "clsx": "^2.1.1",
-    "docusaurus-theme-search-typesense": "^0.22.0",
-    "prism-react-renderer": "^2.4.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@docusaurus/core": "3.8.1",
+    "@docusaurus/preset-classic": "3.8.1",
+    "@mdx-js/react": "3.1.0",
+    "clsx": "2.1.1",
+    "docusaurus-theme-search-typesense": "0.25.0",
+    "prism-react-renderer": "2.4.1",
+    "react": "*19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.6.3",
-    "@docusaurus/tsconfig": "^3.6.3",
-    "@docusaurus/types": "^3.6.3",
-    "@eslint/eslintrc": "^3.2.0",
-    "@types/glob": "^8.1.0",
-    "@types/node": "^22.10.1",
-    "@zamiell/typedoc-plugin-not-exported": "^0.3.0",
-    "complete-common": "^1.0.1",
-    "complete-node": "^1.7.4",
-    "glob": "^11.0.0",
-    "typedoc": "^0.28.7",
-    "typedoc-plugin-markdown": "^4.3.1",
-    "typedoc-plugin-rename": "^1.1.1",
+    "@docusaurus/module-type-aliases": "3.8.1",
+    "@docusaurus/tsconfig": "3.8.1",
+    "@docusaurus/types": "3.8.1",
+    "@eslint/eslintrc": "3.3.1",
+    "@types/glob": "9.0.0",
+    "@types/node": "24.0.15",
+    "@zamiell/typedoc-plugin-not-exported": "0.3.0",
+    "complete-common": "2.4.0",
+    "complete-node": "7.4.1",
+    "glob": "11.0.3",
+    "typedoc": "0.28.7",
+    "typedoc-plugin-markdown": "4.7.1",
+    "typedoc-plugin-rename": "1.1.1",
     "typescript": "5.8.2",
-    "typescript-eslint": "^8.17.0"
+    "typescript-eslint": "8.37.0"
   }
 }

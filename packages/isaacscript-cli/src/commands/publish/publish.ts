@@ -58,29 +58,27 @@ async function publish(options: PublishOptions) {
   const isaacScriptModMissingFile = getIsaacScriptModMissingFile(CWD);
   const typeScript = isaacScriptModMissingFile !== undefined;
 
-  validate(typeScript, setVersion, verbose);
-  prePublish(options, typeScript);
+  await validate(typeScript, setVersion, verbose);
+  await prePublish(options, typeScript);
 
-  if (typeScript) {
-    publishTypeScriptProject(dryRun, verbose);
-  } else {
-    await publishIsaacScriptMod(dryRun, verbose);
-  }
+  await (typeScript
+    ? publishTypeScriptProject(dryRun, verbose)
+    : publishIsaacScriptMod(dryRun, verbose));
 }
 
 /**
  * Before uploading the project, we want to update dependencies, increment the version, and perform
  * some other steps.
  */
-function prePublish(options: PublishOptions, typeScript: boolean) {
+async function prePublish(options: PublishOptions, typeScript: boolean) {
   const { dryRun, skipLint, skipUpdate, verbose } = options;
 
-  const packageManager = getPackageManagerUsedForExistingProject();
+  const packageManager = await getPackageManagerUsedForExistingProject();
 
   execShellString("git pull --rebase");
   execShellString("git push");
-  updateDependencies(skipUpdate, dryRun, packageManager, verbose);
-  incrementVersion(options, typeScript);
+  await updateDependencies(skipUpdate, dryRun, packageManager, verbose);
+  await incrementVersion(options, typeScript);
   unsetDevelopmentConstants();
 
   tryRunNPMScript("build", verbose);
@@ -89,7 +87,7 @@ function prePublish(options: PublishOptions, typeScript: boolean) {
   }
 }
 
-function updateDependencies(
+async function updateDependencies(
   skipUpdate: boolean,
   dryRun: boolean,
   packageManager: PackageManager,
@@ -100,7 +98,7 @@ function updateDependencies(
   }
 
   console.log('Updating dependencies in the "package.json" file...');
-  const hasNewDependencies = updatePackageJSONDependencies(undefined);
+  const hasNewDependencies = await updatePackageJSONDependencies(undefined);
   if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);
     execShellString(command, verbose);
@@ -110,7 +108,7 @@ function updateDependencies(
   }
 }
 
-function incrementVersion(options: PublishOptions, typeScript: boolean) {
+async function incrementVersion(options: PublishOptions, typeScript: boolean) {
   const { skipIncrement, verbose } = options;
 
   if (skipIncrement) {
@@ -128,7 +126,7 @@ function incrementVersion(options: PublishOptions, typeScript: boolean) {
   );
 
   if (!typeScript) {
-    const version = getPackageJSONVersion(undefined);
+    const version = await getPackageJSONVersion(undefined);
     writeVersionToConstantsTS(version);
     writeVersionToMetadataXML(version);
     writeVersionToVersionTXT(version);
@@ -219,9 +217,9 @@ function tryRunNPMScript(scriptName: string, verbose: boolean) {
   }
 }
 
-function publishTypeScriptProject(dryRun: boolean, verbose: boolean) {
-  const projectName = getPackageJSONField(undefined, "name");
-  const version = getPackageJSONVersion(undefined);
+async function publishTypeScriptProject(dryRun: boolean, verbose: boolean) {
+  const projectName = await getPackageJSONField(undefined, "name");
+  const version = await getPackageJSONVersion(undefined);
 
   if (dryRun) {
     execShellString("git reset --hard", verbose); // Revert the version changes.

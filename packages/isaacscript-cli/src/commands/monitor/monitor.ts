@@ -57,12 +57,12 @@ async function monitor(options: MonitorOptions) {
 
   printBanner();
 
-  const packageManager = getPackageManagerUsedForExistingProject();
+  const packageManager = await getPackageManagerUsedForExistingProject();
 
   if (!skipProjectChecks) {
     validateInIsaacScriptProject();
-    validatePackageJSONDependencies();
-    validateDepsInstalled(verbose);
+    await validatePackageJSONDependencies();
+    await validateDepsInstalled(verbose);
   }
 
   const config = await getConfigFromFile();

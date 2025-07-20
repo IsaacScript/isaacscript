@@ -26,13 +26,13 @@
     "README.md"
   ],
   "dependencies": {
-    "@prettier/plugin-xml": "^3.4.2",
-    "complete-lint": "^3.0.3",
-    "eslint-config-isaacscript": "^5.0.2",
-    "eslint-import-resolver-typescript": "^3.7.0",
-    "isaacscript-spell": "^1.15.2",
-    "isaacscript-tsconfig": "^7.0.1",
-    "ts-prune-2": "^0.10.7"
+    "@prettier/plugin-xml": "3.4.2",
+    "complete-lint": "3.0.3",
+    "eslint-config-isaacscript": "5.0.2",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "isaacscript-spell": "1.15.2",
+    "isaacscript-tsconfig": "7.0.1",
+    "ts-prune-2": "0.10.7"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0"

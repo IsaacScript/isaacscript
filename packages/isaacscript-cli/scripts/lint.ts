@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { $, $s, diff, echo, exit, lintScript, readFile } from "complete-node";
+import { $, diff, echo, exit, lintScript, readFile } from "complete-node";
 import path from "node:path";
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
@@ -13,7 +13,7 @@ const GITIGNORE_URL =
   "https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore";
 
 await lintScript(async () => {
-  $s`pip install isaac-xml-validator --upgrade --quiet`;
+  await $`pip install isaac-xml-validator --upgrade --quiet`;
 
   await Promise.all([
     $`tsc --noEmit`,

@@ -78,7 +78,7 @@ export async function createProject(
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  const updated = updatePackageJSONDependencies(projectPath, false, true);
+  const updated = await updatePackageJSONDependencies(projectPath, false, true);
   if (!updated) {
     fatalError('Failed to update the dependencies in the "package.json" file.');
   }
@@ -87,7 +87,7 @@ export async function createProject(
   formatFiles(projectPath, packageManager, verbose);
 
   // Only make the initial commit once all of the files have been copied and formatted.
-  initGitRepository(projectPath, gitRemoteURL, verbose);
+  await initGitRepository(projectPath, gitRemoteURL, verbose);
 
   const noun = typeScript ? "project" : "mod";
   console.log(`Successfully created ${noun}: ${chalk.green(projectName)}`);

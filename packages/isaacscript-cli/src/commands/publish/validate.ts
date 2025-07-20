@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import {
   fatalError,
-  isFile,
+  isFileAsync,
   isGitRepository,
   isGitRepositoryClean,
   isLoggedInToNPM,
@@ -9,24 +9,27 @@ import {
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { execPowershell } from "../../exec.js";
 
-export function validate(
+export async function validate(
   typeScript: boolean,
   setVersion: string | undefined,
   verbose: boolean,
-): void {
-  if (!isGitRepository(CWD)) {
+): Promise<void> {
+  const isGitRepo = await isGitRepository(CWD);
+  if (!isGitRepo) {
     fatalError(
       "Failed to publish since the current working directory is not inside of a git repository.",
     );
   }
 
-  if (!isGitRepositoryClean(CWD)) {
+  const isClean = await isGitRepositoryClean(CWD);
+  if (!isClean) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
     );
   }
 
-  if (!isFile("package.json")) {
+  const packageJSONExists = await isFileAsync("package.json");
+  if (!packageJSONExists) {
     fatalError(
       'Failed to find the "package.json" file in the current working directory.',
     );
@@ -41,14 +44,15 @@ export function validate(
   }
 
   if (typeScript) {
-    validateTypeScriptProject();
+    await validateTypeScriptProject();
   } else {
     validateIsaacScriptMod(verbose);
   }
 }
 
-function validateTypeScriptProject() {
-  if (!isLoggedInToNPM()) {
+async function validateTypeScriptProject() {
+  const isLoggedIn = await isLoggedInToNPM();
+  if (!isLoggedIn) {
     fatalError(
       'Failed to publish since you are not logged in to npm. Try doing "npm login".',
     );

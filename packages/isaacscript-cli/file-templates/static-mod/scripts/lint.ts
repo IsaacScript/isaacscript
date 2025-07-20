@@ -1,4 +1,4 @@
-import { $, $s, commandExists, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { $, commandExists, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
 
 await lintScript(async () => {
   const promises = [
@@ -25,8 +25,9 @@ await lintScript(async () => {
     $`cspell-check-unused-words`,
   ];
 
-  if (commandExists("python")) {
-    $s`pip install isaac-xml-validator --upgrade --quiet`;
+  const pythonExists = await commandExists("python");
+  if (pythonExists) {
+    await $`pip install isaac-xml-validator --upgrade --quiet`;
     promises.push($`isaac-xml-validator --quiet`);
   }
 

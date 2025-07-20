@@ -17,10 +17,10 @@ interface PackageManagerOptions {
   dev?: boolean;
 }
 
-export function getPackageManagerUsedForNewProject(
+export async function getPackageManagerUsedForNewProject(
   options: PackageManagerOptions,
-): PackageManager {
-  const packageManagerFromOptions = getPackageManagerFromOptions(options);
+): Promise<PackageManager> {
+  const packageManagerFromOptions = await getPackageManagerFromOptions(options);
   if (packageManagerFromOptions !== undefined) {
     return packageManagerFromOptions;
   }
@@ -37,8 +37,8 @@ function getDefaultPackageManager(): PackageManager {
   return PackageManager.npm;
 }
 
-export function getPackageManagerUsedForExistingProject(): PackageManager {
-  const packageManagers = getPackageManagersForProject(CWD);
+export async function getPackageManagerUsedForExistingProject(): Promise<PackageManager> {
+  const packageManagers = await getPackageManagersForProject(CWD);
   if (packageManagers.length > 1) {
     const packageManagerLockFileNames = packageManagers
       .map((packageManager) => getPackageManagerLockFileName(packageManager))
@@ -57,9 +57,9 @@ export function getPackageManagerUsedForExistingProject(): PackageManager {
   return getDefaultPackageManager();
 }
 
-function getPackageManagerFromOptions(options: PackageManagerOptions) {
+async function getPackageManagerFromOptions(options: PackageManagerOptions) {
   if (options.dev === true) {
-    const packageManagerCommandExists = commandExists(
+    const packageManagerCommandExists = await commandExists(
       PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
     );
     if (!packageManagerCommandExists) {
@@ -74,7 +74,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.npm) {
-    const npmExists = commandExists("npm");
+    const npmExists = await commandExists("npm");
     if (!npmExists) {
       fatalError(
         `You specified the "--npm" option, but "${chalk.green(
@@ -87,7 +87,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.yarn) {
-    const yarnExists = commandExists("yarn");
+    const yarnExists = await commandExists("yarn");
     if (!yarnExists) {
       fatalError(
         `You specified the "--yarn" option, but "${chalk.green(
@@ -100,7 +100,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.pnpm) {
-    const pnpmExists = commandExists("pnpm");
+    const pnpmExists = await commandExists("pnpm");
     if (!pnpmExists) {
       fatalError(
         `You specified the "--pnpm" option, but "${chalk.green(

@@ -14,13 +14,13 @@
     "update": "isaacscript update"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "^0.0.1",
-    "isaacscript-common": "^0.0.1"
+    "isaac-typescript-definitions": "0.0.1",
+    "isaacscript-common": "0.0.1"
   },
   "devDependencies": {
-    "isaacscript": "^0.0.1",
-    "isaacscript-lint": "^0.0.1",
+    "isaacscript": "0.0.1",
+    "isaacscript-lint": "0.0.1",
     "typescript": "0.0.1",
-    "typescript-to-lua": "^0.0.1"
+    "typescript-to-lua": "0.0.1"
   }
 }

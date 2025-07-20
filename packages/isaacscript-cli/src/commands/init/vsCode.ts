@@ -16,7 +16,7 @@ export async function vsCodeInit(
   yes: boolean,
   verbose: boolean,
 ): Promise<void> {
-  const VSCodeCommand = getVSCodeCommand();
+  const VSCodeCommand = await getVSCodeCommand();
   if (VSCodeCommand === undefined) {
     console.log(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
@@ -24,15 +24,23 @@ export async function vsCodeInit(
     return;
   }
 
-  installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
+  await installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
   await promptVSCode(projectPath, VSCodeCommand, vscode, yes, verbose);
 }
 
-function getVSCodeCommand(): string | undefined {
-  return VS_CODE_COMMANDS.find((command) => commandExists(command));
+async function getVSCodeCommand(): Promise<string | undefined> {
+  for (const command of VS_CODE_COMMANDS) {
+    // eslint-disable-next-line no-await-in-loop
+    const exists = await commandExists(command);
+    if (exists) {
+      return command;
+    }
+  }
+
+  return undefined;
 }
 
-function installVSCodeExtensions(
+async function installVSCodeExtensions(
   projectPath: string,
   VSCodeCommand: string,
   verbose: boolean,
@@ -44,13 +52,15 @@ function installVSCodeExtensions(
     return;
   }
 
-  const extensions = getExtensionsFromJSON(projectPath);
+  const extensions = await getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
     execShell(VSCodeCommand, ["--install-extension", extensionName], verbose);
   }
 }
 
-function getExtensionsFromJSON(projectPath: string): readonly string[] {
+async function getExtensionsFromJSON(
+  projectPath: string,
+): Promise<readonly string[]> {
   const extensionsJSONPath = path.join(
     projectPath,
     ".vscode",
@@ -61,7 +71,7 @@ function getExtensionsFromJSON(projectPath: string): readonly string[] {
     return [];
   }
 
-  const extensionsJSON = getJSONC(extensionsJSONPath);
+  const extensionsJSON = await getJSONC(extensionsJSONPath);
 
   const { recommendations } = extensionsJSON;
   if (!Array.isArray(recommendations)) {

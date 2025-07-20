@@ -30,7 +30,7 @@ type CopyOptions = typeof copyOptions;
 async function copy(options: CopyOptions) {
   const { verbose } = options;
 
-  const packageManager = getPackageManagerUsedForExistingProject();
+  const packageManager = await getPackageManagerUsedForExistingProject();
   const config = await getConfigFromFile();
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);

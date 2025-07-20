@@ -89,20 +89,20 @@ function errorNotExists(filePath: string) {
   process.exit(1);
 }
 
-export function validatePackageJSONDependencies(): void {
-  const packageJSONPath = getFilePath("package.json", CWD);
-  const packageJSON = getPackageJSON(packageJSONPath);
+export async function validatePackageJSONDependencies(): Promise<void> {
+  const packageManager = await getPackageManagerUsedForExistingProject();
+  const packageJSONPath = await getFilePath("package.json", CWD);
+  const packageJSON = await getPackageJSON(packageJSONPath);
   const dependencies =
-    getPackageJSONDependencies(packageJSON, "dependencies") ?? {};
+    (await getPackageJSONDependencies(packageJSON, "dependencies")) ?? {};
   const dependenciesArray = Object.keys(dependencies);
 
   const devDependencies =
-    getPackageJSONDependencies(packageJSON, "devDependencies") ?? {};
+    (await getPackageJSONDependencies(packageJSON, "devDependencies")) ?? {};
   const devDependenciesArray = Object.keys(devDependencies);
 
   for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
     if (dependenciesArray.includes(devDependency)) {
-      const packageManager = getPackageManagerUsedForExistingProject();
       const addDevCommand = getPackageManagerAddDevCommand(
         packageManager,
         devDependency,
@@ -117,7 +117,6 @@ export function validatePackageJSONDependencies(): void {
 
   for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
     if (!devDependenciesArray.includes(devDependency)) {
-      const packageManager = getPackageManagerUsedForExistingProject();
       const addDevCommand = getPackageManagerAddDevCommand(
         packageManager,
         devDependency,
@@ -131,8 +130,8 @@ export function validatePackageJSONDependencies(): void {
   }
 }
 
-export function validateDepsInstalled(verbose: boolean): void {
-  const packageManager = getPackageManagerUsedForExistingProject();
+export async function validateDepsInstalled(verbose: boolean): Promise<void> {
+  const packageManager = await getPackageManagerUsedForExistingProject();
   const command = getPackageManagerInstallCommand(packageManager);
 
   console.log(

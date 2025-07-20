@@ -1,5 +1,5 @@
 import {
-  $op,
+  $,
   appendFile,
   cp,
   echo,
@@ -46,7 +46,8 @@ rm(DOCS_REPO);
 cp(BUILD_DIRECTORY_PATH, DOCS_REPO);
 mv(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
-if (isGitRepositoryClean(DOCS_REPO)) {
+const isClean = await isGitRepositoryClean(DOCS_REPO);
+if (isClean) {
   echo("There are no documentation website changes to deploy.");
   exit();
 }
@@ -55,7 +56,8 @@ if (isGitRepositoryClean(DOCS_REPO)) {
 // that another commit has been pushed in the meantime, in which case we should do nothing and wait
 // for the CI on that commit to finish.)
 // https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
-if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
+const isLatestCommitAtStart = await isGitRepositoryLatestCommit(REPO_ROOT);
+if (!isLatestCommitAtStart) {
   echo(
     "A more recent commit was found in the repository; skipping website deployment.",
   );
@@ -63,7 +65,7 @@ if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
 }
 
 echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
-const $$ = $op({ cwd: DOCS_REPO });
+const $$ = $({ cwd: DOCS_REPO });
 $$.sync`git config --global user.email "github-actions@users.noreply.github.com"`;
 $$.sync`git config --global user.name "github-actions"`;
 // We overwrite the previous commit instead of adding a new one in order to keep the size of the
@@ -77,7 +79,9 @@ $$.sync`git push --force-with-lease`;
 const shortCommitSHA1 = commitSHA1.slice(0, 7);
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 while (true) {
-  if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
+  // eslint-disable-next-line no-await-in-loop
+  const isLatestCommit = await isGitRepositoryLatestCommit(REPO_ROOT);
+  if (!isLatestCommit) {
     echo(
       "A more recent commit was found in the repository; skipping website scraping.",
     );

@@ -71,8 +71,8 @@ const nukeCommand = new Command()
   .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
   .option("-v, --verbose", "Enable verbose output.", false)
-  .action(() => {
-    nukeDependencies(CWD);
+  .action(async () => {
+    await nukeDependencies(CWD);
     console.log("Successfully reinstalled dependencies from npm.");
   });
 
@@ -81,8 +81,8 @@ const updateCommand = new Command()
   .description("Update the npm dependencies in the current project.")
   .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
   .helpOption("-h, --help", "Display the list of options for this command.")
-  .action(() => {
-    const hasNewDependencies = updatePackageJSONDependencies(CWD);
+  .action(async () => {
+    const hasNewDependencies = await updatePackageJSONDependencies(CWD);
     const msg = hasNewDependencies
       ? "Successfully installed new Node.js dependencies."
       : "There were no new dependency updates from npm.";

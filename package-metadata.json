@@ -1,4 +1,10 @@
 {
+  "dependencies": {
+    "typescript": {
+      "lock-version": true,
+      "lock-reason": "https://github.com/TypeScriptToLua/TypeScriptToLua/blob/master/package.json#L45"
+    }
+  },
   "devDependencies": {
     "eslint": {
       "description": "Even though ESLint is part of complete-lint, it is also part of other dependencies, so npm will take the more conservative approach and choose to install the older version. Thus, we must explicitly specify it as a root dependency to force the latest version."

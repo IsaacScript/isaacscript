@@ -12,16 +12,18 @@ import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfi
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
-const isaacScriptSchema = getJSONC(ISAACSCRIPT_SCHEMA_PATH);
+const isaacScriptSchema = await getJSONC(ISAACSCRIPT_SCHEMA_PATH);
 const ajv = new Ajv();
 const schemaValidate = ajv.compile(isaacScriptSchema);
 
-function getTSConfigJSON(): Record<string, unknown> {
-  return getJSONC(TSCONFIG_JSON_PATH);
+async function getTSConfigJSON(): Promise<Record<string, unknown>> {
+  return await getJSONC(TSCONFIG_JSON_PATH);
 }
 
-function getIsaacScriptSection(): Record<string, unknown> | undefined {
-  const tsConfig = getTSConfigJSON();
+async function getIsaacScriptSection(): Promise<
+  Record<string, unknown> | undefined
+> {
+  const tsConfig = await getTSConfigJSON();
 
   // We allow different kinds of casing for the field name.
   for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
@@ -48,8 +50,10 @@ function getIsaacScriptSection(): Record<string, unknown> | undefined {
  *
  * Most of this function is simply performing input validation.
  */
-export function getCustomStagesFromTSConfig(): readonly CustomStageTSConfig[] {
-  const isaacScriptSection = getIsaacScriptSection();
+export async function getCustomStagesFromTSConfig(): Promise<
+  readonly CustomStageTSConfig[]
+> {
+  const isaacScriptSection = await getIsaacScriptSection();
   if (isaacScriptSection === undefined) {
     return [];
   }

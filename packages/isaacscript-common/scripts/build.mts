@@ -1,4 +1,4 @@
-import { $, $sq, appendFile, buildScript, cp, rm } from "complete-node";
+import { $, $q, appendFile, buildScript, cp, rm } from "complete-node";
 import path from "node:path";
 
 await buildScript(async (packageRoot) => {
@@ -28,7 +28,7 @@ await buildScript(async (packageRoot) => {
   const dstLibPath = path.join(packageRoot, "dist", "lib");
   cp(srcLibPath, dstLibPath);
 
-  scrubInternalExports();
+  await scrubInternalExports();
 });
 
 /**
@@ -51,6 +51,6 @@ await buildScript(async (packageRoot) => {
  * https://github.com/microsoft/rushstack/issues/1886
  * https://github.com/timocov/dts-bundle-generator/issues/218
  */
-function scrubInternalExports() {
-  $sq`npx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
+async function scrubInternalExports() {
+  await $q`npx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
 }

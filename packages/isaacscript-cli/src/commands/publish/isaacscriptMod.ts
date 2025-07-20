@@ -26,11 +26,11 @@ export async function publishIsaacScriptMod(
   dryRun: boolean,
   verbose: boolean,
 ): Promise<void> {
-  const packageManager = getPackageManagerUsedForExistingProject();
+  const packageManager = await getPackageManagerUsedForExistingProject();
   const config = await getConfigFromFile();
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
-  const version = getPackageJSONVersion(undefined);
+  const version = await getPackageJSONVersion(undefined);
 
   runReleaseScriptPreCopy(verbose);
   await compileAndCopy(MOD_SOURCE_PATH, modTargetPath, packageManager, verbose);

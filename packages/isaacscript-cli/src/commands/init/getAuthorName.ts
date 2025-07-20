@@ -5,7 +5,7 @@ import { getInputString } from "../../prompt.js";
 export async function getAuthorName(
   typeScript: boolean,
 ): Promise<string | undefined> {
-  const gitHubUsername = getGitHubUsername();
+  const gitHubUsername = await getGitHubUsername();
   if (gitHubUsername !== undefined) {
     return gitHubUsername;
   }

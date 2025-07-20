@@ -55,8 +55,8 @@ export const checkCommand = new Command()
     "Comma separated list of file names to ignore.",
   )
   .option("-v, --verbose", "Enable verbose output.", false)
-  .action((options) => {
-    check(options, false);
+  .action(async (options) => {
+    await check(options, false);
   });
 
 /**
@@ -75,8 +75,8 @@ export const checkTSCommand = new Command()
     "Comma separated list of file names to ignore.",
   )
   .option("-v, --verbose", "Enable verbose output.", false)
-  .action((options) => {
-    check(options, true);
+  .action(async (options) => {
+    await check(options, true);
   });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -84,10 +84,10 @@ const checkOptions = checkCommand.opts();
 // The options are identical for both, so we do not create a union.
 type CheckOptions = typeof checkOptions;
 
-function check(options: CheckOptions, typeScript: boolean) {
+async function check(options: CheckOptions, typeScript: boolean) {
   const { verbose } = options;
 
-  const packageManager = getPackageManagerUsedForExistingProject();
+  const packageManager = await getPackageManagerUsedForExistingProject();
 
   let oneOrMoreErrors = false;
   const ignore = options.ignore ?? "";

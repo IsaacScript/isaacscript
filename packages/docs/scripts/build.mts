@@ -1,4 +1,4 @@
-import { $, $op, $s, buildScript, rm } from "complete-node";
+import { $, buildScript, rm } from "complete-node";
 import path from "node:path";
 
 const DOCS_BUILD_ENABLED = false as boolean;
@@ -30,10 +30,10 @@ await buildScript(async (packageRoot) => {
   // Format the Markdown output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories
   // to avoid creating a spurious "node_modules" folder.)
-  const $$ = $op({ cwd: repoRoot });
+  const $$ = $({ cwd: repoRoot });
   await $$`prettier ./packages/docs/docs --write`;
 
-  $s`docusaurus build`;
+  await $`docusaurus build`;
 });
 
 async function makeITDDocs(repoRoot: string) {
@@ -42,14 +42,14 @@ async function makeITDDocs(repoRoot: string) {
     "packages",
     "isaac-typescript-definitions",
   );
-  const $$ = $op({ cwd: packagePath });
+  const $$ = $({ cwd: packagePath });
   await $$`npm run docs`;
   await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacTypeScriptDefinitions.mts`;
 }
 
 async function makeISCDocs(repoRoot: string) {
   const packagePath = path.join(repoRoot, "packages", "isaacscript-common");
-  const $$ = $op({ cwd: packagePath });
+  const $$ = $({ cwd: packagePath });
   await $$`npm run docs`;
   await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacScriptCommon.mts`;
 }

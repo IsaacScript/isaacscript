@@ -10,7 +10,7 @@ import { CONFIG_FILE_NAME, CONFIG_FILE_PATH, CWD } from "./constants.js";
 const NUM_INDENT_SPACES = 2;
 
 export async function getConfigFromFile(): Promise<ValidatedConfig> {
-  const existingConfig = getExistingConfig();
+  const existingConfig = await getExistingConfig();
   if (existingConfig !== undefined) {
     return existingConfig;
   }
@@ -24,12 +24,12 @@ export async function getConfigFromFile(): Promise<ValidatedConfig> {
   return config;
 }
 
-function getExistingConfig(): ValidatedConfig | undefined {
+async function getExistingConfig(): Promise<ValidatedConfig | undefined> {
   if (!isFile(CONFIG_FILE_PATH)) {
     return undefined;
   }
 
-  const config = getJSONC(CONFIG_FILE_PATH);
+  const config = await getJSONC(CONFIG_FILE_PATH);
   validateMandatoryConfigFields(config);
 
   return config as unknown as ValidatedConfig;
