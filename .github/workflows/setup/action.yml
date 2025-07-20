@@ -10,5 +10,6 @@ runs:
 
     - name: Install dependencies
       # TODO: Update dependencies to latest.
-      run: npm ci --force
+      #run: npm ci
+      run: npm install --force
       shell: bash # Composite jobs must specify the shell.
