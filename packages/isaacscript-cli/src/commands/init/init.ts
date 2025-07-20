@@ -141,7 +141,7 @@ async function init(
   name: string | undefined,
   options: InitOptions,
   typeScript: boolean,
-): Promise<void> {
+) {
   const {
     forceName,
     skipGit,

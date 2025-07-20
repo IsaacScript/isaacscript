@@ -93,9 +93,7 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_PLAYER_INIT (9)
   private readonly postPlayerInit = (_player: EntityPlayer): void => {
-    if (this.renderFrameRunStarted === null) {
-      this.renderFrameRunStarted = Isaac.GetFrameCount();
-    }
+    this.renderFrameRunStarted ??= Isaac.GetFrameCount();
   };
 
   // ModCallback.POST_GAME_STARTED (15)

@@ -66,7 +66,7 @@ export function forEach<T>(
  *
  * Internally, this just calls `Array.join`.
  */
-export function join<T>(array: readonly T[], separator: string): string {
+export function join(array: readonly unknown[], separator: string): string {
   return array.join(separator);
 }
 

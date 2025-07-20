@@ -27,7 +27,6 @@
     "@babel/preset-typescript": "^7.26.0",
     "@commander-js/extra-typings": "^12.1.0",
     "@docusaurus/core": "^3.6.3",
-    "@docusaurus/eslint-plugin": "^3.6.3",
     "@docusaurus/module-type-aliases": "^3.6.3",
     "@docusaurus/preset-classic": "^3.6.3",
     "@docusaurus/tsconfig": "^3.6.3",
@@ -35,6 +34,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@mdx-js/react": "^3.1.0",
     "@microsoft/api-extractor": "^7.48.0",
+    "@prettier/plugin-xml": "^3.4.2",
     "@tsconfig/node-lts": "^22.0.1",
     "@tsconfig/strictest": "^2.0.5",
     "@types/figlet": "^1.7.0",
@@ -55,7 +55,7 @@
     "clsx": "^2.1.1",
     "commander": "^12.1.0",
     "complete-common": "^1.0.1",
-    "complete-lint": "^1.12.0",
+    "complete-lint": "^3.0.3",
     "complete-node": "^1.7.4",
     "docusaurus-theme-search-typesense": "^0.22.0",
     "eslint-import-resolver-typescript": "^3.7.0",
@@ -77,16 +77,16 @@
     "source-map-support": "^0.5.21",
     "ts-json-schema-generator": "^2.3.0",
     "ts-prune-2": "^0.10.7",
-    "typedoc": "^0.27.3",
+    "typedoc": "^0.28.7",
     "typedoc-plugin-markdown": "^4.3.1",
     "typedoc-plugin-rename": "^1.1.1",
-    "typescript": "^5.7.2",
+    "typescript": "5.8.2",
     "typescript-eslint": "^8.17.0",
     "typescript-to-lua": "^1.28.1",
     "xml2js": "^0.6.2",
     "yaml": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^9.16.0"
+    "eslint": "^9.31.0"
   }
 }

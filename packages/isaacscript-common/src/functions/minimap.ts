@@ -91,9 +91,7 @@ export function getRoomDisplayFlags(
   roomGridIndex?: int,
   minimapAPI = true,
 ): BitFlags<DisplayFlag> {
-  if (roomGridIndex === undefined) {
-    roomGridIndex = getRoomGridIndex();
-  }
+  roomGridIndex ??= getRoomGridIndex();
 
   if (MinimapAPI === undefined || !minimapAPI) {
     const roomDescriptor = getRoomDescriptor(roomGridIndex);
@@ -217,9 +215,7 @@ export function setRoomDisplayFlags(
   displayFlags: BitFlags<DisplayFlag>,
   updateVisibility = true,
 ): void {
-  if (roomGridIndex === undefined) {
-    roomGridIndex = getRoomGridIndex();
-  }
+  roomGridIndex ??= getRoomGridIndex();
 
   if (MinimapAPI === undefined) {
     const roomDescriptor = getRoomDescriptor(roomGridIndex);

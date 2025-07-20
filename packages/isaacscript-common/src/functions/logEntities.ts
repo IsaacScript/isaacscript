@@ -222,8 +222,11 @@ function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   msg += `  - Position: (${entity.Position.X}, ${entity.Position.Y})\n`;
   msg += `  - Velocity: (${entity.Velocity.X}, ${entity.Velocity.Y})\n`;
   msg += `  - HP: ${entity.HitPoints} / ${entity.MaxHitPoints}\n`;
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   msg += `  - Parent: ${entity.Parent}\n`;
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   msg += `  - Child: ${entity.Child}\n`;
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   msg += `  - SpawnerEntity: ${entity.SpawnerEntity}\n`;
   msg += `  - SpawnerType / SpawnerVariant: ${entity.SpawnerType}.${entity.SpawnerVariant}\n`;
   msg += `  - FrameCount: ${entity.FrameCount}\n`;

@@ -265,16 +265,14 @@ export class CustomTrapdoors extends Feature {
   }
 
   private goToCustomTrapdoorDestination() {
-    if (v.run.customTrapdoorActivated === null) {
-      // This should never happen; provide some sane default values.
-      v.run.customTrapdoorActivated = {
-        destinationName: undefined,
-        destinationStage: LevelStage.BASEMENT_1,
-        destinationStageType: StageType.ORIGINAL,
-        open: true,
-        firstSpawn: true,
-      };
-    }
+    // This should never be null. Regardless, we provide some sane default values.
+    v.run.customTrapdoorActivated ??= {
+      destinationName: undefined,
+      destinationStage: LevelStage.BASEMENT_1,
+      destinationStageType: StageType.ORIGINAL,
+      open: true,
+      firstSpawn: true,
+    };
 
     const destinationFunc = this.getDestinationFunc(
       v.run.customTrapdoorActivated,
@@ -752,13 +750,8 @@ export class CustomTrapdoors extends Feature {
       );
     }
 
-    if (destinationStage === undefined) {
-      destinationStage = this.stageHistory.getNextStageWithHistory();
-    }
-
-    if (destinationStageType === undefined) {
-      destinationStageType = this.stageHistory.getNextStageTypeWithHistory();
-    }
+    destinationStage ??= this.stageHistory.getNextStageWithHistory();
+    destinationStageType ??= this.stageHistory.getNextStageTypeWithHistory();
 
     const room = game.GetRoom();
     const roomListIndex = getRoomListIndex();

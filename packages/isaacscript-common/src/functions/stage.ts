@@ -133,13 +133,8 @@ export function getLevelName(
 ): string {
   const level = game.GetLevel();
 
-  if (stage === undefined) {
-    stage = level.GetStage();
-  }
-
-  if (stageType === undefined) {
-    stageType = level.GetStageType();
-  }
+  stage ??= level.GetStage();
+  stageType ??= level.GetStageType();
 
   const stageID = getStageID(stage, stageType);
   const stageIDName = getStageIDName(stageID);
@@ -195,13 +190,8 @@ export function getStage(): LevelStage {
 export function getStageID(stage?: LevelStage, stageType?: StageType): StageID {
   const level = game.GetLevel();
 
-  if (stage === undefined) {
-    stage = level.GetStage();
-  }
-
-  if (stageType === undefined) {
-    stageType = level.GetStageType();
-  }
+  stage ??= level.GetStage();
+  stageType ??= level.GetStageType();
 
   if (game.IsGreedMode()) {
     const stageTypeToStageID = STAGE_TO_STAGE_ID_GREED_MODE.get(stage);

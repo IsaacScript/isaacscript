@@ -36,7 +36,7 @@ await buildScript(async (packageRoot) => {
   $s`docusaurus build`;
 });
 
-async function makeITDDocs(repoRoot: string): Promise<void> {
+async function makeITDDocs(repoRoot: string) {
   const packagePath = path.join(
     repoRoot,
     "packages",
@@ -47,7 +47,7 @@ async function makeITDDocs(repoRoot: string): Promise<void> {
   await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacTypeScriptDefinitions.mts`;
 }
 
-async function makeISCDocs(repoRoot: string): Promise<void> {
+async function makeISCDocs(repoRoot: string) {
   const packagePath = path.join(repoRoot, "packages", "isaacscript-common");
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;

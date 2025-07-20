@@ -51,11 +51,13 @@ import { vectorToString } from "./vector";
  * @param array The array to log.
  * @param name Optional. The name of the array, which will be logged before the elements.
  */
-export function logArray<T>(
+export function logArray(
   this: void,
-  array: readonly T[],
+  array: readonly unknown[],
   name?: string,
 ): void {
+  name ??= "array";
+
   // We do not assume the given array has contiguous values in order to be more permissive about the
   // kinds of arrays that will successfully log without a run-time error.
   if (!isArray(array, false)) {
@@ -64,9 +66,6 @@ export function logArray<T>(
   }
 
   const arrayString = arrayToString(array);
-  if (name === undefined) {
-    name = "array";
-  }
   log(`Logging ${name}: ${arrayString}`);
 }
 
@@ -81,9 +80,7 @@ export function logCollectibleTypes(
   collectibleTypes: readonly CollectibleType[],
   name?: string,
 ): void {
-  if (name === undefined) {
-    name = "collectibles";
-  }
+  name ??= "collectibles";
 
   log(`Logging ${name}:`);
 
@@ -102,9 +99,7 @@ export function logCollectibleTypes(
  * @param name Optional. The name of the object, which will be logged before the properties.
  */
 export function logColor(this: void, color: Color, name?: string): void {
-  if (name === undefined) {
-    name = "color";
-  }
+  name ??= "color";
 
   log(
     `Logging ${name}: R${color.R}, G${color.G}, B${color.B}, A${color.A}, RO${color.RO}, BO${color.BO}, GO${color.GO}`,
@@ -199,9 +194,7 @@ export function logItemPoolTypes(
   itemPoolTypes: readonly ItemPoolType[],
   name?: string,
 ): void {
-  if (name === undefined) {
-    name = "item pool types";
-  }
+  name ??= "item pool types";
 
   log(`Logging ${name}:`);
 
@@ -220,9 +213,7 @@ export function logItemPoolTypes(
  * @param name Optional. The name of the object, which will be logged before the properties.
  */
 export function logKColor(this: void, kColor: KColor, name?: string): void {
-  if (name === undefined) {
-    name = "KColor";
-  }
+  name ??= "KColor";
 
   log(
     `Logging ${name}: R${kColor.Red}, G${kColor.Green}, B${kColor.Blue}, A${kColor.Alpha}`,
@@ -647,9 +638,7 @@ export function logVector(
   name?: string,
   round = false,
 ): void {
-  if (name === undefined) {
-    name = "vector";
-  }
+  name ??= "vector";
 
   const vectorString = vectorToString(vector, round);
   log(`Logging ${name}: ${vectorString}`);

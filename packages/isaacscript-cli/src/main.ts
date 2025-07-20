@@ -8,7 +8,7 @@ import { validateNodeVersion } from "./validateNodeVersion.js";
 
 await main();
 
-async function main(): Promise<void> {
+async function main() {
   sourceMapSupport.install();
   promptInit();
   validateNodeVersion();

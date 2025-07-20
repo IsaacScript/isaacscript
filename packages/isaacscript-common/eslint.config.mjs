@@ -1,10 +1,6 @@
 // @ts-check
 
-// eslint-disable-next-line import-x/no-extraneous-dependencies
-import {
-  completeConfigBase,
-  completeConfigMonorepo,
-} from "eslint-config-complete";
+import { completeConfigBase } from "eslint-config-complete";
 import tseslint from "typescript-eslint";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
 // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
@@ -12,7 +8,6 @@ import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
 export default tseslint.config(
   ...completeConfigBase,
-  ...completeConfigMonorepo,
   ...isaacScriptModConfigBase,
 
   {

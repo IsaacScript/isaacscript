@@ -52,7 +52,7 @@ export const publishCommand = new Command()
 const publishOptions = publishCommand.opts();
 type PublishOptions = typeof publishOptions;
 
-async function publish(options: PublishOptions): Promise<void> {
+async function publish(options: PublishOptions) {
   const { dryRun, setVersion, verbose } = options;
 
   const isaacScriptModMissingFile = getIsaacScriptModMissingFile(CWD);

@@ -112,9 +112,7 @@ export function findFreePosition(
 export function getEntityPositions(
   entities?: readonly Entity[],
 ): ReadonlyMap<PtrHash, Vector> {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
+  entities ??= getEntities();
 
   const entityPositions = new Map<PtrHash, Vector>();
   for (const entity of entities) {
@@ -137,9 +135,7 @@ export function getEntityPositions(
 export function getEntityVelocities(
   entities?: readonly Entity[],
 ): ReadonlyMap<PtrHash, Vector> {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
+  entities ??= getEntities();
 
   const entityVelocities = new Map<PtrHash, Vector>();
   for (const entity of entities) {
@@ -167,9 +163,7 @@ export function setEntityPositions(
   entityPositions: ReadonlyMap<PtrHash, Vector>,
   entities?: readonly Entity[],
 ): void {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
+  entities ??= getEntities();
 
   for (const entity of entities) {
     const ptrHash = GetPtrHash(entity);
@@ -197,9 +191,7 @@ export function setEntityVelocities(
   entityVelocities: ReadonlyMap<PtrHash, Vector>,
   entities?: readonly Entity[],
 ): void {
-  if (entities === undefined) {
-    entities = getEntities();
-  }
+  entities ??= getEntities();
 
   for (const entity of entities) {
     const ptrHash = GetPtrHash(entity);

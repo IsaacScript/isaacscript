@@ -116,9 +116,7 @@ export class PickupIndexCreation extends Feature {
       v.level.pickupData.getAndSetDefault(roomListIndex);
 
     let pickupIndex = getStoredPickupIndex(pickup, pickupDescriptions);
-    if (pickupIndex === undefined) {
-      pickupIndex = this.getPostAscentPickupIndex(pickup);
-    }
+    pickupIndex ??= this.getPostAscentPickupIndex(pickup);
 
     return pickupIndex;
   }

@@ -680,9 +680,7 @@ export function spawn(
     ? positionOrGridIndex
     : room.GetGridPosition(positionOrGridIndex);
 
-  if (seedOrRNG === undefined) {
-    seedOrRNG = newRNG();
-  }
+  seedOrRNG ??= newRNG();
 
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
   return game.Spawn(

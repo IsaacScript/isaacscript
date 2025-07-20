@@ -24,7 +24,7 @@ await lintScript(async () => {
   ]);
 });
 
-async function checkGitIgnoreUpdates(): Promise<void> {
+async function checkGitIgnoreUpdates() {
   const localGitIgnore = readFile(LOCAL_GITIGNORE_PATH);
 
   const response = await fetch(GITIGNORE_URL);

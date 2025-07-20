@@ -133,9 +133,7 @@ export class PostItemDischarge extends CustomCallback<T> {
     for (const activeSlot of ACTIVE_SLOT_VALUES) {
       const currentActiveItem = player.GetActiveItem();
       let previousActiveItem = activeItemMap.get(activeSlot);
-      if (previousActiveItem === undefined) {
-        previousActiveItem = currentActiveItem;
-      }
+      previousActiveItem ??= currentActiveItem;
       activeItemMap.set(activeSlot, currentActiveItem);
 
       if (currentActiveItem !== previousActiveItem) {
@@ -146,9 +144,7 @@ export class PostItemDischarge extends CustomCallback<T> {
 
       const currentCharge = getTotalCharge(player, activeSlot);
       let previousCharge = chargeMap.get(activeSlot);
-      if (previousCharge === undefined) {
-        previousCharge = currentCharge;
-      }
+      previousCharge ??= currentCharge;
       chargeMap.set(activeSlot, currentCharge);
 
       if (this.playerRecentlyCollidedWithBulb(player)) {
