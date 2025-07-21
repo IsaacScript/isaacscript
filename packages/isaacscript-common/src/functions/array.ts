@@ -91,6 +91,7 @@ export function arrayRemoveAllInPlace<T>(
   ...elementsToRemove: readonly T[]
 ): boolean {
   let removedOneOrMoreElements = false;
+
   for (const element of elementsToRemove) {
     let index: number;
     do {
