@@ -60,12 +60,6 @@ export const ACTION_YML_TEMPLATE_PATH = path.join(
   ACTION_YML,
 );
 
-export const YARNRC_YML = ".yarnrc.yml";
-export const YARNRC_TEMPLATE_PATH = path.join(
-  TEMPLATES_DYNAMIC_DIR,
-  YARNRC_YML,
-);
-
 const GITIGNORE = "_gitignore"; // Not named ".gitignore" to prevent npm from deleting it.
 export const GITIGNORE_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,

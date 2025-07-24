@@ -30,7 +30,7 @@
 
 import { Command } from "@commander-js/extra-typings";
 import { nukeDependencies, updatePackageJSONDependencies } from "complete-node";
-import { checkCommand, checkTSCommand } from "./commands/check/check.js";
+import { checkCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand } from "./commands/init/init.js";
 import { monitorCommand } from "./commands/monitor/monitor.js";
@@ -47,7 +47,6 @@ export async function parseArgs(): Promise<void> {
     .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
     .addCommand(monitorCommand, { isDefault: true })
     .addCommand(checkCommand)
-    .addCommand(checkTSCommand)
     .addCommand(copyCommand)
     .addCommand(initCommand)
     .addCommand(nukeCommand)

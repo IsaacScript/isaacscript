@@ -20,11 +20,8 @@ import {
   TEMPLATES_DIR,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
-  YARNRC_TEMPLATE_PATH,
-  YARNRC_YML,
 } from "../../constants.js";
 import { execShell } from "../../exec.js";
-import { getPackageManagerUsedForExistingProject } from "../../packageManager.js";
 
 const URL_PREFIX =
   "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/file-templates";
@@ -55,28 +52,8 @@ export const checkCommand = new Command()
     "Comma separated list of file names to ignore.",
   )
   .option("-v, --verbose", "Enable verbose output.", false)
-  .action(async (options) => {
-    await check(options, false);
-  });
-
-/**
- * Even though all of the options are identical, we make a "-ts" version of the command to keep the
- * symmetry with the "init" and "init-ts" commands.
- */
-export const checkTSCommand = new Command()
-  .command("check-ts")
-  .description(
-    "Check the template files of the current TypeScript project to see if they are up to date.",
-  )
-  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
-  .helpOption("-h, --help", "Display the list of options for this command.")
-  .option(
-    "--ignore <ignoreList>",
-    "Comma separated list of file names to ignore.",
-  )
-  .option("-v, --verbose", "Enable verbose output.", false)
-  .action(async (options) => {
-    await check(options, true);
+  .action((options) => {
+    check(options, false);
   });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -84,10 +61,8 @@ const checkOptions = checkCommand.opts();
 // The options are identical for both, so we do not create a union.
 type CheckOptions = typeof checkOptions;
 
-async function check(options: CheckOptions, typeScript: boolean) {
+function check(options: CheckOptions, typeScript: boolean) {
   const { verbose } = options;
-
-  const packageManager = await getPackageManagerUsedForExistingProject();
 
   let oneOrMoreErrors = false;
   const ignore = options.ignore ?? "";
@@ -109,7 +84,7 @@ async function check(options: CheckOptions, typeScript: boolean) {
   }
 
   // Third, check dynamic files that require specific logic.
-  if (checkIndividualFiles(ignoreFileNamesSet, packageManager, verbose)) {
+  if (checkIndividualFiles(ignoreFileNamesSet, verbose)) {
     oneOrMoreErrors = true;
   }
 
@@ -179,28 +154,12 @@ function checkTemplateDirectory(
 
 function checkIndividualFiles(
   ignoreFileNamesSet: ReadonlySet<string>,
-  packageManager: PackageManager,
   verbose: boolean,
 ) {
   let oneOrMoreErrors = false;
 
   if (!ignoreFileNamesSet.has(ACTION_YML)) {
     const templateFilePath = ACTION_YML_TEMPLATE_PATH;
-    const relativeTemplateFilePath = path.relative(
-      TEMPLATES_DYNAMIC_DIR,
-      templateFilePath,
-    );
-    const projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
-      oneOrMoreErrors = true;
-    }
-  }
-
-  if (
-    packageManager === PackageManager.yarn &&
-    !ignoreFileNamesSet.has(YARNRC_YML)
-  ) {
-    const templateFilePath = YARNRC_TEMPLATE_PATH;
     const relativeTemplateFilePath = path.relative(
       TEMPLATES_DYNAMIC_DIR,
       templateFilePath,

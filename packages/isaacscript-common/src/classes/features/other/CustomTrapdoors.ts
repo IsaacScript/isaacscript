@@ -57,7 +57,7 @@ import type { RunNextRoom } from "./RunNextRoom";
 import type { StageHistory } from "./StageHistory";
 import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 
-const DEBUG = false as boolean;
+const DEBUG = true as boolean;
 
 /** This also applies to crawl spaces. The value was determined through trial and error. */
 const TRAPDOOR_OPEN_DISTANCE = 60;

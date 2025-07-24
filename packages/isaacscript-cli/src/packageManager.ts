@@ -8,7 +8,7 @@ import {
 } from "complete-node";
 import { CWD } from "./constants.js";
 
-export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.yarn;
+export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.npm;
 
 interface PackageManagerOptions {
   npm: boolean;
