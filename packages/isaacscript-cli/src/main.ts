@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import sourceMapSupport from "source-map-support";
-import { checkForWindowsTerminalBugs } from "./checkForWindowsTerminalBugs.js";
 import { parseArgs } from "./parseArgs.js";
 import { promptInit } from "./prompt.js";
 import { validateNodeVersion } from "./validateNodeVersion.js";
@@ -12,6 +11,5 @@ async function main() {
   sourceMapSupport.install();
   promptInit();
   validateNodeVersion();
-  await checkForWindowsTerminalBugs();
   await parseArgs();
 }
