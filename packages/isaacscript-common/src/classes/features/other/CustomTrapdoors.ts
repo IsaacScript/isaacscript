@@ -59,7 +59,10 @@ import { CUSTOM_FLOOR_STAGE } from "./customStages/constants";
 
 const DEBUG = false as boolean;
 
-/** This also applies to crawl spaces. The value was determined through trial and error. */
+/**
+ * This also applies to crawl spaces. The value was determined through trial and error to match
+ * vanilla behavior.
+ */
 const TRAPDOOR_OPEN_DISTANCE = 60;
 
 const TRAPDOOR_OPEN_DISTANCE_AFTER_BOSS = TRAPDOOR_OPEN_DISTANCE * 2.5;
@@ -415,6 +418,15 @@ export class CustomTrapdoors extends Feature {
   ): void {
     /** By default, trapdoors will never close if they are already open. */
     if (trapdoorDescription.open) {
+      // Sometimes, the `sprite.Play(TrapdoorAnimation.OPEN_ANIMATION, true)` function does not take
+      // effect. Check for this case.
+      const sprite = gridEntity.GetSprite();
+      const animation = sprite.GetAnimation();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+      if (animation === TrapdoorAnimation.CLOSED) {
+        // Try it again.
+        sprite.Play(TrapdoorAnimation.OPEN_ANIMATION, true);
+      }
       return;
     }
 
