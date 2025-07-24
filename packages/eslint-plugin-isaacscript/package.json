@@ -45,19 +45,19 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "8.37.0",
-    "@typescript-eslint/utils": "8.37.0",
-    "typescript-eslint": "8.37.0"
+    "@typescript-eslint/type-utils": "8.38.0",
+    "@typescript-eslint/utils": "8.38.0",
+    "typescript-eslint": "8.38.0"
   },
   "devDependencies": {
     "@babel/core": "7.28.0",
     "@babel/preset-env": "7.28.0",
     "@babel/preset-typescript": "7.27.1",
     "@types/jest": "30.0.0",
-    "@typescript-eslint/rule-tester": "8.37.0",
-    "complete-common": "2.4.0",
-    "complete-node": "7.4.1",
-    "jest": "30.0.4",
+    "@typescript-eslint/rule-tester": "8.38.0",
+    "complete-common": "2.5.0",
+    "complete-node": "7.4.3",
+    "jest": "30.0.5",
     "prettier": "3.6.2"
   },
   "peerDependencies": {
