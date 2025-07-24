@@ -130,7 +130,7 @@ function checkTemplateDirectory(
       }
 
       case "_gitattributes": {
-        projectFilePath = path.join(projectFilePath, "..", ".gitattributes");
+        projectFilePath = path.resolve(projectFilePath, "..", ".gitattributes");
         break;
       }
 

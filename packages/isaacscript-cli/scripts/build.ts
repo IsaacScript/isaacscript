@@ -90,7 +90,7 @@ function copyITDEnums(packageRoot: string) {
 
 function copyITDEnumsFlag(packageRoot: string) {
   const sourcePackage = "isaac-typescript-definitions";
-  const sourceDirectoryPath = path.join(
+  const sourceDirectoryPath = path.resolve(
     packageRoot,
     "..",
     sourcePackage,
@@ -132,7 +132,7 @@ function copyITDEnumsFlag(packageRoot: string) {
 
 function copyISCInterfaces(packageRoot: string) {
   const sourcePackage = "isaacscript-common";
-  const sourceDirectoryPath = path.join(
+  const sourceDirectoryPath = path.resolve(
     packageRoot,
     "..",
     sourcePackage,
@@ -176,7 +176,7 @@ function copyISCInterfaces(packageRoot: string) {
 
 function copyISCObjects(packageRoot: string) {
   const sourcePackage = "isaacscript-common";
-  const sourceDirectoryPath = path.join(
+  const sourceDirectoryPath = path.resolve(
     packageRoot,
     "..",
     sourcePackage,

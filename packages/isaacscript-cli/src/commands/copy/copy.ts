@@ -35,16 +35,23 @@ async function copy(options: CopyOptions) {
   const modTargetDirectoryName = getModTargetDirectoryName(config);
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
-  await compileAndCopy(MOD_SOURCE_PATH, modTargetPath, packageManager, verbose);
+  await compileAndCopy(
+    MOD_SOURCE_PATH,
+    modTargetPath,
+    packageManager,
+    config.isaacScriptCommonDev,
+    verbose,
+  );
 }
 
 export async function compileAndCopy(
   modSourcePath: string,
   modTargetPath: string,
   packageManager: PackageManager,
+  isaacScriptCommonDev: boolean | undefined,
   verbose: boolean,
 ): Promise<void> {
-  await prepareCustomStages(packageManager, verbose);
+  await prepareCustomStages(packageManager, isaacScriptCommonDev, verbose);
   compile(packageManager, verbose);
   copyMod(modSourcePath, modTargetPath);
 }

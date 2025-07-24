@@ -53,6 +53,7 @@ const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
 
 export async function prepareCustomStages(
   packageManager: PackageManager,
+  isaacScriptCommonDev: boolean | undefined,
   verbose: boolean,
 ): Promise<void> {
   const customStagesTSConfig = await getCustomStagesFromTSConfig();
@@ -64,7 +65,11 @@ export async function prepareCustomStages(
 
   copyCustomStageFilesToProject();
   await insertEmptyShader();
-  await fillCustomStageMetadata(customStagesTSConfig, packageManager);
+  await fillCustomStageMetadata(
+    customStagesTSConfig,
+    packageManager,
+    isaacScriptCommonDev,
+  );
   combineCustomStageXMLs(customStagesTSConfig, verbose);
 }
 
@@ -215,6 +220,7 @@ async function insertEmptyShader() {
 async function fillCustomStageMetadata(
   customStagesTSConfig: readonly CustomStageTSConfig[],
   packageManager: PackageManager,
+  isaacScriptCommonDev: boolean | undefined,
 ) {
   validateMetadataLuaFileExists(packageManager);
 
@@ -222,6 +228,23 @@ async function fillCustomStageMetadata(
   const customStagesLua = await convertCustomStagesToLua(customStages);
   writeFile(METADATA_LUA_PATH, customStagesLua);
   console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH}`);
+
+  // In development, the "isaacscript-common" directory will be linked to the "isaacscript"
+  // repository. However, even though the directory is soft-linked, writing to the above path will
+  // not propagate it correctly. Thus, we must also explicitly write it to the development path.
+  if (isaacScriptCommonDev === true) {
+    const METADATA_LUA_PATH_DEV = path.resolve(
+      CWD,
+      "..",
+      "isaacscript",
+      "packages",
+      "isaacscript-common",
+      "dist",
+      "customStageMetadata.lua",
+    );
+    writeFile(METADATA_LUA_PATH_DEV, customStagesLua);
+    console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH_DEV}`);
+  }
 }
 
 function validateMetadataLuaFileExists(packageManager: PackageManager) {

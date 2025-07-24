@@ -84,7 +84,11 @@ async function monitor(options: MonitorOptions) {
   }
 
   // Prepare the custom stages feature, if necessary.
-  await prepareCustomStages(packageManager, verbose);
+  await prepareCustomStages(
+    packageManager,
+    config.isaacScriptCommonDev,
+    verbose,
+  );
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.

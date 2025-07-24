@@ -33,7 +33,13 @@ export async function publishIsaacScriptMod(
   const version = await getPackageJSONVersion(undefined);
 
   runReleaseScriptPreCopy(verbose);
-  await compileAndCopy(MOD_SOURCE_PATH, modTargetPath, packageManager, verbose);
+  await compileAndCopy(
+    MOD_SOURCE_PATH,
+    modTargetPath,
+    packageManager,
+    config.isaacScriptCommonDev,
+    verbose,
+  );
   purgeRoomXMLs(modTargetPath);
   runReleaseScriptPostCopy(verbose);
 
