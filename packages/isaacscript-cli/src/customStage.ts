@@ -45,6 +45,16 @@ const METADATA_LUA_PATH = path.join(
   "customStageMetadata.lua",
 );
 
+const CUSTOM_STAGE_METADATA_JSON_PATH = path.resolve(
+  CWD,
+  "..",
+  "isaacscript",
+  "packages",
+  "isaacscript-common",
+  "src",
+  "customStageMetadata.json",
+);
+
 const ROOM_VARIANT_MULTIPLIER = 10_000;
 const VARIANT_REGEX = / variant="(?<variant>\d+)"/;
 const WEIGHT_REGEX = / weight=".+?"/;
@@ -227,23 +237,20 @@ async function fillCustomStageMetadata(
   const customStages = await getCustomStagesWithMetadata(customStagesTSConfig);
   const customStagesLua = await convertCustomStagesToLua(customStages);
   writeFile(METADATA_LUA_PATH, customStagesLua);
-  console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH}`);
+  console.log(
+    `Wrote metadata for ${customStagesLua.length} custom stage room(s) to: ${METADATA_LUA_PATH}`,
+  );
 
-  // In development, the "isaacscript-common" directory will be linked to the "isaacscript"
-  // repository. However, even though the directory is soft-linked, writing to the above path will
-  // not propagate it correctly. Thus, we must also explicitly write it to the development path.
+  // In development, the "isaacscript-common" directory will be recompiled. Since the
+  // "customStageMetadata.json" file is normally left blank, it will overwrite any changes made to
+  // the compiled "customStageMetadata.lua" file. Thus, we also must write the custom stage data to
+  // the "customStageMetadata.json" file.
   if (isaacScriptCommonDev === true) {
-    const METADATA_LUA_PATH_DEV = path.resolve(
-      CWD,
-      "..",
-      "isaacscript",
-      "packages",
-      "isaacscript-common",
-      "dist",
-      "customStageMetadata.lua",
+    const customStagesJSON = JSON.stringify(customStages, undefined, 2);
+    writeFile(CUSTOM_STAGE_METADATA_JSON_PATH, customStagesJSON);
+    console.log(
+      `Wrote metadata for ${customStagesLua.length} custom stage rooms to: ${CUSTOM_STAGE_METADATA_JSON_PATH}`,
     );
-    writeFile(METADATA_LUA_PATH_DEV, customStagesLua);
-    console.log(`Wrote custom stage metadata to: ${METADATA_LUA_PATH_DEV}`);
   }
 }
 

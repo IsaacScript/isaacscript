@@ -7,7 +7,6 @@ import {
   getPackageManagerInstallCommand,
   isDirectory,
   isLink,
-  touch,
 } from "complete-node";
 import path from "node:path";
 import { printBanner } from "../../banner.js";
@@ -62,10 +61,13 @@ async function monitor(options: MonitorOptions) {
   if (!skipProjectChecks) {
     validateInIsaacScriptProject();
     await validatePackageJSONDependencies();
-    await validateDepsInstalled(verbose);
   }
 
   const config = await getConfigFromFile();
+
+  if (!skipProjectChecks) {
+    await validateDepsInstalled(config.isaacScriptCommonDev, verbose);
+  }
 
   // Read the "tsconfig.json" file.
   const modTargetDirectoryName = getModTargetDirectoryName(config);
@@ -80,7 +82,7 @@ async function monitor(options: MonitorOptions) {
   if (config.isaacScriptCommonDev === true) {
     linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
   } else {
-    warnIfIsaacScriptCommonLinkExists(CWD, packageManager);
+    errorIfIsaacScriptCommonLinkExists(CWD, packageManager);
   }
 
   // Prepare the custom stages feature, if necessary.
@@ -156,7 +158,7 @@ function linkDevelopmentIsaacScriptCommon(
 
   console.log('Building "isaacscript-common"...');
 
-  // Run "yarn install" at the root of the monorepo.
+  // Ensure that dependencies are installed in the isaacscript monorepo.
   const installCommand = getPackageManagerInstallCommand(packageManager);
   execShellString(installCommand, verbose, false, isaacScriptMonorepoDirectory);
 
@@ -169,32 +171,39 @@ function linkDevelopmentIsaacScriptCommon(
   const buildCommand = "npm run build";
   execShellString(buildCommand, verbose, false, iscPackagePath);
 
-  console.log(
-    'Linking this repository to the development version of "isaacscript-common"...',
-  );
-  const yarnLockPath = path.join(iscPackagePath, "yarn.lock");
-  touch(yarnLockPath);
-  execShell(
-    PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
-    ["link", iscPackagePath],
-    verbose,
-    false,
+  const localIsaacScriptCommonPath = path.join(
     projectPath,
+    "node_modules",
+    "isaacscript-common",
   );
+  if (isLink(localIsaacScriptCommonPath)) {
+    console.log('The "isaacscript-common" package is already linked.');
+  } else {
+    console.log(
+      'Linking this repository to the development version of "isaacscript-common"...',
+    );
+    execShell(
+      PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT,
+      ["link", iscPackagePath],
+      verbose,
+      false,
+      projectPath,
+    );
+  }
 }
 
-function warnIfIsaacScriptCommonLinkExists(
+function errorIfIsaacScriptCommonLinkExists(
   projectPath: string,
   packageManager: PackageManager,
 ) {
-  const isaacScriptCommonPath = path.join(
+  const localIsaacScriptCommonPath = path.join(
     projectPath,
     "node_modules",
     "isaacscript-common",
   );
 
   if (
-    isLink(isaacScriptCommonPath) &&
+    isLink(localIsaacScriptCommonPath) &&
     packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     fatalError(

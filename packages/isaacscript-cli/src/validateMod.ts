@@ -130,7 +130,15 @@ export async function validatePackageJSONDependencies(): Promise<void> {
   }
 }
 
-export async function validateDepsInstalled(verbose: boolean): Promise<void> {
+export async function validateDepsInstalled(
+  isaacScriptCommonDev: boolean | undefined,
+  verbose: boolean,
+): Promise<void> {
+  // Running "npm install" will remove the links.
+  if (isaacScriptCommonDev === true) {
+    return;
+  }
+
   const packageManager = await getPackageManagerUsedForExistingProject();
   const command = getPackageManagerInstallCommand(packageManager);
 
