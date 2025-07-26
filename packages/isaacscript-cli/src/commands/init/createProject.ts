@@ -38,7 +38,6 @@ import {
   METADATA_XML,
   METADATA_XML_TEMPLATE_PATH,
   README_MD,
-  TEMPLATES_DIR,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
@@ -47,7 +46,6 @@ import { initGitRepository } from "../../git.js";
 
 export async function createProject(
   projectName: string,
-  authorName: string | undefined,
   projectPath: string,
   createNewDir: boolean,
   modsDirectory: string | undefined,
@@ -66,7 +64,7 @@ export async function createProject(
   createConfigFile(projectPath, config);
 
   copyStaticFiles(projectPath);
-  copyDynamicFiles(projectName, authorName, projectPath, packageManager, dev);
+  copyDynamicFiles(projectName, projectPath, packageManager, dev);
   upgradeYarn(projectPath, packageManager, verbose);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
@@ -83,19 +81,13 @@ export async function createProject(
   // Only make the initial commit once all of the files have been copied and formatted.
   await initGitRepository(projectPath, gitRemoteURL, verbose);
 
-  const noun = "mod";
-  console.log(`Successfully created ${noun}: ${chalk.green(projectName)}`);
+  console.log(`Successfully created mod: ${chalk.green(projectName)}`);
 }
 
 /** Copy static files, like "eslint.config.mjs", "tsconfig.json", etc. */
 function copyStaticFiles(projectPath: string) {
   // First, copy the static files that are shared between TypeScript projects and IsaacScript mods.
   copyTemplateDirectoryWithoutOverwriting(TEMPLATES_STATIC_DIR, projectPath);
-
-  // Second, copy the files that are specific to either a TypeScript project or an IsaacScript mod.
-  const staticDirSuffix = "mod";
-  const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
-  copyTemplateDirectoryWithoutOverwriting(staticDirPath, projectPath);
 
   // Rename "_gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
   // be committed to git.)
@@ -127,7 +119,6 @@ function copyTemplateDirectoryWithoutOverwriting(
 /** Copy files that need to have text replaced inside of them. */
 function copyDynamicFiles(
   projectName: string,
-  authorName: string | undefined,
   projectPath: string,
   packageManager: PackageManager,
   dev: boolean,
@@ -181,17 +172,14 @@ function copyDynamicFiles(
 
   // `package.json`
   {
-    // There are two versions of the template: one for TypeScript and one for IsaacScript mods.
-    const packageJSONTemplateFileName = "package.mod.json";
+    const packageJSONTemplateFileName = "package.json";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       packageJSONTemplateFileName,
     );
     const template = readFile(templatePath);
 
-    const packageJSON = template
-      .replaceAll("PROJECT_NAME", projectName)
-      .replaceAll("AUTHOR_NAME", authorName ?? "unknown");
+    const packageJSON = template.replaceAll("project-name", projectName);
 
     const destinationPath = path.join(projectPath, "package.json");
     writeFile(destinationPath, packageJSON);
@@ -199,8 +187,7 @@ function copyDynamicFiles(
 
   // `README.md`
   {
-    // There are two versions of the template, one for TypeScript, and one for IsaacScript mods.
-    const readmeMDTemplateFileName = "README.mod.md";
+    const readmeMDTemplateFileName = "README.md";
     const templatePath = path.join(
       TEMPLATES_DYNAMIC_DIR,
       readmeMDTemplateFileName,
@@ -209,10 +196,13 @@ function copyDynamicFiles(
 
     // "PROJECT-NAME" must be hyphenated, as using an underscore will break Prettier for some
     // reason.
-    const command = getPackageManagerInstallCICommand(packageManager);
+    const installCommand = getPackageManagerInstallCICommand(packageManager);
+    const execCommand = getPackageManagerExecCommand(packageManager);
     const readmeMD = template
       .replaceAll("PROJECT-NAME", projectName)
-      .replaceAll("PACKAGE-MANAGER-INSTALL-COMMAND", command);
+      .replaceAll("PACKAGE-MANAGER-INSTALL-COMMAND", installCommand)
+      .replaceAll("PACKAGE-MANAGER-EXEC-COMMAND", execCommand);
+
     const destinationPath = path.join(projectPath, README_MD);
     writeFile(destinationPath, readmeMD);
   }
