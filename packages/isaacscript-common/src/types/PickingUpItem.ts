@@ -50,6 +50,7 @@ export function newPickingUpItem(): PickingUpItem {
   };
 }
 
+/** Helper function to reset a `PickupUpItem` object to all 0 values. */
 export function resetPickingUpItem(pickingUpItem: PickingUpItem): void {
   pickingUpItem.itemType = DEFAULT_ITEM_TYPE;
   pickingUpItem.subType = DEFAULT_SUB_TYPE;
@@ -61,21 +62,27 @@ const COLLECTIBLE_ITEM_TYPES = new ReadonlySet<ItemType>([
   ItemType.FAMILIAR, // 4
 ]);
 
-/** Helper function to narrow the type of `PickingUpItem`. */
+/** Helper function to narrow the type of `PickingUpItem` to `ItemType.NULL` (0). */
 export function isPickingUpItemNull(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemTrinket {
   return pickingUpItem.itemType === ItemType.NULL;
 }
 
-/** Helper function to narrow the type of `PickingUpItem`. */
+/**
+ * Helper function to narrow the type of `PickingUpItem` to one of the following:
+ *
+ * - `ItemType.PASSIVE` (1)
+ * - `ItemType.ACTIVE` (3)
+ * - `ItemType.FAMILIAR` (4)
+ */
 export function isPickingUpItemCollectible(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemCollectible {
   return COLLECTIBLE_ITEM_TYPES.has(pickingUpItem.itemType);
 }
 
-/** Helper function to narrow the type of `PickingUpItem`. */
+/** Helper function to narrow the type of `PickingUpItem` to `ItemType.TRINKET` (2). */
 export function isPickingUpItemTrinket(
   pickingUpItem: PickingUpItem,
 ): pickingUpItem is PickingUpItemTrinket {
