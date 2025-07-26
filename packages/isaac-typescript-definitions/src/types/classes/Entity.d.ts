@@ -209,6 +209,7 @@ declare global {
     IsVulnerableEnemy: () => boolean;
 
     Kill: () => void;
+    KillWithSource: (source: EntityRef) => void;
     MultiplyFriction: (value: float) => void;
     PostRender: () => void;
     Remove: () => void;
