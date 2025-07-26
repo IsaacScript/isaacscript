@@ -10,5 +10,5 @@
     "complete-tsconfig/tsconfig.node.json",
   ],
 
-  "include": ["*.ts"],
+  "include": ["./**/*.ts"],
 }

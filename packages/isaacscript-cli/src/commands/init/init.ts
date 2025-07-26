@@ -9,10 +9,7 @@ import { getPackageManagerExecCommand } from "complete-node";
 import path from "node:path";
 import { printBanner } from "../../banner.js";
 import { CWD, PROJECT_NAME } from "../../constants.js";
-import {
-  getGitHubUsername,
-  promptGitHubRepoOrGitRemoteURL,
-} from "../../git.js";
+import { promptGitHubRepoOrGitRemoteURL } from "../../git.js";
 import { getPackageManagerUsedForNewProject } from "../../packageManager.js";
 import { checkIfProjectPathExists } from "./checkIfProjectPathExists.js";
 import { checkModSubdirectory } from "./checkModSubdirectory.js";
@@ -125,7 +122,6 @@ async function init(name: string | undefined, options: InitOptions) {
   await checkIfProjectPathExists(projectPath, yes);
 
   const projectName = path.basename(projectPath);
-  const authorName = await getGitHubUsername();
   const dev = "dev" in options ? options.dev : false;
   const gitRemoteURL = await promptGitHubRepoOrGitRemoteURL(
     projectName,
@@ -147,7 +143,6 @@ async function init(name: string | undefined, options: InitOptions) {
   // Now that we have asked the user all of the questions we need, we can create the project.
   await createProject(
     projectName,
-    authorName,
     projectPath,
     createNewDir,
     modsDirectory,

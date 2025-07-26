@@ -4,6 +4,7 @@ await lintScript(async () => {
   const promises = [
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
+    $`tsc --noEmit --project ./scripts/tsconfig.json`,
 
     // Use ESLint to lint the TypeScript code.
     // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.

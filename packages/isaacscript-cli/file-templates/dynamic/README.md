@@ -19,6 +19,6 @@ If you are a developer, or if the mod is not yet uploaded to the Steam Workshop,
 - Open the command prompt (or another shell of your choice).
 - Use the `cd` command to navigate to the place where you unzipped the repository.
 - Use the `PACKAGE-MANAGER-INSTALL-COMMAND` command to install the project dependencies.
-- Use the `npx isaacscript` command to start the IsaacScript watcher.
+- Use the `PACKAGE-MANAGER-EXEC-COMMAND isaacscript` command to start the IsaacScript watcher.
 - If IsaacScript is successful, you will see "Compilation successful." (You can continue to leave the terminal window open; it will monitor for changes in your project, and recompile if necessary.)
 - Completely close Isaac if it is already open, and then open the game again, and the mod should be in the list of mods. You can now play or test the mod.

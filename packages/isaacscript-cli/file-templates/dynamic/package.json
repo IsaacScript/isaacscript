@@ -1,8 +1,14 @@
 {
-  "name": "PROJECT_NAME",
+  "name": "project-name",
   "version": "0.0.0",
   "description": "A mod for The Binding of Isaac: Repentance.",
-  "keywords": ["isaac", "mod", "rebirth", "afterbirth", "repentance"],
+  "keywords": [
+    "isaac",
+    "mod",
+    "rebirth",
+    "afterbirth",
+    "repentance"
+  ],
   "license": "GPL-3.0",
   "type": "module",
   "scripts": {
