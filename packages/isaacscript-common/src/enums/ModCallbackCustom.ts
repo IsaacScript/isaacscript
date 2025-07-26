@@ -416,6 +416,24 @@ export enum ModCallbackCustom {
   POST_ENTITY_KILL_FILTER,
 
   /**
+   * The exact same thing as the vanilla `POST_ENTITY_REMOVE` callback, except this callback allows
+   * you to specify extra arguments for additional filtration.
+   *
+   * When registering the callback with the `ModUpgraded.AddCallbackCustom` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   * - You can provide an optional fourth argument that will make the callback only fire if it
+   *   matches the variant provided.
+   * - You can provide an optional fifth argument that will make the callback only fire if it
+   *   matches the sub-type provided.
+   *
+   * ```ts
+   * function postEntityRemoveFilter(entity: Entity): void {}
+   * ```
+   */
+  POST_ENTITY_REMOVE_FILTER,
+
+  /**
    * Fires one `POST_UPDATE` frame after the player has used the Esau Jr. item. (The player is not
    * updated to the new character until a game frame has passed.)
    *

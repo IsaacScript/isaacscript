@@ -28,6 +28,7 @@ const MOD_CALLBACK_CUSTOM_TO_CLASS = {
   [ModCallbackCustom.POST_EFFECT_STATE_CHANGED]: cc.PostEffectStateChanged,
   [ModCallbackCustom.POST_EFFECT_UPDATE_FILTER]: cc.PostEffectUpdateFilter,
   [ModCallbackCustom.POST_ENTITY_KILL_FILTER]: cc.PostEntityKillFilter,
+  [ModCallbackCustom.POST_ENTITY_REMOVE_FILTER]: cc.PostEntityRemoveFilter,
   [ModCallbackCustom.POST_ESAU_JR]: cc.PostEsauJr,
   [ModCallbackCustom.POST_FAMILIAR_INIT_FILTER]: cc.PostFamiliarInitFilter,
   [ModCallbackCustom.POST_FAMILIAR_INIT_LATE]: cc.PostFamiliarInitLate,

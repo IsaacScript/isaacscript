@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## July 26th, 2024
+
+- Added the following custom callbacks:
+  - `POST_ENTITY_REMOVE_FILTER`
+
 ## September 11th, 2024
 
 - Breaking changes:

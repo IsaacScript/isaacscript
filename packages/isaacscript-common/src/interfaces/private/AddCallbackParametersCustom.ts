@@ -215,6 +215,13 @@ export interface AddCallbackParametersCustom {
     subType?: int,
   ];
 
+  [ModCallbackCustom.POST_ENTITY_REMOVE_FILTER]: [
+    callback: (entity: Entity) => void,
+    entityType?: EntityType,
+    variant?: int,
+    subType?: int,
+  ];
+
   // - Co-op babies cannot turn into Esau Jr, so it does not make sense to filter by
   //   `PlayerVariant`.
   // - The character of Esau Jr. is equal to `PlayerType.ISAAC`, so it does not make sense to filter

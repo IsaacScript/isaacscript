@@ -25,6 +25,7 @@ export { PostEffectRenderFilter } from "./classes/callbacks/PostEffectRenderFilt
 export { PostEffectStateChanged } from "./classes/callbacks/PostEffectStateChanged";
 export { PostEffectUpdateFilter } from "./classes/callbacks/PostEffectUpdateFilter";
 export { PostEntityKillFilter } from "./classes/callbacks/PostEntityKillFilter";
+export { PostEntityRemoveFilter } from "./classes/callbacks/PostEntityRemoveFilter";
 export { PostEsauJr } from "./classes/callbacks/PostEsauJr";
 export { PostFamiliarInitFilter } from "./classes/callbacks/PostFamiliarInitFilter";
 export { PostFamiliarInitLate } from "./classes/callbacks/PostFamiliarInitLate";
