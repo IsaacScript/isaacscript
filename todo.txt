@@ -1,3 +1,5 @@
+- redo fandom links to wiki.gg
+
 - redo ci for docs so that it matches complete (but with typesense instead of algolia)
 
 - check the purpose of __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
@@ -14,16 +16,8 @@
 - use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
   https://eslint.org/docs/latest/rules/sort-keys
 
-- package.mod.json: dynamically fetch TypeScript version from TSTL GitHub repo
-
 - import eslint-plugin-plugin
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
   - make sure that isaacscript-common still works through link in dev
-
-----------------------------------------------------------------------------------------------------
-
-- waiting on:
-  - upgrading TypeScript; see "update.ts"
-  - change typescript version in "packages\isaacscript-cli\file-templates\dynamic\package.ts.json"

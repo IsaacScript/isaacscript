@@ -1,3 +1,4 @@
+import { game } from "../core/cachedClasses";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getAllPlayers } from "./playerIndex";
 import { isFunction } from "./types";
@@ -177,8 +178,8 @@ export function isRepentance(): boolean {
     'Failed to get the "__class" key of the Sprite metatable.',
   );
 
-  const getAnimation = classTable.get("GetAnimation");
-  return isFunction(getAnimation);
+  const func = classTable.get("GetAnimation");
+  return isFunction(func);
 }
 
 /**
@@ -187,26 +188,15 @@ export function isRepentance(): boolean {
  * This function should always be used over the `REPENTANCE_PLUS` constant, since the latter is not
  * safe.
  *
- * Specifically, this function checks for TODO:
- * https://bindingofisaacrebirth.fandom.com/wiki/V1.06.J818#Lua_Changes
+ * Specifically, this function checks for `Room:DamageGridWithSource` method:
+ * https://bindingofisaacrebirth.wiki.gg/wiki/The_Binding_of_Isaac:_Repentance%2B#Modding_Changes
  */
 export function isRepentancePlus(): boolean {
-  const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
-  assertDefined(
-    metatable,
-    "Failed to get the metatable of the Sprite global table.",
-  );
-
-  const classTable = metatable.get("__class") as
-    | LuaMap<string, unknown>
-    | undefined;
-  assertDefined(
-    classTable,
-    'Failed to get the "__class" key of the Sprite metatable.',
-  );
-
-  const getAnimation = classTable.get("GetAnimation");
-  return isFunction(getAnimation);
+  const room = game.GetRoom();
+  const metatable = getmetatable(room) as LuaMap<string, unknown> | undefined;
+  assertDefined(metatable, "Failed to get the metatable of the room class.");
+  const func = metatable.get("DamageGridWithSource");
+  return isFunction(func);
 }
 
 /**
