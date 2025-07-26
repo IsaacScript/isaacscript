@@ -48,7 +48,8 @@ declare global {
      *
      * If the `stackUpText` parameter is missing or true, then it clears the message stack
      * (Repentance functionality). If it is false, then the text will stack up (Repentance+
-     * functionality).
+     * functionality). These values are counterintuitive, so it seems likely that the developers
+     * made a mistake.
      */
     ShowItemText: ((
       player: EntityPlayer,
