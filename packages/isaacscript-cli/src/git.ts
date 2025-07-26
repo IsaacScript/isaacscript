@@ -108,7 +108,7 @@ If you don't want to initialize a Git repository for this project, press enter t
  * If the GitHub CLI is installed, we can derive the user's GitHub username from their YAML
  * configuration.
  */
-export async function getGitHubUsername(): Promise<string | undefined> {
+async function getGitHubUsername(): Promise<string | undefined> {
   const ghExists = await commandExists("gh");
   if (!ghExists) {
     return undefined;
