@@ -24,9 +24,9 @@ export class InputActionFilter extends CustomCallback<T> {
     const [callbackInputHook, callbackButtonAction] = optionalArgs;
 
     return (
-      (callbackInputHook === undefined || callbackInputHook === inputHook) &&
-      (callbackButtonAction === undefined ||
-        callbackButtonAction === buttonAction)
+      (callbackInputHook === undefined || callbackInputHook === inputHook)
+      && (callbackButtonAction === undefined
+        || callbackButtonAction === buttonAction)
     );
   };
 

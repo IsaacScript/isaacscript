@@ -219,8 +219,8 @@ export function isChildPlayer(player: EntityPlayer): boolean {
  */
 export function isFoundSoul(player: EntityPlayer): boolean {
   return (
-    isChildPlayer(player) &&
-    player.Variant === PlayerVariant.COOP_BABY &&
-    player.SubType === (BabySubType.FOUND_SOUL as int)
+    isChildPlayer(player)
+    && player.Variant === PlayerVariant.COOP_BABY
+    && player.SubType === (BabySubType.FOUND_SOUL as int)
   );
 }

@@ -220,8 +220,8 @@ export class CustomTrapdoors extends Feature {
 
   private checkPixelationToBlackComplete() {
     if (
-      v.run.state !== StageTravelState.PIXELATION_TO_BLACK ||
-      v.run.stateRenderFrame === null
+      v.run.state !== StageTravelState.PIXELATION_TO_BLACK
+      || v.run.stateRenderFrame === null
     ) {
       return;
     }
@@ -310,9 +310,9 @@ export class CustomTrapdoors extends Feature {
 
   private checkSecondPixelationHalfWay() {
     if (
-      v.run.state !==
-        StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY ||
-      v.run.stateRenderFrame === null
+      v.run.state
+        !== StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY
+      || v.run.stateRenderFrame === null
     ) {
       return;
     }
@@ -378,9 +378,9 @@ export class CustomTrapdoors extends Feature {
 
   private drawBlackSprite(): void {
     if (
-      v.run.state !== StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END &&
-      v.run.state !==
-        StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY
+      v.run.state !== StageTravelState.WAITING_FOR_FIRST_PIXELATION_TO_END
+      && v.run.state
+        !== StageTravelState.WAITING_FOR_SECOND_PIXELATION_TO_GET_HALF_WAY
     ) {
       return;
     }
@@ -443,9 +443,9 @@ export class CustomTrapdoors extends Feature {
     const roomClear = room.IsClear();
 
     return (
-      !anyPlayerCloserThan(gridEntity.Position, TRAPDOOR_OPEN_DISTANCE) &&
-      !this.isPlayerCloseAfterBoss(gridEntity.Position) &&
-      !shouldBeClosedFromStartingInRoomWithEnemies(firstSpawn, roomClear)
+      !anyPlayerCloserThan(gridEntity.Position, TRAPDOOR_OPEN_DISTANCE)
+      && !this.isPlayerCloseAfterBoss(gridEntity.Position)
+      && !shouldBeClosedFromStartingInRoomWithEnemies(firstSpawn, roomClear)
     );
   }
 
@@ -457,9 +457,11 @@ export class CustomTrapdoors extends Feature {
     // In order to prevent a player from accidentally entering a freshly-spawned trapdoor after
     // killing the boss of the floor, we use a wider open distance for a short amount of frames.
     if (
-      roomType !== RoomType.BOSS ||
-      roomClearGameFrame === undefined ||
-      onOrAfterRenderFrame(roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES)
+      roomType !== RoomType.BOSS
+      || roomClearGameFrame === undefined
+      || onOrAfterRenderFrame(
+        roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES,
+      )
     ) {
       return false;
     }
@@ -492,9 +494,9 @@ export class CustomTrapdoors extends Feature {
 
       if (
         // We don't want a Pony dash to transition to a new floor or a crawl space.
-        !this.ponyDetection.isPlayerUsingPony(player) &&
-        !isChildPlayer(player) &&
-        canPlayerInteractWithTrapdoor(player)
+        !this.ponyDetection.isPlayerUsingPony(player)
+        && !isChildPlayer(player)
+        && canPlayerInteractWithTrapdoor(player)
       ) {
         this.playerTouchedCustomTrapdoor(
           gridEntity,
@@ -754,8 +756,8 @@ export class CustomTrapdoors extends Feature {
     spawnOpen?: boolean,
   ): GridEntity {
     if (
-      destinationName !== undefined &&
-      !this.destinationFuncMap.has(destinationName)
+      destinationName !== undefined
+      && !this.destinationFuncMap.has(destinationName)
     ) {
       error(
         `Failed to spawn a custom trapdoor with a destination of "${destinationName}" since a destination with that name has not been registered with the "registerCustomTrapdoorDestination" function. (If you are trying to go to a custom stage, the custom stage library should automatically do this for you when your mod first boots.)`,
@@ -831,8 +833,8 @@ function canPlayerInteractWithTrapdoor(player: EntityPlayer) {
   const sprite = player.GetSprite();
   const animation = sprite.GetAnimation();
   return (
-    !player.IsHoldingItem() &&
-    !ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL.has(animation)
+    !player.IsHoldingItem()
+    && !ANIMATIONS_THAT_PREVENT_STAGE_TRAVEL.has(animation)
   );
 }
 

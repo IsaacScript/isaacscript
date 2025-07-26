@@ -47,8 +47,8 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POS
       playerHealthMap.set(healthType, currentHealthValue);
 
       if (
-        storedHealthValue !== undefined &&
-        storedHealthValue !== currentHealthValue
+        storedHealthValue !== undefined
+        && storedHealthValue !== currentHealthValue
       ) {
         const difference = currentHealthValue - storedHealthValue;
         this.fire(

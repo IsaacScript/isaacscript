@@ -39,8 +39,8 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
     const [callbackCollectibleType] = optionalArgs;
 
     return (
-      callbackCollectibleType === undefined ||
-      callbackCollectibleType === oldCollectibleType
+      callbackCollectibleType === undefined
+      || callbackCollectibleType === oldCollectibleType
     );
   };
 

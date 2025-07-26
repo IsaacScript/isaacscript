@@ -25,12 +25,12 @@ export class PreventChildEntities extends Feature {
   // ModCallback.POST_NPC_INIT (27)
   private readonly postNPCInit = (npc: EntityNPC) => {
     const spawnerEntityMatch =
-      npc.SpawnerEntity !== undefined &&
-      v.room.preventingEntities.has(GetPtrHash(npc.SpawnerEntity));
+      npc.SpawnerEntity !== undefined
+      && v.room.preventingEntities.has(GetPtrHash(npc.SpawnerEntity));
 
     const parentMatch =
-      npc.Parent !== undefined &&
-      v.room.preventingEntities.has(GetPtrHash(npc.Parent));
+      npc.Parent !== undefined
+      && v.room.preventingEntities.has(GetPtrHash(npc.Parent));
 
     if (spawnerEntityMatch || parentMatch) {
       npc.Remove();

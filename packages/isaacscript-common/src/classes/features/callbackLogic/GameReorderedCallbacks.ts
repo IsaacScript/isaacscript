@@ -162,11 +162,11 @@ export class GameReorderedCallbacks extends Feature {
     }
 
     if (
-      (onGameFrame(0) ||
-        onRenderFrame(this.renderFrameRunStarted) ||
-        this.currentStage !== stage ||
-        this.currentStageType !== stageType) &&
-      !this.forceNewRoom
+      (onGameFrame(0)
+        || onRenderFrame(this.renderFrameRunStarted)
+        || this.currentStage !== stage
+        || this.currentStageType !== stageType)
+      && !this.forceNewRoom
     ) {
       return;
     }

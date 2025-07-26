@@ -326,9 +326,9 @@ export function getUnusedDoorSlots(): readonly DoorSlot[] {
   return DOOR_SLOT_VALUES.filter(
     (doorSlot) =>
       // We need to filter out the -1 value to prevent crashes.
-      doorSlot !== DoorSlot.NO_DOOR_SLOT &&
-      room.IsDoorSlotAllowed(doorSlot) &&
-      room.GetDoor(doorSlot) === undefined,
+      doorSlot !== DoorSlot.NO_DOOR_SLOT
+      && room.IsDoorSlotAllowed(doorSlot)
+      && room.GetDoor(doorSlot) === undefined,
   );
 }
 

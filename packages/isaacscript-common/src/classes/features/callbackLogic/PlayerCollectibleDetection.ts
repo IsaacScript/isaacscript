@@ -200,8 +200,8 @@ export class PlayerCollectibleDetection extends Feature {
     pickingUpItem: PickingUpItem,
   ) => {
     if (
-      pickingUpItem.itemType === ItemType.TRINKET ||
-      pickingUpItem.itemType === ItemType.NULL
+      pickingUpItem.itemType === ItemType.TRINKET
+      || pickingUpItem.itemType === ItemType.NULL
     ) {
       return;
     }

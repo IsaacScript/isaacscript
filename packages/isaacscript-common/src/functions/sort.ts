@@ -174,8 +174,8 @@ export function stableSort<T>(
   let leftIndex = 0;
   let rightIndex = 0;
   while (
-    leftIndex < sortedLeftArray.length &&
-    rightIndex < sortedRightArray.length
+    leftIndex < sortedLeftArray.length
+    && rightIndex < sortedRightArray.length
   ) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const left = sortedLeftArray[leftIndex]!;

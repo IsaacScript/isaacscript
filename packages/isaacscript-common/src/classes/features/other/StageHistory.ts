@@ -323,8 +323,8 @@ export class StageHistory extends Feature {
 
     return v.run.stageHistory.some(
       (stageHistoryEntry) =>
-        stageHistoryEntry.stage === stage &&
-        stageHistoryEntry.stageType === stageType,
+        stageHistoryEntry.stage === stage
+        && stageHistoryEntry.stageType === stageType,
     );
   }
 }

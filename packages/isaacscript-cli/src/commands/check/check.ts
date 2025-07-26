@@ -371,8 +371,8 @@ export function getTruncatedText(
 
     // End-users can have different ignored words.
     if (
-      fileName === "cspell.config.jsonc" ||
-      fileName === "_cspell.config.jsonc"
+      fileName === "cspell.config.jsonc"
+      || fileName === "_cspell.config.jsonc"
     ) {
       if (line.match(/"words": \[.*]/) !== null) {
         continue;

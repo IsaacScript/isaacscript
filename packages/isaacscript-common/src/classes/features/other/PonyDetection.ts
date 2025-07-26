@@ -44,8 +44,8 @@ export class PonyDetection extends Feature {
     const effects = player.GetEffects();
     const entityFlags = player.GetEntityFlags();
     const hasPonyCollectibleEffect =
-      effects.HasCollectibleEffect(CollectibleType.PONY) ||
-      effects.HasCollectibleEffect(CollectibleType.WHITE_PONY);
+      effects.HasCollectibleEffect(CollectibleType.PONY)
+      || effects.HasCollectibleEffect(CollectibleType.WHITE_PONY);
     const isPonyActiveOnPreviousFrame = setHasPlayer(
       v.run.playersIsPonyActive,
       player,

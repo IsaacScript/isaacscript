@@ -31,12 +31,12 @@ export class InputActionPlayer extends CustomCallback<T> {
     const character = player.GetPlayerType();
 
     return (
-      (callbackPlayerVariant === undefined ||
-        callbackPlayerVariant === player.Variant) &&
-      (callbackCharacter === undefined || callbackCharacter === character) &&
-      (callbackInputHook === undefined || callbackInputHook === inputHook) &&
-      (callbackButtonAction === undefined ||
-        callbackButtonAction === buttonAction)
+      (callbackPlayerVariant === undefined
+        || callbackPlayerVariant === player.Variant)
+      && (callbackCharacter === undefined || callbackCharacter === character)
+      && (callbackInputHook === undefined || callbackInputHook === inputHook)
+      && (callbackButtonAction === undefined
+        || callbackButtonAction === buttonAction)
     );
   };
 

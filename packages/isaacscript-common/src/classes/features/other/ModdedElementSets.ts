@@ -411,8 +411,8 @@ export class ModdedElementSets extends Feature {
   private lazyInitEdenCollectibleTypesSet() {
     for (const collectibleType of this.getCollectibleTypes()) {
       if (
-        isHiddenCollectible(collectibleType) ||
-        collectibleHasTag(collectibleType, ItemConfigTag.NO_EDEN)
+        isHiddenCollectible(collectibleType)
+        || collectibleHasTag(collectibleType, ItemConfigTag.NO_EDEN)
       ) {
         continue;
       }

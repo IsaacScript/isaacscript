@@ -14,8 +14,8 @@ export function setCustomDecorationGraphics(
   // If the end-user did not specify custom decoration graphics, default to Basement graphics. (We
   // don't have to adjust anything for this case.)
   if (
-    customStage.decorationsPNGPath === undefined &&
-    customStage.decorationsANM2Path === undefined
+    customStage.decorationsPNGPath === undefined
+    && customStage.decorationsANM2Path === undefined
   ) {
     return;
   }
@@ -56,8 +56,8 @@ export function setCustomRockGraphics(
   // If the end-user did not specify custom rock graphics, default to Basement graphics. (We don't
   // have to adjust anything for this case.)
   if (
-    customStage.rocksPNGPath === undefined &&
-    customStage.rocksANM2Path === undefined
+    customStage.rocksPNGPath === undefined
+    && customStage.rocksANM2Path === undefined
   ) {
     return;
   }

@@ -117,8 +117,8 @@ export function getBossID(): BossID | undefined {
 
   // The Ultra Greed room holds both Ultra Greed and Ultra Greedier.
   if (
-    bossID === BossID.ULTRA_GREED &&
-    doesEntityExist(EntityType.ULTRA_GREED, UltraGreedVariant.ULTRA_GREEDIER)
+    bossID === BossID.ULTRA_GREED
+    && doesEntityExist(EntityType.ULTRA_GREED, UltraGreedVariant.ULTRA_GREEDIER)
   ) {
     return BossID.ULTRA_GREEDIER;
   }

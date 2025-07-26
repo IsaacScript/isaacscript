@@ -54,8 +54,8 @@ export function isPill(pickup: EntityPickup): pickup is EntityPickupPill {
 /** For `PickupVariant.LIL_BATTERY` (90). */
 export function isBattery(pickup: EntityPickup): pickup is EntityPickupBattery {
   return (
-    pickup.Type === EntityType.PICKUP &&
-    pickup.Variant === PickupVariant.LIL_BATTERY
+    pickup.Type === EntityType.PICKUP
+    && pickup.Variant === PickupVariant.LIL_BATTERY
   );
 }
 
@@ -64,8 +64,8 @@ export function isCollectible(
   pickup: EntityPickup,
 ): pickup is EntityPickupCollectible {
   return (
-    pickup.Type === EntityType.PICKUP &&
-    pickup.Variant === PickupVariant.COLLECTIBLE
+    pickup.Type === EntityType.PICKUP
+    && pickup.Variant === PickupVariant.COLLECTIBLE
   );
 }
 
@@ -79,7 +79,7 @@ export function isCardPickup(pickup: EntityPickup): pickup is EntityPickupCard {
 /** For `PickupVariant.TRINKET` (350). */
 export function isTrinket(pickup: EntityPickup): pickup is EntityPickupTrinket {
   return (
-    pickup.Type === EntityType.PICKUP &&
-    pickup.Variant === PickupVariant.TRINKET
+    pickup.Type === EntityType.PICKUP
+    && pickup.Variant === PickupVariant.TRINKET
   );
 }

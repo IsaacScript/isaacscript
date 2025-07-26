@@ -29,9 +29,10 @@ export class PostPickupSelectionFilter extends CustomCallback<T> {
     const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
 
     return (
-      (callbackPickupVariant === undefined ||
-        callbackPickupVariant === pickupVariant) &&
-      (callbackPickupSubType === undefined || callbackPickupSubType === subType)
+      (callbackPickupVariant === undefined
+        || callbackPickupVariant === pickupVariant)
+      && (callbackPickupSubType === undefined
+        || callbackPickupSubType === subType)
     );
   };
 

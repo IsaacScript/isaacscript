@@ -1156,8 +1156,8 @@ export function pocket(params: string): void {
 
   const collectibleType = parseIntSafe(params);
   if (
-    collectibleType === undefined ||
-    !isValidCollectibleType(collectibleType)
+    collectibleType === undefined
+    || !isValidCollectibleType(collectibleType)
   ) {
     print(`Invalid collectible type: ${collectibleType}`);
     return;
@@ -1259,10 +1259,10 @@ export function s(params: string): void {
   let stageString: string;
   let stageTypeLetter: string;
   if (
-    finalCharacter === "a" ||
-    finalCharacter === "b" ||
-    finalCharacter === "c" ||
-    finalCharacter === "d"
+    finalCharacter === "a"
+    || finalCharacter === "b"
+    || finalCharacter === "c"
+    || finalCharacter === "d"
   ) {
     // e.g. "s 11a" for going to The Chest
     stageString = params.slice(0, -1);
@@ -1553,8 +1553,8 @@ export function spawnCollectibleAt(params: string): void {
 
   const collectibleType = parseIntSafe(collectibleTypeString);
   if (
-    collectibleType === undefined ||
-    !isValidCollectibleType(collectibleType)
+    collectibleType === undefined
+    || !isValidCollectibleType(collectibleType)
   ) {
     print(`Invalid collectible type: ${args[0]}`);
     return;

@@ -47,8 +47,8 @@ export function getFirstCardOrPill(
   const pocketItems = getPocketItems(player);
   return pocketItems.find(
     (pocketItem) =>
-      pocketItem.type === PocketItemType.CARD ||
-      pocketItem.type === PocketItemType.PILL,
+      pocketItem.type === PocketItemType.CARD
+      || pocketItem.type === PocketItemType.PILL,
   );
 }
 

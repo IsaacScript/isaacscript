@@ -533,9 +533,9 @@ function getMarkdownFileNames(directoryPath: string): readonly string[] {
 function getNumDirectoriesAwayFromRoot(filePath: string, num = 0): number {
   const directoryPath = path.dirname(filePath);
   if (
-    directoryPath === "." ||
-    directoryPath === "/" ||
-    directoryPath.endsWith(PACKAGE_NAME)
+    directoryPath === "."
+    || directoryPath === "/"
+    || directoryPath.endsWith(PACKAGE_NAME)
   ) {
     return num;
   }

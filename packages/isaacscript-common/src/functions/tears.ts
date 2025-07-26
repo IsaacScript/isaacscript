@@ -103,8 +103,8 @@ export function isTearFromFamiliar(
   }
 
   return (
-    (familiarVariant === undefined || familiarVariant === familiar.Variant) &&
-    (subType === undefined || subType === familiar.SubType)
+    (familiarVariant === undefined || familiarVariant === familiar.Variant)
+    && (subType === undefined || subType === familiar.SubType)
   );
 }
 

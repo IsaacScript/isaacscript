@@ -1159,8 +1159,8 @@ declare global {
       useFlag?: UseFlag | BitFlags<UseFlag>,
       activeSlot?: ActiveSlot | -1,
       customVarData?: int,
-    ) => void) &
-      ((
+    ) => void)
+      & ((
         collectibleType: CollectibleType,
         showAnim: boolean,
         keepActiveItem: boolean,

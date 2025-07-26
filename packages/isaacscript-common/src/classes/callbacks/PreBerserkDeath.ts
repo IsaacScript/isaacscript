@@ -36,10 +36,10 @@ export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSER
 
     // If the Berserk effect will end on the next frame and we have no hearts left.
     if (
-      berserkEffect !== undefined &&
-      berserkEffect.Cooldown === 1 &&
-      numHitsRemaining === 0 &&
-      !willPlayerRevive(player)
+      berserkEffect !== undefined
+      && berserkEffect.Cooldown === 1
+      && numHitsRemaining === 0
+      && !willPlayerRevive(player)
     ) {
       this.fire(player);
     }

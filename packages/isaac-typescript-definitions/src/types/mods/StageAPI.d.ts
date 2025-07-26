@@ -242,8 +242,8 @@ declare global {
       backdrop: StageAPIBackdrop,
       justWalls?: boolean,
       storeBackdropEntities?: false,
-    ) => void) &
-      ((
+    ) => void)
+      & ((
         backdrop: StageAPIBackdrop,
         justWalls: boolean,
         storeBackdropEntities: true,

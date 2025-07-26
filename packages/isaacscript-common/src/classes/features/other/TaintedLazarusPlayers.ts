@@ -70,8 +70,8 @@ export class TaintedLazarusPlayers extends Feature {
    */
   private checkDequeue() {
     if (
-      v.run.queuedTaintedLazarus.length === 0 ||
-      v.run.queuedDeadTaintedLazarus.length === 0
+      v.run.queuedTaintedLazarus.length === 0
+      || v.run.queuedDeadTaintedLazarus.length === 0
     ) {
       return;
     }

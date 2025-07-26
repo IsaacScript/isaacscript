@@ -45,8 +45,8 @@ export class EsauJrDetection extends Feature {
 
     // Check to see if it is the frame after the player has used Esau Jr.
     if (
-      v.run.usedEsauJrFrame === null ||
-      gameFrameCount < v.run.usedEsauJrFrame + 1
+      v.run.usedEsauJrFrame === null
+      || gameFrameCount < v.run.usedEsauJrFrame + 1
     ) {
       return;
     }

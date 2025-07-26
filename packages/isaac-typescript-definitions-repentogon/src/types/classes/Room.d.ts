@@ -52,8 +52,8 @@ declare global {
      * Returns the grid index from the specified row and column. Returns -1 if no grid index exists
      * at that point.
      */
-    GetGridIndexByTile: ((row: int, column: int) => int) &
-      ((tile: [int, int]) => int);
+    GetGridIndexByTile: ((row: int, column: int) => int)
+      & ((tile: [int, int]) => int);
 
     /**
      * Returns the room's current item pool.
@@ -225,8 +225,8 @@ declare global {
       variant?: int,
       seed?: Seed,
       varData?: int,
-    ) => void) &
-      ((gridIndex: int, descriptor: GridEntityDesc) => void);
+    ) => void)
+      & ((gridIndex: int, descriptor: GridEntityDesc) => void);
 
     /** Returns a discounted price of a shop item. */
     TryGetShopDiscount: (shopItem: int, price: int) => int;

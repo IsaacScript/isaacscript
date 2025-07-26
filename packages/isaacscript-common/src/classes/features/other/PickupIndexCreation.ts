@@ -95,9 +95,9 @@ export class PickupIndexCreation extends Feature {
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
     if (
-      pickupIndexFromLevelData !== undefined &&
-      !isFirstVisit &&
-      onOrBeforeRoomFrame(0)
+      pickupIndexFromLevelData !== undefined
+      && !isFirstVisit
+      && onOrBeforeRoomFrame(0)
     ) {
       v.room.pickupIndexes.set(ptrHash, pickupIndexFromLevelData);
       return;
@@ -282,8 +282,8 @@ function getStoredPickupIndex(
 ): PickupIndex | undefined {
   for (const [pickupIndex, pickupDescription] of pickupDescriptions) {
     if (
-      vectorEquals(pickupDescription.position, pickup.Position) &&
-      pickupDescription.initSeed === pickup.InitSeed
+      vectorEquals(pickupDescription.position, pickup.Position)
+      && pickupDescription.initSeed === pickup.InitSeed
     ) {
       return pickupIndex;
     }

@@ -55,8 +55,8 @@ export class PressInput extends Feature {
       const pair = v.run.buttonActionPairs[i]!;
 
       if (
-        pair.playerIndex === playerIndex &&
-        pair.buttonAction === buttonAction
+        pair.playerIndex === playerIndex
+        && pair.buttonAction === buttonAction
       ) {
         v.run.buttonActionPairs.splice(i);
         return true;

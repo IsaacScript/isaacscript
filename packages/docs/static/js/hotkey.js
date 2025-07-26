@@ -37,8 +37,8 @@ function isSearchBarFocused() {
     document.querySelectorAll(".DocSearch-Input"),
   );
   return (
-    document.activeElement !== null &&
-    searchInputElements.includes(document.activeElement)
+    document.activeElement !== null
+    && searchInputElements.includes(document.activeElement)
   );
 }
 

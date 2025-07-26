@@ -245,10 +245,10 @@ export function getStageTypeSuffix(stageType: StageType): string {
  */
 export function isFinalFloor(stage: LevelStage, stageType: StageType): boolean {
   return (
-    stage === LevelStage.DARK_ROOM_CHEST ||
-    stage === LevelStage.VOID ||
-    stage === LevelStage.HOME ||
-    (stage === LevelStage.WOMB_2 && isRepentanceStage(stageType)) // Corpse 2
+    stage === LevelStage.DARK_ROOM_CHEST
+    || stage === LevelStage.VOID
+    || stage === LevelStage.HOME
+    || (stage === LevelStage.WOMB_2 && isRepentanceStage(stageType)) // Corpse 2
   );
 }
 
@@ -274,8 +274,8 @@ export function isStageWithNaturalDevilRoom(
   effectiveStage: LevelStage,
 ): boolean {
   return (
-    inRange(effectiveStage, LevelStage.BASEMENT_2, LevelStage.WOMB_2) &&
-    effectiveStage !== LevelStage.BLUE_WOMB
+    inRange(effectiveStage, LevelStage.BASEMENT_2, LevelStage.WOMB_2)
+    && effectiveStage !== LevelStage.BLUE_WOMB
   );
 }
 
@@ -313,8 +313,8 @@ export function isStageWithSecretExitToMausoleum(
   const repentanceStage = isRepentanceStage(stageType);
 
   return (
-    (stage === LevelStage.DEPTHS_1 && !repentanceStage) ||
-    (stage === LevelStage.CAVES_2 && repentanceStage)
+    (stage === LevelStage.DEPTHS_1 && !repentanceStage)
+    || (stage === LevelStage.CAVES_2 && repentanceStage)
   );
 }
 
@@ -329,8 +329,8 @@ export function isStageWithSecretExitToMines(
   const repentanceStage = isRepentanceStage(stageType);
 
   return (
-    (stage === LevelStage.CAVES_1 && !repentanceStage) ||
-    (stage === LevelStage.BASEMENT_2 && repentanceStage)
+    (stage === LevelStage.CAVES_1 && !repentanceStage)
+    || (stage === LevelStage.BASEMENT_2 && repentanceStage)
   );
 }
 
@@ -345,8 +345,8 @@ export function isStageWithShovelTrapdoors(
   const repentanceStage = isRepentanceStage(stageType);
 
   return (
-    stage < LevelStage.WOMB_2 ||
-    (stage === LevelStage.WOMB_2 && !repentanceStage)
+    stage < LevelStage.WOMB_2
+    || (stage === LevelStage.WOMB_2 && !repentanceStage)
   );
 }
 
@@ -374,8 +374,8 @@ export function onCathedral(): boolean {
   const stageType = level.GetStageType();
 
   return (
-    stage === LevelStage.SHEOL_CATHEDRAL &&
-    stageType === StageType.WRATH_OF_THE_LAMB
+    stage === LevelStage.SHEOL_CATHEDRAL
+    && stageType === StageType.WRATH_OF_THE_LAMB
   );
 }
 
@@ -385,8 +385,8 @@ export function onChest(): boolean {
   const stageType = level.GetStageType();
 
   return (
-    stage === LevelStage.DARK_ROOM_CHEST &&
-    stageType === StageType.WRATH_OF_THE_LAMB
+    stage === LevelStage.DARK_ROOM_CHEST
+    && stageType === StageType.WRATH_OF_THE_LAMB
   );
 }
 

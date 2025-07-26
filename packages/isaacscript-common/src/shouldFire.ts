@@ -68,9 +68,8 @@ export function shouldFireBomb(
   const [callbackBombVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackBombVariant === undefined ||
-      callbackBombVariant === bomb.Variant) &&
-    (callbackSubType === undefined || callbackSubType === bomb.SubType)
+    (callbackBombVariant === undefined || callbackBombVariant === bomb.Variant)
+    && (callbackSubType === undefined || callbackSubType === bomb.SubType)
   );
 }
 
@@ -92,8 +91,8 @@ export function shouldFireCollectibleType(
   const [callbackCollectibleType] = optionalArgs;
 
   return (
-    callbackCollectibleType === undefined ||
-    callbackCollectibleType === collectibleType
+    callbackCollectibleType === undefined
+    || callbackCollectibleType === collectibleType
   );
 }
 
@@ -122,9 +121,9 @@ export function shouldFireEffect(
   const [callbackEffectVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackEffectVariant === undefined ||
-      callbackEffectVariant === effect.Variant) &&
-    (callbackSubType === undefined || callbackSubType === effect.SubType)
+    (callbackEffectVariant === undefined
+      || callbackEffectVariant === effect.Variant)
+    && (callbackSubType === undefined || callbackSubType === effect.SubType)
   );
 }
 
@@ -144,9 +143,9 @@ export function shouldFireEntity(
   const [callbackEntityType, callbackVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackEntityType === undefined || callbackEntityType === entity.Type) &&
-    (callbackVariant === undefined || callbackVariant === entity.Variant) &&
-    (callbackSubType === undefined || callbackSubType === entity.SubType)
+    (callbackEntityType === undefined || callbackEntityType === entity.Type)
+    && (callbackVariant === undefined || callbackVariant === entity.Variant)
+    && (callbackSubType === undefined || callbackSubType === entity.SubType)
   );
 }
 
@@ -162,9 +161,9 @@ export function shouldFireFamiliar(
   const [callbackFamiliarVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackFamiliarVariant === undefined ||
-      callbackFamiliarVariant === familiar.Variant) &&
-    (callbackSubType === undefined || callbackSubType === familiar.SubType)
+    (callbackFamiliarVariant === undefined
+      || callbackFamiliarVariant === familiar.Variant)
+    && (callbackSubType === undefined || callbackSubType === familiar.SubType)
   );
 }
 
@@ -181,9 +180,9 @@ export function shouldFireGridEntity(
   const variant = gridEntity.GetVariant();
 
   return (
-    (callbackGridEntityType === undefined ||
-      callbackGridEntityType === gridEntityType) &&
-    (callbackVariant === undefined || callbackVariant === variant)
+    (callbackGridEntityType === undefined
+      || callbackGridEntityType === gridEntityType)
+    && (callbackVariant === undefined || callbackVariant === variant)
   );
 }
 
@@ -202,8 +201,8 @@ export function shouldFireGridEntityCustom(
   const [callbackGridEntityTypeCustom] = optionalArgs;
 
   return (
-    callbackGridEntityTypeCustom === undefined ||
-    callbackGridEntityTypeCustom === gridEntityTypeCustom
+    callbackGridEntityTypeCustom === undefined
+    || callbackGridEntityTypeCustom === gridEntityTypeCustom
   );
 }
 
@@ -215,10 +214,11 @@ export function shouldFireItemPickup(
   const [callbackItemType, callbackSubtype] = optionalArgs;
 
   return (
-    (callbackItemType === undefined ||
-      callbackItemType === pickingUpItem.itemType) &&
+    (callbackItemType === undefined
+      || callbackItemType === pickingUpItem.itemType)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    (callbackSubtype === undefined || callbackSubtype === pickingUpItem.subType)
+    && (callbackSubtype === undefined
+      || callbackSubtype === pickingUpItem.subType)
   );
 }
 
@@ -233,9 +233,9 @@ export function shouldFireKnife(
   const [callbackKnifeVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackKnifeVariant === undefined ||
-      callbackKnifeVariant === knife.Variant) &&
-    (callbackSubType === undefined || callbackSubType === knife.SubType)
+    (callbackKnifeVariant === undefined
+      || callbackKnifeVariant === knife.Variant)
+    && (callbackSubType === undefined || callbackSubType === knife.SubType)
   );
 }
 
@@ -247,9 +247,9 @@ export function shouldFireLaser(
   const [callbackLaserVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackLaserVariant === undefined ||
-      callbackLaserVariant === laser.Variant) &&
-    (callbackSubType === undefined || callbackSubType === laser.SubType)
+    (callbackLaserVariant === undefined
+      || callbackLaserVariant === laser.Variant)
+    && (callbackSubType === undefined || callbackSubType === laser.SubType)
   );
 }
 
@@ -261,8 +261,8 @@ export function shouldFireLevel(
   const [callbackStage, callbackStageType] = optionalArgs;
 
   return (
-    (callbackStage === undefined || callbackStage === stage) &&
-    (callbackStageType === undefined || callbackStageType === stageType)
+    (callbackStage === undefined || callbackStage === stage)
+    && (callbackStageType === undefined || callbackStageType === stageType)
   );
 }
 
@@ -278,9 +278,9 @@ export function shouldFireNPC(
   const [callbackEntityType, callbackVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackEntityType === undefined || callbackEntityType === npc.Type) &&
-    (callbackVariant === undefined || callbackVariant === npc.Variant) &&
-    (callbackSubType === undefined || callbackSubType === npc.SubType)
+    (callbackEntityType === undefined || callbackEntityType === npc.Type)
+    && (callbackVariant === undefined || callbackVariant === npc.Variant)
+    && (callbackSubType === undefined || callbackSubType === npc.SubType)
   );
 }
 
@@ -303,10 +303,10 @@ export function shouldFirePickup(
   const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
 
   return (
-    (callbackPickupVariant === undefined ||
-      callbackPickupVariant === pickup.Variant) &&
-    (callbackPickupSubType === undefined ||
-      callbackPickupSubType === pickup.SubType)
+    (callbackPickupVariant === undefined
+      || callbackPickupVariant === pickup.Variant)
+    && (callbackPickupSubType === undefined
+      || callbackPickupSubType === pickup.SubType)
   );
 }
 
@@ -358,9 +358,9 @@ export function shouldFirePlayer(
   const character = player.GetPlayerType();
 
   return (
-    (callbackPlayerVariant === undefined ||
-      callbackPlayerVariant === player.Variant) &&
-    (callbackCharacter === undefined || callbackCharacter === character)
+    (callbackPlayerVariant === undefined
+      || callbackPlayerVariant === player.Variant)
+    && (callbackCharacter === undefined || callbackCharacter === character)
   );
 }
 
@@ -374,8 +374,8 @@ export function shouldFirePoop(
   const poopGridEntityVariant = poop.GetVariant();
 
   return (
-    callbackPoopGridEntityVariant === undefined ||
-    callbackPoopGridEntityVariant === poopGridEntityVariant
+    callbackPoopGridEntityVariant === undefined
+    || callbackPoopGridEntityVariant === poopGridEntityVariant
   );
 }
 
@@ -389,8 +389,8 @@ export function shouldFirePressurePlate(
   const pressurePlateVariant = pressurePlate.GetVariant();
 
   return (
-    callbackPressurePlateVariant === undefined ||
-    callbackPressurePlateVariant === pressurePlateVariant
+    callbackPressurePlateVariant === undefined
+    || callbackPressurePlateVariant === pressurePlateVariant
   );
 }
 
@@ -405,9 +405,9 @@ export function shouldFireProjectile(
   const [callbackProjectileVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackProjectileVariant === undefined ||
-      callbackProjectileVariant === projectile.Variant) &&
-    (callbackSubType === undefined || callbackSubType === projectile.SubType)
+    (callbackProjectileVariant === undefined
+      || callbackProjectileVariant === projectile.Variant)
+    && (callbackSubType === undefined || callbackSubType === projectile.SubType)
   );
 }
 
@@ -422,9 +422,8 @@ export function shouldFireRock(
   const variant = rock.GetVariant();
 
   return (
-    (callbackGridEntity === undefined ||
-      callbackGridEntity === gridEntityType) &&
-    (callbackVariant === undefined || callbackVariant === variant)
+    (callbackGridEntity === undefined || callbackGridEntity === gridEntityType)
+    && (callbackVariant === undefined || callbackVariant === variant)
   );
 }
 
@@ -450,9 +449,8 @@ export function shouldFireSlot(
   const [callbackSlotVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackSlotVariant === undefined ||
-      callbackSlotVariant === slot.Variant) &&
-    (callbackSubType === undefined || callbackSubType === slot.SubType)
+    (callbackSlotVariant === undefined || callbackSlotVariant === slot.Variant)
+    && (callbackSubType === undefined || callbackSubType === slot.SubType)
   );
 }
 
@@ -491,9 +489,8 @@ export function shouldFireTear(
   const [callbackTearVariant, callbackSubType] = optionalArgs;
 
   return (
-    (callbackTearVariant === undefined ||
-      callbackTearVariant === tear.Variant) &&
-    (callbackSubType === undefined || callbackSubType === tear.SubType)
+    (callbackTearVariant === undefined || callbackTearVariant === tear.Variant)
+    && (callbackSubType === undefined || callbackSubType === tear.SubType)
   );
 }
 

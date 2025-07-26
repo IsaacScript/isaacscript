@@ -47,8 +47,8 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SW
     v.room.boneClubAnimations.set(ptrHash, animation);
 
     if (
-      animationOnLastFrame !== undefined &&
-      animation !== animationOnLastFrame
+      animationOnLastFrame !== undefined
+      && animation !== animationOnLastFrame
     ) {
       this.boneClubAnimationChanged(knife, animation);
     }

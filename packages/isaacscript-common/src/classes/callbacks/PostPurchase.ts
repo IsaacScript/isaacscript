@@ -60,10 +60,10 @@ export class PostPurchase extends CustomCallback<T> {
     const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
 
     return (
-      (callbackPickupVariant === undefined ||
-        callbackPickupVariant === pickup.Variant) &&
-      (callbackPickupSubType === undefined ||
-        callbackPickupSubType === pickup.SubType)
+      (callbackPickupVariant === undefined
+        || callbackPickupVariant === pickup.Variant)
+      && (callbackPickupSubType === undefined
+        || callbackPickupSubType === pickup.SubType)
     );
   };
 
@@ -111,9 +111,9 @@ export class PostPurchase extends CustomCallback<T> {
     // Assume that if the player did not use an active item, card, or pill recently, then they
     // purchased an item.
     if (
-      !wasHoldingItemOnLastFrame &&
-      isHoldingItem &&
-      !this.playerUsedItemRecently(player)
+      !wasHoldingItemOnLastFrame
+      && isHoldingItem
+      && !this.playerUsedItemRecently(player)
     ) {
       this.playerPickedUpNewItem(player);
     }
@@ -126,8 +126,8 @@ export class PostPurchase extends CustomCallback<T> {
       player,
     );
     return (
-      gameFrameCount === usedCollectibleOnFrame ||
-      gameFrameCount === usedCollectibleOnFrame + 1
+      gameFrameCount === usedCollectibleOnFrame
+      || gameFrameCount === usedCollectibleOnFrame + 1
     );
   }
 

@@ -198,8 +198,8 @@ declare global {
       filename: string,
       altPitsFilename?: string,
       hasExtraFrames?: boolean,
-    ) => void) &
-      ((
+    ) => void)
+      & ((
         filenames: ReadonlyArray<{
           filename: string;
           hasExtraFrames?: boolean;

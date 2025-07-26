@@ -44,9 +44,9 @@ export function getLevelBossIDs(): readonly BossID[] {
   const roomsInsideGrid = getRoomsInsideGrid();
 
   return filterMap(roomsInsideGrid, (roomDescriptor) =>
-    roomDescriptor.Data !== undefined &&
-    roomDescriptor.Data.Type === RoomType.BOSS &&
-    roomDescriptor.Data.StageID === StageID.SPECIAL_ROOMS
+    roomDescriptor.Data !== undefined
+    && roomDescriptor.Data.Type === RoomType.BOSS
+    && roomDescriptor.Data.StageID === StageID.SPECIAL_ROOMS
       ? roomDescriptor.Data.Subtype
       : undefined,
   );

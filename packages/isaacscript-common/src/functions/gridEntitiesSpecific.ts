@@ -97,8 +97,8 @@ export function getPressurePlates(
     if (pressurePlate !== undefined) {
       const thisPressurePlateVariant = pressurePlate.GetVariant();
       if (
-        pressurePlateVariant === -1 ||
-        pressurePlateVariant === thisPressurePlateVariant
+        pressurePlateVariant === -1
+        || pressurePlateVariant === thisPressurePlateVariant
       ) {
         pressurePlates.push(pressurePlate);
       }

@@ -119,8 +119,8 @@ export class ModUpgraded implements Mod {
 
         const elapsedTime = getElapsedTimeSince(startTime);
         if (
-          this.timeThreshold === undefined ||
-          this.timeThreshold <= elapsedTime
+          this.timeThreshold === undefined
+          || this.timeThreshold <= elapsedTime
         ) {
           Isaac.DebugString(`${signature} - END - time: ${elapsedTime}`);
         } else {

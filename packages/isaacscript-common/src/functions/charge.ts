@@ -318,7 +318,7 @@ function shouldPlayFullRechargeSound(
   // If we do have The Battery, play the full recharge sound if we are exactly double charged or
   // exactly single charged.
   return (
-    batteryCharge === maxCharges ||
-    (activeCharge === maxCharges && batteryCharge === 0)
+    batteryCharge === maxCharges
+    || (activeCharge === maxCharges && batteryCharge === 0)
   );
 }

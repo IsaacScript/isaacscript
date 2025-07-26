@@ -56,9 +56,9 @@ export function logAllEntities(
 
     const effect = entity.ToEffect();
     if (
-      !includeBackgroundEffects &&
-      effect !== undefined &&
-      IGNORE_EFFECT_VARIANTS.has(effect.Variant)
+      !includeBackgroundEffects
+      && effect !== undefined
+      && IGNORE_EFFECT_VARIANTS.has(effect.Variant)
     ) {
       continue;
     }
@@ -109,16 +109,16 @@ export function logAllGridEntities(
 
     // If a filter was specified, exclude all entities outside of the filter.
     if (
-      gridEntityTypeFilter !== undefined &&
-      gridEntityType !== gridEntityTypeFilter
+      gridEntityTypeFilter !== undefined
+      && gridEntityType !== gridEntityTypeFilter
     ) {
       continue;
     }
 
     if (
-      !includeWalls &&
-      gridEntityType === GridEntityType.WALL &&
-      gridEntityTypeFilter !== GridEntityType.WALL
+      !includeWalls
+      && gridEntityType === GridEntityType.WALL
+      && gridEntityTypeFilter !== GridEntityType.WALL
     ) {
       continue;
     }

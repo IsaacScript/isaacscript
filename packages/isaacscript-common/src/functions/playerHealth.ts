@@ -381,8 +381,8 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
   // 1
   // Magdalene can increase her maximum heart containers with Birthright.
   if (
-    character === PlayerType.MAGDALENE &&
-    player.HasCollectible(CollectibleType.BIRTHRIGHT)
+    character === PlayerType.MAGDALENE
+    && player.HasCollectible(CollectibleType.BIRTHRIGHT)
   ) {
     const extraMaxHeartContainersFromBirthright = 6;
     return characterMaxHeartContainers + extraMaxHeartContainersFromBirthright;
@@ -404,9 +404,9 @@ export function getPlayerMaxHeartContainers(player: EntityPlayer): int {
       : 0;
 
     return (
-      characterMaxHeartContainers +
-      numMothersKisses +
-      greedsGulletCoinContainers
+      characterMaxHeartContainers
+      + numMothersKisses
+      + greedsGulletCoinContainers
     );
   }
 
@@ -599,9 +599,9 @@ export function setPlayerHealth(
       playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
     let addAmount = 2;
     if (
-      isHalf ||
-      soulHeartType === HeartSubType.BONE ||
-      soulHeartsRemaining < 2
+      isHalf
+      || soulHeartType === HeartSubType.BONE
+      || soulHeartsRemaining < 2
     ) {
       // Fix the bug where a half soul heart to the left of a bone heart will be treated as a full
       // soul heart.

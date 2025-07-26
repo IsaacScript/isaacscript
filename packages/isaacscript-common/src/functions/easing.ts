@@ -158,8 +158,8 @@ export function easeInOutElastic(time: number): number {
       ? 1
       : time < 0.5
         ? -(2 ** (20 * time - 10) * Math.sin((20 * time - 11.125) * c5)) / 2
-        : (2 ** (-20 * time + 10) * Math.sin((20 * time - 11.125) * c5)) / 2 +
-          1;
+        : (2 ** (-20 * time + 10) * Math.sin((20 * time - 11.125) * c5)) / 2
+          + 1;
 }
 
 /**

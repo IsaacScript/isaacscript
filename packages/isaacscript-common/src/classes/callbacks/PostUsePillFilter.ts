@@ -76,8 +76,8 @@ export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE
           (pocketItem) => pocketItem.slot === PocketItemSlot.SLOT_1,
         );
         if (
-          oldPocketItemSlot1 !== undefined &&
-          oldPocketItemSlot1.type === PocketItemType.PILL
+          oldPocketItemSlot1 !== undefined
+          && oldPocketItemSlot1.type === PocketItemType.PILL
         ) {
           return oldPocketItemSlot1.subType;
         }

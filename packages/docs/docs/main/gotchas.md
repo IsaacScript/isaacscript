@@ -174,8 +174,8 @@ validateCustomEnum("CollectibleTypeCustom", CollectibleTypeCustom);
 
 // Elsewhere in the code:
 if (
-  player.HasCollectible(CollectibleTypeCustom.MY_CUSTOM_ITEM) &&
-  player.HasCollectible(CollectibleType.EPIC_FETUS)
+  player.HasCollectible(CollectibleTypeCustom.MY_CUSTOM_ITEM)
+  && player.HasCollectible(CollectibleType.EPIC_FETUS)
 ) {
   // Handle the specific synergy with My Custom Item + Epic Fetus.
 }

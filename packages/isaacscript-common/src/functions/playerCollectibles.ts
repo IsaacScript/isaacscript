@@ -196,8 +196,8 @@ export function hasOpenActiveItemSlot(player: EntityPlayer): boolean {
 
   if (hasSchoolbag) {
     return (
-      activeItemPrimary === CollectibleType.NULL ||
-      activeItemSecondary === CollectibleType.NULL
+      activeItemPrimary === CollectibleType.NULL
+      || activeItemSecondary === CollectibleType.NULL
     );
   }
 

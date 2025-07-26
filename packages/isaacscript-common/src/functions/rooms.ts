@@ -106,8 +106,8 @@ export function getReadOnlyRooms(): ReadonlyArray<Readonly<RoomDescriptor>> {
   for (let i = 0; i < roomList.Size; i++) {
     const readOnlyRoomDescriptor = roomList.Get(i);
     if (
-      readOnlyRoomDescriptor !== undefined &&
-      readOnlyRoomDescriptor.Data !== undefined
+      readOnlyRoomDescriptor !== undefined
+      && readOnlyRoomDescriptor.Data !== undefined
     ) {
       readOnlyRoomDescriptors.push(readOnlyRoomDescriptor);
     }
@@ -559,32 +559,32 @@ export function isAllRoomsClear(
     const roomTypeWhitelist = new ReadonlySet(onlyCheckRoomTypes);
     matchingRooms = roomsInsideGrid.filter(
       (roomDescriptor) =>
-        roomDescriptor.Data !== undefined &&
-        roomTypeWhitelist.has(roomDescriptor.Data.Type),
+        roomDescriptor.Data !== undefined
+        && roomTypeWhitelist.has(roomDescriptor.Data.Type),
     );
   }
 
   if (!includeSecretRoom) {
     matchingRooms = matchingRooms.filter(
       (roomDescriptor) =>
-        roomDescriptor.Data !== undefined &&
-        roomDescriptor.Data.Type !== RoomType.SECRET,
+        roomDescriptor.Data !== undefined
+        && roomDescriptor.Data.Type !== RoomType.SECRET,
     );
   }
 
   if (!includeSuperSecretRoom) {
     matchingRooms = matchingRooms.filter(
       (roomDescriptor) =>
-        roomDescriptor.Data !== undefined &&
-        roomDescriptor.Data.Type !== RoomType.SUPER_SECRET,
+        roomDescriptor.Data !== undefined
+        && roomDescriptor.Data.Type !== RoomType.SUPER_SECRET,
     );
   }
 
   if (!includeUltraSecretRoom) {
     matchingRooms = matchingRooms.filter(
       (roomDescriptor) =>
-        roomDescriptor.Data !== undefined &&
-        roomDescriptor.Data.Type !== RoomType.ULTRA_SECRET,
+        roomDescriptor.Data !== undefined
+        && roomDescriptor.Data.Type !== RoomType.ULTRA_SECRET,
     );
   }
 
@@ -599,9 +599,9 @@ export function isAllRoomsClear(
  */
 export function isAngelShop(roomData: RoomConfig): boolean {
   return (
-    roomData.Type === RoomType.ANGEL &&
+    roomData.Type === RoomType.ANGEL
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === AngelRoomSubType.SHOP
+    && roomData.Subtype === AngelRoomSubType.SHOP
   );
 }
 
@@ -615,9 +615,9 @@ export function isAngelShop(roomData: RoomConfig): boolean {
  */
 export function isBeastRoom(roomData: RoomConfig): boolean {
   return (
-    roomData.Type === RoomType.DUNGEON &&
+    roomData.Type === RoomType.DUNGEON
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === DungeonSubType.BEAST_ROOM
+    && roomData.Subtype === DungeonSubType.BEAST_ROOM
   );
 }
 
@@ -635,10 +635,10 @@ export function isBigRoom(roomData: RoomConfig): boolean {
  */
 export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
   return (
-    roomData.Type === RoomType.BOSS &&
-    roomData.StageID === StageID.SPECIAL_ROOMS &&
+    roomData.Type === RoomType.BOSS
+    && roomData.StageID === StageID.SPECIAL_ROOMS
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === bossID
+    && roomData.Subtype === bossID
   );
 }
 
@@ -649,9 +649,9 @@ export function isBossRoomOf(roomData: RoomConfig, bossID: BossID): boolean {
  */
 export function isCrawlSpace(roomData: RoomConfig): boolean {
   return (
-    roomData.Type === RoomType.DUNGEON &&
+    roomData.Type === RoomType.DUNGEON
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === DungeonSubType.NORMAL
+    && roomData.Subtype === DungeonSubType.NORMAL
   );
 }
 
@@ -672,11 +672,11 @@ export function isCrawlSpaceWithBlackMarketEntrance(
  */
 export function isDeathCertificateArea(roomData: RoomConfig): boolean {
   return (
-    roomData.StageID === StageID.HOME &&
+    roomData.StageID === StageID.HOME
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    (roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE ||
+    && (roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ENTRANCE
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
+      || roomData.Subtype === HomeRoomSubType.DEATH_CERTIFICATE_ITEMS)
   );
 }
 
@@ -707,11 +707,11 @@ export function isDevilsCrownTreasureRoom(
  */
 export function isDogmaRoom(roomData: RoomConfig): boolean {
   return (
-    roomData.StageID === StageID.HOME &&
-    roomData.Type === RoomType.DEFAULT &&
-    roomData.Variant === 1000 &&
+    roomData.StageID === StageID.HOME
+    && roomData.Type === RoomType.DEFAULT
+    && roomData.Variant === 1000
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === HomeRoomSubType.LIVING_ROOM
+    && roomData.Subtype === HomeRoomSubType.LIVING_ROOM
   );
 }
 
@@ -748,11 +748,11 @@ export function isGenesisRoom(roomGridIndex: int): boolean {
  */
 export function isHomeCloset(roomData: RoomConfig): boolean {
   return (
-    roomData.StageID === StageID.HOME &&
+    roomData.StageID === StageID.HOME
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    (roomData.Subtype === HomeRoomSubType.CLOSET_LEFT ||
+    && (roomData.Subtype === HomeRoomSubType.CLOSET_LEFT
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      roomData.Subtype === HomeRoomSubType.CLOSET_RIGHT)
+      || roomData.Subtype === HomeRoomSubType.CLOSET_RIGHT)
   );
 }
 
@@ -775,10 +775,9 @@ export function isMegaSatanRoom(roomGridIndex: int): boolean {
  */
 export function isMineShaft(roomData: RoomConfig): boolean {
   return (
-    (roomData.StageID === StageID.MINES ||
-      roomData.StageID === StageID.ASHPIT) &&
+    (roomData.StageID === StageID.MINES || roomData.StageID === StageID.ASHPIT)
     // eslint-disable-next-line complete/strict-enums
-    MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomData.Subtype)
+    && MINE_SHAFT_ROOM_SUB_TYPE_SET.has(roomData.Subtype)
   );
 }
 
@@ -791,10 +790,10 @@ export function isMinibossRoomOf(
   minibossID: MinibossID,
 ): boolean {
   return (
-    roomData.Type === RoomType.MINI_BOSS &&
-    roomData.StageID === StageID.SPECIAL_ROOMS &&
+    roomData.Type === RoomType.MINI_BOSS
+    && roomData.StageID === StageID.SPECIAL_ROOMS
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === minibossID
+    && roomData.Subtype === minibossID
   );
 }
 
@@ -804,11 +803,11 @@ export function isMinibossRoomOf(
  */
 export function isMirrorRoom(roomData: RoomConfig): boolean {
   return (
-    roomData.Type === RoomType.DEFAULT &&
-    (roomData.StageID === StageID.DOWNPOUR ||
-      roomData.StageID === StageID.DROSS) &&
+    roomData.Type === RoomType.DEFAULT
+    && (roomData.StageID === StageID.DOWNPOUR
+      || roomData.StageID === StageID.DROSS)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    roomData.Subtype === DownpourRoomSubType.MIRROR
+    && roomData.Subtype === DownpourRoomSubType.MIRROR
   );
 }
 

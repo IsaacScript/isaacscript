@@ -95,8 +95,8 @@ export function spawnTSTLWatcher(
 
 function getMonitorMessageSuffix(config: Config, cwd: string): string {
   if (
-    config.isaacScriptCommonDev === false ||
-    config.isaacScriptCommonDev === undefined
+    config.isaacScriptCommonDev === false
+    || config.isaacScriptCommonDev === undefined
   ) {
     return "";
   }

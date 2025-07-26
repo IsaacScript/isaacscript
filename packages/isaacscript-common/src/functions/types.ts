@@ -197,9 +197,9 @@ export function isPrimitive(
 ): variable is boolean | number | string {
   const variableType = typeof variable;
   return (
-    variableType === "boolean" ||
-    variableType === "number" ||
-    variableType === "string"
+    variableType === "boolean"
+    || variableType === "number"
+    || variableType === "string"
   );
 }
 

@@ -25,14 +25,14 @@ export class PostGridEntityCustomCollision extends CustomCallback<T> {
     ] = optionalArgs;
 
     return (
-      (callbackGridEntityTypeCustom === undefined ||
-        callbackGridEntityTypeCustom === gridEntityTypeCustom) &&
-      (callbackEntityType === undefined ||
-        callbackEntityType === entity.Type) &&
-      (callbackEntityVariant === undefined ||
-        callbackEntityVariant === entity.Variant) &&
-      (callbackEntitySubType === undefined ||
-        callbackEntitySubType === entity.SubType)
+      (callbackGridEntityTypeCustom === undefined
+        || callbackGridEntityTypeCustom === gridEntityTypeCustom)
+      && (callbackEntityType === undefined
+        || callbackEntityType === entity.Type)
+      && (callbackEntityVariant === undefined
+        || callbackEntityVariant === entity.Variant)
+      && (callbackEntitySubType === undefined
+        || callbackEntitySubType === entity.SubType)
     );
   };
 }

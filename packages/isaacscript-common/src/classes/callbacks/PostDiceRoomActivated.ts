@@ -38,8 +38,8 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
     const [callbackDiceFloorSubType] = optionalArgs;
 
     return (
-      callbackDiceFloorSubType === undefined ||
-      diceFloorSubType === callbackDiceFloorSubType
+      callbackDiceFloorSubType === undefined
+      || diceFloorSubType === callbackDiceFloorSubType
     );
   };
 

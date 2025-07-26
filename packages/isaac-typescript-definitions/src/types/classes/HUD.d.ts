@@ -46,8 +46,8 @@ declare global {
      * Shows the pickup text for the specified item as if it was picked up by the specified player.
      * The overloaded method supports showing custom pickup text.
      */
-    ShowItemText: ((player: EntityPlayer, item: ItemConfigItem) => void) &
-      ((name: string, description?: string, paper?: boolean) => void);
+    ShowItemText: ((player: EntityPlayer, item: ItemConfigItem) => void)
+      & ((name: string, description?: string, paper?: boolean) => void);
 
     Update: () => void;
   }

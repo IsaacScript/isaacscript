@@ -120,8 +120,8 @@ export async function getCustomStagesFromTSConfig(): Promise<
 
     const { baseStageType } = customStageTSConfig;
     if (
-      baseStageType !== undefined &&
-      (baseStageType < 0 || baseStageType > 5)
+      baseStageType !== undefined
+      && (baseStageType < 0 || baseStageType > 5)
     ) {
       fatalError(
         `The "${name}" custom stage has an invalid value for the "baseStageType" field: ${baseStageType}`,
