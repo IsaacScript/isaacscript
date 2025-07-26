@@ -76,9 +76,9 @@ function validateIsaacScriptOtherCopiesNotRunning(verbose: boolean) {
   const lines = stdout.split("\r\n");
   const otherCopiesOfRunningIsaacScript = lines.filter(
     (line) =>
-      line.includes("node.exe") &&
-      line.includes("isaacscript") &&
-      !line.includes("isaacscript publish"),
+      line.includes("node.exe")
+      && line.includes("isaacscript")
+      && !line.includes("isaacscript publish"),
   );
   if (otherCopiesOfRunningIsaacScript.length > 0) {
     fatalError(

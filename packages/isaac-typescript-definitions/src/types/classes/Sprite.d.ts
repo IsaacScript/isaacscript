@@ -219,8 +219,8 @@ declare interface Sprite extends IsaacAPIClass {
    *
    * @param frameNum The frame number of the current animation to set.
    */
-  SetFrame: ((frameNum: int) => void) &
-    ((animation: string, frameNum: int) => void);
+  SetFrame: ((frameNum: int) => void)
+    & ((animation: string, frameNum: int) => void);
 
   SetLastFrame: () => void;
   SetLayerFrame: (layerID: int, frameNum: int) => void;

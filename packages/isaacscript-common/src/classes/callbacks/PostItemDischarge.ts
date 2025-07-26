@@ -72,8 +72,8 @@ export class PostItemDischarge extends CustomCallback<T> {
     const [callbackCollectibleType] = optionalArgs;
 
     return (
-      callbackCollectibleType === undefined ||
-      callbackCollectibleType === collectibleType
+      callbackCollectibleType === undefined
+      || callbackCollectibleType === collectibleType
     );
   };
 

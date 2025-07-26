@@ -31,11 +31,11 @@ export class PreRoomEntitySpawnFilter extends CustomCallback<T> {
     ] = optionalArgs;
 
     return (
-      (callbackEntityTypeOrGridEntityXMLType === undefined ||
-        callbackEntityTypeOrGridEntityXMLType ===
-          entityTypeOrGridEntityXMLType) &&
-      (callbackVariant === undefined || callbackVariant === variant) &&
-      (callbackSubType === undefined || callbackSubType === subType)
+      (callbackEntityTypeOrGridEntityXMLType === undefined
+        || callbackEntityTypeOrGridEntityXMLType
+          === entityTypeOrGridEntityXMLType)
+      && (callbackVariant === undefined || callbackVariant === variant)
+      && (callbackSubType === undefined || callbackSubType === subType)
     );
   };
 

@@ -94,8 +94,8 @@ function isValidGridPositionLRoom(gridPosition: Vector, roomShape: RoomShape) {
     horizontalBottomRight,
   } = rectangles;
   return (
-    inRectangle(gridPosition, verticalTopLeft, verticalBottomRight) ||
-    inRectangle(gridPosition, horizontalTopLeft, horizontalBottomRight)
+    inRectangle(gridPosition, verticalTopLeft, verticalBottomRight)
+    || inRectangle(gridPosition, horizontalTopLeft, horizontalBottomRight)
   );
 }
 

@@ -30,11 +30,11 @@ function lua_load(a, b) {
       "Lua parser not available, perhaps you're not using the lua+parser.js version of the library?",
     );
   eval(
-    "fn = function " +
-      (b || "load") +
-      "() {\nreturn (function () {\n" +
-      lua_parser.parse(a) +
-      "\n})()[0];\n};",
+    "fn = function "
+      + (b || "load")
+      + "() {\nreturn (function () {\n"
+      + lua_parser.parse(a)
+      + "\n})()[0];\n};",
   );
 }
 function slice(a, b) {
@@ -181,8 +181,8 @@ function lua_eq(a, b) {
 }
 function lua_lt(a, b) {
   if (
-    ("number" == typeof a && "number" == typeof b) ||
-    ("string" == typeof a && "string" == typeof b)
+    ("number" == typeof a && "number" == typeof b)
+    || ("string" == typeof a && "string" == typeof b)
   )
     return a < b;
   var c = a.metatable && a.metatable.str.__lt;
@@ -192,16 +192,16 @@ function lua_lt(a, b) {
 }
 function lua_lte(a, b) {
   if (
-    ("number" == typeof a && "number" == typeof b) ||
-    ("string" == typeof a && "string" == typeof b)
+    ("number" == typeof a && "number" == typeof b)
+    || ("string" == typeof a && "string" == typeof b)
   )
     return a <= b;
   var c = a.metatable && a.metatable.str.__le;
   if (c && c == (b.metatable && b.metatable.str.__le))
     return lua_true(lua_rawcall(c, [a, b])[0]);
   if (
-    (c = a.metatable && a.metatable.str.__lt) &&
-    c == (b.metatable && b.metatable.str.__lt)
+    (c = a.metatable && a.metatable.str.__lt)
+    && c == (b.metatable && b.metatable.str.__lt)
   )
     return lua_not(lua_rawcall(c, [b, a])[0]);
   throw Error("Unable to compare " + a + " and " + b);
@@ -221,8 +221,8 @@ function lua_add(a, b) {
   if (isNaN(c) || isNaN(d)) {
     if (
       (c =
-        (a.metatable && a.metatable.str.__add) ||
-        (b.metatable && b.metatable.str.__add))
+        (a.metatable && a.metatable.str.__add)
+        || (b.metatable && b.metatable.str.__add))
     )
       return lua_rawcall(c, [a, b])[0];
     throw Error("Adding <" + a + "> and <" + b + "> not supported");
@@ -235,8 +235,8 @@ function lua_subtract(a, b) {
   if (isNaN(c) || isNaN(d)) {
     if (
       (c =
-        (a.metatable && a.metatable.str.__sub) ||
-        (b.metatable && b.metatable.str.__sub))
+        (a.metatable && a.metatable.str.__sub)
+        || (b.metatable && b.metatable.str.__sub))
     )
       return lua_rawcall(c, [a, b])[0];
     throw Error("Subtracting <" + a + "> and <" + b + "> not supported");
@@ -249,8 +249,8 @@ function lua_divide(a, b) {
   if (isNaN(c) || isNaN(d)) {
     if (
       (c =
-        (a.metatable && a.metatable.str.__div) ||
-        (b.metatable && b.metatable.str.__div))
+        (a.metatable && a.metatable.str.__div)
+        || (b.metatable && b.metatable.str.__div))
     )
       return lua_rawcall(c, [a, b])[0];
     throw Error("Dividing <" + a + "> and <" + b + "> not supported");
@@ -263,8 +263,8 @@ function lua_multiply(a, b) {
   if (isNaN(c) || isNaN(d)) {
     if (
       (c =
-        (a.metatable && a.metatable.str.__mul) ||
-        (b.metatable && b.metatable.str.__mul))
+        (a.metatable && a.metatable.str.__mul)
+        || (b.metatable && b.metatable.str.__mul))
     )
       return lua_rawcall(c, [a, b])[0];
     throw Error("Multiplying <" + a + "> and <" + b + "> not supported");
@@ -277,8 +277,8 @@ function lua_power(a, b) {
   if (isNaN(c) || isNaN(d)) {
     if (
       (c =
-        (a.metatable && a.metatable.str.__pow) ||
-        (b.metatable && b.metatable.str.__pow))
+        (a.metatable && a.metatable.str.__pow)
+        || (b.metatable && b.metatable.str.__pow))
     )
       return lua_rawcall(c, [a, b])[0];
     throw Error("<" + a + "> to the power of <" + b + "> not supported");
@@ -291,8 +291,8 @@ function lua_mod(a, b) {
   if (isNaN(c) || isNaN(d)) {
     if (
       (c =
-        (a.metatable && a.metatable.str.__mod) ||
-        (b.metatable && b.metatable.str.__mod))
+        (a.metatable && a.metatable.str.__mod)
+        || (b.metatable && b.metatable.str.__mod))
     )
       return lua_rawcall(c, [a, b])[0];
     throw Error("Modulo <" + a + "> and <" + b + "> not supported");
@@ -393,13 +393,13 @@ function lua_concat(a, b) {
   if ("number" == typeof a && "number" == typeof b)
     throw Error("number concat not supported yet");
   if (
-    ("string" == typeof a || "number" == typeof a) &&
-    ("string" == typeof b || "number" == typeof b)
+    ("string" == typeof a || "number" == typeof a)
+    && ("string" == typeof b || "number" == typeof b)
   )
     return a + b;
   var c =
-    (a.metatable && a.metatable.str.__concat) ||
-    (b.metatable && b.metatable.str.__concat);
+    (a.metatable && a.metatable.str.__concat)
+    || (b.metatable && b.metatable.str.__concat);
   if (c) return lua_rawcall(c, [a, b])[0];
   throw Error("Unable to concat " + a + " and " + b);
 }
@@ -1075,8 +1075,8 @@ var lua_script = (function () {
       }
       lua_tableset(_stack, _val, true);
       if (
-        !lua_eq(lua_call(G.str["rawget"], [_val, 1])[0], null) ||
-        lua_eq(lua_call(G.str["next"], [_val])[0], null)
+        !lua_eq(lua_call(G.str["rawget"], [_val, 1])[0], null)
+        || lua_eq(lua_call(G.str["next"], [_val])[0], null)
       ) {
         var _n_8 = 0;
         tmp = lua_call(G.str["pairs"], [_val]);
@@ -1214,9 +1214,9 @@ var lua_script = (function () {
     var _encode_number_1 = function (_val) {
       var tmp;
       if (
-        !lua_eq(_val, _val) ||
-        lua_lte(_val, lua_unm(lua_tableget(G.str["math"], "huge"))) ||
-        lua_lte(lua_tableget(G.str["math"], "huge"), _val)
+        !lua_eq(_val, _val)
+        || lua_lte(_val, lua_unm(lua_tableget(G.str["math"], "huge")))
+        || lua_lte(lua_tableget(G.str["math"], "huge"), _val)
       ) {
         lua_call(G.str["error"], [
           lua_concat(

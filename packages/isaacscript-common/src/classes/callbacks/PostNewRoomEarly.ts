@@ -95,8 +95,8 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
     this.currentRoomTopLeftWallPtrHash2 = GetPtrHash(topLeftWall2);
 
     return (
-      oldTopLeftWallPtrHash !== this.currentRoomTopLeftWallPtrHash ||
-      oldTopLeftWallPtrHash2 !== this.currentRoomTopLeftWallPtrHash2
+      oldTopLeftWallPtrHash !== this.currentRoomTopLeftWallPtrHash
+      || oldTopLeftWallPtrHash2 !== this.currentRoomTopLeftWallPtrHash2
     );
   }
 }

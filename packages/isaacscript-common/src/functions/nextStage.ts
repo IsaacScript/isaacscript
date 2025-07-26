@@ -61,8 +61,8 @@ export function getNextStage(): LevelStage {
       }
 
       if (
-        stage === LevelStage.DEPTHS_2 ||
-        (stage === LevelStage.DEPTHS_1 && hasCurse(LevelCurse.LABYRINTH))
+        stage === LevelStage.DEPTHS_2
+        || (stage === LevelStage.DEPTHS_1 && hasCurse(LevelCurse.LABYRINTH))
       ) {
         // From Depths 2 to Mausoleum 2 through the strange door.
         return LevelStage.DEPTHS_2;
@@ -158,19 +158,19 @@ export function getNextStageType(upwards = false): StageType {
   }
 
   if (
-    repentanceStage &&
-    (stage === LevelStage.BASEMENT_1 || // 1
-      stage === LevelStage.CAVES_1 || // 3
-      stage === LevelStage.DEPTHS_1 || // 5
-      stage === LevelStage.WOMB_1) // 7
+    repentanceStage
+    && (stage === LevelStage.BASEMENT_1 // 1
+      || stage === LevelStage.CAVES_1 // 3
+      || stage === LevelStage.DEPTHS_1 // 5
+      || stage === LevelStage.WOMB_1) // 7
   ) {
     return calculateStageTypeRepentance(nextStage);
   }
 
   if (
-    repentanceStage &&
-    stage === LevelStage.DEPTHS_2 &&
-    mausoleumHeartKilled
+    repentanceStage
+    && stage === LevelStage.DEPTHS_2
+    && mausoleumHeartKilled
   ) {
     return calculateStageTypeRepentance(nextStage);
   }

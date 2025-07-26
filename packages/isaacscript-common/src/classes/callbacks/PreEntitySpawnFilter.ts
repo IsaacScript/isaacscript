@@ -24,9 +24,9 @@ export class PreEntitySpawnFilter extends CustomCallback<T> {
     const [callbackEntityType, callbackVariant, callbackSubType] = optionalArgs;
 
     return (
-      (callbackEntityType === undefined || callbackEntityType === entityType) &&
-      (callbackVariant === undefined || callbackVariant === variant) &&
-      (callbackSubType === undefined || callbackSubType === subType)
+      (callbackEntityType === undefined || callbackEntityType === entityType)
+      && (callbackVariant === undefined || callbackVariant === variant)
+      && (callbackSubType === undefined || callbackSubType === subType)
     );
   };
 

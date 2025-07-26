@@ -192,11 +192,11 @@ export class RoomHistory extends Feature {
     }
 
     return (
-      startSeedString !== latestRoomDescription.startSeedString ||
-      stage !== latestRoomDescription.stage ||
-      stageType !== latestRoomDescription.stageType ||
-      roomListIndex !== latestRoomDescription.roomListIndex ||
-      roomVisitedCount !== latestRoomDescription.roomVisitedCount
+      startSeedString !== latestRoomDescription.startSeedString
+      || stage !== latestRoomDescription.stage
+      || stageType !== latestRoomDescription.stageType
+      || roomListIndex !== latestRoomDescription.roomListIndex
+      || roomVisitedCount !== latestRoomDescription.roomVisitedCount
     );
   }
 }

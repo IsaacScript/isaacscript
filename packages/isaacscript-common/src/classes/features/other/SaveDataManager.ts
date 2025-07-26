@@ -393,8 +393,8 @@ export class SaveDataManager extends Feature {
   private storeClassConstructorsFromObject(luaMap: LuaMap<AnyNotNil, unknown>) {
     const tstlClassName = getTSTLClassName(luaMap);
     if (
-      tstlClassName !== undefined &&
-      !NON_USER_DEFINED_CLASS_NAMES.has(tstlClassName)
+      tstlClassName !== undefined
+      && !NON_USER_DEFINED_CLASS_NAMES.has(tstlClassName)
     ) {
       this.classConstructors.set(tstlClassName, luaMap as unknown as AnyClass);
     }

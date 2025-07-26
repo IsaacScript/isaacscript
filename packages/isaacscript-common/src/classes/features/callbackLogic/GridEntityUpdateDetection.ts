@@ -115,8 +115,8 @@ export class GridEntityUpdateDetection extends Feature {
       const [storedGridEntityType, storedGridEntityVariant] = gridEntityTuple;
       const gridEntity = gridEntitiesMap.get(gridIndex);
       if (
-        gridEntity === undefined ||
-        gridEntity.GetType() !== storedGridEntityType
+        gridEntity === undefined
+        || gridEntity.GetType() !== storedGridEntityType
       ) {
         v.room.initializedGridEntities.delete(gridIndex);
 
@@ -182,8 +182,8 @@ export class GridEntityUpdateDetection extends Feature {
     const gridEntityTuple = v.room.initializedGridEntities.get(gridIndex);
 
     if (
-      gridEntityTuple === undefined ||
-      gridEntityTuple[0] !== gridEntityType
+      gridEntityTuple === undefined
+      || gridEntityTuple[0] !== gridEntityType
     ) {
       this.updateTupleInMap(gridEntity);
 

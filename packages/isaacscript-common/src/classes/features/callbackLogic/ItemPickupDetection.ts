@@ -66,8 +66,8 @@ export class ItemPickupDetection extends Feature {
 
   private queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     if (
-      pickingUpItem.itemType === ItemType.NULL ||
-      asNumber(pickingUpItem.subType) === 0
+      pickingUpItem.itemType === ItemType.NULL
+      || asNumber(pickingUpItem.subType) === 0
     ) {
       return;
     }
@@ -84,8 +84,8 @@ export class ItemPickupDetection extends Feature {
     }
 
     if (
-      queuedItem.Type !== pickingUpItem.itemType ||
-      queuedItem.ID !== pickingUpItem.subType
+      queuedItem.Type !== pickingUpItem.itemType
+      || queuedItem.ID !== pickingUpItem.subType
     ) {
       // Record which item we are picking up.
       pickingUpItem.itemType = queuedItem.Type;

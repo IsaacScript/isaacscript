@@ -73,8 +73,8 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
   const isFixable = rule.meta.fixable === undefined ? "" : EMOJI_FIXABLE;
   const requiresTypeInformation =
-    "requiresTypeChecking" in rule.meta.docs &&
-    rule.meta.docs.requiresTypeChecking === true
+    "requiresTypeChecking" in rule.meta.docs
+    && rule.meta.docs.requiresTypeChecking === true
       ? EMOJI_REQUIRES_TYPE_INFORMATION
       : "";
 

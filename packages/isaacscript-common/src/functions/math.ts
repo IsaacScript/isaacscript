@@ -62,10 +62,10 @@ export function inRectangle(
   bottomRight: Vector,
 ): boolean {
   return (
-    position.X >= topLeft.X &&
-    position.X <= bottomRight.X &&
-    position.Y >= topLeft.Y &&
-    position.Y <= bottomRight.Y
+    position.X >= topLeft.X
+    && position.X <= bottomRight.X
+    && position.Y >= topLeft.Y
+    && position.Y <= bottomRight.Y
   );
 }
 

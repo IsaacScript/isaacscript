@@ -20,9 +20,9 @@ export class PostGridEntityRemove extends CustomCallback<T> {
     const [callbackGridEntityType, callbackVariant] = optionalArgs;
 
     return (
-      (callbackGridEntityType === undefined ||
-        callbackGridEntityType === gridEntityType) &&
-      (callbackVariant === undefined || callbackVariant === variant)
+      (callbackGridEntityType === undefined
+        || callbackGridEntityType === gridEntityType)
+      && (callbackVariant === undefined || callbackVariant === variant)
     );
   };
 }

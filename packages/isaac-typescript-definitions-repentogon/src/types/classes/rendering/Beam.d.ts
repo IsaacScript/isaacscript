@@ -36,8 +36,12 @@ declare interface RenderBeam extends IsaacAPIClass {
    * @param spritesheetCoordinate
    * @param width Optional. Default is 1.
    */
-  Add: ((point: Point) => void) &
-    ((position: Vector, spritesheetCoordinate: number, width?: number) => void);
+  Add: ((point: Point) => void)
+    & ((
+      position: Vector,
+      spritesheetCoordinate: number,
+      width?: number,
+    ) => void);
 
   /** Returns the layer of the beam. */
   GetLayer: () => int;
@@ -65,8 +69,8 @@ declare interface RenderBeam extends IsaacAPIClass {
   SetPoints: (points: readonly Point[]) => void;
 
   /** Sets the sprite of the beam. */
-  SetSprite: ((sprite: Sprite) => void) &
-    ((
+  SetSprite: ((sprite: Sprite) => void)
+    & ((
       sprite: Sprite,
       layerNameOrId: string | int,
       useOverlay: boolean,

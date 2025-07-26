@@ -107,9 +107,9 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     // Don't record the frame if we are potentially going to the Angel Room or the Dark Room from a
     // Sacrifice Room.
     return (
-      roomType === RoomType.SACRIFICE &&
-      isSpikeDamage &&
-      (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
+      roomType === RoomType.SACRIFICE
+      && isSpikeDamage
+      && (v.level.numSacrifices === 6 || v.level.numSacrifices >= 12)
     );
   }
 
@@ -154,8 +154,8 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     // Check to see if this is the 1st frame that we are teleporting.
     const sprite = player.GetSprite();
     if (
-      !sprite.IsPlaying("TeleportUp") ||
-      sprite.GetFrame() !== 1 // The 0th frame never fires
+      !sprite.IsPlaying("TeleportUp")
+      || sprite.GetFrame() !== 1 // The 0th frame never fires
     ) {
       return false;
     }

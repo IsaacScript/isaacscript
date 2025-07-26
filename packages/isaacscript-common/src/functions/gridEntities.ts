@@ -110,8 +110,8 @@ export function doesGridEntityExist(
     const thisGridEntityType = gridEntity.GetType();
     const thisVariant = gridEntity.GetVariant();
     return (
-      gridEntityType === thisGridEntityType &&
-      (variant === -1 || variant === thisVariant)
+      gridEntityType === thisGridEntityType
+      && (variant === -1 || variant === thisVariant)
     );
   });
 }
@@ -150,8 +150,8 @@ export function getCollidingEntitiesWithGridEntity(
 
   return closeEntities.filter(
     (entity) =>
-      entity.CollidesWithGrid() &&
-      isCircleIntersectingRectangle(
+      entity.CollidesWithGrid()
+      && isCircleIntersectingRectangle(
         entity.Position,
         // We arbitrarily add 0.1 to account for entities that are already pushed back by the time
         // the `POST_UPDATE` callback fires.
@@ -791,8 +791,8 @@ export function isGridEntityBreakableByExplosion(
   const gridEntityTypeVariant = `${gridEntityType}.${variant}`;
 
   return (
-    BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS.has(gridEntityType) ||
-    BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS.has(
+    BREAKABLE_GRID_ENTITY_TYPES_BY_EXPLOSIONS.has(gridEntityType)
+    || BREAKABLE_GRID_ENTITY_TYPES_VARIANTS_BY_EXPLOSIONS.has(
       gridEntityTypeVariant,
     )
   );
@@ -860,10 +860,10 @@ export function isPostBossVoidPortal(gridEntity: GridEntity): boolean {
   const saveState = gridEntity.GetSaveState();
 
   return (
-    saveState.Type === GridEntityType.TRAPDOOR &&
+    saveState.Type === GridEntityType.TRAPDOOR
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    saveState.Variant === TrapdoorVariant.VOID_PORTAL &&
-    saveState.VarData === 1
+    && saveState.Variant === TrapdoorVariant.VOID_PORTAL
+    && saveState.VarData === 1
   );
 }
 
@@ -954,8 +954,8 @@ export function removeEntitiesSpawnedFromGridEntity(
 ): void {
   const entitiesFromGridEntity = entities.filter(
     (entity) =>
-      entity.FrameCount === 0 &&
-      vectorEquals(entity.Position, gridEntity.Position),
+      entity.FrameCount === 0
+      && vectorEquals(entity.Position, gridEntity.Position),
   );
   removeEntities(entitiesFromGridEntity);
 }
@@ -1147,22 +1147,22 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
   );
 
   return (
-    topLeft !== undefined &&
-    topLeft.GetType() === GridEntityType.POOP &&
+    topLeft !== undefined
+    && topLeft.GetType() === GridEntityType.POOP
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    topLeft.GetVariant() === PoopGridEntityVariant.GIANT_TOP_LEFT &&
-    topRight !== undefined &&
-    topRight.GetType() === GridEntityType.POOP &&
+    && topLeft.GetVariant() === PoopGridEntityVariant.GIANT_TOP_LEFT
+    && topRight !== undefined
+    && topRight.GetType() === GridEntityType.POOP
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    topRight.GetVariant() === PoopGridEntityVariant.GIANT_TOP_RIGHT &&
-    bottomLeft !== undefined &&
-    bottomLeft.GetType() === GridEntityType.POOP &&
+    && topRight.GetVariant() === PoopGridEntityVariant.GIANT_TOP_RIGHT
+    && bottomLeft !== undefined
+    && bottomLeft.GetType() === GridEntityType.POOP
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    bottomLeft.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_LEFT &&
-    bottomRight !== undefined &&
-    bottomRight.GetType() === GridEntityType.POOP &&
+    && bottomLeft.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_LEFT
+    && bottomRight !== undefined
+    && bottomRight.GetType() === GridEntityType.POOP
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    bottomRight.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_RIGHT
+    && bottomRight.GetVariant() === PoopGridEntityVariant.GIANT_BOTTOM_RIGHT
   );
 }
 

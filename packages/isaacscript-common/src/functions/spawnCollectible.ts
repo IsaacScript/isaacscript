@@ -65,9 +65,9 @@ export function spawnCollectible(
   }
 
   if (
-    anyPlayerIs(PlayerType.KEEPER_B) &&
-    !isQuestCollectible(collectibleType) &&
-    !forceFreeItem
+    anyPlayerIs(PlayerType.KEEPER_B)
+    && !isQuestCollectible(collectibleType)
+    && !forceFreeItem
   ) {
     // When playing Tainted Keeper, collectibles are supposed to have a price, and manually spawned
     // items will not have a price, so we have to set it manually.

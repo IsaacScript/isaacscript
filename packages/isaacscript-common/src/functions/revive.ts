@@ -35,8 +35,8 @@ export function isDamageToPlayerFatal(
   // If we are Tainted Jacob and the damage source is Dark Esau, this will not be fatal damage
   // (because we will transform into Tainted Jacob's lost form).
   if (
-    character === PlayerType.JACOB_B &&
-    source.Type === EntityType.DARK_ESAU
+    character === PlayerType.JACOB_B
+    && source.Type === EntityType.DARK_ESAU
   ) {
     return false;
   }
@@ -50,11 +50,11 @@ export function isDamageToPlayerFatal(
   // If we are playing Tainted Samson and the incoming hit will cause us to become Berserk, then
   // this will not be fatal damage.
   const berserkChargeAfterHit =
-    player.SamsonBerserkCharge +
-    TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE;
+    player.SamsonBerserkCharge
+    + TAINTED_SAMSON_BERSERK_CHARGE_FROM_TAKING_DAMAGE;
   if (
-    character === PlayerType.SAMSON_B &&
-    berserkChargeAfterHit >= MAX_TAINTED_SAMSON_BERSERK_CHARGE
+    character === PlayerType.SAMSON_B
+    && berserkChargeAfterHit >= MAX_TAINTED_SAMSON_BERSERK_CHARGE
   ) {
     return false;
   }
@@ -89,8 +89,8 @@ export function isDamageToPlayerFatal(
   // This will not be fatal damage if we have Glass Cannon and this is the second time we are taking
   // damage on the same frame.
   if (
-    player.HasCollectible(CollectibleType.BROKEN_GLASS_CANNON) &&
-    onGameFrame(lastDamageGameFrame)
+    player.HasCollectible(CollectibleType.BROKEN_GLASS_CANNON)
+    && onGameFrame(lastDamageGameFrame)
   ) {
     return false;
   }
@@ -103,11 +103,11 @@ export function isDamageToPlayerFatal(
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
   if (
-    (hearts > 0 && soulHearts > 0) ||
-    (hearts > 0 && boneHearts > 0) ||
-    (soulHearts > 0 && boneHearts > 0) ||
-    (soulHearts > 0 && eternalHearts > 0) ||
-    boneHearts >= 2 // Two bone hearts and nothing else should not result in a death
+    (hearts > 0 && soulHearts > 0)
+    || (hearts > 0 && boneHearts > 0)
+    || (soulHearts > 0 && boneHearts > 0)
+    || (soulHearts > 0 && eternalHearts > 0)
+    || boneHearts >= 2 // Two bone hearts and nothing else should not result in a death
   ) {
     return false;
   }
@@ -155,8 +155,8 @@ export function willPlayerRevive(player: EntityPlayer): boolean {
   );
 
   const willRevive =
-    player.WillPlayerRevive() ||
-    (trinketSituation !== undefined && willMysteriousPaperRevive(player));
+    player.WillPlayerRevive()
+    || (trinketSituation !== undefined && willMysteriousPaperRevive(player));
 
   giveTrinketsBack(player, trinketSituation);
 

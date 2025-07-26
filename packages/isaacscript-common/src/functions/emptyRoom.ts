@@ -44,9 +44,9 @@ function emptyRoomEntities() {
     }
 
     if (
-      entity.HasEntityFlags(EntityFlag.CHARM) ||
-      entity.HasEntityFlags(EntityFlag.FRIENDLY) ||
-      entity.HasEntityFlags(EntityFlag.PERSISTENT)
+      entity.HasEntityFlags(EntityFlag.CHARM)
+      || entity.HasEntityFlags(EntityFlag.FRIENDLY)
+      || entity.HasEntityFlags(EntityFlag.PERSISTENT)
     ) {
       continue;
     }
@@ -74,8 +74,8 @@ export function emptyRoomGridEntities(): void {
     // We cannot simply check if the grid entity type is equal to a wall because other mods use
     // walls as a base for custom grid entities.
     if (
-      gridEntityType === GridEntityType.WALL &&
-      isVanillaWallGridIndex(gridIndex)
+      gridEntityType === GridEntityType.WALL
+      && isVanillaWallGridIndex(gridIndex)
     ) {
       continue;
     }

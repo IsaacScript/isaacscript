@@ -161,9 +161,9 @@ export class DeployJSONRoom extends Feature {
 
     let entity: Entity;
     if (
-      entityType === EntityType.PICKUP &&
+      entityType === EntityType.PICKUP
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      variant === PickupVariant.COLLECTIBLE
+      && variant === PickupVariant.COLLECTIBLE
     ) {
       const collectibleType = asCollectibleType(subType);
       const options = roomType === RoomType.ANGEL;
@@ -174,9 +174,9 @@ export class DeployJSONRoom extends Feature {
 
     // For some reason, Pitfalls do not spawn with the correct collision classes.
     if (
-      entityType === EntityType.PITFALL &&
+      entityType === EntityType.PITFALL
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      variant === PitfallVariant.PITFALL
+      && variant === PitfallVariant.PITFALL
     ) {
       entity.EntityCollisionClass = EntityCollisionClass.ENEMIES;
       entity.GridCollisionClass = EntityGridCollisionClass.WALLS;

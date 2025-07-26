@@ -29,16 +29,16 @@ export class PostGridEntityCollision extends CustomCallback<T> {
     const gridEntityVariant = gridEntity.GetVariant();
 
     return (
-      (callbackGridEntityType === undefined ||
-        callbackGridEntityType === gridEntityType) &&
-      (callbackGridEntityVariant === undefined ||
-        callbackGridEntityVariant === gridEntityVariant) &&
-      (callbackEntityType === undefined ||
-        callbackEntityType === entity.Type) &&
-      (callbackEntityVariant === undefined ||
-        callbackEntityVariant === entity.Variant) &&
-      (callbackEntitySubType === undefined ||
-        callbackEntitySubType === entity.SubType)
+      (callbackGridEntityType === undefined
+        || callbackGridEntityType === gridEntityType)
+      && (callbackGridEntityVariant === undefined
+        || callbackGridEntityVariant === gridEntityVariant)
+      && (callbackEntityType === undefined
+        || callbackEntityType === entity.Type)
+      && (callbackEntityVariant === undefined
+        || callbackEntityVariant === entity.Variant)
+      && (callbackEntitySubType === undefined
+        || callbackEntitySubType === entity.SubType)
     );
   };
 }

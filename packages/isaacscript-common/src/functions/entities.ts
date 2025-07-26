@@ -149,8 +149,8 @@ export function getClosestEntityTo<T extends AnyEntity>(
     const distance = referenceEntity.Position.Distance(entity.Position);
 
     if (
-      distance < closestDistance &&
-      (filterFunc === undefined || filterFunc(entity))
+      distance < closestDistance
+      && (filterFunc === undefined || filterFunc(entity))
     ) {
       closestEntity = entity;
       closestDistance = distance;
@@ -479,9 +479,9 @@ export function parseEntityID(
   const [entityTypeString, variantString, subTypeString] = entityIDArray;
 
   if (
-    entityTypeString === undefined ||
-    variantString === undefined ||
-    subTypeString === undefined
+    entityTypeString === undefined
+    || variantString === undefined
+    || subTypeString === undefined
   ) {
     return undefined;
   }
@@ -491,9 +491,9 @@ export function parseEntityID(
   const subType = parseIntSafe(subTypeString);
 
   if (
-    entityType === undefined ||
-    variant === undefined ||
-    subType === undefined
+    entityType === undefined
+    || variant === undefined
+    || subType === undefined
   ) {
     return undefined;
   }

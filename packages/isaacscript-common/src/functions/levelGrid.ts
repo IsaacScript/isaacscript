@@ -247,10 +247,10 @@ export function getNewRoomCandidatesForLevel(
   // However, we want to filter out special rooms because they are supposed to be dead ends.
   const normalRooms = roomsInsideGrid.filter(
     (room) =>
-      room.Data !== undefined &&
-      room.Data.Type === RoomType.DEFAULT &&
-      !isMirrorRoom(room.Data) && // Mirror rooms do not count as special rooms.
-      !isMineShaft(room.Data), // Mineshaft rooms do not count as special rooms.
+      room.Data !== undefined
+      && room.Data.Type === RoomType.DEFAULT
+      && !isMirrorRoom(room.Data) // Mirror rooms do not count as special rooms.
+      && !isMineShaft(room.Data), // Mineshaft rooms do not count as special rooms.
   );
 
   const roomsToLookThrough = ensureDeadEnd ? normalRooms : roomsInsideGrid;
@@ -325,8 +325,8 @@ export function getRoomDescriptorsForType(
   const roomsInsideGrid = getRoomsInsideGrid();
   return roomsInsideGrid.filter(
     (roomDescriptor) =>
-      roomDescriptor.Data !== undefined &&
-      roomTypesSet.has(roomDescriptor.Data.Type),
+      roomDescriptor.Data !== undefined
+      && roomTypesSet.has(roomDescriptor.Data.Type),
   );
 }
 

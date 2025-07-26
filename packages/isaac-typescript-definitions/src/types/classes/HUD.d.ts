@@ -55,8 +55,8 @@ declare global {
       player: EntityPlayer,
       item: ItemConfigItem,
       stackUpText: boolean,
-    ) => void) &
-      ((
+    ) => void)
+      & ((
         mainString: string,
         secondaryString?: string,
         isCurseDisplay?: boolean,

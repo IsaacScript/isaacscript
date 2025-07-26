@@ -122,9 +122,9 @@ export class DisableInputs extends Feature {
   @Exported
   public areInputsEnabled(): boolean {
     return (
-      v.run.disableInputs.size === 0 &&
-      v.run.enableAllInputsWithBlacklistMap.size === 0 &&
-      v.run.disableAllInputsWithWhitelistMap.size === 0
+      v.run.disableInputs.size === 0
+      && v.run.enableAllInputsWithBlacklistMap.size === 0
+      && v.run.disableAllInputsWithWhitelistMap.size === 0
     );
   }
 

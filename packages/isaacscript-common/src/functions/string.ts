@@ -153,9 +153,9 @@ export function parseSemanticVersion(versionString: string):
     string.match(versionString, "(%d+).(%d+).(%d+)");
 
   if (
-    majorVersionString === undefined ||
-    minorVersionString === undefined ||
-    patchVersionString === undefined
+    majorVersionString === undefined
+    || minorVersionString === undefined
+    || patchVersionString === undefined
   ) {
     return undefined;
   }
@@ -165,9 +165,9 @@ export function parseSemanticVersion(versionString: string):
   const patchVersion = parseIntSafe(patchVersionString);
 
   if (
-    majorVersion === undefined ||
-    minorVersion === undefined ||
-    patchVersion === undefined
+    majorVersion === undefined
+    || minorVersion === undefined
+    || patchVersion === undefined
   ) {
     return undefined;
   }

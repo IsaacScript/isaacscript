@@ -62,9 +62,9 @@ const plugin: tstl.Plugin = {
       // ```
       const oldDeclaration = statements[0];
       if (
-        oldDeclaration !== undefined &&
-        (tstl.isAssignmentStatement(oldDeclaration) ||
-          tstl.isVariableDeclarationStatement(oldDeclaration))
+        oldDeclaration !== undefined
+        && (tstl.isAssignmentStatement(oldDeclaration)
+          || tstl.isVariableDeclarationStatement(oldDeclaration))
       ) {
         // Replace the right side of the assignment with a blank Lua table, e.g.
 

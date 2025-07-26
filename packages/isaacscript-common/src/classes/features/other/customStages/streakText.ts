@@ -100,8 +100,8 @@ export function streakTextPostRender(): void {
 
 function checkEndTopStreakText() {
   if (
-    v.run.topStreakTextStartedRenderFrame === null ||
-    v.run.topStreakText.animation !== UIStreakAnimation.TEXT_STAY
+    v.run.topStreakTextStartedRenderFrame === null
+    || v.run.topStreakText.animation !== UIStreakAnimation.TEXT_STAY
   ) {
     return;
   }
@@ -229,8 +229,8 @@ function renderStreakText(
   }
 
   if (
-    streakText.animation === UIStreakAnimation.TEXT &&
-    streakText.frame === TEXT_STAY_FRAME
+    streakText.animation === UIStreakAnimation.TEXT
+    && streakText.frame === TEXT_STAY_FRAME
   ) {
     streakText.animation = UIStreakAnimation.TEXT_STAY;
     streakText.frame = 0;

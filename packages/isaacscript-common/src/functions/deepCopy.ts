@@ -212,8 +212,8 @@ function deepCopyTable(
 
   // Handle the special case of serialized Isaac API classes.
   if (
-    isSerializedIsaacAPIClass(luaMap) &&
-    serializationType === SerializationType.DESERIALIZE
+    isSerializedIsaacAPIClass(luaMap)
+    && serializationType === SerializationType.DESERIALIZE
   ) {
     return deserializeIsaacAPIClass(luaMap);
   }
@@ -258,8 +258,8 @@ function deepCopyDefaultMap(
   // function. If this is the case, then we cannot serialize it (because there is no way to
   // serialize a function).
   if (
-    serializationType === SerializationType.SERIALIZE &&
-    !isPrimitive(constructorArg)
+    serializationType === SerializationType.SERIALIZE
+    && !isPrimitive(constructorArg)
   ) {
     if (insideMap) {
       // The case of a DefaultMap within another map is complicated. Unlike a DefaultMap attached to
@@ -644,8 +644,8 @@ function getCopiedEntries(
   // During serialization, we brand some Lua tables with a special identifier to signify that it has
   // keys that should be deserialized to numbers.
   const convertStringKeysToNumbers =
-    serializationType === SerializationType.DESERIALIZE &&
-    entries.some(
+    serializationType === SerializationType.DESERIALIZE
+    && entries.some(
       ([key]) => key === asString(SerializationBrand.OBJECT_WITH_NUMBER_KEYS),
     );
 

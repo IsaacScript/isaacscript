@@ -56,10 +56,10 @@ export function canPlayerCrushRocks(player: EntityPlayer): boolean {
   const effects = player.GetEffects();
 
   return (
-    player.HasCollectible(CollectibleType.LEO) ||
-    player.HasCollectible(CollectibleType.THUNDER_THIGHS) ||
-    effects.HasCollectibleEffect(CollectibleType.MEGA_MUSH) ||
-    player.HasPlayerForm(PlayerForm.STOMPY)
+    player.HasCollectible(CollectibleType.LEO)
+    || player.HasCollectible(CollectibleType.THUNDER_THIGHS)
+    || effects.HasCollectibleEffect(CollectibleType.MEGA_MUSH)
+    || player.HasPlayerForm(PlayerForm.STOMPY)
   );
 }
 

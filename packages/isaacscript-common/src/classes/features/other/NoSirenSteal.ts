@@ -59,16 +59,16 @@ export class NoSirenSteal extends Feature {
       const [familiarVariant, familiarSubType] = familiarTuple;
 
       if (
-        familiarVariant === incomingFamiliarVariant &&
-        familiarSubType === incomingFamiliarSubType
+        familiarVariant === incomingFamiliarVariant
+        && familiarSubType === incomingFamiliarSubType
       ) {
         // There is an entry that matches the variant and sub-type exactly.
         return true;
       }
 
       if (
-        familiarVariant === incomingFamiliarVariant &&
-        familiarSubType === undefined
+        familiarVariant === incomingFamiliarVariant
+        && familiarSubType === undefined
       ) {
         // There is an entry that matches all sub-types for this variant.
         return true;

@@ -140,8 +140,10 @@ export function restoreGlowingHourGlassBackup(
 
 function getKeysToBackup(saveData: SaveData) {
   const shouldBackupPersistentObject =
-    saveData.persistent !== undefined &&
-    (saveData.persistent as LuaTable).has(REWIND_WITH_GLOWING_HOUR_GLASS_KEY);
+    saveData.persistent !== undefined
+    && (saveData.persistent as LuaTable).has(
+      REWIND_WITH_GLOWING_HOUR_GLASS_KEY,
+    );
 
   return shouldBackupPersistentObject
     ? ([...GLOWING_HOUR_GLASS_BACKUP_KEYS, SaveDataKey.PERSISTENT] as const)

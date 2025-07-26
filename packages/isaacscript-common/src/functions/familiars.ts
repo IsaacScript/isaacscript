@@ -146,8 +146,8 @@ export function getSirenHelper(familiar: EntityFamiliar): Entity | undefined {
   const sirenHelpers = getEntities(EntityType.SIREN_HELPER);
   return sirenHelpers.find(
     (sirenHelper) =>
-      sirenHelper.Target !== undefined &&
-      GetPtrHash(sirenHelper.Target) === familiarPtrHash,
+      sirenHelper.Target !== undefined
+      && GetPtrHash(sirenHelper.Target) === familiarPtrHash,
   );
 }
 

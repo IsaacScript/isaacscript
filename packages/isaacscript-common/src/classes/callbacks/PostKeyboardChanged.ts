@@ -34,8 +34,8 @@ export class PostKeyboardChanged extends CustomCallback<T> {
     const [callbackKeyboard, callbackPressed] = optionalArgs;
 
     return (
-      (callbackKeyboard === undefined || callbackKeyboard === keyboard) &&
-      (callbackPressed === undefined || callbackPressed === pressed)
+      (callbackKeyboard === undefined || callbackKeyboard === keyboard)
+      && (callbackPressed === undefined || callbackPressed === pressed)
     );
   };
 

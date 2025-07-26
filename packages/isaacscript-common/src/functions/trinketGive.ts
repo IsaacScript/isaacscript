@@ -124,14 +124,14 @@ export function temporarilyRemoveTrinket(
 
   let numSmeltedTrinkets = numTrinkets;
   const trinketWasInSlot1 =
-    trinketType1 === trinketType ||
-    trinketType1 === getGoldenTrinketType(trinketType);
+    trinketType1 === trinketType
+    || trinketType1 === getGoldenTrinketType(trinketType);
   if (trinketWasInSlot1) {
     numSmeltedTrinkets--;
   }
   const trinketWasInSlot2 =
-    trinketType2 === trinketType ||
-    trinketType2 === getGoldenTrinketType(trinketType);
+    trinketType2 === trinketType
+    || trinketType2 === getGoldenTrinketType(trinketType);
   if (trinketWasInSlot2) {
     numSmeltedTrinkets--;
   }

@@ -509,8 +509,8 @@ export function isFamiliarCollectible(
  */
 export function isGlitchedCollectible(collectible: EntityPickup): boolean {
   return (
-    collectible.Variant === PickupVariant.COLLECTIBLE &&
-    collectible.SubType > GLITCHED_ITEM_THRESHOLD
+    collectible.Variant === PickupVariant.COLLECTIBLE
+    && collectible.SubType > GLITCHED_ITEM_THRESHOLD
   );
 }
 

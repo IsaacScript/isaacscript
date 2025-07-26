@@ -60,8 +60,8 @@ export class StartAmbush extends Feature {
       const coins = getCoins();
       const coinsFromSack = coins.filter(
         (pickup) =>
-          pickup.SpawnerEntity !== undefined &&
-          GetPtrHash(pickup.SpawnerEntity) === sackPtrHash,
+          pickup.SpawnerEntity !== undefined
+          && GetPtrHash(pickup.SpawnerEntity) === sackPtrHash,
       );
       removeEntities(coinsFromSack);
     });

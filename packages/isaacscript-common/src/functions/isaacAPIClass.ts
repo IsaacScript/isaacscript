@@ -83,8 +83,8 @@ export function isIsaacAPIClassOfType(
 ): boolean {
   const isaacAPIClassType = getIsaacAPIClassName(object);
   return (
-    isaacAPIClassType === classType ||
-    isaacAPIClassType === `const ${classType}`
+    isaacAPIClassType === classType
+    || isaacAPIClassType === `const ${classType}`
   );
 }
 

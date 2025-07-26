@@ -46,12 +46,12 @@ export const enumMemberNumberSeparation = createRule({
           const lastCharacter = name[i - 1];
           const nextCharacter = name[i + 1];
           if (
-            (lastCharacter !== undefined &&
-              !isNumber(lastCharacter) &&
-              lastCharacter !== "_") ||
-            (nextCharacter !== undefined &&
-              !isNumber(nextCharacter) &&
-              nextCharacter !== "_")
+            (lastCharacter !== undefined
+              && !isNumber(lastCharacter)
+              && lastCharacter !== "_")
+            || (nextCharacter !== undefined
+              && !isNumber(nextCharacter)
+              && nextCharacter !== "_")
           ) {
             context.report({
               loc: node.loc,

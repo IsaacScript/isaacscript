@@ -129,9 +129,9 @@ export function isSelfDamage(
 ): boolean {
   return (
     // Exclude self-damage from e.g. Curse Room door spikes.
-    hasFlag(damageFlags, DamageFlag.NO_PENALTIES) ||
+    hasFlag(damageFlags, DamageFlag.NO_PENALTIES)
     // Exclude self-damage from e.g. Razor.
-    hasFlag(damageFlags, DamageFlag.RED_HEARTS)
+    || hasFlag(damageFlags, DamageFlag.RED_HEARTS)
   );
 }
 
