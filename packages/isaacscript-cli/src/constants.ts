@@ -43,7 +43,7 @@ export const WATCHER_MOD_NAME = "isaacscript-watcher";
 export const WATCHER_MOD_SOURCE_PATH = path.join(REPO_ROOT, WATCHER_MOD_NAME);
 
 // `isaacscript/file-templates`
-export const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
+const TEMPLATES_DIR = path.join(REPO_ROOT, "file-templates");
 
 // `isaacscript/file-templates/static`
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");

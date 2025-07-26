@@ -17,7 +17,6 @@ import {
   ACTION_YML,
   ACTION_YML_TEMPLATE_PATH,
   CWD,
-  TEMPLATES_DIR,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
@@ -53,7 +52,7 @@ export const checkCommand = new Command()
   )
   .option("-v, --verbose", "Enable verbose output.", false)
   .action((options) => {
-    check(options, false);
+    check(options);
   });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -61,7 +60,7 @@ const checkOptions = checkCommand.opts();
 // The options are identical for both, so we do not create a union.
 type CheckOptions = typeof checkOptions;
 
-function check(options: CheckOptions, typeScript: boolean) {
+function check(options: CheckOptions) {
   const { verbose } = options;
 
   let oneOrMoreErrors = false;
@@ -76,14 +75,7 @@ function check(options: CheckOptions, typeScript: boolean) {
     oneOrMoreErrors = true;
   }
 
-  // Second, check the files that are specific to either a TypeScript project or an IsaacScript mod.
-  const staticDirSuffix = typeScript ? "ts" : "mod";
-  const staticDirPath = path.join(TEMPLATES_DIR, `static-${staticDirSuffix}`);
-  if (checkTemplateDirectory(staticDirPath, ignoreFileNamesSet, verbose)) {
-    oneOrMoreErrors = true;
-  }
-
-  // Third, check dynamic files that require specific logic.
+  // Second, check dynamic files that require specific logic.
   if (checkIndividualFiles(ignoreFileNamesSet, verbose)) {
     oneOrMoreErrors = true;
   }
