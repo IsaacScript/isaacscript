@@ -1340,7 +1340,7 @@ pnpm add isaacscript-tsconfig
 
 ## July 20th, 2022
 
-- The shader crash fix will now be automatically be applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
+- The shader crash fix will now be automatically applied to any upgraded mods. (The method was originally discovered by AgentCucco.)
 - Breaking changes:
   - The `removeAllNPCs` function now takes "entityType", "variant", and "subType" parameters, which moves the location of the "cap" parameter.
 - Added the following helper functions:

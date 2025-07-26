@@ -216,8 +216,7 @@ export function getRooms(
  * Room descriptors without any data are assumed to be non-existent and are not included.
  *
  * @param includeExtraDimensionalRooms Optional. On some floors (e.g. Downpour 2, Mines 2),
- *                                 extra-dimensional rooms are automatically be generated. Default
- *                                 is false.
+ *                                 extra-dimensional rooms will be generated. Default is false.
  */
 export function getRoomsInsideGrid(
   includeExtraDimensionalRooms = false,
