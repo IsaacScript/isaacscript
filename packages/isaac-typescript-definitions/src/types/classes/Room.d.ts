@@ -216,7 +216,7 @@ declare global {
     KeepDoorsClosed: () => void;
 
     /**
-     * @param position Optional. The position where the explosion should originate. Defaults to
+     * @param position Optional. The position where the explosion should originate. Default is
      *                 `Vector.Zero`.
      * @param player Optional. The player that the explosion should come from.
      */

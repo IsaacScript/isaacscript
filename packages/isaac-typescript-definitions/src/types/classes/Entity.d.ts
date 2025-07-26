@@ -52,7 +52,7 @@ declare global {
     AddConfusion: (
       source: EntityRef,
       duration: int,
-      ignoreBosses: boolean,
+      ignoreBosses?: boolean,
     ) => void;
 
     /**
