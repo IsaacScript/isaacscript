@@ -90,9 +90,9 @@ const plugin = {
             // local ____exports.Foo = Foo or ({})
             // ```
             const oldDeclaration = statements[0];
-            if (oldDeclaration !== undefined &&
-                (tstl.isAssignmentStatement(oldDeclaration) ||
-                    tstl.isVariableDeclarationStatement(oldDeclaration))) {
+            if (oldDeclaration !== undefined
+                && (tstl.isAssignmentStatement(oldDeclaration)
+                    || tstl.isVariableDeclarationStatement(oldDeclaration))) {
                 // Replace the right side of the assignment with a blank Lua table, e.g.
                 // ```lua
                 // local ____exports.Foo = {}

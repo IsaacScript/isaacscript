@@ -87,6 +87,6 @@
     "yaml": "2.8.0"
   },
   "devDependencies": {
-    "eslint": "9.31.0"
+    "eslint": "9.32.0"
   }
 }
