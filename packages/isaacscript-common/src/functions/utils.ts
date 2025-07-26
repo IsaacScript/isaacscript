@@ -155,7 +155,7 @@ export function isMultiplayer(): boolean {
 }
 
 /**
- * Helper function to check if the player is using Afterbirth+ or Repentance.
+ * Helper function to check if the player has the Repentance DLC installed.
  *
  * This function should always be used over the `REPENTANCE` constant, since the latter is not safe.
  *
@@ -163,6 +163,34 @@ export function isMultiplayer(): boolean {
  * https://bindingofisaacrebirth.fandom.com/wiki/V1.06.J818#Lua_Changes
  */
 export function isRepentance(): boolean {
+  const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
+  assertDefined(
+    metatable,
+    "Failed to get the metatable of the Sprite global table.",
+  );
+
+  const classTable = metatable.get("__class") as
+    | LuaMap<string, unknown>
+    | undefined;
+  assertDefined(
+    classTable,
+    'Failed to get the "__class" key of the Sprite metatable.',
+  );
+
+  const getAnimation = classTable.get("GetAnimation");
+  return isFunction(getAnimation);
+}
+
+/**
+ * Helper function to check if the player has the Repentance+ DLC installed.
+ *
+ * This function should always be used over the `REPENTANCE_PLUS` constant, since the latter is not
+ * safe.
+ *
+ * Specifically, this function checks for TODO:
+ * https://bindingofisaacrebirth.fandom.com/wiki/V1.06.J818#Lua_Changes
+ */
+export function isRepentancePlus(): boolean {
   const metatable = getmetatable(Sprite) as LuaMap<string, unknown> | undefined;
   assertDefined(
     metatable,

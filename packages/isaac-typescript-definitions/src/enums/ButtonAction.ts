@@ -52,14 +52,14 @@ export enum ButtonAction {
   /** This only fires on `InputHook.IS_ACTION_TRIGGERED` (1). */
   MENU_BACK = 15,
 
+  /** This only fires on `InputHook.IS_ACTION_TRIGGERED` (1). */
+  FULLSCREEN = 16,
+
+  /** This only fires on `InputHook.IS_ACTION_TRIGGERED` (1). */
+  MUTE = 17,
+
   /** This only fires on `InputHook.IS_ACTION_PRESSED` (0). */
-  RESTART = 16,
-
-  /** This only fires on `InputHook.IS_ACTION_TRIGGERED` (1). */
-  FULLSCREEN = 17,
-
-  /** This only fires on `InputHook.IS_ACTION_TRIGGERED` (1). */
-  MUTE = 18,
+  RESTART = 18,
 
   /** Does not seem to trigger any input hooks while on keyboard. */
   JOIN_MULTIPLAYER = 19,
@@ -76,15 +76,21 @@ export enum ButtonAction {
   /** Does not seem to trigger any input hooks while on keyboard. */
   MENU_DOWN = 23,
 
-  /** Does not seem to trigger any input hooks while on keyboard. */
-  MENU_LT = 24,
+  MENU_LB = 24,
+  MENU_RB = 25,
 
   /** Does not seem to trigger any input hooks while on keyboard. */
-  MENU_RT = 25,
+  MENU_LT = 26,
 
   /** Does not seem to trigger any input hooks while on keyboard. */
-  MENU_TAB = 26,
+  MENU_RT = 27,
+
+  /** Does not seem to trigger any input hooks while on keyboard. */
+  MENU_TAB = 28,
+
+  MENU_EX = 29,
+  EMOTES = 30,
 
   /** This only fires on `InputHook.IS_ACTION_TRIGGERED` (1). */
-  CONSOLE = 28,
+  CONSOLE = 32,
 }
