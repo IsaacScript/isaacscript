@@ -216,8 +216,8 @@ export function shouldFireItemPickup(
   return (
     (callbackItemType === undefined
       || callbackItemType === pickingUpItem.itemType)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     && (callbackSubtype === undefined
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       || callbackSubtype === pickingUpItem.subType)
   );
 }
