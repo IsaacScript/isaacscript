@@ -27,8 +27,8 @@ declare interface Font extends IsaacAPIClass {
     renderColor: KColor,
     boxWidth?: int,
     center?: boolean,
-  ) => void) &
-    ((
+  ) => void)
+    & ((
       str: string,
       positionX: float,
       positionY: float,
