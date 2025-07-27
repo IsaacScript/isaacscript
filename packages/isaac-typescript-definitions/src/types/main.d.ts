@@ -32,3 +32,11 @@ declare function StartDebug(): void;
  * @deprecated
  */
 declare const REPENTANCE: never;
+
+/**
+ * This can be overwritten by other mods, so it is not safe to use. Use the `isRepentancePlus`
+ * helper function instead.
+ *
+ * @deprecated
+ */
+declare const REPENTANCE_PLUS: never;

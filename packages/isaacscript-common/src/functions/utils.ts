@@ -1,3 +1,4 @@
+import { game } from "../core/cachedClasses";
 import { ReadonlySet } from "../types/ReadonlySet";
 import { getAllPlayers } from "./playerIndex";
 import { isFunction } from "./types";
@@ -155,7 +156,7 @@ export function isMultiplayer(): boolean {
 }
 
 /**
- * Helper function to check if the player is using Afterbirth+ or Repentance.
+ * Helper function to check if the player has the Repentance DLC installed.
  *
  * This function should always be used over the `REPENTANCE` constant, since the latter is not safe.
  *
@@ -177,8 +178,25 @@ export function isRepentance(): boolean {
     'Failed to get the "__class" key of the Sprite metatable.',
   );
 
-  const getAnimation = classTable.get("GetAnimation");
-  return isFunction(getAnimation);
+  const func = classTable.get("GetAnimation");
+  return isFunction(func);
+}
+
+/**
+ * Helper function to check if the player has the Repentance+ DLC installed.
+ *
+ * This function should always be used over the `REPENTANCE_PLUS` constant, since the latter is not
+ * safe.
+ *
+ * Specifically, this function checks for `Room:DamageGridWithSource` method:
+ * https://bindingofisaacrebirth.wiki.gg/wiki/The_Binding_of_Isaac:_Repentance%2B#Modding_Changes
+ */
+export function isRepentancePlus(): boolean {
+  const room = game.GetRoom();
+  const metatable = getmetatable(room) as LuaMap<string, unknown> | undefined;
+  assertDefined(metatable, "Failed to get the metatable of the room class.");
+  const func = metatable.get("DamageGridWithSource");
+  return isFunction(func);
 }
 
 /**
