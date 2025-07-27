@@ -6,6 +6,8 @@ export enum PickupPrice {
   TWO_HEARTS = -2,
   THREE_SOUL_HEARTS = -3,
   ONE_HEART_AND_TWO_SOUL_HEARTS = -4,
+
+  /** A Pound of Flesh causes non-collectible shop pickups to be surrounded by spikes. */
   SPIKES = -5,
 
   /**
@@ -17,5 +19,7 @@ export enum PickupPrice {
   ONE_SOUL_HEART = -7,
   TWO_SOUL_HEARTS = -8,
   ONE_HEART_AND_ONE_SOUL_HEART = -9,
+
+  /** The Store Credit trinket causes items in the shop to cost 0 cents. */
   FREE = -1000,
 }
