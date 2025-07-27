@@ -1,5 +1,4 @@
 # These are words from files in the "resources" directory, like "entities2.xml".
-
 addcostumeonpickup # items.xml
 altpath # challenges.xml
 ambushroomdoor # door_03_ambushroomdoor.png

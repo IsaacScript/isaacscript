@@ -1,5 +1,4 @@
 # These are words in the Lua programming language.
-
 Brane # ZeroBrane Studio
 codestyle # sumneko word
 collectgarbage # Global
