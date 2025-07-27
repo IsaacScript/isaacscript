@@ -12,6 +12,7 @@ import {
   HeartSubType,
   LevelStateFlag,
   Music,
+  NullItemID,
   ProjectileFlag,
   RoomType,
   SeedEffect,
@@ -297,12 +298,15 @@ export function logPlayerEffects(this: void, player: EntityPlayer): void {
       const trinketName = getTrinketName(effect.Item.ID);
       effectDescription = `Trinket: ${trinketName}`;
     } else if (effect.Item.IsNull()) {
-      effectDescription = `Null item: ${effect.Item.ID}`;
+      const nullItemName = NullItemID[effect.Item.ID];
+      effectDescription = `Null item: ${nullItemName}`;
     } else {
       effectDescription = `Unknown type of effect: ${effect.Item.ID}`;
     }
 
-    log(`  ${i + 1}) ${effectDescription} (x${effect.Count})`);
+    log(
+      `  ${i + 1}) ${effectDescription} (${effect.Item.ID}) x${effect.Count}`,
+    );
   }
 }
 
