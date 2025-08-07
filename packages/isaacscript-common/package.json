@@ -40,10 +40,10 @@
     "isaac-typescript-definitions": "42.2.1"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "7.52.9",
-    "complete-node": "7.4.3",
+    "@microsoft/api-extractor": "7.52.10",
+    "complete-node": "7.4.6",
     "eslint-plugin-sort-exports": "0.9.1",
-    "typescript-eslint": "8.38.0",
+    "typescript-eslint": "8.39.0",
     "typescript-to-lua": "1.31.4"
   }
 }
