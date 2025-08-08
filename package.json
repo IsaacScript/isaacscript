@@ -41,7 +41,7 @@
     "@types/glob": "9.0.0",
     "@types/jest": "30.0.0",
     "@types/klaw-sync": "6.0.5",
-    "@types/node": "24.2.0",
+    "@types/node": "24.2.1",
     "@types/prompt": "1.1.9",
     "@types/source-map-support": "0.5.10",
     "@types/xml2js": "0.4.14",
@@ -55,8 +55,8 @@
     "clsx": "2.1.1",
     "commander": "14.0.0",
     "complete-common": "2.5.0",
-    "complete-lint": "3.0.4",
-    "complete-node": "7.4.6",
+    "complete-lint": "3.1.1",
+    "complete-node": "9.0.0",
     "docusaurus-theme-search-typesense": "0.25.0",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-sort-exports": "0.9.1",
@@ -87,6 +87,6 @@
     "yaml": "2.8.1"
   },
   "devDependencies": {
-    "eslint": "9.32.0"
+    "eslint": "9.33.0"
   }
 }
