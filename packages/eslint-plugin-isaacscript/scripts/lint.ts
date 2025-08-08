@@ -31,7 +31,8 @@ await lintScript(async () => {
 async function checkGenerateChangedFiles() {
   const fileContentsMap = new Map<string, string>();
   for (const filePath of FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT) {
-    const fileContents = readFile(filePath);
+    // eslint-disable-next-line no-await-in-loop
+    const fileContents = await readFile(filePath);
     fileContentsMap.set(filePath, fileContents);
   }
 
@@ -39,7 +40,8 @@ async function checkGenerateChangedFiles() {
 
   let changed = false;
   for (const filePath of FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT) {
-    const newFileContents = readFile(filePath);
+    // eslint-disable-next-line no-await-in-loop
+    const newFileContents = await readFile(filePath);
     const oldFileContents = fileContentsMap.get(filePath);
     assertDefined(
       oldFileContents,

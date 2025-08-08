@@ -1,4 +1,5 @@
 import type { ReadonlyRecord } from "complete-common";
+import { assertObject } from "complete-common";
 import { fatalError, getJSONC, isFile, writeFile } from "complete-node";
 import path from "node:path";
 import { Config } from "./classes/Config.js";
@@ -19,17 +20,19 @@ export async function getConfigFromFile(): Promise<ValidatedConfig> {
   const modsDirectory = await getModsDirectory(undefined);
   const saveSlot = await getSaveSlot(undefined, false);
   const config = new Config(modsDirectory, saveSlot, false) as ValidatedConfig;
-  createConfigFile(CWD, config);
+  await createConfigFile(CWD, config);
 
   return config;
 }
 
 async function getExistingConfig(): Promise<ValidatedConfig | undefined> {
-  if (!isFile(CONFIG_FILE_PATH)) {
+  const file = await isFile(CONFIG_FILE_PATH);
+  if (!file) {
     return undefined;
   }
 
   const config = await getJSONC(CONFIG_FILE_PATH);
+  assertObject(config, `The config was not an object at: ${CONFIG_FILE_PATH}`);
   validateMandatoryConfigFields(config);
 
   return config as unknown as ValidatedConfig;
@@ -63,12 +66,15 @@ function errorMissing(field: string, description: string): never {
   );
 }
 
-export function createConfigFile(projectPath: string, config: Config): void {
+export async function createConfigFile(
+  projectPath: string,
+  config: Config,
+): Promise<void> {
   const configFilePath = path.join(projectPath, CONFIG_FILE_NAME);
   const configContents = JSON.stringify(config, undefined, NUM_INDENT_SPACES);
 
   // Add a newline at the end to satisfy Prettier.
   const configContentsWithNewline = `${configContents}\n`;
 
-  writeFile(configFilePath, configContentsWithNewline);
+  await writeFile(configFilePath, configContentsWithNewline);
 }

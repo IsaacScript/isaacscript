@@ -2,8 +2,8 @@ import chalk from "chalk";
 import {
   deleteFileOrDirectory,
   fatalError,
-  fileOrDirectoryExists,
   isDirectory,
+  isFileOrDirectory,
 } from "complete-node";
 import path from "node:path";
 import { PROJECT_NAME } from "../../constants.js";
@@ -15,14 +15,16 @@ export async function checkModTargetDirectory(
   yes: boolean,
 ): Promise<void> {
   const modTargetPath = path.join(modsDirectory, projectName);
-  if (!fileOrDirectoryExists(modTargetPath)) {
+  const exists = await isFileOrDirectory(modTargetPath);
+  if (!exists) {
     return;
   }
 
-  const fileType = isDirectory(modTargetPath) ? "directory" : "file";
+  const directory = await isDirectory(modTargetPath);
+  const fileType = directory ? "directory" : "file";
 
   if (yes) {
-    deleteFileOrDirectory(modTargetPath);
+    await deleteFileOrDirectory(modTargetPath);
     console.log(`Deleted ${fileType}: ${chalk.green(modTargetPath)}`);
     return;
   }
@@ -41,5 +43,5 @@ export async function checkModTargetDirectory(
     fatalError("Ok then. Goodbye.");
   }
 
-  deleteFileOrDirectory(modTargetPath);
+  await deleteFileOrDirectory(modTargetPath);
 }

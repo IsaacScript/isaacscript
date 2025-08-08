@@ -12,13 +12,16 @@ import {
 import path from "node:path";
 
 await lintScript(async (packageRoot) => {
-  await Promise.all([$`tsc --noEmit`, $`eslint --max-warnings 0 .`]);
-  checkDictionaries(packageRoot);
+  await Promise.all([
+    $`tsc --noEmit`,
+    $`eslint --max-warnings 0 .`,
+    checkDictionaries(packageRoot),
+  ]);
 });
 
-function checkDictionaries(packageRoot: string) {
+async function checkDictionaries(packageRoot: string) {
   const dictionariesPath = path.join(packageRoot, "dictionaries");
-  const dictionaryNames = getFileNamesInDirectory(dictionariesPath);
+  const dictionaryNames = await getFileNamesInDirectory(dictionariesPath);
 
   const allWordsSet = new Set<string>();
   let oneOrMoreFailures = false;
@@ -26,18 +29,22 @@ function checkDictionaries(packageRoot: string) {
   // Check for alphabetically sorted and unique.
   for (const dictionaryName of dictionaryNames) {
     const dictionaryDirectoryPath = path.join(dictionariesPath, dictionaryName);
-    if (!isDirectory(dictionaryDirectoryPath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const directory = await isDirectory(dictionaryDirectoryPath);
+    if (!directory) {
       continue;
     }
 
-    const fileNames = getFileNamesInDirectory(dictionaryDirectoryPath);
+    // eslint-disable-next-line no-await-in-loop
+    const fileNames = await getFileNamesInDirectory(dictionaryDirectoryPath);
     for (const fileName of fileNames) {
       if (!fileName.endsWith(".txt")) {
         continue;
       }
 
       const filePath = path.join(dictionaryDirectoryPath, fileName);
-      const fileContent = readFile(filePath);
+      // eslint-disable-next-line no-await-in-loop
+      const fileContent = await readFile(filePath);
       const lines = fileContent.split("\n");
       const words = lines.filter(
         (line) => line !== "" && !line.startsWith("#"),

@@ -119,11 +119,12 @@ async function getGitHubUsername(): Promise<string | undefined> {
     return undefined;
   }
 
-  if (!isFile(githubCLIHostsPath)) {
+  const file = await isFile(githubCLIHostsPath);
+  if (!file) {
     return undefined;
   }
 
-  const configYAMLRaw = readFile(githubCLIHostsPath);
+  const configYAMLRaw = await readFile(githubCLIHostsPath);
   const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
 
   const githubCom = configYAML["github.com"];

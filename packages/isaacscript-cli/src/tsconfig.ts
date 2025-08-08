@@ -1,6 +1,6 @@
 import { Ajv } from "ajv";
 import chalk from "chalk";
-import { isObject } from "complete-common";
+import { assertObject, isObject } from "complete-common";
 import { fatalError, getJSONC } from "complete-node";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
@@ -13,11 +13,21 @@ import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfi
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
 const isaacScriptSchema = await getJSONC(ISAACSCRIPT_SCHEMA_PATH);
+assertObject(
+  isaacScriptSchema,
+  `The IsaacScript schema was not an object: ${ISAACSCRIPT_SCHEMA_PATH}`,
+);
+
 const ajv = new Ajv();
 const schemaValidate = ajv.compile(isaacScriptSchema);
 
 async function getTSConfigJSON(): Promise<Record<string, unknown>> {
-  return await getJSONC(TSCONFIG_JSON_PATH);
+  const tsconfig = await getJSONC(TSCONFIG_JSON_PATH);
+  assertObject(
+    tsconfig,
+    `The TSConfig was not an object: ${TSCONFIG_JSON_PATH}`,
+  );
+  return tsconfig;
 }
 
 async function getIsaacScriptSection(): Promise<

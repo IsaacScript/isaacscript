@@ -53,7 +53,7 @@ export async function compileAndCopy(
 ): Promise<void> {
   await prepareCustomStages(packageManager, isaacScriptCommonDev, verbose);
   compile(packageManager, verbose);
-  copyMod(modSourcePath, modTargetPath);
+  await copyMod(modSourcePath, modTargetPath);
 }
 
 function compile(packageManager: PackageManager, verbose: boolean) {
@@ -62,8 +62,8 @@ function compile(packageManager: PackageManager, verbose: boolean) {
   console.log("Mod compiled successfully.");
 }
 
-function copyMod(modSourcePath: string, modTargetPath: string) {
-  deleteFileOrDirectory(modTargetPath);
-  copyFileOrDirectory(modSourcePath, modTargetPath);
+async function copyMod(modSourcePath: string, modTargetPath: string) {
+  await deleteFileOrDirectory(modTargetPath);
+  await copyFileOrDirectory(modSourcePath, modTargetPath);
   console.log("Mod copied successfully.");
 }

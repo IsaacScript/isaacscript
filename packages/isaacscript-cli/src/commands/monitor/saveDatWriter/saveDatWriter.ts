@@ -12,9 +12,9 @@ const MAX_MESSAGES = 100;
 let saveDatPath: string;
 let saveDatFileName: string;
 
-init();
+await init();
 
-function init() {
+async function init() {
   const args = getArgs();
 
   const firstArg = args[0];
@@ -28,18 +28,24 @@ function init() {
 
   // Check to see if the data directory exists.
   const watcherModDataPath = path.dirname(saveDatPath);
-  if (!isFile(watcherModDataPath)) {
-    makeDirectory(watcherModDataPath);
+  const file = await isFile(watcherModDataPath);
+  if (!file) {
+    await makeDirectory(watcherModDataPath);
   }
 
   // Listen for messages from the parent process.
   process.on("message", (msg: SaveDatMessage) => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     onMessage(msg.type, msg.data);
   });
 }
 
-function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
-  const saveDat = readSaveDatFromDisk();
+async function onMessage(
+  type: SaveDatMessageType,
+  data: string,
+  numRetries = 0,
+) {
+  const saveDat = await readSaveDatFromDisk();
   if (saveDat.length > MAX_MESSAGES) {
     // If IsaacScript is running and:
     // - the game is not open
@@ -56,10 +62,11 @@ function onMessage(type: SaveDatMessageType, data: string, numRetries = 0) {
 }
 
 // eslint-disable-next-line complete/no-mutable-return
-function readSaveDatFromDisk(): SaveDatMessage[] {
+async function readSaveDatFromDisk(): Promise<SaveDatMessage[]> {
   let saveDat: SaveDatMessage[];
-  if (isFile(saveDatPath)) {
-    const saveDatRaw = readFile(saveDatPath);
+  const file = await isFile(saveDatPath);
+  if (file) {
+    const saveDatRaw = await readFile(saveDatPath);
     try {
       saveDat = JSONC.parse(saveDatRaw) as SaveDatMessage[];
     } catch (error) {
@@ -129,6 +136,7 @@ function writeSaveDatToDisk(
       `Writing to "${saveDatFileName}" failed. (The number of retries so far is ${numRetries}.) Trying again in 0.1 seconds...`,
     );
     setTimeout(() => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       onMessage(type, data, numRetries + 1);
     }, 100);
   }

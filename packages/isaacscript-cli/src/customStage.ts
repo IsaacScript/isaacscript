@@ -71,23 +71,23 @@ export async function prepareCustomStages(
     return;
   }
 
-  validateCustomStagePaths(customStagesTSConfig);
+  await validateCustomStagePaths(customStagesTSConfig);
 
-  copyCustomStageFilesToProject();
+  await copyCustomStageFilesToProject();
   await insertEmptyShader();
   await fillCustomStageMetadata(
     customStagesTSConfig,
     packageManager,
     isaacScriptCommonDev,
   );
-  combineCustomStageXMLs(customStagesTSConfig, verbose);
+  await combineCustomStageXMLs(customStagesTSConfig, verbose);
 }
 
 /**
  * Before we proceed with compiling the mod, ensure that all of the file paths that the end-user put
  * in their "tsconfig.json" file map to actual files on the file system.
  */
-function validateCustomStagePaths(
+async function validateCustomStagePaths(
   customStagesTSConfig: readonly CustomStageTSConfig[],
 ) {
   for (const customStageTSConfig of customStagesTSConfig) {
@@ -96,7 +96,8 @@ function validateCustomStagePaths(
         customStageTSConfig.backdropPNGPaths,
       )) {
         for (const filePath of filePaths) {
-          checkFile(filePath);
+          // eslint-disable-next-line no-await-in-loop
+          await checkFile(filePath);
         }
       }
     }
@@ -109,19 +110,22 @@ function validateCustomStagePaths(
       customStageTSConfig.pitsPNGPath,
       customStageTSConfig.pitsANM2Path,
     ]) {
-      checkFile(filePath);
+      // eslint-disable-next-line no-await-in-loop
+      await checkFile(filePath);
     }
 
     if (customStageTSConfig.doorPNGPaths !== undefined) {
       for (const filePath of Object.values(customStageTSConfig.doorPNGPaths)) {
-        checkFile(filePath);
+        // eslint-disable-next-line no-await-in-loop
+        await checkFile(filePath);
       }
     }
 
     if (customStageTSConfig.shadows !== undefined) {
       for (const stageShadows of Object.values(customStageTSConfig.shadows)) {
         for (const stageShadow of stageShadows) {
-          checkFile(stageShadow.pngPath);
+          // eslint-disable-next-line no-await-in-loop
+          await checkFile(stageShadow.pngPath);
         }
       }
     }
@@ -129,15 +133,17 @@ function validateCustomStagePaths(
     if (customStageTSConfig.bossPool !== undefined) {
       for (const bossPoolEntry of Object.values(customStageTSConfig.bossPool)) {
         if (bossPoolEntry.versusScreen !== undefined) {
-          checkFile(bossPoolEntry.versusScreen.namePNGPath);
-          checkFile(bossPoolEntry.versusScreen.portraitPNGPath);
+          // eslint-disable-next-line no-await-in-loop
+          await checkFile(bossPoolEntry.versusScreen.namePNGPath);
+          // eslint-disable-next-line no-await-in-loop
+          await checkFile(bossPoolEntry.versusScreen.portraitPNGPath);
         }
       }
     }
   }
 }
 
-function checkFile(filePath: string | undefined) {
+async function checkFile(filePath: string | undefined) {
   if (filePath === undefined) {
     return;
   }
@@ -148,7 +154,8 @@ function checkFile(filePath: string | undefined) {
     );
   }
 
-  if (!isFile(filePath)) {
+  const file = await isFile(filePath);
+  if (!file) {
     fatalError(
       `Failed to find the "${filePath}" file. Check your "tsconfig.json" file and then restart IsaacScript.`,
     );
@@ -156,7 +163,7 @@ function checkFile(filePath: string | undefined) {
 }
 
 /** The custom stages feature needs some anm2 files in order to work properly. */
-function copyCustomStageFilesToProject() {
+async function copyCustomStageFilesToProject() {
   const dstDirPath = path.join(
     CWD,
     "mod",
@@ -164,13 +171,14 @@ function copyCustomStageFilesToProject() {
     "gfx",
     "isaacscript-custom-stage",
   );
-  makeDirectory(dstDirPath);
+  await makeDirectory(dstDirPath);
 
-  const fileNames = getFileNamesInDirectory(CUSTOM_STAGE_FILES_DIR);
+  const fileNames = await getFileNamesInDirectory(CUSTOM_STAGE_FILES_DIR);
   for (const fileName of fileNames) {
     const srcPath = path.join(CUSTOM_STAGE_FILES_DIR, fileName);
     const dstPath = path.join(dstDirPath, fileName);
-    copyFileOrDirectory(srcPath, dstPath);
+    // eslint-disable-next-line no-await-in-loop
+    await copyFileOrDirectory(srcPath, dstPath);
   }
 }
 
@@ -181,14 +189,15 @@ function copyCustomStageFilesToProject() {
 async function insertEmptyShader() {
   const shadersXMLDstPath = path.join(CWD, "mod", "content", "shaders.xml");
 
-  if (!isFile(shadersXMLDstPath)) {
-    copyFileOrDirectory(SHADERS_XML_PATH, shadersXMLDstPath);
+  const file = await isFile(shadersXMLDstPath);
+  if (!file) {
+    await copyFileOrDirectory(SHADERS_XML_PATH, shadersXMLDstPath);
     return;
   }
 
   // The end-user mod might have their own custom shaders, so we need to merge our empty shader
   // inside the existing "shaders.xml" file.
-  const shadersXMLDstContents = readFile(shadersXMLDstPath);
+  const shadersXMLDstContents = await readFile(shadersXMLDstPath);
   const shadersXMLDst = (await xml2js.parseStringPromise(
     shadersXMLDstContents,
   )) as ShadersXML;
@@ -201,7 +210,7 @@ async function insertEmptyShader() {
     return;
   }
 
-  const shadersXMLSrcContents = readFile(SHADERS_XML_PATH);
+  const shadersXMLSrcContents = await readFile(SHADERS_XML_PATH);
   const shadersXMLSrc = (await xml2js.parseStringPromise(
     shadersXMLSrcContents,
   )) as ShadersXML;
@@ -218,7 +227,7 @@ async function insertEmptyShader() {
   shadersXMLDst.shaders.shader.push(isaacScriptEmptyShader);
   const xmlBuilder = new xml2js.Builder();
   const newXML = xmlBuilder.buildObject(shadersXMLDst);
-  writeFile(shadersXMLDstPath, newXML);
+  await writeFile(shadersXMLDstPath, newXML);
 }
 
 /**
@@ -232,11 +241,11 @@ async function fillCustomStageMetadata(
   packageManager: PackageManager,
   isaacScriptCommonDev: boolean | undefined,
 ) {
-  validateMetadataLuaFileExists(packageManager);
+  await validateMetadataLuaFileExists(packageManager);
 
   const customStages = await getCustomStagesWithMetadata(customStagesTSConfig);
   const customStagesLua = await convertCustomStagesToLua(customStages);
-  writeFile(METADATA_LUA_PATH, customStagesLua);
+  await writeFile(METADATA_LUA_PATH, customStagesLua);
   console.log(
     `Wrote metadata for ${customStagesLua.length} custom stage room(s) to: ${METADATA_LUA_PATH}`,
   );
@@ -247,15 +256,16 @@ async function fillCustomStageMetadata(
   // the "customStageMetadata.json" file.
   if (isaacScriptCommonDev === true) {
     const customStagesJSON = JSON.stringify(customStages, undefined, 2);
-    writeFile(CUSTOM_STAGE_METADATA_JSON_PATH, customStagesJSON);
+    await writeFile(CUSTOM_STAGE_METADATA_JSON_PATH, customStagesJSON);
     console.log(
       `Wrote metadata for ${customStagesLua.length} custom stage rooms to: ${CUSTOM_STAGE_METADATA_JSON_PATH}`,
     );
   }
 }
 
-function validateMetadataLuaFileExists(packageManager: PackageManager) {
-  if (!isDirectory(ISAACSCRIPT_COMMON_PATH)) {
+async function validateMetadataLuaFileExists(packageManager: PackageManager) {
+  const directory = await isDirectory(ISAACSCRIPT_COMMON_PATH);
+  if (!directory) {
     const addCommand = getPackageManagerAddCommand(
       packageManager,
       ISAACSCRIPT_COMMON,
@@ -267,7 +277,8 @@ function validateMetadataLuaFileExists(packageManager: PackageManager) {
     );
   }
 
-  if (!isFile(METADATA_LUA_PATH)) {
+  const file = await isFile(METADATA_LUA_PATH);
+  if (!file) {
     fatalError(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
@@ -283,7 +294,8 @@ function validateMetadataLuaFileExists(packageManager: PackageManager) {
 async function getCustomStagesWithMetadata(
   customStagesTSConfig: readonly CustomStageTSConfig[],
 ): Promise<readonly CustomStageLua[]> {
-  if (!isFile(METADATA_LUA_PATH)) {
+  const metadataExists = await isFile(METADATA_LUA_PATH);
+  if (!metadataExists) {
     fatalError(
       `${chalk.red(
         "Failed to find the custom stage metadata file at:",
@@ -300,7 +312,9 @@ async function getCustomStagesWithMetadata(
     const { xmlPath } = customStageTSConfig;
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
-    if (!isFile(resolvedXMLPath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const xmlExists = await isFile(resolvedXMLPath);
+    if (!xmlExists) {
       fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
@@ -308,7 +322,8 @@ async function getCustomStagesWithMetadata(
       );
     }
 
-    const xmlContents = readFile(resolvedXMLPath);
+    // eslint-disable-next-line no-await-in-loop
+    const xmlContents = await readFile(resolvedXMLPath);
     // eslint-disable-next-line no-await-in-loop, @typescript-eslint/no-unsafe-assignment
     const jsonRoomsFileAny = await xml2js.parseStringPromise(xmlContents);
     const jsonRoomsFile = jsonRoomsFileAny as JSONRoomsFile;
@@ -416,7 +431,7 @@ async function convertCustomStagesToLua(
 }
 
 /** We combine all of the custom stages together and add them to "00.special rooms.xml". */
-function combineCustomStageXMLs(
+async function combineCustomStageXMLs(
   customStagesTSConfig: readonly CustomStageTSConfig[],
   verbose: boolean,
 ) {
@@ -424,7 +439,9 @@ function combineCustomStageXMLs(
 
   for (const customStageTSConfig of customStagesTSConfig) {
     const xmlPath = path.resolve(CWD, customStageTSConfig.xmlPath);
-    if (!isFile(xmlPath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const file = await isFile(xmlPath);
+    if (!file) {
       fatalError(
         `${chalk.red(
           "Failed to find the custom stage XML file at:",
@@ -432,7 +449,8 @@ function combineCustomStageXMLs(
       );
     }
 
-    const xmlContents = readFile(xmlPath);
+    // eslint-disable-next-line no-await-in-loop
+    const xmlContents = await readFile(xmlPath);
 
     // It is easier to work with the XML files as text rather than converting it to JSON and then
     // converting it back to XML.
@@ -495,15 +513,16 @@ ${allRooms}
 </rooms>
   `.trim();
   const contentRoomsDir = path.join(MOD_SOURCE_PATH, "content", "rooms");
-  if (!isFile(contentRoomsDir)) {
-    makeDirectory(contentRoomsDir);
+  const file = await isFile(contentRoomsDir);
+  if (!file) {
+    await makeDirectory(contentRoomsDir);
   }
 
   const specialRoomsXMLPath = path.join(
     contentRoomsDir,
     "00.special rooms.xml",
   );
-  writeFile(specialRoomsXMLPath, combinedXMLFile);
+  await writeFile(specialRoomsXMLPath, combinedXMLFile);
 
   // Convert the XML file to an STB file, which is the format actually read by the game.
   execExe(XML_CONVERTER_PATH, [specialRoomsXMLPath], verbose, contentRoomsDir);

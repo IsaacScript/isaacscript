@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import {
   fatalError,
-  isFileAsync,
+  isFile,
   isGitRepository,
   isGitRepositoryClean,
   isLoggedInToNPM,
@@ -28,7 +28,7 @@ export async function validate(
     );
   }
 
-  const packageJSONExists = await isFileAsync("package.json");
+  const packageJSONExists = await isFile("package.json");
   if (!packageJSONExists) {
     fatalError(
       'Failed to find the "package.json" file in the current working directory.',

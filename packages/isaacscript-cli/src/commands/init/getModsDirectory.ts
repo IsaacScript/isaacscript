@@ -37,7 +37,8 @@ export async function getModsDirectory(
 
   const defaultModsPath = getDefaultModsPath(process.platform);
 
-  if (isDirectory(defaultModsPath)) {
+  const defaultModsExists = await isDirectory(defaultModsPath);
+  if (defaultModsExists) {
     return defaultModsPath;
   }
 
@@ -52,7 +53,8 @@ export async function getModsDirectory(
     fatalError("Error: You did not provide a response; exiting.");
   }
 
-  if (!isDirectory(modsDir)) {
+  const modsExists = await isDirectory(modsDir);
+  if (!modsExists) {
     fatalError(
       `Error: The directory of "${chalk.green(
         modsDir,

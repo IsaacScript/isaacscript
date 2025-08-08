@@ -1,16 +1,17 @@
 import { fatalError, isDirectory } from "complete-node";
 import path from "node:path";
 
-export function getAndValidateIsaacScriptMonorepoDirectory(
+export async function getAndValidateIsaacScriptMonorepoDirectory(
   projectPath: string,
-): string {
+): Promise<string> {
   const isaacScriptMonorepoDirectory = path.resolve(
     projectPath,
     "..",
     "isaacscript",
   );
 
-  if (!isDirectory(isaacScriptMonorepoDirectory)) {
+  const directory = await isDirectory(isaacScriptMonorepoDirectory);
+  if (!directory) {
     console.error(
       `Failed to find the IsaacScript repository at: ${isaacScriptMonorepoDirectory}`,
     );

@@ -59,7 +59,7 @@ async function monitor(options: MonitorOptions) {
   const packageManager = await getPackageManagerUsedForExistingProject();
 
   if (!skipProjectChecks) {
-    validateInIsaacScriptProject();
+    await validateInIsaacScriptProject();
     await validatePackageJSONDependencies();
   }
 
@@ -74,16 +74,14 @@ async function monitor(options: MonitorOptions) {
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
 
   // Prepare the IsaacScript watcher mod.
-  copyWatcherMod(config);
-  touchWatcherSaveDatFiles(config);
+  await copyWatcherMod(config);
+  await touchWatcherSaveDatFiles(config);
 
   // Perform the steps to link to a development version of "isaacscript-common", if necessary. (This
   // has to be before preparing custom stages.)
-  if (config.isaacScriptCommonDev === true) {
-    linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose);
-  } else {
-    errorIfIsaacScriptCommonLinkExists(CWD, packageManager);
-  }
+  await (config.isaacScriptCommonDev === true
+    ? linkDevelopmentIsaacScriptCommon(CWD, packageManager, verbose)
+    : errorIfIsaacScriptCommonLinkExists(CWD, packageManager));
 
   // Prepare the custom stages feature, if necessary.
   await prepareCustomStages(
@@ -94,7 +92,7 @@ async function monitor(options: MonitorOptions) {
 
   // Delete and re-copy the mod every time IsaacScript starts. This ensures that it is always the
   // latest version.
-  deleteFileOrDirectory(modTargetPath);
+  await deleteFileOrDirectory(modTargetPath);
 
   // Subprocess #1 - The "save#.dat" file writer.
   spawnSaveDatWriter(config);
@@ -108,13 +106,14 @@ async function monitor(options: MonitorOptions) {
   // Subprocess #4 - `tstl --watch` (for the development version of `isaacscript-common`).
   if (config.isaacScriptCommonDev === true) {
     const isaacScriptMonorepoDirectory =
-      getAndValidateIsaacScriptMonorepoDirectory(CWD);
+      await getAndValidateIsaacScriptMonorepoDirectory(CWD);
     const isaacScriptCommonDirectory = path.join(
       isaacScriptMonorepoDirectory,
       "packages",
       "isaacscript-common",
     );
-    if (!isDirectory(isaacScriptCommonDirectory)) {
+    const directory = await isDirectory(isaacScriptCommonDirectory);
+    if (!directory) {
       console.error(
         `The "isaacscript-common" directory does not exist at: ${isaacScriptCommonDirectory}`,
       );
@@ -142,7 +141,7 @@ async function monitor(options: MonitorOptions) {
   // (The process will now continue indefinitely for as long as the subprocesses exist.)
 }
 
-function linkDevelopmentIsaacScriptCommon(
+async function linkDevelopmentIsaacScriptCommon(
   projectPath: string,
   packageManager: PackageManager,
   verbose: boolean,
@@ -154,7 +153,7 @@ function linkDevelopmentIsaacScriptCommon(
   }
 
   const isaacScriptMonorepoDirectory =
-    getAndValidateIsaacScriptMonorepoDirectory(projectPath);
+    await getAndValidateIsaacScriptMonorepoDirectory(projectPath);
 
   console.log('Building "isaacscript-common"...');
 
@@ -176,7 +175,8 @@ function linkDevelopmentIsaacScriptCommon(
     "node_modules",
     "isaacscript-common",
   );
-  if (isLink(localIsaacScriptCommonPath)) {
+  const link = await isLink(localIsaacScriptCommonPath);
+  if (link) {
     console.log('The "isaacscript-common" package is already linked.');
   } else {
     console.log(
@@ -192,7 +192,7 @@ function linkDevelopmentIsaacScriptCommon(
   }
 }
 
-function errorIfIsaacScriptCommonLinkExists(
+async function errorIfIsaacScriptCommonLinkExists(
   projectPath: string,
   packageManager: PackageManager,
 ) {
@@ -202,8 +202,9 @@ function errorIfIsaacScriptCommonLinkExists(
     "isaacscript-common",
   );
 
+  const link = await isLink(localIsaacScriptCommonPath);
   if (
-    isLink(localIsaacScriptCommonPath)
+    link
     && packageManager !== PackageManager.pnpm // pnpm uses links, so it will cause a false positive.
   ) {
     fatalError(

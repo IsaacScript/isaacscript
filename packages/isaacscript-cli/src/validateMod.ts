@@ -29,10 +29,10 @@ const REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES = [
 ] as const;
 
 /** Validate that we are in a directory that looks like an IsaacScript project. */
-export function validateInIsaacScriptProject(): void {
-  const isaacScriptModMissingFile = getIsaacScriptModMissingFile(CWD);
+export async function validateInIsaacScriptProject(): Promise<void> {
+  const isaacScriptModMissingFile = await getIsaacScriptModMissingFile(CWD);
   if (isaacScriptModMissingFile !== undefined) {
-    errorNotExists(isaacScriptModMissingFile);
+    await errorNotExists(isaacScriptModMissingFile);
   }
 }
 
@@ -40,13 +40,15 @@ export function validateInIsaacScriptProject(): void {
  * Returns the file name missing. If undefined is returned, then the file path is an IsaacScript mod
  * directory.
  */
-export function getIsaacScriptModMissingFile(
+export async function getIsaacScriptModMissingFile(
   directoryPath: string,
-): string | undefined {
+): Promise<string | undefined> {
   // Files
   for (const fileName of ["package.json"]) {
     const filePath = path.join(directoryPath, fileName);
-    if (!isFile(filePath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const file = await isFile(filePath);
+    if (!file) {
       return filePath;
     }
   }
@@ -54,7 +56,9 @@ export function getIsaacScriptModMissingFile(
   // Subdirectories
   for (const subdirectoryName of ["src", "mod"]) {
     const subdirectoryPath = path.join(directoryPath, subdirectoryName);
-    if (!isDirectory(subdirectoryPath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const directory = await isDirectory(subdirectoryPath);
+    if (!directory) {
       return subdirectoryPath;
     }
   }
@@ -62,7 +66,8 @@ export function getIsaacScriptModMissingFile(
   // Specific files in subdirectories.
   {
     const filePath = path.join(directoryPath, "mod", METADATA_XML);
-    if (!isFile(filePath)) {
+    const file = await isFile(filePath);
+    if (!file) {
       return filePath;
     }
   }
@@ -70,8 +75,8 @@ export function getIsaacScriptModMissingFile(
   return undefined;
 }
 
-function errorNotExists(filePath: string) {
-  const directory = isDirectory(filePath);
+async function errorNotExists(filePath: string) {
+  const directory = await isDirectory(filePath);
   const noun = directory ? "subdirectory" : "file";
   console.error(
     `It looks like the current working directory of "${chalk.green(

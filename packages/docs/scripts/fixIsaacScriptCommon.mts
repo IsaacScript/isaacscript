@@ -49,7 +49,7 @@ import {
   isMain,
   makeDirectory,
   readFile,
-  renameFile,
+  renameFileOrDirectory,
   writeFile,
 } from "complete-node";
 import { globSync } from "glob";
@@ -135,21 +135,21 @@ const BROKEN_LINK_DIR_NAMES = [
 ] as const;
 
 if (isMain()) {
-  main();
+  await main();
 }
 
-function main() {
-  createCallbackFile();
-  moveModulesFiles();
-  deleteFileOrDirectory(MODULES_MD_PATH);
-  makeDirectory(OTHER_DIR);
-  makeDirectory(FEATURES_DIR);
-  addCategoryFilesAndMarkdownHeaders();
-  moveDirsToOther();
-  renameSpecialPages();
-  deleteDuplicatedPages();
-  renameDuplicatedPages();
-  fixLinks();
+async function main() {
+  await createCallbackFile();
+  await moveModulesFiles();
+  await deleteFileOrDirectory(MODULES_MD_PATH);
+  await makeDirectory(OTHER_DIR);
+  await makeDirectory(FEATURES_DIR);
+  await addCategoryFilesAndMarkdownHeaders();
+  await moveDirsToOther();
+  await renameSpecialPages();
+  await deleteDuplicatedPages();
+  await renameDuplicatedPages();
+  await fixLinks();
 }
 
 /**
@@ -157,7 +157,7 @@ function main() {
  * be part of the root navigation layout. Thus, we create a new Markdown file from scratch to
  * represent this.
  */
-function createCallbackFile() {
+async function createCallbackFile() {
   const filePath = path.join(PACKAGE_DOCS_DIR, "extra-callbacks.md");
   const fileContent = `
 ---
@@ -172,11 +172,11 @@ See the [ModCallbackCustom](/isaacscript-common/other/enums/ModCallbackCustom) e
   `
     .trim()
     .concat("\n");
-  writeFile(filePath, fileContent);
+  await writeFile(filePath, fileContent);
 }
 
 /** Move the files in the "modules" directory to proper directories. */
-function moveModulesFiles() {
+async function moveModulesFiles() {
   const markdownFileNames = getMarkdownFileNames(MODULES_DIR);
   for (const markdownFileName of markdownFileNames) {
     const markdownFilePath = path.join(MODULES_DIR, markdownFileName);
@@ -202,9 +202,11 @@ function moveModulesFiles() {
       );
 
       const dstDirectory = path.join(PACKAGE_DOCS_DIR, directoryName);
-      makeDirectory(dstDirectory);
+      // eslint-disable-next-line no-await-in-loop
+      await makeDirectory(dstDirectory);
       const dstPath = path.join(dstDirectory, newFileName);
-      renameFile(markdownFilePath, dstPath);
+      // eslint-disable-next-line no-await-in-loop
+      await renameFileOrDirectory(markdownFilePath, dstPath);
 
       if (DEBUG) {
         echo(`Moved:\n  ${markdownFilePath}\n  -->\n  ${dstPath}`);
@@ -219,39 +221,43 @@ function moveModulesFiles() {
     );
   }
 
-  deleteFileOrDirectory(MODULES_DIR);
+  await deleteFileOrDirectory(MODULES_DIR);
 }
 
-function addCategoryFilesAndMarkdownHeaders() {
+async function addCategoryFilesAndMarkdownHeaders() {
   const directories = getDirectoryNames(PACKAGE_DOCS_DIR);
   for (const directoryName of directories) {
     const directoryPath = path.join(PACKAGE_DOCS_DIR, directoryName);
 
-    addCategoryFile(directoryPath);
+    // eslint-disable-next-line no-await-in-loop
+    await addCategoryFile(directoryPath);
     const subDirectories = getDirectoryNames(directoryPath);
     for (const subDirectoryName of subDirectories) {
       const subDirectoryPath = path.join(directoryPath, subDirectoryName);
-      addCategoryFile(subDirectoryPath);
+      // eslint-disable-next-line no-await-in-loop
+      await addCategoryFile(subDirectoryPath);
     }
 
     const markdownFileNames = getMarkdownFileNames(directoryPath);
     for (const markdownFileName of markdownFileNames) {
       const markdownFilePath = path.join(directoryPath, markdownFileName);
-      addMarkdownHeader(markdownFilePath, directoryName);
+      // eslint-disable-next-line no-await-in-loop
+      await addMarkdownHeader(markdownFilePath, directoryName);
     }
   }
 }
 
 /** Move some specific directories to an "other" directory for better top-level organization. */
-function moveDirsToOther() {
+async function moveDirsToOther() {
   for (const otherDirName of OTHER_DIR_NAMES) {
     const srcPath = path.join(PACKAGE_DOCS_DIR, otherDirName);
     const dstPath = path.join(OTHER_DIR, otherDirName);
-    renameFile(srcPath, dstPath);
+    // eslint-disable-next-line no-await-in-loop
+    await renameFileOrDirectory(srcPath, dstPath);
   }
 }
 
-function addCategoryFile(directoryPath: string) {
+async function addCategoryFile(directoryPath: string) {
   const directoryName = path.basename(directoryPath);
   const categoryFilePath = path.join(directoryPath, CATEGORY_FILE_NAME);
 
@@ -263,10 +269,10 @@ function addCategoryFile(directoryPath: string) {
   if (position !== undefined) {
     fileContents += `position: ${position}\n`;
   }
-  writeFile(categoryFilePath, fileContents);
+  await writeFile(categoryFilePath, fileContents);
 }
 
-function addMarkdownHeader(filePath: string, directoryName: string) {
+async function addMarkdownHeader(filePath: string, directoryName: string) {
   const title = getTitle(filePath, directoryName);
   const header = `
 ---
@@ -277,7 +283,7 @@ custom_edit_url: null
 
 `.trimStart();
 
-  let fileContents = readFile(filePath);
+  let fileContents = await readFile(filePath);
 
   // Remove the title generated by `typedoc-plugin-markdown`, which will be on the first line.
   const lines = fileContents.trim().split("\n");
@@ -295,7 +301,7 @@ custom_edit_url: null
   fileContents = lines.join("\n");
 
   const newFileContents = header + fileContents;
-  writeFile(filePath, newFileContents);
+  await writeFile(filePath, newFileContents);
 }
 
 function getTitle(filePath: string, directoryName: string) {
@@ -341,24 +347,24 @@ function getTitle(filePath: string, directoryName: string) {
  * Some pages are erroneously deleted by the `deleteDuplicatedPages`, so we must handle them
  * manually.
  */
-function renameSpecialPages() {
+async function renameSpecialPages() {
   const oldPath = path.join(
     OTHER_DIR,
     "classes",
     "features_other_extraConsoleCommands_commands.md",
   );
   const newPath = path.join(FEATURES_DIR, "ExtraConsoleCommandsList.md");
-  renameFile(oldPath, newPath);
+  await renameFileOrDirectory(oldPath, newPath);
 
-  const contents = readFile(newPath);
+  const contents = await readFile(newPath);
   const newContents = contents.replace(
     "# features_other_extraConsoleCommands_commands",
     "# Extra Console Commands (List)",
   );
-  writeFile(newPath, newContents);
+  await writeFile(newPath, newContents);
 }
 
-function deleteDuplicatedPages() {
+async function deleteDuplicatedPages() {
   for (const directoryName of DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE) {
     const directoryPath = path.join(OTHER_DIR, directoryName);
     const fileNames = getFileNames(directoryPath);
@@ -370,7 +376,8 @@ function deleteDuplicatedPages() {
 
       if (!isValidDuplicate(fileName, directoryName)) {
         const filePath = path.join(directoryPath, fileName);
-        deleteFileOrDirectory(filePath);
+        // eslint-disable-next-line no-await-in-loop
+        await deleteFileOrDirectory(filePath);
 
         if (DEBUG) {
           echo(`Deleted duplicate page:\n  ${filePath}`);
@@ -380,7 +387,7 @@ function deleteDuplicatedPages() {
   }
 }
 
-function renameDuplicatedPages() {
+async function renameDuplicatedPages() {
   for (const directoryName of DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE) {
     const directoryPath = path.join(OTHER_DIR, directoryName);
     const fileNames = getFileNames(directoryPath);
@@ -415,7 +422,8 @@ function renameDuplicatedPages() {
         properPath = path.join(FEATURES_DIR, properName);
       }
 
-      renameFile(filePath, properPath);
+      // eslint-disable-next-line no-await-in-loop
+      await renameFileOrDirectory(filePath, properPath);
 
       if (DEBUG) {
         echo(`Renamed:\n  ${filePath}\n  -->\n  ${properPath}`);
@@ -432,12 +440,13 @@ function isValidDuplicate(fileName: string, directoryName: string) {
 }
 
 /** Because we manually moved files around, internal links generated by TypeDoc will break. */
-function fixLinks() {
+async function fixLinks() {
   const markdownFilePaths = globSync("**/*.md", { cwd: PACKAGE_DOCS_DIR });
 
   for (const filePath of markdownFilePaths) {
     const fullFilePath = path.join(PACKAGE_DOCS_DIR, filePath);
-    const fileContents = readFile(fullFilePath);
+    // eslint-disable-next-line no-await-in-loop
+    const fileContents = await readFile(fullFilePath);
     let newFileContents = fileContents;
 
     // Start by removing any links with a "modules" prefix, since they are moved to the root.
@@ -501,7 +510,8 @@ function fixLinks() {
     newFileContents = newFileContents.replaceAll(/types_\w+\./gm, "");
 
     if (fileContents !== newFileContents) {
-      writeFile(fullFilePath, newFileContents);
+      // eslint-disable-next-line no-await-in-loop
+      await writeFile(fullFilePath, newFileContents);
     }
   }
 }

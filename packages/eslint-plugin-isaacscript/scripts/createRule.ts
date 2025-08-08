@@ -45,23 +45,23 @@ async function createRule() {
     throw new Error("The rule description cannot end with a period.");
   }
 
-  createDocFile(ruleName, description);
-  createSourceFile(ruleName, description);
-  createTestFile(ruleName, description);
+  await createDocFile(ruleName, description);
+  await createSourceFile(ruleName, description);
+  await createTestFile(ruleName, description);
   await generateAll();
 
   echo(`Successfully created rule: ${ruleName}`);
 }
 
-function createDocFile(ruleName: string, description: string) {
-  const templateMDContent = readFile(TEMPLATE_MD_PATH);
+async function createDocFile(ruleName: string, description: string) {
+  const templateMDContent = await readFile(TEMPLATE_MD_PATH);
   const content = replaceTemplateText(templateMDContent, ruleName, description);
   const ruleMDPath = path.join(DOCS_PATH, "rules", `${ruleName}.md`);
-  writeFile(ruleMDPath, content);
+  await writeFile(ruleMDPath, content);
 }
 
-function createSourceFile(ruleName: string, description: string) {
-  const templateSourceContent = readFile(TEMPLATE_SRC_PATH);
+async function createSourceFile(ruleName: string, description: string) {
+  const templateSourceContent = await readFile(TEMPLATE_SRC_PATH);
   const content = replaceTemplateText(
     templateSourceContent,
     ruleName,
@@ -69,11 +69,11 @@ function createSourceFile(ruleName: string, description: string) {
   );
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleSourcePath = path.join(SRC_PATH, "rules", `${ruleName}.ts`);
-  writeFile(ruleSourcePath, contentWithoutComments);
+  await writeFile(ruleSourcePath, contentWithoutComments);
 }
 
-function createTestFile(ruleName: string, description: string) {
-  const templateTestContent = readFile(TEMPLATE_TEST_PATH);
+async function createTestFile(ruleName: string, description: string) {
+  const templateTestContent = await readFile(TEMPLATE_TEST_PATH);
   const content = replaceTemplateText(
     templateTestContent,
     ruleName,
@@ -81,7 +81,7 @@ function createTestFile(ruleName: string, description: string) {
   );
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleTestPath = path.join(TESTS_PATH, "rules", `${ruleName}.test.ts`);
-  writeFile(ruleTestPath, contentWithoutComments);
+  await writeFile(ruleTestPath, contentWithoutComments);
 }
 
 function replaceTemplateText(

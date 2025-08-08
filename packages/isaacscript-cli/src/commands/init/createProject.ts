@@ -1,15 +1,13 @@
 import chalk from "chalk";
 import {
   isObject,
-  parseSemanticVersion,
   removeLinesBetweenMarkers,
   removeLinesMatching,
   repeat,
 } from "complete-common";
+import type { PackageManager } from "complete-node";
 import {
-  PackageManager,
   copyFileOrDirectory,
-  deleteFileOrDirectory,
   fatalError,
   getFileNamesInDirectory,
   getPackageManagerExecCommand,
@@ -19,11 +17,9 @@ import {
   isFile,
   makeDirectory,
   readFile,
-  readFileAsync,
-  renameFile,
+  renameFileOrDirectory,
   updatePackageJSONDependencies,
   writeFile,
-  writeFileAsync,
 } from "complete-node";
 import path from "node:path";
 import { Config } from "../../classes/Config.js";
@@ -57,15 +53,14 @@ export async function createProject(
   verbose: boolean,
 ): Promise<void> {
   if (createNewDir) {
-    makeDirectory(projectPath);
+    await makeDirectory(projectPath);
   }
 
   const config = new Config(modsDirectory, saveSlot, dev);
-  createConfigFile(projectPath, config);
+  await createConfigFile(projectPath, config);
 
-  copyStaticFiles(projectPath);
-  copyDynamicFiles(projectName, projectPath, packageManager, dev);
-  upgradeYarn(projectPath, packageManager, verbose);
+  await copyStaticFiles(projectPath);
+  await copyDynamicFiles(projectName, projectPath, packageManager, dev);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
   const updated = await updatePackageJSONDependencies(projectPath, false, true);
@@ -85,39 +80,45 @@ export async function createProject(
 }
 
 /** Copy static files, like "eslint.config.mjs", "tsconfig.json", etc. */
-function copyStaticFiles(projectPath: string) {
+async function copyStaticFiles(projectPath: string) {
   // First, copy the static files that are shared between TypeScript projects and IsaacScript mods.
-  copyTemplateDirectoryWithoutOverwriting(TEMPLATES_STATIC_DIR, projectPath);
+  await copyTemplateDirectoryWithoutOverwriting(
+    TEMPLATES_STATIC_DIR,
+    projectPath,
+  );
 
   // Rename "_gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
   // be committed to git.)
   const gitAttributesPath = path.join(projectPath, "_gitattributes");
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
-  renameFile(gitAttributesPath, correctGitAttributesPath);
+  await renameFileOrDirectory(gitAttributesPath, correctGitAttributesPath);
 
   // Rename "_cspell.config.jsonc" to "cspell.config.jsonc". (If it is kept as
   // "cspell.config.jsonc", then local spell checking will fail.)
   const cSpellConfigPath = path.join(projectPath, "_cspell.config.jsonc");
   const correctCSpellConfigPath = path.join(projectPath, "cspell.config.jsonc");
-  renameFile(cSpellConfigPath, correctCSpellConfigPath);
+  await renameFileOrDirectory(cSpellConfigPath, correctCSpellConfigPath);
 }
 
-function copyTemplateDirectoryWithoutOverwriting(
+async function copyTemplateDirectoryWithoutOverwriting(
   templateDirPath: string,
   projectPath: string,
 ) {
-  const fileNames = getFileNamesInDirectory(templateDirPath);
+  const fileNames = await getFileNamesInDirectory(templateDirPath);
   for (const fileName of fileNames) {
     const templateFilePath = path.join(templateDirPath, fileName);
     const destinationFilePath = path.join(projectPath, fileName);
-    if (!isFile(destinationFilePath)) {
-      copyFileOrDirectory(templateFilePath, destinationFilePath);
+    // eslint-disable-next-line no-await-in-loop
+    const file = await isFile(destinationFilePath);
+    if (!file) {
+      // eslint-disable-next-line no-await-in-loop
+      await copyFileOrDirectory(templateFilePath, destinationFilePath);
     }
   }
 }
 
 /** Copy files that need to have text replaced inside of them. */
-function copyDynamicFiles(
+async function copyDynamicFiles(
   projectName: string,
   projectPath: string,
   packageManager: PackageManager,
@@ -127,7 +128,7 @@ function copyDynamicFiles(
   {
     const fileName = ACTION_YML;
     const templatePath = ACTION_YML_TEMPLATE_PATH;
-    const templateRaw = readFile(templatePath);
+    const templateRaw = await readFile(templatePath);
     const template = parseTemplate(templateRaw);
 
     const lockFileName = getPackageManagerLockFileName(packageManager);
@@ -138,15 +139,15 @@ function copyDynamicFiles(
       .replaceAll("PACKAGE_MANAGER_INSTALL_COMMAND", installCommand);
 
     const setupPath = path.join(projectPath, ".github", "workflows", "setup");
-    makeDirectory(setupPath);
+    await makeDirectory(setupPath);
     const destinationPath = path.join(setupPath, fileName);
-    writeFile(destinationPath, actionYML);
+    await writeFile(destinationPath, actionYML);
   }
 
   // `.gitignore`
   {
     const templatePath = GITIGNORE_TEMPLATE_PATH;
-    const templateRaw = readFile(templatePath);
+    const templateRaw = await readFile(templatePath);
     const template = parseTemplate(templateRaw);
 
     // Prepend a header with the project name.
@@ -160,14 +161,14 @@ function copyDynamicFiles(
       TEMPLATES_DYNAMIC_DIR,
       "Node.gitignore",
     );
-    const nodeGitIgnore = readFile(nodeGitIgnorePath);
+    const nodeGitIgnore = await readFile(nodeGitIgnorePath);
 
     // eslint-disable-next-line prefer-template
     const gitignore = gitIgnoreHeader + template + "\n" + nodeGitIgnore;
 
     // We need to replace the underscore with a period.
     const destinationPath = path.join(projectPath, ".gitignore");
-    writeFile(destinationPath, gitignore);
+    await writeFile(destinationPath, gitignore);
   }
 
   // `package.json`
@@ -177,12 +178,12 @@ function copyDynamicFiles(
       TEMPLATES_DYNAMIC_DIR,
       packageJSONTemplateFileName,
     );
-    const template = readFile(templatePath);
+    const template = await readFile(templatePath);
 
     const packageJSON = template.replaceAll("project-name", projectName);
 
     const destinationPath = path.join(projectPath, "package.json");
-    writeFile(destinationPath, packageJSON);
+    await writeFile(destinationPath, packageJSON);
   }
 
   // `README.md`
@@ -192,7 +193,7 @@ function copyDynamicFiles(
       TEMPLATES_DYNAMIC_DIR,
       readmeMDTemplateFileName,
     );
-    const template = readFile(templatePath);
+    const template = await readFile(templatePath);
 
     // "PROJECT-NAME" must be hyphenated, as using an underscore will break Prettier for some
     // reason.
@@ -204,24 +205,24 @@ function copyDynamicFiles(
       .replaceAll("PACKAGE-MANAGER-EXEC-COMMAND", execCommand);
 
     const destinationPath = path.join(projectPath, README_MD);
-    writeFile(destinationPath, readmeMD);
+    await writeFile(destinationPath, readmeMD);
   }
 
   // `mod/metadata.xml`
   {
     const modPath = path.join(projectPath, "mod");
-    makeDirectory(modPath);
+    await makeDirectory(modPath);
 
     const fileName = METADATA_XML;
     const templatePath = METADATA_XML_TEMPLATE_PATH;
-    const template = readFile(templatePath);
+    const template = await readFile(templatePath);
     const metadataXML = template.replaceAll("PROJECT_NAME", projectName);
     const destinationPath = path.join(modPath, fileName);
-    writeFile(destinationPath, metadataXML);
+    await writeFile(destinationPath, metadataXML);
   }
 
   const srcPath = path.join(projectPath, "src");
-  makeDirectory(srcPath);
+  await makeDirectory(srcPath);
 
   // `src/main.ts` (TypeScript projects use the simple version from the "static-ts" directory.)
   {
@@ -229,10 +230,10 @@ function copyDynamicFiles(
     // example TypeScript file fail to compile.)
     const fileName = MAIN_TS;
     const templatePath = MAIN_TS_TEMPLATE_PATH;
-    const template = readFile(templatePath);
+    const template = await readFile(templatePath);
     const mainTS = template.replaceAll("PROJECT_NAME", projectName);
     const destinationPath = path.join(srcPath, fileName);
-    writeFile(destinationPath, mainTS);
+    await writeFile(destinationPath, mainTS);
   }
 
   // If we are initializing an IsaacScript project intended to be used for development, we can
@@ -240,10 +241,10 @@ function copyDynamicFiles(
   if (dev) {
     const fileName = MAIN_TS;
     const templatePath = MAIN_DEV_TS_TEMPLATE_PATH;
-    const template = readFile(templatePath);
+    const template = await readFile(templatePath);
     const mainTS = template; // No replacements are necessary for this file.
     const destinationPath = path.join(srcPath, fileName);
-    writeFile(destinationPath, mainTS);
+    await writeFile(destinationPath, mainTS);
   }
 }
 
@@ -262,64 +263,6 @@ function parseTemplate(template: string): string {
     templateWithoutTemplateComments.replaceAll(/\n\s*\n\s*\n/g, "\n\n");
 
   return templateWithoutMultipleLineBreaks;
-}
-
-/**
- * If we are using yarn, assume that we want to use the latest version, which requires some
- * additional commands to be performed.
- */
-function upgradeYarn(
-  projectPath: string,
-  packageManager: PackageManager,
-  verbose: boolean,
-) {
-  if (packageManager !== PackageManager.yarn) {
-    return;
-  }
-
-  // First, check to see if they have already done "corepack enable". If they have not, then yarn
-  // might still be on version 1. Otherwise it will be version 3.
-  const { stdout } = execShellString("yarn --version", verbose);
-  const yarnVersion = parseSemanticVersion(stdout);
-  if (yarnVersion === undefined) {
-    fatalError(
-      `Failed to parse the Yarn version when running the "yarn --version" command: ${stdout}`,
-    );
-  }
-  if (yarnVersion.majorVersion === 1) {
-    // They have not done a "corepack enable", so let them use Yarn 1 to reduce the complexity.
-    if (verbose) {
-      console.log('Yarn 1 detected; skipping ".yarnrc.yml" configuration.');
-    }
-
-    return;
-  }
-
-  // Yarn v3.5.1 is the default in Node.js v20 (once corepack has been enabled). On this version of
-  // node, the command will do two things:
-  // - It creates `./.yarn/releases/yarn-#.#.#.cjs`.
-  // - It creates the following string in the "package.json" file: `"packageManager": "yarn@#.#.#"`
-  execShellString("yarn set version latest", verbose, false, projectPath);
-
-  // Having the "yarn-#.#.#.cjs" file inside of the repository is now discouraged in Yarn 4+, so we
-  // can safely delete this directory.
-  const yarnDirectoryPath = path.join(projectPath, ".yarn");
-  deleteFileOrDirectory(yarnDirectoryPath);
-
-  // - The ".yarnrc.yml" file will now look like this: `yarnPath: .yarn/releases/yarn-4.0.1.cjs`
-  // - As mentioned above, we do not need the "yarnPath" setting if the "yarn-#.#.#.cjs" file is not
-  //   inside of the repository, so we need to delete it.
-  // - Additionally, since there is not a setting specified for "nodeLinker", it will use `pnp`,
-  //   which is not desired:
-  // https://yarnpkg.com/features/linkers
-  //   - `pnp` is the default, but it requires a VSCode extension.
-  //   - `pnpm` is fast, but it does not work with a D drive:
-  // https://github.com/yarnpkg/berry/issues/5326
-  // - Thus, we use `node-modules`, which can be set with: `yarn config set nodeLinker node-modules`
-  // - However, in order to fix both of these at the same time, we just overwrite the file, which is
-  //   simpler than running commands or manually editing the file.
-  const yarnConfigPath = path.join(projectPath, ".yarnrc.yml");
-  writeFile(yarnConfigPath, "nodeLinker: node-modules\n");
 }
 
 /**
@@ -352,12 +295,12 @@ async function fixTypeScriptVersionInPackageJSON(projectPath: string) {
   }
 
   const packageJSONPath = path.join(projectPath, "package.json");
-  const packageJSON = await readFileAsync(packageJSONPath);
+  const packageJSON = await readFile(packageJSONPath);
   const updatedPackageJSON = packageJSON.replace(
     /"typescript": "[^"]*"/,
     `"typescript": "${TSTLTypeScriptVersion}"`,
   );
-  await writeFileAsync(packageJSONPath, updatedPackageJSON);
+  await writeFile(packageJSONPath, updatedPackageJSON);
 }
 
 function installNodeModules(

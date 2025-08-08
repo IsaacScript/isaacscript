@@ -1,3 +1,4 @@
+import { assertObject } from "complete-common";
 import { commandExists, fatalError, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { execShell } from "../../exec.js";
@@ -67,11 +68,16 @@ async function getExtensionsFromJSON(
     "extensions.json",
   );
 
-  if (!isFile(extensionsJSONPath)) {
+  const file = await isFile(extensionsJSONPath);
+  if (!file) {
     return [];
   }
 
   const extensionsJSON = await getJSONC(extensionsJSONPath);
+  assertObject(
+    extensionsJSON,
+    `The extensions file was not an object at: ${extensionsJSONPath}`,
+  );
 
   const { recommendations } = extensionsJSON;
   if (!Array.isArray(recommendations)) {

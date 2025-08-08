@@ -32,7 +32,7 @@ export async function publishIsaacScriptMod(
   const modTargetPath = path.join(config.modsDirectory, modTargetDirectoryName);
   const version = await getPackageJSONVersion(undefined);
 
-  runReleaseScriptPreCopy(verbose);
+  await runReleaseScriptPreCopy(verbose);
   await compileAndCopy(
     MOD_SOURCE_PATH,
     modTargetPath,
@@ -40,23 +40,24 @@ export async function publishIsaacScriptMod(
     config.isaacScriptCommonDev,
     verbose,
   );
-  purgeRoomXMLs(modTargetPath);
-  runReleaseScriptPostCopy(verbose);
+  await purgeRoomXMLs(modTargetPath);
+  await runReleaseScriptPostCopy(verbose);
 
   if (dryRun) {
     execShellString("git reset --hard", verbose); // Revert the version changes.
   } else {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
     gitCommitAllAndPush(releaseGitCommitMessage, verbose);
-    uploadMod(modTargetPath, verbose);
+    await uploadMod(modTargetPath, verbose);
   }
 
   const dryRunSuffix = dryRun ? " (dry run)" : "";
   console.log(`\nPublished version ${version} successfully${dryRunSuffix}.`);
 }
 
-function runReleaseScriptPreCopy(verbose: boolean) {
-  if (!isFile(PUBLISH_PRE_COPY_PY_PATH)) {
+async function runReleaseScriptPreCopy(verbose: boolean) {
+  const file = await isFile(PUBLISH_PRE_COPY_PY_PATH);
+  if (!file) {
     return;
   }
 
@@ -67,8 +68,9 @@ function runReleaseScriptPreCopy(verbose: boolean) {
   }
 }
 
-function runReleaseScriptPostCopy(verbose: boolean) {
-  if (!isFile(PUBLISH_POST_COPY_PY_PATH)) {
+async function runReleaseScriptPostCopy(verbose: boolean) {
+  const file = await isFile(PUBLISH_POST_COPY_PY_PATH);
+  if (!file) {
     return;
   }
 
@@ -79,24 +81,27 @@ function runReleaseScriptPostCopy(verbose: boolean) {
   }
 }
 
-function purgeRoomXMLs(modTargetPath: string) {
+async function purgeRoomXMLs(modTargetPath: string) {
   const roomsPath = path.join(modTargetPath, "resources", "rooms");
-  if (!isDirectory(roomsPath)) {
+  const directory = await isDirectory(roomsPath);
+  if (!directory) {
     return;
   }
 
-  const fileNames = getFileNamesInDirectory(roomsPath);
+  const fileNames = await getFileNamesInDirectory(roomsPath);
   const xmlFileNames = fileNames.filter(
     (fileName) => path.extname(fileName) === ".xml",
   );
   for (const xmlFileName of xmlFileNames) {
     const roomFilePath = path.join(roomsPath, xmlFileName);
-    deleteFileOrDirectory(roomFilePath);
+    // eslint-disable-next-line no-await-in-loop
+    await deleteFileOrDirectory(roomFilePath);
   }
 }
 
-function uploadMod(modTargetPath: string, verbose: boolean) {
-  if (hasIsaacSteamWorkshopUploadGitHubAction()) {
+async function uploadMod(modTargetPath: string, verbose: boolean) {
+  const hasGitHubAction = await hasIsaacSteamWorkshopUploadGitHubAction();
+  if (hasGitHubAction) {
     // CI will automatically upload the new version to the Steam Workshop, so there is no need to
     // open the mod uploader program.
     return;
@@ -110,13 +115,14 @@ function uploadMod(modTargetPath: string, verbose: boolean) {
   execExe(MOD_UPLOADER_PATH, [], verbose, modTargetPath);
 }
 
-function hasIsaacSteamWorkshopUploadGitHubAction(): boolean {
+async function hasIsaacSteamWorkshopUploadGitHubAction(): Promise<boolean> {
   const ciYMLPath = path.join(CWD, ".github", "workflows", "ci.yml");
-  if (!isFile(ciYMLPath)) {
+  const file = await isFile(ciYMLPath);
+  if (!file) {
     return false;
   }
 
-  const ciYML = readFile(ciYMLPath);
+  const ciYML = await readFile(ciYMLPath);
   const lines = ciYML.split("\n");
 
   return lines.some(

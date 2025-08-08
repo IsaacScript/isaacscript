@@ -51,8 +51,8 @@ export const checkCommand = new Command()
     "Comma separated list of file names to ignore.",
   )
   .option("-v, --verbose", "Enable verbose output.", false)
-  .action((options) => {
-    check(options);
+  .action(async (options) => {
+    await check(options);
   });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -60,7 +60,7 @@ const checkOptions = checkCommand.opts();
 // The options are identical for both, so we do not create a union.
 type CheckOptions = typeof checkOptions;
 
-function check(options: CheckOptions) {
+async function check(options: CheckOptions) {
   const { verbose } = options;
 
   let oneOrMoreErrors = false;
@@ -69,14 +69,18 @@ function check(options: CheckOptions) {
   const ignoreFileNamesSet = new ReadonlySet(ignoreFileNames);
 
   // First, check the static files that are shared between TypeScript projects and IsaacScript mods.
-  if (
-    checkTemplateDirectory(TEMPLATES_STATIC_DIR, ignoreFileNamesSet, verbose)
-  ) {
+  const templateDirectoryErrors = await checkTemplateDirectory(
+    TEMPLATES_STATIC_DIR,
+    ignoreFileNamesSet,
+    verbose,
+  );
+  if (templateDirectoryErrors) {
     oneOrMoreErrors = true;
   }
 
   // Second, check dynamic files that require specific logic.
-  if (checkIndividualFiles(ignoreFileNamesSet, verbose)) {
+  const filesError = await checkIndividualFiles(ignoreFileNamesSet, verbose);
+  if (filesError) {
     oneOrMoreErrors = true;
   }
 
@@ -85,17 +89,20 @@ function check(options: CheckOptions) {
   }
 }
 
-function checkTemplateDirectory(
+/** @returns oneOrMoreErrors */
+async function checkTemplateDirectory(
   templateDirectory: string,
   ignoreFileNamesSet: ReadonlySet<string>,
   verbose: boolean,
-): boolean {
+): Promise<boolean> {
   let oneOrMoreErrors = false;
 
   for (const klawItem of klawSync(templateDirectory)) {
     const templateFilePath = klawItem.path;
 
-    if (isDirectory(templateFilePath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const directory = await isDirectory(templateFilePath);
+    if (directory) {
       continue;
     }
 
@@ -136,7 +143,13 @@ function checkTemplateDirectory(
       continue;
     }
 
-    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
+    // eslint-disable-next-line no-await-in-loop
+    const valid = await compareTextFiles(
+      projectFilePath,
+      templateFilePath,
+      verbose,
+    );
+    if (!valid) {
       oneOrMoreErrors = true;
     }
   }
@@ -144,7 +157,8 @@ function checkTemplateDirectory(
   return oneOrMoreErrors;
 }
 
-function checkIndividualFiles(
+/** @returns oneOrMoreErrors */
+async function checkIndividualFiles(
   ignoreFileNamesSet: ReadonlySet<string>,
   verbose: boolean,
 ) {
@@ -157,7 +171,12 @@ function checkIndividualFiles(
       templateFilePath,
     );
     const projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
+    const valid = await compareTextFiles(
+      projectFilePath,
+      templateFilePath,
+      verbose,
+    );
+    if (!valid) {
       oneOrMoreErrors = true;
     }
   }
@@ -166,25 +185,26 @@ function checkIndividualFiles(
 }
 
 /** @returns Whether the project file is valid in reference to the template file. */
-function compareTextFiles(
+async function compareTextFiles(
   projectFilePath: string,
   templateFilePath: string,
   verbose: boolean,
-): boolean {
-  if (!isFile(projectFilePath)) {
+): Promise<boolean> {
+  const file = await isFile(projectFilePath);
+  if (!file) {
     console.log(`Failed to find the following file: ${projectFilePath}`);
     printTemplateLocation(templateFilePath);
 
     return false;
   }
 
-  const projectFileObject = getTruncatedFileText(
+  const projectFileObject = await getTruncatedFileText(
     projectFilePath,
     new Set(),
     new Set(),
   );
 
-  const templateFileObject = getTruncatedFileText(
+  const templateFileObject = await getTruncatedFileText(
     templateFilePath,
     projectFileObject.ignoreLines,
     projectFileObject.linesBeforeIgnore,
@@ -202,8 +222,8 @@ function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    const originalTemplateFile = readFile(templateFilePath);
-    const originalProjectFile = readFile(projectFilePath);
+    const originalTemplateFile = await readFile(templateFilePath);
+    const originalProjectFile = await readFile(projectFilePath);
 
     console.log("--- Original template file: ---\n");
     console.log(originalTemplateFile);
@@ -222,8 +242,8 @@ function compareTextFiles(
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
 
-  writeFile(tempProjectFilePath, projectFileObject.text);
-  writeFile(tempTemplateFilePath, templateFileObject.text);
+  await writeFile(tempProjectFilePath, projectFileObject.text);
+  await writeFile(tempTemplateFilePath, templateFileObject.text);
 
   const { stdout } = execShell(
     "diff",
@@ -234,19 +254,19 @@ function compareTextFiles(
 
   console.log(`${stdout}\n`);
 
-  deleteFileOrDirectory(tempProjectFilePath);
-  deleteFileOrDirectory(tempTemplateFilePath);
+  await deleteFileOrDirectory(tempProjectFilePath);
+  await deleteFileOrDirectory(tempTemplateFilePath);
 
   return false;
 }
 
-function getTruncatedFileText(
+async function getTruncatedFileText(
   filePath: string,
   ignoreLines: ReadonlySet<string>,
   linesBeforeIgnore: ReadonlySet<string>,
 ) {
   const fileName = path.basename(filePath);
-  const fileContents = readFile(filePath);
+  const fileContents = await readFile(filePath);
 
   return getTruncatedText(
     fileName,

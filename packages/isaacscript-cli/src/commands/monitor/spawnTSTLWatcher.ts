@@ -30,45 +30,8 @@ export function spawnTSTLWatcher(
   });
 
   tstl.stdout.on("data", (data: readonly Buffer[]) => {
-    const msg = data.toString().trim();
-    const suffix = getMonitorMessageSuffix(config, cwd);
-
-    if (msg.includes("Starting compilation in watch mode...")) {
-      const newMsg1 = `${PROJECT_NAME} is now watching for future changes${suffix}.`;
-      notifyGameMsg(newMsg1);
-      const target = suffix.includes("isaacscript-common")
-        ? '"isaacscript-common"'
-        : "the mod";
-      const newMsg2 = `Compiling ${target} for the first time...`;
-      notifyGameMsg(newMsg2);
-    } else if (
-      msg.includes("File change detected. Starting incremental compilation...")
-    ) {
-      compilationStartTime = new Date();
-      const newMsg = `TypeScript change detected${suffix}. Compiling...`;
-      notifyGameMsg(newMsg);
-    } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
-      const compilationFinishTime = new Date();
-      const elapsedTimeMilliseconds =
-        compilationFinishTime.getTime() - compilationStartTime.getTime();
-      const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
-      const newMsg = `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
-      notifyGameMsg(newMsg);
-
-      // Successful compilation of "isaacscript-common" will not trigger a recompilation in the mod.
-      // Thus, we must arbitrarily change a file to trigger a mod recompilation.
-      if (modCWD !== undefined) {
-        const bundleEntryTSPath = path.join(modCWD, "src", "bundleEntry.ts");
-        if (isFile(bundleEntryTSPath)) {
-          appendFile(
-            bundleEntryTSPath,
-            "// isaacscript-common dev forced recompilation\n",
-          );
-        }
-      }
-    } else {
-      notifyGameMsg(msg);
-    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    onTSTLStdoutData(config, cwd, modCWD, data);
   });
 
   tstl.stderr.on("data", (data: readonly Buffer[]) => {
@@ -91,6 +54,54 @@ export function spawnTSTLWatcher(
       `Error: ${processDescription} subprocess exited with code: ${code}`,
     );
   });
+}
+
+async function onTSTLStdoutData(
+  config: Config,
+  cwd: string,
+  modCWD: string | undefined,
+  data: readonly Buffer[],
+) {
+  const msg = data.toString().trim();
+  const suffix = getMonitorMessageSuffix(config, cwd);
+
+  if (msg.includes("Starting compilation in watch mode...")) {
+    const newMsg1 = `${PROJECT_NAME} is now watching for future changes${suffix}.`;
+    notifyGameMsg(newMsg1);
+    const target = suffix.includes("isaacscript-common")
+      ? '"isaacscript-common"'
+      : "the mod";
+    const newMsg2 = `Compiling ${target} for the first time...`;
+    notifyGameMsg(newMsg2);
+  } else if (
+    msg.includes("File change detected. Starting incremental compilation...")
+  ) {
+    compilationStartTime = new Date();
+    const newMsg = `TypeScript change detected${suffix}. Compiling...`;
+    notifyGameMsg(newMsg);
+  } else if (msg.includes("Found 0 errors. Watching for file changes.")) {
+    const compilationFinishTime = new Date();
+    const elapsedTimeMilliseconds =
+      compilationFinishTime.getTime() - compilationStartTime.getTime();
+    const elapsedTimeSeconds = elapsedTimeMilliseconds / 1000;
+    const newMsg = `${COMPILATION_SUCCESSFUL_MESSAGE} (in ${elapsedTimeSeconds} seconds)${suffix}`;
+    notifyGameMsg(newMsg);
+
+    // Successful compilation of "isaacscript-common" will not trigger a recompilation in the mod.
+    // Thus, we must arbitrarily change a file to trigger a mod recompilation.
+    if (modCWD !== undefined) {
+      const bundleEntryTSPath = path.join(modCWD, "src", "bundleEntry.ts");
+      const file = await isFile(bundleEntryTSPath);
+      if (file) {
+        await appendFile(
+          bundleEntryTSPath,
+          "// isaacscript-common dev forced recompilation\n",
+        );
+      }
+    }
+  } else {
+    notifyGameMsg(msg);
+  }
 }
 
 function getMonitorMessageSuffix(config: Config, cwd: string): string {

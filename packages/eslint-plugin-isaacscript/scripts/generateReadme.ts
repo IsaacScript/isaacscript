@@ -100,7 +100,7 @@ async function updateFileContentInsideMark(
   text: string,
   marker: Marker,
 ) {
-  const originalFileText = readFile(filePath);
+  const originalFileText = await readFile(filePath);
   const modifiedFileText = replaceContentInsideMark(
     originalFileText,
     text,
@@ -116,7 +116,7 @@ async function updateFileContentInsideMark(
     return;
   }
 
-  writeFile(filePath, formattedModifiedFileText);
+  await writeFile(filePath, formattedModifiedFileText);
 }
 
 function replaceContentInsideMark(

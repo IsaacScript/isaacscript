@@ -55,7 +55,7 @@ type PublishOptions = typeof publishOptions;
 async function publish(options: PublishOptions) {
   const { dryRun, setVersion, verbose } = options;
 
-  const isaacScriptModMissingFile = getIsaacScriptModMissingFile(CWD);
+  const isaacScriptModMissingFile = await getIsaacScriptModMissingFile(CWD);
   const typeScript = isaacScriptModMissingFile !== undefined;
 
   await validate(typeScript, setVersion, verbose);
@@ -79,7 +79,7 @@ async function prePublish(options: PublishOptions, typeScript: boolean) {
   execShellString("git push");
   await updateDependencies(skipUpdate, dryRun, packageManager, verbose);
   await incrementVersion(options, typeScript);
-  unsetDevelopmentConstants();
+  await unsetDevelopmentConstants();
 
   tryRunNPMScript("build", verbose);
   if (!skipLint) {
@@ -127,9 +127,9 @@ async function incrementVersion(options: PublishOptions, typeScript: boolean) {
 
   if (!typeScript) {
     const version = await getPackageJSONVersion(undefined);
-    writeVersionToConstantsTS(version);
-    writeVersionToMetadataXML(version);
-    writeVersionToVersionTXT(version);
+    await writeVersionToConstantsTS(version);
+    await writeVersionToMetadataXML(version);
+    await writeVersionToVersionTXT(version);
   }
 }
 
@@ -155,51 +155,53 @@ function getVersionCommandArgument(options: PublishOptions): string {
   return "patch";
 }
 
-function writeVersionToConstantsTS(version: string) {
-  if (!isFile(CONSTANTS_TS_PATH)) {
+async function writeVersionToConstantsTS(version: string) {
+  const file = await isFile(CONSTANTS_TS_PATH);
+  if (!file) {
     console.log(
       'Skipping writing the version to "constants.ts" since it was not found.',
     );
     return;
   }
 
-  const constantsTS = readFile(CONSTANTS_TS_PATH);
+  const constantsTS = await readFile(CONSTANTS_TS_PATH);
   const newConstantsTS = constantsTS.replace(
     /const VERSION = ".+"/,
     `const VERSION = "${version}"`,
   );
-  writeFile(CONSTANTS_TS_PATH, newConstantsTS);
+  await writeFile(CONSTANTS_TS_PATH, newConstantsTS);
 
   console.log(`The version of ${version} was written to: ${CONSTANTS_TS_PATH}`);
 }
 
-function writeVersionToMetadataXML(version: string) {
-  const metadataXML = readFile(METADATA_XML_PATH);
+async function writeVersionToMetadataXML(version: string) {
+  const metadataXML = await readFile(METADATA_XML_PATH);
   const newMetadataXML = metadataXML.replace(
     /<version>.+<\/version>/,
     `<version>${version}</version>`,
   );
-  writeFile(METADATA_XML_PATH, newMetadataXML);
+  await writeFile(METADATA_XML_PATH, newMetadataXML);
 
   console.log(`The version of ${version} was written to: ${METADATA_XML_PATH}`);
 }
 
-function writeVersionToVersionTXT(version: string) {
-  writeFile(VERSION_TXT_PATH, version);
+async function writeVersionToVersionTXT(version: string) {
+  await writeFile(VERSION_TXT_PATH, version);
 
   console.log(`The version of ${version} was written to: ${VERSION_TXT_PATH}`);
 }
 
-function unsetDevelopmentConstants() {
-  if (!isFile(CONSTANTS_TS_PATH)) {
+async function unsetDevelopmentConstants() {
+  const file = await isFile(CONSTANTS_TS_PATH);
+  if (!file) {
     return;
   }
 
-  const constantsTS = readFile(CONSTANTS_TS_PATH);
+  const constantsTS = await readFile(CONSTANTS_TS_PATH);
   const newConstantsTS = constantsTS
     .replace("const IS_DEV = true", "const IS_DEV = false")
     .replace("const DEBUG = true", "const DEBUG = false");
-  writeFile(CONSTANTS_TS_PATH, newConstantsTS);
+  await writeFile(CONSTANTS_TS_PATH, newConstantsTS);
 }
 
 function tryRunNPMScript(scriptName: string, verbose: boolean) {

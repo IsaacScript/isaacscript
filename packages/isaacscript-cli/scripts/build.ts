@@ -2,8 +2,8 @@ import {
   $,
   buildScript,
   getFileNamesInDirectory,
-  mkdir,
-  mv,
+  makeDirectory,
+  moveFileOrDirectory,
   readFile,
   writeFile,
 } from "complete-node";
@@ -18,7 +18,7 @@ const OBJECT_FILE_NAMES = [
 ] as const;
 
 await buildScript(async (packageRoot) => {
-  copyIsaacScriptCommonFiles(packageRoot);
+  await copyIsaacScriptCommonFiles(packageRoot);
 
   await Promise.all([
     compile(),
@@ -37,14 +37,14 @@ await buildScript(async (packageRoot) => {
  * Additionally, we do not want to create a "isaacscript-common-types" package because then it
  * becomes harder to get the types documented on the Docusaurus website.
  */
-function copyIsaacScriptCommonFiles(packageRoot: string) {
-  copyITDEnums(packageRoot);
-  copyITDEnumsFlag(packageRoot);
-  copyISCInterfaces(packageRoot);
-  copyISCObjects(packageRoot);
+async function copyIsaacScriptCommonFiles(packageRoot: string) {
+  await copyITDEnums(packageRoot);
+  await copyITDEnumsFlag(packageRoot);
+  await copyISCInterfaces(packageRoot);
+  await copyISCObjects(packageRoot);
 }
 
-function copyITDEnums(packageRoot: string) {
+async function copyITDEnums(packageRoot: string) {
   const sourcePackage = "isaac-typescript-definitions";
   const sourceDirectoryPath = path.resolve(
     packageRoot,
@@ -59,12 +59,13 @@ function copyITDEnums(packageRoot: string) {
     "enums",
     "copied",
   );
-  mkdir(destinationDirectoryPath);
+  await makeDirectory(destinationDirectoryPath);
 
   for (const fileName of ENUM_FILE_NAMES) {
     const fullFileName = `${fileName}.ts`;
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
-    let fileContents = readFile(sourcePath);
+    // eslint-disable-next-line no-await-in-loop
+    let fileContents = await readFile(sourcePath);
 
     switch (fileName) {
       case "RoomShape": {
@@ -84,11 +85,12 @@ function copyITDEnums(packageRoot: string) {
     fileContents = copiedFileHeader + fileContents;
 
     const destinationPath = path.join(destinationDirectoryPath, fullFileName);
-    writeFile(destinationPath, fileContents);
+    // eslint-disable-next-line no-await-in-loop
+    await writeFile(destinationPath, fileContents);
   }
 }
 
-function copyITDEnumsFlag(packageRoot: string) {
+async function copyITDEnumsFlag(packageRoot: string) {
   const sourcePackage = "isaac-typescript-definitions";
   const sourceDirectoryPath = path.resolve(
     packageRoot,
@@ -104,12 +106,13 @@ function copyITDEnumsFlag(packageRoot: string) {
     "enums",
     "copied",
   );
-  mkdir(destinationDirectoryPath);
+  await makeDirectory(destinationDirectoryPath);
 
   for (const fileName of ENUM_FLAG_FILE_NAMES) {
     const fullFileName = `${fileName}.ts`;
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
-    let fileContents = readFile(sourcePath);
+    // eslint-disable-next-line no-await-in-loop
+    let fileContents = await readFile(sourcePath);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (fileName === "DoorSlotFlag") {
@@ -126,11 +129,12 @@ function copyITDEnumsFlag(packageRoot: string) {
     fileContents = copiedFileHeader + fileContents;
 
     const destinationPath = path.join(destinationDirectoryPath, fullFileName);
-    writeFile(destinationPath, fileContents);
+    // eslint-disable-next-line no-await-in-loop
+    await writeFile(destinationPath, fileContents);
   }
 }
 
-function copyISCInterfaces(packageRoot: string) {
+async function copyISCInterfaces(packageRoot: string) {
   const sourcePackage = "isaacscript-common";
   const sourceDirectoryPath = path.resolve(
     packageRoot,
@@ -145,12 +149,13 @@ function copyISCInterfaces(packageRoot: string) {
     "interfaces",
     "copied",
   );
-  mkdir(destinationDirectoryPath);
+  await makeDirectory(destinationDirectoryPath);
 
   for (const fileName of INTERFACE_FILE_NAMES) {
     const fullFileName = `${fileName}.ts`;
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
-    let fileContents = readFile(sourcePath);
+    // eslint-disable-next-line no-await-in-loop
+    let fileContents = await readFile(sourcePath);
 
     switch (fileName) {
       case "CustomStageTSConfig": {
@@ -170,11 +175,12 @@ function copyISCInterfaces(packageRoot: string) {
     fileContents = copiedFileHeader + fileContents;
 
     const destinationPath = path.join(destinationDirectoryPath, fullFileName);
-    writeFile(destinationPath, fileContents);
+    // eslint-disable-next-line no-await-in-loop
+    await writeFile(destinationPath, fileContents);
   }
 }
 
-function copyISCObjects(packageRoot: string) {
+async function copyISCObjects(packageRoot: string) {
   const sourcePackage = "isaacscript-common";
   const sourceDirectoryPath = path.resolve(
     packageRoot,
@@ -189,12 +195,13 @@ function copyISCObjects(packageRoot: string) {
     "objects",
     "copied",
   );
-  mkdir(destinationDirectoryPath);
+  await makeDirectory(destinationDirectoryPath);
 
   for (const fileName of OBJECT_FILE_NAMES) {
     const fullFileName = `${fileName}.ts`;
     const sourcePath = path.join(sourceDirectoryPath, fullFileName);
-    let fileContents = readFile(sourcePath);
+    // eslint-disable-next-line no-await-in-loop
+    let fileContents = await readFile(sourcePath);
 
     switch (fileName) {
       case "doorSlotToDoorSlotFlag": {
@@ -219,7 +226,8 @@ function copyISCObjects(packageRoot: string) {
     fileContents = copiedFileHeader + fileContents;
 
     const destinationPath = path.join(destinationDirectoryPath, fullFileName);
-    writeFile(destinationPath, fileContents);
+    // eslint-disable-next-line no-await-in-loop
+    await writeFile(destinationPath, fileContents);
   }
 }
 
@@ -240,17 +248,18 @@ async function compilePlugins(packageRoot: string) {
   const pluginsDirPath = path.join(packageRoot, "plugins");
   const $$ = $({ cwd: pluginsDirPath });
   await $$`tsc`;
-  renamePluginJSToCJS(pluginsDirPath);
+  await renamePluginJSToCJS(pluginsDirPath);
 }
 
-function renamePluginJSToCJS(pluginsDirPath: string) {
-  const fileNames = getFileNamesInDirectory(pluginsDirPath);
+async function renamePluginJSToCJS(pluginsDirPath: string) {
+  const fileNames = await getFileNamesInDirectory(pluginsDirPath);
   for (const fileName of fileNames) {
     if (fileName.endsWith(".js")) {
       const oldFilePath = path.join(pluginsDirPath, fileName);
       const newFileName = fileName.replace(".js", ".cjs");
       const newFilePath = path.join(pluginsDirPath, newFileName);
-      mv(oldFilePath, newFilePath);
+      // eslint-disable-next-line no-await-in-loop
+      await moveFileOrDirectory(oldFilePath, newFilePath);
     }
   }
 }
