@@ -132,17 +132,24 @@ declare global {
     /**
      * @param speed A value between 0 and 1. Using a value of 0 will soft-lock the game. Using a
      *              value of 1 will instantaneously fade in.
+     * @param showIcon Optional. Defaults to true.
+     * @param kColor Optional. Defaults to `K_COLORS.Black`.
      */
-    Fadein: (speed: float) => void;
+    Fadein: (speed: float, showIcon?: boolean, kColor?: KColor) => void;
 
     /**
-     * Using non-valid `FadeoutTarget` values will be interpreted the same as `FadeoutTarget.NONE`.
+     * Using a non-valid `FadeoutTarget` value will be interpreted the same as `FadeoutTarget.NONE`.
      *
      * @param speed A value between 0 and 1. Using a value of 0 will never trigger the fade out
      *              target. Using a value of 1 will instantaneously trigger the fade out target.
-     * @param fadeoutTarget
+     * @param fadeoutTarget The place to go after the fade out is completed.
+     * @param kColor Optional. Defaults to `K_COLORS.Black`.
      */
-    Fadeout: (speed: float, fadeoutTarget: FadeoutTarget) => void;
+    Fadeout: (
+      speed: float,
+      fadeoutTarget: FadeoutTarget,
+      kColor?: KColor,
+    ) => void;
 
     /**
      * @param position

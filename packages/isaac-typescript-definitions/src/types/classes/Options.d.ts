@@ -2,6 +2,7 @@ import type { AnnouncerVoiceMode } from "../../enums/AnnouncerVoiceMode";
 import type { CameraStyle } from "../../enums/CameraStyle";
 import type { ConsoleFont } from "../../enums/ConsoleFont";
 import type { ExtraHudStyle } from "../../enums/ExtraHudStyle";
+import type { JacobEsauControls } from "../../enums/JacobEsauControls";
 import type { LanguageAbbreviation } from "../../enums/LanguageAbbreviation";
 
 declare global {
@@ -119,6 +120,13 @@ declare global {
      * This can be changed from the in-game options menu.
      */
     let BulletVisibility: boolean;
+
+    /**
+     * Toggles the way to activate Esau's items.
+     *
+     * This can be changed from the in-game options menu.
+     */
+    let JacobEsauControls: JacobEsauControls;
 
     /**
      * Whether the announcer voice should play when using items, pills, cards, and runes.

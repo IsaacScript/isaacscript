@@ -67,4 +67,6 @@ export enum BackdropType {
   MINES_SHAFT = 58,
   ASHPIT_SHAFT = 59,
   DARK_CLOSET = 60,
+  DEATHMATCH = 61,
+  LIL_PORTAL = 62,
 }
