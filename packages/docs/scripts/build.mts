@@ -1,4 +1,4 @@
-import { $, buildScript, rm } from "complete-node";
+import { $, buildScript, deleteFileOrDirectory } from "complete-node";
 import path from "node:path";
 
 const DOCS_BUILD_ENABLED = false as boolean;
@@ -21,7 +21,7 @@ await buildScript(async (packageRoot) => {
   const generatedDocPaths = GENERATED_DOC_DIRECTORY_NAMES.map((directoryName) =>
     path.join(packageRoot, "docs", directoryName),
   );
-  rm(...generatedDocPaths);
+  await deleteFileOrDirectory(...generatedDocPaths);
 
   const repoRoot = path.resolve(packageRoot, "..", "..");
 

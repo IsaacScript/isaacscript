@@ -1,4 +1,11 @@
-import { $, $q, appendFile, buildScript, cp, rm } from "complete-node";
+import {
+  $,
+  $q,
+  appendFile,
+  buildScript,
+  copyFileOrDirectory,
+  deleteFileOrDirectory,
+} from "complete-node";
 import path from "node:path";
 
 await buildScript(async (packageRoot) => {
@@ -7,8 +14,11 @@ await buildScript(async (packageRoot) => {
   // exports so that Lua users do not have to consume two separate libraries.
   const indexTSPath = path.join(packageRoot, "src", "index.ts");
   const indexLuaTSPath = path.join(packageRoot, "src", "indexLua.ts");
-  cp(indexTSPath, indexLuaTSPath);
-  appendFile(indexLuaTSPath, 'export * from "isaac-typescript-definitions";');
+  await copyFileOrDirectory(indexTSPath, indexLuaTSPath);
+  await appendFile(
+    indexLuaTSPath,
+    'export * from "isaac-typescript-definitions";',
+  );
 
   await Promise.all([
     $`tstl`,
@@ -20,13 +30,13 @@ await buildScript(async (packageRoot) => {
     $`tsc --declaration false --declarationMap false`,
   ]);
 
-  rm(indexLuaTSPath);
+  await deleteFileOrDirectory(indexLuaTSPath);
 
   // Make sure that the transpiled "jsonLua.js" file gets copied over. (TSTL will automatically
   // transfer "jsonLua.lua", but not "jsonLua.js".)
   const srcLibPath = path.join(packageRoot, "src", "lib");
   const dstLibPath = path.join(packageRoot, "dist", "lib");
-  cp(srcLibPath, dstLibPath);
+  await copyFileOrDirectory(srcLibPath, dstLibPath);
 
   await scrubInternalExports();
 });

@@ -4,10 +4,10 @@
  *
  * This enum is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @enum
  * @notExported
  * @rename AnimationRenderFlag
+ * @see https://repentogon.com/
  */
 const AnimationRenderFlagInternal = {
   /** Rapidly distorts the spritesheet position. */

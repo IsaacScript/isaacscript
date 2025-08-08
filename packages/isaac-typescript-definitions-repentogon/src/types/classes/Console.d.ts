@@ -6,8 +6,8 @@ declare global {
    *
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/
    * @noSelf
+   * @see https://repentogon.com/
    */
   namespace Console {
     /** Returns an array of the previously executed commands in the console. */

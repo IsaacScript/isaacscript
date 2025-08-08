@@ -4,8 +4,8 @@
  *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @noSelf
+ * @see https://repentogon.com/
  */
 declare namespace DailyChallenge {
   /** Returns the `ChallengeParams` associated with the current daily challenge. */

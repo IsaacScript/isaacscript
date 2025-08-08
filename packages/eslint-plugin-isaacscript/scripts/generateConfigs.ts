@@ -61,7 +61,7 @@ async function writeConfig(
 
   const fileName = `${name}.ts`;
   const filePath = path.join(CONFIGS_DIRECTORY_PATH, fileName);
-  writeFile(filePath, content);
+  await writeFile(filePath, content);
 }
 
 /** Reduces records to key/value pairs. */

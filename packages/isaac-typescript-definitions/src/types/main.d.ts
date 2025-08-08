@@ -5,8 +5,8 @@
  * C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources\main.lua
  * ```
  *
- * @noSelfInFile
  * @module
+ * @noSelfInFile
  */
 
 /**

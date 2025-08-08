@@ -4,10 +4,10 @@
  *
  * This enum is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @enum
  * @notExported
  * @rename WeaponModifierFlag
+ * @see https://repentogon.com/
  */
 const WeaponModifierFlagInternal = {
   CHOCOLATE_MILK: 1 << 0,

@@ -149,11 +149,11 @@ export function sortTwoDimensionalArray<T>(
  *
  * Under the hood, this uses the merge sort algorithm.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function stableSort<T>(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
   array: T[],
   sortFunc: (a: T, b: T) => -1 | 0 | 1 = sortNormal,
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   // Base case: an array of zero or one elements is already sorted
   if (array.length <= 1) {

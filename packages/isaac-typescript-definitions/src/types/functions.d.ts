@@ -2,8 +2,8 @@
  * These are global functions provided by C++ code. Note that additional global functions are
  * located in the "main.d.ts" file (which corresponds to the "main.lua" file).
  *
- * @noSelfInFile
  * @module
+ * @noSelfInFile
  */
 
 /**

@@ -26,8 +26,9 @@ export function addSetsToSet<T>(
  *
  * This function is variadic, meaning that you can specify N sets.
  */
-// eslint-disable-next-line complete/no-mutable-return
-export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
+export function combineSets<T>(
+  ...sets: ReadonlyArray<ReadonlySet<T>>
+): ReadonlySet<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
     for (const value of set) {
@@ -123,9 +124,9 @@ export function getSetCombinations<T extends number | string>(
  * Normally, set values are returned in insertion order, so use this function when the ordering of
  * the contents is important.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function getSortedSetValues<T extends number | string>(
   set: ReadonlySet<T>,
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   const values = [...set];
 
@@ -167,9 +168,9 @@ export function objectKeysToReadonlySet<K extends string | number | symbol, V>(
  *
  * Also see the `objectKeysToReadonlySet` function.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function objectKeysToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
+  // eslint-disable-next-line complete/no-mutable-return
 ): Set<K> {
   const set = new Set<K>();
 
@@ -203,9 +204,9 @@ export function objectValuesToReadonlySet<
  *
  * Also see the `objectValuesToReadonlySet` function.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function objectValuesToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
+  // eslint-disable-next-line complete/no-mutable-return
 ): Set<V> {
   const set = new Set<V>();
 

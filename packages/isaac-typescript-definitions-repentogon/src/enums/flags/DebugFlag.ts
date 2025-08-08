@@ -4,10 +4,10 @@
  *
  * This enum is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @enum
  * @notExported
  * @rename DebugFlag
+ * @see https://repentogon.com/
  */
 const DebugFlagInternal = {
   ENTITY_POSITIONS: 1 << 0,

@@ -101,10 +101,9 @@ export function mapSetHash<V>(
  *
  * Also see the `objectToReadonlyMap` function.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function objectToMap<K extends string | number | symbol, V>(
   object: Record<K, V>,
-): Map<K, V> {
+): ReadonlyMap<K, V> {
   const map = new Map<K, V>();
 
   for (const [key, value] of Object.entries(object)) {

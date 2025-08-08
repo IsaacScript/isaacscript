@@ -1,8 +1,8 @@
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @noSelf
+ * @see https://repentogon.com/
  */
 declare namespace ControllerSelectMenu {
   /** Returns the sprite used to display the controller select menu. */

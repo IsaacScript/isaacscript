@@ -16,7 +16,6 @@ export const ruleTester = new RuleTester({
        *
        * SyntaxError: Cannot use 'import.meta' outside a module
        */
-      // eslint-disable-next-line unicorn/prefer-module
       tsconfigRootDir: path.join(__dirname, "fixtures"),
     },
   },

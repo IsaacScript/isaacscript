@@ -3,8 +3,8 @@
  *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @noSelf
+ * @see https://repentogon.com/
  */
 declare namespace Ambush {
   /** Returns the current wave for the ongoing ambush. */

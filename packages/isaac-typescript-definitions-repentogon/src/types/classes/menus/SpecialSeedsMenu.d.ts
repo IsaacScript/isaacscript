@@ -1,8 +1,8 @@
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @noSelf
+ * @see https://repentogon.com/
  */
 declare namespace SpecialSeedsMenu {
   /** Returns the sprite used by the special seeds menu. */

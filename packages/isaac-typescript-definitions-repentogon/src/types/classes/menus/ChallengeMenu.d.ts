@@ -4,8 +4,8 @@ declare global {
   /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
-   * @see https://repentogon.com/
    * @noSelf
+   * @see https://repentogon.com/
    */
   namespace ChallengeMenu {
     /** Returns the sprite used for the Challenge Menu. */

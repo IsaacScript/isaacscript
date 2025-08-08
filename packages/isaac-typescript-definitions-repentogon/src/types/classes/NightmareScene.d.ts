@@ -4,8 +4,8 @@
  *
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @noSelf
+ * @see https://repentogon.com/
  */
 declare namespace NightmareScene {
   /** Returns the sprite used by the background. */

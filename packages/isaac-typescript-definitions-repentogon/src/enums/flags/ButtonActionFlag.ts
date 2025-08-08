@@ -4,10 +4,10 @@
  *
  * This enum is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @enum
  * @notExported
  * @rename ButtonActionFlag
+ * @see https://repentogon.com/
  */
 const ButtonActionFlagInternal = {
   ACTION_LEFT: 1 << 0,

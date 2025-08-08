@@ -4,10 +4,10 @@
  *
  * This enum is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @enum
  * @notExported
  * @rename AddHealthTypeFlag
+ * @see https://repentogon.com/
  */
 const AddHealthTypeFlagInternal = {
   NONE: 0,

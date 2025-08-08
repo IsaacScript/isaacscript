@@ -4,10 +4,10 @@
  *
  * This enum is for REPENTOGON, an exe-hack which expands the modding API.
  *
- * @see https://repentogon.com/
  * @enum
  * @notExported
  * @rename EntityTag
+ * @see https://repentogon.com/
  */
 const EntityTagInternal = {
   FLY: 1 << 0,

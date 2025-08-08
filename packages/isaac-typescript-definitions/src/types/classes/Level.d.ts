@@ -34,10 +34,10 @@ declare global {
     CanStageHaveCurseOfLabyrinth: (levelStage: LevelStage) => boolean;
 
     /**
-     * @deprecated This method does not update the "fxlayers" properly. Use the `Game.ChangeRoom`
-     *             method instead.
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
+     * @deprecated This method does not update the "fxlayers" properly. Use the `Game.ChangeRoom`
+     *             method instead.
      */
     ChangeRoom: (roomGridIndex: int | GridRoom, dimension?: Dimension) => void;
 

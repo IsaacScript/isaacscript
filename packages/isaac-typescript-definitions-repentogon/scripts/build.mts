@@ -1,4 +1,9 @@
-import { $, buildScript, cp, prependFile } from "complete-node";
+import {
+  $,
+  buildScript,
+  copyFileOrDirectory,
+  prependFile,
+} from "complete-node";
 import path from "node:path";
 
 await buildScript(async (packageRoot) => {
@@ -18,8 +23,11 @@ await buildScript(async (packageRoot) => {
   // the types into the "dist" directory so that they resolve properly.
   const outDir = "dist";
   const indexDTSPath = path.join(outDir, "index.d.ts");
-  prependFile(indexDTSPath, '/// <reference path="./types/index.d.ts" />\n\n');
+  await prependFile(
+    indexDTSPath,
+    '/// <reference path="./types/index.d.ts" />\n\n',
+  );
   const srcPath = path.join(packageRoot, "src", "types");
   const dstPath = path.join(outDir, "types");
-  cp(srcPath, dstPath);
+  await copyFileOrDirectory(srcPath, dstPath);
 });

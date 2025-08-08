@@ -29,16 +29,14 @@ export function arrayEquals<T>(
  * array. If the specified element(s) are not found in the array, it will simply return a shallow
  * copy of the array.
  *
- * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ * If there is more than one matching element in the array, this function will remove all of them.
  *
- * If there is more than one matching element in the array, this function will only remove the first
- * matching element. If you want to remove all of the elements, use the `arrayRemoveAll` function
- * instead.
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function arrayRemove<T>(
   originalArray: readonly T[],
   ...elementsToRemove: readonly T[]
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   const elementsToRemoveSet = new ReadonlySet(elementsToRemove);
 
@@ -49,27 +47,6 @@ export function arrayRemove<T>(
     }
   }
 
-  return array;
-}
-
-/**
- * Shallow copies and removes the specified element(s) from the array. Returns the copied array. If
- * the specified element(s) are not found in the array, it will simply return a shallow copy of the
- * array.
- *
- * This function is variadic, meaning that you can specify N arguments to remove N elements.
- *
- * If there is more than one matching element in the array, this function will remove every matching
- * element. If you want to only remove the first matching element, use the `arrayRemove` function
- * instead.
- */
-// eslint-disable-next-line complete/no-mutable-return
-export function arrayRemoveAll<T>(
-  originalArray: readonly T[],
-  ...elementsToRemove: readonly T[]
-): T[] {
-  const array = copyArray(originalArray);
-  arrayRemoveAllInPlace(array, ...elementsToRemove);
   return array;
 }
 
@@ -118,11 +95,11 @@ export function arrayRemoveAllInPlace<T>(
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function arrayRemoveInPlace<T>(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
   array: T[],
   ...elementsToRemove: readonly T[]
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   const removedElements: T[] = [];
 
@@ -144,10 +121,10 @@ export function arrayRemoveInPlace<T>(
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function arrayRemoveIndex<T>(
   originalArray: readonly T[],
   ...indexesToRemove: readonly int[]
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   const indexesToRemoveSet = new ReadonlySet(indexesToRemove);
 
@@ -169,11 +146,11 @@ export function arrayRemoveIndex<T>(
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function arrayRemoveIndexInPlace<T>(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
   array: T[],
   ...indexesToRemove: readonly int[]
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   const legalIndexes = indexesToRemove.filter(
     (i) => i >= 0 && i < array.length,
@@ -266,11 +243,10 @@ export function emptyArray(array: unknown[]): void {
  * This is named `filterMap` after the Rust function:
  * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function filterMap<OldT, NewT>(
   array: readonly OldT[],
   func: (element: OldT) => NewT | undefined,
-): NewT[] {
+): readonly NewT[] {
   const filteredArray: NewT[] = [];
 
   for (const element of array) {
@@ -647,10 +623,10 @@ export function setAllArrayElements<T>(array: T[], value: T): void {
  *                  `RNG.Next` method will be called. If `undefined` is provided, it will default to
  *                  a random seed.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function shuffleArray<T>(
   originalArray: readonly T[],
   seedOrRNG: Seed | RNG | undefined,
+  // eslint-disable-next-line complete/no-mutable-return
 ): T[] {
   const array = copyArray(originalArray);
   shuffleArrayInPlace(array, seedOrRNG);

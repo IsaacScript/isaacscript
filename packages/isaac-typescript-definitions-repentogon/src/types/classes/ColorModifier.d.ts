@@ -6,10 +6,8 @@
  * @param b Optional. Default is 1.
  * @param a Optional. Default is 0.
  * @param brightness Optional. Default is 0.
- * @param contrast Optional. Default is 1.
- *
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
+ * @param contrast Optional. Default is 1. This class is for REPENTOGON, an exe-hack which expands
+ *                 the modding API.
  * @see https://repentogon.com/
  */
 declare function ColorModifier(

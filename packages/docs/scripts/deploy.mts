@@ -1,15 +1,15 @@
 import {
   $,
   appendFile,
-  cp,
+  copyFileOrDirectory,
+  deleteFileOrDirectory,
   echo,
   exit,
   fatalError,
   getArgs,
   isGitRepositoryClean,
   isGitRepositoryLatestCommit,
-  mv,
-  rm,
+  moveFileOrDirectory,
   sleep,
 } from "complete-node";
 import path from "node:path";
@@ -41,10 +41,10 @@ if (commitSHA1 === undefined || commitSHA1 === "") {
 
 // The website repository will be already cloned at this point by the previous GitHub action,
 // including switching to the "gh-pages" branch. See "ci.yml" for more information.
-mv(DOCS_REPO_GIT, DOCS_REPO_GIT_BACKUP);
-rm(DOCS_REPO);
-cp(BUILD_DIRECTORY_PATH, DOCS_REPO);
-mv(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
+await moveFileOrDirectory(DOCS_REPO_GIT, DOCS_REPO_GIT_BACKUP);
+await deleteFileOrDirectory(DOCS_REPO);
+await copyFileOrDirectory(BUILD_DIRECTORY_PATH, DOCS_REPO);
+await moveFileOrDirectory(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
 const isClean = await isGitRepositoryClean(DOCS_REPO);
 if (isClean) {
@@ -103,4 +103,4 @@ while (true) {
   await sleep(SECONDS_TO_SLEEP); // eslint-disable-line no-await-in-loop
 }
 
-appendFile(GITHUB_OUTPUT_FILE, "SHOULD_SCRAPE=1\n");
+await appendFile(GITHUB_OUTPUT_FILE, "SHOULD_SCRAPE=1\n");
