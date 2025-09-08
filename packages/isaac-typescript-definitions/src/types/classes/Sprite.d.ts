@@ -187,8 +187,10 @@ declare interface Sprite extends IsaacAPIClass {
    * @param layerID
    * @param pngPath The full path to the PNG file. For example:
    * "gfx/items/collectibles/questionmark.png"
+   * @returns `true` if the spritesheet at the given layer ID was successfully replaced and if the
+   *          new spritesheet is not the same as the old one, otherwise `false`.
    */
-  ReplaceSpritesheet: (layerID: int, pngPath: string) => void;
+  ReplaceSpritesheet: (layerID: int, pngPath: string) => boolean;
 
   /**
    * Resets the sprite such that it will be equivalent to a new sprite created with the `Sprite`
