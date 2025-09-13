@@ -26,12 +26,14 @@ declare global {
      * @param decrease Default is false.
      * @param seed Default is `Random()`.
      * @param defaultItem Default is `CollectibleType.NULL`.
+     * @param backupItemPoolType Default is `ItemPoolType.POOL_NULL`.
      */
     GetCollectible: (
       itemPoolType: ItemPoolType,
       decrease?: boolean,
       seed?: Seed,
       defaultItem?: CollectibleType,
+      backupItemPoolType?: ItemPoolType,
     ) => CollectibleType;
 
     GetLastPool: () => ItemPoolType;
