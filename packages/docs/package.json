@@ -59,8 +59,8 @@
     "complete-common": "2.5.0",
     "complete-node": "12.0.0",
     "glob": "11.0.3",
-    "typedoc": "0.28.9",
-    "typedoc-plugin-markdown": "4.8.0",
+    "typedoc": "0.28.12",
+    "typedoc-plugin-markdown": "4.8.1",
     "typedoc-plugin-rename": "1.1.1",
     "typescript": "5.8.2",
     "typescript-eslint": "8.39.0"
