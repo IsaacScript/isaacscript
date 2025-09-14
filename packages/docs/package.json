@@ -41,7 +41,7 @@
   "dependencies": {
     "@docusaurus/core": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
-    "@mdx-js/react": "3.1.1",
+    "@mdx-js/react": "3.1.0",
     "clsx": "2.1.1",
     "docusaurus-theme-search-typesense": "0.25.0",
     "prism-react-renderer": "2.4.1",
@@ -54,15 +54,15 @@
     "@docusaurus/types": "3.8.1",
     "@eslint/eslintrc": "3.3.1",
     "@types/glob": "9.0.0",
-    "@types/node": "24.4.0",
+    "@types/node": "24.2.1",
     "@zamiell/typedoc-plugin-not-exported": "0.3.0",
     "complete-common": "2.5.0",
-    "complete-node": "11.0.0",
+    "complete-node": "9.0.0",
     "glob": "11.0.3",
-    "typedoc": "0.28.12",
-    "typedoc-plugin-markdown": "4.8.1",
+    "typedoc": "0.28.9",
+    "typedoc-plugin-markdown": "4.8.0",
     "typedoc-plugin-rename": "1.1.1",
     "typescript": "5.8.2",
-    "typescript-eslint": "8.43.0"
+    "typescript-eslint": "8.39.0"
   }
 }

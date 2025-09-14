@@ -11,7 +11,7 @@ import {
 } from "complete-node";
 import path from "node:path";
 
-await lintScript(import.meta.dirname, async (packageRoot) => {
+await lintScript(async (packageRoot) => {
   await Promise.all([
     $`tsc --noEmit`,
     $`eslint --max-warnings 0 .`,

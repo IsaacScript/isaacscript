@@ -17,7 +17,7 @@ const OBJECT_FILE_NAMES = [
   "roomShapeToDoorSlotCoordinates",
 ] as const;
 
-await buildScript(import.meta.dirname, async (packageRoot) => {
+await buildScript(async (packageRoot) => {
   await copyIsaacScriptCommonFiles(packageRoot);
 
   await Promise.all([

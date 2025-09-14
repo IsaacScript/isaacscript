@@ -46,11 +46,11 @@
     "@commander-js/extra-typings": "14.0.0",
     "@zamiell/sync-directory": "6.0.5",
     "ajv": "8.17.1",
-    "chalk": "5.6.2",
-    "commander": "14.0.1",
+    "chalk": "5.5.0",
+    "commander": "14.0.0",
     "complete-common": "2.5.0",
-    "complete-node": "11.0.0",
-    "figlet": "1.9.1",
+    "complete-node": "9.0.0",
+    "figlet": "1.8.2",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
     "moment": "2.30.1",
@@ -67,7 +67,7 @@
     "@types/source-map-support": "0.5.10",
     "@types/xml2js": "0.4.14",
     "ts-json-schema-generator": "2.4.0",
-    "typescript-eslint": "8.43.0"
+    "typescript-eslint": "8.39.0"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0",

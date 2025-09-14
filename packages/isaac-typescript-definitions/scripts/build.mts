@@ -6,7 +6,7 @@ import {
 } from "complete-node";
 import path from "node:path";
 
-await buildScript(import.meta.dirname, async (packageRoot) => {
+await buildScript(async (packageRoot) => {
   await Promise.all([
     $`tstl`,
 

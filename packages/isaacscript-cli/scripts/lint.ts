@@ -12,7 +12,7 @@ const LOCAL_GITIGNORE_PATH = path.join(
 const GITIGNORE_URL =
   "https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore";
 
-await lintScript(import.meta.dirname, async () => {
+await lintScript(async () => {
   await $`pip install isaac-xml-validator --upgrade --quiet`;
 
   await Promise.all([
