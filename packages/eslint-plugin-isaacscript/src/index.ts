@@ -1,11 +1,10 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import type { ReadonlyRecord } from "complete-common";
-import fs from "node:fs";
-import path from "node:path";
+import packageJSON from "../package.json" with { type: "json" };
 import { configs } from "./configs.js";
 import { rules } from "./rules.js";
 
-const { name, version } = getPackageJSON();
+const { name, version } = packageJSON;
 
 const plugin = {
   meta: {
@@ -21,20 +20,6 @@ addPluginToConfigs(configs, name);
 // ESLint plugins must provide a default export by design.
 // eslint-disable-next-line
 export default plugin;
-
-/**
- * We parse the package JSON manually since importing JSON files directly in Node is experimental.
- */
-function getPackageJSON(): Record<string, unknown> {
-  const packageRoot = path.resolve(import.meta.dirname, "..");
-  const packageJSONPath = path.join(packageRoot, "package.json");
-  try {
-    const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
-    return JSON.parse(packageJSONString) as Record<string, unknown>;
-  } catch (error) {
-    throw new Error(`Failed to read the "${packageJSONPath}" file: ${error}`);
-  }
-}
 
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */
 function addPluginToConfigs(

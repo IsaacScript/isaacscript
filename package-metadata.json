@@ -1,5 +1,10 @@
 {
+  "@schema": "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/package-metadata-schema.json",
   "dependencies": {
+    "figlet": {
+      "lock-version": true,
+      "lock-reason": "https://github.com/patorjk/figlet.js/issues/139"
+    },
     "typescript": {
       "lock-version": true,
       "lock-reason": "https://github.com/TypeScriptToLua/TypeScriptToLua/blob/master/package.json#L45"

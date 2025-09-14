@@ -12,7 +12,13 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     // Needed since this is a library.
+    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+
+    // Needed since we import from the "package.json" file.
+    // TODO: Remove this when the monorepo version of TypeScript is: >= 5.9.2
+    // (It automatically gets applied for some reason on newer TypeScript versions.)
+    "resolveJsonModule": true,
   },
 }

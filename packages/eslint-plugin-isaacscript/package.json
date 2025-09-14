@@ -30,7 +30,7 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/src/index.js",
   "files": [
     "dist",
     "LICENSE",
