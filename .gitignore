@@ -21,6 +21,9 @@ packages/docs/docs/isaac-typescript-definitions
 # Temporary build files
 packages/isaacscript-common/src/indexLua.ts
 
+# Agents
+.claude
+
 # ------------------------------
 # GitHub Node.gitignore template
 # https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore
