@@ -15,7 +15,7 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   README_MD_PATH,
 ] as const;
 
-await lintScript(async () => {
+await lintScript(import.meta.dirname, async () => {
   await Promise.all([
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,

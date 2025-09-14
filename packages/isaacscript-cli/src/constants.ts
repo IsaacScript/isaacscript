@@ -1,4 +1,4 @@
-import { getPackageJSONFieldsMandatory, getPackageRoot } from "complete-node";
+import { getPackageJSONFieldsMandatory } from "complete-node";
 import os from "node:os";
 import path from "node:path";
 
@@ -10,7 +10,7 @@ export const FILE_SYNCED_MESSAGE = "File synced:";
 export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
 export const MOD_UPLOADER_PATH = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe`;
 
-const packageRoot = await getPackageRoot();
+const packageRoot = path.resolve(import.meta.dirname, "..");
 const { version, description } = await getPackageJSONFieldsMandatory(
   packageRoot,
   "name",

@@ -1,6 +1,6 @@
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
-await lintScript(async () => {
+await lintScript(import.meta.dirname, async (packageRoot) => {
   await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
@@ -27,6 +27,6 @@ await lintScript(async () => {
     $`tsx ./packages/isaacscript-cli/src/main.ts check --ignore bundleEntry.ts,ci.yml,eslint.config.mjs,lint.ts,tsconfig.json`,
 
     // Check to see if the child "package.json" files are up to date.
-    lintMonorepoPackageJSONs(),
+    lintMonorepoPackageJSONs(packageRoot),
   ]);
 });

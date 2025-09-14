@@ -8,7 +8,7 @@ import {
 } from "complete-node";
 import path from "node:path";
 
-await buildScript(async (packageRoot) => {
+await buildScript(import.meta.dirname, async (packageRoot) => {
   // In addition to the normal compilation, we want to bundle the entire library into one file
   // specifically for Lua consumers. We also include `isaac-typescript-definitions` in the bundled
   // exports so that Lua users do not have to consume two separate libraries.

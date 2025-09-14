@@ -1,6 +1,6 @@
 import { $, commandExists, lintScript } from "complete-node"; // eslint-disable-line import-x/no-extraneous-dependencies
 
-await lintScript(async () => {
+await lintScript(import.meta.dirname, async () => {
   const promises = [
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
