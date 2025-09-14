@@ -120,7 +120,17 @@ declare global {
       slowColor: Color,
     ) => void;
 
-    AddVelocity: (velocity: Vector) => void;
+    /**
+     * Adds velocity to the entity. This can be used to move them in a certain direction. (For
+     * example, as a result of collision.)
+     *
+     * @param velocity
+     * @param ignoreTimeScale Optional. If true, the time scale is treated as if it were 1.0,
+     *                        ignoring effects that would otherwise slow down or speed up the entity
+     *                        (like Stopwatch). Defaults to false.
+     */
+    AddVelocity: (velocity: Vector, ignoreTimeScale: boolean) => void;
+
     BloodExplode: () => void;
 
     // `CanShutDoors` is deliberately not implemented here because it conflicts with
