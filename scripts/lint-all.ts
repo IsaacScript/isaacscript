@@ -6,13 +6,13 @@ import path from "node:path";
 await lintScript(import.meta.dirname, async (packageRoot) => {
   const lintPackages = await getMonorepoPackageNames(packageRoot, "lint");
 
-  const promises: Array<Promise<unknown>> = [];
+  await Promise.all(
+    lintPackages.map(async (packageName) => {
+      const packagePath = path.join(packageRoot, "packages", packageName);
+      const $$ = $({ cwd: packagePath });
+      await $$`npm run lint`;
+    }),
+  );
 
-  for (const lintPackage of lintPackages) {
-    const packagePath = path.join(packageRoot, "packages", lintPackage);
-    const $$ = $({ cwd: packagePath });
-    promises.push($$`npm run lint`);
-  }
-
-  await Promise.all(promises);
+  console.log("Successfully linted all monorepo packages.");
 });

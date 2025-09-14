@@ -1,5 +1,5 @@
 import ESLintPluginIsaacScript from "eslint-plugin-isaacscript";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 // Hot-patch "eslint-plugin-isaacscript" to convert errors to warnings.
 for (const config of ESLintPluginIsaacScript.configs.recommended) {
@@ -16,8 +16,9 @@ for (const config of ESLintPluginIsaacScript.configs.recommended) {
  * This ESLint config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua
  * projects).
  */
-export const isaacScriptModConfigBase = tseslint.config(
+export const isaacScriptModConfigBase = defineConfig(
   // `eslint-plugin-isaacscript` provides rules specifically for IsaacScript mods.
+  // @ts-expect-error TODO
   ...ESLintPluginIsaacScript.configs.recommended,
 
   {

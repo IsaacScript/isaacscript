@@ -1,7 +1,7 @@
 import { completeConfigBase } from "eslint-config-complete";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config"; // eslint-disable-line import-x/no-extraneous-dependencies
 
-export default tseslint.config(
+export default defineConfig(
   ...completeConfigBase,
 
   {
