@@ -16,7 +16,7 @@
   "scripts": {
     "postinstall": "tsx ./packages/eslint-plugin-isaacscript/scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
-    "lint-all": "tsx ./scripts/lintAll.ts",
+    "lint-all": "tsx ./scripts/lint-all.ts",
     "package-json-lint": "tsx ./scripts/packageJSONLint.ts",
     "publish": "tsx ./scripts/publish.ts",
     "update": "tsx ./scripts/update.ts"
