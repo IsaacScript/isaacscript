@@ -45,16 +45,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "8.39.0",
-    "@typescript-eslint/utils": "8.39.0",
-    "typescript-eslint": "8.39.0"
+    "@typescript-eslint/type-utils": "8.43.0",
+    "@typescript-eslint/utils": "8.43.0",
+    "typescript-eslint": "8.43.0"
   },
   "devDependencies": {
     "@babel/core": "7.28.4",
     "@babel/preset-env": "7.28.3",
     "@babel/preset-typescript": "7.27.1",
     "@types/jest": "30.0.0",
-    "@typescript-eslint/rule-tester": "8.39.0",
+    "@typescript-eslint/rule-tester": "8.43.0",
     "complete-common": "2.5.0",
     "complete-node": "12.0.0",
     "jest": "30.1.3",

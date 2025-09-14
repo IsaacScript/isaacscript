@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "complete-node": "12.0.0",
-    "typescript-eslint": "8.39.0"
+    "typescript-eslint": "8.43.0"
   }
 }
