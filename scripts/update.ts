@@ -1,3 +1,3 @@
 import { updatePackageJSONDependenciesMonorepo } from "complete-node";
 
-await updatePackageJSONDependenciesMonorepo();
+await updatePackageJSONDependenciesMonorepo(import.meta.dirname);

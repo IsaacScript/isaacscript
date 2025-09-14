@@ -3,7 +3,7 @@ import { generateConfigs } from "./generateConfigs.js";
 import { generateReadme } from "./generateReadme.js";
 import { generateRules } from "./generateRules.js";
 
-if (isMain()) {
+if (isMain(import.meta.filename)) {
   await generateAll();
 }
 

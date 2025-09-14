@@ -46,7 +46,7 @@ const SIDEBAR_POSITIONS = new ReadonlyMap([
   ["Mods", 8],
 ]);
 
-if (isMain()) {
+if (isMain(import.meta.filename)) {
   await main();
 }
 

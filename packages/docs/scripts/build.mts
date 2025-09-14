@@ -13,7 +13,7 @@ const GENERATED_DOC_DIRECTORY_NAMES = [
   "eslint-config-isaacscript",
 ] as const;
 
-await buildScript(async (packageRoot) => {
+await buildScript(import.meta.dirname, async (packageRoot) => {
   if (!DOCS_BUILD_ENABLED) {
     return;
   }

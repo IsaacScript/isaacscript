@@ -1,3 +1,3 @@
 import { monorepoPublish } from "complete-node";
 
-await monorepoPublish();
+await monorepoPublish(import.meta.dirname);

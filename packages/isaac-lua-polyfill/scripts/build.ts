@@ -1,5 +1,5 @@
 import { $, buildScript } from "complete-node";
 
-await buildScript(async () => {
+await buildScript(import.meta.dirname, async () => {
   await $`tsc`;
 });

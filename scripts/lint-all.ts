@@ -3,7 +3,7 @@ import path from "node:path";
 
 // This script runs the lint scripts for each individual package. It does not run the lint scripts
 // for the monorepo itself. For that, use the "lint.ts" script.
-await lintScript(async (packageRoot) => {
+await lintScript(import.meta.dirname, async (packageRoot) => {
   const lintPackages = await getMonorepoPackageNames(packageRoot, "lint");
 
   const promises: Array<Promise<unknown>> = [];

@@ -134,7 +134,7 @@ const BROKEN_LINK_DIR_NAMES = [
   "types",
 ] as const;
 
-if (isMain()) {
+if (isMain(import.meta.filename)) {
   await main();
 }
 

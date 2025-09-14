@@ -1,7 +1,6 @@
-import { getPackageRoot } from "complete-node";
 import path from "node:path";
 
-const packageRoot = await getPackageRoot();
+const packageRoot = path.resolve(import.meta.dirname, "..");
 const packageName = path.basename(packageRoot);
 const packageNameWords = packageName.split("-");
 const pluginName = packageNameWords.at(-1);
