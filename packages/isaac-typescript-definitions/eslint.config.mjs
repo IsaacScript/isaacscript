@@ -1,7 +1,7 @@
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
-import { defineConfig } from "eslint/config"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { defineConfig } from "eslint/config";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
 // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
 import ESLintPluginSortExports from "eslint-plugin-sort-exports";

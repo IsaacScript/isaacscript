@@ -31,10 +31,7 @@
     "file-templates",
     "isaacscript-watcher",
     "plugins",
-    "schemas",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "schemas"
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",
@@ -50,7 +47,7 @@
     "commander": "14.0.1",
     "complete-common": "2.5.0",
     "complete-node": "12.0.0",
-    "figlet": "1.8.2",
+    "figlet": "1.9.2-beta.0",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
     "moment": "2.30.1",

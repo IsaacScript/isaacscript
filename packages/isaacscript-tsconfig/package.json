@@ -21,9 +21,6 @@
   "author": "Zamiell",
   "type": "module",
   "files": [
-    "LICENSE",
-    "package.json",
-    "README.md",
     "tsconfig.base.json",
     "tsconfig.browser.json",
     "tsconfig.mod.json",

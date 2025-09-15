@@ -3,8 +3,8 @@ import { fatalError } from "complete-node";
 import figlet from "figlet"; // Cannot be "import * as figlet" or else run-time errors occur.
 import { PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
 
-export function printBanner(): void {
-  const banner = figlet.textSync(PROJECT_NAME);
+export async function printBanner(): Promise<void> {
+  const banner = await figlet.text(PROJECT_NAME);
   console.log(chalk.green(banner));
 
   const versionString = `v${PROJECT_VERSION}`;

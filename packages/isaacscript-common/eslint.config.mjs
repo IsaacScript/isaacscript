@@ -2,19 +2,17 @@
 
 import { completeConfigBase } from "eslint-config-complete";
 import ESLintPluginSortExports from "eslint-plugin-sort-exports";
-import { defineConfig } from "eslint/config"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { defineConfig } from "eslint/config";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
 
-// TODO: // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
-
 export default defineConfig(
-  // @ts-expect-error TODO
   ...completeConfigBase,
   ...isaacScriptModConfigBase,
 
   {
     plugins: {
       /** The `sort-exports` rule is used in some specific files. */
+      // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
       "sort-exports": ESLintPluginSortExports,
     },
 
@@ -37,6 +35,10 @@ export default defineConfig(
        */
       "@typescript-eslint/require-array-sort-compare": "warn",
     },
+
+    // Having TypeScript rules apply to ".json" files will throw an error about needing type
+    // information.
+    ignores: ["*.json"],
   },
 
   {

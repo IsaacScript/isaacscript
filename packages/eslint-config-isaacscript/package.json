@@ -24,9 +24,6 @@
   "type": "module",
   "main": "./src/index.js",
   "files": [
-    "LICENSE",
-    "package.json",
-    "README.md",
     "src"
   ],
   "scripts": {

@@ -107,7 +107,7 @@ async function init(name: string | undefined, options: InitOptions) {
     yes,
   } = options;
 
-  printBanner();
+  await printBanner();
 
   const packageManager = await getPackageManagerUsedForNewProject(options);
 

@@ -21,10 +21,7 @@
   "type": "module",
   "files": [
     "dictionaries",
-    "cspell-isaacscript.json",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "cspell-isaacscript.json"
   ],
   "scripts": {
     "lint": "tsx ./scripts/lint.ts"

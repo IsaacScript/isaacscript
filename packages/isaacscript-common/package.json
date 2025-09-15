@@ -26,10 +26,7 @@
   "types": "./dist/index.rollup.d.ts",
   "files": [
     "dist",
-    "src",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "src"
   ],
   "scripts": {
     "build": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/build.mts",

@@ -54,7 +54,7 @@ type MonitorOptions = typeof monitorOptions;
 async function monitor(options: MonitorOptions) {
   const { skipProjectChecks, verbose } = options;
 
-  printBanner();
+  await printBanner();
 
   const packageManager = await getPackageManagerUsedForExistingProject();
 

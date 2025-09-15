@@ -1,25 +1,29 @@
 import ESLintPluginIsaacScript from "eslint-plugin-isaacscript";
 import { defineConfig } from "eslint/config";
 
-// Hot-patch "eslint-plugin-isaacscript" to convert errors to warnings.
-for (const config of ESLintPluginIsaacScript.configs.recommended) {
-  if (config.rules !== undefined) {
-    for (const [key, value] of Object.entries(config.rules)) {
-      if (value === "error") {
-        config.rules[key] = "warn";
-      }
-    }
-  }
-}
-
 /**
  * This ESLint config is meant to be used as a base for IsaacScript mods (or TypeScriptToLua
  * projects).
  */
 export const isaacScriptModConfigBase = defineConfig(
-  // `eslint-plugin-isaacscript` provides rules specifically for IsaacScript mods.
-  // @ts-expect-error TODO
-  ...ESLintPluginIsaacScript.configs.recommended,
+  {
+    plugins: {
+      // TODO: The `defineConfig` helper function is bugged.
+      // @ts-expect-error https://github.com/typescript-eslint/typescript-eslint/issues/11543
+      isaacscript: ESLintPluginIsaacScript,
+    },
+
+    rules: {
+      "isaacscript/enum-member-number-separation": "warn",
+      "isaacscript/no-invalid-default-map": "warn",
+      "isaacscript/no-throw": "warn",
+      "isaacscript/require-v-registration": "warn",
+    },
+
+    // Having TypeScript rules apply to ".json" files will throw an error about needing type
+    // information.
+    ignores: ["*.json"],
+  },
 
   {
     rules: {
@@ -200,5 +204,9 @@ export const isaacScriptModConfigBase = defineConfig(
        */
       "no-restricted-globals": "off",
     },
+
+    // Having TypeScript rules apply to ".json" files will throw an error about needing type
+    // information.
+    ignores: ["*.json"],
   },
 );

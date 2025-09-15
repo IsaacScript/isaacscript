@@ -351,7 +351,7 @@ export function getArrayDuplicateElements<T extends number | string>(
   }
 
   const values = [...duplicateElements];
-  return values.sort(sortNormal);
+  return values.toSorted(sortNormal);
 }
 
 /**

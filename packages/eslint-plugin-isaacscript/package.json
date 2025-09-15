@@ -32,10 +32,7 @@
   "type": "module",
   "main": "./dist/src/index.js",
   "files": [
-    "dist",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "dist"
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",
