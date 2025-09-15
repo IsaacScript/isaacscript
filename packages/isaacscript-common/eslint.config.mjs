@@ -35,10 +35,6 @@ export default defineConfig(
        */
       "@typescript-eslint/require-array-sort-compare": "warn",
     },
-
-    // Having TypeScript rules apply to ".json" files will throw an error about needing type
-    // information.
-    ignores: ["*.json"],
   },
 
   {

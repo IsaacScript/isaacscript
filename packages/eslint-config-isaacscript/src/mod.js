@@ -20,9 +20,10 @@ export const isaacScriptModConfigBase = defineConfig(
       "isaacscript/require-v-registration": "warn",
     },
 
-    // Having TypeScript rules apply to ".json" files will throw an error about needing type
-    // information.
-    ignores: ["*.json"],
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["*.json", "*.jsonc"],
   },
 
   {
@@ -205,8 +206,9 @@ export const isaacScriptModConfigBase = defineConfig(
       "no-restricted-globals": "off",
     },
 
-    // Having TypeScript rules apply to ".json" files will throw an error about needing type
-    // information.
-    ignores: ["*.json"],
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["*.json", "*.jsonc"],
   },
 );
