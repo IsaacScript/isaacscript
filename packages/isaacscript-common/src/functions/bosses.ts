@@ -130,6 +130,11 @@ export function getBossIDFromEntityTypeVariant(
   entityType: EntityType,
   variant: int,
 ): BossID | undefined {
+  // First, handle some special cases.
+  if (entityType === EntityType.HORSEMAN_HEAD) {
+    return BossID.HEADLESS_HORSEMAN;
+  }
+
   const entityTypeVariant = `${entityType}.${variant}`;
   return ENTITY_TYPE_VARIANT_TO_BOSS_ID_MAP.get(entityTypeVariant);
 }
