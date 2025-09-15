@@ -211,4 +211,39 @@ export const isaacScriptModConfigBase = defineConfig(
     // plugin, we include it here defensively.)
     ignores: ["*.json", "*.jsonc"],
   },
+
+  {
+    files: [
+      "eslint.config.js",
+      "eslint.config.cjs",
+      "eslint.config.mjs",
+      "eslint.config.ts",
+      "eslint.config.cts",
+      "eslint.config.mts",
+    ],
+    rules: {
+      // TypeScript projects that use "complete-lint" have a false positive when importing
+      // "defineConfig" from "eslint/config", because "eslint" is a transitive dependency in
+      // "complete-lint". Similarly, importing "completeConfigBase" from "eslint-config-complete"
+      // fails, because "eslint-config-complete" is a transitive dependency in "complete-lint". (We
+      // extend the logic from "eslint-config-complete" and add a new value for
+      // "eslint-config-isaacscript.")
+      "import-x/no-extraneous-dependencies": [
+        "warn",
+        {
+          devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
+          optionalDependencies: false,
+          whitelist: [
+            "eslint",
+            "eslint-config-complete",
+            "eslint-config-isaacscript",
+          ],
+        },
+      ],
+
+      // ESLint configuration files in monorepos often intentionally import from the "packages"
+      // subdirectory, because the config files are JavaScript so they cannot use tsconfig-paths.
+      "import-x/no-relative-packages": "off",
+    },
+  },
 );
