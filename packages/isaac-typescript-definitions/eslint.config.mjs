@@ -1,10 +1,9 @@
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
+import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 import { defineConfig } from "eslint/config";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
-// @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
-import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
 export default defineConfig(
   ...completeConfigBase,
@@ -12,6 +11,7 @@ export default defineConfig(
 
   {
     plugins: {
+      // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
       "sort-exports": ESLintPluginSortExports,
     },
 

@@ -5,15 +5,13 @@ import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 import { defineConfig } from "eslint/config";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
 
-// TODO: // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
-
 export default defineConfig(
-  // @ts-expect-error TODO
   ...completeConfigBase,
   ...isaacScriptModConfigBase,
 
   {
     plugins: {
+      // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
       "sort-exports": ESLintPluginSortExports,
     },
 
