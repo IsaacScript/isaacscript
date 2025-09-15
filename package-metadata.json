@@ -1,6 +1,10 @@
 {
   "@schema": "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/package-metadata-schema.json",
   "dependencies": {
+    "complete-lint": {
+      "lock-version": true,
+      "lock-reason": "https://github.com/eslint/eslint/issues/20120"
+    },
     "figlet": {
       "lock-version": true,
       "lock-reason": "https://github.com/patorjk/figlet.js/issues/139"
