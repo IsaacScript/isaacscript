@@ -4,7 +4,7 @@
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
-import { isaacScriptModConfigBase } from "eslint-config-isaacscript"; // eslint-disable-line import-x/no-extraneous-dependencies
+import { isaacScriptModConfigBase } from "eslint-config-isaacscript";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig(
