@@ -34,7 +34,7 @@
     "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "42.2.1"
+    "isaac-typescript-definitions": "42.3.0"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "7.52.13",
