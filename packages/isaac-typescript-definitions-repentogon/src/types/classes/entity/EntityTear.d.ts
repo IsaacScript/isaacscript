@@ -34,14 +34,12 @@ declare global {
     ) => EntityTear;
 
     /**
-     * Returns the intensity value of the tear as a result of the Dead Eye collectible. The intensity
-     * is between 0 and 1.
+     * Returns the intensity value of the tear as a result of the Dead Eye collectible. The
+     * intensity is between 0 and 1.
      */
     GetDeadEyeIntensity: () => float;
 
-    /**
-     * Returns the hit list indices of all entities the tear has hit.
-     */
+    /** Returns the hit list indices of all entities the tear has hit. */
     GetHitList: () => int[];
 
     /**
