@@ -1,9 +1,7 @@
-import { $, lintScript } from "complete-node";
+import { lintCommands } from "complete-node";
 
-await lintScript(import.meta.dirname, async () => {
-  await Promise.all([
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
-    $`eslint --max-warnings 0 .`,
-  ]);
-});
+await lintCommands(import.meta.dirname, [
+  "tsc --noEmit",
+  "tsc --noEmit --project ./scripts/tsconfig.json",
+  "eslint --max-warnings 0 .",
+]);

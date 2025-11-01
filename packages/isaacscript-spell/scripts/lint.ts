@@ -1,23 +1,23 @@
 import { sortCaseInsensitive } from "complete-common";
 import {
-  $,
   diff,
   echo,
   exit,
   getFileNamesInDirectory,
   isDirectory,
-  lintScript,
+  lintCommands,
   readFile,
 } from "complete-node";
 import path from "node:path";
 
-await lintScript(import.meta.dirname, async (packageRoot) => {
-  await Promise.all([
-    $`tsc --noEmit`,
-    $`eslint --max-warnings 0 .`,
-    checkDictionaries(packageRoot),
-  ]);
-});
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
+
+await lintCommands(import.meta.dirname, [
+  "tsc --noEmit",
+  "eslint --max-warnings 0 .",
+  // eslint-disable-next-line unicorn/prefer-top-level-await
+  ["checkDictionaries", checkDictionaries(PACKAGE_ROOT)],
+]);
 
 async function checkDictionaries(packageRoot: string) {
   const dictionariesPath = path.join(packageRoot, "dictionaries");

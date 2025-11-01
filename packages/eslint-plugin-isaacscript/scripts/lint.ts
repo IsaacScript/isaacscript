@@ -1,5 +1,5 @@
 import { assertDefined } from "complete-common";
-import { $, echo, exit, lintScript, readFile } from "complete-node";
+import { echo, exit, lintCommands, readFile } from "complete-node";
 import path from "node:path";
 import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
@@ -15,18 +15,16 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   README_MD_PATH,
 ] as const;
 
-await lintScript(import.meta.dirname, async () => {
-  await Promise.all([
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
-    $`tsc --noEmit --project ./tests/tsconfig.json`,
-    $`eslint --max-warnings 0 .`,
-  ]);
+await lintCommands(import.meta.dirname, [
+  "tsc --noEmit",
+  "tsc --noEmit --project ./scripts/tsconfig.json",
+  "tsc --noEmit --project ./tests/tsconfig.json",
+  "eslint --max-warnings 0 .",
+]);
 
-  // We cannot do generation at the same time as the other linting because it changes the
-  // compilation output, creating a race condition.
-  await checkGenerateChangedFiles();
-});
+// We cannot do generation at the same time as the other linting because it changes the compilation
+// output, creating a race condition.
+await checkGenerateChangedFiles();
 
 async function checkGenerateChangedFiles() {
   const fileContentsMap = new Map<string, string>();
