@@ -54,6 +54,7 @@ export * from "./enums/SlotState";
 export * from "./enums/SpecialQuest";
 export * from "./enums/SplitTearType";
 export * from "./enums/StbRailVariant";
+export * from "./enums/SuplexState";
 export * from "./enums/TaintedMarksGroup";
 export * from "./enums/WeaponSlot";
 export * from "./enums/WindowIcon";
