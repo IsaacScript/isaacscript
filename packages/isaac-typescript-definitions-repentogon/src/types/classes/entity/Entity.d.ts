@@ -88,9 +88,7 @@ declare global {
      */
     AddWeakness: (source: EntityRef, duration: int) => void;
 
-    /**
-     * Returns whether the entity can devolve from D10.
-     */
+    /** Returns whether the entity can devolve from D10. */
     CanDevolve: () => boolean;
 
     ComputeStatusEffectDuration: (initialLength: int, source: EntityRef) => int;

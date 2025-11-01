@@ -10,9 +10,12 @@
  * @see https://repentogon.com/
  */
 const WaterClipFlagInternal = {
-  /** When set for an Entity, also enables rendering below water.*/
+  /** When set for an Entity, also enables rendering below water. */
   DISABLE_RENDER_ABOVE_WATER: 1 << 1,
-  /** Allows the entity to be rendered below the water along with being rendered above the water. Only works for entities. */
+  /**
+   * Allows the entity to be rendered below the water along with being rendered above the water.
+   * Only works for entities.
+   */
   ENABLE_RENDER_BELOW_WATER: 1 << 2,
 
   /** Prevents the entity from being rendered below the water. Takes priority over other flags. */
@@ -24,7 +27,10 @@ const WaterClipFlagInternal = {
   /** Overrides other flags and only allows the entity to render above water with no reflection. */
   IGNORE_WATER_RENDERING: 1 << 6,
 
-  /** Forces the entity to spawn water ripple effects regardless of if they're on the ground or not. Only works for entities. */
+  /**
+   * Forces the entity to spawn water ripple effects regardless of if they're on the ground or not.
+   * Only works for entities.
+   */
   FORCE_WATER_RIPPLE_WHEN_MOVING: 1 << 7,
 } as const;
 

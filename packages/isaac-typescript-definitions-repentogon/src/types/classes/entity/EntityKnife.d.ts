@@ -14,7 +14,6 @@ declare interface EntityKnife extends Entity {
    * @param sizeMultiplier Optional. Default is 0.6.
    * @param variant Optional. Default is `TearVariant.BLUE`.
    * @param splitTearType Optional. Default is `SplitTearType.GENERIC`.
-   * @returns
    */
   FireSplitTear: (
     position: Vector,
@@ -46,7 +45,7 @@ declare interface EntityKnife extends Entity {
   IsPrismTouched: () => boolean;
 
   /** Removes an entity from the knife's hit list. */
-  RemoveFromHitList(entity: Entity): void;
+  RemoveFromHitList: (entity: Entity) => void;
 
   SetHitboxParentKnife: (parentKnife: EntityKnife | undefined) => void;
 

@@ -23,8 +23,8 @@ declare global {
     CanCharm: () => boolean;
 
     /**
-     * Returns the weapon entity the familiar is holding. Returns undefined if the familiar has
-     * no weapon.
+     * Returns the weapon entity the familiar is holding. Returns undefined if the familiar has no
+     * weapon.
      */
     GetActiveWeaponEntity: () => Entity | undefined;
 
@@ -95,35 +95,27 @@ declare global {
      * Makes the familiar attempt to aim at the marked target effect if the player has the Marked
      * collectible.
      *
-     * When called with exactly 2 arguments (aimDirection, direction):
-     * Returns the position of the effect if the familiar successfully targeted it, otherwise
-     * undefined is returned.
-     *
-     * When called with 0, 1, or 3 arguments:
-     * Returns a boolean indicating success and a table containing the modified aim direction,
-     * direction, and target position.
+     * When called with exactly 2 arguments (aimDirection, direction): Returns the position of the
+     * effect if the familiar successfully targeted it, otherwise undefined is returned.
      */
-    TryAimAtMarkedTarget(
+    TryAimAtMarkedTarget: ((
       aimDirection: Vector,
       direction: Direction,
-    ): Vector | undefined;
-
-    /**
-     * Attempts to aim at the marked target effect if the player has the Marked collectible.
-     *
-     * @param aimDirection
-     * @param direction
-     * @param targetPosBuffer
-     * @returns 2 values:
-     * - success: Whether the targeting was successful.
-     * - An array containing the modified aim direction Vector, the modified shoot Direction, and
-     *   the modified target position buffer.
-     */
-    TryAimAtMarkedTarget(
-      aimDirection?: Vector,
-      direction?: Direction,
-      targetPosBuffer?: Vector,
-    ): LuaMultiReturn<[success: boolean, result: [Vector, Direction, Vector]]>;
+    ) => Vector | undefined)
+      & ((
+        /**
+         * @param aimDirection
+         * @param direction
+         * @param targetPosBuffer
+         * @returns 2 values:
+         * - success: Whether the targeting was successful.
+         * - result: An array containing the modified aim direction Vector, the modified direction
+         *   integer, and the modified target position buffer Vector.
+         */
+        aimDirection?: Vector,
+        direction?: int,
+        targetPosBuffer?: Vector,
+      ) => LuaMultiReturn<[success: boolean, result: [Vector, int, Vector]]>);
 
     /** Updates the familiar's dirt color. */
     UpdateDirtColor: () => void;
