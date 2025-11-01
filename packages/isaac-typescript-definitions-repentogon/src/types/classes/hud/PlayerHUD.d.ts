@@ -19,6 +19,9 @@ declare global {
     /** Returns the `HUD`. */
     GetHUD: () => HUD;
 
+    GetIndex: () => int;
+    GetLayout: () => int;
+
     /** Returns the `EntityPlayer` associated with the `PlayerHUD`. */
     GetPlayer: () => EntityPlayer;
 
