@@ -2,6 +2,7 @@ import type {
   BloodExplosionSubType,
   EntityType,
 } from "isaac-typescript-definitions";
+import type { WaterClipFlag } from "../../../enums/flags/WaterClipFlag";
 
 declare global {
   interface Entity extends IsaacAPIClass {
@@ -86,6 +87,11 @@ declare global {
      *                 frames.
      */
     AddWeakness: (source: EntityRef, duration: int) => void;
+
+    /**
+     * Returns whether the entity can devolve from D10.
+     */
+    CanDevolve: () => boolean;
 
     ComputeStatusEffectDuration: (initialLength: int, source: EntityRef) => int;
 
@@ -212,7 +218,7 @@ declare global {
      * Returns the position of the null layer mark. If the layer is not visible or no frame is
      * available for the current animation, `VectorZero` is returned instead.
      */
-    GetNullOffset: (nullLayerNameOrId: string | undefined) => Vector;
+    GetNullOffset: (nullLayerName: string | undefined) => Vector;
 
     /** Returns how many frames are left until the pause status effect goes away. */
     GetPauseTime: () => int;
@@ -250,6 +256,9 @@ declare global {
 
     /** Returns the entity's `EntityType`. */
     GetType: () => EntityType;
+
+    /** Returns the entity's water clip flags. */
+    GetWaterClipFlags: () => BitFlags<WaterClipFlag>;
 
     /** Returns how many frames are left until the weakness status effect goes away. */
     GetWeaknessCountdown: () => int;
@@ -291,6 +300,9 @@ declare global {
       color?: Color,
       scale?: number,
     ) => EntityEffect;
+
+    /** Resets the entity's water clip flags. */
+    ResetWaterClipFlags: () => void;
 
     /**
      * Updates the remaining frames until the baited status effect is removed. If the entity does
@@ -440,6 +452,9 @@ declare global {
 
     /** Sets the entity's speed multiplier. */
     SetSpeedMultiplier: (multiplier: number) => void;
+
+    /** Sets the entity's water clip flags. */
+    SetWaterClipFlags: (flags: BitFlags<WaterClipFlag>) => void;
 
     /**
      * Updates the remaining frames until the weakness status effect is removed. If the entity does
