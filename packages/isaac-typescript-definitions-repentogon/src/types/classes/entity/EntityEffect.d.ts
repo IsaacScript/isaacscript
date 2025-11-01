@@ -17,4 +17,25 @@ declare namespace EntityEffect {
     state?: int,
     color?: Color,
   ): EntityEffect;
+
+  /**
+   * Creates a LootList preview effect. This is the same effect used by Guppy's Eye.
+   *
+   * @param loot
+   * @param position
+   * @param owner
+   * @param effect The purpose of this argument is currently unknown.
+   */
+  function CreateLootPreview(
+    loot: LootList,
+    position: Vector,
+    owner: EntityPickup,
+    effect: EntityEffect,
+  ): EntityEffect;
+
+  /**
+   * Returns the GridEntityDesc corresponding to the effect if its variant is
+   * `EffectVariant.GRID_ENTITY_PROJECTILE_HELPER`, otherwise returns undefined.
+   */
+  function GetGridEntityDesc(): GridEntityDesc | undefined;
 }
