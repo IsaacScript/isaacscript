@@ -680,7 +680,7 @@ declare global {
      */
     GetHearts: () => int;
 
-    GetItemState: () => int;
+    GetItemState: () => CollectibleType;
     GetJarFlies: () => int;
     GetJarHearts: () => int;
     GetLaserOffset: (laserOffset: LaserOffset, direction: Vector) => Vector;
