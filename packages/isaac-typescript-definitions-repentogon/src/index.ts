@@ -52,6 +52,7 @@ export * from "./enums/ProceduralEffectConditionType";
 export * from "./enums/PurityState";
 export * from "./enums/SlotState";
 export * from "./enums/SpecialQuest";
+export * from "./enums/SplitTearType";
 export * from "./enums/StbRailVariant";
 export * from "./enums/TaintedMarksGroup";
 export * from "./enums/WeaponSlot";
