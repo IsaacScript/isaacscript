@@ -7,6 +7,13 @@ export default defineConfig(
   ...completeConfigBase,
 
   {
+    rules: {
+      // TODO: https://github.com/eslint/eslint/issues/20272
+      "@typescript-eslint/unified-signatures": "off",
+    },
+  },
+
+  {
     files: ["**/copied/*.ts"],
     rules: {
       /**

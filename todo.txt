@@ -1,3 +1,4 @@
+- install npm ci git hook
 - redo fandom links to wiki.gg
 
 - redo ci for docs so that it matches complete (but with typesense instead of algolia)

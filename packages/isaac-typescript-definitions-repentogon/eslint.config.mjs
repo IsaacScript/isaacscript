@@ -37,6 +37,9 @@ export default defineConfig(
           sortDir: "asc",
         },
       ],
+
+      // TODO: https://github.com/eslint/eslint/issues/20272
+      "@typescript-eslint/unified-signatures": "off",
     },
   },
 
