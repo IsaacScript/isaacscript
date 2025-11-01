@@ -14,6 +14,9 @@ declare interface HUD extends IsaacAPIClass {
   /** Returns the sprite object used to render the charge bar. */
   GetChargeBarSprite: () => Sprite;
 
+  /** @param index Optional. Must be between 0 and 3. Default is 0. */
+  GetCoopPlayerMessage: (index?: int) => HUDMessage;
+
   /** Returns the sprite used to render the co-op player select menu. */
   GetCoopMenuSprite: () => Sprite;
 
@@ -29,6 +32,8 @@ declare interface HUD extends IsaacAPIClass {
   /** Returns the sprite used to render Tainted Isaac's inventory. */
   GetInventorySprite: () => Sprite;
 
+  GetMainMessage: () => HUDMessage;
+
   /** Returns the sprite used to render the pickups HUD. */
   GetPickupsHUDSprite: () => Sprite;
 
@@ -42,6 +47,9 @@ declare interface HUD extends IsaacAPIClass {
 
   /** Returns the sprite used to render Tainted Blue Baby's poop spells. */
   GetPoopSpellSprite: () => Sprite;
+
+  /** @param index Optional. Must be between 0 and 5. Default is 0. */
+  GetStackedMessage: () => HUDMessage;
 
   /**
    * Returns the sprite used to render streak popups (e.g. Picking up items, displaying floor

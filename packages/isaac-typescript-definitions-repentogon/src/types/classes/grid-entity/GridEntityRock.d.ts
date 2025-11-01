@@ -42,6 +42,7 @@ declare global {
 
   namespace GridEntityRock {
     /**
+     * @param position
      * @param gridEntityType
      * @param gridVariant
      * @param seed
