@@ -31,21 +31,6 @@ declare global {
 
     RenderTop: (offset: Vector) => void;
 
-    /**
-     * @param gridEntityType
-     * @param gridVariant
-     * @param seed
-     * @param unknown
-     * @param backdrop Optional. Default is `BackdropType.NULL` (The current backdrop).
-     */
-    SpawnDrops: (
-      gridEntityType: GridEntityType,
-      gridVariant: int,
-      seed: Seed,
-      unknown: boolean,
-      backdrop: BackdropType,
-    ) => void;
-
     TrySpawnLadder: () => void;
     TrySpawnWorms: () => void;
 
@@ -53,5 +38,23 @@ declare global {
     UpdateCollision: () => void;
 
     UpdateNeighbors: () => void;
+  }
+
+  namespace GridEntityRock {
+    /**
+     * @param gridEntityType
+     * @param gridVariant
+     * @param seed
+     * @param unknown
+     * @param backdrop Optional. Default is `BackdropType.NULL` (The current backdrop).
+     */
+    function SpawnDrops(
+      position: Vector,
+      gridEntityType: GridEntityType,
+      gridVariant: int,
+      seed: Seed,
+      unknown: boolean,
+      backdrop: BackdropType,
+    ): void;
   }
 }
