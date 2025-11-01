@@ -31,6 +31,8 @@ declare global {
      */
     GetPrizeCollectible: () => CollectibleType;
 
+    GetPrizeSprite: () => Sprite;
+
     /** Returns the slot's prize type. */
     GetPrizeType: () => int;
 
