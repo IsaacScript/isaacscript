@@ -114,10 +114,10 @@ export function getObjectPartialMatch<T>(
  * const array = ["foo", "bar"];
  * const searchText = "f";
  * const match = getPartialMatch(array, searchText); // match is now equal to "foo"
- *
- * @returns If a match was found, returns the array element. If a match was not
- * found, returns undefined.
  * ```
+ *
+ * @returns If a match was found, returns the array element. If a match was not found, returns
+ *          undefined.
  */
 export function getPartialMatch(
   searchText: string,

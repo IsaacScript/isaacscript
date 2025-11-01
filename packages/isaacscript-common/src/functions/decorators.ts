@@ -1,3 +1,5 @@
+/* eslint-disable jsdoc/escape-inline-tags */
+
 /**
  * If you decide to structure your mod as a set of feature classes, you can use decorators to
  * automatically register callbacks.
