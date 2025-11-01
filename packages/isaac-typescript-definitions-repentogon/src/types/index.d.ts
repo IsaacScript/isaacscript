@@ -99,6 +99,7 @@
 /// <reference path="./classes/ColorModifier.d.ts"/>
 /// <reference path="./classes/DailyChallenge.d.ts"/>
 /// <reference path="./classes/Debug.d.ts"/>
+/// <reference path="./classes/EntityDesc.d.ts"/>
 /// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/Game.d.ts"/>

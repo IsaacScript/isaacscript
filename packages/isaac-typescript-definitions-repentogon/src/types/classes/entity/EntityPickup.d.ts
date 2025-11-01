@@ -36,11 +36,14 @@ declare global {
      */
     GetLootList: (shouldAdvance?: boolean) => Readonly<LootList>;
 
-    GetMegaChestLeftCollectible: () => EntityPickup | undefined;
+    GetMegaChestLeftCollectible: () => EntityPickupCollectible | undefined;
     GetMegaChestOtherCollectible: () => LuaMultiReturn<
-      [otherCollectible: EntityPickup | undefined, isRight: boolean | undefined]
+      [
+        otherCollectible: EntityPickupCollectible | undefined,
+        isRight: boolean | undefined,
+      ]
     >;
-    GetMegaChestRightCollectible: () => EntityPickup | undefined;
+    GetMegaChestRightCollectible: () => EntityPickupCollectible | undefined;
 
     /**
      * Returns the ghost effect that is visible if a player has Guppy's Eye. Returns undefined if
