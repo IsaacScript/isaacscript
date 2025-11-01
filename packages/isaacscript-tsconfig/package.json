@@ -28,6 +28,6 @@
   ],
   "dependencies": {
     "@tsconfig/node-lts": "22.0.2",
-    "@tsconfig/strictest": "2.0.5"
+    "@tsconfig/strictest": "2.0.7"
   }
 }

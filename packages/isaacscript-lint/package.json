@@ -22,7 +22,7 @@
   "type": "module",
   "dependencies": {
     "@prettier/plugin-xml": "3.4.2",
-    "complete-lint": "4.0.0",
+    "complete-lint": "4.2.7",
     "eslint-config-isaacscript": "6.0.1",
     "eslint-import-resolver-typescript": "4.4.4",
     "isaacscript-spell": "1.15.2",
