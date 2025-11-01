@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { OptionDefaults } from "typedoc";
 
-/** @type {Partial<import('typedoc').TypeDocOptions>} */
+/** @type {Partial<import("typedoc").TypeDocOptions>} */
 const config = {
   sort: ["source-order"],
   tsconfig: "tsconfig.json",
@@ -35,7 +35,7 @@ const configTypeDocPluginMarkdown = {
 
 /**
  * @param {string} packageDirectoryPath The path to the package directory.
- * @returns {Partial<import('typedoc').TypeDocOptions>} The generated config.
+ * @returns {Partial<import("typedoc").TypeDocOptions>} The generated config.
  */
 export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
