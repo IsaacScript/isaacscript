@@ -31,6 +31,9 @@ declare namespace Minimap {
   /** Returns the current state of the minimap. */
   function GetState(): MinimapState;
 
+  /** Sets how many frames the minimap has been in its expanded state. */
+  function SetHoldTime(holdTime: int): void;
+
   /** Sets the duration (in frames) of the minimap's screen shake effect. */
   function SetShakeDuration(duration: int): void;
 
