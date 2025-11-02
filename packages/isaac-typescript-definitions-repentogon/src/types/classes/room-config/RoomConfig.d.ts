@@ -49,7 +49,7 @@ declare global {
     function AddRooms(
       stbType: StageID,
       gameMode: GameMode | -1,
-      rooms: LuaRoomREPENTOGON[],
+      rooms: readonly LuaRoomREPENTOGON[],
     ): Array<RoomConfig | undefined>;
 
     /**
@@ -58,11 +58,11 @@ declare global {
      * @param stage
      * @param roomType
      * @param shape Optional. If undefined, any RoomShape can be chosen.
-     * @param minVariant  Optional. Default is 0.
-     * @param maxVariant  Optional. Default is -1.
+     * @param minVariant Optional. Default is 0.
+     * @param maxVariant Optional. Default is -1.
      * @param minDifficulty Optional. Default is 0.
      * @param maxDifficulty Optional. Default is 10.
-     * @param doors  Optional. Default allows for any DoorSlots.
+     * @param doors Optional. Default allows for any DoorSlots.
      * @param subType Optional. Default is -1.
      * @param gameMode Optional. Default allows any room regardless of the game mode to be chosen.
      */
