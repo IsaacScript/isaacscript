@@ -3,10 +3,24 @@ import type {
   ControllerIndex,
   ProjectilesMode,
   RockSpiderVariant,
+  TearFlag,
 } from "isaac-typescript-definitions";
 
 declare global {
   interface EntityNPC extends Entity {
+    /**
+     * @param position
+     * @param flags
+     * @param source Optional. Default is undefined.
+     * @param damage Optional. Default is 3.5.
+     */
+    ApplyTearflagEffects: (
+      position: Vector,
+      flags: BitFlags<TearFlag>,
+      source?: Entity,
+      damage?: number,
+    ) => void;
+
     /** Clears the flying override set by `EntityNPC.SetFlyingOverride`. */
     ClearFlyingOverride: () => void;
 

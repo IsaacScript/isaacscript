@@ -17,6 +17,12 @@ declare global {
     CanSpawnObstacleAtPosition: (gridIndex: int, force: boolean) => boolean;
 
     /**
+     * @param excludeNPCs Optional. Default is false.
+     * @param source Optional. Default is undefined.
+     */
+    ClearBossHazards: (excludeNPCs?: boolean, source?: Entity) => void;
+
+    /**
      * Creates a lightning strike effect as seen in Downpour.
      *
      * @param seed Optional. The seed determines the intensity and sound pitch. The game calculates
@@ -26,8 +32,8 @@ declare global {
      */
     DoLightningStrike: (seed?: Seed) => void;
 
-    /** Returns the room's `Backdrop` object. */
-    GetBackdrop: () => Backdrop;
+    /** Returns the room's `BackdropType`. */
+    GetBackdropType: () => BackdropType;
 
     /** Returns the room's boss victory jingle. */
     GetBossVictoryJingle: () => Music;
@@ -61,7 +67,7 @@ declare global {
      * @param seed Optional. Default is a call to `Random()`.
      * @param raw Optional. Default is false.
      */
-    GetItemPool: (seed?: Seed, raw?: boolean) => void;
+    GetItemPool: (seed?: Seed, raw?: boolean) => ItemPoolType;
 
     /** Returns the intensity of the lightning effect. */
     GetLightningIntensity: () => float;
@@ -98,6 +104,8 @@ declare global {
       subType: int,
       shopItemID: int,
     ) => int;
+
+    GetWallColor: () => Color;
 
     /**
      * Returns the amount of water in the room.
@@ -136,6 +144,8 @@ declare global {
       pathTrail: int,
       keepDecoration: boolean,
     ) => void;
+
+    SaveState: () => void;
 
     /**
      * Sets the room's backdrop.
@@ -227,6 +237,15 @@ declare global {
       varData?: int,
     ) => void)
       & ((gridIndex: int, descriptor: GridEntityDesc) => void);
+
+    /**
+     * Triggers an event in the room.
+     *
+     * @param output Must be between 0 and 9, otherwise the method will error.
+     */
+    TriggerOutput: (output: int) => void;
+
+    TriggerRestock: (gridIndex: int, shopIndex: int) => void;
 
     /** Returns a discounted price of a shop item. */
     TryGetShopDiscount: (shopItem: int, price: int) => int;
