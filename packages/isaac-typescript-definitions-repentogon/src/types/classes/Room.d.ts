@@ -32,6 +32,8 @@ declare global {
      */
     DoLightningStrike: (seed?: Seed) => void;
 
+    GetBackdrop: () => Backdrop;
+
     /** Returns the room's `BackdropType`. */
     GetBackdropType: () => BackdropType;
 
