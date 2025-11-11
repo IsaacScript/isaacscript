@@ -39,7 +39,7 @@ declare namespace Ambush {
    *
    * Calling this method will error if the current room's type is not `RoomType.CHALLENGE`.
    */
-  function GetNextWave(): RoomConfig;
+  function GetNextWave(): RoomConfig | undefined;
 
   /**
    * Returns an array containing the `RoomConfig` of the next Challenge Room waves.

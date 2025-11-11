@@ -35,6 +35,7 @@
 /// <reference path="./classes/history/HistoryItem.d.ts"/>
 /// <reference path="./classes/hud/DebugRenderer.d.ts"/>
 /// <reference path="./classes/hud/HUD.d.ts"/>
+/// <reference path="./classes/hud/HUDMessage.d.ts"/>
 /// <reference path="./classes/hud/Minimap.d.ts"/>
 /// <reference path="./classes/hud/PlayerHUD.d.ts"/>
 /// <reference path="./classes/hud/PlayerHUDHeart.d.ts"/>
@@ -99,6 +100,7 @@
 /// <reference path="./classes/ColorModifier.d.ts"/>
 /// <reference path="./classes/DailyChallenge.d.ts"/>
 /// <reference path="./classes/Debug.d.ts"/>
+/// <reference path="./classes/EntityDesc.d.ts"/>
 /// <reference path="./classes/Font.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/Game.d.ts"/>

@@ -4,15 +4,21 @@
  * @see https://repentogon.com/
  */
 declare interface Camera extends IsaacAPIClass {
+  /** Returns whether the camera is clamped to the room's boundaries. */
+  IsClampEnabled: () => boolean;
+
   /** Returns whether the specified position is visible within the camera's current view. */
   IsPosVisible: (position: Vector) => boolean;
+
+  /** Sets whether the camera is clamped to the room's boundaries. */
+  SetClampEnabled: (enabled: boolean) => void;
 
   /**
    * Sets the camera's current focus position, causing it to shift towards the specified position.
    * If you want the camera to change its position instantly, use `Camera.SnapToPosition` instead.
    *
-   * The camera will only move if the current room size is larger than 1x1. If the room size is 1x1
-   * or smaller, this method will do nothing.
+   * By default, he camera will only move if the current room size is larger than 1x1. To allow the
+   * camera to move regardless of the room's shape, you must call `Camera.SetClampEnabled(false)`.
    *
    * This method must be called on every game update, otherwise the game will override the camera's
    * focus position.
@@ -23,8 +29,8 @@ declare interface Camera extends IsaacAPIClass {
    * Changes the camera's position immediately. If you want the camera to smoothly change its
    * position, use `Camera.SetFocusPosition` instead.
    *
-   * The camera will only move if the current room size is larger than 1x1. If the room size is 1x1
-   * or smaller, this method will do nothing.
+   * By default, he camera will only move if the current room size is larger than 1x1. To allow the
+   * camera to move regardless of the room's shape, you must call `Camera.SetClampEnabled(false)`.
    *
    * This method must be called on every game update, otherwise the game will override the camera's
    * focus position.

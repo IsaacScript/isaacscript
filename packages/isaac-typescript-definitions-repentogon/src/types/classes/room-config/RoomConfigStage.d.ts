@@ -1,4 +1,8 @@
-import type { BackdropType, Music } from "isaac-typescript-definitions";
+import type {
+  BackdropType,
+  Music,
+  StageID,
+} from "isaac-typescript-definitions";
 import type { GameMode } from "../../../enums/GameMode";
 
 declare global {
@@ -17,6 +21,9 @@ declare global {
     /** Returns the stage's name. */
     GetDisplayName: () => string;
 
+    /** Returns the stage's `StageID`. */
+    GetID: () => StageID;
+
     /** Returns the music that is played in default rooms. */
     GetMusic: () => Music;
 
@@ -30,6 +37,12 @@ declare global {
 
     /** Returns the suffix used by the stage for stage-unique sprites. */
     GetSuffix: () => string;
+
+    /** Returns the name of the stage's rooms XML file. */
+    GetXMLName: () => string;
+
+    /** Returns whether the `RoomConfigSet` of the provided `GameMode` has loaded. */
+    IsLoaded: (gameMode: GameMode) => boolean;
 
     /** Sets the backdrop used in default rooms. */
     SetBackdrop: (backdrop: BackdropType) => void;
@@ -48,5 +61,8 @@ declare global {
 
     /** Sets the suffix used by the stage for stage-unique sprites. */
     SetSuffix: (suffix: string) => void;
+
+    /** Sets the name of the stage's rooms XML file. */
+    SetXMLName: (name: string) => void;
   }
 }

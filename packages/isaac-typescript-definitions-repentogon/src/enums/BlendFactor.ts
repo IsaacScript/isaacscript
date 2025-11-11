@@ -1,3 +1,8 @@
+/**
+ * This enum is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/
+ */
 export enum BlendFactor {
   ZERO = 0,
   ONE = 1,

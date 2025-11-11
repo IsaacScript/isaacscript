@@ -1,4 +1,8 @@
-import type { Direction, WeaponType } from "isaac-typescript-definitions";
+import type {
+  CollectibleType,
+  Direction,
+  WeaponType,
+} from "isaac-typescript-definitions";
 import type { FollowerPriority } from "../../../enums/FollowerPriority";
 
 declare global {
@@ -12,8 +16,23 @@ declare global {
     /** Returns whether the familiar can be damaged by enemy projectiles. */
     CanBeDamagedByProjectiles: () => boolean;
 
+    /** Returns whether the familiar can block projectiles. */
+    CanBlockProjectiles: () => boolean;
+
     /** Returns whether the familiar can charm enemies. */
     CanCharm: () => boolean;
+
+    /**
+     * Returns the weapon entity the familiar is holding. Returns undefined if the familiar has no
+     * weapon.
+     */
+    GetActiveWeaponEntity: () => Entity | undefined;
+
+    /**
+     * Returns how many times the familiar has attacked with its current weapon. Returns undefined
+     * for familiars that do not attack with a weapon.
+     */
+    GetActiveWeaponNumFired: () => int | undefined;
 
     /** Returns the familiar's dirt color. */
     GetDirtColor: () => Color;
@@ -73,17 +92,37 @@ declare global {
     TriggerRoomClear: () => void;
 
     /**
-     * Attempts to aim at the marked target effect if the player has the Marked collectible.
+     * Makes the familiar attempt to aim at the marked target effect if the player has the Marked
+     * collectible.
      *
-     * Returns the position of the effect if the familiar successfully targeted it, otherwise
-     * undefined is returned.
+     * When called with exactly 2 arguments (aimDirection, direction): Returns the position of the
+     * effect if the familiar successfully targeted it, otherwise undefined is returned.
      */
-    TryAimAtMarkedTarget: (
+    TryAimAtMarkedTarget: ((
       aimDirection: Vector,
       direction: Direction,
-    ) => Vector | undefined;
+    ) => Vector | undefined)
+      & ((
+        /**
+         * @param aimDirection
+         * @param direction
+         * @param targetPosBuffer
+         * @returns 2 values:
+         * - success: Whether the targeting was successful.
+         * - result: An array containing the modified aim direction Vector, the modified direction
+         *   integer, and the modified target position buffer Vector.
+         */
+        aimDirection?: Vector,
+        direction?: int,
+        targetPosBuffer?: Vector,
+      ) => LuaMultiReturn<[success: boolean, result: [Vector, int, Vector]]>);
 
     /** Updates the familiar's dirt color. */
     UpdateDirtColor: () => void;
   }
+}
+
+/** @noSelf */
+declare namespace EntityFamiliar {
+  function GetRandomWisp(rng: RNG): CollectibleType;
 }

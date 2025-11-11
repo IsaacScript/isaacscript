@@ -43,8 +43,14 @@ declare global {
      */
     GetAllAnimationData: () => AnimationData[];
 
-    /** Returns the current animation data. */
-    GetCurrentAnimationData: () => AnimationData;
+    /**
+     * Returns the animation data from the provided animation name. Returns undefined if the
+     * animation does not exist.
+     */
+    GetAnimationData: (animationName: string) => AnimationData | undefined;
+
+    /** Returns the current animation data. Returns undefined if no animation is playing. */
+    GetCurrentAnimationData: () => AnimationData | undefined;
 
     /** Returns the layer data from the specified layer id. Returns undefined if none were found. */
     GetLayer: (layerIdOrName: string | int) => LayerState | undefined;
@@ -97,7 +103,8 @@ declare global {
      * Repentogon's modified `Sprite.ReplaceSpritesheet` method.
      *
      * Behaves the same as `Sprite.ReplaceSpritesheet` except specify an additional parameter that
-     * forces the sprite to immediately load its graphics after replacing the spritesheet.
+     * forces the sprite to immediately load its graphics after replacing the spritesheet. It also
+     * returns a boolean whether the sprite has been loaded successfully.
      *
      * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
      * definitions. However, when the project compiles the method's name will change to what it's
@@ -112,7 +119,7 @@ declare global {
       layerID: int,
       pngFileName: string,
       loadGraphics?: boolean,
-    ) => void;
+    ) => boolean;
 
     /**
      * Overrides the `coloroffset_champion` shader the sprite uses with a custom one. This shader is

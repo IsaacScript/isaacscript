@@ -10,6 +10,9 @@ declare interface AnimationFrame extends IsaacAPIClass {
   /** Returns the frame's crop. */
   GetCrop: () => Readonly<Vector>;
 
+  /** Returns the final frame of the animation. */
+  GetEndFrame: () => int;
+
   /** Returns the frame's height. */
   GetHeight: () => number;
 

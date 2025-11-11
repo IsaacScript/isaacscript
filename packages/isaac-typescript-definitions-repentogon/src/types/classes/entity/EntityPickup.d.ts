@@ -24,11 +24,26 @@ declare global {
     GetDropDelay: () => int;
 
     /**
+     * Returns the pickup's flipped collectible. Returns undefined if it does not have a flipped
+     * collectible.
+     */
+    GetFlipCollectible: () => CollectibleType | undefined;
+
+    /**
      * Returns a read-only version of the pickup's `LootList`.
      *
      * @param shouldAdvance Optional. Default is false.
      */
     GetLootList: (shouldAdvance?: boolean) => Readonly<LootList>;
+
+    GetMegaChestLeftCollectible: () => EntityPickupCollectible | undefined;
+    GetMegaChestOtherCollectible: () => LuaMultiReturn<
+      [
+        otherCollectible: EntityPickupCollectible | undefined,
+        isRight: boolean | undefined,
+      ]
+    >;
+    GetMegaChestRightCollectible: () => EntityPickupCollectible | undefined;
 
     /**
      * Returns the ghost effect that is visible if a player has Guppy's Eye. Returns undefined if
@@ -42,14 +57,27 @@ declare global {
     /** Returns the pickup's `VarData`. */
     GetVarData: () => int;
 
+    HasFlipData: () => boolean;
+
+    /**
+     * @param collectible Optional. Default is `CollectibleType.COLLECTIBLE_NULL`.
+     * @param loadGraphics Optional. Default is true.
+     */
+    InitFlipState: (
+      collectible?: CollectibleType,
+      loadGraphics?: boolean,
+    ) => void;
+
     /**
      * Returns whether the collectible is hidden or not.
      *
      * This method does not account for Curse of the Blind, it only reflects the blind state of
      * pickups that are normally blind without curses involved, such as the extra item in the alt
      * path treasure rooms.
+     *
+     * @param checkForcedBlindOnly Optional. Default is true.
      */
-    IsBlind: () => boolean;
+    IsBlind: (checkForcedBlindOnly?: boolean) => boolean;
 
     /** Turns the pickup into a shop item, automatically assigning its price. */
     MakeShopItem: (shopItemID: int) => void;
@@ -70,7 +98,9 @@ declare global {
     SetForceBlind: (blind: boolean) => void;
 
     /** Sets the pickup's Options index and returns the new pickup index. */
-    SetNewOptionsIndex: () => int;
+    SetNewOptionsPickupIndex: () => int;
+
+    SetVarData: (varData: int) => void;
 
     /**
      * Triggers the effect of the "Theres Options" collectible and removes all pickups in the room
