@@ -2,6 +2,7 @@ export * from "./enums/Achievement";
 export * from "./enums/AltRockType";
 export * from "./enums/AutocompleteType";
 export * from "./enums/BagOfCraftingPickup";
+export * from "./enums/BlendEquation";
 export * from "./enums/BlendFactor";
 export * from "./enums/BlendType";
 export * from "./enums/BombCostumeLayer";
