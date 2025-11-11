@@ -83,7 +83,11 @@ declare global {
     /** Returns an array of trinkets that the player starts with in the challenge. */
     GetTrinketList: () => TrinketType[];
 
+    /** Returns whether the player must go through the Alt Path. */
     IsAltPath: () => boolean;
+
+    /** Returns whether the player must go through ascent and defeat The Beast. */
+    IsBeastPath: () => boolean;
 
     /** Returns whether the player's range is forced to be at its maximum value at 16.50. */
     IsBigRangeEnabled: () => boolean;
