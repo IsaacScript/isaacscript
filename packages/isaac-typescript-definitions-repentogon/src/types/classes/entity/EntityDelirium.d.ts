@@ -37,8 +37,14 @@ declare global {
      * The transformation is not effective immediately; it will only take place on the next frame.
      *
      * @param variant Optional. Default is 0.
+     * @param triggerCallback Optional. Whether to trigger the transformation callback. Default is
+     * false.
      */
-    Transform: (entityType: EntityType, variant?: int) => void;
+    Transform: (
+      entityType: EntityType,
+      variant?: int,
+      triggerCallback?: boolean,
+    ) => void;
 
     /**
      * Returns the angle of Delirium's projectiles.
