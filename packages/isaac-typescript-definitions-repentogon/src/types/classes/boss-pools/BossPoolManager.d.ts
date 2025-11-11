@@ -8,6 +8,9 @@ declare global {
    * @see https://repentogon.com/
    */
   namespace BossPoolManager {
+    /** Returns a map containing bosses that are blacklisted from the current stage's boss pool. */
+    function GetLevelBlacklist(): LuaMap<BossID, boolean>;
+
     /** Returns the Boss Pool corresponding to the provided `stageID`. */
     function GetPool(stageID: StageID): BossPool;
 

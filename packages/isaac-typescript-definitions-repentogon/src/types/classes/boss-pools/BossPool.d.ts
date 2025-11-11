@@ -6,6 +6,7 @@
 declare interface BossPool extends IsaacAPIClass {
   /** Returns the ID of the Boss Pool's Double Trouble room. */
   GetDoubleTroubleRoomID: () => int;
+  GetDoubleTroubleRoomVariantStart: () => int;
 
   /** Returns an array of the Boss Pool's entries. */
   GetEntries: () => BossPoolEntry[];
