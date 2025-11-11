@@ -38,6 +38,6 @@ declare global {
      */
     readonly Doors: LuaTable<DoorSlot, int>;
 
-    readonly BossDeathSeed: int;
+    readonly BossDeathSeed: Seed;
   }
 }
