@@ -2,8 +2,7 @@ declare function ColorParams(
   this: void,
   color: Color,
   priority: int,
-  duration1: int,
-  duration2: int,
+  duration: int,
   fadeout: boolean,
   shared: boolean,
 ): ColorParams;
