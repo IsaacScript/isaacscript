@@ -87,8 +87,8 @@ declare interface RenderBeam extends IsaacAPIClass {
     ) => void);
 
   /**
-   * Sets the unknown boolean used in the beam's constructor. The exact behavior of this boolean
-   * is unknown.
+   * Sets the unknown boolean used in the beam's constructor. The exact behavior of this boolean is
+   * unknown.
    */
   SetUnkBool: (bool: boolean) => void;
 
