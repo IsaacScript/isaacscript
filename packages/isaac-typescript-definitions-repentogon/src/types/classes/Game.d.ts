@@ -1,6 +1,7 @@
 import type {
   EntityType,
   StageTransitionType,
+  TearFlag,
 } from "isaac-typescript-definitions";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { PauseMenuState } from "../../enums/PauseMenuState";
@@ -19,10 +20,23 @@ declare global {
     AchievementUnlocksDisallowed: () => boolean;
 
     /** Enables one or more debug flags. */
-    AddDebugFlags: (flags: BitFlag | BitFlags<DebugFlag>) => void;
+    AddDebugFlags: (flags: DebugFlag | BitFlags<DebugFlag>) => void;
 
     /** Increases the unique amount of shops visited in this run. */
     AddShopVisits: (count: int) => void;
+
+    /**
+     * @param position
+     * @param baseDamage Optional. Default is 3.5.
+     * @param tearFlags Optional. Default is `TearFlag.NORMAL`.
+     * @param spawner Optional. Default is undefined.
+     */
+    ChainLightning: (
+      position: Vector,
+      baseDamage?: number,
+      tearFlags?: TearFlag | BitFlags<TearFlag>,
+      spawner?: Entity,
+    ) => EntityEffect;
 
     /**
      * Clears the list of enemies that were erased by the Eraser item, allowing them to appear
