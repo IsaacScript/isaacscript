@@ -210,7 +210,7 @@ declare global {
     GetMinecart: () => EntityNPC | undefined;
 
     /** Returns the entity's null capsule. */
-    GetNullCapsule: (nullLayerNameOrId: string | int) => Capsule;
+    GetNullCapsule: (name: string) => Capsule;
 
     /**
      * Returns the position of the null layer mark. If the layer is not visible or no frame is
