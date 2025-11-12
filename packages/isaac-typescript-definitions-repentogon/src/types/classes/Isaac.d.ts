@@ -1,14 +1,17 @@
 import type {
   BackdropType,
   Challenge,
+  CollectibleType,
   Cutscene,
   EntityPartition,
+  EntityType,
   ItemPoolType,
   LanguageAbbreviation,
   Music,
   NullItemID,
   PlayerType,
   StageID,
+  TrinketType,
   WeaponType,
 } from "isaac-typescript-definitions";
 import type { Achievement } from "../../enums/Achievement";
@@ -22,6 +25,7 @@ import type { GiantbookType } from "../../enums/GiantbookType";
 import type { MainMenuType } from "../../enums/MainMenuType";
 import type { TaintedMarksGroup } from "../../enums/TaintedMarksGroup";
 import type { WindowIcon } from "../../enums/WindowIcon";
+import type { BossColorXMLIndex } from "../../enums/xml/BossColorXMLIndex";
 
 declare global {
   /** @noSelf */
@@ -78,14 +82,17 @@ declare global {
      *
      * @param timerFunction
      * @param delay The delay in frames between each time `timerFunction` is ran.
-     * @param times How many times `timerFunction` is ran.
-     * @param persistent Whether the timer persists across rooms.
+     * @param times Optional. Default is 1.
+     * @param persistent Optional. Whether the timer persists across rooms. Default is true.
+     * @deprecated As this method spawns an invisible EntityEffect to keep track of the time, it's
+     * possible for the effect to be prematurely deleted by another mod or even the game. You should
+     * use `ISCFeature.RUN_IN_N_FRAMES` instead to prevent such edge cases from happening.
      */
     function CreateTimer(
       timerFunction: () => void,
       delay: int,
-      times: int,
-      persistent: boolean,
+      times?: int,
+      persistent?: boolean,
     ): EntityEffect;
 
     /**
@@ -103,26 +110,40 @@ declare global {
      * Draws a line between two positions.
      *
      * This method must be called in a render callback.
+     *
+     * @param startPos
+     * @param endPos
+     * @param startColor
+     * @param endColor
+     * @param thickness Optional. Default is 1.
      */
     function DrawLine(
       startPos: Vector,
       endPos: Vector,
       startColor: KColor,
       endColor: KColor,
-      thickness: int,
+      thickness?: int,
     ): void;
 
     /**
      * Draws a quadrilateral from the four positions.
      *
      * This method must be called in a render callback.
+     *
+     * @param topLeftPos
+     * @param topRightPos
+     * @param bottomLeftPos
+     * @param bottomRightPos
+     * @param color
+     * @param thickness Optional. Default is 1.
      */
     function DrawQuad(
       topLeftPos: Vector,
       topRightPos: Vector,
       bottomLeftPos: Vector,
+      bottomRightPos: Vector,
       color: KColor,
-      thickness: int,
+      thickness?: int,
     ): void;
 
     /** Completes all of the completion marks for the specified character. */
@@ -132,7 +153,7 @@ declare global {
      * Returns an array of entities inside the specified capsule.
      *
      * @param capsule
-     * @param partitions Optional. Default is `EntityPartitionZero`.
+     * @param partitions
      */
     function FindInCapsule(
       capsule: Capsule,
@@ -165,6 +186,9 @@ declare global {
      */
     function GetAchievementByName(name: string): Achievement;
 
+    // GetAxisAlignedUnitVectorFromDir is not implemented in favor of Isaacscript Common's
+    // `directionToVector` function.
+
     /**
      * This method is meant to be used when creating local enums that represent custom backdrops.
      * (We have to retrieve the ID of the backdrop at run-time, because it is dynamically calculated
@@ -179,6 +203,11 @@ declare global {
      * Returns -1 if no backdrop with the specified name was found.
      */
     function GetBackdropIdByName(name: string): BackdropType;
+
+    function GetBossColorIdxByName(name: string): BossColorXMLIndex;
+
+    /** Returns the sprite used to render the controller buttons. */
+    function GetButtonsSprite(): Sprite;
 
     /**
      * Returns the contents of the clipboard as long if it's in text form. Returns undefined if the
@@ -221,8 +250,8 @@ declare global {
      */
     function GetCutsceneIdByName(name: string): Cutscene;
 
-    /** Returns the window's current Dwm attribute. */
-    function GetDwmWindowAttribute(): DwmWindowAttribute;
+    /** Returns the window's current Dwm attribute value. */
+    function GetDwmWindowAttribute(attribute: DwmWindowAttribute): int;
 
     /**
      * This method is meant to be used when creating local enums that represent custom modded
@@ -276,6 +305,9 @@ declare global {
      * This method does not work for vanilla challenges.
      */
     function GetModChallengeClearCount(challenge: Challenge): int;
+
+    /** Returns the current time in nanoseconds. */
+    function GetNanoTime(): int;
 
     /**
      * This method is meant to be used when creating local enums that represent custom null items.
@@ -335,6 +367,9 @@ declare global {
     /** Returns whether a run is ongoing and a cutscene is not playing. */
     function IsInGame(): boolean;
 
+    /** Returns whether the game is shutting down. */
+    function IsShuttingDown(): boolean;
+
     /** Creates a new blank `LevelGeneratorEntry`. */
     function LevelGeneratorEntry(): LevelGeneratorEntry;
 
@@ -351,10 +386,40 @@ declare global {
     function PlayCutscene(cutscene: Cutscene, clearGameState?: boolean): void;
 
     /**
+     * Forces the Birthright effect of the provided `PlayerType` to have no behavior at all.
+     * This method allows you to easily rework an existing birthright effect without the need of
+     * creating a fake collectible or wrestling with the birthright's existing behavior.
+     *
+     * This method will only work when called while mods are loading. After all mods have loaded,
+     * calling this method will result in an error.
+     */
+    function ReworkBirthright(playerType: PlayerType): void;
+
+    /**
+     * Forces the provided collectible to have no behavior at all. This method allows you to easily
+     * rework an existing collectible without the need of creating a fake collectible or wrestling
+     * with the item's existing behavior.
+     *
+     * This method will only work when called while mods are loading. After all mods have loaded,
+     * calling this method will result in an error.
+     */
+    function ReworkCollectible(collectible: CollectibleType): void;
+
+    /**
+     * Forces the provided trinket to have no behavior at all. This method allows you to easily
+     * rework an existing trinket without the need of creating a fake trinket or wrestling with the
+     * trinket's existing behavior.
+     *
+     * This method will only work when called while mods are loading. After all mods have loaded,
+     * calling this method will result in an error.
+     */
+    function ReworkTrinket(trinket: TrinketType): void;
+
+    /**
      * Sets the contents of the clipboard to the specified string. Returns whether the contents were
      * set successfully.
      */
-    function SetClipboard(contents: string): void;
+    function SetClipboard(contents: string): boolean;
 
     /** Sets the value of the specified completion mark for a character. */
     function SetCompletionMarks(
@@ -391,7 +456,10 @@ declare global {
     function SetCurrentFlorName(name: string): void;
 
     /** Sets the game's Dwm window attribute. */
-    function SetDwmWindowAttribute(attribute: DwmWindowAttribute): void;
+    function SetDwmWindowAttribute(
+      attribute: DwmWindowAttribute,
+      value: int,
+    ): void;
 
     /**
      * Sets the game's taskbar icon.
@@ -429,6 +497,28 @@ declare global {
       dialogIcon?: DialogIcon,
       dialogButtons?: DialogButton,
     ): DialogReturn;
+
+    /**
+     * Spawns a boss. This method will error if you attempt to spawn an entity that's not an
+     * EntityNPC.
+     *
+     * @param entityType
+     * @param variant
+     * @param subType
+     * @param position
+     * @param velocity
+     * @param spawner Optional. Default is undefined.
+     * @param seed Optional. Default is the current room's seed.
+     */
+    function SpawnBoss(
+      entityType: EntityType,
+      variant: int,
+      subType: int,
+      position: Vector,
+      velocity: Vector,
+      spawner?: Entity,
+      seed?: Seed,
+    ): EntityNPC;
 
     /**
      * @param playerType Optional. Default is `PlayerType.Isaac`.
