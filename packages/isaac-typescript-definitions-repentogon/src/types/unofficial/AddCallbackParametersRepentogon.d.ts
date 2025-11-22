@@ -204,6 +204,12 @@ declare global {
       bombVariant?: BombVariant,
     ];
 
+    // 68
+    [ModCallbackRepentogon.POST_ENTITY_KILL]: [
+      callback: (entity: Entity, source: EntityRef) => void,
+      entityType?: EntityType,
+    ];
+
     // 1004
     [ModCallbackRepentogon.PRE_ADD_COLLECTIBLE]: [
       callback: (
@@ -447,6 +453,9 @@ declare global {
       callback: (player: EntityPlayer, newLevel: boolean) => void,
     ];
 
+    // 1044
+    [ModCallbackRepentogon.POST_ROOM_RENDER_ENTITIES]: [callback: () => void];
+
     // 1047
     [ModCallbackRepentogon.PRE_COMPLETION_MARK_GET]: [
       callback: (
@@ -619,6 +628,7 @@ declare global {
         scale: float,
         chargeBarOffset: Vector,
       ) => void,
+      collectible?: CollectibleType,
     ];
 
     // 1080
@@ -810,6 +820,9 @@ declare global {
       gridEntityType?: GridEntityType,
     ];
 
+    // 1102
+    [ModCallbackRepentogon.POST_NIGHTMARE_SCENE_RENDER]: [callback: () => void];
+
     // 1103
     [ModCallbackRepentogon.POST_NIGHTMARE_SCENE_SHOW]: [
       callback: (unknown: boolean) => void,
@@ -906,11 +919,15 @@ declare global {
       callback: (
         player: EntityPlayer,
         slot: ActiveSlot,
-        offset: Vector,
+        position: Vector,
         alpha: float,
         scale: number,
-        chargeBarOffset: Vector,
-      ) => boolean | undefined,
+        chargeBarPosition: Vector,
+      ) =>
+        | { Position?: Vector; Scale?: number; CropOffset?: Vector }
+        | boolean
+        | undefined,
+      collectible?: CollectibleType,
     ];
 
     // 1120
@@ -1570,7 +1587,6 @@ declare global {
     // 1264
     [ModCallbackRepentogon.PRE_PLAYER_HUD_RENDER_TRINKET]: [
       callback: (
-        slot: TrinketSlot,
         position: Vector,
         scale: number,
         player: EntityPlayer,
@@ -1579,6 +1595,7 @@ declare global {
         | { Position?: Vector; Scale?: number; CropOffset?: Vector }
         | boolean
         | undefined,
+      slot?: TrinketSlot,
     ];
 
     // 1265
@@ -1667,17 +1684,12 @@ declare global {
 
     // 1285
     [ModCallbackRepentogon.PRE_TRIGGER_BED_SLEEP_EFFECT]: [
-      callback: (
-        player: EntityPlayer,
-        bed: EntityPickup,
-      ) => boolean | undefined,
-      bedSubType?: BedSubType,
+      callback: (player: EntityPlayer) => boolean | undefined,
     ];
 
     // 1286
     [ModCallbackRepentogon.POST_TRIGGER_BED_SLEEP_EFFECT]: [
-      callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
-      bedSubType?: BedSubType,
+      callback: (player: EntityPlayer) => void,
     ];
 
     // 1287
@@ -1687,7 +1699,10 @@ declare global {
 
     // 1288
     [ModCallbackRepentogon.PRE_BED_SLEEP]: [
-      callback: (player: EntityPlayer, bed: BedSubType) => boolean | undefined,
+      callback: (
+        player: EntityPlayer,
+        bed: EntityPickup,
+      ) => boolean | undefined,
       bedSubType?: BedSubType,
     ];
 
@@ -1699,6 +1714,15 @@ declare global {
     // 1301
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_LOAD]: [
       callback: (slot: int) => void,
+    ];
+
+    // 1308
+    [ModCallbackRepentogon.POST_BACKWARDS_ROOM_RESTOORE]: [
+      callback: (
+        stage: LevelStage,
+        roomDesc: RoomDescriptor,
+        id: string,
+      ) => void,
     ];
 
     // 1333
