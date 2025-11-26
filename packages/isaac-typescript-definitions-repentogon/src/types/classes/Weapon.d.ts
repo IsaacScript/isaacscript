@@ -24,6 +24,9 @@ declare global {
     /** Returns the weapon's current fire delay. */
     GetFireDelay: () => int;
 
+    /** Returns the max charge of the weapon. */
+    GetMaxCharge: () => int;
+
     /** Returns the weapon's max fire delay. */
     GetMaxFireDelay: () => int;
 
