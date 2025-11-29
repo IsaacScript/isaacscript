@@ -3,16 +3,30 @@ import type {
   ControllerIndex,
   ProjectilesMode,
   RockSpiderVariant,
+  TearFlag,
 } from "isaac-typescript-definitions";
 
 declare global {
   interface EntityNPC extends Entity {
+    /**
+     * @param position
+     * @param flags
+     * @param source Optional. Default is undefined.
+     * @param damage Optional. Default is 3.5.
+     */
+    ApplyTearflagEffects: (
+      position: Vector,
+      flags: BitFlags<TearFlag>,
+      source?: Entity,
+      damage?: number,
+    ) => void;
+
     /** Clears the flying override set by `EntityNPC.SetFlyingOverride`. */
     ClearFlyingOverride: () => void;
 
     /**
-     * Behaves the same as `EntityNPC.FireProjectiles` except it returns an array of the projectiles
-     * fired.
+     * Behaves the same as `EntityNPC.FireBossProjectiles` except it returns an array of the
+     * projectiles fired.
      */
     FireBossProjectilesEx: (
       numProjectiles: int,
@@ -65,8 +79,24 @@ declare global {
     /** Returns a unique `LootList` used by fireplaces when they are extinguished. */
     GetFireplaceLoot: () => LootList;
 
+    /** Returns whether the NPC's flying override was set. */
+    GetFlyingOverride: () => boolean;
+
     /** Returns an array of entity indexes that the NPC is hitting. */
     GetHitList: () => int[];
+
+    /**
+     * Returns the NPC's pathfinder with fixed bindings.
+     *
+     * Due to a bug with the vanilla API, accessing the NPC's pathfinder through the
+     * `EntityNPC.Pathfinder` field returns a version of the Pathfinder with broken bindings,
+     * leading to multiple methods not working as intended, such as some function arguments not
+     * working at all.
+     *
+     * To not break existing mods, the Pathfinder object returned from the `Pathfinder` field is
+     * unchanged, so you should use `EntityNPC.GetPathfinder` whenever possible.
+     */
+    GetPathfinder: () => PathFinder;
 
     /** Returns the NPC's shield strength/armor. */
     GetShieldStrength: () => number;
@@ -120,8 +150,13 @@ declare global {
     /** Sets the NPC's shield strength/armor. */
     SetShieldStrength: (strength: number) => void;
 
-    /** Spawns a blood cloud effect. */
-    SpawnBloodCloud: (position: Vector, color: Color) => EntityEffect;
+    /**
+     * Spawns a blood cloud effect.
+     *
+     * @param position Optional. Default is the entity's current position.
+     * @param color Optional. Default is `ColorDefault`.
+     */
+    SpawnBloodCloud: (position?: Vector, color?: Color) => EntityEffect;
 
     /** Spawns a blood splash effect. */
     SpawnBloodSplash: () => void;
@@ -130,7 +165,7 @@ declare global {
      * Attempts to change the NPC's target. This is used by Lost Fly to force NPCs to target it.
      * Returns whether the NPCs target changed successfully.
      */
-    TryForceTarget: (target: Entity, duration: int) => void;
+    TryForceTarget: (target: Entity, duration: int) => boolean;
 
     /**
      * Attempts to split the NPC in half. This is used by the Meat Cleaver collectible when
@@ -197,10 +232,23 @@ declare global {
      */
     function ThrowLeech(
       origin: Vector,
-      source: Entity,
+      source: Entity | undefined,
       target: Vector,
       yPosOffset?: number,
       big?: number,
+    ): EntityNPC;
+
+    /**
+     * @param origin
+     * @param target
+     * @param yOffset Optional. Default is -10.
+     * @param fallSpeed Optional. Default is -8.
+     */
+    function ThrowMaggot(
+      origin: Vector,
+      target: Vector,
+      yOffset?: number,
+      fallSpeed?: number,
     ): EntityNPC;
 
     /**
@@ -223,7 +271,7 @@ declare global {
      */
     function ThrowRockSpider(
       position: Vector,
-      source: Entity,
+      source: Entity | undefined,
       velocity: Vector,
       variant?: RockSpiderVariant,
       yPosOffset?: number,
@@ -231,7 +279,7 @@ declare global {
 
     function ThrowStrider(
       position: Vector,
-      source: Entity,
+      source: Entity | undefined,
       target: Vector,
     ): EntityNPC;
   }

@@ -8,6 +8,9 @@ declare global {
   interface RoomDescriptor extends IsaacAPIClass {
     AddRestrictedGridIndex: (gridIndex: int) => void;
 
+    /** Returns the `EntitiesSaveStateVector` of the room's decorations. */
+    GetDecoSaveState: () => EntitiesSaveStateVector;
+
     /** Returns the dimension that the room is in. */
     GetDimension: () => Dimension;
 
@@ -34,5 +37,7 @@ declare global {
      * doesn't allow a door in that slot.
      */
     readonly Doors: LuaTable<DoorSlot, int>;
+
+    readonly BossDeathSeed: Seed;
   }
 }

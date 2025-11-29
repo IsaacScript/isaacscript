@@ -9,7 +9,8 @@ declare global {
    */
   interface BossPoolEntry {
     achievementID: Achievement;
-    bossId: BossID;
+    bossID: BossID;
+    initialWeight: float;
     weight: float;
     weightAlt: float;
   }

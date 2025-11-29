@@ -1,4 +1,29 @@
+import type { TearVariant } from "isaac-typescript-definitions";
+import type { SplitTearType } from "../../../enums/SplitTearType";
+
 declare interface EntityLaser extends Entity {
+  /** Adds an entity to the laser's hit list. */
+  AddToHitList: (entity: Entity) => void;
+
+  /**
+   * Fires a split tear.
+   *
+   * @param position
+   * @param velocity
+   * @param damageMultiplier Optional. Default is 0.5.
+   * @param sizeMultiplier Optional. Default is 0.6.
+   * @param variant Optional. Default is `TearVariant.BLUE`.
+   * @param splitTearType Optional. Default is `SplitTearType.GENERIC`.
+   */
+  FireSplitTear: (
+    position: Vector,
+    velocity: Vector,
+    damageMultiplier?: number,
+    sizeMultiplier?: number,
+    variant?: TearVariant,
+    splitTearType?: SplitTearType,
+  ) => EntityTear;
+
   /** Returns the laser's damage multiplier. */
   GetDamageMultiplier: () => number;
 
@@ -7,6 +32,8 @@ declare interface EntityLaser extends Entity {
 
   /** Returns an array of entity indexes that the laser is hitting. */
   GetHitList: () => int[];
+
+  GetHomingType: () => int;
 
   /** Returns whether entities can only take damage once from the laser during its lifetime. */
   GetOneHit: () => boolean;
@@ -20,11 +47,16 @@ declare interface EntityLaser extends Entity {
   /** Returns how many frames until the laser times out and is removed. */
   GetTimeout: () => int;
 
+  /** Returns whether the entity is in the laser's hit list. */
+  InHitList: (entity: Entity) => boolean;
+
   /** Returns whether the laser was created through the Multidimensional Baby effect. */
   IsMultidimensionalTouched: () => boolean;
 
   /** Returns whether the laser was created through the Angelic Prism effect. */
   IsPrismTouched: () => boolean;
+
+  SetHomingType: (homingType: int) => void;
 
   /**
    * Causes the laser's shape to be fully recalculated on its next update. This can be used to force
@@ -35,6 +67,9 @@ declare interface EntityLaser extends Entity {
    * lasers.
    */
   RecalculateSamplesNextUpdate: () => void;
+
+  /** Removes an entity from the laser's hit list. */
+  RemoveFromHitList: (entity: Entity) => void;
 
   /** Resets the laser's sprite scale. */
   ResetSpriteScale: () => void;

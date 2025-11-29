@@ -33,14 +33,18 @@ declare interface RenderBeam extends IsaacAPIClass {
    *
    * @param point
    * @param position
-   * @param spritesheetCoordinate
+   * @param spritesheetCoordinate Optional. Default is 0.
    * @param width Optional. Default is 1.
+   * @param color Optional. Default is `ColorDefault`.
+   * @param worldSpace Optional. Default is false.
    */
   Add: ((point: Point) => void)
     & ((
       position: Vector,
-      spritesheetCoordinate: number,
+      spritesheetCoordinate?: number,
       width?: number,
+      color?: Color,
+      worldSpace?: boolean,
     ) => void);
 
   /** Returns the layer of the beam. */
@@ -51,6 +55,12 @@ declare interface RenderBeam extends IsaacAPIClass {
 
   /** Returns the beam's sprite. */
   GetSprite: () => Sprite;
+
+  /**
+   * Returns the unknown boolean set from the beam's constructor. The exact behavior of this boolean
+   * is unknown.
+   */
+  GetUnkBool: () => boolean;
 
   /** Returns whether the beam is an overlay. */
   GetUseOverlay: () => boolean;
@@ -75,6 +85,12 @@ declare interface RenderBeam extends IsaacAPIClass {
       layerNameOrId: string | int,
       useOverlay: boolean,
     ) => void);
+
+  /**
+   * Sets the unknown boolean used in the beam's constructor. The exact behavior of this boolean is
+   * unknown.
+   */
+  SetUnkBool: (bool: boolean) => void;
 
   /** Sets whether the beam is an overlay. */
   SetUseOverlay: (useOverlay: boolean) => void;

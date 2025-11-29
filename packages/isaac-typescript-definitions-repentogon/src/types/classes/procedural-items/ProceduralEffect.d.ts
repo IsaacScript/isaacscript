@@ -40,7 +40,11 @@ declare global {
      */
     GetConditionType: () => ProceduralEffectConditionType;
 
+    GetScore: () => number;
+
     /** Returns the chance (between 0 and 1) for the effect to be triggered. */
     GetTriggerChance: () => float;
+
+    GetTriggerChanceScale: () => number;
   }
 }
