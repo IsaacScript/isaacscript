@@ -37,7 +37,7 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "start": "tsx ./src/main.ts",
-    "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
+    "test": "tsx --test"
   },
   "dependencies": {
     "@commander-js/extra-typings": "14.0.0",
