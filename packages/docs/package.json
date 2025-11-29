@@ -42,7 +42,7 @@
     "@docusaurus/preset-classic": "3.9.2",
     "@mdx-js/react": "3.1.1",
     "clsx": "2.1.1",
-    "docusaurus-theme-search-typesense": "0.25.0",
+    "docusaurus-theme-search-typesense": "0.26.0",
     "prism-react-renderer": "2.4.1",
     "react": "19.2.0",
     "react-dom": "19.2.0"
@@ -51,17 +51,17 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
-    "@eslint/eslintrc": "3.3.1",
+    "@eslint/eslintrc": "3.3.3",
     "@types/glob": "9.0.0",
-    "@types/node": "24.9.2",
+    "@types/node": "24.10.1",
     "@zamiell/typedoc-plugin-not-exported": "0.3.0",
-    "complete-common": "2.9.0",
-    "complete-node": "12.2.1",
-    "glob": "11.0.3",
-    "typedoc": "0.28.14",
+    "complete-common": "2.10.0",
+    "complete-node": "12.5.1",
+    "glob": "13.0.0",
+    "typedoc": "0.28.15",
     "typedoc-plugin-markdown": "4.9.0",
     "typedoc-plugin-rename": "1.1.1",
-    "typescript": "5.8.2",
-    "typescript-eslint": "8.46.2"
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.48.0"
   }
 }

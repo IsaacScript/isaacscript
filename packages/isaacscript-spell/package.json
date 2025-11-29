@@ -27,8 +27,8 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "devDependencies": {
-    "complete-common": "2.9.0",
-    "complete-node": "12.2.1",
-    "typescript-eslint": "8.46.2"
+    "complete-common": "2.10.0",
+    "complete-node": "12.5.1",
+    "typescript-eslint": "8.48.0"
   }
 }
