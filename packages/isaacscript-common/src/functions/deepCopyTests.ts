@@ -262,8 +262,7 @@ function copiedObjectHasChildObject() {
 function copiedMapIsMap() {
   const keyToLookFor = "abc";
   const valueToLookFor = "def";
-  const oldMap = new Map<string, string>();
-  oldMap.set(keyToLookFor, valueToLookFor);
+  const oldMap = new Map<string, string>([[keyToLookFor, valueToLookFor]]);
 
   const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
 
@@ -275,8 +274,7 @@ function copiedMapIsMap() {
 function copiedMapHasValue() {
   const keyToLookFor = "abc";
   const valueToLookFor = "def";
-  const oldMap = new Map<string, string>();
-  oldMap.set(keyToLookFor, valueToLookFor);
+  const oldMap = new Map<string, string>([[keyToLookFor, valueToLookFor]]);
 
   const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapHasValue");
 
@@ -295,8 +293,7 @@ function copiedMapHasValue() {
 
 function copiedSetIsSet() {
   const valueToLookFor = "abc";
-  const oldSet = new Set<string>();
-  oldSet.add(valueToLookFor);
+  const oldSet = new Set<string>([valueToLookFor]);
 
   const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
 
@@ -307,8 +304,7 @@ function copiedSetIsSet() {
 
 function copiedSetHasValue() {
   const valueToLookFor = "abc";
-  const oldSet = new Set<string>();
-  oldSet.add(valueToLookFor);
+  const oldSet = new Set<string>([valueToLookFor]);
 
   const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetHasValue");
 
@@ -325,12 +321,12 @@ function copiedSetHasValue() {
 function copiedMapHasChildMap() {
   const childMapKey = 123;
   const childMapValue = 456;
-  const oldChildMap = new Map<number, number>();
-  oldChildMap.set(childMapKey, childMapValue);
+  const oldChildMap = new Map<number, number>([[childMapKey, childMapValue]]);
 
   const keyToLookFor = "childMap";
-  const oldMap = new Map<string, Map<number, number>>();
-  oldMap.set(keyToLookFor, oldChildMap);
+  const oldMap = new Map<string, Map<number, number>>([
+    [keyToLookFor, oldChildMap],
+  ]);
 
   const newMap = deepCopy(
     oldMap,
@@ -446,8 +442,7 @@ function copiedDefaultMapHasBrand() {
 function copiedSerializedMapHasStringKey() {
   const mapKey = "123";
   const mapValue = 456;
-  const oldMap = new Map<string, number>();
-  oldMap.set(mapKey, mapValue);
+  const oldMap = new Map<string, number>([[mapKey, mapValue]]);
 
   const serializedOldMap = deepCopy(
     oldMap,
@@ -473,8 +468,7 @@ function copiedSerializedMapHasStringKey() {
 function copiedSerializedMapHasNumberKey() {
   const mapKey = 123;
   const mapValue = 456;
-  const oldMap = new Map<number, number>();
-  oldMap.set(mapKey, mapValue);
+  const oldMap = new Map<number, number>([[mapKey, mapValue]]);
 
   const serializedOldMap = deepCopy(
     oldMap,

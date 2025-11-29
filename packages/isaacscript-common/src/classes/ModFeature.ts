@@ -63,6 +63,8 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
  * upon first construction.)
  */
 export class ModFeature {
+  // Other features will extend from this feature and they might need access to the underlying mod.
+  // eslint-disable-next-line @typescript-eslint/no-unused-private-class-members
   private readonly mod: ModUpgraded;
 
   /**

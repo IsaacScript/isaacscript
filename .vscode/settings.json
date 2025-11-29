@@ -50,6 +50,10 @@
   // Use Prettier to format "cspell.config.jsonc".
   "cSpell.autoFormatConfigFile": true,
 
+  // Change all ESLint errors to have yellow squigglies instead of red squigglies.
+  // https://www.joshuakgoldberg.com/blog/if-i-wrote-a-linter-part-2-developer-experience/#only-errors
+  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
+
   // -----------------
   // Language settings
   // -----------------

@@ -333,7 +333,7 @@ declare interface EIDInterface {
     Type: int,
     Variant: int,
     SubType: int,
-  ) => ["", "", string] | ["", string, string] | undefined;
+  ) => ["", string, string] | undefined;
 
   /** Get `KColor` object of "Entity Name" texts. */
   getNameColor: () => KColor;

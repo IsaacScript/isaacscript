@@ -410,6 +410,7 @@ export class ModUpgraded implements Mod {
    * called from the "upgradeMod" function, but we want to mark it as private so that end-users
    * don't have access to it.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-private-class-members
   private initOptionalFeature(feature: ISCFeature): readonly FunctionTuple[] {
     const featureClass = this.features[feature];
     this.initFeature(featureClass);

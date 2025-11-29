@@ -975,7 +975,7 @@ declare global {
      * consumable, its sub type is returned. If the player used the Question Mark card, 1 is
      * returned. Otherwise, 0 is returned.
      */
-    GetWildCardItem: () => CollectibleType | CardType | PillEffect | 0;
+    GetWildCardItem: () => CollectibleType | CardType | PillEffect;
 
     /**
      * Returns the type of item that was last used by the player and would be used again upon using

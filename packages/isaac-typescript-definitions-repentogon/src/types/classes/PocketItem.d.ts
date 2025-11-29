@@ -35,7 +35,7 @@ declare global {
      * }
      * ```
      */
-    GetSlot: () => CardType | PillColor | ActiveSlot | 0;
+    GetSlot: () => CardType | PillColor | ActiveSlot;
 
     /**
      * Returns the pocket item's `PocketItemType`.
