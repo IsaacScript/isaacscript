@@ -12,6 +12,7 @@
  * @param ac Optional. Default is 0.
  */
 declare function Color(
+  this: void,
   r?: float,
   g?: float,
   b?: float,

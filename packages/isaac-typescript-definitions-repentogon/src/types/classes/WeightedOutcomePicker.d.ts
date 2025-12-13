@@ -5,7 +5,7 @@
  *
  * @see https://repentogon.com/
  */
-declare function WeightedOutcomePicker(): WeightedOutcomePicker;
+declare function WeightedOutcomePicker(this: void): WeightedOutcomePicker;
 
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
