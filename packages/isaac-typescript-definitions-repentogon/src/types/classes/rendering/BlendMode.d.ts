@@ -17,10 +17,10 @@ declare global {
      */
     SetMode: ((blendMode: BlendMode) => void)
       & ((
-        rgbSrc?: int,
-        rgbDst?: int,
-        alphaSrc?: int,
-        alphaDst?: int,
+        rgbSrc?: BlendFactor,
+        rgbDst?: BlendFactor,
+        alphaSrc?: BlendFactor,
+        alphaDst?: BlendFactor,
         equation?: BlendEquation,
       ) => void);
 
