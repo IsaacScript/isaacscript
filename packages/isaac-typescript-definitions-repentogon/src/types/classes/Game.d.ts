@@ -118,6 +118,12 @@ declare global {
     IsRerun: () => boolean;
 
     /**
+     * Returns whether the game is currently starting from a continued state or not. Once
+     * `ModCallback.POST_GAME_STARTED` has been called, this will always return false.
+     */
+    IsStartingFromState: () => boolean;
+
+    /**
      * Records the provided completion type for all players in the current run, unlocking the
      * relevant achievements and giving them the relevant completion mark.
      */
@@ -177,7 +183,7 @@ declare global {
     StartStageTransitionEx: (
       sameStage: boolean,
       stageTransitionType: StageTransitionType,
-      player: EntityPlayer | undefined,
+      player?: EntityPlayer,
     ) => void;
   }
 }
