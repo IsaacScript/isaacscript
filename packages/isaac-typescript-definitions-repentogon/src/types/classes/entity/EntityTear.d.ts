@@ -94,7 +94,6 @@ declare global {
      * for a single frame.
      *
      * @param soundId
-     * @returns
      */
     SetInitSound: (soundId: SoundEffect) => void;
 

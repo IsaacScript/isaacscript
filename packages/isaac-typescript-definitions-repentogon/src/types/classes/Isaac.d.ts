@@ -60,7 +60,7 @@ declare global {
      * @param ignoreNPCs Optional. If false, all NPCs in the room that aren't friendly and are
      *                   capable of keeping the doors closed are killed. Default is false.
      */
-    function ClearBossHazards(ignoreNPCs?: EntityNPC): void;
+    function ClearBossHazards(ignoreNPCs?: boolean): void;
 
     /** Sets the specified challenge as completed. */
     function ClearChallenge(challenge: Challenge): void;
@@ -86,7 +86,7 @@ declare global {
      * @param persistent Optional. Whether the timer persists across rooms. Default is true.
      */
     function CreateTimer(
-      timerFunction: () => void,
+      timerFunction: (effect: EntityEffect) => void,
       delay: int,
       times?: int,
       persistent?: boolean,
@@ -381,6 +381,19 @@ declare global {
      *                       main menu once the cutscene is finished. Default is false.
      */
     function PlayCutscene(cutscene: Cutscene, clearGameState?: boolean): void;
+
+    /**
+     * @param collectible
+     * @param position
+     * @param scale Optional. Default is `VectorOne`.
+     * @param color Optional. Default is `ColorDefault`.
+     */
+    function RenderCollectionItem(
+      collectible: CollectibleType,
+      position: Vector,
+      scale?: Vector,
+      color?: Color,
+    ): void;
 
     /**
      * Forces the Birthright effect of the provided `PlayerType` to have no behavior at all. This
