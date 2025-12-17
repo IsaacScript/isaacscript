@@ -1,4 +1,4 @@
-import type { TearVariant } from "isaac-typescript-definitions";
+import type { SoundEffect, TearVariant } from "isaac-typescript-definitions";
 import type { SplitTearType } from "../../../enums/SplitTearType";
 
 declare global {
@@ -86,6 +86,17 @@ declare global {
      * @customName ResetSpriteScale
      */
     ResetSpriteScaleEx: (force?: boolean) => void;
+
+    /**
+     * Sets the sound that the tear plays when the tear is first spawned. This function must be
+     * called in `ModCallback.POST_TEAR_INIT`. Use this function over calling `sfxmanager.Stop` on
+     * the default tear manager sound as it's possible for the default sound to still briefly play
+     * for a single frame.
+     *
+     * @param soundId
+     * @returns
+     */
+    SetInitSound: (soundId: SoundEffect) => void;
 
     /** Sets whether the tear was created through the Multidimensional Baby effect. */
     SetMultidimensionalTouched: (touched: boolean) => void;
