@@ -84,10 +84,6 @@ declare global {
      * @param delay The delay in frames between each time `timerFunction` is ran.
      * @param times Optional. Default is 1.
      * @param persistent Optional. Whether the timer persists across rooms. Default is true.
-     * @deprecated As this method spawns an invisible EntityEffect to keep track of the time, it's
-     *             possible for the effect to be prematurely deleted by another mod or even the
-     *             game. You should use `ISCFeature.RUN_IN_N_FRAMES` instead to prevent such edge
-     *             cases from happening.
      */
     function CreateTimer(
       timerFunction: () => void,

@@ -20,7 +20,7 @@ declare global {
      * Returns true if the entity can be rerolled into another entity, as defined in
      * `entities2.xml`.
      */
-    CanBeReRolledInto: () => boolean;
+    CanBeRerolledInto: () => boolean;
 
     /**
      * Returns true if the entity causes the doors in an uncleared room to close while alive, as
@@ -83,8 +83,8 @@ declare global {
     GetCollisionRadiusMultiplier: () => Readonly<Vector>;
 
     /**
-     * Returns the `EntityConfigEntity` of what this entity would devolve to when using D10.
-     * Returns undefined there is no valid entity it can devolve into.
+     * Returns the `EntityConfigEntity` of what this entity would devolve to when using D10. Returns
+     * undefined there is no valid entity it can devolve into.
      */
     GetDevolvedEntity: () => EntityConfigEntity | undefined;
 
@@ -132,6 +132,9 @@ declare global {
 
     /** Returns the entity's stage HP, as defined in `entities2.xml`. */
     GetStageHP: () => number;
+
+    /** Returns the entity's SubType, as defined in `entities2.xml`. */
+    GetSubType: () => int;
 
     /** Returns the entity's `EntityType`. */
     GetType: () => EntityType;
