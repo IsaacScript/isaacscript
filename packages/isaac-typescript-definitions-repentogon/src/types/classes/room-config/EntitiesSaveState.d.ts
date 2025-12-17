@@ -27,7 +27,9 @@ declare global {
     GetSpawnerVariant: () => int;
     GetSubType: () => int;
     GetType: () => EntityType;
-    GetU1: () => int;
+
+    /** Returns a boolean if the entity is an `EntityPickup`, otherwise it returns an integer. */
+    GetU1: () => boolean | int;
     GetVariant: () => int;
     SetB1: (b1: boolean) => void;
     SetB2: (b2: boolean) => void;
@@ -44,7 +46,7 @@ declare global {
     SetPos: (position: Vector) => void;
     SetSubType: (subType: int) => void;
     SetType: (entityType: EntityType) => void;
-    SetU1: (num: int) => void;
+    SetU1: (num: boolean | int) => void;
     SetVariant: (variant: int) => void;
   }
 }
