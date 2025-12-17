@@ -1,7 +1,6 @@
 import type {
   CollectibleType,
   ItemConfigTag,
-  TrinketType,
 } from "isaac-typescript-definitions";
 
 declare global {
@@ -14,7 +13,7 @@ declare global {
       tags: ItemConfigTag | BitFlags<ItemConfigTag>,
     ) => ItemConfigItem[];
 
-    /** Returns whether the trinket is valid. */
-    IsValidTrinket: (trinketType: TrinketType) => boolean;
+    // IsValidTrinket seems to be commented out for some reason in the API yet is documented as
+    // existing.
   }
 }
