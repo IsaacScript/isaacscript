@@ -76,7 +76,7 @@ declare global {
       maxVariant?: int,
       minDifficulty?: int,
       maxDifficulty?: int,
-      doors?: BitFlags<DoorSlotFlag>,
+      doors?: DoorSlotFlag | BitFlags<DoorSlotFlag>,
       subType?: int,
       gameMode?: GameMode,
     ): RoomConfig;
