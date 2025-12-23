@@ -1,5 +1,6 @@
 import type {
   EntityType,
+  LevelStage,
   StageTransitionType,
   TearFlag,
 } from "isaac-typescript-definitions";
@@ -68,6 +69,18 @@ declare global {
 
     /** Returns the currently active `GenericPrompt` object. */
     GetGenericPrompt: () => GenericPrompt;
+
+    /**
+     * Repentogon's modified `Game.GetLastDevilRoomStage` method that properly returns a
+     * `LevelStage` value instead of an unusable userdata object.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @customName GetLastDevilRoomStage
+     */
+    GetLastDevilRoomStageEx: () => LevelStage;
 
     /**
      * Returns the transitioning color modifier. This is formatted as the absolute rate of change,
