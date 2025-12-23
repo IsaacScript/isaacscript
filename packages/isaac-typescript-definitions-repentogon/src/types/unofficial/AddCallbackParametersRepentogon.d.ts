@@ -38,9 +38,9 @@ import type {
 } from "isaac-typescript-definitions";
 import type { BagOfCraftingPickup } from "../../enums/BagOfCraftingPickup";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
+import type { EvaluateStatStage } from "../../enums/EvaluateStatStage";
 import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
 import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
-import type { EvaluateStatStage } from "../../enums/EvaluateStatStage";
 import type { FollowerPriority } from "../../enums/FollowerPriority";
 import type { GiantbookType } from "../../enums/GiantbookType";
 import type { HealthType } from "../../enums/HealthType";
@@ -1123,15 +1123,15 @@ declare global {
     ];
 
     // 1164
-    [ModCallbackRepentogon.PRE_KNIFE_UPDATE]: [
-      callback: (knife: EntityKnife) => boolean | undefined,
-      knifeVariant?: KnifeVariant,
-    ];
-
-    // 1165
     [ModCallbackRepentogon.PRE_PICKUP_UPDATE]: [
       callback: (pickup: EntityPickup) => boolean | undefined,
       pickupVariant?: PickupVariant,
+    ];
+
+    // 1165
+    [ModCallbackRepentogon.PRE_KNIFE_UPDATE]: [
+      callback: (knife: EntityKnife) => boolean | undefined,
+      knifeVariant?: KnifeVariant,
     ];
 
     // 1166
@@ -1566,7 +1566,11 @@ declare global {
 
     // 1251
     [ModCallbackRepentogon.PRE_PLAYER_GET_MULTI_SHOT_PARAMS]: [
-      callback: (player: EntityPlayer) => MultiShotParams | undefined,
+      callback: (
+        player: EntityPlayer,
+        multiShotParams: MultiShotParams,
+        weaponType: WeaponType,
+      ) => MultiShotParams | undefined,
       playerType?: PlayerType,
     ];
 

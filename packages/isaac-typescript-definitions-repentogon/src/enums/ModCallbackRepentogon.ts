@@ -1768,24 +1768,24 @@ export enum ModCallbackRepentogon {
   /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `KnifeVariant` provided.
-   *
-   * ```ts
-   * function preKnifeUpdate(knife: EntityKnife): boolean | undefined {}
-   * ```
-   */
-  PRE_KNIFE_UPDATE = 1164,
-
-  /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
    * ```ts
    * function prePickupUpdate(pickup: EntityPickup): boolean | undefined {}
    * ```
    */
-  PRE_PICKUP_UPDATE = 1165,
+  PRE_PICKUP_UPDATE = 1164,
+
+  /**
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `KnifeVariant` provided.
+   *
+   * ```ts
+   * function preKnifeUpdate(knife: EntityKnife): boolean | undefined {}
+   * ```
+   */
+  PRE_KNIFE_UPDATE = 1165,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2542,7 +2542,11 @@ export enum ModCallbackRepentogon {
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function prePlayerGetMultiShotParams(player: EntityPlayer): MultiShotParams | undefined {}
+   * function prePlayerGetMultiShotParams(
+   *   player: EntityPlayer,
+   *   multiShotParams: MultiShotParams,
+   *   weaponType: WeaponType
+   * ): MultiShotParams | undefined {}
    * ```
    */
   PRE_PLAYER_GET_MULTI_SHOT_PARAMS = 1251,
