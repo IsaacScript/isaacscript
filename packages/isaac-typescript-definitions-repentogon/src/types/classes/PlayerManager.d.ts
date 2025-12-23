@@ -104,8 +104,13 @@ declare global {
       lazarusSharedGlobalTag?: boolean,
     ): EntityPlayer | undefined;
 
+    function FirstTrinketOwner(
+      trinket: TrinketType,
+      lazarusSharedGlobalTag?: boolean,
+    ): EntityPlayer | undefined;
+
     /** @param index Optional. Default is 0. */
-    function GetEsauJrState(index?: int): EntityPlayer;
+    function GetEsauJrState(index?: int): EntityPlayer | undefined;
 
     /**
      * Returns the total number of collectibles of the provided `CollectibleType` held by all
@@ -120,6 +125,30 @@ declare global {
      * players (e.g. the Strawman Keeper).
      */
     function GetPlayers(): EntityPlayer[];
+
+    /**
+     * Returns a random player who owns the provided `CollectibleType`, along with the player's
+     * collectible RNG. Returns undefined if no player has the provided `CollectibleType`.
+     *
+     * @param collectible
+     * @param seed
+     */
+    function GetRandomCollectibleOwner(
+      collectible: CollectibleType,
+      seed: Seed,
+    ): undefined | LuaMultiReturn<[EntityPlayer, RNG]>;
+
+    /**
+     * Returns a random player who owns the provided `TrinketType`, along with the player's trinket
+     * RNG. Returns undefined if no player has the provided `TrinketType`.
+     *
+     * @param trinket
+     * @param seed
+     */
+    function GetRandomTrinketOwner(
+      trinket: TrinketType,
+      seed: Seed,
+    ): undefined | LuaMultiReturn<[EntityPlayer, RNG]>;
 
     /** Returns the total multiplier granted by the provided `TrinketType` across all players. */
     function GetTotalTrinketMultiplier(trinket: TrinketType): int;

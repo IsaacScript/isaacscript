@@ -105,11 +105,11 @@ declare global {
       isWhitelist?: boolean,
     ) => ItemPoolType;
 
-    /** Returns an array of collectibles removed from all pools. */
-    GetRemovedCollectibles: () => CollectibleType[];
+    /** Returns a map of collectibles removed from all pools. */
+    GetRemovedCollectibles: () => LuaMap<CollectibleType, boolean>;
 
     /** Returns an array of all collectibles blacklisted in the current room. */
-    GetRoomBlacklistedCollectibles: () => CollectibleType[];
+    GetRoomBlacklistedCollectibles: () => LuaMap<CollectibleType, boolean>;
 
     /** Returns whether the specified collectible is available in item pools. */
     HasCollectible: (collectible: CollectibleType) => boolean;

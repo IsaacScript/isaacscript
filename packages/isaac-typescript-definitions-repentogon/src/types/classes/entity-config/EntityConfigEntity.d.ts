@@ -20,7 +20,7 @@ declare global {
      * Returns true if the entity can be rerolled into another entity, as defined in
      * `entities2.xml`.
      */
-    CanBeReRolledInto: () => boolean;
+    CanBeRerolledInto: () => boolean;
 
     /**
      * Returns true if the entity causes the doors in an uncleared room to close while alive, as
@@ -52,6 +52,12 @@ declare global {
      */
     GetBestiaryOffset: () => Readonly<Vector>;
 
+    /**
+     * Returns the overlay animation name of the entity's bestiary animation, as defined in
+     * `entities2.xml`.
+     */
+    GetBestiaryOverlay: () => string;
+
     /** Returns the scale of the entity's bestiary sprite, as defined in `entities2.xml`. */
     GetBestiaryScale: () => number;
 
@@ -77,6 +83,12 @@ declare global {
     GetCollisionRadiusMultiplier: () => Readonly<Vector>;
 
     /**
+     * Returns the `EntityConfigEntity` of what this entity would devolve to when using D10. Returns
+     * undefined there is no valid entity it can devolve into.
+     */
+    GetDevolvedEntity: () => EntityConfigEntity | undefined;
+
+    /**
      * Returns an array containing all of the tags defined in the entity's `customtags` attribute in
      * `entities2.xml`. Tags are always provided in all lowercase.
      */
@@ -92,7 +104,10 @@ declare global {
     GetGibFlags: () => BitFlags<GibFlag>;
 
     /** Returns the amount of gibs the entity leaves, as defined in `entities2.xml`. */
-    GetGibAmount: () => int;
+    GetGibsAmount: () => int;
+
+    /** Returns the grid collision points the entity has, as defined in `entities2.xml`. */
+    GetGridCollisionPoints: () => int;
 
     /** Returns the entity's mass, as defined in `entities2.xml`. */
     GetMass: () => number;
@@ -117,6 +132,9 @@ declare global {
 
     /** Returns the entity's stage HP, as defined in `entities2.xml`. */
     GetStageHP: () => number;
+
+    /** Returns the entity's SubType, as defined in `entities2.xml`. */
+    GetSubType: () => int;
 
     /** Returns the entity's `EntityType`. */
     GetType: () => EntityType;

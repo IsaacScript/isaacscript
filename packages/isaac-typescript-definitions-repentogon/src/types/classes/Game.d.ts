@@ -1,6 +1,8 @@
 import type {
   EntityType,
+  LevelStage,
   StageTransitionType,
+  TearFlag,
 } from "isaac-typescript-definitions";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { PauseMenuState } from "../../enums/PauseMenuState";
@@ -19,10 +21,23 @@ declare global {
     AchievementUnlocksDisallowed: () => boolean;
 
     /** Enables one or more debug flags. */
-    AddDebugFlags: (flags: BitFlag | BitFlags<DebugFlag>) => void;
+    AddDebugFlags: (flags: DebugFlag | BitFlags<DebugFlag>) => void;
 
     /** Increases the unique amount of shops visited in this run. */
     AddShopVisits: (count: int) => void;
+
+    /**
+     * @param position
+     * @param baseDamage Optional. Default is 3.5.
+     * @param tearFlags Optional. Default is `TearFlag.NORMAL`.
+     * @param spawner Optional. Default is undefined.
+     */
+    ChainLightning: (
+      position: Vector,
+      baseDamage?: number,
+      tearFlags?: TearFlag | BitFlags<TearFlag>,
+      spawner?: Entity,
+    ) => EntityEffect;
 
     /**
      * Clears the list of enemies that were erased by the Eraser item, allowing them to appear
@@ -54,6 +69,18 @@ declare global {
 
     /** Returns the currently active `GenericPrompt` object. */
     GetGenericPrompt: () => GenericPrompt;
+
+    /**
+     * Repentogon's modified `Game.GetLastDevilRoomStage` method that properly returns a
+     * `LevelStage` value instead of an unusable userdata object.
+     *
+     * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+     * definitions. However, when the project compiles the method's name will change to what it's
+     * supposed to be.
+     *
+     * @customName GetLastDevilRoomStage
+     */
+    GetLastDevilRoomStageEx: () => LevelStage;
 
     /**
      * Returns the transitioning color modifier. This is formatted as the absolute rate of change,
@@ -102,6 +129,12 @@ declare global {
 
     /** Returns whether the run is a "re-run", meaning the player manually set the seed. */
     IsRerun: () => boolean;
+
+    /**
+     * Returns whether the game is currently starting from a continued state or not. Once
+     * `ModCallback.POST_GAME_STARTED` has been called, this will always return false.
+     */
+    IsStartingFromState: () => boolean;
 
     /**
      * Records the provided completion type for all players in the current run, unlocking the
@@ -163,7 +196,7 @@ declare global {
     StartStageTransitionEx: (
       sameStage: boolean,
       stageTransitionType: StageTransitionType,
-      player: EntityPlayer | undefined,
+      player?: EntityPlayer,
     ) => void;
   }
 }

@@ -13,7 +13,9 @@ declare namespace Debug {
    *
    * Passing an invalid address will throw an error.
    */
-  function GetSignature(address: int): string;
+  function GetSignature(
+    address: int,
+  ): LuaMultiReturn<[status: int, signature: string | boolean]>;
 
   /** Returns an array of all scripts currently loaded in the Lua environment. */
   function ListLoadedFiles(): string[];

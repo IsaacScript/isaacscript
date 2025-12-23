@@ -2,7 +2,8 @@ import type { ChampionColor, EntityType } from "isaac-typescript-definitions";
 
 declare global {
   /**
-   * Constructs an EntityDesc object.
+   * Constructs an `EntityDesc` object. EntityDesc objects can only be constructed for NPCs,
+   * therefore passing an `EntityType` that does not correspond to a NPC will result in an error.
    *
    * @param this
    * @param entityType Optional. Default is `EntityType.NULL`.
@@ -26,13 +27,15 @@ declare global {
 
   interface EntityDesc extends IsaacAPIClass {
     GetHealth: () => void;
-    GetMaxHealth: () => void;
+    GetChampionId: () => ChampionColor | -1;
+    GetMaxHealth: () => number;
     GetSubtype: () => int;
     GetType: () => EntityType;
     GetVariant: () => int;
     IsPlayerControlled: () => boolean;
+    SetChampionId: (championColor: ChampionColor | -1) => void;
     SetHealth: (health: int) => void;
-    SetMaxHealth: (maxHealth: int) => void;
+    SetMaxHealth: (maxHealth: number) => void;
     SetPlayerControlled: (controlled: boolean) => void;
     SetSubtype: (subType: int) => void;
     SetType: (entityType: EntityType) => void;

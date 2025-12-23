@@ -213,6 +213,20 @@ export enum ModCallbackRepentogon {
   PRE_BOMB_COLLISION = 60,
 
   /**
+   * A modified version of `ModCallback.POST_ENTITY_KILL`. This callback now provides an EntityRef
+   * of whoever killed the entity.
+   *
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EntityType` provided.
+   *
+   * ```ts
+   * function postEntityKill(entity: Entity, source: EntityRef): void {}
+   * ```
+   */
+  POST_ENTITY_KILL = 68,
+
+  /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
@@ -263,6 +277,8 @@ export enum ModCallbackRepentogon {
   POST_ADD_COLLECTIBLE = 1005,
 
   /**
+   * Fires after an entity takes damage.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
@@ -379,6 +395,59 @@ export enum ModCallbackRepentogon {
   POST_GRID_HURT_DAMAGE = 1013,
 
   /**
+   * Fires before a trinket is added to the player.
+   *
+   * Return false to prevent the trinket from being added. Alternatively, return `TrinketType` to
+   * override the trinket added.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TrinketType` provided.
+   *
+   * ```ts
+   * function preAddTrinket(
+   *   player: EntityPlayer,
+   *   trinket: TrinketType,
+   *   firstTime: boolean
+   * ): TrinketType | boolean | undefined {}
+   * ```
+   */
+  PRE_ADD_TRINKET = 1014,
+
+  /**
+   * Fires before a pickup is added to the player's Bag of Crafting.
+   *
+   * Return false to prevent the pickup from being added. Alternatively, return an array of
+   * `BagOfCraftingPickup` to override the pickup(s) added.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function preAddToBagOfCrafting(
+   *   player: EntityPlayer,
+   *   pickup: EntityPickup,
+   *   bagOfCraftingPickups: readonly BagOfCraftingPickup[]
+   * ): BagOfCraftingPickup[] | boolean | undefined {}
+   * ```
+   */
+  PRE_ADD_TO_BAG_OF_CRAFTING = 1015,
+
+  /**
+   * Fires after a pickup is added to the player's Bag of Crafting.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function postAddToBagOfCrafting(player: EntityPlayer, pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_ADD_TO_BAG_OF_CRAFTING = 1016,
+
+  /**
    * You cannot filter this callback.
    *
    * ```ts
@@ -406,6 +475,8 @@ export enum ModCallbackRepentogon {
   PRE_HUD_RENDER = 1022,
 
   /**
+   * Fires each time the main menu renders on the screen.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -477,6 +548,8 @@ export enum ModCallbackRepentogon {
   POST_SFX_PLAY = 1031,
 
   /**
+   * Fires after a projectile is destroyed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
@@ -488,6 +561,8 @@ export enum ModCallbackRepentogon {
   POST_PROJECTILE_DEATH = 1032,
 
   /**
+   * Fires after a tear is destroyed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
@@ -599,27 +674,44 @@ export enum ModCallbackRepentogon {
   PRE_ROOM_EXIT = 1043,
 
   /**
+   * Fires after all entities in the room have been rendered.
+   *
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postRoomRenderEntities(): void {}
+   * ```
+   */
+  POST_ROOM_RENDER_ENTITIES = 1044,
+
+  /**
+   * Fires before the completion mark is set. Return `false` to prevent it from being set.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function preCompletionMarkGet(
+   * function preCompletionMarkSet(
    *   completion: CompletionType,
    *   playerType: PlayerType
    *  ): boolean | undefined {}
+   * ```
    */
-  PRE_COMPLETION_MARK_GET = 1047,
+  PRE_COMPLETION_MARK_SET = 1047,
 
   /**
+   * Fires after the completion mark is set.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function postCompletionMarkGet(completion: CompletionType, playerType: PlayerType): void {}
+   * function postCompletionMarkSet(completion: CompletionType, playerType: PlayerType): void {}
+   * ```
    */
-  POST_COMPLETION_MARK_GET = 1048,
+  POST_COMPLETION_MARK_SET = 1048,
 
   /**
    * You cannot filter this callback.
@@ -867,16 +959,20 @@ export enum ModCallbackRepentogon {
   POST_PLAYER_NEW_LEVEL = 1078,
 
   /**
-   * You cannot filter this callback.
+   * Fires after an active item is rendered on the player's HUD.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CollectibleType` provided.
    *
    * ```ts
    * function postPlayerHUDRenderActiveItem(
    *   player: EntityPlayer,
    *   slot: ActiveSlot,
-   *   offset: Vector,
+   *   position: Vector,
    *   alpha: float,
    *   scale: float,
-   *   chargeBarOffset: Vector
+   *   chargeBarPosition: Vector
    * ): void {}
    * ```
    */
@@ -1145,6 +1241,17 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_SPAWN = 1101,
 
   /**
+   * Fires each frame the nightmare scene renders.
+   *
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postNightmareSceneRender(): void {}
+   * ```
+   */
+  POST_NIGHTMARE_SCENE_RENDER = 1102,
+
+  /**
    * You cannot filter this callback.
    *
    * ```ts
@@ -1217,6 +1324,13 @@ export enum ModCallbackRepentogon {
   POST_BACKDROP_PRE_RENDER_WALLS = 1109,
 
   /**
+   * Fires when the game first calculates the chance to spawn a Planetarium by checking if the
+   * current floor is valid. By default, the game prevents Planetariums from spawning after Chapter
+   * 3 (or Chapter 4 with Telescope Lens).
+   *
+   * Return false to bypass the stage penalty and allow the Planetarium chance to be calculated as
+   * normal.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1226,6 +1340,12 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_STAGE_PENALTY = 1110,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_STAGE_PENALTY` and when the chance
+   * penalty is applied. The penalty locks the planetarium chance to 1% (or 10% with Telescope Lens)
+   * if a Planetarium has been entered before.
+   *
+   * Return false to bypass the planetarium chance penalty.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1235,15 +1355,34 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_PLANETARIUM_PENALTY = 1111,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_PLANETARIUM_PENALTY` and when the game
+   * applies the Treasure Room visit penalty. By default, the game applies a penalty depending on
+   * how many Treasure Rooms have been visited. If the amount of treasure rooms entered is greater
+   * than or equal to the current stage number, the chance will be locked at 1% (or 10% with
+   * Telescope Lens).
+   *
+   * Return an integer to override how many Treasure Rooms has been visited. Alternatively, return
+   * false to bypass the Treasure Room visit penalty.
+   *
    * You cannot filter this callback.
    *
    * ```ts
-   * function prePlanetariumApplyTreasureRoomPenalty(): boolean | undefined {}
+   * function prePlanetariumApplyTreasureRoomPenalty(
+   *  treasureRoomsVisited: int,
+   * ): boolean | int | undefined {}
    * ```
    */
   PRE_PLANETARIUM_APPLY_TREASURE_ROOM_PENALTY = 1112,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TREASURE_ROOM_PENALTY` and when the
+   * game modifies the Planetarium chance from items such as Crystal Ball and Magic 8 Ball.
+   *
+   * This callback only applies a flat chance after all penalties have been applied. To modify the
+   * base chance, use `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS`.
+   *
+   * Return a float to modify the chance.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1253,6 +1392,11 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_ITEMS = 1113,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_ITEMS` and when the game calculates
+   * the additional 9% chance from having Telescope Lens.
+   *
+   * Return a float to modify the chance.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1262,7 +1406,10 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_TELESCOPE_LENS = 1114,
 
   /**
-   * You cannot filter this callback.
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS` and when the final
+   * planetarium chance is calculated.
+   *
+   * Return a float to modify the final chance.
    *
    * ```ts
    * function prePlanetariumCalculateFinal(chance: float): float | undefined {}
@@ -1308,17 +1455,23 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_HUD_RENDER_HEARTS = 1118,
 
   /**
-   * You cannot filter this callback.
+   * Fires before an active item is rendered on the player's HUD. Return true to prevent the item
+   * from rendering. You can return an object with various fields to override how the item renders
+   * on the HUD.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `CollectibleType` provided.
    *
    * ```ts
    * function prePlayerHudRenderActiveItem(
    *   player: EntityPlayer,
    *   slot: ActiveSlot,
-   *   offset: Vector,
+   *   position: Vector,
    *   alpha: float,
    *   scale: number,
-   *   chargeBarOffset: Vector
-   * ): boolean | undefined {}
+   *   chargeBarPosition: Vector
+   * ): {Position?: Vector, Scale?: number, CropOffset?: Vector} boolean | undefined {}
    * ```
    */
   PRE_PLAYER_HUD_RENDER_ACTIVE_ITEM = 1119,
@@ -1429,6 +1582,11 @@ export enum ModCallbackRepentogon {
   POST_FORCE_ADD_PILL_EFFECT = 1129,
 
   /**
+   * Fires when the game starts to tally up vanilla items for calculating the chance of Devil and
+   * Angel Deals. This is called before the stage penalty is applied.
+   *
+   * Return a float to modify the chance in this step of the calculation.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1438,6 +1596,11 @@ export enum ModCallbackRepentogon {
   PRE_DEVIL_APPLY_ITEMS = 1130,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_DEVIL_APPLY_ITEMS` is called and when the game
+   * calculates the stage penalty if a Devil or Angel Deal has appeared on a previous floor.
+   *
+   * Return false to prevent the stage penalty from being applied.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1447,6 +1610,12 @@ export enum ModCallbackRepentogon {
   PRE_DEVIL_APPLY_STAGE_PENALTY = 1131,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_DEVIL_APPLY_STAGE_PENALTY`is called and when the game
+   * calculates the chance from items which bypasses the stage penalty such as Goat Head and
+   * Eucharist.
+   *
+   * Return a float to modify the chance in this step of the calculation.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1456,6 +1625,11 @@ export enum ModCallbackRepentogon {
   PRE_DEVIL_APPLY_SPECIAL_ITEMS = 1132,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_DEVIL_APPLY_SPECIAL_ITEMS`. This is the final step of
+   * calculating the Devil and Angel Deal chance.
+   *
+   * Return a float to modify the final chance.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1910,6 +2084,10 @@ export enum ModCallbackRepentogon {
   POST_NPC_GRID_COLLISION = 1184,
 
   /**
+   * Fires before the player's active item is morphed from the 'M trinket. Return false to prevent
+   * the item from being rerolled. Return a `CollectibleType` to override what the item rerolls
+   * into.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1922,6 +2100,9 @@ export enum ModCallbackRepentogon {
   PRE_M_MORPH_ACTIVE = 1190,
 
   /**
+   * Fires before an NPC is split from the Meat Cleaver item effect. Return true to prevent the NPC
+   * from splitting. NPCs will still take damage from the Meat Cleaver even if you return true.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
@@ -2086,6 +2267,9 @@ export enum ModCallbackRepentogon {
   POST_PAUSE_SCREEN_RENDER = 1219,
 
   /**
+   * Fires when the player is about to place a bomb. Return false to prevent the bomb from being
+   * placed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
@@ -2119,6 +2303,8 @@ export enum ModCallbackRepentogon {
   PRE_NPC_PICK_TARGET = 1222,
 
   /**
+   * Fires when a Dark Red Champion NPC regenerates from a pile of goo.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
@@ -2130,6 +2316,9 @@ export enum ModCallbackRepentogon {
   POST_NPC_DARK_RED_CHAMPION_REGEN = 1223,
 
   /**
+   * Fires when a custom cache flag is being evaluated. Return a number to set the value of the
+   * custom cache flag.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the string provided.
@@ -2145,6 +2334,9 @@ export enum ModCallbackRepentogon {
   EVALUATE_CUSTOM_CACHE = 1224,
 
   /**
+   * Fires when a familiar's multiplier is being evaluated. Return a number to override the
+   * familiar's multiplier.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
@@ -2158,6 +2350,25 @@ export enum ModCallbackRepentogon {
    * ```
    */
   EVALUATE_FAMILIAR_MULTIPLIER = 1225,
+
+  /**
+   * Fires when the player's stats are being calculated. This should not be confused with
+   * `ModCallback.EVALUATE_CACHE`, which fires when a `CacheFlag` is being evaluated.
+   *
+   * Unless you want to perform complicated conditions/calculations, it's strongly recommended that
+   * you use REPENTOGON's XML item stats features over this callback.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EvaluateStatStage` provided.
+   *
+   * ```ts
+   * function evaluateStat(player: EntityPlayer, stat: EvaluateStatStage, value: number): void {}
+   * ```
+   *
+   * @see https://repentogon.com/xml/items.html
+   */
+  EVALUATE_STAT = 1226,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2290,6 +2501,9 @@ export enum ModCallbackRepentogon {
   POST_NPC_COLLISION = 1247,
 
   /**
+   * Fires when an `EntityLaser` is about to collide with an entity. Return true to prevent the
+   * collision from happening.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `LaserVariant` provided.
@@ -2451,11 +2665,16 @@ export enum ModCallbackRepentogon {
   GET_IS_PERSISTENT_ROOM_ENTITY = 1263,
 
   /**
-   * You cannot filter this callback.
+   * Fires before a trinket is rendered on the player's HUD. Return true to prevent the trinket from
+   * rendering. You can return an object with various fields to override how the trinket renders on
+   * the HUD.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TrinketSlot` provided.
    *
    * ```ts
    * function prePlayerHUDRenderTrinket(
-   *   slot: TrinketSlot,
    *   position: Vector,
    *   scale: number,
    *   player: EntityPlayer,
@@ -2466,6 +2685,9 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_HUD_RENDER_TRINKET = 1264,
 
   /**
+   * Fires before a pickup is consumed from effects such as Void and Black Rune. Return false to
+   * prevent the pickup from being consumed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
@@ -2477,6 +2699,9 @@ export enum ModCallbackRepentogon {
   PRE_PICKUP_VOIDED = 1265,
 
   /**
+   * Fires before a pickup is consumed from The Abyss. Return false to prevent the pickup from being
+   * consumed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
@@ -2488,6 +2713,9 @@ export enum ModCallbackRepentogon {
   PRE_PICKUP_VOIDED_ABYSS = 1266,
 
   /**
+   * Fires before a pickup is consumed from Compost. Return false to prevent the pickup from being
+   * consumed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
@@ -2545,24 +2773,6 @@ export enum ModCallbackRepentogon {
    * ```
    */
   POST_ROOM_TRANSITION_RENDER = 1272,
-
-  /**
-   * You cannot filter this callback.
-   *
-   * ```ts
-   * function postGlowingHourglassSave(slot: int): void {}
-   * ```
-   */
-  POST_GLOWING_HOURGLASS_SAVE = 1300,
-
-  /**
-   * You cannot filter this callback.
-   *
-   * ```ts
-   * function postGlowingHourglassSave(slot: int): void {}
-   * ```
-   */
-  POST_GLOWING_HOURGLASS_LOAD = 1301,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2631,31 +2841,34 @@ export enum ModCallbackRepentogon {
   POST_PLAYER_REMOVE_COSTUME = 1284,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `BedSubType` provided.
+   * Fires before the effects of sleeping on a bed are granted after the cutscene, such as healing.
+   * Return true to prevent the effects from activating.
+   *
+   * This callback does not prevent the sleep cutscene from happening. To prevent this, use
+   * `ModCallbackRepentogon.PRE_BED_SLEEP`.
+   *
+   * You cannot filter this callback.
    *
    * ```ts
-   * function preTriggerBedSleepEffect(
-   *   player: EntityPlayer,
-   *   bed: EntityPickup
-   * ): boolean | undefined {}
+   * function preTriggerBedSleepEffect(player: EntityPlayer): boolean | undefined {}
    * ```
    */
   PRE_TRIGGER_BED_SLEEP_EFFECT = 1285,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
-   * - You can provide an optional third argument that will make the callback only fire if it
-   *   matches the `BedSubType` provided.
+   * Fires after the effects of sleeping on a bed are granted after the cutscene, such as healing.
+   *
+   * You cannot filter this callback.
    *
    * ```ts
-   * function postTriggerBedSleepEffect(player: EntityPlayer, bed: EntityPickup): void {}
+   * function postTriggerBedSleepEffect(player: EntityPlayer): boolean | undefined {}
    * ```
    */
   POST_TRIGGER_BED_SLEEP_EFFECT = 1286,
 
   /**
+   * Fires before the player's pocket items are swapped. Return true to prevent them from swapping.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -2665,6 +2878,9 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_POCKET_ITEMS_SWAP = 1287,
 
   /**
+   * Fires before the player sleeps on a bed after colliding with it. Return true to prevent the
+   * player from sleeping on the bed.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BedSubType` provided.
@@ -2674,6 +2890,40 @@ export enum ModCallbackRepentogon {
    * ```
    */
   PRE_BED_SLEEP = 1288,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postGlowingHourglassSave(slot: int): void {}
+   * ```
+   */
+  POST_GLOWING_HOURGLASS_SAVE = 1300,
+
+  /**
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postGlowingHourglassSave(slot: int): void {}
+   * ```
+   */
+  POST_GLOWING_HOURGLASS_LOAD = 1301,
+
+  /**
+   * Fires when a room previously encountered on a floor is loaded back into the game during the
+   * Ascent route.
+   *
+   * You cannot filter this callback.
+   *
+   * ```ts
+   * function postBackwardsRoomRestore(
+   *   stage: LevelStage,
+   *   roomDesc: RoomDescriptor,
+   *   id: string
+   * ): void {}
+   * ```
+   */
+  POST_BACKWARDS_ROOM_RESTORE = 1308,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2703,13 +2953,13 @@ export enum ModCallbackRepentogon {
   PRE_PICKUP_GET_LOOT_LIST = 1334,
 
   /**
+   * Fires before the ghost pickup effect from Guppy's Eye updates. Return false to prevent the
+   * ghost pickups from displaying.
+   *
    * You cannot filter this callback.
    *
    * ```ts
-   * function prePickupGetLootList(
-   * pickup: EntityPickup,
-   * shouldAdvance: boolean
-   * ) => boolean | undefined {}
+   * function prePickupUpdateGhostPickups(pickup: EntityPickup) => boolean | undefined {}
    * ```
    */
   PRE_PICKUP_UPDATE_GHOST_PICKUPS = 1335,
@@ -3696,6 +3946,9 @@ export enum ModCallbackRepentogon {
   POST_CHALLENGE_DONE = 1472,
 
   /**
+   * Fires before the player gives birth to a familiar due to Cambion Conception. Return false to
+   * prevent the player from spawning the familiar.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ConceptionFamiliarFlag` provided.
@@ -3710,6 +3963,9 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_GIVE_BIRTH_CAMBION = 1474,
 
   /**
+   * Fires before the player gives birth to a familiar due to Immaculate Conception. Return false to
+   * prevent the player from spawning the familiar.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ConceptionFamiliarFlag` provided.
@@ -3755,6 +4011,8 @@ export enum ModCallbackRepentogon {
   PRE_FORTUNE_DISPLAY = 1483,
 
   /**
+   * Fires before the item display text appears. Return false to prevent it from appearing.
+   *
    * You cannot filter this callback.
    *
    * ```ts

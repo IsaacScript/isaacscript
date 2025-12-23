@@ -36,9 +36,11 @@ import type {
   UseFlag,
   WeaponType,
 } from "isaac-typescript-definitions";
+import type { BagOfCraftingPickup } from "../../enums/BagOfCraftingPickup";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
 import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
+import type { EvaluateStatStage } from "../../enums/EvaluateStatStage";
 import type { FollowerPriority } from "../../enums/FollowerPriority";
 import type { GiantbookType } from "../../enums/GiantbookType";
 import type { HealthType } from "../../enums/HealthType";
@@ -205,6 +207,12 @@ declare global {
       bombVariant?: BombVariant,
     ];
 
+    // 68
+    [ModCallbackRepentogon.POST_ENTITY_KILL]: [
+      callback: (entity: Entity, source: EntityRef) => void,
+      entityType?: EntityType,
+    ];
+
     // 1004
     [ModCallbackRepentogon.PRE_ADD_COLLECTIBLE]: [
       callback: (
@@ -322,6 +330,32 @@ declare global {
         unknownBoolean: boolean,
       ) => void,
       gridEntityType?: GridEntityType,
+    ];
+
+    // 1014
+    [ModCallbackRepentogon.PRE_ADD_TRINKET]: [
+      callback: (
+        player: EntityPlayer,
+        trinketType: TrinketType,
+        firstTime: boolean,
+      ) => TrinketType | boolean | undefined,
+      trinketType?: TrinketType,
+    ];
+
+    // 1015
+    [ModCallbackRepentogon.PRE_ADD_TO_BAG_OF_CRAFTING]: [
+      callback: (
+        player: EntityPlayer,
+        pickup: EntityPickup,
+        bagOfCraftingPickups: readonly BagOfCraftingPickup[],
+      ) => BagOfCraftingPickup[] | boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1016
+    [ModCallbackRepentogon.POST_ADD_TO_BAG_OF_CRAFTING]: [
+      callback: (player: EntityPlayer, pickup: EntityPickup) => void,
+      pickupVariant?: PickupVariant,
     ];
 
     // 1020
@@ -458,8 +492,11 @@ declare global {
       callback: (player: EntityPlayer, newLevel: boolean) => void,
     ];
 
+    // 1044
+    [ModCallbackRepentogon.POST_ROOM_RENDER_ENTITIES]: [callback: () => void];
+
     // 1047
-    [ModCallbackRepentogon.PRE_COMPLETION_MARK_GET]: [
+    [ModCallbackRepentogon.PRE_COMPLETION_MARK_SET]: [
       callback: (
         completion: CompletionMarkType,
         playerType: PlayerType,
@@ -468,7 +505,7 @@ declare global {
     ];
 
     // 1048
-    [ModCallbackRepentogon.POST_COMPLETION_MARK_GET]: [
+    [ModCallbackRepentogon.POST_COMPLETION_MARK_SET]: [
       callback: (
         completion: CompletionMarkType,
         playerType: PlayerType,
@@ -630,6 +667,7 @@ declare global {
         scale: float,
         chargeBarOffset: Vector,
       ) => void,
+      collectible?: CollectibleType,
     ];
 
     // 1080
@@ -821,6 +859,9 @@ declare global {
       gridEntityType?: GridEntityType,
     ];
 
+    // 1102
+    [ModCallbackRepentogon.POST_NIGHTMARE_SCENE_RENDER]: [callback: () => void];
+
     // 1103
     [ModCallbackRepentogon.POST_NIGHTMARE_SCENE_SHOW]: [
       callback: (unknown: boolean) => void,
@@ -871,7 +912,7 @@ declare global {
 
     // 1112
     [ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TREASURE_ROOM_PENALTY]: [
-      callback: () => boolean | undefined,
+      callback: (treasureRoomsVisited: int) => boolean | int | undefined,
     ];
 
     // 1113
@@ -917,11 +958,15 @@ declare global {
       callback: (
         player: EntityPlayer,
         slot: ActiveSlot,
-        offset: Vector,
+        position: Vector,
         alpha: float,
         scale: number,
-        chargeBarOffset: Vector,
-      ) => boolean | undefined,
+        chargeBarPosition: Vector,
+      ) =>
+        | { Position?: Vector; Scale?: number; CropOffset?: Vector }
+        | boolean
+        | undefined,
+      collectible?: CollectibleType,
     ];
 
     // 1120
@@ -1416,6 +1461,16 @@ declare global {
       familiarVariant?: FamiliarVariant,
     ];
 
+    // 1226
+    [ModCallbackRepentogon.EVALUATE_STAT]: [
+      callback: (
+        player: EntityPlayer,
+        stat: EvaluateStatStage,
+        currentValue: number,
+      ) => void,
+      stat?: EvaluateStatStage,
+    ];
+
     // 1231
     [ModCallbackRepentogon.POST_PLAYER_COLLISION]: [
       callback: (player: EntityPlayer, collider: Entity, low: boolean) => void,
@@ -1581,7 +1636,6 @@ declare global {
     // 1264
     [ModCallbackRepentogon.PRE_PLAYER_HUD_RENDER_TRINKET]: [
       callback: (
-        slot: TrinketSlot,
         position: Vector,
         scale: number,
         player: EntityPlayer,
@@ -1590,6 +1644,7 @@ declare global {
         | { Position?: Vector; Scale?: number; CropOffset?: Vector }
         | boolean
         | undefined,
+      slot?: TrinketSlot,
     ];
 
     // 1265
@@ -1678,17 +1733,12 @@ declare global {
 
     // 1285
     [ModCallbackRepentogon.PRE_TRIGGER_BED_SLEEP_EFFECT]: [
-      callback: (
-        player: EntityPlayer,
-        bed: EntityPickup,
-      ) => boolean | undefined,
-      bedSubType?: BedSubType,
+      callback: (player: EntityPlayer) => boolean | undefined,
     ];
 
     // 1286
     [ModCallbackRepentogon.POST_TRIGGER_BED_SLEEP_EFFECT]: [
-      callback: (itemConfig: ItemConfigItem, player: EntityPlayer) => void,
-      bedSubType?: BedSubType,
+      callback: (player: EntityPlayer) => void,
     ];
 
     // 1287
@@ -1698,7 +1748,10 @@ declare global {
 
     // 1288
     [ModCallbackRepentogon.PRE_BED_SLEEP]: [
-      callback: (player: EntityPlayer, bed: BedSubType) => boolean | undefined,
+      callback: (
+        player: EntityPlayer,
+        bed: EntityPickup,
+      ) => boolean | undefined,
       bedSubType?: BedSubType,
     ];
 
@@ -1710,6 +1763,15 @@ declare global {
     // 1301
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_LOAD]: [
       callback: (slot: int) => void,
+    ];
+
+    // 1308
+    [ModCallbackRepentogon.POST_BACKWARDS_ROOM_RESTORE]: [
+      callback: (
+        stage: LevelStage,
+        roomDesc: RoomDescriptor,
+        id: string,
+      ) => void,
     ];
 
     // 1333
@@ -1792,7 +1854,7 @@ declare global {
         pill: PillColor,
         slot: PillCardSlot,
       ) => void,
-      pillColor?: PillCardSlot,
+      pillColor?: PillColor,
     ];
 
     // 1356
@@ -1822,7 +1884,7 @@ declare global {
     // 1359
     [ModCallbackRepentogon.POST_PLAYER_COLLECT_PILL]: [
       callback: (player: EntityPlayer, pickup: EntityPickup) => void,
-      pillColor?: CardType,
+      pillColor?: PillColor,
     ];
 
     // 1360

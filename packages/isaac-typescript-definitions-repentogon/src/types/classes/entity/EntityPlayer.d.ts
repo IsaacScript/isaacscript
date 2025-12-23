@@ -226,7 +226,7 @@ declare global {
      * @param amount Optional. Default is 1.
      */
     AddSoulLocketBonus: (
-      cacheFlags?: BitFlags<CacheFlag>,
+      cacheFlags?: CacheFlag | BitFlags<CacheFlag>,
       amount?: int,
     ) => void;
 

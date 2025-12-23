@@ -82,6 +82,8 @@ declare global {
      */
     GetForceSpecialQuest: () => SpecialQuest;
 
+    GetGenerationRNG: () => RNG;
+
     /** Returns the number of Greed Mode waves cleared without a player taking Red Heart damage. */
     GetGreedWavesClearedWithoutRedHeartDamage: () => int;
 
@@ -127,7 +129,7 @@ declare global {
      * Returns whether the specified level and stage combination can be generated in any given run
      * and is not locked behind an achievement.
      */
-    IsStageAvailable: (level: LevelStage, stage: StageType) => void;
+    IsStageAvailable: (level: LevelStage, stage: StageType) => boolean;
 
     /**
      * Attempts to place a room.
