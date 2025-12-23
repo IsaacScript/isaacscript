@@ -17,8 +17,10 @@ export enum DwmWindowAttribute {
   HAS_ICONIC_BITMAP = 10,
   DISALLOW_PEEK = 11,
   EXCLUDED_FROM_PEEK = 12,
-  CLOAK = 13,
-  CLOAKED = 14,
+
+  // REPENTOGON blocks the CLOAK and CLOAKED attributes from being used. Therefore, they have been
+  // omitted from this enum.
+
   FREEZE_REPRESENTATION = 15,
   PASSIVE_UPDATE_MODE = 16,
   USE_HOST_BACKDROP_BRUSH = 17,

@@ -1,4 +1,5 @@
 import type { Controller, Keyboard } from "isaac-typescript-definitions";
+import type { ImGuiWindowFlag } from "../../enums/flags/ImGuiWindowFlags";
 import type { ImGuiCallback } from "../../enums/imgui/ImGuiCallback";
 import type { ImGuiColor } from "../../enums/imgui/ImGuiColor";
 import type { ImGuiElement } from "../../enums/imgui/ImGuiElement";
@@ -506,6 +507,9 @@ declare global {
     /** Returns whether a window element with the given id is currently visible. */
     function GetVisible(elementID: string): boolean;
 
+    function GetWindowChildFlags(windowID: string): BitFlags<ImGuiWindowFlag>;
+    function GetWindowFlags(windowID: string): BitFlags<ImGuiWindowFlag>;
+
     /** Returns whether a window element with the given id is currently pinned. */
     function GetWindowPinned(windowId: string): boolean;
 
@@ -587,7 +591,7 @@ declare global {
      */
     function SetColor(
       elementID: string,
-      colorType: ImGuiCallback,
+      colorType: ImGuiColor,
       r: float,
       g: float,
       b: float,
@@ -599,6 +603,8 @@ declare global {
      * display a tooltip with the provided text.
      */
     function SetHelpmarker(elementID: string, text: string): void;
+
+    function SetSize(elementID: string, width: number, height: number): void;
 
     /**
      * Sets the text color of an ImGui element.
@@ -625,6 +631,16 @@ declare global {
 
     /** Sets the visibility of an ImGui element. */
     function SetVisible(elementID: string, visible: boolean): void;
+
+    function SetWindowChildFlags(
+      windowID: string,
+      flags: ImGuiWindowFlag | BitFlags<ImGuiWindowFlag>,
+    ): void;
+
+    function SetWindowFlags(
+      windowID: string,
+      flags: ImGuiWindowFlag | BitFlags<ImGuiWindowFlag>,
+    ): void;
 
     /**
      * Sets whether an ImGui window is pinned. Pinned windows remain open even when the main ImGui

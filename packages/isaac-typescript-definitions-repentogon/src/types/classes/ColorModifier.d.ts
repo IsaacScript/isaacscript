@@ -11,6 +11,7 @@
  * @see https://repentogon.com/
  */
 declare function ColorModifier(
+  this: void,
   r?: float,
   g?: float,
   b?: float,

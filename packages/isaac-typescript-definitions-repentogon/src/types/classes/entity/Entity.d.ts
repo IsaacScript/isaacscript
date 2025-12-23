@@ -452,7 +452,7 @@ declare global {
     SetSpeedMultiplier: (multiplier: number) => void;
 
     /** Sets the entity's water clip flags. */
-    SetWaterClipFlags: (flags: BitFlags<WaterClipFlag>) => void;
+    SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
 
     /**
      * Updates the remaining frames until the weakness status effect is removed. If the entity does

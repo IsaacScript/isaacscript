@@ -16,13 +16,13 @@ declare global {
    *
    * @see https://repentogon.com/
    */
-  interface PersistentGameData {
+  interface PersistentGameData extends IsaacAPIClass {
     /**
-     * Adds a kill to the bestiary entry.
+     * Adds a kill to the bestiary entry. Returns whether the kill was successfully added.
      *
      * @param variant Optional. Default is 0.
      */
-    AddBestiaryKill: (entityType: EntityType, variant?: int) => void;
+    AddBestiaryKill: (entityType: EntityType, variant?: int) => boolean;
 
     /** Marks the boss as killed and unlocks its relevant achievements if conditions are met. */
     AddBossKilled: (bossID: BossID) => void;
@@ -51,10 +51,10 @@ declare global {
     IsBossKilled: (bossID: BossID) => boolean;
 
     /** Returns whether the provided `Challenge` has been completed. */
-    IsChallengeComplete: (challenge: Challenge) => boolean;
+    IsChallengeCompleted: (challenge: Challenge) => boolean;
 
     /** Returns whether the provided collectible is in the items page in the stats menu. */
-    IsItemInCollection: (collectible: CollectibleType) => void;
+    IsItemInCollection: (collectible: CollectibleType) => boolean;
 
     /**
      * Tries to unlock the provided `Achievement`. Returns whether the achievement was unlocked

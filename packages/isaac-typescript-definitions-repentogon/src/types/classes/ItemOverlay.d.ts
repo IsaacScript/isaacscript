@@ -24,7 +24,7 @@ declare namespace ItemOverlay {
    * Returns the player that triggered the last played giantbook animation. Returns undefined if no
    * player triggered the animation.
    */
-  function GetPlayer(): EntityPlayer;
+  function GetPlayer(): EntityPlayer | undefined;
 
   /** Returns the sprite used for the giantbook animations. */
   function GetSprite(): Sprite;

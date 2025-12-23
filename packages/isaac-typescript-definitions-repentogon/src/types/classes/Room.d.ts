@@ -162,6 +162,8 @@ declare global {
      */
     SetBackdropType: (backdrop: BackdropType, unknown: int) => void;
 
+    GetFXLayers: () => FXLayers;
+
     /** Sets the greed wave timer. */
     SetGreedWaveTimer: (time: int) => void;
 

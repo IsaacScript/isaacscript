@@ -83,7 +83,7 @@ declare global {
      * Returns the null frame from the specified layer name of the current overlay animation.
      * Returns undefined if the null frame does not exist.
      */
-    GetOverlayNullFrame: () => AnimationData | undefined;
+    GetOverlayNullFrame: () => NullFrame | undefined;
 
     /** Returns a bitmask of the sprite's `AnimationRenderFlag`. */
     GetRenderFlags: () => BitFlags<AnimationRenderFlag>;

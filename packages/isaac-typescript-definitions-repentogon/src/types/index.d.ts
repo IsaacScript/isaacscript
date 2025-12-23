@@ -85,7 +85,7 @@
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
-/// <reference path="./classes/sprite/NullLayer.d.ts"/>
+/// <reference path="./classes/sprite/NullFrame.d.ts"/>
 /// <reference path="./classes/sprite/Sprite.d.ts"/>
 /// <reference path="./classes/ActiveItemDesc.d.ts"/>
 /// <reference path="./classes/Ambush.d.ts"/>
@@ -102,6 +102,7 @@
 /// <reference path="./classes/Debug.d.ts"/>
 /// <reference path="./classes/EntityDesc.d.ts"/>
 /// <reference path="./classes/Font.d.ts"/>
+/// <reference path="./classes/FXLayers.d.ts"/>
 /// <reference path="./classes/FXParams.d.ts"/>
 /// <reference path="./classes/Game.d.ts"/>
 /// <reference path="./classes/GenericPrompt.d.ts"/>
@@ -130,6 +131,7 @@
 /// <reference path="./classes/RailManager.d.ts"/>
 /// <reference path="./classes/RNG.d.ts"/>
 /// <reference path="./classes/RoomTransition.d.ts"/>
+/// <reference path="./classes/Seeds.d.ts"/>
 /// <reference path="./classes/StageTransition.d.ts"/>
 /// <reference path="./classes/Weapon.d.ts"/>
 /// <reference path="./classes/WeightedOutcomePicker.d.ts"/>

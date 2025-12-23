@@ -17,7 +17,7 @@ declare global {
      * Returns an array of all text output to the console, including user input and command outputs.
      *
      * The elements in the returned array are ordered last-to-first. The first element is always an
-     * empty string and the last element is always "Repentance Console".
+     * empty string and the last element is always "Repentance+ Console".
      */
     function GetHistory(): string[];
 
