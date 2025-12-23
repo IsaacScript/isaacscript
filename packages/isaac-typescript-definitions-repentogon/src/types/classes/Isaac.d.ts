@@ -181,7 +181,7 @@ declare global {
      *
      * Returns -1 if no achievement with the specified name was found.
      */
-    function GetAchievementByName(name: string): Achievement;
+    function GetAchievementIdByName(name: string): Achievement;
 
     // GetAxisAlignedUnitVectorFromDir is not implemented in favor of Isaacscript Common's
     // `directionToVector` function.
