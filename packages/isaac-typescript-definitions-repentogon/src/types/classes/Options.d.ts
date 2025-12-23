@@ -1,6 +1,14 @@
 declare namespace Options {
+  let AimLockEnabled: boolean;
+  let AscentVoiceOver: boolean;
+
   /** Whether The Void will draw from all unlocked floors, including alt path ones. */
   let BetterVoidGeneration: boolean;
+
+  let BossHPOnBottom: boolean;
+  let Brightness: number;
+  let Contrast: number;
+  let Exposure: number;
 
   /**
    * Whether the patch for the vanilla bug that causes Hush to have no attack cooldown below 50%
@@ -12,7 +20,7 @@ declare namespace Options {
   let KeyMasterDealChance: boolean;
 
   /** Whether mod updates are disabled. */
-  let PreventModUpdates: boolean;
+  const PreventModUpdates: boolean;
 
   /** Whether quick room clear is enabled. */
   let QuickRoomClear: boolean;
@@ -24,4 +32,13 @@ declare namespace Options {
    * the HUD is rendering.
    */
   let StatHUDPlanetarium: boolean;
+
+  let TouchMode: int;
+  let WindowHeight: int;
+  let WindowPosX: int;
+  let WindowPosY: int;
+  let WindowWidth: int;
+
+  // While REPENTOGON does expose readonly settings used for Isaac Online, they are excluded as
+  // Isaac Online is disabled for mods. Therefore, their definitions are redundant.
 }
