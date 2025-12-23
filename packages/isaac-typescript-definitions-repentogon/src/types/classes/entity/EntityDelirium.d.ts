@@ -38,7 +38,7 @@ declare global {
      *
      * @param variant Optional. Default is 0.
      * @param triggerCallback Optional. Whether to trigger the transformation callback. Default is
-     * false.
+     *                        false.
      */
     Transform: (
       entityType: EntityType,

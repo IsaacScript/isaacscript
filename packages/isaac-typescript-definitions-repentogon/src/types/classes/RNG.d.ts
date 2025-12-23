@@ -47,7 +47,18 @@ declare interface RNG extends IsaacAPIClass {
   /** "Iterates" the RNG object's seed backwards and returns the new seed. */
   Previous: () => int;
 
-  RandomInt: (min: int, max: int) => int;
+  /**
+   * Repentogon's modified `RNG.RandomInt` method.
+   *
+   * Behaves the same as `RNG.RandomInt` except you can now specify a range of values.
+   *
+   * This method has been renamed to include "Ex" so it can not conflict with the vanilla type
+   * definitions. However, when the project compiles the method's name will change to what it's
+   * supposed to be.
+   *
+   * @customName RandomInt
+   */
+  RandomIntEx: ((max: int) => int) & ((min: int, max: int) => int);
 
   /**
    * Returns a random vector with a length of 1.
