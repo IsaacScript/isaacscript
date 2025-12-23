@@ -432,7 +432,7 @@ declare global {
     function SetClipboard(contents: string): boolean;
 
     /** Sets the value of the specified completion mark for a character. */
-    function SetCompletionMarks(
+    function SetCompletionMark(
       character: PlayerType,
       mark: CompletionMarkType,
       value: CompletionMarkDifficulty,
