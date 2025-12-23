@@ -24,6 +24,12 @@ declare global {
     /** Returns the weapon's current fire delay. */
     GetFireDelay: () => int;
 
+    /**
+     * Returns the active entity used by the weapon. Returns undefined if the active entity is not
+     * found.
+     */
+    GetMainEntity: () => Entity | undefined;
+
     /** Returns the max charge of the weapon. */
     GetMaxCharge: () => int;
 
