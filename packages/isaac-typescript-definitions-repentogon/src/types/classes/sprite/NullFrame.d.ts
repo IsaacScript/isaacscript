@@ -16,6 +16,6 @@ declare interface NullFrame extends IsaacAPIClass {
   /** Returns the frame's scale. */
   GetScale: () => Vector;
 
-  /* *Returns whether the frame is visible. */
+  /** Returns whether the frame is visible. */
   IsVisible: () => boolean;
 }

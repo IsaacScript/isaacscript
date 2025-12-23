@@ -85,7 +85,7 @@
 /// <reference path="./classes/sprite/AnimationFrame.d.ts"/>
 /// <reference path="./classes/sprite/AnimationLayer.d.ts"/>
 /// <reference path="./classes/sprite/LayerState.d.ts"/>
-/// <reference path="./classes/sprite/NullLayer.d.ts"/>
+/// <reference path="./classes/sprite/NullFrame.d.ts"/>
 /// <reference path="./classes/sprite/Sprite.d.ts"/>
 /// <reference path="./classes/ActiveItemDesc.d.ts"/>
 /// <reference path="./classes/Ambush.d.ts"/>
