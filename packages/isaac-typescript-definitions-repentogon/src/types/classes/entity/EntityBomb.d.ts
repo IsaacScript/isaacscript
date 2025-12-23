@@ -8,13 +8,13 @@ declare global {
     /** Returns how many frames until the bomb explodes. */
     GetExplosionCountdown: () => int;
 
-    // `GetFallingSpeed` is ommitted due to being mislabeled as `GetFallAcceleration`.
+    // `GetFallingSpeed` is omitted due to being mislabeled as `GetFallAcceleration`.
 
     GetFallAcceleration: () => number;
 
     GetFallSpeed: () => number;
 
-    // `GetHeight` is ommitted due to being mislabeled as `GetFallSpeed`.
+    // `GetHeight` is omitted due to being mislabeled as `GetFallSpeed`.
 
     /** Returns an array containing all of the entity indexes the bomb hit with its explosion. */
     GetHitList: () => int[];
@@ -42,11 +42,11 @@ declare global {
     /** Returns whether the bomb was created through the Angelic Prism effect. */
     IsPrismTouched: () => boolean;
 
-    // `SetFallingSpeed` is ommitted due to being mislabeled as `SetFallAcceleration`.
+    // `SetFallingSpeed` is omitted due to being mislabeled as `SetFallAcceleration`.
 
     SetFallAcceleration: (acceleration: number) => void;
 
-    // `SetHeight` is ommitted due to being mislabeled as `SetFallSpeed`.
+    // `SetHeight` is omitted due to being mislabeled as `SetFallSpeed`.
     SetFallSpeed: (speed: number) => void;
 
     /** Sets whether the bomb should load the costumes. */

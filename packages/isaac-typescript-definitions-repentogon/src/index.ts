@@ -18,6 +18,7 @@ export * from "./enums/DialogIcon";
 export * from "./enums/DialogReturn";
 export * from "./enums/DwmWindowsAttribute";
 export * from "./enums/Ending";
+export * from "./enums/EvaluateStatStage";
 export * from "./enums/EventCounter";
 export * from "./enums/flags/AddHealthTypeFlag";
 export * from "./enums/flags/AnimationRenderFlag";
