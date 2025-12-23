@@ -131,6 +131,7 @@
 /// <reference path="./classes/RailManager.d.ts"/>
 /// <reference path="./classes/RNG.d.ts"/>
 /// <reference path="./classes/RoomTransition.d.ts"/>
+/// <reference path="./classes/Seeds.d.ts"/>
 /// <reference path="./classes/StageTransition.d.ts"/>
 /// <reference path="./classes/Weapon.d.ts"/>
 /// <reference path="./classes/WeightedOutcomePicker.d.ts"/>
