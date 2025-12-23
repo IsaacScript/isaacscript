@@ -193,6 +193,9 @@ declare global {
     GetHUD: () => HUD;
     GetItemPool: () => ItemPool;
 
+    /** @deprecated This method is bugged and returns useless `userdata`. */
+    GetLastDevilRoomStage: () => LuaUserdata;
+
     GetLastLevelWithDamage: () => LevelStage;
     GetLastLevelWithoutHalfHp: () => LevelStage;
     GetLevel: () => Level;
