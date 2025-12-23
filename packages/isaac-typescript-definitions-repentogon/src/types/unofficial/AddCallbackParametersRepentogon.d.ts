@@ -36,7 +36,9 @@ import type {
   UseFlag,
   WeaponType,
 } from "isaac-typescript-definitions";
+import type { BagOfCraftingPickup } from "../../enums/BagOfCraftingPickup";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
+import type { EvaluateStatStage } from "../../enums/EvaluateStatStage";
 import type { FollowerPriority } from "../../enums/FollowerPriority";
 import type { GiantbookType } from "../../enums/GiantbookType";
 import type { HealthType } from "../../enums/HealthType";
@@ -329,6 +331,32 @@ declare global {
       gridEntityType?: GridEntityType,
     ];
 
+    // 1014
+    [ModCallbackRepentogon.PRE_ADD_TRINKET]: [
+      callback: (
+        player: EntityPlayer,
+        trinketType: TrinketType,
+        firstTime: boolean,
+      ) => TrinketType | boolean | undefined,
+      trinketType?: TrinketType,
+    ];
+
+    // 1015
+    [ModCallbackRepentogon.PRE_ADD_TO_BAG_OF_CRAFTING]: [
+      callback: (
+        player: EntityPlayer,
+        pickup: EntityPickup,
+        bagOfCraftingPickups: readonly BagOfCraftingPickup[],
+      ) => BagOfCraftingPickup[] | boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1016
+    [ModCallbackRepentogon.POST_ADD_TO_BAG_OF_CRAFTING]: [
+      callback: (player: EntityPlayer, pickup: EntityPickup) => void,
+      pickupVariant?: PickupVariant,
+    ];
+
     // 1020
     [ModCallbackRepentogon.PRE_HUD_UPDATE]: [callback: () => void];
 
@@ -457,7 +485,7 @@ declare global {
     [ModCallbackRepentogon.POST_ROOM_RENDER_ENTITIES]: [callback: () => void];
 
     // 1047
-    [ModCallbackRepentogon.PRE_COMPLETION_MARK_GET]: [
+    [ModCallbackRepentogon.PRE_COMPLETION_MARK_SET]: [
       callback: (
         completion: CompletionMarkType,
         playerType: PlayerType,
@@ -466,7 +494,7 @@ declare global {
     ];
 
     // 1048
-    [ModCallbackRepentogon.POST_COMPLETION_MARK_GET]: [
+    [ModCallbackRepentogon.POST_COMPLETION_MARK_SET]: [
       callback: (
         completion: CompletionMarkType,
         playerType: PlayerType,
@@ -873,7 +901,7 @@ declare global {
 
     // 1112
     [ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TREASURE_ROOM_PENALTY]: [
-      callback: () => boolean | undefined,
+      callback: (treasureRoomsVisited: int) => boolean | int | undefined,
     ];
 
     // 1113
@@ -1422,6 +1450,16 @@ declare global {
       familiarVariant?: FamiliarVariant,
     ];
 
+    // 1226
+    [ModCallbackRepentogon.EVALUATE_STAT]: [
+      callback: (
+        player: EntityPlayer,
+        stat: EvaluateStatStage,
+        currentValue: number,
+      ) => void,
+      stat?: EvaluateStatStage,
+    ];
+
     // 1231
     [ModCallbackRepentogon.POST_PLAYER_COLLISION]: [
       callback: (player: EntityPlayer, collider: Entity, low: boolean) => void,
@@ -1717,7 +1755,7 @@ declare global {
     ];
 
     // 1308
-    [ModCallbackRepentogon.POST_BACKWARDS_ROOM_RESTOORE]: [
+    [ModCallbackRepentogon.POST_BACKWARDS_ROOM_RESTORE]: [
       callback: (
         stage: LevelStage,
         roomDesc: RoomDescriptor,
@@ -1805,7 +1843,7 @@ declare global {
         pill: PillColor,
         slot: PillCardSlot,
       ) => void,
-      pillColor?: PillCardSlot,
+      pillColor?: PillColor,
     ];
 
     // 1356
@@ -1835,7 +1873,7 @@ declare global {
     // 1359
     [ModCallbackRepentogon.POST_PLAYER_COLLECT_PILL]: [
       callback: (player: EntityPlayer, pickup: EntityPickup) => void,
-      pillColor?: CardType,
+      pillColor?: PillColor,
     ];
 
     // 1360

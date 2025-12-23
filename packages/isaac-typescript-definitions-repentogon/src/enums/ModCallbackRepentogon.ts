@@ -395,6 +395,59 @@ export enum ModCallbackRepentogon {
   POST_GRID_HURT_DAMAGE = 1013,
 
   /**
+   * Fires before a trinket is added to the player.
+   *
+   * Return false to prevent the trinket from being added. Alternatively, return `TrinketType` to
+   * override the trinket added.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `TrinketType` provided.
+   *
+   * ```ts
+   * function preAddTrinket(
+   *   player: EntityPlayer,
+   *   trinket: TrinketType,
+   *   firstTime: boolean
+   * ): TrinketType | boolean | undefined {}
+   * ```
+   */
+  PRE_ADD_TRINKET = 1014,
+
+  /**
+   * Fires before a pickup is added to the player's Bag of Crafting.
+   *
+   * Return false to prevent the pickup from being added. Alternatively, return an array of
+   * `BagOfCraftingPickup` to override the pickup(s) added.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function preAddToBagOfCrafting(
+   *   player: EntityPlayer,
+   *   pickup: EntityPickup,
+   *   bagOfCraftingPickups: readonly BagOfCraftingPickup[]
+   * ): BagOfCraftingPickup[] | boolean | undefined {}
+   * ```
+   */
+  PRE_ADD_TO_BAG_OF_CRAFTING = 1015,
+
+  /**
+   * Fires after a pickup is added to the player's Bag of Crafting.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `PickupVariant` provided.
+   *
+   * ```ts
+   * function postAddToBagOfCrafting(player: EntityPlayer, pickup: EntityPickup): void {}
+   * ```
+   */
+  POST_ADD_TO_BAG_OF_CRAFTING = 1016,
+
+  /**
    * You cannot filter this callback.
    *
    * ```ts
@@ -615,27 +668,33 @@ export enum ModCallbackRepentogon {
   POST_ROOM_RENDER_ENTITIES = 1044,
 
   /**
+   * Fires before the completion mark is set. Return `false` to prevent it from being set.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function preCompletionMarkGet(
+   * function preCompletionMarkSet(
    *   completion: CompletionType,
    *   playerType: PlayerType
    *  ): boolean | undefined {}
+   * ```
    */
-  PRE_COMPLETION_MARK_GET = 1047,
+  PRE_COMPLETION_MARK_SET = 1047,
 
   /**
+   * Fires after the completion mark is set.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
    * ```ts
-   * function postCompletionMarkGet(completion: CompletionType, playerType: PlayerType): void {}
+   * function postCompletionMarkSet(completion: CompletionType, playerType: PlayerType): void {}
+   * ```
    */
-  POST_COMPLETION_MARK_GET = 1048,
+  POST_COMPLETION_MARK_SET = 1048,
 
   /**
    * You cannot filter this callback.
@@ -1248,6 +1307,13 @@ export enum ModCallbackRepentogon {
   POST_BACKDROP_PRE_RENDER_WALLS = 1109,
 
   /**
+   * Fires when the game first calculates the chance to spawn a Planetarium by checking if the
+   * current floor is valid. By default, the game prevents Planetariums from spawning after Chapter
+   * 3 (or Chapter 4 with Telescope Lens).
+   *
+   * Return false to bypass the stage penalty and allow the Planetarium chance to be calculated as
+   * normal.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1257,6 +1323,12 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_STAGE_PENALTY = 1110,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_STAGE_PENALTY` and when the chance
+   * penalty is applied. The penalty locks the planetarium chance to 1% (or 10% with Telescope Lens)
+   * if a Planetarium has been entered before.
+   *
+   * Return false to bypass the planetarium chance penalty.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1266,15 +1338,34 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_PLANETARIUM_PENALTY = 1111,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_PLANETARIUM_PENALTY` and when the game
+   * applies the Treasure Room visit penalty. By default, the game applies a penalty depending on
+   * how many Treasure Rooms have been visited. If the amount of treasure rooms entered is greater
+   * than or equal to the current stage number, the chance will be locked at 1% (or 10% with
+   * Telescope Lens).
+   *
+   * Return an integer to override how many Treasure Rooms has been visited. Alternatively, return
+   * false to bypass the Treasure Room visit penalty.
+   *
    * You cannot filter this callback.
    *
    * ```ts
-   * function prePlanetariumApplyTreasureRoomPenalty(): boolean | undefined {}
+   * function prePlanetariumApplyTreasureRoomPenalty(
+   *  treasureRoomsVisited: int,
+   * ): boolean | int | undefined {}
    * ```
    */
   PRE_PLANETARIUM_APPLY_TREASURE_ROOM_PENALTY = 1112,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TREASURE_ROOM_PENALTY` and when the
+   * game modifies the Planetarium chance from items such as Crystal Ball and Magic 8 Ball.
+   *
+   * This callback only applies a flat chance after all penalties have been applied. To modify the
+   * base chance, use `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS`.
+   *
+   * Return a float to modify the chance.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1284,6 +1375,11 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_ITEMS = 1113,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_ITEMS` and when the game calculates
+   * the additional 9% chance from having Telescope Lens.
+   *
+   * Return a float to modify the chance.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1293,7 +1389,10 @@ export enum ModCallbackRepentogon {
   PRE_PLANETARIUM_APPLY_TELESCOPE_LENS = 1114,
 
   /**
-   * You cannot filter this callback.
+   * Fires after `ModCallbackRepentogon.PRE_PLANETARIUM_APPLY_TELESCOPE_LENS` and when the final
+   * planetarium chance is calculated.
+   *
+   * Return a float to modify the final chance.
    *
    * ```ts
    * function prePlanetariumCalculateFinal(chance: float): float | undefined {}
@@ -1466,6 +1565,11 @@ export enum ModCallbackRepentogon {
   POST_FORCE_ADD_PILL_EFFECT = 1129,
 
   /**
+   * Fires when the game starts to tally up vanilla items for calculating the chance of Devil and
+   * Angel Deals. This is called before the stage penalty is applied.
+   *
+   * Return a float to modify the chance in this step of the calculation.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1475,6 +1579,11 @@ export enum ModCallbackRepentogon {
   PRE_DEVIL_APPLY_ITEMS = 1130,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_DEVIL_APPLY_ITEMS` is called and when the game
+   * calculates the stage penalty if a Devil or Angel Deal has appeared on a previous floor.
+   *
+   * Return false to prevent the stage penalty from being applied.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1484,6 +1593,12 @@ export enum ModCallbackRepentogon {
   PRE_DEVIL_APPLY_STAGE_PENALTY = 1131,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_DEVIL_APPLY_STAGE_PENALTY`is called and when the game
+   * calculates the chance from items which bypasses the stage penalty such as Goat Head and
+   * Eucharist.
+   *
+   * Return a float to modify the chance in this step of the calculation.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -1493,6 +1608,11 @@ export enum ModCallbackRepentogon {
   PRE_DEVIL_APPLY_SPECIAL_ITEMS = 1132,
 
   /**
+   * Fires after `ModCallbackRepentogon.PRE_DEVIL_APPLY_SPECIAL_ITEMS`. This is the final step of
+   * calculating the Devil and Angel Deal chance.
+   *
+   * Return a float to modify the final chance.
+   *
    * You cannot filter this callback.
    *
    * ```ts
@@ -2179,6 +2299,9 @@ export enum ModCallbackRepentogon {
   POST_NPC_DARK_RED_CHAMPION_REGEN = 1223,
 
   /**
+   * Fires when a custom cache flag is being evaluated. Return a number to set the value of the
+   * custom cache flag.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the string provided.
@@ -2194,6 +2317,9 @@ export enum ModCallbackRepentogon {
   EVALUATE_CUSTOM_CACHE = 1224,
 
   /**
+   * Fires when a familiar's multiplier is being evaluated. Return a number to override the
+   * familiar's multiplier.
+   *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
@@ -2207,6 +2333,25 @@ export enum ModCallbackRepentogon {
    * ```
    */
   EVALUATE_FAMILIAR_MULTIPLIER = 1225,
+
+  /**
+   * Fires when the player's stats are being calculated. This should not be confused with
+   * `ModCallback.EVALUATE_CACHE`, which fires when a `CacheFlag` is being evaluated.
+   *
+   * Unless you want to perform complicated conditions/calculations, it's strongly recommended that
+   * you use REPENTOGON's XML item stats features over this callback.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `EvaluateStatStage` provided.
+   *
+   * ```ts
+   * function evaluateStat(player: EntityPlayer, stat: EvaluateStatStage, value: number): void {}
+   * ```
+   *
+   * @see https://repentogon.com/xml/items.html
+   */
+  EVALUATE_STAT = 1226,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:
@@ -2761,7 +2906,7 @@ export enum ModCallbackRepentogon {
    * ): void {}
    * ```
    */
-  POST_BACKWARDS_ROOM_RESTOORE = 1308,
+  POST_BACKWARDS_ROOM_RESTORE = 1308,
 
   /**
    * When registering this callback with the `Mod.AddCallback` method:

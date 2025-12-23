@@ -463,7 +463,7 @@ declare global {
      * The new name does not persist on save/continue. You will need to manually account for that
      * using Isaacscript Common's Save Data Manager.
      */
-    function SetCurrentFlorName(name: string): void;
+    function SetCurrentFloorName(name: string): void;
 
     /** Sets the game's Dwm window attribute. */
     function SetDwmWindowAttribute(
