@@ -37,13 +37,14 @@ import type {
   WeaponType,
 } from "isaac-typescript-definitions";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
+import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
+import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
 import type { FollowerPriority } from "../../enums/FollowerPriority";
 import type { GiantbookType } from "../../enums/GiantbookType";
 import type { HealthType } from "../../enums/HealthType";
 import type { ModCallbackRepentogon } from "../../enums/ModCallbackRepentogon";
 import type { PillCardSlot } from "../../enums/PillCardSlot";
-import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
-import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
+import type { SplitTearType } from "../../enums/SplitTearType";
 
 declare global {
   /**
@@ -337,6 +338,16 @@ declare global {
 
     // 1024
     [ModCallbackRepentogon.POST_HUD_RENDER]: [callback: () => void];
+
+    // 1025
+    [ModCallbackRepentogon.POST_FIRE_SPLIT_TEAR]: [
+      callback: (
+        tear: EntityTear,
+        source: EntityTear | EntityLaser | EntityKnife,
+        splitType: SplitTearType | string,
+      ) => void,
+      splitTearType?: SplitTearType | string,
+    ];
 
     // 1030
     [ModCallbackRepentogon.PRE_SFX_PLAY]: [

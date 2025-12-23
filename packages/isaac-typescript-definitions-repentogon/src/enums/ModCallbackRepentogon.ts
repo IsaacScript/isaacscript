@@ -424,6 +424,23 @@ export enum ModCallbackRepentogon {
   POST_HUD_RENDER = 1024,
 
   /**
+   * Fires when a split tear is fired.
+   *
+   * When registering this callback with the `Mod.AddCallback` method:
+   * - You can provide an optional third argument that will make the callback only fire if it
+   *   matches the `SplitTearType` or string provided.
+   *
+   * ```ts
+   * function postFireSplitTear(
+   *   tear: EntityTear,
+   *   source: Entity,
+   *   splitType: SplitTearType | string
+   * ): void {}
+   * ```
+   */
+  POST_FIRE_SPLIT_TEAR = 1025,
+
+  /**
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SoundEffect` provided.
