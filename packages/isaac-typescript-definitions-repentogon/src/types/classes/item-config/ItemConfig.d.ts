@@ -1,6 +1,7 @@
 import type {
   CollectibleType,
   ItemConfigTag,
+  TrinketType,
 } from "isaac-typescript-definitions";
 
 declare global {
@@ -13,7 +14,14 @@ declare global {
       tags: ItemConfigTag | BitFlags<ItemConfigTag>,
     ) => ItemConfigItem[];
 
-    // IsValidTrinket seems to be commented out for some reason in the API yet is documented as
-    // existing.
+    /**
+     * Returns whether the trinket is valid.
+     *
+     * @deprecated Not currently exposed to Lua (hook commented out upstream), despite being
+     *             documented. Source:
+     * https://github.com/TeamREPENTOGON/REPENTOGON/blob/db50daa92ff366565c699bf09641e8c5b9b2449c/repentogon/LuaInterfaces/LuaItemConfig.cpp#L241-L246
+     * Docs: https://repentogon.com/ItemConfig.html?h=ItemConfig#isvalidtrinket
+     */
+    IsValidTrinket: (trinketType: TrinketType) => boolean;
   }
 }
