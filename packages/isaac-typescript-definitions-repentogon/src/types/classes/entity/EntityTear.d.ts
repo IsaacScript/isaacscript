@@ -89,7 +89,7 @@ declare global {
 
     /**
      * Sets the sound that the tear plays when the tear is first spawned. This function must be
-     * called in `ModCallback.POST_TEAR_INIT`. Use this function over calling `sfxmanager.Stop` on
+     * called in `ModCallback.POST_TEAR_INIT`. Use this function over calling `SFXManager.Stop` on
      * the default tear manager sound as it's possible for the default sound to still briefly play
      * for a single frame.
      *
