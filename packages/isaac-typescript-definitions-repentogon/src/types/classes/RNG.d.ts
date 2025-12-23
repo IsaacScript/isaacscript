@@ -18,7 +18,7 @@ declare interface RNG extends IsaacAPIClass {
    * This does not call the `RNG.Next` method before retrieving the random number. If this is not
    * desired, use the `RNG.RandomInt` method instead.
    */
-  PhantomInt: (max: int) => int;
+  PhantomInt: ((max: int) => int) & ((min: int, max: int) => int);
 
   /**
    * Returns the next seed of the RNG object as if it has been "iterated".
@@ -46,6 +46,8 @@ declare interface RNG extends IsaacAPIClass {
 
   /** "Iterates" the RNG object's seed backwards and returns the new seed. */
   Previous: () => int;
+
+  RandomInt: (min: int, max: int) => int;
 
   /**
    * Returns a random vector with a length of 1.
