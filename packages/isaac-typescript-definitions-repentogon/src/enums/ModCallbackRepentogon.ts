@@ -8,7 +8,7 @@ export enum ModCallbackRepentogon {
    * A modified version of `ModCallback.POST_USE_PILL`. This callback provides a `PillColor`
    * parameter.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillEffect` provided.
    *
@@ -34,7 +34,7 @@ export enum ModCallbackRepentogon {
    * - `DamageCountdown`: The damage countdown to apply. Only works if the `DamageFlag.COUNTDOWN`
    *   flag is present.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -67,7 +67,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -91,7 +91,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -115,7 +115,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -172,7 +172,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -196,7 +196,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
@@ -220,7 +220,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -244,7 +244,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `KnifeVariant` provided.
    *
@@ -268,7 +268,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BombVariant` provided.
    *
@@ -286,7 +286,7 @@ export enum ModCallbackRepentogon {
    * A modified version of `ModCallback.POST_ENTITY_KILL`. This callback now provides an `EntityRef`
    * of whoever killed the entity.
    *
-   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogonRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -309,7 +309,7 @@ export enum ModCallbackRepentogon {
    * - `varData`: Overrides the `VarData` of the collectible that will be added.
    * - `player`: Overrides the player the collectible will be added to.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -343,7 +343,7 @@ export enum ModCallbackRepentogon {
    * Use this over Isaacscript-Common's `ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED` callback
    * as this is a lot more optimized.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -363,7 +363,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an entity takes damage.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -385,7 +385,7 @@ export enum ModCallbackRepentogon {
    *
    * Return false to prevent the damage from being applied.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -408,7 +408,7 @@ export enum ModCallbackRepentogon {
    *
    * Return an integer to override the amount of hearts added.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `AddHealthTypeFlag` provided.
    *
@@ -428,7 +428,7 @@ export enum ModCallbackRepentogon {
    * `Add(...)Hearts` functions, such as the `ignoreKeeper` argument for
    * `EntityPlayer.AddMaxHearts`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `AddHealthTypeFlag` provided.
    *
@@ -447,7 +447,7 @@ export enum ModCallbackRepentogon {
    * Fires after a rock is destroyed. `source` can be undefined if `GridEntity.Destroy` is called
    * instead of `GridEntity.DestroyWithSource`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -467,7 +467,7 @@ export enum ModCallbackRepentogon {
    *
    * Return false to prevent the damage from being applied.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -488,7 +488,7 @@ export enum ModCallbackRepentogon {
    * Fires after a `GridEntity` has attempted to inflict damage on an entity. This does not
    * guarantee that the entity actually took damage, such as if the player is currently invincible.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -511,7 +511,7 @@ export enum ModCallbackRepentogon {
    * Return false to prevent the trinket from being added. Alternatively, return `TrinketType` to
    * override the trinket added.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TrinketType` provided.
    *
@@ -531,7 +531,7 @@ export enum ModCallbackRepentogon {
    * Return false to prevent the pickup from being added. Alternatively, return an array of
    * `BagOfCraftingPickup` to override the pickup(s) added.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -548,7 +548,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a pickup is added to the player's Bag of Crafting.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -608,7 +608,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when a split tear is fired.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SplitTearType` or string provided.
    *
@@ -635,7 +635,7 @@ export enum ModCallbackRepentogon {
    * - `pitch`: Overrides the pitch of the sound effect being played.
    * - `pan`: Overrides the pan of the sound effect being played.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SoundEffect` provided.
    *
@@ -666,7 +666,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a sound effect is played.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SoundEffect` provided.
    *
@@ -686,7 +686,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a projectile is destroyed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -699,7 +699,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a tear is destroyed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
@@ -719,7 +719,7 @@ export enum ModCallbackRepentogon {
    * - `music`: Overrides the music being played.
    * - `volumeOrFadeRate`: Overrides the volume or fade rate of the music being played.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Music` provided.
    *
@@ -741,7 +741,7 @@ export enum ModCallbackRepentogon {
    * Return `true` to enable the combat layer. Alternatively, return `false` to disable the combat
    * layer. Alternatively, return an integer to override the ID of the layer.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the integer provided.
    *
@@ -757,7 +757,7 @@ export enum ModCallbackRepentogon {
    * Return false to prevent the head from being rendered. Alternatively, return a `Vector` to
    * modify the render position of the head.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -776,7 +776,7 @@ export enum ModCallbackRepentogon {
    * Return false to prevent the body from being rendered. Alternatively, return a `Vector` to
    * modify the render position of the body.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -822,7 +822,7 @@ export enum ModCallbackRepentogon {
   POST_ENTITY_THROW = 1041,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -858,7 +858,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires before the completion mark is set. Return `false` to prevent it from being set.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -874,7 +874,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the completion mark is set.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -982,7 +982,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a player purchased a pickup from a shop. This also fires for Devil Deals taken.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -997,7 +997,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `FollowerPriority` or an integer to override the priority of the familiar.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -1012,7 +1012,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the card from being used.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -1031,7 +1031,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the pill from being used.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillEffect` provided.
    *
@@ -1051,7 +1051,7 @@ export enum ModCallbackRepentogon {
    *
    * Return an integer or `PickupPrice` to override the price of the shop item.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -1075,7 +1075,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `HealthType` to override the player's health type.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -1104,7 +1104,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to cancel the effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -1151,7 +1151,7 @@ export enum ModCallbackRepentogon {
    *
    * Return an integer to override the maximum charge of the active item.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -1174,7 +1174,7 @@ export enum ModCallbackRepentogon {
    *
    * Return an integer to override the minimum usable charge of the active item.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -1196,7 +1196,7 @@ export enum ModCallbackRepentogon {
    * While you can set the limit to any arbitrary amount, the game can only render up to 4 lines of
    * hearts in the HUD. However, hearts not being rendered in the HUD will still function normally.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -1213,7 +1213,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when the Giantbook animation updates.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GiantbookType` provided.
    *
@@ -1229,7 +1229,7 @@ export enum ModCallbackRepentogon {
    * Return `GiantbookType` to override the Giantbook being shown. Alternatively, return `true` to
    * prevent the animation from playing.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GiantbookType` provided.
    *
@@ -1244,7 +1244,7 @@ export enum ModCallbackRepentogon {
   PRE_ITEM_OVERLAY_SHOW = 1076,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -1255,7 +1255,7 @@ export enum ModCallbackRepentogon {
   POST_PLAYER_NEW_ROOM_TEMP_EFFECTS = 1077,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -1272,7 +1272,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an active item is rendered on the player's HUD.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -1299,7 +1299,7 @@ export enum ModCallbackRepentogon {
    * rendered. To prevent this, call `Entity.SetShadowSize(0)` in
    * `ModCallback.POST_FAMILIAR_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -1321,7 +1321,7 @@ export enum ModCallbackRepentogon {
    * Preventing a NPC from being rendered doesn't prevent the NPC's shadow from being rendered. To
    * prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_NPC_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -1341,7 +1341,7 @@ export enum ModCallbackRepentogon {
    * rendered. To prevent this, call `Entity.SetShadowSize(0)` in
    * `ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -1360,7 +1360,7 @@ export enum ModCallbackRepentogon {
    * Preventing a pickup from being rendered doesn't prevent the pickup's shadow from being
    * rendered. To prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_PICKUP_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -1379,7 +1379,7 @@ export enum ModCallbackRepentogon {
    * Preventing a tear from being rendered doesn't prevent the tear's shadow from being rendered. To
    * prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_TEAR_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
@@ -1399,7 +1399,7 @@ export enum ModCallbackRepentogon {
    * rendered. To prevent this, call `Entity.SetShadowSize(0)` in
    * `ModCallback.POST_PROJECTILE_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -1421,7 +1421,7 @@ export enum ModCallbackRepentogon {
    * Preventing a knife from being rendered doesn't prevent the knife's shadow from being rendered.
    * To prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_KNIFE_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `KnifeVariant` provided.
    *
@@ -1440,7 +1440,7 @@ export enum ModCallbackRepentogon {
    * Preventing a effect from being rendered doesn't prevent the effect's shadow from being
    * rendered. To prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_EFFECT_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EffectVariant` provided.
    *
@@ -1459,7 +1459,7 @@ export enum ModCallbackRepentogon {
    * Preventing a bomb from being rendered doesn't prevent the bomb's shadow from being rendered. To
    * prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_BOMB_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BombVariant` provided.
    *
@@ -1478,7 +1478,7 @@ export enum ModCallbackRepentogon {
    * Preventing a slot from being rendered doesn't prevent the slot's shadow from being rendered. To
    * prevent this, call `Entity.SetShadowSize(0)` in `ModCallback.POST_SLOT_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -1491,7 +1491,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an `EntitySlot` is rendered.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -1538,7 +1538,7 @@ export enum ModCallbackRepentogon {
    * Return `Music` to override the jingle being played. Alternatively, return `false` to prevent
    * the jingle from playing.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Music` provided.
    *
@@ -1551,7 +1551,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a collectible has been removed from a player.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -1568,7 +1568,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a trinket has been added to a player.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TrinketType` provided.
    *
@@ -1585,7 +1585,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a trinket has been removed from a player.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TrinketType` provided.
    *
@@ -1598,7 +1598,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the a weapon's attack is triggered.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `WeaponType` provided.
    *
@@ -1639,7 +1639,7 @@ export enum ModCallbackRepentogon {
    * - `Vardata`: The vardata to override.
    * - `SpawnSeed`: The spawn seed to override.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -1663,7 +1663,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a grid entity has spawned in the room.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -1716,7 +1716,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires each frame the weapon updates.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `WeaponType` provided.
    *
@@ -1873,7 +1873,7 @@ export enum ModCallbackRepentogon {
    * - `layerId`: The layer ID to override.
    * - `fileName`: The `.png` file to override.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the string provided.
    *
@@ -1886,7 +1886,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a spritesheet has been loaded.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the string provided.
    *
@@ -1927,7 +1927,7 @@ export enum ModCallbackRepentogon {
    * - `CropOffset`: Determines the rectangular area of the active item that will be rendered in the
    *   active slot.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -1960,7 +1960,7 @@ export enum ModCallbackRepentogon {
    * be a string, which only shows the name of the suggestion, or an array of two strings, where the
    * first element is the name of the suggestion and the second element is the description.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the string provided.
    *
@@ -1976,7 +1976,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fries after an `EntitySlot` spawns.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -1989,7 +1989,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an `EntitySlot` updates.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -2004,7 +2004,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the drops from being created.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -2017,7 +2017,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an `EntitySlot` spawns random pickups when blown up.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -2033,7 +2033,7 @@ export enum ModCallbackRepentogon {
    *
    * Return a `CollectibleType` to override the prize collectible.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -2050,7 +2050,7 @@ export enum ModCallbackRepentogon {
    * Fires after an `EntitySlot` sets its prize collectible. This is used by Shell Game, Hell Game,
    * and Crane Game.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -2061,7 +2061,7 @@ export enum ModCallbackRepentogon {
   POST_SLOT_SET_PRIZE_COLLECTIBLE = 1126,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -2079,7 +2079,7 @@ export enum ModCallbackRepentogon {
    * You may modify the player's health differently within this callback, such as removing the heart
    * containers entirely.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -2163,7 +2163,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when a Giantbook begins to play its animation.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GiantbookType` provided.
    *
@@ -2209,7 +2209,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after room clear effects have been triggered for a specific player.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -2222,7 +2222,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires each frame after the Giantbook renders on the screen.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GiantbookType` provided.
    *
@@ -2235,7 +2235,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an active item has been discharged.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CollectibleType` provided.
    *
@@ -2266,7 +2266,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a backdrop has changed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BackdropType` provided.
    *
@@ -2290,7 +2290,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a player drops a trinket onto the ground from their inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TrinketType` provided.
    *
@@ -2325,7 +2325,7 @@ export enum ModCallbackRepentogon {
    * Return a `Vector` to override the render offset. Alternatively, return `false` to prevent the
    * lighting from rendering.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -2344,7 +2344,7 @@ export enum ModCallbackRepentogon {
    * Return a `Vector` to override the render offset. Alternatively, return `false` to prevent the
    * lighting from rendering.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -2362,7 +2362,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the player from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -2377,7 +2377,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the tear from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
@@ -2392,7 +2392,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the familiar from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -2407,7 +2407,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the bomb from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BombVariant` provided.
    *
@@ -2422,7 +2422,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the pickup from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -2437,7 +2437,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the knife from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `KnifeVariant` provided.
    *
@@ -2452,7 +2452,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the projectile from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -2467,7 +2467,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the laser from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `LaserVariant` provided.
    *
@@ -2482,7 +2482,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the effect from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EffectVariant` provided.
    *
@@ -2497,7 +2497,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to prevent the `EntitySlot` from updating, ignoring its internal AI.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -2518,7 +2518,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -2543,7 +2543,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -2568,14 +2568,14 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
    * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
    * this callback offers significantly better performance than the former.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -2600,14 +2600,14 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
    * Use this over Isaacscript Common's `ModCallbackCustom.POST_GRID_ENTITY_COLLISION` callback as
    * this callback offers significantly better performance than the former.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
@@ -2632,7 +2632,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -2657,7 +2657,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -2682,7 +2682,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BombVariant` provided.
    *
@@ -2707,7 +2707,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BombVariant` provided.
    *
@@ -2732,7 +2732,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -2757,7 +2757,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -2782,7 +2782,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -2807,7 +2807,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -2832,7 +2832,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -2857,7 +2857,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `true` to ignore the collision.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -2891,7 +2891,7 @@ export enum ModCallbackRepentogon {
    * Fires before an NPC is split from the Meat Cleaver item effect. Return true to prevent the NPC
    * from splitting. NPCs will still take damage from the Meat Cleaver even if you return true.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -2913,7 +2913,7 @@ export enum ModCallbackRepentogon {
    * - `varData`: The `VarData` of the grid entity to spawn.
    * - `spawnSpeed`: The grid entity's spawn seed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -3135,7 +3135,7 @@ export enum ModCallbackRepentogon {
    * Fires when the player is about to place a bomb. Return false to prevent the bomb from being
    * placed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -3148,7 +3148,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the player places a bomb.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -3163,7 +3163,7 @@ export enum ModCallbackRepentogon {
    *
    * Return an `Entity` to override the target selected.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3176,7 +3176,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when a Dark Red Champion NPC regenerates from a pile of goo.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3190,7 +3190,7 @@ export enum ModCallbackRepentogon {
    * Fires when a custom cache flag is being evaluated. Return a number to set the value of the
    * custom cache flag.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the string provided.
    *
@@ -3208,7 +3208,7 @@ export enum ModCallbackRepentogon {
    * Fires when a familiar's multiplier is being evaluated. Return a number to override the
    * familiar's multiplier.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -3229,7 +3229,7 @@ export enum ModCallbackRepentogon {
    * Unless you want to perform complicated conditions/calculations, it's strongly recommended that
    * you use REPENTOGON's XML item stats features over this callback.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EvaluateStatStage` provided.
    *
@@ -3244,7 +3244,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a player collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerVariant` provided.
    *
@@ -3261,7 +3261,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a tear collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TearVariant` provided.
    *
@@ -3274,7 +3274,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a familiar collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -3291,7 +3291,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a bomb collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BombVariant` provided.
    *
@@ -3304,7 +3304,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a pickup collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -3323,7 +3323,7 @@ export enum ModCallbackRepentogon {
    * - `Collide`: Whether the familiar should collide with the collider.
    * - `SkipCollisionEffects`: Whether to skip running collision effects.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -3340,7 +3340,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an `EntitySlot` collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `SlotVariant` provided.
    *
@@ -3357,7 +3357,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a knife collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `KnifeVariant` provided.
    *
@@ -3370,7 +3370,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a projectile collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ProjectileVariant` provided.
    *
@@ -3387,7 +3387,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a NPC collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3405,7 +3405,7 @@ export enum ModCallbackRepentogon {
    * Fires when an `EntityLaser` is about to collide with an entity. Return true to prevent the
    * collision from happening.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `LaserVariant` provided.
    *
@@ -3418,7 +3418,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a laser collides with an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `LaserVariant` provided.
    *
@@ -3434,7 +3434,7 @@ export enum ModCallbackRepentogon {
    * Return an integer to override the coin's value, modifying the amount of coins it gives on
    * pickup.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CoinSubType` provided.
    *
@@ -3445,7 +3445,7 @@ export enum ModCallbackRepentogon {
   GET_COIN_VALUE = 1250,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -3464,7 +3464,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when a familiar fires a tear.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -3566,7 +3566,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when the familiar fires a Brimstone laser.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -3579,7 +3579,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires when the familiar fires a Tech laser.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -3610,7 +3610,7 @@ export enum ModCallbackRepentogon {
    * rendering. You can return an object with various fields to override how the trinket renders on
    * the HUD.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `TrinketSlot` provided.
    *
@@ -3629,7 +3629,7 @@ export enum ModCallbackRepentogon {
    * Fires before a pickup is consumed from effects such as Void and Black Rune. Return false to
    * prevent the pickup from being consumed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -3643,7 +3643,7 @@ export enum ModCallbackRepentogon {
    * Fires before a pickup is consumed from The Abyss. Return false to prevent the pickup from being
    * consumed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -3657,7 +3657,7 @@ export enum ModCallbackRepentogon {
    * Fires before a pickup is consumed from Compost. Return false to prevent the pickup from being
    * consumed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -3707,7 +3707,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires each frame the room transition animation updates.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `RoomTransitionAnim` provided.
    *
@@ -3720,7 +3720,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires each frame the room transition animation renders.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `RoomTransitionAnim` provided.
    *
@@ -3733,7 +3733,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a `TemporaryEffect` is added to a player.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ItemConfigItem` provided.
    *
@@ -3751,7 +3751,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a `TemporaryEffect` is added to the room.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ItemConfigItem` provided.
    *
@@ -3767,7 +3767,7 @@ export enum ModCallbackRepentogon {
    *
    * The optional third argument is used for the source entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3792,7 +3792,7 @@ export enum ModCallbackRepentogon {
    *
    * The optional third argument is used for the source entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3819,7 +3819,7 @@ export enum ModCallbackRepentogon {
    *
    * The optional `EntityType` third argument is used for the source entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3843,7 +3843,7 @@ export enum ModCallbackRepentogon {
    *
    * The optional `EntityType` third argument is used for the source entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -3864,7 +3864,7 @@ export enum ModCallbackRepentogon {
    *
    * Return a `BossID` to override the selected boss.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BossID` provided.
    *
@@ -3983,7 +3983,7 @@ export enum ModCallbackRepentogon {
    * Fires before the player sleeps on a bed after colliding with it. Return true to prevent the
    * player from sleeping on the bed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `BedSubType` provided.
    *
@@ -3999,7 +3999,7 @@ export enum ModCallbackRepentogon {
    * Return `MultiShotParams` to modify the parameters of the player's shooting behavior. The
    * modified `MultiShotParams` is passed along the remaining callbacks.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -4143,7 +4143,7 @@ export enum ModCallbackRepentogon {
    * Fires before the character menu is rendered on the screen while a custom character is selected.
    * This callback does not trigger for vanilla characters.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -4191,7 +4191,7 @@ export enum ModCallbackRepentogon {
    * Return `false` to prevent the card from being added. Alternatively, return a `CardType` to
    * override the card being added.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -4208,7 +4208,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a card is added to the player's inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -4228,7 +4228,7 @@ export enum ModCallbackRepentogon {
    * Return `false` to prevent the pill from being added. Alternatively, return a `PillColor` to
    * override the pill being added.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillColor` provided.
    *
@@ -4245,7 +4245,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a pill is added to the player's inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillColor` provided.
    *
@@ -4262,7 +4262,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a card is removed from the player's inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -4279,7 +4279,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a pill is removed from the player's inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillColor` provided.
    *
@@ -4298,7 +4298,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the card from being picked up.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -4314,7 +4314,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the player picks up a card off the ground.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -4329,7 +4329,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the pill from being picked up.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillColor` provided.
    *
@@ -4345,7 +4345,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the player picks up a pill off the ground.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillColor` provided.
    *
@@ -4358,7 +4358,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the player drops a card from their inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `CardType` provided.
    *
@@ -4375,7 +4375,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after the player drops a pill from their inventory.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PillColor` provided.
    *
@@ -4390,7 +4390,7 @@ export enum ModCallbackRepentogon {
   POST_PLAYER_DROP_PILL = 1361,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4403,7 +4403,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_DECORATION_UPDATE = 1400,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4414,7 +4414,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_DECORATION_UPDATE = 1401,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4425,7 +4425,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_DOOR_UPDATE = 1402,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4439,7 +4439,7 @@ export enum ModCallbackRepentogon {
    * Fire grid entities are largely unused and in most cases you'll want to target the `EntityNPC`
    * fireplaces with `ModCallback.PRE_NPC_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4453,7 +4453,7 @@ export enum ModCallbackRepentogon {
    * Fire grid entities are largely unused and in most cases you'll want to target the `EntityNPC`
    * fireplaces with `ModCallback.POST_NPC_UPDATE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4464,7 +4464,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_FIRE_UPDATE = 1405,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4475,7 +4475,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_GRAVITY_UPDATE = 1406,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4486,7 +4486,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_GRAVITY_UPDATE = 1407,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4497,7 +4497,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_LOCK_UPDATE = 1408,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4508,7 +4508,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_LOCK_UPDATE = 1409,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4519,7 +4519,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_PIT_UPDATE = 1410,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4533,7 +4533,7 @@ export enum ModCallbackRepentogon {
    * This does not include the `EntityNPC` poops used by Tainted Blue Baby. Use
    * `ModCallback.PRE_NPC_UPDATE` if you wish to target them.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4547,7 +4547,7 @@ export enum ModCallbackRepentogon {
    * This does not include the `EntityNPC` poops used by Tainted Blue Baby. Use
    * `ModCallback.POST_NPC_UPDATE` if you wish to target them.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4558,7 +4558,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_POOP_UPDATE = 1413,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4571,7 +4571,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_PRESSURE_PLATE_UPDATE = 1414,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4582,7 +4582,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_PRESSURE_PLATE_UPDATE = 1415,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4593,7 +4593,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_ROCK_UPDATE = 1416,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4604,7 +4604,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_ROCK_UPDATE = 1417,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4615,7 +4615,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_SPIKES_UPDATE = 1418,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4626,7 +4626,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_SPIKES_UPDATE = 1419,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4637,7 +4637,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_STAIRCASE_UPDATE = 1420,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4648,7 +4648,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_STAIRCASE_UPDATE = 1421,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4659,7 +4659,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_STATUE_UPDATE = 1422,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4670,7 +4670,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_STATUE_UPDATE = 1423,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4683,7 +4683,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_TELEPORTER_UPDATE = 1424,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4694,7 +4694,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_TELEPORTER_UPDATE = 1425,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4705,7 +4705,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_TRAPDOOR_UPDATE = 1426,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4716,7 +4716,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_TRAPDOOR_UPDATE = 1427,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4727,7 +4727,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_WEB_UPDATE = 1428,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4738,7 +4738,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_WEB_UPDATE = 1429,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4749,7 +4749,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_TNT_UPDATE = 1430,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4760,7 +4760,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_TNT_UPDATE = 1431,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4774,7 +4774,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_SPIKES_RENDER = 1432,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4785,7 +4785,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_SPIKES_RENDER = 1433,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4799,7 +4799,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_WEB_RENDER = 1434,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4810,7 +4810,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_WEB_RENDER = 1435,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4824,7 +4824,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_TNT_RENDER = 1436,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4835,7 +4835,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_TNT_RENDER = 1437,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4849,7 +4849,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_TRAPDOOR_RENDER = 1438,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4860,7 +4860,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_TRAPDOOR_RENDER = 1439,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4874,7 +4874,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_STAIRCASE_RENDER = 1440,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4885,7 +4885,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_STAIRCASE_RENDER = 1441,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4899,7 +4899,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_DECORATION_RENDER = 1444,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4913,7 +4913,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_DECORATION_RENDER = 1445,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4927,7 +4927,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_DOOR_RENDER = 1446,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4941,7 +4941,7 @@ export enum ModCallbackRepentogon {
    * Fire grid entities are largely unused and in most cases you'll want to target the `EntityNPC`
    * fireplaces with `ModCallback.PRE_NPC_RENDER`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4958,7 +4958,7 @@ export enum ModCallbackRepentogon {
    * Fire grid entities are largely unused and in most cases you'll want to target the `EntityNPC`
    * fireplaces with `ModCallback.POST_NPC_RENDER`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4969,7 +4969,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_FIRE_RENDER = 1449,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4983,7 +4983,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_LOCK_RENDER = 1450,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -4994,7 +4994,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_LOCK_RENDER = 1451,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5008,7 +5008,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_TELEPORTER_RENDER = 1452,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5022,7 +5022,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_TELEPORTER_RENDER = 1453,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5036,7 +5036,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_PIT_RENDER = 1454,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5050,7 +5050,7 @@ export enum ModCallbackRepentogon {
    * This does not include the `EntityNPC` poops used by Tainted Blue Baby. Use
    * `ModCallback.PRE_NPC_RENDER` if you wish to target them.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5067,7 +5067,7 @@ export enum ModCallbackRepentogon {
    * This does not include the `EntityNPC` poops used by Tainted Blue Baby. Use
    * `ModCallback.POST_NPC_RENDER` if you wish to target them.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5078,7 +5078,7 @@ export enum ModCallbackRepentogon {
   POOP_GRID_ENTITY_POOP_RENDER = 1457,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityRock` provided.
    *
@@ -5092,7 +5092,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_ROCK_RENDER = 1458,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5103,7 +5103,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_ROCK_RENDER = 1459,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5117,7 +5117,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_PRESSURE_PLATE_RENDER = 1460,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5131,7 +5131,7 @@ export enum ModCallbackRepentogon {
   POST_GRID_ENTITY_PRESSURE_PLATE_RENDER = 1461,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5145,7 +5145,7 @@ export enum ModCallbackRepentogon {
   PRE_GRID_ENTITY_WALL_RENDER = 1462,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `GridEntityType` provided.
    *
@@ -5162,7 +5162,7 @@ export enum ModCallbackRepentogon {
    * or `InputHook.IS_ACTION_TRIGGERED`, or return a float to override the value if `hook` is
    * `InputHook.GET_ACTION_VALUE`.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `InputHook` provided.
    *
@@ -5181,7 +5181,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the status effect from being applied.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `StatusEffect` provided.
    *
@@ -5199,7 +5199,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a status effect is applied to an entity.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `StatusEffect` provided.
    *
@@ -5230,7 +5230,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the challenge from being marked as completed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Challenge` provided.
    *
@@ -5243,7 +5243,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a challenge is marked as completed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Challenge` provided.
    *
@@ -5259,7 +5259,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the familiar from being charmed.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `FamiliarVariant` provided.
    *
@@ -5273,7 +5273,7 @@ export enum ModCallbackRepentogon {
    * Fires before the player gives birth to a familiar due to Cambion Conception. Return false to
    * prevent the player from spawning the familiar.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ConceptionFamiliarFlag` provided.
    *
@@ -5290,7 +5290,7 @@ export enum ModCallbackRepentogon {
    * Fires before the player gives birth to a familiar due to Immaculate Conception. Return false to
    * prevent the player from spawning the familiar.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `ConceptionFamiliarFlag` provided.
    *
@@ -5306,7 +5306,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after an achievement is unlocked.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `Achievement` provided.
    *
@@ -5361,7 +5361,7 @@ export enum ModCallbackRepentogon {
   POST_MINIMAP_RENDER = 1480,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -5372,7 +5372,7 @@ export enum ModCallbackRepentogon {
   PRE_PLAYER_REVIVE = 1481,
 
   /**
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -5416,7 +5416,7 @@ export enum ModCallbackRepentogon {
    *
    * Return an `Entity` to change targets.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -5433,7 +5433,7 @@ export enum ModCallbackRepentogon {
    * Return `false` to prevent the color from being set. Alternatively, return a `Color` to override
    * the color set.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -5454,7 +5454,7 @@ export enum ModCallbackRepentogon {
    * Fires after the entity's color is set with `Entity.SetColor`. This callback does not fire if
    * the `Entity.Color` field is directly modified.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `EntityType` provided.
    *
@@ -5499,7 +5499,7 @@ export enum ModCallbackRepentogon {
    * Return a `TearParams` object to override the player's `TearParams` object. The modified
    * `TearParams` is passed along the remaining callbacks.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PlayerType` provided.
    *
@@ -5521,7 +5521,7 @@ export enum ModCallbackRepentogon {
    *
    * Return `false` to prevent the chest from being opened.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
@@ -5537,7 +5537,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires after a chest is opened.
    *
-   * When registering this callback with the `Mod.AddCallback` method:
+   * When registering this callback with the `Mod.AddCallbackRepentogon` method:
    * - You can provide an optional third argument that will make the callback only fire if it
    *   matches the `PickupVariant` provided.
    *
