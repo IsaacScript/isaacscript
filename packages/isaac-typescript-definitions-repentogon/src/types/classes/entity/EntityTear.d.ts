@@ -22,7 +22,8 @@ declare global {
      * @param damageMultiplier Optional. Default is 0.5.
      * @param sizeMultiplier Optional. Default is 0.6.
      * @param variant Optional. Default is `TearVariant.BLUE`.
-     * @param splitTearType Optional. Default is `SplitTearType.GENERIC`.
+     * @param splitTearType Optional. Default is `SplitTearType.GENERIC`. Custom split tear effects
+     *                      can be implemented by passing in a string instead.
      */
     FireSplitTear: (
       position: Vector,
@@ -30,7 +31,7 @@ declare global {
       damageMultiplier?: number,
       sizeMultiplier?: number,
       variant?: TearVariant,
-      splitTearType?: SplitTearType,
+      splitTearType?: SplitTearType | string,
     ) => EntityTear;
 
     /**

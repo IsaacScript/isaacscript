@@ -21,31 +21,38 @@ import type {
   LaserVariant,
   LevelStage,
   Music,
+  PickupPrice,
   PickupVariant,
   PillColor,
   PillEffect,
   PlayerType,
   PlayerVariant,
   ProjectileVariant,
+  RoomTransitionAnim,
   SlotVariant,
   SoundEffect,
   StageType,
+  TearFlag,
   TearVariant,
   TrinketSlot,
   TrinketType,
   UseFlag,
   WeaponType,
 } from "isaac-typescript-definitions";
+import type { Achievement } from "../../enums/Achievement";
 import type { BagOfCraftingPickup } from "../../enums/BagOfCraftingPickup";
 import type { CompletionMarkType } from "../../enums/CompletionMarkType";
 import type { EvaluateStatStage } from "../../enums/EvaluateStatStage";
+import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
+import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
 import type { FollowerPriority } from "../../enums/FollowerPriority";
 import type { GiantbookType } from "../../enums/GiantbookType";
 import type { HealthType } from "../../enums/HealthType";
 import type { ModCallbackRepentogon } from "../../enums/ModCallbackRepentogon";
+import type { NullPickupSubType } from "../../enums/NullPickupSubType";
 import type { PillCardSlot } from "../../enums/PillCardSlot";
-import type { AddHealthTypeFlag } from "../../enums/flags/AddHealthTypeFlag";
-import type { ConceptionFamiliarFlag } from "../../enums/flags/ConceptionFamiliarFlag";
+import type { SplitTearType } from "../../enums/SplitTearType";
+import type { StatusEffect } from "../../enums/StatusEffect";
 
 declare global {
   /**
@@ -128,15 +135,15 @@ declare global {
       callback: (
         pickup: EntityPickup,
         variant: PickupVariant,
-        subType: int,
+        subType: int | NullPickupSubType,
         requestedVariant: PickupVariant,
         requestedSubType: int,
         rng: RNG,
       ) =>
         | [
             pickupVariant: PickupVariant,
-            subType: int,
-            continueSelection: boolean,
+            subType: int | NullPickupSubType,
+            continueSelection?: boolean,
           ]
         | undefined,
     ];
@@ -223,14 +230,14 @@ declare global {
         player: EntityPlayer,
       ) =>
         | boolean
-        | {
-            Type?: CollectibleType;
-            Charge?: int;
-            FirstTime?: boolean;
-            Slot?: ActiveSlot;
-            VarData?: int;
-            Player?: EntityPlayer;
-          }
+        | [
+            collectibleType?: CollectibleType,
+            charge?: int,
+            firstTime?: boolean,
+            slot?: ActiveSlot,
+            varData?: int,
+            player?: EntityPlayer,
+          ]
         | CollectibleType
         | undefined,
       collectibleType?: CollectibleType,
@@ -301,6 +308,7 @@ declare global {
         rock: GridEntityRock,
         gridEntityType: GridEntityType,
         immediate: boolean,
+        source: EntityRef | undefined,
       ) => void,
       gridEntityType?: GridEntityType,
     ];
@@ -310,10 +318,10 @@ declare global {
       callback: (
         gridEntity: GridEntity,
         entity: Entity,
-        damageAmount: number,
+        playerDamageAmount: number,
         damageFlags: BitFlags<DamageFlag>,
-        unknownFloat: float,
-        unknownBoolean: boolean,
+        damageAmount: float,
+        ignoreGridCollisionClass: boolean,
       ) => boolean | undefined,
       gridEntityType?: GridEntityType,
     ];
@@ -323,10 +331,10 @@ declare global {
       callback: (
         gridEntity: GridEntity,
         entity: Entity,
-        damageAmount: number,
+        playerDamageAmount: number,
         damageFlags: BitFlags<DamageFlag>,
-        unknownFloat: number,
-        unknownBoolean: boolean,
+        damageAmount: float,
+        ignoreGridCollisionClass: boolean,
       ) => void,
       gridEntityType?: GridEntityType,
     ];
@@ -372,6 +380,16 @@ declare global {
     // 1024
     [ModCallbackRepentogon.POST_HUD_RENDER]: [callback: () => void];
 
+    // 1025
+    [ModCallbackRepentogon.POST_FIRE_SPLIT_TEAR]: [
+      callback: (
+        tear: EntityTear,
+        source: EntityTear | EntityLaser | EntityKnife,
+        splitType: SplitTearType | string,
+      ) => void,
+      splitTearType?: SplitTearType | string,
+    ];
+
     // 1030
     [ModCallbackRepentogon.PRE_SFX_PLAY]: [
       callback: (
@@ -383,7 +401,14 @@ declare global {
         pan: number,
       ) =>
         | SoundEffect
-        | [SoundEffect, number, int, boolean, number, number]
+        | [
+            sound?: SoundEffect,
+            volume?: number,
+            frameDelay?: int,
+            loop?: boolean,
+            pitch?: number,
+            pan?: number,
+          ]
         | boolean
         | undefined,
       soundEffect?: SoundEffect,
@@ -422,7 +447,7 @@ declare global {
         isFade: boolean,
       ) =>
         | Music
-        | { ID?: Music; Volume?: float; FadeRate?: float }
+        | [music?: Music, volumeOrFadeRate?: number]
         | boolean
         | undefined,
       music?: Music,
@@ -430,8 +455,8 @@ declare global {
 
     // 1035
     [ModCallbackRepentogon.PRE_MUSIC_LAYER_TOGGLE]: [
-      callback: (music: Music, enabled: boolean) => boolean | Music | undefined,
-      music?: Music,
+      callback: (layerID: int, enabled: boolean) => boolean | int | undefined,
+      layerID?: int,
     ];
 
     // 1038
@@ -504,7 +529,9 @@ declare global {
 
     // 1049
     [ModCallbackRepentogon.PRE_COMPLETION_EVENT]: [
-      callback: (completion: CompletionMarkType) => boolean | undefined,
+      callback: (
+        completion: CompletionMarkType,
+      ) => boolean | CompletionMarkType | undefined,
     ];
 
     // 1050
@@ -515,6 +542,11 @@ declare global {
     // 1051
     [ModCallbackRepentogon.TRIGGER_PLAYER_DEATH_POST_CHECK_REVIVES]: [
       callback: (player: EntityPlayer) => boolean | undefined,
+    ];
+
+    // 1052
+    [ModCallbackRepentogon.POST_COMPLETION_EVENT]: [
+      callback: (completion: CompletionMarkType) => void,
     ];
 
     // 1060
@@ -540,7 +572,9 @@ declare global {
 
     // 1063
     [ModCallbackRepentogon.GET_FOLLOWER_PRIORITY]: [
-      callback: (familiar: EntityFamiliar) => FollowerPriority | undefined,
+      callback: (
+        familiar: EntityFamiliar,
+      ) => FollowerPriority | int | undefined,
       familiarVariant?: FamiliarVariant,
     ];
 
@@ -551,6 +585,7 @@ declare global {
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
       ) => boolean | undefined,
+      cardType?: CardType,
     ];
 
     // 1065
@@ -561,6 +596,7 @@ declare global {
         player: EntityPlayer,
         useFlags: BitFlags<UseFlag>,
       ) => boolean | undefined,
+      pillEffect?: PillEffect,
     ];
 
     // 1066
@@ -570,7 +606,7 @@ declare global {
         pickupSubType: int,
         shopItemID: int,
         price: int,
-      ) => int | undefined,
+      ) => int | PickupPrice | undefined,
       pickupVariant?: PickupVariant,
     ];
 
@@ -583,6 +619,12 @@ declare global {
     // 1068
     [ModCallbackRepentogon.PRE_ROOM_TRIGGER_CLEAR]: [
       callback: (playSound: boolean) => void,
+    ];
+
+    // 1069
+    [ModCallbackRepentogon.PRE_PLAYER_TRIGGER_ROOM_CLEAR]: [
+      callback: (player: EntityPlayer) => boolean | undefined,
+      playerVariant?: PlayerVariant,
     ];
 
     // 1070
@@ -601,13 +643,18 @@ declare global {
         collectible: CollectibleType,
         player: EntityPlayer,
         varData: int,
+        currentMaxCharges: int,
       ) => int | undefined,
       collectibleType?: CollectibleType,
     ];
 
     // 1073
     [ModCallbackRepentogon.GET_ACTIVE_MIN_USABLE_CHARGE]: [
-      callback: (slot: ActiveSlot, player: EntityPlayer) => int | undefined,
+      callback: (
+        slot: ActiveSlot,
+        player: EntityPlayer,
+        currentMinUsableCharge: int,
+      ) => int | undefined,
       collectibleType?: CollectibleType,
     ];
 
@@ -622,7 +669,9 @@ declare global {
     ];
 
     // 1075
-    [ModCallbackRepentogon.POST_ITEM_OVERLAY_UPDATE]: [callback: () => void];
+    [ModCallbackRepentogon.POST_ITEM_OVERLAY_UPDATE]: [
+      callback: (giantbookID: GiantbookType, skipAnimation: boolean) => void,
+    ];
 
     // 1076
     [ModCallbackRepentogon.PRE_ITEM_OVERLAY_SHOW]: [
@@ -642,7 +691,11 @@ declare global {
 
     // 1078
     [ModCallbackRepentogon.POST_PLAYER_NEW_LEVEL]: [
-      callback: (player: EntityPlayer) => void,
+      callback: (
+        player: EntityPlayer,
+        fromPlayerUpdate: boolean,
+        postLevelInitFinished: boolean,
+      ) => void,
       playerType?: PlayerType,
     ];
 
@@ -761,7 +814,7 @@ declare global {
         offset: Vector,
         heartsSprite: Sprite,
         position: Vector,
-        unknown: float,
+        spriteScale: float,
         player: EntityPlayer,
       ) => void,
     ];
@@ -784,7 +837,12 @@ declare global {
 
     // 1095
     [ModCallbackRepentogon.POST_COLLECTIBLE_REMOVED]: [
-      callback: (player: EntityPlayer, collectible: CollectibleType) => void,
+      callback: (
+        player: EntityPlayer,
+        collectible: CollectibleType,
+        removeFromPlayerForm: boolean,
+        wisp: boolean,
+      ) => void,
       collectibleType?: CollectibleType,
     ];
 
@@ -832,12 +890,12 @@ declare global {
       ) =>
         | GridEntityDesc
         | boolean
-        | {
-            Type?: GridEntityType;
-            Variant?: int;
-            Vardata?: int;
-            SpawnSeed?: Seed;
-          }
+        | [
+            type?: GridEntityType,
+            variant?: int,
+            vardata?: int,
+            spawnSeed?: Seed,
+          ]
         | undefined,
       gridEntityType?: GridEntityType,
     ];
@@ -853,15 +911,15 @@ declare global {
 
     // 1103
     [ModCallbackRepentogon.POST_NIGHTMARE_SCENE_SHOW]: [
-      callback: (unknown: boolean) => void,
+      callback: (isDogmaNightmare: boolean) => void,
     ];
 
     // 1104
     [ModCallbackRepentogon.PRE_LEVEL_SELECT]: [
       callback: (
-        level: LevelStage,
+        levelStage: LevelStage,
         stageType: StageType,
-      ) => [LevelStage?, StageType?] | undefined,
+      ) => [levelStage?: LevelStage, stageType?: StageType] | undefined,
     ];
 
     // 1105
@@ -876,10 +934,14 @@ declare global {
     ];
 
     // 1106
-    [ModCallbackRepentogon.PRE_BACKDROP_RENDER_WALLS]: [callback: () => void];
+    [ModCallbackRepentogon.PRE_BACKDROP_RENDER_WALLS]: [
+      callback: (wallColor: Color) => void,
+    ];
 
     // 1107
-    [ModCallbackRepentogon.PRE_BACKDROP_RENDER_FLOOR]: [callback: () => void];
+    [ModCallbackRepentogon.PRE_BACKDROP_RENDER_FLOOR]: [
+      callback: (floorColor: Color) => void,
+    ];
 
     // 1108
     [ModCallbackRepentogon.PRE_BACKDROP_RENDER_WATER]: [callback: () => void];
@@ -921,13 +983,16 @@ declare global {
 
     // 1116
     [ModCallbackRepentogon.PRE_REPLACE_SPRITESHEET]: [
-      callback: (layerId: int, fileName: string) => [int, string] | undefined,
+      callback: (
+        layerID: int,
+        fileName: string,
+      ) => [layerID?: int, pngFileName?: string] | undefined,
       fileName?: string,
     ];
 
     // 1117
     [ModCallbackRepentogon.POST_REPLACE_SPRITESHEET]: [
-      callback: (layerId: int, fileName: string) => void,
+      callback: (layerID: int, fileName: string) => void,
       fileName?: string,
     ];
 
@@ -937,7 +1002,7 @@ declare global {
         offset: Vector,
         heartsSprite: Sprite,
         position: Vector,
-        unknown: float,
+        spriteScale: float,
         player: EntityPlayer,
       ) => boolean | undefined,
     ];
@@ -952,7 +1017,12 @@ declare global {
         scale: number,
         chargeBarPosition: Vector,
       ) =>
-        | { Position?: Vector; Scale?: number; CropOffset?: Vector }
+        | {
+            HideItem?: boolean;
+            HideOutline?: boolean;
+            HideChargeBar?: boolean;
+            CropOffset?: Vector;
+          }
         | boolean
         | undefined,
       collectible?: CollectibleType,
@@ -963,7 +1033,7 @@ declare global {
       callback: (
         command: string,
         params: string,
-      ) => Array<string | string[]> | undefined,
+      ) => Array<string | [name: string, description: string]> | undefined,
       command?: string,
     ];
 
@@ -1012,6 +1082,17 @@ declare global {
       playerType?: PlayerType,
     ];
 
+    // 1128
+    [ModCallbackRepentogon.POST_PLAYER_HEALTH_TYPE_CHANGE]: [
+      callback: (
+        player: EntityPlayer,
+        newHealthType: HealthType,
+        previousHealthType: HealthType,
+        defaultHealthType: HealthType,
+      ) => void,
+      playerType?: PlayerType,
+    ];
+
     // 1129
     [ModCallbackRepentogon.POST_FORCE_ADD_PILL_EFFECT]: [
       callback: (pillEffect: PillEffect, pillColor: PillColor) => void,
@@ -1050,6 +1131,9 @@ declare global {
     // 1135
     [ModCallbackRepentogon.PRE_RENDER]: [callback: () => void];
 
+    // ModCallbackRepentogon.PRE_OPEN_GL_RENDER is currently omitted for the time being until custom
+    // shader support is fully fleshed out as it's currently in its infancy.
+
     // 1137
     [ModCallbackRepentogon.PRE_LEVEL_PLACE_ROOM]: [
       callback: (
@@ -1059,9 +1143,55 @@ declare global {
       ) => RoomConfig | undefined,
     ];
 
+    // 1138
+    [ModCallbackRepentogon.POST_PLAYER_TRIGGER_ROOM_CLEAR]: [
+      callback: (player: EntityPlayer) => void,
+      playerVariant?: PlayerVariant,
+    ];
+
+    // 1139
+    [ModCallbackRepentogon.POST_ITEM_OVERLAY_RENDER]: [
+      callback: (giantbookType: GiantbookType) => void,
+      giantbookType?: GiantbookType,
+    ];
+
+    // 1140
+    [ModCallbackRepentogon.POST_DISCHARGE_ACTIVE_ITEM]: [
+      callback: (
+        collectible: EntityPlayer,
+        collectibleRemoved: boolean,
+        player: EntityPlayer,
+        slot: ActiveSlot,
+      ) => void,
+      collectibleType?: CollectibleType,
+    ];
+
     // 1141
     [ModCallbackRepentogon.PRE_BACKDROP_CHANGE]: [
-      callback: (backdrop: BackdropType) => BackdropType,
+      callback: (backdrop: BackdropType) => BackdropType | undefined,
+    ];
+
+    // 1142
+    [ModCallbackRepentogon.POST_BACKDROP_CHANGE]: [
+      callback: (backdrop: BackdropType) => void,
+      backdropType?: BackdropType,
+    ];
+
+    // 1143
+    [ModCallbackRepentogon.POST_ROOM_TRIGGER_CLEAR]: [
+      callback: (playSound: boolean) => void,
+    ];
+
+    // 1144
+    [ModCallbackRepentogon.POST_PLAYER_DROP_TRINKET]: [
+      callback: (
+        trinketType: TrinketType,
+        dropPos: Vector,
+        player: EntityPlayer,
+        isGoldenTrinket: boolean,
+        replacedTrinket: boolean,
+      ) => void,
+      trinketType?: TrinketType,
     ];
 
     // 1150
@@ -1112,15 +1242,15 @@ declare global {
     ];
 
     // 1164
-    [ModCallbackRepentogon.PRE_KNIFE_UPDATE]: [
-      callback: (knife: EntityKnife) => boolean | undefined,
-      knifeVariant?: KnifeVariant,
-    ];
-
-    // 1165
     [ModCallbackRepentogon.PRE_PICKUP_UPDATE]: [
       callback: (pickup: EntityPickup) => boolean | undefined,
       pickupVariant?: PickupVariant,
+    ];
+
+    // 1165
+    [ModCallbackRepentogon.PRE_KNIFE_UPDATE]: [
+      callback: (knife: EntityKnife) => boolean | undefined,
+      knifeVariant?: KnifeVariant,
     ];
 
     // 1166
@@ -1154,7 +1284,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      playerVariant?: PlayerVariant,
     ];
 
     // 1172
@@ -1164,7 +1294,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      playerVariant?: PlayerVariant,
     ];
 
     // 1173
@@ -1174,7 +1304,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      tearVariant?: TearVariant,
     ];
 
     // 1174
@@ -1184,7 +1314,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      tearVariant?: TearVariant,
     ];
 
     // 1175
@@ -1194,7 +1324,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      familiarVariant?: FamiliarVariant,
     ];
 
     // 1176
@@ -1204,7 +1334,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      familiarVariant?: FamiliarVariant,
     ];
 
     // 1177
@@ -1214,7 +1344,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      bombVariant?: BombVariant,
     ];
 
     // 1178
@@ -1224,7 +1354,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      bombVariant?: BombVariant,
     ];
 
     // 1179
@@ -1234,7 +1364,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      pickupVariant?: PickupVariant,
     ];
 
     // 1180
@@ -1244,7 +1374,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      pickupVariant?: PickupVariant,
     ];
 
     // 1181
@@ -1254,7 +1384,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      projectileVariant?: ProjectileVariant,
     ];
 
     // 1182
@@ -1264,7 +1394,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      projectileVariant?: ProjectileVariant,
     ];
 
     // 1183
@@ -1274,7 +1404,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => boolean | undefined,
-      gridEntityType?: GridEntityType,
+      entityType?: EntityType,
     ];
 
     // 1184
@@ -1284,7 +1414,7 @@ declare global {
         gridIndex: int,
         gridEntity: GridEntity | undefined,
       ) => void,
-      gridEntityType?: GridEntityType,
+      entityType?: EntityType,
     ];
 
     // 1190
@@ -1309,7 +1439,15 @@ declare global {
         varData: int,
         gridIndex: int,
         spawnSeed: Seed,
-      ) => boolean | [GridEntityType, int, int, Seed] | undefined,
+      ) =>
+        | boolean
+        | [
+            gridType?: GridEntityType,
+            variant?: int,
+            varData?: int,
+            spawnSeed?: Seed,
+          ]
+        | undefined,
       gridEntityType?: GridEntityType,
     ];
 
@@ -1334,7 +1472,15 @@ declare global {
         variant: int,
         subType: int,
         championColor: ChampionColor,
-      ) => boolean | [EntityType, int, int, ChampionColor?] | undefined,
+      ) =>
+        | boolean
+        | [
+            entityType: EntityType,
+            variant: int,
+            subType: int,
+            championColor?: ChampionColor,
+          ]
+        | undefined,
     ];
 
     // 1213
@@ -1349,7 +1495,14 @@ declare global {
         ignoreModifiers: boolean,
       ) =>
         | boolean
-        | [EntityType, int, int, boolean?, boolean?, boolean?]
+        | [
+            entityType: EntityType,
+            variant: int,
+            subType: int,
+            keepPrice?: boolean,
+            keepSeed?: boolean,
+            ignoreModifiers?: boolean,
+          ]
         | undefined,
     ];
 
@@ -1554,8 +1707,13 @@ declare global {
     ];
 
     // 1251
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     [ModCallbackRepentogon.PRE_PLAYER_GET_MULTI_SHOT_PARAMS]: [
-      callback: (player: EntityPlayer) => MultiShotParams | undefined,
+      callback: (
+        player: EntityPlayer,
+        multiShotParams: MultiShotParams,
+        weaponType: WeaponType,
+      ) => MultiShotParams | undefined,
       playerType?: PlayerType,
     ];
 
@@ -1659,7 +1817,11 @@ declare global {
 
     // 1268
     [ModCallbackRepentogon.POST_PLAYER_TRIGGER_EFFECT_REMOVED]: [
-      callback: (player: EntityPlayer, itemConfigItem: ItemConfigItem) => void,
+      callback: (
+        player: EntityPlayer,
+        itemConfigItem: ItemConfigItem,
+        count: int,
+      ) => void,
     ];
 
     // 1269
@@ -1673,10 +1835,87 @@ declare global {
     ];
 
     // 1271
-    [ModCallbackRepentogon.POST_ROOM_TRANSITION_UPDATE]: [callback: () => void];
+    [ModCallbackRepentogon.POST_ROOM_TRANSITION_UPDATE]: [
+      callback: () => void,
+      transitionAnim?: RoomTransitionAnim,
+    ];
 
     // 1272
-    [ModCallbackRepentogon.POST_ROOM_TRANSITION_RENDER]: [callback: () => void];
+    [ModCallbackRepentogon.POST_ROOM_TRANSITION_RENDER]: [
+      callback: () => void,
+      transitionAnim?: RoomTransitionAnim,
+    ];
+
+    // 1273
+    [ModCallbackRepentogon.POST_PLAYER_ADD_EFFECT]: [
+      callback: (
+        player: EntityPlayer,
+        itemConfigItem: ItemConfigItem,
+        addCostume: boolean,
+        count: int,
+      ) => void,
+      itemConfigItem?: ItemConfigItem,
+    ];
+
+    // 1274
+    [ModCallbackRepentogon.POST_ROOM_ADD_EFFECT]: [
+      callback: (itemConfigItem: ItemConfigItem) => void,
+      itemConfigItem?: ItemConfigItem,
+    ];
+
+    // 1275
+    [ModCallbackRepentogon.POST_BOMB_DAMAGE]: [
+      callback: (
+        position: Vector,
+        damage: number,
+        radius: number,
+        lineCheck: boolean,
+        source: Entity | undefined,
+        tearFlags: BitFlags<TearFlag>,
+        damageFlags: BitFlags<DamageFlag>,
+        damageSource: boolean,
+      ) => void,
+      entityType?: EntityType,
+    ];
+
+    // 1276
+    [ModCallbackRepentogon.POST_BOMB_TEAR_FLAG_EFFECTS]: [
+      callback: (
+        position: Vector,
+        radius: number,
+        tearFlags: BitFlags<TearFlag>,
+        source: Entity | undefined,
+        radiusMulti: number,
+      ) => void,
+      entityType?: EntityType,
+    ];
+
+    // 1277
+    [ModCallbackRepentogon.PRE_APPLY_TEAR_FLAG_EFFECTS]: [
+      callback: (
+        npc: EntityNPC,
+        position: Vector,
+        tearFlags: BitFlags<TearFlag>,
+        source: Entity | undefined,
+        damage: number,
+      ) =>
+        | boolean
+        | { Position?: Vector; TearFlags?: BitFlags<TearFlag>; Damage?: number }
+        | undefined,
+      entityType?: EntityType,
+    ];
+
+    // 1278
+    [ModCallbackRepentogon.POST_APPLY_TEAR_FLAG_EFFECTS]: [
+      callback: (
+        npc: EntityNPC,
+        position: Vector,
+        tearFlags: BitFlags<TearFlag>,
+        source: Entity | undefined,
+        damage: number,
+      ) => void,
+      entityType?: EntityType,
+    ];
 
     // 1280
     [ModCallbackRepentogon.PRE_BOSS_SELECT]: [
@@ -1744,6 +1983,25 @@ declare global {
       bedSubType?: BedSubType,
     ];
 
+    // 1289
+    [ModCallbackRepentogon.EVALUATE_MULTI_SHOT_PARAMS]: [
+      callback: (
+        player: EntityPlayer,
+        multiShotParams: MultiShotParams,
+        weaponType: WeaponType,
+      ) => MultiShotParams | undefined,
+      playerType?: PlayerType,
+    ];
+
+    // 1290
+    [ModCallbackRepentogon.PRE_GET_RANDOM_ROOM_INDEX]: [
+      callback: (
+        roomIndex: int,
+        iAmErrorRoom: boolean,
+        seed: Seed,
+      ) => int | undefined,
+    ];
+
     // 1300
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_SAVE]: [
       callback: (slot: int) => void,
@@ -1752,6 +2010,40 @@ declare global {
     // 1301
     [ModCallbackRepentogon.POST_GLOWING_HOURGLASS_LOAD]: [
       callback: (slot: int) => void,
+    ];
+
+    // 1302
+    [ModCallbackRepentogon.PRE_GLOWING_HOURGLASS_SAVE]: [
+      callback: (slot: int) => void,
+    ];
+
+    // 1303
+    [ModCallbackRepentogon.PRE_GLOWING_HOURGLASS_LOAD]: [
+      callback: (slot: int) => void,
+    ];
+
+    // 1304
+    [ModCallbackRepentogon.POST_ROOM_SAVE_STATE]: [
+      callback: (room: Room, roomDescriptor: RoomDescriptor) => void,
+    ];
+
+    // 1305
+    [ModCallbackRepentogon.PRE_ROOM_RESTORE_STATE]: [
+      callback: (room: Room, roomDescriptor: RoomDescriptor) => void,
+    ];
+
+    // 1306
+    [ModCallbackRepentogon.POST_SWAP_ROOMS]: [
+      callback: (roomDesc1: RoomDescriptor, roomDesc2: RoomDescriptor) => void,
+    ];
+
+    // 1307
+    [ModCallbackRepentogon.POST_BACKWARDS_ROOM_SAVE]: [
+      callback: (
+        stage: LevelStage,
+        roomDesc: RoomDescriptor,
+        id: string,
+      ) => void,
     ];
 
     // 1308
@@ -2326,6 +2618,28 @@ declare global {
       inputHook?: InputHook,
     ];
 
+    // 1465
+    [ModCallbackRepentogon.PRE_STATUS_EFFECT_APPLY]: [
+      callback: (
+        statusEffect: StatusEffect,
+        entity: Entity,
+        source: EntityRef,
+        duration: int,
+      ) => boolean | undefined,
+      statusEffectType?: StatusEffect,
+    ];
+
+    // 1466
+    [ModCallbackRepentogon.POST_STATUS_EFFECT_APPLY]: [
+      callback: (
+        statusEffect: StatusEffect,
+        entity: Entity,
+        source: EntityRef,
+        duration: int,
+      ) => void,
+      statusEffectType?: StatusEffect,
+    ];
+
     // 1470
     [ModCallbackRepentogon.POST_SAVE_SLOT_LOAD]: [
       callback: (saveSlot: int, isSlotSelected: boolean, rawSlot: int) => void,
@@ -2346,6 +2660,12 @@ declare global {
       challenge?: Challenge,
     ];
 
+    // 1473
+    [ModCallbackRepentogon.PRE_FAMILIAR_CAN_CHARM]: [
+      callback: (familiar: EntityFamiliar) => boolean | undefined,
+      familiarVariant?: FamiliarVariant,
+    ];
+
     // 1474
     [ModCallbackRepentogon.PRE_PLAYER_GIVE_BIRTH_CAMBION]: [
       callback: (
@@ -2363,6 +2683,24 @@ declare global {
       ) => boolean | undefined,
       conceptionFamiliarFlag?: ConceptionFamiliarFlag,
     ];
+
+    // 1476
+    [ModCallbackRepentogon.POST_ACHIEVEMENT_UNLOCK]: [
+      callback: (achievement: Achievement) => void,
+      achievementType?: Achievement,
+    ];
+
+    // 1477
+    [ModCallbackRepentogon.PRE_MINIMAP_UPDATE]: [callback: () => void];
+
+    // 1478
+    [ModCallbackRepentogon.POST_MINIMAP_UPDATE]: [callback: () => void];
+
+    // 1479
+    [ModCallbackRepentogon.PRE_MINIMAP_RENDER]: [callback: () => void];
+
+    // 1480
+    [ModCallbackRepentogon.POST_MINIMAP_RENDER]: [callback: () => void];
 
     // 1481
     [ModCallbackRepentogon.PRE_PLAYER_REVIVE]: [
@@ -2391,6 +2729,12 @@ declare global {
       ) => boolean | undefined,
     ];
 
+    // 1485
+    [ModCallbackRepentogon.GET_STATUS_EFFECT_TARGET]: [
+      callback: (entity: Entity) => Entity | undefined,
+      entityType?: EntityType,
+    ];
+
     // 1486
     [ModCallbackRepentogon.PRE_ENTITY_SET_COLOR]: [
       callback: (
@@ -2404,7 +2748,7 @@ declare global {
       entityType?: EntityType,
     ];
 
-    // 1486
+    // 1487
     [ModCallbackRepentogon.POST_ENTITY_SET_COLOR]: [
       callback: (
         entity: Entity,
@@ -2415,6 +2759,42 @@ declare global {
         share: boolean,
       ) => void,
       entityType?: EntityType,
+    ];
+
+    // 1488
+    [ModCallbackRepentogon.POST_START_AMBUSH_WAVE]: [
+      callback: (bossAmbush: boolean) => void,
+    ];
+
+    // 1489
+    [ModCallbackRepentogon.POST_START_GREED_WAVE]: [callback: () => void];
+
+    // 1490
+    [ModCallbackRepentogon.EVALUATE_TEAR_HIT_PARAMS]: [
+      callback: (
+        player: EntityPlayer,
+        tearParams: TearParams,
+        weaponType: WeaponType,
+        damageScale: float,
+        tearDisplacement: int,
+        source: Entity,
+      ) => TearParams | undefined,
+      entityType?: EntityType,
+    ];
+
+    // 1491
+    [ModCallbackRepentogon.PRE_OPEN_CHEST]: [
+      callback: (
+        chest: EntityPickup,
+        player: EntityPlayer | undefined,
+      ) => boolean | undefined,
+      pickupVariant?: PickupVariant,
+    ];
+
+    // 1492
+    [ModCallbackRepentogon.POST_OPEN_CHEST]: [
+      callback: (chest: EntityPickup, player: EntityPlayer | undefined) => void,
+      pickupVariant?: PickupVariant,
     ];
   }
 }
