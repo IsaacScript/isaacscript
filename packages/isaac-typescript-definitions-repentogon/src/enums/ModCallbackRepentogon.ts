@@ -486,7 +486,7 @@ export enum ModCallbackRepentogon {
 
   /**
    * Fires after a `GridEntity` has attempted to inflict damage on an entity. This does not
-   * guarantee that the entity actualy dook damage, such as if the player is currently invincible.
+   * guarantee that the entity actually took damage, such as if the player is currently invincible.
    *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it
@@ -1920,7 +1920,7 @@ export enum ModCallbackRepentogon {
    * from rendering.
    *
    * Return `true` to prevent the active item from rendering. Alternatively, return an object with
-   * the following fields to modiify how the item renders:
+   * the following fields to modify how the item renders:
    * - `HideItem`: Determines whether the item should be hidden from the active slot or not.
    * - `HideOutline`: Determines whether the item outline should be hidden or not.
    * - `HideChargeBar`: Determines whether the chargebar should be hidden or not.
@@ -2949,7 +2949,7 @@ export enum ModCallbackRepentogon {
   /**
    * Fires before the Mega Satan ending cutscene plays, forcibly ending the game.
    *
-   * Return `true` to prevent the ending from occuring, guaranteeing a portal to the Void.
+   * Return `true` to prevent the ending from occurring, guaranteeing a portal to the Void.
    *
    * You cannot filter this callback.
    *
@@ -4189,7 +4189,7 @@ export enum ModCallbackRepentogon {
    * Fires before a card is added to the player's inventory.
    *
    * Return `false` to prevent the card from being added. Alternatively, return a `CardType` to
-   * override the card beinbg added.
+   * override the card being added.
    *
    * When registering this callback with the `Mod.AddCallback` method:
    * - You can provide an optional third argument that will make the callback only fire if it

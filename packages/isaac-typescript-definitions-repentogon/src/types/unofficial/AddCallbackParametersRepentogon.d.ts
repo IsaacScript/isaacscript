@@ -1131,7 +1131,7 @@ declare global {
     // 1135
     [ModCallbackRepentogon.PRE_RENDER]: [callback: () => void];
 
-    // ModCallbackRepentogon.PRE_OPENGL_RENDER is currently omitted for the time being until custom
+    // ModCallbackRepentogon.PRE_OPEN_GL_RENDER is currently omitted for the time being until custom
     // shader support is fully fleshed out as it's currently in its infancy.
 
     // 1137
@@ -2776,7 +2776,7 @@ declare global {
         tearParams: TearParams,
         weaponType: WeaponType,
         damageScale: float,
-        teardisplacement: int,
+        tearDisplacement: int,
         source: Entity,
       ) => TearParams | undefined,
       entityType?: EntityType,
