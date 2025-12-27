@@ -186,7 +186,7 @@ declare interface Sprite extends IsaacAPIClass {
    *
    * @param layerID
    * @param pngPath The full path to the PNG file. For example:
-   *                "gfx/items/collectibles/questionmark.png"
+   * "gfx/items/collectibles/questionmark.png"
    */
   ReplaceSpritesheet: (layerID: int, pngPath: string) => void;
 

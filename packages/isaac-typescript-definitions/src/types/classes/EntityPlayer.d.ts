@@ -398,7 +398,7 @@ declare global {
      *                             Altar will work properly. (It informs the game which collectible
      *                             should be removed if the familiar is tagged with the
      *                             "cansacrifice" entity tag.) This can be obtained with:
-     *                             `Isaac.GetItemConfig().GetCollectible(collectibleType)`
+     * `Isaac.GetItemConfig().GetCollectible(collectibleType)`
      * @param familiarSubType The subtype of the familiar to check. Default is -1, which matches
      *                        every sub-type.
      */

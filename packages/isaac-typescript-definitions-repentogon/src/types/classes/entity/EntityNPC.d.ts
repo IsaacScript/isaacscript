@@ -122,7 +122,7 @@ declare global {
      *
      * @param layerID
      * @param pngPath The full path to the PNG file. For example:
-     *                "gfx/items/collectibles/questionmark.png"
+     * "gfx/items/collectibles/questionmark.png"
      * @param loadGraphics Optional. If true, `Sprite.LoadGraphics()` is immediately fired. Default
      *                     is false.
      */
