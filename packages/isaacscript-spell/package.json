@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "complete-common": "2.11.0",
-    "complete-node": "15.0.0",
+    "complete-node": "16.0.0",
     "typescript-eslint": "8.50.1"
   }
 }

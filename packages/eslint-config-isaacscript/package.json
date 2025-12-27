@@ -34,7 +34,7 @@
     "typescript-eslint": "8.50.1"
   },
   "devDependencies": {
-    "complete-node": "15.0.0"
+    "complete-node": "16.0.0"
   },
   "peerDependencies": {
     "eslint": ">= 9.0.0"

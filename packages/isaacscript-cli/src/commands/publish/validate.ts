@@ -2,9 +2,8 @@ import chalk from "chalk";
 import {
   fatalError,
   isFile,
+  isGitDirectoryClean,
   isGitRepository,
-  isGitRepositoryClean,
-  isLoggedInToNPM,
 } from "complete-node";
 import { CWD, PROJECT_NAME } from "../../constants.js";
 import { execPowershell } from "../../exec.js";
@@ -21,7 +20,7 @@ export async function validate(
     );
   }
 
-  const isClean = await isGitRepositoryClean(CWD);
+  const isClean = await isGitDirectoryClean(CWD);
   if (!isClean) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
@@ -43,19 +42,8 @@ export async function validate(
     );
   }
 
-  if (typeScript) {
-    await validateTypeScriptProject();
-  } else {
+  if (!typeScript) {
     validateIsaacScriptMod(verbose);
-  }
-}
-
-async function validateTypeScriptProject() {
-  const isLoggedIn = await isLoggedInToNPM();
-  if (!isLoggedIn) {
-    fatalError(
-      'Failed to publish since you are not logged in to npm. Try doing "npm login".',
-    );
   }
 }
 

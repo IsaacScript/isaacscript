@@ -7,7 +7,7 @@ import {
   exit,
   fatalError,
   getArgs,
-  isGitRepositoryClean,
+  isGitDirectoryClean,
   isGitRepositoryLatestCommit,
   moveFileOrDirectory,
   sleep,
@@ -46,7 +46,7 @@ await deleteFileOrDirectory(DOCS_REPO);
 await copyFileOrDirectory(BUILD_DIRECTORY_PATH, DOCS_REPO);
 await moveFileOrDirectory(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
-const isClean = await isGitRepositoryClean(DOCS_REPO);
+const isClean = await isGitDirectoryClean(DOCS_REPO);
 if (isClean) {
   echo("There are no documentation website changes to deploy.");
   exit();

@@ -46,7 +46,7 @@
     "chalk": "5.6.2",
     "commander": "14.0.2",
     "complete-common": "2.11.0",
-    "complete-node": "15.0.0",
+    "complete-node": "16.0.0",
     "figlet": "1.9.2-beta.0",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",

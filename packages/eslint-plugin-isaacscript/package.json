@@ -53,7 +53,7 @@
     "@types/jest": "30.0.0",
     "@typescript-eslint/rule-tester": "8.50.1",
     "complete-common": "2.11.0",
-    "complete-node": "15.0.0",
+    "complete-node": "16.0.0",
     "jest": "30.2.0",
     "prettier": "3.7.4"
   },
