@@ -60,7 +60,7 @@
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-sort-exports": "0.9.1",
     "figlet": "1.9.2-beta.0",
-    "isaac-typescript-definitions": "43.0.0",
+    "isaac-typescript-definitions": "43.0.1",
     "jest": "30.2.0",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
