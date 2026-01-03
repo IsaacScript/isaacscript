@@ -55,14 +55,18 @@ export enum ButtonAction {
   /**
    * This only fires on `InputHook.IS_ACTION_PRESSED` (0).
    *
-   * This enum value changed in Repentance+ from 16 to 18.
+   * - Restart is 16 in Repentance.
+   * - Restart is 18 in Repentance+.
+   * - Fullscreen is 16 in Repentance+.
    */
   RESTART_REPENTANCE = 16,
 
   /**
    * This only fires on `InputHook.IS_ACTION_TRIGGERED` (1).
    *
-   * This enum value changed in Repentance+ from 17 to 16.
+   * - Fullscreen is 17 in Repentance.
+   * - Fullscreen is 16 in Repentance+.
+   * - Restart is 16 in Repentance.
    */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   FULLSCREEN_REPENTANCE_PLUS = 16,
@@ -70,14 +74,18 @@ export enum ButtonAction {
   /**
    * This only fires on `InputHook.IS_ACTION_TRIGGERED` (1).
    *
-   * This enum value changed in Repentance+ from 17 to 16.
+   * - Fullscreen is 17 in Repentance.
+   * - Fullscreen is 16 in Repentance+.
+   * - Mute is 17 in Repentance+.
    */
   FULLSCREEN_REPENTANCE = 17,
 
   /**
    * This only fires on `InputHook.IS_ACTION_TRIGGERED` (1).
    *
-   * This enum value changed in Repentance+ from 18 to 17.
+   * - Mute is 18 in Repentance.
+   * - Mute is 17 in Repentance+.
+   * - Fullscreen is 17 in Repentance.
    */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   MUTE_REPENTANCE_PLUS = 17,
@@ -85,14 +93,18 @@ export enum ButtonAction {
   /**
    * This only fires on `InputHook.IS_ACTION_TRIGGERED` (1).
    *
-   * This enum value changed in Repentance+ from 18 to 17.
+   * - Mute is 18 in Repentance.
+   * - Mute is 17 in Repentance+.
+   * - Restart is 18 in Repentance+.
    */
   MUTE_REPENTANCE = 18,
 
   /**
    * This only fires on `InputHook.IS_ACTION_PRESSED` (0).
    *
-   * This enum value changed in Repentance+ from 16 to 18.
+   * - Restart is 16 in Repentance.
+   * - Restart is 18 in Repentance+.
+   * - Mute is 18 in Repentance.
    */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   RESTART_REPENTANCE_PLUS = 18,
@@ -112,27 +124,47 @@ export enum ButtonAction {
   /** Does not seem to trigger any input hooks while on keyboard. */
   MENU_DOWN = 23,
 
-  /** This enum value changed in Repentance+ from 24 to 26. */
+  /**
+   * Does not seem to trigger any input hooks while on keyboard.
+   *
+   * - Menu left trigger is 24 in Repentance.
+   * - Menu left trigger is 26 in Repentance+.
+   * - Menu left shoulder is 24 in Repentance+.
+   */
   MENU_LEFT_TRIGGER_REPENTANCE = 24,
 
   /** Added in Repentance+. (It took the old value for "MENU_LEFT_TRIGGER".) */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   MENU_LEFT_SHOULDER = 24,
 
-  /** This enum value changed in Repentance+ from 25 to 27. */
+  /**
+   * Does not seem to trigger any input hooks while on keyboard.
+   *
+   * - Menu right trigger is 25 in Repentance.
+   * - Menu right trigger is 27 in Repentance+.
+   * - Menu right shoulder is 25 in Repentance+.
+   */
   MENU_RIGHT_TRIGGER_REPENTANCE = 25,
 
   /** Added in Repentance+. (It took the old value for "MENU_RIGHT_TRIGGER".) */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   MENU_RIGHT_SHOULDER = 25,
 
-  /** This enum value changed in Repentance+ from 26 to 28. */
+  /**
+   * Does not seem to trigger any input hooks while on keyboard.
+   *
+   * - Menu tab is 26 in Repentance.
+   * - Menu tab is 28 in Repentance+.
+   * - Menu left trigger is 26 in Repentance+.
+   */
   MENU_TAB_REPENTANCE = 26,
 
   /**
    * Does not seem to trigger any input hooks while on keyboard.
    *
-   * This enum value changed in Repentance+ from 24 to 26.
+   * - Menu left trigger is 24 in Repentance.
+   * - Menu left trigger is 26 in Repentance+.
+   * - Menu tab is 26 in Repentance.
    */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   MENU_LEFT_TRIGGER_REPENTANCE_PLUS = 26,
@@ -140,21 +172,27 @@ export enum ButtonAction {
   /**
    * Does not seem to trigger any input hooks while on keyboard.
    *
-   * This enum value changed in Repentance+ from 25 to 27.
+   * - Menu right trigger is 25 in Repentance.
+   * - Menu right trigger is 27 in Repentance+.
+   * - No enum values are equal to 27 in Repentance.
    */
   MENU_RIGHT_TRIGGER_REPENTANCE_PLUS = 27,
 
   /**
    * This only fires on `InputHook.IS_ACTION_TRIGGERED` (1).
    *
-   * This enum value changed in Repentance+ from 28 to 32.
+   * - Console is 28 in Repentance.
+   * - Console is 32 in Repentance+.
+   * - Menu tab is 28 in Repentance+.
    */
   CONSOLE_REPENTANCE = 28,
 
   /**
    * Does not seem to trigger any input hooks while on keyboard.
    *
-   * This enum value changed in Repentance+ from 26 to 28.
+   * - Menu tab is 26 in Repentance.
+   * - Menu tab is 28 in Repentance+.
+   * - Console is 28 in Repentance.
    */
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   MENU_TAB_REPENTANCE_PLUS = 28,
@@ -168,7 +206,9 @@ export enum ButtonAction {
   /**
    * This only fires on `InputHook.IS_ACTION_TRIGGERED` (1).
    *
-   * This enum value changed in Repentance+ from 28 to 32.
+   * - Console is 28 in Repentance.
+   * - Console is 32 in Repentance+.
+   * - No enum values are equal to 32 in Repentance.
    */
   CONSOLE_REPENTANCE_PLUS = 32,
 }

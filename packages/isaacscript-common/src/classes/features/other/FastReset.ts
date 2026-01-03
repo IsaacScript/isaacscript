@@ -6,6 +6,7 @@ import {
   isModifierKeyPressed,
 } from "../../../functions/input";
 import { restart } from "../../../functions/run";
+import { isRepentancePlus } from "../../../functions/utils";
 import { Feature } from "../../private/Feature";
 
 /** A global variable set by custom consoles. */
@@ -86,7 +87,10 @@ function checkResetInput() {
 
   // Check to see if the player has pressed the restart input. (We check all inputs instead of
   // `player.ControllerIndex` because a controller player might be using the keyboard to reset.)
-  if (isActionTriggeredOnAnyInput(ButtonAction.RESTART)) {
+  const buttonActionRestart = isRepentancePlus()
+    ? ButtonAction.RESTART_REPENTANCE_PLUS
+    : ButtonAction.RESTART_REPENTANCE;
+  if (isActionTriggeredOnAnyInput(buttonActionRestart)) {
     restart();
   }
 }

@@ -42,7 +42,7 @@ import {
 import { teleport } from "../../../functions/roomTransition";
 import { setStage } from "../../../functions/stage";
 import { getTSTLClassName } from "../../../functions/tstlClass";
-import { assertDefined } from "../../../functions/utils";
+import { assertDefined, isRepentancePlus } from "../../../functions/utils";
 import { isVector } from "../../../functions/vector";
 import type { CustomTrapdoorDescription } from "../../../interfaces/private/CustomTrapdoorDescription";
 import { ReadonlySet } from "../../../types/ReadonlySet";
@@ -526,10 +526,10 @@ export class CustomTrapdoors extends Feature {
     // We don't want to allow pausing, since that will allow render frames to pass without advancing
     // the stage traveling logic. (We track how many render frames have passed to know when to move
     // to the next step.)
-    const whitelist = new ReadonlySet([
-      ButtonAction.CONSOLE_REPENTANCE,
-      ButtonAction.CONSOLE_REPENTANCE_PLUS,
-    ]);
+    const buttonActionConsole = isRepentancePlus()
+      ? ButtonAction.CONSOLE_REPENTANCE_PLUS
+      : ButtonAction.CONSOLE_REPENTANCE;
+    const whitelist = new ReadonlySet([buttonActionConsole]);
     this.disableInputs.disableAllInputsExceptFor(tstlClassName, whitelist);
     setPlayerAttributes(player, gridEntity.Position);
     dropTaintedForgotten(player);

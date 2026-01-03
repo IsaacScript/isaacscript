@@ -17,7 +17,7 @@ import { logError } from "../../../functions/log";
 import { useActiveItemTemp } from "../../../functions/playerCollectibles";
 import { getAllPlayers } from "../../../functions/playerIndex";
 import { getTSTLClassName } from "../../../functions/tstlClass";
-import { assertDefined } from "../../../functions/utils";
+import { assertDefined, isRepentancePlus } from "../../../functions/utils";
 import { ReadonlySet } from "../../../types/ReadonlySet";
 import { Feature } from "../../private/Feature";
 import type { DisableInputs } from "./DisableInputs";
@@ -184,9 +184,12 @@ export class Pause extends Feature {
       "Failed to get the class name for the pause feature.",
     );
 
+    const buttonActionConsole = isRepentancePlus()
+      ? ButtonAction.CONSOLE_REPENTANCE_PLUS
+      : ButtonAction.CONSOLE_REPENTANCE;
     const whitelist = new ReadonlySet([
       ButtonAction.MENU_CONFIRM,
-      ButtonAction.CONSOLE,
+      buttonActionConsole,
     ]);
     this.disableInputs.disableAllInputsExceptFor(tstlClassName, whitelist);
 
