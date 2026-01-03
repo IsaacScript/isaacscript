@@ -61,4 +61,10 @@ export enum GridRoom {
 
   /** The shop that you go to when you climb the ladder from The Stairway. */
   ANGEL_SHOP = -18,
+
+  /** Added in Repentance+. */
+  DEATHMATCH = -19,
+
+  /** Added in Repentance+. */
+  LIL_PORTAL = -20,
 }

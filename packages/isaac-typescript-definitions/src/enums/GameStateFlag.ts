@@ -97,4 +97,16 @@ export enum GameStateFlag {
 
   /** Set when the player takes Dad's Note. The "backwards path" refers to the Ascent. */
   BACKWARDS_PATH = 48,
+
+  /** Added in Repentance+. */
+  MEGA_SATAN_DOOR_OPENED = 49,
+
+  /** Added in Repentance+. */
+  URIEL_KILLED = 50,
+
+  /** Added in Repentance+. */
+  GABRIEL_KILLED = 51,
+
+  /** Added in Repentance+. */
+  MOTHER_HEART_DOOR_OPENED = 52,
 }

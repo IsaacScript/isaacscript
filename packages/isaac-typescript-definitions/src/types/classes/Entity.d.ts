@@ -17,8 +17,14 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      * @param damage The damage taken per tick. Each damage tick is 20 frames apart.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddBurn: (source: EntityRef, duration: int, damage: float) => void;
+    AddBurn: (
+      source: EntityRef,
+      duration: int,
+      damage: float,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /**
      * Adds a charmed effect to the entity.
@@ -27,8 +33,13 @@ declare global {
      *               `EntityRef(undefined)`.
      * @param duration The number of frames that the effect should apply for. If set to -1, the
      *                 effect will be permanent and the entity will follow you to different rooms.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddCharmed: (source: EntityRef, duration: int) => void;
+    AddCharmed: (
+      source: EntityRef,
+      duration: int,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /**
      * Adds a confusion effect to the entity.
@@ -36,12 +47,12 @@ declare global {
      * @param source Required. If you do not want the effect to have a source, pass
      *               `EntityRef(undefined)`.
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
-     * @param ignoreBosses
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
     AddConfusion: (
       source: EntityRef,
       duration: int,
-      ignoreBosses: boolean,
+      ignoreBosses?: boolean,
     ) => void;
 
     /**
@@ -56,8 +67,9 @@ declare global {
      * @param source Required. If you do not want the effect to have a source, pass
      *               `EntityRef(undefined)`.
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddFear: (source: EntityRef, duration: int) => void;
+    AddFear: (source: EntityRef, duration: int, ignoreBosses?: boolean) => void;
 
     /**
      * Adds a freeze effect to the entity.
@@ -65,8 +77,13 @@ declare global {
      * @param source Required. If you do not want the effect to have a source, pass
      *               `EntityRef(undefined)`.
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddFreeze: (source: EntityRef, duration: int) => void;
+    AddFreeze: (
+      source: EntityRef,
+      duration: int,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /** Heals the entity. */
     AddHealth: (hitPoints: float) => void;
@@ -80,8 +97,13 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
      *                 (However, if a value higher than 150 is passed, the freeze will be reduced to
      *                 150 frames, but the gold color will persist for the full duration.)
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddMidasFreeze: (source: EntityRef, duration: int) => void;
+    AddMidasFreeze: (
+      source: EntityRef,
+      duration: int,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /**
      * Adds a poison effect to the entity.
@@ -91,8 +113,14 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames. The maximum is 150.
      * @param damage The damage taken per tick. Each damage tick is 20 frames apart.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddPoison: (source: EntityRef, duration: int, damage: float) => void;
+    AddPoison: (
+      source: EntityRef,
+      duration: int,
+      damage: float,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /**
      * Adds a shrink effect to the entity.
@@ -100,8 +128,13 @@ declare global {
      * @param source Required. If you do not want the effect to have a source, pass
      *               `EntityRef(undefined)`.
      * @param duration The number of frames that the effect should apply for.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddShrink: (source: EntityRef, duration: int) => void;
+    AddShrink: (
+      source: EntityRef,
+      duration: int,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /**
      * Adds a slowing effect to the entity.
@@ -111,13 +144,15 @@ declare global {
      * @param duration The number of frames that the effect should apply for.
      * @param slowValue This is the multiplier applied to the entity's movement speed. For example,
      *                  a value of 0.5 would slow down the entity by 50%.
-     * @param slowColor
+     * @param slowColor The color modification to make to the enemy.
+     * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
     AddSlowing: (
       source: EntityRef,
       duration: int,
       slowValue: float,
       slowColor: Color,
+      ignoreBosses?: boolean,
     ) => void;
 
     /**
@@ -219,6 +254,10 @@ declare global {
     IsVulnerableEnemy: () => boolean;
 
     Kill: () => void;
+
+    /** Added in Repentance+. */
+    KillWithSource: (source: EntityRef) => void;
+
     MultiplyFriction: (value: float) => void;
     PostRender: () => void;
     Remove: () => void;

@@ -97,4 +97,7 @@ export enum Music {
   MINESHAFT_AMBIENT = 116,
   MINESHAFT_ESCAPE = 117,
   REVERSE_GENESIS = 118,
+
+  /** Added in Repentance+. */
+  MUSIC_DEATHMATCH = 119,
 }

@@ -20,6 +20,7 @@ import type { CacheFlag } from "../../enums/flags/CacheFlag";
 import type { DamageFlag } from "../../enums/flags/DamageFlag";
 import type { TearFlag } from "../../enums/flags/TearFlag";
 import type { UseFlag } from "../../enums/flags/UseFlag";
+import type { ItemPoolType } from "../../enums/ItemPoolType";
 import type { LaserOffset } from "../../enums/LaserOffset";
 import type { NullItemID } from "../../enums/NullItemID";
 import type { PillEffect } from "../../enums/PillEffect";
@@ -86,6 +87,7 @@ declare global {
      *                   `ActiveSlot.SLOT_PRIMARY`.
      * @param varData Sets the variable data for this collectible (this is used to store extra data
      *                for some active items like the number of uses for Jar of Wisps). Default is 0.
+     * @param itemPoolType This parameter was added in Repentance+.
      */
     AddCollectible: (
       collectibleType: CollectibleType,
@@ -93,6 +95,7 @@ declare global {
       firstTimePickingUp?: boolean,
       activeSlot?: ActiveSlot.PRIMARY | ActiveSlot.SECONDARY,
       varData?: int,
+      itemPoolType?: ItemPoolType,
     ) => void;
 
     AddControlsCooldown: (cooldown: int) => void;
