@@ -30,7 +30,7 @@
     "lint": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/lint.mts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "43.0.0"
+    "isaac-typescript-definitions": "43.0.1"
   },
   "devDependencies": {
     "complete-node": "16.2.0",

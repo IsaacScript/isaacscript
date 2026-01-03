@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "complete-common": "2.11.0",
-    "isaac-typescript-definitions": "43.0.0"
+    "isaac-typescript-definitions": "43.0.1"
   },
   "devDependencies": {
     "complete-node": "16.2.0",
