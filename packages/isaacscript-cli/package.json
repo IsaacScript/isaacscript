@@ -46,7 +46,7 @@
     "chalk": "5.6.2",
     "commander": "14.0.2",
     "complete-common": "2.11.0",
-    "complete-node": "16.0.0",
+    "complete-node": "16.2.0",
     "figlet": "1.9.2-beta.0",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
@@ -64,7 +64,7 @@
     "@types/source-map-support": "0.5.10",
     "@types/xml2js": "0.4.14",
     "ts-json-schema-generator": "2.4.0",
-    "typescript-eslint": "8.50.1"
+    "typescript-eslint": "8.51.0"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0",
