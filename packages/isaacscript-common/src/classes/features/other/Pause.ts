@@ -3,7 +3,9 @@ import {
   CollectibleType,
   InputHook,
   ModCallback,
+  SoundEffect,
 } from "isaac-typescript-definitions";
+import { sfxManager } from "../../../core/cachedClasses";
 import { VectorZero } from "../../../core/constants";
 import { Exported } from "../../../decorators";
 import {
@@ -72,6 +74,10 @@ export class Pause extends Feature {
 
     const firstPlayer = Isaac.GetPlayer();
     useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
+
+    if (isRepentancePlus()) {
+      sfxManager.Stop(SoundEffect.PAUSE_FREEZE);
+    }
 
     this.stopTearsAndProjectilesFromMoving();
   };
@@ -177,6 +183,10 @@ export class Pause extends Feature {
 
     const firstPlayer = Isaac.GetPlayer();
     useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
+
+    if (isRepentancePlus()) {
+      sfxManager.Stop(SoundEffect.PAUSE_FREEZE);
+    }
 
     const tstlClassName = getTSTLClassName(this);
     assertDefined(
