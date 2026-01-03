@@ -3,8 +3,9 @@ import {
   CollectibleType,
   InputHook,
   ModCallback,
+  SoundEffect,
 } from "isaac-typescript-definitions";
-import { sfxManager } from "../core/cachedClasses";
+import { sfxManager } from "../../../core/cachedClasses";
 import { VectorZero } from "../../../core/constants";
 import { Exported } from "../../../decorators";
 import {
