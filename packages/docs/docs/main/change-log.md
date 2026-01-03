@@ -2248,13 +2248,13 @@ If you decide to upgrade `isaacscript-lint` in your existing projects, you shoul
 2. Add the Prettier VSCode extension to `extensions.json`:
 
 ```json
-"esbenp.prettier-vscode", // The TypeScript formatter
+"prettier.prettier-vscode", // The TypeScript formatter
 ```
 
 3. Add the following lines to the `"[javascript]"` and `"[typescript]"` sections of the `settings.json` file:
 
 ```json
-"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.defaultFormatter": "prettier.prettier-vscode",
 "editor.formatOnSave": true,
 ```
 
@@ -3199,7 +3199,7 @@ You can still use `null` in your own variables, but make sure that it is for var
 
 ## August 3rd, 2021
 
-- Released the `isaacscript-common` package, which includes helper functions that you can use in your IsaacScript mods. Right now there are not that many functions, but I plan to increase this in the future. They are documented [here](https://isaacscript.github.io/isaacscript-common).
+- Released the [`isaacscript-common`](https://isaacscript.github.io/isaacscript-common) package, which includes helper functions that you can use in your IsaacScript mods. Right now there are not that many functions, but I plan to increase this in the future.
 - Breaking changes:
   - The `isaacscript` package is no longer a meta-package that provides everything else. (It was getting too big and hard to handle.)
   - This means that instead of having 1 dependency of just `isaacscript`, new IsaacScript mods created with `init` are initialized with 4 dependencies:

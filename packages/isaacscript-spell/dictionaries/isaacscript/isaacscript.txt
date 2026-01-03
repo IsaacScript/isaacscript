@@ -4,7 +4,6 @@ airbnb # settings.json
 autocrlf # .gitattributes
 corepack # Used to install yarn
 dbaeumer # extensions.json
-esbenp # extensions.json
 isaacscript
 NPCID # Custom enum
 packagejson # prettier.config.mjs
