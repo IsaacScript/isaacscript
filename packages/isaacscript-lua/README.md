@@ -9,7 +9,7 @@ This is a Python script to help manage IsaacScript-related libraries in a Lua pr
 Install the tool:
 
 ```sh
-pip install --upgrade isaacscript-lua
+python -m pip install --upgrade isaacscript-lua
 ```
 
 Install the isaacscript-common` library:

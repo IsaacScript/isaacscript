@@ -24,7 +24,7 @@ Note that for Lua users, both `isaac-typescript-definitions` and `isaacscript-co
 If you have Python installed on your computer and you know what a terminal/shell is, then the easiest way to install the library is to use the `isaacscript-lua` Python tool. Otherwise, you can use the [manual installation](#manual-installation) (see below).
 
 - In a terminal, navigate to the directory of your mod.
-- Install the tool: `pip install isaacscript-lua --upgrade`
+- Install the tool: `python -m pip install isaacscript-lua --upgrade`
 - Install the Lua library: `isaacscript-lua install`
 
 If you get `ERROR: Could not find a version that satisfies the requirement isaacscript-lua (from versions: none)`, that means that your version of Python is too old. Make sure that you have Python version 3.10 or later installed.

@@ -28,7 +28,7 @@ await lintScript(import.meta.dirname, async () => {
 
   const pythonExists = await commandExists("python");
   if (pythonExists) {
-    await $`pip install isaac-xml-validator --upgrade --quiet`;
+    await $`python -m pip install isaac-xml-validator --upgrade --quiet`;
     promises.push($`isaac-xml-validator --quiet`);
   }
 
