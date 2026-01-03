@@ -37,7 +37,7 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "start": "tsx ./src/main.ts",
-    "test": "tsx --test"
+    "test": "tsx --test \"src/**/*.test.ts\""
   },
   "dependencies": {
     "@commander-js/extra-typings": "14.0.0",
