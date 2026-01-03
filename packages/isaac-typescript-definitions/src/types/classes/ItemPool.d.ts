@@ -26,7 +26,8 @@ declare global {
      * @param decrease Default is false.
      * @param seed Default is `Random()`.
      * @param defaultItem Default is `CollectibleType.NULL`.
-     * @param backupItemPoolType Default is `ItemPoolType.POOL_NULL`.
+     * @param backupItemPoolType Default is `ItemPoolType.POOL_NULL`. This parameter was added in
+     *                           Repentance+.
      */
     GetCollectible: (
       itemPoolType: ItemPoolType,

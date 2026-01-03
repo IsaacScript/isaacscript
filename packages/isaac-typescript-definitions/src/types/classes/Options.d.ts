@@ -125,6 +125,8 @@ declare global {
      * Toggles the way to activate Esau's items.
      *
      * This can be changed from the in-game options menu.
+     *
+     * Added in Repentance+.
      */
     let JacobEsauControls: JacobEsauControls;
 

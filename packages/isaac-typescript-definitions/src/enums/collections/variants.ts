@@ -1636,4 +1636,19 @@ export enum EffectVariant {
   DEAD_BIRD = 197,
   GENERIC_TRACER = 198,
   ULTRA_DEATH_SCYTHE = 199,
+
+  /** Added in Repentance+. */
+  BULLET_POOF_STATIC = 200,
+
+  /** Added in Repentance+. */
+  UMBILICAL_CORD_HELPER = 201,
+
+  /** Added in Repentance+. */
+  MEGA_BEAN_EXPLOSION = 202,
+
+  /** Added in Repentance+. */
+  SPAWN_PENTAGRAM = 203,
+
+  /** Added in Repentance+. */
+  PLAYER_CREEP_YELLOW = 204,
 }

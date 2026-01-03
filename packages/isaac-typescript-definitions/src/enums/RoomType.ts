@@ -50,4 +50,7 @@ export enum RoomType {
   BLUE = 28,
 
   ULTRA_SECRET = 29,
+
+  /** Added in Repentance+. */
+  DEATHMATCH = 30,
 }

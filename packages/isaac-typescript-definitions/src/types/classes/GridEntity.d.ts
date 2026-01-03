@@ -4,7 +4,10 @@ import type { GridEntityType } from "../../enums/GridEntityType";
 declare global {
   interface GridEntity extends IsaacAPIClass {
     Destroy: (immediate: boolean) => boolean;
+
+    /** Added in Repentance+. */
     DestroyWithSource: (immediate: boolean, source: EntityRef) => boolean;
+
     GetGridIndex: () => int;
 
     /** The RNG returned is a reference (i.e. not a copy). */
@@ -18,7 +21,10 @@ declare global {
     GetType: () => GridEntityType;
     GetVariant: () => int;
     Hurt: (damage: int) => boolean;
+
+    /** Added in Repentance+. */
     HurtWithSource: (damage: int, source: EntityRef) => boolean;
+
     Init: (seed: Seed) => void;
     PostInit: () => void;
     Render: (offset: Vector) => void;

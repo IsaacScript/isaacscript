@@ -188,7 +188,8 @@ declare interface Sprite extends IsaacAPIClass {
    * @param pngPath The full path to the PNG file. For example:
    * "gfx/items/collectibles/questionmark.png"
    * @returns `true` if the spritesheet at the given layer ID was successfully replaced and if the
-   *          new spritesheet is not the same as the old one, otherwise `false`.
+   *          new spritesheet is not the same as the old one, otherwise `false`. This return value
+   *          was added in Repentance+.
    */
   ReplaceSpritesheet: (layerID: int, pngPath: string) => boolean;
 

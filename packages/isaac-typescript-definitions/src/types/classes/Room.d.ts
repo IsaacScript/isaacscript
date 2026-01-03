@@ -36,17 +36,23 @@ declare global {
     ) => LuaMultiReturn<[clear: boolean, collidePos: Vector]>;
 
     DamageGrid: (index: int, damage: int) => boolean;
+
+    /** Added in Repentance+. */
     DamageGridWithSource: (
       index: int,
       damage: int,
       source: EntityRef,
     ) => boolean;
+
     DestroyGrid: (index: int, immediate: boolean) => boolean;
+
+    /** Added in Repentance+. */
     DestroyGridWithSource: (
       index: int,
       immediate: boolean,
       source: EntityRef,
     ) => boolean;
+
     EmitBloodFromWalls: (duration: int, count: int) => void;
 
     /**
@@ -218,7 +224,8 @@ declare global {
     /**
      * @param position Optional. The position where the explosion should originate. Default is
      *                 `Vector.Zero`.
-     * @param player Optional. The player that the explosion should come from.
+     * @param player Optional. The player that the explosion should come from. This parameter was
+     *               added in Repentance+.
      */
     MamaMegaExplosion: (position?: Vector, player?: EntityPlayer) => void;
 

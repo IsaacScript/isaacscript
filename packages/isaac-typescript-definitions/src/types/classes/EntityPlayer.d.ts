@@ -87,7 +87,7 @@ declare global {
      *                   `ActiveSlot.SLOT_PRIMARY`.
      * @param varData Sets the variable data for this collectible (this is used to store extra data
      *                for some active items like the number of uses for Jar of Wisps). Default is 0.
-     * @param itemPoolType
+     * @param itemPoolType This parameter was added in Repentance+.
      */
     AddCollectible: (
       collectibleType: CollectibleType,

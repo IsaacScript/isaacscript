@@ -827,4 +827,778 @@ export enum SoundEffect {
   G_FUEL_GUNSHOT_MINI = 830,
   G_FUEL_BULLET_RICOCHET = 831,
   G_FUEL_ROCKET_LAUNCHER = 832,
+
+  /** Added in Repentance+. */
+  DEATHMATCH_INTRO = 833,
+
+  /** Added in Repentance+. */
+  ABYSS = 834,
+
+  /** Added in Repentance+. */
+  BIG_CHUBBY_ATTACK = 835,
+
+  /** Added in Repentance+. */
+  BOOMERANG_THROW = 836,
+
+  /** Added in Repentance+. */
+  BOOMERANG_LOOP = 837,
+
+  /** Added in Repentance+. */
+  BOOMERANG_CATCH = 838,
+
+  /** Added in Repentance+. */
+  BOOMERANG_HIT = 839,
+
+  /** Added in Repentance+. */
+  BOX_OF_FRIENDS = 840,
+
+  /** Added in Repentance+. */
+  BROWN_NUGGET = 841,
+
+  /** Added in Repentance+. */
+  BUMBO_1 = 842,
+
+  /** Added in Repentance+. */
+  BUMBO_2 = 843,
+
+  /** Added in Repentance+. */
+  BUMBO_3 = 844,
+
+  /** Added in Repentance+. */
+  BUMBO_4 = 845,
+
+  /** Added in Repentance+. */
+  PORTAL_ENTITY_LOOP = 846,
+
+  /** Added in Repentance+. */
+  PORTAL_ENTITY_ENTER = 847,
+
+  /** Added in Repentance+. */
+  CONVERTER = 848,
+
+  /** Added in Repentance+. */
+  LITTLE_CHUBBY_ATTACK = 849,
+
+  /** Added in Repentance+. */
+  CRACKED_ORB = 850,
+
+  /** Added in Repentance+. */
+  CROOKED_PENNY = 851,
+
+  /** Added in Repentance+. */
+  CUBE_BABY_KICK = 852,
+
+  /** Added in Repentance+. */
+  DARK_BUM_PAYOUT = 853,
+
+  /** Added in Repentance+. */
+  DATAMINER = 854,
+
+  /** Added in Repentance+. */
+  DR_REMOTE_WARNING = 855,
+
+  /** Added in Repentance+. */
+  FLIP_POOF = 856,
+
+  /** Added in Repentance+. */
+  ERASER_HIT = 857,
+
+  /** Added in Repentance+. */
+  GNAWED_LEAF = 858,
+
+  /** Added in Repentance+. */
+  LIL_HAUNT_CHASE = 859,
+
+  /** Added in Repentance+. */
+  LINGER_BEAN = 860,
+
+  /** Added in Repentance+. */
+  GLOWING_HOURGLASS_ACTIVATE = 861,
+
+  /** Added in Repentance+. */
+  GLOWING_HOURGLASS_FIZZLE = 862,
+
+  /** Added in Repentance+. */
+  INFAMY_DEFLECT = 863,
+
+  /** Added in Repentance+. */
+  IBS_GURGLE = 864,
+
+  /** Added in Repentance+. */
+  POOP_THROW = 865,
+
+  /** Added in Repentance+. */
+  GLITTER_BOOM = 866,
+
+  /** Added in Repentance+. */
+  GLITTER_FUSE = 867,
+
+  /** Added in Repentance+. */
+  LITTLE_HORN_SHOOT = 868,
+
+  /** Added in Repentance+. */
+  MEGA_BEAN_BLAST = 869,
+
+  /** Added in Repentance+. */
+  MOM_BOTTLE = 870,
+
+  /** Added in Repentance+. */
+  SUMMON_PENTAGRAM = 871,
+
+  /** Added in Repentance+. */
+  SUMMON_WAVE = 872,
+
+  /** Added in Repentance+. */
+  BIGHORN_APPEAR = 873,
+
+  /** Added in Repentance+. */
+  BIGHORN_CLOSE_BIG = 874,
+
+  /** Added in Repentance+. */
+  BIGHORN_CRACK_BIG = 875,
+
+  /** Added in Repentance+. */
+  BIGHORN_OPEN_BIG = 876,
+
+  /** Added in Repentance+. */
+  BIGHORN_SHAKE_BIG = 877,
+
+  /** Added in Repentance+. */
+  BIGHORN_DEATH = 878,
+
+  /** Added in Repentance+. */
+  BIGHORN_DIZZY_SHAKE = 879,
+
+  /** Added in Repentance+. */
+  BIGHORN_HAND_APPEAR = 880,
+
+  /** Added in Repentance+. */
+  BIGHORN_HAND_HIDE = 881,
+
+  /** Added in Repentance+. */
+  BIGHORN_HIDE = 882,
+
+  /** Added in Repentance+. */
+  BIGHORN_HURT = 883,
+
+  /** Added in Repentance+. */
+  BIGHORN_PRE_SPIT = 884,
+
+  /** Added in Repentance+. */
+  BIGHORN_CLOSE_SMALL = 885,
+
+  /** Added in Repentance+. */
+  BIGHORN_CRACK_SMALL = 886,
+
+  /** Added in Repentance+. */
+  BIGHORN_OPEN_SMALL = 887,
+
+  /** Added in Repentance+. */
+  BIGHORN_SHAKE_SMALL = 888,
+
+  /** Added in Repentance+. */
+  BIGHORN_SPIT = 889,
+
+  /** Added in Repentance+. */
+  MOMS_BOX = 890,
+
+  /** Added in Repentance+. */
+  MONSTRO_LUNG_BARF = 891,
+
+  /** Added in Repentance+. */
+  MOVING_BOX_PACK = 892,
+
+  /** Added in Repentance+. */
+  MOVING_BOX_UNPACK = 893,
+
+  /** Added in Repentance+. */
+  PANDORAS_BOX = 894,
+
+  /** Added in Repentance+. */
+  PAUSE_FREEZE = 895,
+
+  /** Added in Repentance+. */
+  MONSTRO_LUNG_CHARGE = 896,
+
+  /** Added in Repentance+. */
+  PLAN_C = 897,
+
+  /** Added in Repentance+. */
+  PORTABLE_SLOT_USE = 898,
+
+  /** Added in Repentance+. */
+  PORTABLE_SLOT_WIN = 899,
+
+  /** Added in Repentance+. */
+  SAFETY_SCISSORS = 900,
+
+  /** Added in Repentance+. */
+  BUTTER_DROP = 901,
+
+  /** Added in Repentance+. */
+  BUTTER_LAND = 902,
+
+  /** Added in Repentance+. */
+  PRIDE_ZAP = 903,
+
+  /** Added in Repentance+. */
+  R_KEY = 904,
+
+  /** Added in Repentance+. */
+  TEAR_BOUNCE = 905,
+
+  /** Added in Repentance+. */
+  SHARP_PLUG = 906,
+
+  /** Added in Repentance+. */
+  RIB_DEFLECT = 907,
+
+  /** Added in Repentance+. */
+  SMELTER = 908,
+
+  // cspell:disable-next-line-next-line
+  /** Added in Repentance+. Note that the vanilla enum is incorrectly spelled as "TELEKENESIS". */
+  TELEKINESIS = 909,
+
+  /** Added in Repentance+. */
+  // eslint-disable-next-line isaacscript/enum-member-number-separation
+  D6_ROLL = 910,
+
+  /** Added in Repentance+. */
+  TICK_BURN = 911,
+
+  /** Added in Repentance+. */
+  TELEPORT_UNDEFINED = 912,
+
+  /** Added in Repentance+. */
+  VOID_CONSUME = 913,
+
+  /** Added in Repentance+. */
+  YO_LISTEN = 914,
+
+  /** Added in Repentance+. */
+  SPIN_TO_WIN = 915,
+
+  /** Added in Repentance+. */
+  SHOVEL_DIG_2 = 916,
+
+  /** Added in Repentance+. */
+  SHOVEL_HOLE_OPEN = 917,
+
+  /** Added in Repentance+. */
+  CAGE_DEATH = 918,
+
+  /** Added in Repentance+. */
+  CAGE_JUMP = 919,
+
+  /** Added in Repentance+. */
+  CAGE_RIBS = 920,
+
+  /** Added in Repentance+. */
+  CAGE_ROLL_START = 921,
+
+  /** Added in Repentance+. */
+  CAGE_PREP_SHOOT = 922,
+
+  /** Added in Repentance+. */
+  CAGE_ROLL_STOP = 923,
+
+  /** Added in Repentance+. */
+  CAGE_ROLL_BOUNCE = 924,
+
+  /** Added in Repentance+. */
+  DEATH_HOURGLASS = 925,
+
+  /** Added in Repentance+. */
+  DEATH_SICKLE = 926,
+
+  /** Added in Repentance+. */
+  DEATH_LEAN = 927,
+
+  /** Added in Repentance+. */
+  DEATH_VOX = 928,
+
+  /** Added in Repentance+. */
+  DEATH_SPAWN_PREP = 929,
+
+  /** Added in Repentance+. */
+  DEATH_HORSE_ATTACK = 930,
+
+  /** Added in Repentance+. */
+  DEATH_HORSE_WOOSH = 931,
+
+  /** Added in Repentance+. */
+  PIN_DIVE = 932,
+
+  /** Added in Repentance+. */
+  PIN_POPUP = 933,
+
+  /** Added in Repentance+. */
+  PIN_PUDDLE = 934,
+
+  /** Added in Repentance+. */
+  PIN_SPIT = 935,
+
+  /** Added in Repentance+. */
+  GISH_JUMP = 936,
+
+  /** Added in Repentance+. */
+  GISH_JUMP_HIGH = 937,
+
+  /** Added in Repentance+. */
+  GISH_SPIT = 938,
+
+  /** Added in Repentance+. */
+  GURDY_FACE_ATTACK_APPEAR = 939,
+
+  /** Added in Repentance+. */
+  GURDY_FACE_ATTACK_HIDE = 940,
+
+  /** Added in Repentance+. */
+  GURDY_FACE_SMILE_APPEAR = 941,
+
+  /** Added in Repentance+. */
+  GURDY_FACE_SMILE_HIDE = 942,
+
+  /** Added in Repentance+. */
+  GURGLING_ATTACK = 943,
+
+  /** Added in Repentance+. */
+  LITTLE_HORN_DEATH = 944,
+
+  /** Added in Repentance+. */
+  LITTLE_HORN_BOMB_DROP = 945,
+
+  /** Added in Repentance+. */
+  LITTLE_HORN_DIVE = 946,
+
+  /** Added in Repentance+. */
+  LITTLE_HORN_HOLE_OPEN = 947,
+
+  /** Added in Repentance+. */
+  LITTLE_HORN_HOLE_EXIT = 948,
+
+  /** Added in Repentance+. */
+  LOKI_GIGGLE = 949,
+
+  /** Added in Repentance+. */
+  LOKI_JUMP_OUT = 950,
+
+  /** Added in Repentance+. */
+  LOKI_JUMP_IN = 951,
+
+  /** Added in Repentance+. */
+  LOKI_SHOOT = 952,
+
+  /** Added in Repentance+. */
+  LOKI_SHOOT_8 = 953,
+
+  /** Added in Repentance+. */
+  MASK_INFAMY_MAD = 954,
+
+  /** Added in Repentance+. */
+  MASK_INFAMY_DASH = 955,
+
+  /** Added in Repentance+. */
+  MEGA_FATTY_GULP = 956,
+
+  /** Added in Repentance+. */
+  MEGA_FATTY_SUCKING = 957,
+
+  /** Added in Repentance+. */
+  MEGA_FATTY_VOMIT = 958,
+
+  /** Added in Repentance+. */
+  STAIN_ATTACK_VOX = 959,
+
+  /** Added in Repentance+. */
+  SISTERS_VIS_SCARE = 960,
+
+  /** Added in Repentance+. */
+  STEVEN_DEATH_BIG = 961,
+
+  /** Added in Repentance+. */
+  STEVEN_DEATH_SMALL = 963,
+
+  /** Added in Repentance+. */
+  FALLEN_FLAP_CHASE = 964,
+
+  /** Added in Repentance+. */
+  FALLEN_GROWL = 965,
+
+  /** Added in Repentance+. */
+  FALLEN_FLAP = 966,
+
+  /** Added in Repentance+. */
+  FALLEN_OPEN_WINGS = 967,
+
+  /** Added in Repentance+. */
+  TERATOMA_BOUNCE_BIG = 968,
+
+  /** Added in Repentance+. */
+  TERATOMA_BOUNCE_MEDIUM = 969,
+
+  /** Added in Repentance+. */
+  TERATOMA_BOUNCE_SMALL = 970,
+
+  /** Added in Repentance+. */
+  FORSAKEN_LASER = 971,
+
+  /** Added in Repentance+. */
+  FORSAKEN_ARMS_UP = 972,
+
+  /** Added in Repentance+. */
+  FORSAKEN_FADE = 973,
+
+  /** Added in Repentance+. */
+  FISTULA_BOUNCE_LARGE = 974,
+
+  /** Added in Repentance+. */
+  FISTULA_BOUNCE_MEDIUM = 975,
+
+  /** Added in Repentance+. */
+  FISTULA_BOUNCE_SMALL = 976,
+
+  /** Added in Repentance+. */
+  FISTULA_BURST_LARGE = 977,
+
+  /** Added in Repentance+. */
+  FISTULA_GROWL_LARGE = 978,
+
+  /** Added in Repentance+. */
+  FISTULA_GROWL_MEDIUM = 979,
+
+  /** Added in Repentance+. */
+  FISTULA_GROWL_SMALL = 980,
+
+  /** Added in Repentance+. */
+  RAG_MEGA_BALL_ATTACK = 981,
+
+  /** Added in Repentance+. */
+  RAG_MEGA_BEAM = 982,
+
+  /** Added in Repentance+. */
+  RAG_MEGA_INHALE = 983,
+
+  /** Added in Repentance+. */
+  RAG_MEGA_EXHALE = 984,
+
+  /** Added in Repentance+. */
+  RAG_MEGA_INVINCIBLE_ON = 985,
+
+  /** Added in Repentance+. */
+  RAG_MEGA_INVINCIBLE_OFF = 986,
+
+  /** Added in Repentance+. */
+  BLASTOCYST_JUMP_BIG = 987,
+
+  /** Added in Repentance+. */
+  BLASTOCYST_JUMP = 988,
+
+  /** Added in Repentance+. */
+  BLASTOCYST_JUMP_SMALL = 989,
+
+  /** Added in Repentance+. */
+  POOP_DROP = 990,
+
+  /** Added in Repentance+. */
+  CARRION_QUEEN_BOUNCE = 991,
+
+  /** Added in Repentance+. */
+  CARRION_QUEEN_DIAGONAL_START = 992,
+
+  /** Added in Repentance+. */
+  CARRION_QUEEN_DIAGONAL_VOX = 993,
+
+  /** Added in Repentance+. */
+  CARRION_QUEEN_ROAR = 994,
+
+  /** Added in Repentance+. */
+  HAUNT_CHARGE = 995,
+
+  /** Added in Repentance+. */
+  HAUNT_DEATH = 996,
+
+  /** Added in Repentance+. */
+  HAUNT_ROAR = 997,
+
+  /** Added in Repentance+. */
+  HAUNT_RELEASE_LIL = 998,
+
+  /** Added in Repentance+. */
+  LARRY_JR_DEATH_1 = 999,
+
+  /** Added in Repentance+. */
+  LARRY_JR_DEATH_2 = 1000,
+
+  /** Added in Repentance+. */
+  LARRY_JR_ROAR = 1001,
+
+  /** Added in Repentance+. */
+  MEGA_FATTY_MEGA_FART = 1002,
+
+  /** Added in Repentance+. */
+  HOLLOW_DEATH_1 = 1003,
+
+  /** Added in Repentance+. */
+  HOLLOW_DEATH_2 = 1004,
+
+  /** Added in Repentance+. */
+  HOLLOW_ROAR = 1005,
+
+  /** Added in Repentance+. */
+  WAR_KNOCKDOWN = 1006,
+
+  /** Added in Repentance+. */
+  WAR_CHARGE = 1007,
+
+  /** Added in Repentance+. */
+  BOSS_NEAR = 1008,
+
+  /** Added in Repentance+. */
+  CAMBION_CONCEPTION = 1009,
+
+  /** Added in Repentance+. */
+  IMMACULATE_CONCEPTION = 1010,
+
+  /** Added in Repentance+. */
+  CHARGED_BABY_BATTERY = 1011,
+
+  /** Added in Repentance+. */
+  CHARGED_BABY_CHARGE = 1012,
+
+  /** Added in Repentance+. */
+  CHARGED_BABY_STUN = 1013,
+
+  /** Added in Repentance+. */
+  ROCK_SHINE = 1014,
+
+  /** Added in Repentance+. */
+  BLUE_SPIDER_DIE = 1015,
+
+  /** Added in Repentance+. */
+  SISSY_LONGLEGS_CHARM = 1016,
+
+  /** Added in Repentance+. */
+  ITEM_RAISE = 1017,
+
+  /** Added in Repentance+. */
+  CLOG_POOP_SMOKE = 1018,
+
+  /** Added in Repentance+. */
+  FRIENDLY_BALL_CAPTURE = 1019,
+
+  /** Added in Repentance+. */
+  FRIENDLY_BALL_LAND = 1020,
+
+  /** Added in Repentance+. */
+  FRIENDLY_BALL_PICKUP = 1021,
+
+  /** Added in Repentance+. */
+  FRIENDLY_BALL_RAISE = 1022,
+
+  /** Added in Repentance+. */
+  FRIENDLY_BALL_RELEASE = 1023,
+
+  /** Added in Repentance+. */
+  FRIENDLY_BALL_THROW = 1024,
+
+  /** Added in Repentance+. */
+  BEST_FRIEND = 1025,
+
+  /** Added in Repentance+. */
+  BOOK_SHADOWS_START = 1026,
+
+  /** Added in Repentance+. */
+  BOOK_SHADOWS_END = 1027,
+
+  /** Added in Repentance+. */
+  BOOK_SHADOWS_SIGIL = 1028,
+
+  /** Added in Repentance+. */
+  BOX_SPIDERS = 1029,
+
+  /** Added in Repentance+. */
+  SUPLEX_ACTIVATE = 1030,
+
+  /** Added in Repentance+. */
+  SUPLEX_GRAB = 1031,
+
+  /** Added in Repentance+. */
+  SUPLEX_JUMP = 1032,
+
+  /** Added in Repentance+. */
+  SUPLEX_LAND = 1033,
+
+  /** Added in Repentance+. */
+  DEAD_SEA_SCROLLS = 1034,
+
+  /** Added in Repentance+. */
+  MOMS_BRA = 1035,
+
+  /** Added in Repentance+. */
+  RED_CANDLE = 1036,
+
+  /** Added in Repentance+. */
+  SATANIC_BIBLE = 1037,
+
+  /** Added in Repentance+. */
+  BIBLE = 1038,
+
+  /** Added in Repentance+. */
+  HOURGLASS = 1039,
+
+  /** Added in Repentance+. */
+  MEGA_MUSH_SHRINK = 1040,
+
+  /** Added in Repentance+. */
+  MAGIC_SKIN = 1041,
+
+  /** Added in Repentance+. */
+  BOOK_OF_SIN = 1042,
+
+  /** Added in Repentance+. */
+  BROKEN_SHOVEL = 1043,
+
+  /** Added in Repentance+. */
+  DULL_RAZOR = 1044,
+
+  /** Added in Repentance+. */
+  DARK_ARTS = 1045,
+
+  /** Added in Repentance+. */
+  DECAP_ACTIVATE = 1046,
+
+  // cspell:disable-next-line
+  /** Added in Repentance+. */
+  DECAP_THROW = 1047,
+
+  /** Added in Repentance+. */
+  ESAU_JR = 1048,
+
+  /** Added in Repentance+. */
+  NECROMANCER = 1049,
+
+  /** Added in Repentance+. */
+  GELLO = 1050,
+
+  /** Added in Repentance+. */
+  HEAVENS_DOOR_ENTER = 1051,
+
+  /** Added in Repentance+. */
+  TRAP_DOOR_LEVEL = 1052,
+
+  /** Added in Repentance+. */
+  CRYSTAL_BALL = 1053,
+
+  /** Added in Repentance+. */
+  FORGET_ME_NOW = 1054,
+
+  /** Added in Repentance+. */
+  HOW_TO_JUMP = 1055,
+
+  /** Added in Repentance+. */
+  IV_BAG = 1056,
+
+  /** Added in Repentance+. */
+  NOTCHED_AXE = 1057,
+
+  /** Added in Repentance+. */
+  RAZOR_BLADE = 1058,
+
+  /** Added in Repentance+. */
+  TELEPATHY_DUMMY = 1059,
+
+  /** Added in Repentance+. */
+  JAR_OF_FLIES = 1060,
+
+  /** Added in Repentance+. */
+  DIPLOPIA = 1061,
+
+  /** Added in Repentance+. */
+  MINE_CRAFTER = 1062,
+
+  /** Added in Repentance+. */
+  TEAR_DETONATOR = 1063,
+
+  /** Added in Repentance+. */
+  VENTRICLE_RAZOR = 1064,
+
+  /** Added in Repentance+. */
+  WOODEN_NICKEL = 1065,
+
+  /** Added in Repentance+. */
+  WOODEN_NICKEL_SPAWN = 1066,
+
+  /** Added in Repentance+. */
+  BLACK_HOLE_ACTIVATE = 1067,
+
+  /** Added in Repentance+. */
+  BLACK_HOLE_THROW = 1068,
+
+  /** Added in Repentance+. */
+  MR_ME = 1069,
+
+  /** Added in Repentance+. */
+  SPRINKLER_SPAWN = 1070,
+
+  /** Added in Repentance+. */
+  VOID_SUCCESS = 1071,
+
+  /** Added in Repentance+. */
+  VOID_FAIL = 1072,
+
+  /** Added in Repentance+. */
+  ABYSS_SUCCESS = 1073,
+
+  /** Added in Repentance+. */
+  BAG_OF_CRAFTING = 1074,
+
+  /** Added in Repentance+. */
+  GIANT_CHEST_OPEN = 1075,
+
+  /** Added in Repentance+. */
+  IMP_GROWL = 1076,
+
+  /** Added in Repentance+. */
+  IMP_SHOOT = 1077,
+
+  /** Added in Repentance+. */
+  IMP_WARP_OUT = 1078,
+
+  /** Added in Repentance+. */
+  IMP_WARP_IN = 1079,
+
+  /** Added in Repentance+. */
+  BRAIN_MOVE = 1080,
+
+  /** Added in Repentance+. */
+  POISON_MIND_HURT = 1081,
+
+  /** Added in Repentance+. */
+  KNIGHT_GROWL = 1082,
+
+  /** Added in Repentance+. */
+  SELFLESS_KNIGHT_GROWL = 1083,
+
+  /** Added in Repentance+. */
+  FLOATING_KNIGHT_GROWL = 1084,
+
+  /** Added in Repentance+. */
+  BUTTLICKER_GROWL = 1085,
+
+  /** Added in Repentance+. */
+  LADDER = 1086,
+
+  /** Added in Repentance+. */
+  OCULAR_RIFT_SHOOT = 1087,
+
+  /** Added in Repentance+. */
+  OCULAR_RIFT_PORTAL = 1088,
+
+  /** Added in Repentance+. */
+  UNBORN_GROWL = 1089,
+
+  /** Added in Repentance+. */
+  UNBORN_WARP = 1090,
 }

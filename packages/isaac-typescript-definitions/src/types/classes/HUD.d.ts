@@ -46,10 +46,10 @@ declare global {
      * Shows the pickup text for the specified item as if it was picked up by the specified player.
      * The overloaded method supports showing custom pickup text.
      *
-     * If the `stackUpText` parameter is missing or true, then it clears the message stack
-     * (Repentance functionality). If it is false, then the text will stack up (Repentance+
-     * functionality). These values are counterintuitive, so it seems likely that the developers
-     * made a mistake.
+     * The `stackUpText` parameter was added in Repentance+. If it is missing or true, then it
+     * clears the message stack (Repentance functionality). If it is false, then the text will stack
+     * up (Repentance+ functionality). These values are counterintuitive, so it seems likely that
+     * the developers made a mistake.
      */
     ShowItemText: ((
       player: EntityPlayer,

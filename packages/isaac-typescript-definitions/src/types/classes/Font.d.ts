@@ -13,6 +13,8 @@ declare interface Font extends IsaacAPIClass {
    * - If `boxWidth` is not zero, and the `center` parameter is true, then the text will be centered
    *   inside the `boxWidth` size.
    *
+   * Repentance+ added a separate overload for drawing a string with a custom size.
+   *
    * @param str
    * @param positionX
    * @param positionY

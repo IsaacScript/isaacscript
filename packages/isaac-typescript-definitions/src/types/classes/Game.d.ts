@@ -132,8 +132,9 @@ declare global {
     /**
      * @param speed A value between 0 and 1. Using a value of 0 will soft-lock the game. Using a
      *              value of 1 will instantaneously fade in.
-     * @param showIcon Optional. Defaults to true.
-     * @param kColor Optional. Defaults to `K_COLORS.Black`.
+     * @param showIcon Optional. Defaults to true. This parameter was added in Repentance+.
+     * @param kColor Optional. Defaults to `K_COLORS.Black`. This parameter was added in
+     *               Repentance+.
      */
     Fadein: (speed: float, showIcon?: boolean, kColor?: KColor) => void;
 
@@ -143,7 +144,8 @@ declare global {
      * @param speed A value between 0 and 1. Using a value of 0 will never trigger the fade out
      *              target. Using a value of 1 will instantaneously trigger the fade out target.
      * @param fadeoutTarget The place to go after the fade out is completed.
-     * @param kColor Optional. Defaults to `K_COLORS.Black`.
+     * @param kColor Optional. Defaults to `K_COLORS.Black`. This parameter was added in
+     *               Repentance+.
      */
     Fadeout: (
       speed: float,
