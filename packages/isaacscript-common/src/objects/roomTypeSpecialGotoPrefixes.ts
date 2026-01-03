@@ -30,4 +30,5 @@ export const ROOM_TYPE_SPECIAL_GOTO_PREFIXES = {
   [RoomType.SECRET_EXIT]: "secretexit", // 27
   [RoomType.BLUE]: "blue", // 28
   [RoomType.ULTRA_SECRET]: "ultrasecret", // 29
+  [RoomType.DEATHMATCH]: "deathmatch", // 30
 } as const satisfies Record<RoomType, string>;

@@ -30,4 +30,5 @@ export const ROOM_TYPE_NAMES = {
   [RoomType.SECRET_EXIT]: "Secret Exit", // 27
   [RoomType.BLUE]: "Blue Room", // 28
   [RoomType.ULTRA_SECRET]: "Ultra Secret Room", // 29
+  [RoomType.DEATHMATCH]: "Deathmatch", // 30
 } as const satisfies Record<RoomType, string>;
