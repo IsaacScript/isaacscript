@@ -14,9 +14,10 @@ declare global {
      * Returns whether achievements cannot be unlocked in this run.
      *
      * Achievements can be blocked for a variety of reasons, such as:
-     *  - The player playing on a challenge.
-     *  - The player is doing a victory lap.
-     *  - The player is playing on a seeded run.
+     *
+     * - The player playing on a challenge.
+     * - The player is doing a victory lap.
+     * - The player is playing on a seeded run.
      */
     AchievementUnlocksDisallowed: () => boolean;
 

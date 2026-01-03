@@ -547,7 +547,7 @@ export function removeAllMatchingEntities(
   entityType: EntityType,
   entityVariant = -1,
   entitySubType = -1,
-  cap: int | undefined = undefined,
+  cap?: int,
 ): readonly Entity[] {
   const entities = getEntities(entityType, entityVariant, entitySubType);
   return removeEntities(entities, cap);
@@ -662,8 +662,8 @@ export function spawn(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): Entity {
   const room = game.GetRoom();
 
@@ -709,8 +709,8 @@ export function spawnEntityID(
   entityID: EntityID,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): Entity {
   const [entityType, variant, subType] = getConstituentsFromEntityID(entityID);
   return spawn(
@@ -735,7 +735,7 @@ export function spawnWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): Entity {
   return spawn(
     entityType,

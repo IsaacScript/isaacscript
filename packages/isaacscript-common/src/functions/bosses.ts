@@ -272,8 +272,8 @@ export function spawnBoss(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
   numSegments?: int,
 ): EntityNPC {
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
@@ -322,7 +322,7 @@ export function spawnBossWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
   numSegments?: int,
 ): EntityNPC {
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;

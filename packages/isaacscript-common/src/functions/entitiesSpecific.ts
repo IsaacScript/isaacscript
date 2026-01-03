@@ -549,8 +549,8 @@ export function spawnBomb(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityBomb {
   const entity = spawn(
     EntityType.BOMB,
@@ -575,7 +575,7 @@ export function spawnBombWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityBomb {
   return spawnBomb(
     bombVariant,
@@ -593,8 +593,8 @@ export function spawnEffect(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityEffect {
   const entity = spawn(
     EntityType.EFFECT,
@@ -619,7 +619,7 @@ export function spawnEffectWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityEffect {
   return spawnEffect(
     effectVariant,
@@ -642,8 +642,8 @@ export function spawnFamiliar(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityFamiliar {
   const entity = spawn(
     EntityType.FAMILIAR,
@@ -668,7 +668,7 @@ export function spawnFamiliarWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityFamiliar {
   return spawnFamiliar(
     familiarVariant,
@@ -686,8 +686,8 @@ export function spawnKnife(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityKnife {
   const entity = spawn(
     EntityType.KNIFE,
@@ -712,7 +712,7 @@ export function spawnKnifeWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityKnife {
   return spawnKnife(
     knifeVariant,
@@ -730,8 +730,8 @@ export function spawnLaser(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityLaser {
   const entity = spawn(
     EntityType.LASER,
@@ -756,7 +756,7 @@ export function spawnLaserWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityLaser {
   return spawnLaser(
     laserVariant,
@@ -780,8 +780,8 @@ export function spawnNPC(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityNPC {
   const entity = spawn(
     entityType,
@@ -812,7 +812,7 @@ export function spawnNPCWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityNPC {
   return spawnNPC(
     entityType,
@@ -831,8 +831,8 @@ export function spawnPickup(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityPickup {
   const entity = spawn(
     EntityType.PICKUP,
@@ -857,7 +857,7 @@ export function spawnPickupWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityPickup {
   return spawnPickup(
     pickupVariant,
@@ -875,8 +875,8 @@ export function spawnProjectile(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityProjectile {
   const entity = spawn(
     EntityType.PROJECTILE,
@@ -901,7 +901,7 @@ export function spawnProjectileWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityProjectile {
   return spawnProjectile(
     projectileVariant,
@@ -919,8 +919,8 @@ export function spawnSlot(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntitySlot {
   return spawn(
     EntityType.SLOT,
@@ -940,7 +940,7 @@ export function spawnSlotWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntitySlot {
   return spawnSlot(
     slotVariant,
@@ -958,8 +958,8 @@ export function spawnTear(
   subType: int,
   positionOrGridIndex: Vector | int,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
-  seedOrRNG: Seed | RNG | undefined = undefined,
+  spawner?: Entity,
+  seedOrRNG?: Seed | RNG,
 ): EntityTear {
   const entity = spawn(
     EntityType.TEAR,
@@ -984,7 +984,7 @@ export function spawnTearWithSeed(
   positionOrGridIndex: Vector | int,
   seedOrRNG: Seed | RNG,
   velocity: Vector = VectorZero,
-  spawner: Entity | undefined = undefined,
+  spawner?: Entity,
 ): EntityTear {
   return spawnTear(
     tearVariant,

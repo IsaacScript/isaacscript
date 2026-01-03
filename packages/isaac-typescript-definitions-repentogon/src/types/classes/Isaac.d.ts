@@ -492,8 +492,9 @@ declare global {
      * pressed.
      *
      * It's a good idea to not heavily rely on this function as:
-     *  - Players using a gamepad are unable to navigate the popup. They will have to use a mouse,
-     *    keyboard, or touchscreen.
+     *
+     * - Players using a gamepad are unable to navigate the popup. They will have to use a mouse,
+     *   keyboard, or touchscreen.
      * - The window title will not show up in some environments such as the Steam Deck.
      *
      * @param title

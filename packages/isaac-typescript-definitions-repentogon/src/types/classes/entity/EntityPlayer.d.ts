@@ -115,9 +115,10 @@ declare global {
      * instance, every single active item grants a collectible effect on use and are often tied to
      * its effect. Therefore, collectible effects can be seen as more tied to an item's state, such
      * as:
-     *  - The Holy Mantle tracking how many shield charges the player has.
-     *  - How most familiars are granted to the player.
-     *  - Activating the effects of Whore of Babylon and Crown of Light.
+     *
+     * - The Holy Mantle tracking how many shield charges the player has.
+     * - How most familiars are granted to the player.
+     * - Activating the effects of Whore of Babylon and Crown of Light.
      *
      * This method is a shortcut to `TemporaryEffects.AddCollectibleEffect` with extra cooldown
      * arguments.
@@ -189,9 +190,10 @@ declare global {
      * instance, every single active item grants a collectible effect on use and are often tied to
      * its effect. Therefore, collectible effects can be seen as more tied to an item's state, such
      * as:
-     *  - The Holy Mantle tracking how many shield charges the player has.
-     *  - How most familiars are granted to the player.
-     *  - Activating the effects of Whore of Babylon and Crown of Light.
+     *
+     * - The Holy Mantle tracking how many shield charges the player has.
+     * - How most familiars are granted to the player.
+     * - Activating the effects of Whore of Babylon and Crown of Light.
      *
      * This method is a shortcut to `TemporaryEffects.AddNullEffect` with extra cooldown arguments.
      *
@@ -286,9 +288,10 @@ declare global {
      * Returns whether the player can crush rocks and similar grid entities on contact.
      *
      * This method only returns true if:
-     *  - The player has Leo or Thunder Thighs in their inventory.
-     *  - The effects from The Nail or Mega Mush is active.
-     *  - The player has the Stompy transformation.
+     *
+     * - The player has Leo or Thunder Thighs in their inventory.
+     * - The effects from The Nail or Mega Mush is active.
+     * - The player has the Stompy transformation.
      */
     CanCrushRocks: () => boolean;
 
