@@ -14,8 +14,8 @@ import { spawnEffect } from "../../../functions/entitiesSpecific";
 import { Feature } from "../../private/Feature";
 
 interface CustomPickupFunctions {
-  collectFunc: (this: void, player: EntityPlayer) => void;
-  collisionFunc: (this: void, player: EntityPlayer) => boolean;
+  collectFunc: (pickup: EntityPickup, player: EntityPlayer) => void;
+  collisionFunc: (pickup: EntityPickup, player: EntityPlayer) => boolean | undefined;
 }
 
 /**
@@ -69,9 +69,11 @@ export class CustomPickups extends Feature {
       return undefined;
     }
 
-    const shouldPickup = customPickupFunctions.collisionFunc(player);
-    if (!shouldPickup) {
-      return undefined;
+    const shouldPickup = customPickupFunctions.collisionFunc(pickup, player);
+    if (shouldPickup === true) {
+      return true;
+    } else if (shouldPickup === false) {
+      return false;
     }
 
     pickup.Remove();
@@ -88,7 +90,7 @@ export class CustomPickups extends Feature {
     effectSprite.Load(fileName, true);
     effectSprite.Play("Collect", true);
 
-    customPickupFunctions.collectFunc(player);
+    customPickupFunctions.collectFunc(pickup, player);
 
     return undefined;
   };
@@ -128,18 +130,19 @@ export class CustomPickups extends Feature {
    * @param subType The sub-type for the corresponding custom pickup.
    * @param collectFunc The function to run when the player collects this pickup.
    * @param collisionFunc Optional. The function to run when a player collides with the pickup.
-   *                      Default is a function that always returns true, meaning that the player
-   *                      will always immediately collect the pickup when they collide with it.
-   *                      Specify this function if your pickup should only be able to be collected
-   *                      under certain conditions.
+   *                      Default is a function that always returns undefined, meaning that the
+   *                      player will always immediately collect the pickup when they collide
+   *                      with it. Specify this function if your pickup should only be able
+   *                      to be collected under certain conditions. Return value acts similar to
+   *                      `ModCallback.PRE_PICKUP_COLLISION`.
    * @public
    */
   @Exported
   public registerCustomPickup(
     pickupVariantCustom: PickupVariant,
     subType: int,
-    collectFunc: (this: void, player: EntityPlayer) => void,
-    collisionFunc: (this: void, player: EntityPlayer) => boolean = () => true,
+    collectFunc: (pickup: EntityPickup, player: EntityPlayer) => void,
+    collisionFunc: (pickup: EntityPickup, player: EntityPlayer) => boolean | undefined = () => undefined,
   ): void {
     const entityID = getEntityIDFromConstituents(
       EntityType.PICKUP,
