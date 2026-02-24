@@ -135,9 +135,9 @@ export class CustomPickups extends Feature {
    * @param collectFunc The function to run when the player collects this pickup.
    * @param collisionFunc Optional. The function to run when a player collides with the pickup.
    *                      Default is a function that always returns undefined, meaning that the
-   *                      player will always immediately collect the pickup when they collide
-   *                      with it. Specify this function if your pickup should only be able
-   *                      to be collected under certain conditions. Return value acts similar to
+   *                      player will always immediately collect the pickup when they collide with
+   *                      it. Specify this function if your pickup should only be able to be
+   *                      collected under certain conditions. Return value acts similar to
    *                      `ModCallback.PRE_PICKUP_COLLISION`.
    * @public
    */
