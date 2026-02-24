@@ -14,8 +14,9 @@ import { spawnEffect } from "../../../functions/entitiesSpecific";
 import { Feature } from "../../private/Feature";
 
 interface CustomPickupFunctions {
-  collectFunc: (pickup: EntityPickup, player: EntityPlayer) => void;
+  collectFunc: (this: void, pickup: EntityPickup, player: EntityPlayer) => void;
   collisionFunc: (
+    this: void,
     pickup: EntityPickup,
     player: EntityPlayer,
   ) => boolean | undefined;
@@ -145,8 +146,13 @@ export class CustomPickups extends Feature {
   public registerCustomPickup(
     pickupVariantCustom: PickupVariant,
     subType: int,
-    collectFunc: (pickup: EntityPickup, player: EntityPlayer) => void,
+    collectFunc: (
+      this: void,
+      pickup: EntityPickup,
+      player: EntityPlayer,
+    ) => void,
     collisionFunc: (
+      this: void,
       pickup: EntityPickup,
       player: EntityPlayer,
     ) => boolean | undefined = () => undefined,
