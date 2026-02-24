@@ -15,7 +15,10 @@ import { Feature } from "../../private/Feature";
 
 interface CustomPickupFunctions {
   collectFunc: (pickup: EntityPickup, player: EntityPlayer) => void;
-  collisionFunc: (pickup: EntityPickup, player: EntityPlayer) => boolean | undefined;
+  collisionFunc: (
+    pickup: EntityPickup,
+    player: EntityPlayer,
+  ) => boolean | undefined;
 }
 
 /**
@@ -72,7 +75,8 @@ export class CustomPickups extends Feature {
     const shouldPickup = customPickupFunctions.collisionFunc(pickup, player);
     if (shouldPickup === true) {
       return true;
-    } else if (shouldPickup === false) {
+    }
+    if (shouldPickup === false) {
       return false;
     }
 
@@ -142,7 +146,10 @@ export class CustomPickups extends Feature {
     pickupVariantCustom: PickupVariant,
     subType: int,
     collectFunc: (pickup: EntityPickup, player: EntityPlayer) => void,
-    collisionFunc: (pickup: EntityPickup, player: EntityPlayer) => boolean | undefined = () => undefined,
+    collisionFunc: (
+      pickup: EntityPickup,
+      player: EntityPlayer,
+    ) => boolean | undefined = () => undefined,
   ): void {
     const entityID = getEntityIDFromConstituents(
       EntityType.PICKUP,
