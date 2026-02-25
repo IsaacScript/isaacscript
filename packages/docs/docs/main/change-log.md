@@ -2248,13 +2248,13 @@ If you decide to upgrade `isaacscript-lint` in your existing projects, you shoul
 2. Add the Prettier VSCode extension to `extensions.json`:
 
 ```json
-"prettier.prettier-vscode", // The TypeScript formatter
+"esbenp.prettier-vscode", // The TypeScript formatter
 ```
 
 3. Add the following lines to the `"[javascript]"` and `"[typescript]"` sections of the `settings.json` file:
 
 ```json
-"editor.defaultFormatter": "prettier.prettier-vscode",
+"editor.defaultFormatter": "esbenp.prettier-vscode",
 "editor.formatOnSave": true,
 ```
 

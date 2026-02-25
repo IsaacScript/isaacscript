@@ -70,8 +70,8 @@ declare global {
     /** Returns the current room's grid index. */
     GetCurrentRoomIndex: () => int;
 
+    /* eslint-disable complete/require-ascii */
     // cspell:ignore Maldición oscuridad
-
     /**
      * Returns the name of the current floor's curse, like "Curse of the Unknown!". If there are two
      * or more curses on the floor, this will only return the name of the curse with the lowest ID.
@@ -79,6 +79,7 @@ declare global {
      * of Darkness in Spanish.
      */
     GetCurseName: () => string;
+    /* eslint-enable complete/require-ascii */
 
     GetCurses: () => BitFlags<LevelCurse>;
     GetDevilAngelRoomRNG: () => RNG;
