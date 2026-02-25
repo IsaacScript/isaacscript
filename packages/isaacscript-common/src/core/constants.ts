@@ -276,6 +276,8 @@ export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1;
 /**
  * An array containing every valid `Dimension`, not including `Dimension.CURRENT`. (This is derived
  * from the `NUM_DIMENSIONS` constant.)
+ *
+ * We cannot use the values of the `Dimension` enum because it includes -1.
  */
 export const DIMENSIONS: readonly Dimension[] = eRange(
   NUM_DIMENSIONS,
