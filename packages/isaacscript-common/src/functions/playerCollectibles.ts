@@ -78,9 +78,7 @@ export function getActiveItemSlots(
  */
 export function getAdjustedPrice(basePrice: int): int {
   const numSteamSales = getTotalPlayerCollectibles(CollectibleType.STEAM_SALE);
-  return numSteamSales > 0
-    ? Math.floor(basePrice / (numSteamSales + 1))
-    : basePrice;
+  return Math.ceil(basePrice / (numSteamSales + 1));
 }
 
 /**
