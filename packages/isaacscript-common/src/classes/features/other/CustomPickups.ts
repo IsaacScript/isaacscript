@@ -74,11 +74,8 @@ export class CustomPickups extends Feature {
     }
 
     const shouldPickup = customPickupFunctions.collisionFunc(pickup, player);
-    if (shouldPickup === true) {
-      return true;
-    }
-    if (shouldPickup === false) {
-      return false;
+    if (shouldPickup !== undefined) {
+      return shouldPickup;
     }
 
     pickup.Remove();
