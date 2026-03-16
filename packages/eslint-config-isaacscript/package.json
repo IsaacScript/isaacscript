@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "eslint-plugin-isaacscript": "4.0.0",
-    "typescript-eslint": "8.56.1"
+    "typescript-eslint": "8.57.0"
   },
   "devDependencies": {
     "complete-node": "16.2.0"
