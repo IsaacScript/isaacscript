@@ -78,6 +78,8 @@ export class CustomPickups extends Feature {
       return shouldPickup;
     }
 
+    customPickupFunctions.collectFunc(pickup, player);
+
     pickup.Remove();
 
     const pickupSprite = pickup.GetSprite();
@@ -91,8 +93,6 @@ export class CustomPickups extends Feature {
     const effectSprite = effect.GetSprite();
     effectSprite.Load(fileName, true);
     effectSprite.Play("Collect", true);
-
-    customPickupFunctions.collectFunc(pickup, player);
 
     return undefined;
   };
