@@ -55,7 +55,7 @@
     "commander": "14.0.3",
     "complete-common": "2.20.1",
     "complete-lint": "5.5.0",
-    "complete-node": "16.2.0",
+    "complete-node": "16.3.0",
     "docusaurus-theme-search-typesense": "0.26.0",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-sort-exports": "0.9.1",

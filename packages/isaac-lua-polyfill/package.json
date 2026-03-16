@@ -32,7 +32,7 @@
     "isaac-typescript-definitions": "43.0.5"
   },
   "devDependencies": {
-    "complete-node": "16.2.0",
+    "complete-node": "16.3.0",
     "typescript-eslint": "8.57.0"
   }
 }
