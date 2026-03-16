@@ -56,7 +56,7 @@ function Feature({ title, img, description }: FeatureItem) {
   return (
     <div className={clsx("col col--6")}>
       <div className="text--center">
-        <img src={useBaseUrl(img)} style={IMG_STYLE} alt={title} />
+        <img alt={title} src={useBaseUrl(img)} style={IMG_STYLE} />
       </div>
       <div className="padding-horiz--md">
         <Heading as="h3" className="text--center">

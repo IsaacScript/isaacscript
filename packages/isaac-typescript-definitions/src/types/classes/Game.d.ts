@@ -341,7 +341,7 @@ declare global {
      *
      * @param roomGridIndex The room grid index of the destination room.
      * @param direction
-     * @param roomTransition Default is `RoomTransitionAnim.WALK`.
+     * @param roomTransitionAnim Default is `RoomTransitionAnim.WALK`.
      * @param player Default is undefined.
      * @param dimension Default is `Dimension.CURRENT`.
      */

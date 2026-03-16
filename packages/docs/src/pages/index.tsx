@@ -18,8 +18,8 @@ function HomepageHeader(): React.JSX.Element {
     <header className={clsx("hero hero--primary", styles["heroBanner"])}>
       <div className="container">
         <img
-          src={useBaseUrl("img/isaacscript-logo.png")}
           className="landing-logo"
+          src={useBaseUrl("img/isaacscript-logo.png")}
         />
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
