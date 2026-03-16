@@ -43,15 +43,18 @@ export enum RoomShape {
    */
   SHAPE_2x2 = 8,
 
+  // eslint-disable-next-line complete/require-ascii
   /** Looks like a "⅃" with a gap in the top-left-hand corner. */
   LTL = 9,
 
   /** Looks like an "L" with a gap in the top-right-hand corner. */
   LTR = 10,
 
+  // eslint-disable-next-line complete/require-ascii
   /** Looks like a "⅂" with a gap in the bottom-left-hand corner. */
   LBL = 11,
 
+  // eslint-disable-next-line complete/require-ascii
   /** Looks like a "Г" with a gap in the bottom-right-hand corner. */
   LBR = 12,
 }

@@ -49,7 +49,7 @@ declare interface HUD extends IsaacAPIClass {
   GetPoopSpellSprite: () => Sprite;
 
   /** @param index Optional. Must be between 0 and 5. Default is 0. */
-  GetStackedMessage: () => HUDMessage;
+  GetStackedMessage: (index?: int) => HUDMessage;
 
   /**
    * Returns the sprite used to render streak popups (e.g. Picking up items, displaying floor

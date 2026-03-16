@@ -15,10 +15,10 @@ export enum Controller {
   /** B, O and A on Xbox, Playstation and Nintendo respectively. */
   BUTTON_B = 5,
 
-  /** X, □ and Y on Xbox, Playstation and Nintendo respectively. */
+  /** X, square and Y on Xbox, Playstation and Nintendo respectively. */
   BUTTON_X = 6,
 
-  /** Y, Δ and X on Xbox, Playstation and Nintendo respectively. */
+  /** Y, triangle and X on Xbox, Playstation and Nintendo respectively. */
   BUTTON_Y = 7,
 
   /** Left shoulder button. */

@@ -262,8 +262,8 @@ declare global {
 
     /**
      * @param frameCount
-     * @param backdrop Default is a random backdrop, similar to what happens after using the
-     *                 Delirious collectible.
+     * @param backdropType Default is a random backdrop, similar to what happens after using the
+     *                     Delirious collectible.
      */
     ShowHallucination: (frameCount: int, backdropType?: BackdropType) => void;
 
@@ -341,7 +341,7 @@ declare global {
      *
      * @param roomGridIndex The room grid index of the destination room.
      * @param direction
-     * @param roomTransition Default is `RoomTransitionAnim.WALK`.
+     * @param roomTransitionAnim Default is `RoomTransitionAnim.WALK`.
      * @param player Default is undefined.
      * @param dimension Default is `Dimension.CURRENT`.
      */

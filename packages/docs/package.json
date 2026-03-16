@@ -44,22 +44,22 @@
     "clsx": "2.1.1",
     "docusaurus-theme-search-typesense": "0.26.0",
     "prism-react-renderer": "2.4.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
-    "@eslint/eslintrc": "3.3.3",
-    "@types/node": "25.0.3",
+    "@eslint/eslintrc": "3.3.5",
+    "@types/node": "25.5.0",
     "@zamiell/typedoc-plugin-not-exported": "0.3.0",
-    "complete-common": "2.11.0",
-    "complete-node": "16.2.0",
-    "typedoc": "0.28.15",
-    "typedoc-plugin-markdown": "4.9.0",
+    "complete-common": "2.20.1",
+    "complete-node": "16.3.1",
+    "typedoc": "0.28.17",
+    "typedoc-plugin-markdown": "4.10.0",
     "typedoc-plugin-rename": "1.1.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.51.0"
+    "typescript-eslint": "8.57.0"
   }
 }

@@ -43,7 +43,7 @@ declare global {
      * @param slot
      * @param flashHUD Optional. This parameter is redundant as the game will flash the HUD
      *                 regardless. Default is true.
-     * @param overcharge Optional. Whether to allow leftover charges to overcharge the item. Default
+     * @param overCharge Optional. Whether to allow leftover charges to overcharge the item. Default
      *                   is false.
      * @param force Optional. Default is false.
      */
@@ -68,6 +68,7 @@ declare global {
      * definitions. However, when the project compiles the method's name will change to what it's
      * supposed to be.
      *
+     * @param flag
      * @param evaluateItems Optional. Default is false.
      * @customName AddCacheFlags
      */
@@ -197,7 +198,7 @@ declare global {
      *
      * This method is a shortcut to `TemporaryEffects.AddNullEffect` with extra cooldown arguments.
      *
-     * @param collectibleType
+     * @param nullItemId
      * @param applyCostume
      * @param cooldown Optional. Default is the cooldown as defined in `items.xml`.
      * @param additive Optional. If true, calling this method will increment the current cooldown.
@@ -1216,16 +1217,16 @@ declare global {
     /**
      * Spawns a series of pickups the same way Tainted Cain does upon picking up a collectible.
      *
-     * @param collectible
+     * @param collectibleType
      * @param position Optional. Default is the player's position.
      * @param rng Optional. Default is the player's drop RNG.
-     * @param pool Optional. Default is `ItemPoolType.NULL`.
+     * @param itemPoolType Optional. Default is `ItemPoolType.NULL`.
      */
     SalvageCollectible: (
-      collectible: CollectibleType,
+      collectibleType: CollectibleType,
       position?: Vector,
       rng?: RNG,
-      itemPool?: ItemPoolType,
+      itemPoolType?: ItemPoolType,
     ) => void;
 
     /**
@@ -1239,13 +1240,13 @@ declare global {
      *
      * @param pickup
      * @param rng Optional. Default is the pickup's drop RNG.
-     * @param pool Optional. Default is `ItemPoolType.NULL`.
+     * @param itemPoolType Optional. Default is `ItemPoolType.NULL`.
      * @customName SalvageCollectible
      */
     SalvagePickup: (
       pickup: EntityPickup,
       rng?: RNG,
-      itemPool?: ItemPoolType,
+      itemPoolType?: ItemPoolType,
     ) => void;
 
     /** Sets how many frames the player has been holding the drop trinket button. */

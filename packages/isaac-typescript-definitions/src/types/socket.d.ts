@@ -99,7 +99,10 @@ declare interface SocketClient {
    * timeout during the operation. Also, after the error message, the function returns the partial
    * result of the transmission.
    */
-  receive: () => LuaMultiReturn<[data: string | undefined, errMsg: string]>;
+  receive: (
+    pattern?: "*a" | "*l" | int,
+    prefix?: string,
+  ) => LuaMultiReturn<[data: string | undefined, errMsg: string]>;
 
   /**
    * Sends data through client object.

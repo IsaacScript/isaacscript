@@ -47,7 +47,7 @@ declare global {
      */
     MakeChampion: (
       seed: Seed,
-      championColorIdx?: ChampionColor,
+      championColor?: ChampionColor,
       init?: boolean,
     ) => void;
 

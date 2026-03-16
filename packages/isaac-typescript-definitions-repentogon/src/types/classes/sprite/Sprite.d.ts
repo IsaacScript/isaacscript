@@ -29,8 +29,6 @@ declare global {
      * frame.
      *
      * This will not restart a finished non-looping animation.
-     *
-     * @param continueOverlay
      */
     ContinueOverlay: () => void;
 

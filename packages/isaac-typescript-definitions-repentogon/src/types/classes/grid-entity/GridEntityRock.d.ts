@@ -8,9 +8,10 @@ declare global {
     /**
      * Returns the alternative rock type (i.e. urn, mushroom, etc.) that th rock is.
      *
-     * @param backdrop Optional. The alternative rock type that is returned depends on the backdrop.
-     *                 For example, if the backdrop is `BackdropType.CAVES`, the alternative rock
-     *                 type is a mushroom. Default is `BackdropType.NULL` (The current backdrop).
+     * @param backdropType Optional. The alternative rock type that is returned depends on the
+     *                     backdrop. For example, if the backdrop is `BackdropType.CAVES`, the
+     *                     alternative rock type is a mushroom. Default is `BackdropType.NULL` (The
+     *                     current backdrop).
      */
     GetAltRockType: (backdropType?: BackdropType) => int;
 

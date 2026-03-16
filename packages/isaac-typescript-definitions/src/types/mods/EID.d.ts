@@ -83,9 +83,10 @@ declare interface EIDInterface {
   ) => void;
 
   /**
-   * Adds Description object modifiers. Used for altering descriptions. Examples: Spindown Dice,
+   * Adds description object modifiers. Used for altering descriptions. Examples: Spindown Dice,
    * Tarot Cloth, etc.
    *
+   * @param modifierName
    * @param condition A function that returns `true` if `callback` should be called on the given
    *                  EIDDescriptionObject.
    * @param callback A function that returns a modified version of the given EIDDescriptionObject.

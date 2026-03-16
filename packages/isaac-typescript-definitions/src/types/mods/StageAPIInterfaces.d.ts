@@ -116,9 +116,9 @@ declare global {
     /**
      * Sets the RoomGfx used by the stage.
      *
-     * @param RoomTypes The room types these gfx apply to.
-     *
-     * Can be a string identifier, a `RoomType`, or an array of either.
+     * @param roomGfx
+     * @param roomTypes The room types these gfx apply to. Can be a string identifier, a `RoomType`,
+     *                  or an array of either.
      */
     SetRoomGfx: (
       roomGfx: StageAPIRoomGfx,

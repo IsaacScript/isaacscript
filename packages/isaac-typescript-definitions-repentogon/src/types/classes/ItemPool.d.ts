@@ -23,7 +23,7 @@ declare global {
     ) => boolean;
 
     /** Returns the number of Bible collectibles added to provided `itemPool`. */
-    GetBibleUpgrades: (itemPool: ItemPoolType) => int;
+    GetBibleUpgrades: (itemPoolType: ItemPoolType) => int;
 
     /**
      * A more sophisticated version of `ItemPool.GetCard` that allows you to define individual
@@ -58,7 +58,7 @@ declare global {
     ) => CollectibleType;
 
     /** Returns an array of collectibles registered in the specified `ItemPoolType`. */
-    GetCollectiblesFromPool: (poolType: ItemPoolType) => Array<{
+    GetCollectiblesFromPool: (itemPoolType: ItemPoolType) => Array<{
       decreaseBy: float;
       initialWeight: float;
       isUnlocked: boolean;
@@ -133,13 +133,13 @@ declare global {
      * - The game does not trigger `ModCallbackRepentogon.PRE_GET_COLLECTIBLE` and
      *   `ModCallbackRepentogon.POST_GET_COLLECTIBLE`.
      *
-     * @param itemPool
+     * @param itemPoolType
      * @param decrease Optional. Default is false.
      * @param rng Optional. Default is a new RNG object seeded with `Random()`.
      * @param flags Optional. Default is `GetCollectibleFlagZero`.
      */
     PickCollectible: (
-      itemPool: ItemPoolType,
+      itemPoolType: ItemPoolType,
       decrease?: boolean,
       rng?: RNG,
       flags?: GetCollectibleFlag | BitFlags<GetCollectibleFlag>,
@@ -161,7 +161,7 @@ declare global {
     ResetCollectible: (collectible: CollectibleType) => void;
 
     /** Sets the currently selected `ItemPoolType`. */
-    SetLastPool: (pool: ItemPoolType) => void;
+    SetLastPool: (itemPoolType: ItemPoolType) => void;
 
     /** Resets the specified `PillColor` back to its unidentified state. */
     UnidentifyPill: (pill: PillColor) => void;

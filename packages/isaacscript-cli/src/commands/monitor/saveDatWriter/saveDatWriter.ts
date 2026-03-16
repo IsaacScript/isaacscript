@@ -1,4 +1,4 @@
-import { assertDefined } from "complete-common";
+import { assertDefined, isArray } from "complete-common";
 import { getArgs, isFile, makeDirectory, readFile } from "complete-node";
 import * as JSONC from "jsonc-parser";
 import fs from "node:fs";
@@ -76,7 +76,7 @@ async function readSaveDatFromDisk(): Promise<SaveDatMessage[]> {
   } else {
     saveDat = [];
   }
-  if (!Array.isArray(saveDat)) {
+  if (!isArray(saveDat)) {
     saveDat = [];
   }
 

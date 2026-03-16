@@ -1,4 +1,4 @@
-import { assertObject } from "complete-common";
+import { assertObject, isArray } from "complete-common";
 import { commandExists, fatalError, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { execShell } from "../../exec.js";
@@ -80,7 +80,7 @@ async function getExtensionsFromJSON(
   );
 
   const { recommendations } = extensionsJSON;
-  if (!Array.isArray(recommendations)) {
+  if (!isArray(recommendations)) {
     fatalError(
       'The "recommendations" field in the "extensions.json" file is not an array.',
     );

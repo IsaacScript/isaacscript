@@ -59,13 +59,13 @@ declare global {
     ) => PillEffect | -1;
 
     /**
-     * Note that this function will return `ItemPoolType.NULL` for `RoomType.DEFAULT`, which may be
-     * unexpected.
+     * Note that this function will return `ItemPoolType.NULL` (-1) for `RoomType.DEFAULT` (1),
+     * which may be unexpected.
      *
      * @param roomType
      * @param seed
      */
-    GetPoolForRoom: (roomType: RoomType, seed: Seed) => ItemPoolType;
+    GetPoolForRoom: (roomType: RoomType, seed: Seed) => ItemPoolType | -1;
 
     /** @param dontAdvanceRNG Default is false. */
     GetTrinket: (dontAdvanceRNG?: boolean) => TrinketType;

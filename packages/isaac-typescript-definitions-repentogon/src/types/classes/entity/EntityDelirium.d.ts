@@ -36,6 +36,7 @@ declare global {
      *
      * The transformation is not effective immediately; it will only take place on the next frame.
      *
+     * @param entityType
      * @param variant Optional. Default is 0.
      * @param triggerCallback Optional. Whether to trigger the transformation callback. Default is
      *                        false.
