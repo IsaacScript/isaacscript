@@ -56,7 +56,7 @@ declare global {
      */
     SetText: (
       header1?: string,
-      header?: string,
+      header2?: string,
       line1?: string,
       line2?: string,
       line3?: string,

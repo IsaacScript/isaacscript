@@ -1,6 +1,6 @@
 import { Ajv } from "ajv";
 import chalk from "chalk";
-import { assertObject, isObject } from "complete-common";
+import { assertObject, isArray, isObject } from "complete-common";
 import { fatalError, getJSONC } from "complete-node";
 import {
   ISAACSCRIPT_SCHEMA_PATH,
@@ -86,7 +86,7 @@ export async function getCustomStagesFromTSConfig(): Promise<
   }
 
   // The type of "customStages" should be validated by Ajv, but check again just in case.
-  if (!Array.isArray(customStages)) {
+  if (!isArray(customStages)) {
     fatalError(
       `Failed to parse the "customStages" field, since it was not an array. ${ADVICE}.`,
     );

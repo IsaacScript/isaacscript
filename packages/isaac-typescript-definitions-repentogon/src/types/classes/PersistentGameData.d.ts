@@ -20,6 +20,7 @@ declare global {
     /**
      * Adds a kill to the bestiary entry. Returns whether the kill was successfully added.
      *
+     * @param entityType
      * @param variant Optional. Default is 0.
      */
     AddBestiaryKill: (entityType: EntityType, variant?: int) => boolean;
@@ -60,10 +61,14 @@ declare global {
      * Tries to unlock the provided `Achievement`. Returns whether the achievement was unlocked
      * successfully.
      *
+     * @param achievement
      * @param hideNotification Optional. If true, the achievement paper will not appear. This is
      *                         only used by modded achievements. Default is false.
      */
-    TryUnlock: (unlock: Achievement, hideNotification?: boolean) => boolean;
+    TryUnlock: (
+      achievement: Achievement,
+      hideNotification?: boolean,
+    ) => boolean;
 
     /** Returns whether the provided `Achievement` is unlocked. */
     Unlocked: (unlock: Achievement) => boolean;

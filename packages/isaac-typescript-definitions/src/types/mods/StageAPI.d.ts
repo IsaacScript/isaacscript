@@ -228,6 +228,7 @@ declare global {
     /**
      * Convenience function that assembles filenames and packages them in a Backdrop for you.
      *
+     * @param backdrop
      * @param prefix The path to the directory containing the backdrop sprite sheets, as well as any
      *               shared prefix. Example: `gfx/backdrop/revel1/glacier/main_`
      * @param suffix Generally the file extension, e.g.: `".png"`
@@ -283,13 +284,20 @@ declare global {
      * usage.
      *
      * @param name NAME IS NOT OPTIONAL. USED FOR IDENTIFICATION AFTER SAVING.
+     * @param gridEntityType
+     * @param baseVariant
      * @param anm2 Path to the anm2 file for this entity.
      * @param animation The animation name to play.
      * @param frame Which frame to display.
+     * @param variantFrames
+     * @param offset
+     * @param overrideGridSpawns
+     * @param overrideGridSpawnAtState
+     * @param forceSpawning
      */
     CustomGrid: (
       name: string,
-      GridEntityType: GridEntityType,
+      gridEntityType: GridEntityType,
       baseVariant: number,
       anm2: string,
       animation: string,
@@ -305,6 +313,7 @@ declare global {
      * Creates a new custom stage.
      *
      * @param name MUST BE UNIQUE. USED TO IDENTIFY STAGE AND FOR SAVING CURRENT STAGE.
+     * @param stageOverrideStage
      * @param noSetReplaces Replaces defaults to catacombs one if noSetReplaces is not set.
      */
     CustomStage: (

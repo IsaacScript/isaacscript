@@ -127,7 +127,7 @@ declare global {
      *                     is false.
      */
     ReplaceSpritesheet: (
-      layerId: int,
+      layerID: int,
       pngPath: string,
       loadGraphics?: boolean,
     ) => void;

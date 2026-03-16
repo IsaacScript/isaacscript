@@ -235,7 +235,7 @@ declare interface Sprite extends IsaacAPIClass {
    * @param reset Default is true. Passing false will continue the animation from the current frame.
    *              This can be useful for seamlessly switching between two similar animations.
    */
-  SetOverlayAnimation: (animation: string) => boolean;
+  SetOverlayAnimation: (animation: string, reset?: boolean) => boolean;
 
   SetOverlayFrame: (animation: string, frameNum: int) => void;
   SetOverlayRenderPriority: (renderFirst: boolean) => void;

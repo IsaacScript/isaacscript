@@ -173,7 +173,7 @@ declare global {
      *
      * This is reset upon leaving the room.
      */
-    SetItemPool: (poolType: ItemPoolType) => void;
+    SetItemPool: (itemPoolType: ItemPoolType) => void;
 
     /** Sets the intensity of the lava in the room. */
     SetLavaIntensity: (intensity: float) => void;
