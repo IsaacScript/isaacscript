@@ -1,7 +1,6 @@
 import type {
   BackdropType,
   BossID,
-  ItemPoolType,
   MinibossID,
   RoomShape,
 } from "isaac-typescript-definitions";
@@ -14,6 +13,7 @@ import {
   DungeonSubType,
   GridRoom,
   HomeRoomSubType,
+  ItemPoolType,
   RoomDescriptorFlag,
   RoomType,
   SoundEffect,
@@ -166,14 +166,25 @@ export function getRoomDataForTypeVariant(
 /**
  * Helper function to get the item pool type for the current room. For example, this returns
  * `ItemPoolType.ItemPoolType.POOL_ANGEL` if you are in an Angel Room.
+ *
+ * This function is a wrapper around the `ItemPool.GetPoolForRoom` method.
+ *
+ * Note that `ItemPool.GetPoolForRoom` will return -1 in `RoomType.DEFAULT` (1) rooms, but this
+ * function will convert -1 to `ItemPoolType.TREASURE` (0) for convenience purposes (since the game
+ * is "supposed" to use the Treasure Room pool for collections spawned in normal rooms). If you need
+ * to distinguish between real Treasure Rooms and default rooms, then use the
+ * `ItemPool.GetPoolForRoom` method directly.
  */
 export function getRoomItemPoolType(): ItemPoolType {
   const itemPool = game.GetItemPool();
   const room = game.GetRoom();
   const roomType = room.GetType();
   const roomSeed = room.GetSpawnSeed();
+  const itemPoolTypeOrNegativeOne = itemPool.GetPoolForRoom(roomType, roomSeed);
 
-  return itemPool.GetPoolForRoom(roomType, roomSeed);
+  return itemPoolTypeOrNegativeOne === -1
+    ? ItemPoolType.TREASURE
+    : itemPoolTypeOrNegativeOne;
 }
 
 /**
