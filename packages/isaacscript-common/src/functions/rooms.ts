@@ -171,8 +171,8 @@ export function getRoomDataForTypeVariant(
  *
  * Note that `ItemPool.GetPoolForRoom` will return -1 in `RoomType.DEFAULT` (1) rooms, but this
  * function will convert -1 to `ItemPoolType.TREASURE` (0) for convenience purposes (since the game
- * is "supposed" to use the Treasure Room pool for collections spawned in normal rooms). If you need
- * to distinguish between real Treasure Rooms and default rooms, then use the
+ * is "supposed" to use the Treasure Room pool for collectibles spawned in normal rooms). If you
+ * need to distinguish between real Treasure Rooms and default rooms, then use the
  * `ItemPool.GetPoolForRoom` method directly.
  */
 export function getRoomItemPoolType(): ItemPoolType {
