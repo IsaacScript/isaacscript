@@ -20,7 +20,10 @@ export enum PickupPrice {
   TWO_SOUL_HEARTS = -8,
   ONE_HEART_AND_ONE_SOUL_HEART = -9,
 
-  /** Game enum doesn't have this value, but it's correct value and used by game. */
+  /**
+   * The official in-game enum does not have this value, but it is the correct value used by game.
+   * It corresponds to the Devil Room mechanic with the `devilsacrifice` collectible tag.
+   **/
   DEVIL_SACRIFICE_SPIKES = -10,
 
   /** The Store Credit trinket causes items in the shop to cost 0 cents. */
