@@ -20,6 +20,9 @@ export enum PickupPrice {
   TWO_SOUL_HEARTS = -8,
   ONE_HEART_AND_ONE_SOUL_HEART = -9,
 
+  /** Game enum doesn't have this value, but it's correct value and used by game. */
+  DEVIL_SACRIFICE_SPIKES = -10,
+
   /** The Store Credit trinket causes items in the shop to cost 0 cents. */
   FREE = -1000,
 }
