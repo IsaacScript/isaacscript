@@ -28,11 +28,11 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "complete-common": "2.20.1",
-    "isaac-typescript-definitions": "43.0.5"
+    "complete-common": "2.21.0",
+    "isaac-typescript-definitions": "43.0.6"
   },
   "devDependencies": {
-    "complete-node": "16.3.1",
+    "complete-node": "16.4.0",
     "typescript-eslint": "8.57.1"
   }
 }

@@ -48,12 +48,12 @@
   },
   "devDependencies": {
     "@babel/core": "7.29.0",
-    "@babel/preset-env": "7.29.0",
+    "@babel/preset-env": "7.29.2",
     "@babel/preset-typescript": "7.28.5",
     "@types/jest": "30.0.0",
     "@typescript-eslint/rule-tester": "8.57.1",
-    "complete-common": "2.20.1",
-    "complete-node": "16.3.1",
+    "complete-common": "2.21.0",
+    "complete-node": "16.4.0",
     "jest": "30.3.0",
     "prettier": "3.8.1"
   },
