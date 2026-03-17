@@ -23,7 +23,7 @@ export enum PickupPrice {
   /**
    * The official in-game enum does not have this value, but it is the correct value used by game.
    * It corresponds to the Devil Room mechanic with the `devilsacrifice` collectible tag.
-   **/
+   */
   DEVIL_SACRIFICE_SPIKES = -10,
 
   /** The Store Credit trinket causes items in the shop to cost 0 cents. */
