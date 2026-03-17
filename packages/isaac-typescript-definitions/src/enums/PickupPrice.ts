@@ -21,6 +21,8 @@ export enum PickupPrice {
   ONE_HEART_AND_ONE_SOUL_HEART = -9,
 
   /**
+   * Added in Repentance+.
+   *
    * The official in-game enum does not have this value, but it is the correct value used by game.
    * It corresponds to the Devil Room mechanic with the `devilsacrifice` collectible tag.
    */
