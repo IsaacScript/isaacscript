@@ -26,6 +26,7 @@ craftquality # items_metadata.xml
 deathanm # items.xml
 devilprice # items.xml
 devilroomdoor # door_07_devilroomdoor.png
+devilsacrifice # items_metadata.xml
 endstage # challenges.xml
 fadecolor # cutscenes.xml
 firedelay # items.xml
