@@ -65,6 +65,7 @@ export function assertNotNull<T>(
  */
 export function eRange(start: int, end?: int, increment = 1): readonly int[] {
   if (end === undefined) {
+    // eslint-disable-next-line unicorn/no-useless-recursion
     return eRange(0, start, increment);
   }
 
@@ -95,6 +96,20 @@ export function getTraversalDescription(
 }
 
 /**
+ * Helper function to check if a variable is within a certain range, inclusive on both ends.
+ *
+ * - For example, `inRange(1, 1, 3)` will return `true`.
+ * - For example, `inRange(0, 1, 3)` will return `false`.
+ *
+ * @param num The number to check.
+ * @param start The start of the range to check.
+ * @param end The end of the range to check.
+ */
+export function inRange(num: int, start: int, end: int): boolean {
+  return num >= start && num <= end;
+}
+
+/**
  * Helper function to return an array of integers with the specified range, inclusive on both ends.
  * (The "i" in the function name stands for inclusive.)
  *
@@ -117,25 +132,12 @@ export function getTraversalDescription(
  */
 export function iRange(start: int, end?: int, increment = 1): readonly int[] {
   if (end === undefined) {
+    // eslint-disable-next-line unicorn/no-useless-recursion
     return iRange(0, start, increment);
   }
 
   const exclusiveEnd = end + 1;
   return eRange(start, exclusiveEnd, increment);
-}
-
-/**
- * Helper function to check if a variable is within a certain range, inclusive on both ends.
- *
- * - For example, `inRange(1, 1, 3)` will return `true`.
- * - For example, `inRange(0, 1, 3)` will return `false`.
- *
- * @param num The number to check.
- * @param start The start of the range to check.
- * @param end The end of the range to check.
- */
-export function inRange(num: int, start: int, end: int): boolean {
-  return num >= start && num <= end;
 }
 
 /**
