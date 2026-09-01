@@ -130,58 +130,6 @@ function mergeSerializedArray(
   );
 }
 
-function mergeSerializedTSTLObject(
-  // eslint-disable-next-line complete/prefer-readonly-parameter-types
-  oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
-  newTable: LuaMap<AnyNotNil, unknown>,
-  traversalDescription: string,
-  classConstructors: LuaMap<string, AnyClass>,
-) {
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log(`merge encountered a TSTL object: ${traversalDescription}`);
-  }
-
-  // We blow away the old object and recursively copy over all of the incoming values.
-  oldObject.clear();
-
-  // During serialization, we brand some Lua tables with a special identifier to signify that it has
-  // keys that should be deserialized to numbers.
-  const convertStringKeysToNumbers = newTable.has(
-    SerializationBrand.OBJECT_WITH_NUMBER_KEYS,
-  );
-
-  iterateTableInOrder(
-    newTable,
-    (key, value) => {
-      if (isSerializationBrand(key)) {
-        return;
-      }
-
-      let keyToUse = key;
-      if (convertStringKeysToNumbers) {
-        const numberKey = tonumber(key);
-        if (numberKey === undefined) {
-          return;
-        }
-        keyToUse = numberKey;
-      }
-
-      if (isTSTLMap(oldObject) || isDefaultMap(oldObject)) {
-        const deserializedValue = deepCopy(
-          value,
-          SerializationType.DESERIALIZE,
-          traversalDescription,
-          classConstructors,
-        );
-        oldObject.set(keyToUse, deserializedValue);
-      } else if (isTSTLSet(oldObject)) {
-        oldObject.add(keyToUse);
-      }
-    },
-    SAVE_DATA_MANAGER_DEBUG,
-  );
-}
-
 function mergeSerializedTable(
   oldTable: LuaMap<AnyNotNil, unknown>,
   newTable: LuaMap<AnyNotNil, unknown>,
@@ -233,6 +181,58 @@ function mergeSerializedTable(
       } else {
         // Base case: copy the value
         oldTable.set(key, value);
+      }
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
+}
+
+function mergeSerializedTSTLObject(
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
+  oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
+  newTable: LuaMap<AnyNotNil, unknown>,
+  traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
+) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log(`merge encountered a TSTL object: ${traversalDescription}`);
+  }
+
+  // We blow away the old object and recursively copy over all of the incoming values.
+  oldObject.clear();
+
+  // During serialization, we brand some Lua tables with a special identifier to signify that it has
+  // keys that should be deserialized to numbers.
+  const convertStringKeysToNumbers = newTable.has(
+    SerializationBrand.OBJECT_WITH_NUMBER_KEYS,
+  );
+
+  iterateTableInOrder(
+    newTable,
+    (key, value) => {
+      if (isSerializationBrand(key)) {
+        return;
+      }
+
+      let keyToUse = key;
+      if (convertStringKeysToNumbers) {
+        const numberKey = tonumber(key);
+        if (numberKey === undefined) {
+          return;
+        }
+        keyToUse = numberKey;
+      }
+
+      if (isTSTLMap(oldObject) || isDefaultMap(oldObject)) {
+        const deserializedValue = deepCopy(
+          value,
+          SerializationType.DESERIALIZE,
+          traversalDescription,
+          classConstructors,
+        );
+        oldObject.set(keyToUse, deserializedValue);
+      } else if (isTSTLSet(oldObject)) {
+        oldObject.add(keyToUse);
       }
     },
     SAVE_DATA_MANAGER_DEBUG,

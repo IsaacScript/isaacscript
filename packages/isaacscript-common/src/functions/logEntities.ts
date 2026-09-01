@@ -154,6 +154,58 @@ export function logEntity(this: void, entity: Entity): void {
   log(msg);
 }
 
+/** Helper function for logging an array of specific grid entities. */
+export function logGridEntities(
+  this: void,
+  gridEntities: readonly GridEntity[],
+): void {
+  for (const gridEntity of gridEntities) {
+    logGridEntity(gridEntity);
+  }
+}
+
+/** Helper function for log information about a specific grid entity. */
+export function logGridEntity(this: void, gridEntity: GridEntity): void {
+  const msg = getGridEntityLogLine(gridEntity);
+  log(msg);
+}
+
+/**
+ * Helper function to log information about the entity that corresponding to a pointer hash. (Only
+ * use this when debugging, since retrieving the corresponding entity is expensive.)
+ */
+export function logPtrHash(this: void, ptrHash: PtrHash): void {
+  log(`PtrHash: ${ptrHash}`);
+  const entity = getEntityFromPtrHash(ptrHash);
+  if (entity === undefined) {
+    log("No corresponding entity found.");
+  } else {
+    logEntity(entity);
+  }
+}
+
+/**
+ * Helper function to log information about the entity that corresponding to one or more pointer
+ * hashes. (Only use this when debugging, since retrieving the corresponding entity is expensive.)
+ */
+export function logPtrHashes(this: void, ptrHashes: readonly PtrHash[]): void {
+  for (const ptrHash of ptrHashes) {
+    logPtrHash(ptrHash);
+  }
+}
+
+function getBombVariantName(bomb: EntityBomb) {
+  // Handle modded entities.
+  const enumName = BombVariant[bomb.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `BombVariant.${enumName}`;
+}
+
+function getEffectVariantName(effect: EntityEffect) {
+  // Handle modded entities.
+  const enumName = EffectVariant[effect.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `EffectVariant.${enumName}`;
+}
+
 function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   let msg = num === undefined ? "" : `${num}) `;
 
@@ -237,80 +289,16 @@ function getEntityLogLine(this: void, entity: Entity, num?: int): string {
   return msg;
 }
 
-function getBombVariantName(bomb: EntityBomb) {
-  // Handle modded entities.
-  const enumName = BombVariant[bomb.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `BombVariant.${enumName}`;
-}
-
-function getEffectVariantName(effect: EntityEffect) {
-  // Handle modded entities.
-  const enumName = EffectVariant[effect.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `EffectVariant.${enumName}`;
-}
-
-function getFamiliarVariantName(familiar: EntityFamiliar) {
-  // Handle modded entities.
-  const enumName = FamiliarVariant[familiar.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `FamiliarVariant.${enumName}`;
-}
-
-function getKnifeVariantName(knife: EntityKnife) {
-  // Handle modded entities.
-  const enumName = KnifeVariant[knife.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `KnifeVariant.${enumName}`;
-}
-
-function getLaserVariantName(laser: EntityLaser) {
-  // Handle modded entities.
-  const enumName = LaserVariant[laser.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `LaserVariant.${enumName}`;
-}
-
 function getEntityTypeName(npc: EntityNPC) {
   // Handle modded entities.
   const enumName = EntityType[npc.Type] as string | undefined;
   return enumName === undefined ? "unknown" : `EntityType.${enumName}`;
 }
 
-function getPickupVariantName(pickup: EntityPickup) {
+function getFamiliarVariantName(familiar: EntityFamiliar) {
   // Handle modded entities.
-  const enumName = PickupVariant[pickup.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `PickupVariant.${enumName}`;
-}
-
-function getPlayerVariantName(player: EntityPlayer) {
-  // Handle modded entities.
-  const enumName = PlayerVariant[player.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `PlayerVariant.${enumName}`;
-}
-
-function getProjectileVariantName(projectile: EntityProjectile) {
-  // Handle modded entities.
-  const enumName = ProjectileVariant[projectile.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `ProjectileVariant.${enumName}`;
-}
-
-function getTearVariantName(tear: EntityTear) {
-  // Handle modded entities.
-  const enumName = TearVariant[tear.Variant] as string | undefined;
-  return enumName === undefined ? "unknown" : `TearVariant.${enumName}`;
-}
-
-/** Helper function for logging an array of specific grid entities. */
-export function logGridEntities(
-  this: void,
-  gridEntities: readonly GridEntity[],
-): void {
-  for (const gridEntity of gridEntities) {
-    logGridEntity(gridEntity);
-  }
-}
-
-/** Helper function for log information about a specific grid entity. */
-export function logGridEntity(this: void, gridEntity: GridEntity): void {
-  const msg = getGridEntityLogLine(gridEntity);
-  log(msg);
+  const enumName = FamiliarVariant[familiar.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `FamiliarVariant.${enumName}`;
 }
 
 function getGridEntityLogLine(
@@ -374,26 +362,38 @@ function getGridEntityLogLine(
   return msg;
 }
 
-/**
- * Helper function to log information about the entity that corresponding to a pointer hash. (Only
- * use this when debugging, since retrieving the corresponding entity is expensive.)
- */
-export function logPtrHash(this: void, ptrHash: PtrHash): void {
-  log(`PtrHash: ${ptrHash}`);
-  const entity = getEntityFromPtrHash(ptrHash);
-  if (entity === undefined) {
-    log("No corresponding entity found.");
-  } else {
-    logEntity(entity);
-  }
+function getKnifeVariantName(knife: EntityKnife) {
+  // Handle modded entities.
+  const enumName = KnifeVariant[knife.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `KnifeVariant.${enumName}`;
 }
 
-/**
- * Helper function to log information about the entity that corresponding to one or more pointer
- * hashes. (Only use this when debugging, since retrieving the corresponding entity is expensive.)
- */
-export function logPtrHashes(this: void, ptrHashes: readonly PtrHash[]): void {
-  for (const ptrHash of ptrHashes) {
-    logPtrHash(ptrHash);
-  }
+function getLaserVariantName(laser: EntityLaser) {
+  // Handle modded entities.
+  const enumName = LaserVariant[laser.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `LaserVariant.${enumName}`;
+}
+
+function getPickupVariantName(pickup: EntityPickup) {
+  // Handle modded entities.
+  const enumName = PickupVariant[pickup.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `PickupVariant.${enumName}`;
+}
+
+function getPlayerVariantName(player: EntityPlayer) {
+  // Handle modded entities.
+  const enumName = PlayerVariant[player.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `PlayerVariant.${enumName}`;
+}
+
+function getProjectileVariantName(projectile: EntityProjectile) {
+  // Handle modded entities.
+  const enumName = ProjectileVariant[projectile.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `ProjectileVariant.${enumName}`;
+}
+
+function getTearVariantName(tear: EntityTear) {
+  // Handle modded entities.
+  const enumName = TearVariant[tear.Variant] as string | undefined;
+  return enumName === undefined ? "unknown" : `TearVariant.${enumName}`;
 }

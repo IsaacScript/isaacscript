@@ -73,6 +73,22 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
 }
 
 /**
+ * Helper function to get only the players that have a certain trinket.
+ *
+ * This function is variadic, meaning that you can supply as many trinket types as you want to check
+ * for. It only returns the players that have all of the trinkets.
+ */
+export function getPlayersWithTrinket(
+  ...trinketTypes: readonly TrinketType[]
+): readonly EntityPlayer[] {
+  const players = getPlayers();
+
+  return players.filter((player) =>
+    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
+  );
+}
+
+/**
  * Helper function to get all of the trinkets that the player is currently holding. This will not
  * include any smelted trinkets.
  */
@@ -89,22 +105,6 @@ export function getPlayerTrinkets(
   }
 
   return trinketTypes;
-}
-
-/**
- * Helper function to get only the players that have a certain trinket.
- *
- * This function is variadic, meaning that you can supply as many trinket types as you want to check
- * for. It only returns the players that have all of the trinkets.
- */
-export function getPlayersWithTrinket(
-  ...trinketTypes: readonly TrinketType[]
-): readonly EntityPlayer[] {
-  const players = getPlayers();
-
-  return players.filter((player) =>
-    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
-  );
 }
 
 /** Helper function to check to see if the player is holding one or more trinkets. */

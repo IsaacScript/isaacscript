@@ -232,23 +232,6 @@ export function getRandomJSONRoom(
   return randomJSONRoom;
 }
 
-function getTotalWeightOfJSONObject(
-  jsonOjectArray: readonly JSONObject[],
-): float {
-  const weights = jsonOjectArray.map((jsonObject) => {
-    const weightString = jsonObject.$.weight;
-    const weight = tonumber(weightString);
-    assertDefined(
-      weight,
-      `Failed to parse the weight of a JSON object: ${weightString}.`,
-    );
-
-    return weight;
-  });
-
-  return sumArray(weights);
-}
-
 function getJSONObjectWithChosenWeight<T extends JSONObject>(
   jsonOjectArray: readonly T[],
   chosenWeight: float,
@@ -270,4 +253,21 @@ function getJSONObjectWithChosenWeight<T extends JSONObject>(
   }
 
   return undefined;
+}
+
+function getTotalWeightOfJSONObject(
+  jsonOjectArray: readonly JSONObject[],
+): float {
+  const weights = jsonOjectArray.map((jsonObject) => {
+    const weightString = jsonObject.$.weight;
+    const weight = tonumber(weightString);
+    assertDefined(
+      weight,
+      `Failed to parse the weight of a JSON object: ${weightString}.`,
+    );
+
+    return weight;
+  });
+
+  return sumArray(weights);
 }

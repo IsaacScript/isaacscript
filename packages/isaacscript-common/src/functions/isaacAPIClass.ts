@@ -33,6 +33,21 @@ export function getIsaacAPIClassName(object: unknown): string | undefined {
   return trimPrefix(classType, "const ");
 }
 
+/**
+ * Helper function to check if an instantiated Isaac API class is equal to another one of the same
+ * type. You must provide the list of keys to check for.
+ */
+export function isaacAPIClassEquals(
+  object1: unknown,
+  object2: unknown,
+  keys: readonly string[],
+): boolean {
+  const table1 = object1 as LuaMap<AnyNotNil, unknown>;
+  const table2 = object2 as LuaMap<AnyNotNil, unknown>;
+
+  return keys.every((key) => table1.get(key) === table2.get(key));
+}
+
 /** Helper function to detect if a variable is of type `EntityBomb`. */
 export function isBomb(variable: unknown): variable is EntityBomb {
   return getIsaacAPIClassName(variable) === "EntityBomb";
@@ -144,27 +159,12 @@ export function isSpikes(variable: unknown): variable is GridEntitySpikes {
   return getIsaacAPIClassName(variable) === "GridEntitySpikes";
 }
 
-/** Helper function to detect if a variable is of type `GridEntityTNT`. */
-export function isTNT(variable: unknown): variable is GridEntityTNT {
-  return getIsaacAPIClassName(variable) === "GridEntityTNT";
-}
-
 /** Helper function to detect if a variable is of type `EntityTear`. */
 export function isTear(variable: unknown): variable is EntityTear {
   return getIsaacAPIClassName(variable) === "EntityTear";
 }
 
-/**
- * Helper function to check if an instantiated Isaac API class is equal to another one of the same
- * type. You must provide the list of keys to check for.
- */
-export function isaacAPIClassEquals(
-  object1: unknown,
-  object2: unknown,
-  keys: readonly string[],
-): boolean {
-  const table1 = object1 as LuaMap<AnyNotNil, unknown>;
-  const table2 = object2 as LuaMap<AnyNotNil, unknown>;
-
-  return keys.every((key) => table1.get(key) === table2.get(key));
+/** Helper function to detect if a variable is of type `GridEntityTNT`. */
+export function isTNT(variable: unknown): variable is GridEntityTNT {
+  return getIsaacAPIClassName(variable) === "GridEntityTNT";
 }

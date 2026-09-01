@@ -285,30 +285,6 @@ export function getEntityFields(
   return entityFields;
 }
 
-function setPrimitiveEntityFields(
-  entity: Entity,
-  metatable: LuaMap<AnyNotNil, unknown>,
-  entityFields: LuaMap<string, boolean | number | string>,
-) {
-  const propGetTable = metatable.get("__propget") as
-    LuaMap<AnyNotNil, unknown> | undefined;
-  assertDefined(
-    propGetTable,
-    'Failed to get the "__propget" table for an entity.',
-  );
-
-  for (const [key] of propGetTable) {
-    // The values of this table are functions. Thus, we use the key to index the original entity.
-    const indexKey = key as keyof typeof entity;
-    const value = entity[indexKey];
-    if (isPrimitive(value)) {
-      entityFields.set(indexKey as string, value);
-    } else if (isVector(value)) {
-      entityFields.set(indexKey as string, vectorToString(value));
-    }
-  }
-}
-
 /**
  * Helper function to get an entity from a `PtrHash`. Note that doing this is very expensive, so you
  * should only use this function when debugging. (Normally, if you need to work backwards from a
@@ -743,4 +719,28 @@ export function spawnWithSeed(
     spawner,
     seedOrRNG,
   );
+}
+
+function setPrimitiveEntityFields(
+  entity: Entity,
+  metatable: LuaMap<AnyNotNil, unknown>,
+  entityFields: LuaMap<string, boolean | number | string>,
+) {
+  const propGetTable = metatable.get("__propget") as
+    LuaMap<AnyNotNil, unknown> | undefined;
+  assertDefined(
+    propGetTable,
+    'Failed to get the "__propget" table for an entity.',
+  );
+
+  for (const [key] of propGetTable) {
+    // The values of this table are functions. Thus, we use the key to index the original entity.
+    const indexKey = key as keyof typeof entity;
+    const value = entity[indexKey];
+    if (isPrimitive(value)) {
+      entityFields.set(indexKey as string, value);
+    } else if (isVector(value)) {
+      entityFields.set(indexKey as string, vectorToString(value));
+    }
+  }
 }

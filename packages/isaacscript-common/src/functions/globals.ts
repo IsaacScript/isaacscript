@@ -207,10 +207,6 @@ export function getDefaultGlobals(): ReadonlySet<string> {
   return defaultGlobals;
 }
 
-function isRacingPlusSandboxEnabled() {
-  return SandboxGetParentFunctionDescription !== undefined;
-}
-
 /**
  * Helper function to get an array of any added global variables in the Isaac Lua environment.
  * Returns a sorted array of key/value tuples.
@@ -272,4 +268,8 @@ export function setTracebackFunctionsGlobal(): void {
 
   globals["getTraceback"] = getTraceback;
   globals["traceback"] = traceback;
+}
+
+function isRacingPlusSandboxEnabled() {
+  return SandboxGetParentFunctionDescription !== undefined;
 }
