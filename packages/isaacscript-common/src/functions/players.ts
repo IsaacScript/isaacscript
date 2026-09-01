@@ -159,7 +159,7 @@ export function getNewestPlayer(): EntityPlayer {
   let lowestFrame = Number.POSITIVE_INFINITY;
   for (const player of getPlayers()) {
     if (!(player.FrameCount < lowestFrame)) {
-    	continue;
+      continue;
     }
 
     newestPlayer = player;

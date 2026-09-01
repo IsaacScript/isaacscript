@@ -31,7 +31,7 @@ import { log } from "./log";
  */
 export function clearChallenge(): void {
   if (!onAnyChallenge()) {
-  	return;
+    return;
   }
 
   const command = `challenge ${Challenge.NULL}`;
@@ -130,7 +130,7 @@ export function onChallenge(...challenges: readonly Challenge[]): boolean {
  */
 export function setChallenge(challenge: Challenge): void {
   if (onChallenge(challenge)) {
-  	return;
+    return;
   }
 
   const command = `challenge ${challenge}`;

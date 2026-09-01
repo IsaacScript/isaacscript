@@ -102,17 +102,13 @@ export function isDamageToPlayerFatal(
   const eternalHearts = player.GetEternalHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
-  if (
+  return !(
     (hearts > 0 && soulHearts > 0)
     || (hearts > 0 && boneHearts > 0)
     || (soulHearts > 0 && boneHearts > 0)
     || (soulHearts > 0 && eternalHearts > 0)
     || boneHearts >= 2 // Two bone hearts and nothing else should not result in a death
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
 
 /**

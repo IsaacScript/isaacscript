@@ -25,7 +25,7 @@ export function getRoomAllowedDoors(
 
   for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
     if (!hasFlag(roomData.Doors, doorSlotFlag)) {
-    	continue;
+      continue;
     }
 
     const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);

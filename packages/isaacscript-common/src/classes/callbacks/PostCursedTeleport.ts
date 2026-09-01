@@ -165,10 +165,8 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     }
 
     const numHitsRemaining = getPlayerNumHitsRemaining(player);
-    if (player.HasTrinket(TrinketType.CURSED_SKULL) && numHitsRemaining === 1) {
-      return true;
-    }
-
-    return false;
+    return (
+      player.HasTrinket(TrinketType.CURSED_SKULL) && numHitsRemaining === 1
+    );
   }
 }

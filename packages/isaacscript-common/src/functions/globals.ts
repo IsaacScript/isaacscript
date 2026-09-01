@@ -216,7 +216,7 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
     if (defaultGlobals.has(key)) {
-    	continue;
+      continue;
     }
 
     const keyValueTuple: [AnyNotNil, unknown] = [key, value];

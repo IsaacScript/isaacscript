@@ -47,7 +47,6 @@ export default defineConfig(
       "unicorn/no-useless-recursion": "off",
       "unicorn/no-useless-template-literals": "off",
       "unicorn/numeric-separators-style": "off",
-      "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-direct-iteration": "off",
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-global-number-constants": "off",

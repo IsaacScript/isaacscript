@@ -46,7 +46,7 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
 
   private checkRoomChanged(): void {
     if (!this.isNewRoom()) {
-    	return;
+      return;
     }
 
     const room = game.GetRoom();

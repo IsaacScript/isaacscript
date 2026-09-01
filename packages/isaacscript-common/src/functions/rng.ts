@@ -136,7 +136,7 @@ export function setAllRNGToSeed(
   let setAtLeastOneSeed = false;
   for (const [_key, value] of object) {
     if (!isRNG(value)) {
-    	continue;
+      continue;
     }
 
     setSeed(value, seed);

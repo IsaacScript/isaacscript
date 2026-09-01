@@ -55,7 +55,7 @@ export function doorSlotFlagsToDoorSlots(
 
   for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
     if (!hasFlag(doorSlotFlags, doorSlotFlag)) {
-    	continue;
+      continue;
     }
 
     const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);

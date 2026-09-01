@@ -110,7 +110,7 @@ export class SlotDestroyedDetection extends Feature {
    */
   private checkDestroyedFromCollisionClass(slot: EntitySlot) {
     if (!(slot.GridCollisionClass === EntityGridCollisionClass.GROUND)) {
-    	return;
+      return;
     }
 
     const ptrHash = GetPtrHash(slot);

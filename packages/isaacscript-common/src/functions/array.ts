@@ -134,7 +134,7 @@ export function arrayRemoveIndexInPlace<T>(
 
   for (let i = array.length - 1; i >= 0; i--) {
     if (!legalIndexesSet.has(i)) {
-    	continue;
+      continue;
     }
 
     const removedElement = array.splice(i, 1);

@@ -112,7 +112,7 @@ export class ExtraConsoleCommands extends Feature {
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = () => {
     if (!v.persistent.spamBloodRights) {
-    	return;
+      return;
     }
 
     const player = Isaac.GetPlayer();

@@ -200,7 +200,7 @@ function removeItemsAndTrinketsThatAffectItemPools(): {
     const removedTrinkets: TrinketType[] = [];
     for (const trinketToRemove of TRINKETS_THAT_AFFECT_ITEM_POOLS) {
       if (!player.HasTrinket(trinketToRemove)) {
-      	continue;
+        continue;
       }
 
       const numTrinkets = player.GetTrinketMultiplier(trinketToRemove);

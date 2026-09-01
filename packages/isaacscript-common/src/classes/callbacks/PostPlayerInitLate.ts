@@ -32,7 +32,7 @@ export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom.POST_PL
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     if (setHasPlayer(v.run.playersFiredSet, player)) {
-    	return;
+      return;
     }
 
     setAddPlayer(v.run.playersFiredSet, player);
