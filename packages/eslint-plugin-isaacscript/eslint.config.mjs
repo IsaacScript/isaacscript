@@ -8,14 +8,14 @@ export default defineConfig(
 
   {
     rules: {
-      /** This rule conflicts with this plugin's testing style. */
-      "unicorn/prefer-single-call": "off",
-
       /** Some rules use bitwise operators to deal with TypeScript bit flags. */
       "no-bitwise": "off",
 
       /** We commonly trim the incoming text. */
       "no-param-reassign": "off",
+
+      /** This rule conflicts with this plugin's testing style. */
+      "unicorn/prefer-single-call": "off",
     },
   },
 

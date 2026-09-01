@@ -4,42 +4,40 @@ import { createRule } from "../utils.js";
 const REGISTRATION_LINES = [" v = v;", "saveDataManager("] as const;
 
 export const requireVRegistration = createRule({
-  name: "require-v-registration",
   meta: {
-    type: "problem",
     docs: {
-      description:
-        'Require variables named "v" to be registered with the save data manager',
       recommended: true,
       requiresTypeChecking: false,
+      description:
+        'Require variables named "v" to be registered with the save data manager',
     },
-    schema: [],
     messages: {
       noRegistration:
         'Variables named "v" must be registered with the save data manager from "isaacscript-common".',
     },
+    schema: [],
+    type: "problem",
   },
+  name: "require-v-registration",
+  create: (context) => ({
+    VariableDeclarator(node) {
+      if (node.id.type !== AST_NODE_TYPES.Identifier) {
+        return;
+      }
+
+      if (node.id.name !== "v") {
+        return;
+      }
+
+      if (!hasRegistrationLines(context.sourceCode.text)) {
+        context.report({
+          node,
+          messageId: "noRegistration",
+        });
+      }
+    },
+  }),
   defaultOptions: [],
-  create(context) {
-    return {
-      VariableDeclarator(node) {
-        if (node.id.type !== AST_NODE_TYPES.Identifier) {
-          return;
-        }
-
-        if (node.id.name !== "v") {
-          return;
-        }
-
-        if (!hasRegistrationLines(context.sourceCode.text)) {
-          context.report({
-            node,
-            messageId: "noRegistration",
-          });
-        }
-      },
-    };
-  },
 });
 
 function hasRegistrationLines(text: string) {

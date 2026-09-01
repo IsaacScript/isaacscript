@@ -6,25 +6,17 @@ import { rules } from "./rules.js";
 
 const { name, version } = packageJSON;
 
-const plugin = {
-  meta: {
-    name,
-    version,
-  },
-  configs,
-  rules,
-};
-
-addPluginToConfigs(configs, name);
+const plugin = createPlugin(configs, name, version);
 
 // ESLint plugins must provide a default export by design.
 // eslint-disable-next-line
 export default plugin;
 
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */
-function addPluginToConfigs(
+function createPlugin(
   configsToMutate: ReadonlyRecord<string, TSESLint.FlatConfig.ConfigArray>,
   packageName: unknown,
+  packageVersion: string,
 ) {
   if (typeof packageName !== "string") {
     throw new TypeError(
@@ -38,13 +30,24 @@ function addPluginToConfigs(
     throw new Error("Failed to parse the plugin name from the package name.");
   }
 
+  const newPlugin = {
+    configs: configsToMutate,
+    meta: {
+      name: packageName,
+      version: packageVersion,
+    },
+    rules,
+  };
+
   for (const configArray of Object.values(configsToMutate)) {
     for (const config of configArray) {
       if (config.plugins !== undefined) {
         Object.assign(config.plugins, {
-          [pluginName]: plugin,
+          [pluginName]: newPlugin,
         });
       }
     }
   }
+
+  return newPlugin;
 }

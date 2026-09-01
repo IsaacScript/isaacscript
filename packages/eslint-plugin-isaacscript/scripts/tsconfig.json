@@ -10,7 +10,8 @@
   ],
 
   "compilerOptions": {
-    "rootDir": ".",
+    // Scripts import the package source when generating rule metadata.
+    "rootDir": "..",
   },
 
   "include": ["*.ts"],

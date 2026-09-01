@@ -25,7 +25,7 @@ export async function generateRules(): Promise<void> {
 
 async function getRuleNames(): Promise<readonly string[]> {
   const fileNames = await getFileNamesInDirectory(RULES_DIRECTORY_PATH);
-  const ruleNames = fileNames.map((fileName) => fileName.replace(/\.ts$/, ""));
+  const ruleNames = fileNames.map((fileName) => fileName.replace(/\.ts$/v, ""));
   ruleNames.sort();
 
   return ruleNames;

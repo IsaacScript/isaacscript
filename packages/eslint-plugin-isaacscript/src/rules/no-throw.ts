@@ -1,29 +1,27 @@
 import { createRule } from "../utils.js";
 
 export const noThrow = createRule({
-  name: "no-throw",
   meta: {
-    type: "problem",
     docs: {
-      description: 'Disallows the usage of "throw"',
       recommended: true,
       requiresTypeChecking: false,
+      description: 'Disallows the usage of "throw"',
     },
-    schema: [],
     messages: {
       noThrow:
         'The "throw" keyword is forbidden. Use the "error" function instead.',
     },
+    schema: [],
+    type: "problem",
   },
+  name: "no-throw",
+  create: (context) => ({
+    ThrowStatement(node) {
+      context.report({
+        node,
+        messageId: "noThrow",
+      });
+    },
+  }),
   defaultOptions: [],
-  create(context) {
-    return {
-      ThrowStatement(node) {
-        context.report({
-          node,
-          messageId: "noThrow",
-        });
-      },
-    };
-  },
 });

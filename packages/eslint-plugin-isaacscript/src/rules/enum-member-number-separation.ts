@@ -2,23 +2,21 @@ import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { createRule } from "../utils.js";
 
 export const enumMemberNumberSeparation = createRule({
-  name: "enum-member-number-separation",
   meta: {
-    type: "problem",
     docs: {
-      description: "Disallows numbers next to letters in enum members",
       recommended: true,
       requiresTypeChecking: false,
+      description: "Disallows numbers next to letters in enum members",
     },
-    schema: [],
     messages: {
       notSeparated:
         "Enum member names must have numbers separated from letters by an underscore.",
     },
+    schema: [],
+    type: "problem",
   },
-  defaultOptions: [],
-  create(context) {
-    return {
+  name: "enum-member-number-separation",
+  create: (context) => ({
       TSEnumMember(node) {
         const { id } = node;
         if (id.type !== AST_NODE_TYPES.Identifier) {
@@ -63,10 +61,10 @@ export const enumMemberNumberSeparation = createRule({
           }
         }
       },
-    };
-  },
+    }),
+  defaultOptions: [],
 });
 
 function isNumber(character: string): boolean {
-  return /^\d$/.test(character);
+  return /^\d$/v.test(character);
 }

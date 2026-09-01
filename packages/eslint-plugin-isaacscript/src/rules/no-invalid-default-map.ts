@@ -10,21 +10,20 @@ export const noInvalidDefaultMap = createRule<
   Options,
   NoInvalidDefaultMapMessageIds
 >({
-  name: "no-invalid-default-map",
   meta: {
-    type: "problem",
     docs: {
-      description: "Disallows invalid constructors for the DefaultMap class",
       recommended: true,
       requiresTypeChecking: true,
+      description: "Disallows invalid constructors for the DefaultMap class",
     },
-    schema: [],
     messages: {
       invalidType:
         "The only valid types for a default value are `boolean`, `number`/`int`/float`, `string`, and `function`.\nIf you want to have a default value of an array, a map, or some other complex data structure, you must return it as part of a factory function. See the `DefaultMap` documentation for more details.",
     },
+    schema: [],
+    type: "problem",
   },
-  defaultOptions: [],
+  name: "no-invalid-default-map",
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
@@ -83,4 +82,5 @@ export const noInvalidDefaultMap = createRule<
       },
     };
   },
+  defaultOptions: [],
 });

@@ -32,14 +32,12 @@ async function createRule() {
       'You must provide the rule description as the second argument. e.g. "Disallows the usage of unsafe enum patterns"',
     );
   }
-
   const ruleName = firstArg;
-  const descriptionRaw = secondArg;
-
   if (!isKebabCase(ruleName)) {
     throw new Error("The rule name must be in kebab-case.");
   }
 
+  const descriptionRaw = secondArg;
   const description = trimSuffix(descriptionRaw, ".");
   if (description.endsWith(".")) {
     throw new Error("The rule description cannot end with a period.");
@@ -100,9 +98,7 @@ function replaceTemplateText(
 
 /** Intended to be used on file content that needs to have a trailing newline. */
 function removeFirstAndLastLine(text: string): string {
-  const lines = text.trim().split("\n");
-  lines.shift(); // Remove first line
-  lines.pop(); // Remove last line
+  const lines = text.trim().split("\n").slice(1, -1);
   lines.push(""); // Add a trailing newline
   return lines.join("\n");
 }

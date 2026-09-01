@@ -2,6 +2,17 @@ import { enumMemberNumberSeparation } from "../../src/rules/enum-member-number-s
 import { ruleTester } from "../utils.js";
 
 ruleTester.run("enum-member-number-separation", enumMemberNumberSeparation, {
+  invalid: [
+    {
+      errors: [{ messageId: "notSeparated" }, { messageId: "notSeparated" }],
+      code: `
+enum Foo {
+  VALUE1,
+  VALUE2,
+}
+      `,
+    },
+  ],
   valid: [
     {
       code: `
@@ -10,18 +21,6 @@ enum Foo {
   VALUE_2,
 }
       `,
-    },
-  ],
-
-  invalid: [
-    {
-      code: `
-enum Foo {
-  VALUE1,
-  VALUE2,
-}
-      `,
-      errors: [{ messageId: "notSeparated" }, { messageId: "notSeparated" }],
     },
   ],
 });

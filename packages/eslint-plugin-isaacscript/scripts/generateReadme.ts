@@ -67,9 +67,16 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
     `Rule ${ruleName} does not have a "docs" entry.`,
   );
 
+  const { description } = rule.meta.docs;
+
+  if (description.endsWith(".")) {
+    throw new Error(
+      `The "${ruleName}" rule ends with a period, which is incorrect and should be deleted.`,
+    );
+  }
+
   const fullRuleName = getRuleNameWithPluginNamePrefix(ruleName);
   const nameWithLink = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;
-  const { description } = rule.meta.docs;
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
   const isFixable = rule.meta.fixable === undefined ? "" : EMOJI_FIXABLE;
   const requiresTypeInformation =
@@ -77,12 +84,6 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
     && rule.meta.docs.requiresTypeChecking === true
       ? EMOJI_REQUIRES_TYPE_INFORMATION
       : "";
-
-  if (description.endsWith(".")) {
-    throw new Error(
-      `The "${ruleName}" rule ends with a period, which is incorrect and should be deleted.`,
-    );
-  }
 
   const ruleCells = [
     nameWithLink,
@@ -140,7 +141,7 @@ function replaceContentInsideMark(
   }
 
   if (text !== "") {
-    text = `${text}\n`;
+    text += "\n";
   }
 
   text = `\n${text}`;
