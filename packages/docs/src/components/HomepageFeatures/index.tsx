@@ -7,7 +7,7 @@ import styles from "./styles.module.css";
 interface FeatureItem {
   readonly title: string;
   readonly img: string;
-  readonly description: React.JSX.Element;
+  readonly description: Readonly<React.JSX.Element>;
 }
 
 const FeatureList = [

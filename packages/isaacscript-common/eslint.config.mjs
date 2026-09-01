@@ -10,11 +10,7 @@ export default defineConfig(
 
   {
     rules: {
-      /**
-       * Not defined in the parent configs.
-       *
-       * Requiring "public constructor" everywhere is undesirable.
-       */
+      /** Requiring "public constructor" everywhere is undesirable. */
       "@typescript-eslint/explicit-member-accessibility": [
         "error",
         {
@@ -25,8 +21,6 @@ export default defineConfig(
       ],
 
       /**
-       * Defined at: mod.js
-       *
        * Since we transpile this library to both Lua and JavaScript, we need to re-enable this lint
        * rule.
        */

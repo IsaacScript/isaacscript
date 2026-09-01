@@ -13,8 +13,8 @@ import {
 } from "./utils.js";
 
 interface Marker {
-  start: string;
-  end: string;
+  readonly start: string;
+  readonly end: string;
 }
 
 const EMOJI_RECOMMENDED = ":white_check_mark:";

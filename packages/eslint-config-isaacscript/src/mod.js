@@ -34,16 +34,12 @@ export const isaacScriptModConfigBase = defineConfig(
 
     rules: {
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * It is conventional in IsaacScript mods to put the "v" object outside of the class, which
        * makes it likely that some methods will not use any internal class variables.
        */
       "@typescript-eslint/class-methods-use-this": "off",
 
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * We expand the original definition to ensure that all enums match the Isaac convention of
        * using UPPER_CASE.
        */
@@ -79,8 +75,6 @@ export const isaacScriptModConfigBase = defineConfig(
       ],
 
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * The `Vector` object has a `tostring` meta-method, so it can be properly printed without
        * explicitly specifying the X and Y values.
        */
@@ -90,8 +84,6 @@ export const isaacScriptModConfigBase = defineConfig(
       ],
 
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * TSTL has special behavior with respect to `this: void`, so we need to configure this rule
        * to allow the `this` parameter.
        */
@@ -101,78 +93,52 @@ export const isaacScriptModConfigBase = defineConfig(
       ],
 
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * This rule throws false positives with Isaac API functions. It can be worked around by
        * supplying lists of globals to ESLint, but this is ugly. See:
        * https://github.com/typescript-eslint/typescript-eslint/issues/2780
        */
       "@typescript-eslint/no-loop-func": "off",
 
-      /**
-       * Defined at: base-typescript-eslint.js
-       *
-       * This has false positives with the `int` type.
-       */
+      /** This has false positives with the `int` type. */
       "@typescript-eslint/no-unsafe-unary-minus": "off",
 
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * Enums that are used with the API must be numbers since that is what the API expects. We
        * also prefer that unofficial enums are also number enums for consistency.
        */
       "@typescript-eslint/prefer-enum-initializers": "off",
 
-      /**
-       * Defined at: base-typescript-eslint.js
-       *
-       * It is common to initialize enums with the `Isaac.GetEntityVariantByName` method.
-       */
+      /** It is common to initialize enums with the `Isaac.GetEntityVariantByName` method. */
       "@typescript-eslint/prefer-literal-enum-member": "off",
 
       /**
-       * Defined at: base-typescript-eslint.js
-       *
        * The `Number.sort` method transpiles to use `table.sort`, which does not have the
        * coercion-based bugs of the JavaScript implementation. Thus, this lint rule is unnecessary.
        */
       "@typescript-eslint/require-array-sort-compare": "off",
 
       /**
-       * Defined at: complete/recommended
-       *
        * Enums that are used with the API use upper case letters. We also prefer that unofficial
        * enums are also use upper case letters for consistency.
        */
       "complete/consistent-enum-values": "off",
 
       /**
-       * Defined at: complete/recommended
-       *
        * Enums that are used with the API must be numbers since that is what the API expects. We
        * also prefer that unofficial enums are also number enums for consistency.
        */
       "complete/no-number-enums": "off",
 
       /**
-       * Defined at: complete/recommended
-       *
        * "v" objects should be in a semantic order and it would be too cumbersome to annotate all of
        * them.
        */
       "complete/sort-objects": "off",
 
-      /**
-       * Defined at: base-n.js
-       *
-       * IsaacScript mods to not use ESM, so we must turn this rule off.
-       */
+      /** IsaacScript mods to not use ESM, so we must turn this rule off. */
       "n/file-extension-in-import": "off",
 
       /**
-       * Defined at: base-eslint.js
-       *
        * Isaac API methods use capital letters, so we must make the options for the rule less
        * strict.
        */
@@ -185,46 +151,22 @@ export const isaacScriptModConfigBase = defineConfig(
         },
       ],
 
-      /**
-       * Defined at: base-eslint.js
-       *
-       * Isaac enums use bitwise operators (e.g. "EntityFlag").
-       */
+      /** Isaac enums use bitwise operators (e.g. "EntityFlag"). */
       "no-bitwise": "off",
 
-      /**
-       * Defined at: base-eslint.js
-       *
-       * The Isaac API callback functions expect you to modify the provided object.
-       */
+      /** The Isaac API callback functions expect you to modify the provided object. */
       "no-param-reassign": "off",
 
-      /**
-       * Defined at: base-eslint.js
-       *
-       * "print" is used with Lua mods.
-       */
+      /** "print" is used with Lua mods. */
       "no-restricted-globals": "off",
 
-      /**
-       * Defined at: base-perfectionist.js
-       *
-       * Is it common for set ordering to have semantic meaning in Isaac mods.
-       */
+      /** Is it common for set ordering to have semantic meaning in Isaac mods. */
       "perfectionist/sort-arrays": "off",
 
-      /*
-       * Defined at: base-unicorn.js
-       *
-       * It is idiomatic in Isaac mods to use "SubType" instead of "Subtype".
-       */
+      /* * It is idiomatic in Isaac mods to use "SubType" instead of "Subtype". */
       "unicorn/consistent-compound-words": "off",
 
-      /**
-       * Defined at: base-unicorn.js
-       *
-       * The rule assumes that `print` is the JavaScript one instead of the Lua one.
-       */
+      /** The rule assumes that `print` is the JavaScript one instead of the Lua one. */
       "unicorn/no-invalid-argument-count": [
         "error",
         {
@@ -235,8 +177,6 @@ export const isaacScriptModConfigBase = defineConfig(
       ],
 
       /**
-       * Defined at: base-unicorn.js
-       *
        * `null` values are conventionally used with the `isaacscript-common` save data manager (even
        * though they are transpiled to `nil`).
        */
@@ -245,11 +185,7 @@ export const isaacScriptModConfigBase = defineConfig(
       /** `Iterator#toArray()` is not supported by TypeScriptToLua. */
       "unicorn/prefer-iterator-to-array": "off",
 
-      /**
-       * Defined at: base-unicorn.js
-       *
-       * IsaacScript mods use Lua bitwise operators, which are safe.
-       */
+      /** IsaacScript mods use Lua bitwise operators, which are safe. */
       "unicorn/prefer-math-trunc": "off",
     },
   },

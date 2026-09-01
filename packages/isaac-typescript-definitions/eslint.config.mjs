@@ -10,18 +10,13 @@ export default defineConfig(
 
   {
     rules: {
-      /**
-       * Defined at: base-typescript-eslint.js
-       *
-       * Ark120202, the author of TypeScriptToLua, recommends using triple-slash directives.
-       */
+      /** Ark120202, the author of TypeScriptToLua, recommends using triple-slash directives. */
       "@typescript-eslint/triple-slash-reference": "off",
 
-      /**
-       * Defined at: base-jsdoc.js
-       *
-       * The API documentation does not contain entries for every parameter.
-       */
+      /** Many Isaac objects are mutable. */
+      "complete/type-declaration-immutability": "off",
+
+      /** The API documentation does not contain entries for every parameter. */
       "jsdoc/require-param-description": "off",
 
       /** Not defined in the parent configs. */

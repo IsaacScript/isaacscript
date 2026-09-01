@@ -8,11 +8,7 @@ export default defineConfig(
 
   {
     rules: {
-      /*
-       * Defined at: base-unicorn.js
-       *
-       * It is idiomatic in Isaac mods to use "SubType" instead of "Subtype".
-       */
+      /* * It is idiomatic in Isaac mods to use "SubType" instead of "Subtype". */
       "unicorn/consistent-compound-words": "off",
     },
   },
