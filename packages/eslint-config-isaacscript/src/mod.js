@@ -1,4 +1,4 @@
-import ESLintPluginIsaacScript from "eslint-plugin-isaacscript";
+import esLintPluginIsaacScript from "eslint-plugin-isaacscript";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -7,10 +7,15 @@ import { defineConfig } from "eslint/config";
  */
 export const isaacScriptModConfigBase = defineConfig(
   {
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["*.json", "*.jsonc"],
+
     plugins: {
       // TODO: The `defineConfig` helper function is bugged.
       // @ts-expect-error https://github.com/typescript-eslint/typescript-eslint/issues/11543
-      isaacscript: ESLintPluginIsaacScript,
+      isaacscript: esLintPluginIsaacScript,
     },
 
     rules: {
@@ -19,14 +24,14 @@ export const isaacScriptModConfigBase = defineConfig(
       "isaacscript/no-throw": "warn",
       "isaacscript/require-v-registration": "warn",
     },
+  },
 
+  {
     // Rules that require type information will throw an error on ".json" files. (This is needed
     // when using `eslint-plugin-package-json`. Even though this config does not currently use the
     // plugin, we include it here defensively.)
     ignores: ["*.json", "*.jsonc"],
-  },
 
-  {
     rules: {
       /**
        * Defined at: base-typescript-eslint.js
@@ -47,29 +52,29 @@ export const isaacScriptModConfigBase = defineConfig(
         // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
         // (23.10).
         {
-          selector: "variable",
           format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "allow",
+          selector: "variable",
         },
         // Allow camelCase functions (23.2), and PascalCase functions (23.8).
         {
-          selector: "function",
           format: ["camelCase", "PascalCase"],
           leadingUnderscore: "allow",
+          selector: "function",
         },
         // Airbnb recommends PascalCase for classes (23.3), and although Airbnb does not make
         // TypeScript recommendations, we are assuming this rule would similarly apply to anything
         // "type like", including interfaces, type aliases, and enums.
         {
-          selector: "typeLike",
           format: ["PascalCase"],
           leadingUnderscore: "allow",
+          selector: "typeLike",
         },
         // The vanilla Isaac enums all use UPPER_CASE:
         // https://wofsauge.github.io/IsaacDocs/rep/enums/CollectibleType.html
         {
-          selector: "enumMember",
           format: ["UPPER_CASE"],
+          selector: "enumMember",
         },
       ],
 
@@ -81,9 +86,7 @@ export const isaacScriptModConfigBase = defineConfig(
        */
       "@typescript-eslint/no-base-to-string": [
         "warn",
-        {
-          ignoredTypeNames: ["Vector"],
-        },
+        { ignoredTypeNames: ["Vector"] },
       ],
 
       /**
@@ -94,9 +97,7 @@ export const isaacScriptModConfigBase = defineConfig(
        */
       "@typescript-eslint/no-invalid-void-type": [
         "warn",
-        {
-          allowAsThisParameter: true,
-        },
+        { allowAsThisParameter: true },
       ],
 
       /**
@@ -155,21 +156,6 @@ export const isaacScriptModConfigBase = defineConfig(
       "n/file-extension-in-import": "off",
 
       /**
-       * Defined at: base-unicorn.js
-       *
-       * `null` values are conventionally used with the `isaacscript-common` save data manager (even
-       * though they are transpiled to `nil`).
-       */
-      "unicorn/no-null": "off",
-
-      /**
-       * Defined at: base-unicorn.js
-       *
-       * IsaacScript mods use Lua bitwise operators, which are safe.
-       */
-      "unicorn/prefer-math-trunc": "off",
-
-      /**
        * Defined at: base-eslint.js
        *
        * Isaac API methods use capital letters, so we must make the options for the rule less
@@ -178,8 +164,8 @@ export const isaacScriptModConfigBase = defineConfig(
       "new-cap": [
         "warn",
         {
-          newIsCap: true,
           capIsNew: false,
+          newIsCap: true,
           properties: true,
         },
       ],
@@ -204,12 +190,22 @@ export const isaacScriptModConfigBase = defineConfig(
        * "print" is used with Lua mods.
        */
       "no-restricted-globals": "off",
-    },
 
-    // Rules that require type information will throw an error on ".json" files. (This is needed
-    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
-    // plugin, we include it here defensively.)
-    ignores: ["*.json", "*.jsonc"],
+      /**
+       * Defined at: base-unicorn.js
+       *
+       * `null` values are conventionally used with the `isaacscript-common` save data manager (even
+       * though they are transpiled to `nil`).
+       */
+      "unicorn/no-null": "off",
+
+      /**
+       * Defined at: base-unicorn.js
+       *
+       * IsaacScript mods use Lua bitwise operators, which are safe.
+       */
+      "unicorn/prefer-math-trunc": "off",
+    },
   },
 
   {
