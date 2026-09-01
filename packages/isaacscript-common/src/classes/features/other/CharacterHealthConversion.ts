@@ -112,7 +112,7 @@ function convertRedHeartContainers(
     return;
   }
 
-  player.AddMaxHearts(maxHearts * -1, false);
+  player.AddMaxHearts(-maxHearts, false);
 
   switch (heartSubType) {
     case HeartSubType.SOUL: {
@@ -134,6 +134,6 @@ function convertRedHeartContainers(
 function removeRedHearts(player: EntityPlayer) {
   const hearts = player.GetHearts();
   if (hearts > 0) {
-    player.AddHearts(hearts * -1);
+    player.AddHearts(-hearts);
   }
 }

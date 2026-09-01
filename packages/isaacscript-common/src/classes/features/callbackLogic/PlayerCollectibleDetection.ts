@@ -139,7 +139,7 @@ export class PlayerCollectibleDetection extends Feature {
     if (difference > 0) {
       this.updateCollectibleMapAndFire(player, difference);
     } else if (difference < 0) {
-      this.updateCollectibleMapAndFire(player, difference * -1);
+      this.updateCollectibleMapAndFire(player, -difference);
     } else if (difference === 0) {
       this.checkActiveItemsChanged(player);
     }

@@ -531,10 +531,10 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
 
   // To avoid bugs, we have to remove the exact amount of certain types of hearts. We remove Golden
   // Hearts first so that they don't break.
-  player.AddGoldenHearts(goldenHearts * -1);
-  player.AddEternalHearts(eternalHearts * -1);
-  player.AddBoneHearts(boneHearts * -1);
-  player.AddBrokenHearts(brokenHearts * -1);
+  player.AddGoldenHearts(-goldenHearts);
+  player.AddEternalHearts(-eternalHearts);
+  player.AddBoneHearts(-boneHearts);
+  player.AddBrokenHearts(-brokenHearts);
   player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
   player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
 
@@ -544,7 +544,7 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
     const forgotten = player.GetSubPlayer();
     if (forgotten !== undefined) {
       const forgottenBoneHearts = forgotten.GetBoneHearts();
-      forgotten.AddBoneHearts(forgottenBoneHearts * -1);
+      forgotten.AddBoneHearts(-forgottenBoneHearts);
     }
   }
 }

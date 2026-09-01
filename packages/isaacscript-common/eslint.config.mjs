@@ -31,9 +31,6 @@ export default defineConfig(
        * rule.
        */
       "@typescript-eslint/require-array-sort-compare": "error",
-
-      // TODO
-      "unicorn/prefer-unary-minus": "off",
     },
   },
 
