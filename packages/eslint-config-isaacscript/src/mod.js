@@ -112,6 +112,13 @@ export const isaacScriptModConfigBase = defineConfig(
       /**
        * Defined at: base-typescript-eslint.js
        *
+       * This has false positives with the `int` type.
+       */
+      "@typescript-eslint/no-unsafe-unary-minus": "off",
+
+      /**
+       * Defined at: base-typescript-eslint.js
+       *
        * Enums that are used with the API must be numbers since that is what the API expects. We
        * also prefer that unofficial enums are also number enums for consistency.
        */

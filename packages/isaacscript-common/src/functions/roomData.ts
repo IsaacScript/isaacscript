@@ -250,12 +250,6 @@ export function getRoomType(): RoomType;
  * @returns The room type. Returns undefined if the room data was not found.
  */
 export function getRoomType(roomGridIndex?: int): RoomType | undefined;
-/**
- * Helper function for getting the type of the room with the given grid index.
- *
- * @param roomGridIndex Optional. Default is the current room index.
- * @returns The room data type. Returns -1 if the room data was not found.
- */
 export function getRoomType(roomGridIndex?: int): RoomType | undefined {
   const roomData = getRoomData(roomGridIndex);
   return roomData === undefined ? undefined : roomData.Type;
