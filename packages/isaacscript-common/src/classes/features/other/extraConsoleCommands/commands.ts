@@ -1,7 +1,7 @@
 // cspell:ignore addcharges
 
 /* eslint "perfectionist/sort-modules": "error" */
-/* eslint "jsdoc/require-jsdoc": "warn" */
+/* eslint "jsdoc/require-jsdoc": "error" */
 
 /**
  * __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__

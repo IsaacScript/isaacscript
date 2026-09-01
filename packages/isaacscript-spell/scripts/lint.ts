@@ -14,7 +14,7 @@ const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 
 await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
-  "eslint --max-warnings 0 .",
+  "eslint",
   // eslint-disable-next-line unicorn/prefer-top-level-await
   ["checkDictionaries", checkDictionaries(PACKAGE_ROOT)],
 ]);

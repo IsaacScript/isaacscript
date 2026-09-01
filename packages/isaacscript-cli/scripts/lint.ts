@@ -15,7 +15,7 @@ const GITIGNORE_URL =
 await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
   "tsc --noEmit --project ./scripts/tsconfig.json",
-  "eslint --max-warnings 0 .",
+  "eslint",
   "uvx isaac-xml-validator --quiet",
   // eslint-disable-next-line unicorn/prefer-top-level-await
   ["checkGitIgnoreUpdates", checkGitIgnoreUpdates()],

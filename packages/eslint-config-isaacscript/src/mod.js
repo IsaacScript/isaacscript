@@ -19,10 +19,10 @@ export const isaacScriptModConfigBase = defineConfig(
     },
 
     rules: {
-      "isaacscript/enum-member-number-separation": "warn",
-      "isaacscript/no-invalid-default-map": "warn",
-      "isaacscript/no-throw": "warn",
-      "isaacscript/require-v-registration": "warn",
+      "isaacscript/enum-member-number-separation": "error",
+      "isaacscript/no-invalid-default-map": "error",
+      "isaacscript/no-throw": "error",
+      "isaacscript/require-v-registration": "error",
     },
   },
 
@@ -48,7 +48,7 @@ export const isaacScriptModConfigBase = defineConfig(
        * using UPPER_CASE.
        */
       "@typescript-eslint/naming-convention": [
-        "warn",
+        "error",
         // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
         // (23.10).
         {
@@ -85,7 +85,7 @@ export const isaacScriptModConfigBase = defineConfig(
        * explicitly specifying the X and Y values.
        */
       "@typescript-eslint/no-base-to-string": [
-        "warn",
+        "error",
         { ignoredTypeNames: ["Vector"] },
       ],
 
@@ -96,7 +96,7 @@ export const isaacScriptModConfigBase = defineConfig(
        * to allow the `this` parameter.
        */
       "@typescript-eslint/no-invalid-void-type": [
-        "warn",
+        "error",
         { allowAsThisParameter: true },
       ],
 
@@ -177,7 +177,7 @@ export const isaacScriptModConfigBase = defineConfig(
        * strict.
        */
       "new-cap": [
-        "warn",
+        "error",
         {
           capIsNew: false,
           newIsCap: true,
@@ -271,7 +271,7 @@ export const isaacScriptModConfigBase = defineConfig(
       // extend the logic from "eslint-config-complete" and add a new value for
       // "eslint-config-isaacscript.")
       "import-x/no-extraneous-dependencies": [
-        "warn",
+        "error",
         {
           devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
           optionalDependencies: false,

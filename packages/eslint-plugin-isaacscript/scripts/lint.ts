@@ -19,7 +19,7 @@ await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
   "tsc --noEmit --project ./scripts/tsconfig.json",
   "tsc --noEmit --project ./tests/tsconfig.json",
-  "eslint --max-warnings 0 .",
+  "eslint",
 ]);
 
 // We cannot do generation at the same time as the other linting because it changes the compilation

@@ -71,7 +71,7 @@ export default defineConfig(
     files: ["src/functions/**"],
     rules: {
       /** Not defined in the parent configs. */
-      "perfectionist/sort-modules": "off", // TODO
+      "perfectionist/sort-modules": "error",
     },
   },
 

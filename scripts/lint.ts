@@ -8,8 +8,7 @@ await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
 
   // Use ESLint to lint the TypeScript code.
-  // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-  "eslint --max-warnings 0 scripts *.mjs", // We have to exclude the packages directory.
+  "eslint scripts *.mjs", // We have to exclude the packages directory.
 
   // Use Prettier to check formatting.
   // - "--log-level=warn" makes it only output errors.
