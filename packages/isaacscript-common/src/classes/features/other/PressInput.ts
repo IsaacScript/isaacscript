@@ -78,7 +78,7 @@ export class PressInput extends Feature {
     const playerIndex = getPlayerIndex(player);
     v.run.buttonActionPairs.push({
       playerIndex,
-      buttonAction
+      buttonAction,
     });
   }
 }

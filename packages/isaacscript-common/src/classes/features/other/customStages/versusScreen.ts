@@ -237,7 +237,7 @@ function getPlayerPNGPaths(): {
 
   return {
     namePNGPath,
-    portraitPNGPath
+    portraitPNGPath,
   };
 }
 
@@ -262,7 +262,7 @@ function getBossPNGPaths(customStage: CustomStage): {
     const portraitPNGPath = questionMarkPath;
     return {
       namePNGPath,
-      portraitPNGPath
+      portraitPNGPath,
     };
   }
 
@@ -273,7 +273,7 @@ function getBossPNGPaths(customStage: CustomStage): {
 
   return {
     namePNGPath,
-    portraitPNGPath
+    portraitPNGPath,
   };
 }
 

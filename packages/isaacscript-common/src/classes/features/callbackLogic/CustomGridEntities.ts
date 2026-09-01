@@ -369,7 +369,7 @@ export class CustomGridEntities extends Feature {
       if (gridEntity !== undefined) {
         customGridEntities.push({
           gridEntity,
-          data
+          data,
         });
       }
     }

@@ -41,7 +41,7 @@ export class StageHistory extends Feature {
 
     v.run.stageHistory.push({
       stage,
-      stageType
+      stageType,
     });
   };
 

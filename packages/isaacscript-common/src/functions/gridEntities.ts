@@ -358,7 +358,7 @@ export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
 
   return {
     topLeft,
-    bottomRight
+    bottomRight,
   };
 }
 

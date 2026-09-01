@@ -215,7 +215,7 @@ function removeItemsAndTrinketsThatAffectItemPools(): {
 
   return {
     removedItemsMap,
-    removedTrinketsMap
+    removedTrinketsMap,
   };
 }
 

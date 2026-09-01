@@ -112,7 +112,7 @@ export class PlayerReorderedCallbacks extends Feature {
       const playerIndex = getPlayerIndex(player);
       v.run.postPlayerRenderQueue.push({
         playerIndex,
-        renderOffset
+        renderOffset,
       });
     }
   };

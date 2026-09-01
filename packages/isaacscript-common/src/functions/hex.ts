@@ -37,7 +37,7 @@ function hexToRGB(hexString: string): { r: float; g: float; b: float } {
     return {
       r: 0,
       g: 0,
-      b: 0
+      b: 0,
     };
   }
 
@@ -48,7 +48,7 @@ function hexToRGB(hexString: string): { r: float; g: float; b: float } {
     return {
       r: 0,
       g: 0,
-      b: 0
+      b: 0,
     };
   }
 
@@ -59,7 +59,7 @@ function hexToRGB(hexString: string): { r: float; g: float; b: float } {
     return {
       r: 0,
       g: 0,
-      b: 0
+      b: 0,
     };
   }
 
@@ -70,13 +70,13 @@ function hexToRGB(hexString: string): { r: float; g: float; b: float } {
     return {
       r: 0,
       g: 0,
-      b: 0
+      b: 0,
     };
   }
 
   return {
     r,
     g,
-    b
+    b,
   };
 }

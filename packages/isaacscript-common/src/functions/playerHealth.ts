@@ -578,7 +578,7 @@ export function setPlayerHealth(
     setActiveItem(player, CollectibleType.NULL, activeSlot);
     alabasterBoxDescriptions.push({
       activeSlot,
-      totalCharge
+      totalCharge,
     });
   }
 
