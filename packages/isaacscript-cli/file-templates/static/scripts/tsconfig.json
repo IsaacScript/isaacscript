@@ -10,5 +10,9 @@
     "complete-tsconfig/tsconfig.node.json",
   ],
 
+  "compilerOptions": {
+    "rootDir": ".",
+  },
+
   "include": ["./**/*.ts"],
 }
