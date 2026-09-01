@@ -367,7 +367,10 @@ export class CustomGridEntities extends Feature {
     for (const [gridIndex, data] of roomCustomGridEntities) {
       const gridEntity = room.GetGridEntity(gridIndex);
       if (gridEntity !== undefined) {
-        customGridEntities.push({ gridEntity, data });
+        customGridEntities.push({
+          gridEntity,
+          data
+        });
       }
     }
 

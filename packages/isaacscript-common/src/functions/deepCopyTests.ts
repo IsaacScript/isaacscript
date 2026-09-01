@@ -237,9 +237,7 @@ function copiedObjectHasChildObject() {
 function copiedObjectHasKeyAndValueString() {
   const keyToLookFor = "abc";
   const valueToLookFor = "def";
-  const oldObject = {
-    abc: valueToLookFor,
-  };
+  const oldObject = { abc: valueToLookFor };
   const newObject = deepCopy(
     oldObject,
     SerializationType.NONE,
@@ -261,9 +259,7 @@ function copiedObjectHasKeyAndValueString() {
 
 /** In this context, a reference is a pointer. */
 function copiedObjectHasNoReferencesForArray() {
-  const oldObject = {
-    abc: [1, 2, 3],
-  };
+  const oldObject = { abc: [1, 2, 3] };
   const newObject = deepCopy(
     oldObject,
     SerializationType.NONE,
@@ -345,9 +341,7 @@ function copiedObjectHasNoReferencesForPrimitivesForward() {
 }
 
 function copiedObjectIsTable() {
-  const oldObject = {
-    abc: "def",
-  };
+  const oldObject = { abc: "def" };
   const newObject = deepCopy(
     oldObject,
     SerializationType.NONE,

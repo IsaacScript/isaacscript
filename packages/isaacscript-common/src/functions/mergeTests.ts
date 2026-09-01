@@ -35,12 +35,8 @@ function newTableHasSameValue() {
   const key = "foo";
   const oldValue = "bar";
   const newValue = "baz";
-  const oldTable = {
-    foo: oldValue,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const newTable = {
-    foo: newValue,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: oldValue } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTable = { foo: newValue } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "newTableHasSameValue");
 
@@ -57,15 +53,9 @@ function oldTableHasFilledChildTable() {
 
   const key = "foo";
   const newValue = "baz";
-  const oldTable = {
-    foo: null as Foo | null,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const foo: Foo = {
-    bar: newValue,
-  };
-  const newTable = {
-    foo,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = { bar: newValue };
+  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasFilledChildTable");
 
@@ -223,15 +213,9 @@ function oldTableHasRNG() {
   const key = "foo";
   const seed = 50 as Seed;
   const newValue = newRNG(seed);
-  const oldTable = {
-    foo: null as Foo | null,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const foo: Foo = {
-    bar: newValue,
-  };
-  const newTable = {
-    foo,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = { bar: newValue };
+  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasRNG");
 
@@ -258,15 +242,9 @@ function oldTableHasRNGSerialized() {
   const key = "foo";
   const seed = 50 as Seed;
   const newValue = newRNG(seed);
-  const oldTable = {
-    foo: null as Foo | null,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const foo: Foo = {
-    bar: newValue,
-  };
-  const newTable = {
-    foo,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = { bar: newValue };
+  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
   const newTableSerialized = deepCopy(
     newTable,
     SerializationType.SERIALIZE,
@@ -309,12 +287,8 @@ function oldTableHasUpdatedValue() {
   const key = "foo";
   const oldValue = "bar";
   const newValue = "baz";
-  const oldTable = {
-    foo: oldValue,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const newTable = {
-    foo: newValue,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: oldValue } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTable = { foo: newValue } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasUpdatedValue");
 
@@ -327,12 +301,8 @@ function oldTableHasUpdatedValue() {
 function oldTableHasUpdatedValueFromNull() {
   const key = "foo";
   const newValue = "baz";
-  const oldTable = {
-    foo: null as string | null,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const newTable = {
-    foo: newValue,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: null as string | null } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTable = { foo: newValue } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasUpdatedValueFromNull");
 
@@ -351,15 +321,9 @@ function oldTableHasVector() {
   const x = 50;
   const y = 60;
   const newValue = Vector(x, y);
-  const oldTable = {
-    foo: null as Foo | null,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const foo: Foo = {
-    bar: newValue,
-  };
-  const newTable = {
-    foo,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = { bar: newValue };
+  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasVector");
 
@@ -390,15 +354,9 @@ function oldTableHasVectorSerialized() {
   const x = 50;
   const y = 60;
   const newValue = Vector(x, y);
-  const oldTable = {
-    foo: null as Foo | null,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
-  const foo: Foo = {
-    bar: newValue,
-  };
-  const newTable = {
-    foo,
-  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = { bar: newValue };
+  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
   const newTableSerialized = deepCopy(
     newTable,
     SerializationType.SERIALIZE,

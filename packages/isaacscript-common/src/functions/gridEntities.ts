@@ -356,7 +356,10 @@ export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
     gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
   );
 
-  return { topLeft, bottomRight };
+  return {
+    topLeft,
+    bottomRight
+  };
 }
 
 /** Helper function to get a string containing the grid entity's type and variant. */

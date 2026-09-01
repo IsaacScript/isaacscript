@@ -110,7 +110,10 @@ export class PlayerReorderedCallbacks extends Feature {
     } else {
       // Defer callback execution until the `POST_GAME_STARTED` callback fires.
       const playerIndex = getPlayerIndex(player);
-      v.run.postPlayerRenderQueue.push({ playerIndex, renderOffset });
+      v.run.postPlayerRenderQueue.push({
+        playerIndex,
+        renderOffset
+      });
     }
   };
 

@@ -213,7 +213,10 @@ function removeItemsAndTrinketsThatAffectItemPools(): {
     mapSetPlayer(removedTrinketsMap, player, removedTrinkets);
   }
 
-  return { removedItemsMap, removedTrinketsMap };
+  return {
+    removedItemsMap,
+    removedTrinketsMap
+  };
 }
 
 function restoreItemsAndTrinketsThatAffectItemPools(

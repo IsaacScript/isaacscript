@@ -76,6 +76,9 @@ export class PressInput extends Feature {
   @Exported
   public pressInput(player: EntityPlayer, buttonAction: ButtonAction): void {
     const playerIndex = getPlayerIndex(player);
-    v.run.buttonActionPairs.push({ playerIndex, buttonAction });
+    v.run.buttonActionPairs.push({
+      playerIndex,
+      buttonAction
+    });
   }
 }

@@ -39,7 +39,10 @@ export class StageHistory extends Feature {
     const stage = level.GetStage();
     const stageType = level.GetStageType();
 
-    v.run.stageHistory.push({ stage, stageType });
+    v.run.stageHistory.push({
+      stage,
+      stageType
+    });
   };
 
   /**

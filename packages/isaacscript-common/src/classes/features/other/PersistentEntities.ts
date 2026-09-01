@@ -219,6 +219,9 @@ export class PersistentEntities extends Feature {
       v.run.persistentEntityIndexCounter,
     );
 
-    return { entity, persistentIndex: v.run.persistentEntityIndexCounter };
+    return {
+      entity,
+      persistentIndex: v.run.persistentEntityIndexCounter
+    };
   }
 }

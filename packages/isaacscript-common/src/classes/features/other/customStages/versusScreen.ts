@@ -235,7 +235,10 @@ function getPlayerPNGPaths(): {
   const namePNGPath = getCharacterNamePNGFilePath(character);
   const portraitPNGPath = getCharacterPortraitPNGFilePath(character);
 
-  return { namePNGPath, portraitPNGPath };
+  return {
+    namePNGPath,
+    portraitPNGPath
+  };
 }
 
 /** Use the boss of the first boss found. */
@@ -257,7 +260,10 @@ function getBossPNGPaths(customStage: CustomStage): {
     const questionMarkPath = getBossNamePNGFilePath(BossID.BLUE_BABY);
     const namePNGPath = questionMarkPath;
     const portraitPNGPath = questionMarkPath;
-    return { namePNGPath, portraitPNGPath };
+    return {
+      namePNGPath,
+      portraitPNGPath
+    };
   }
 
   // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
@@ -265,7 +271,10 @@ function getBossPNGPaths(customStage: CustomStage): {
   const namePNGPath = getBossNamePNGFilePath(bossID);
   const portraitPNGPath = getBossPortraitPNGFilePath(bossID);
 
-  return { namePNGPath, portraitPNGPath };
+  return {
+    namePNGPath,
+    portraitPNGPath
+  };
 }
 
 function getBossPNGPathsCustom(

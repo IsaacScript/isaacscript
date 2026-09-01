@@ -576,7 +576,10 @@ export function setPlayerHealth(
   for (const activeSlot of alabasterBoxActiveSlots) {
     const totalCharge = getTotalCharge(player, activeSlot);
     setActiveItem(player, CollectibleType.NULL, activeSlot);
-    alabasterBoxDescriptions.push({ activeSlot, totalCharge });
+    alabasterBoxDescriptions.push({
+      activeSlot,
+      totalCharge
+    });
   }
 
   removeAllPlayerHealth(player);
