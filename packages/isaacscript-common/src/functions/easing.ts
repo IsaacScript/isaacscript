@@ -6,7 +6,7 @@
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInBack(time: number): number {
-  const c1 = 1.701_58;
+  const c1 = 1.70158;
   const c3 = c1 + 1;
 
   return c3 * time * time * time - c1 * time * time;
@@ -69,7 +69,7 @@ export function easeInExpo(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInOutBack(time: number): number {
-  const c1 = 1.701_58;
+  const c1 = 1.70158;
   const c2 = c1 * 1.525;
 
   return time < 0.5
@@ -223,7 +223,7 @@ export function easeInSine(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeOutBack(time: number): number {
-  const c1 = 1.701_58;
+  const c1 = 1.70158;
   const c3 = c1 + 1;
 
   return 1 + c3 * (time - 1) ** 3 + c1 * (time - 1) ** 2;
@@ -253,7 +253,7 @@ export function easeOutBounce(time: number): number {
   }
 
   time -= 2.625 / d1;
-  return n1 * time * time + 0.984_375;
+  return n1 * time * time + 0.984375;
 }
 
 /**
