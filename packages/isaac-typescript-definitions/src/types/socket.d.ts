@@ -56,8 +56,8 @@ declare interface Socket {
 declare interface SocketClient {
   /**
    * Closes a TCP object. The internal socket used by the object is closed and the local address to
-   * which the object was bound is made available to other applications. No further operations
-   * (except for further calls to the close method) are allowed on a closed socket.
+   * which the object was bound is made available to other apps. No further operations (except for
+   * further calls to the close method) are allowed on a closed socket.
    */
   close: () => void;
 

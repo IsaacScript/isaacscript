@@ -61,6 +61,6 @@ class CustomPrinter extends tstl.LuaPrinter {
     }
 }
 const plugin = {
-    printer: (program, emitHost, fileName, file) => new CustomPrinter(emitHost, program, fileName).print(file),
+    printer: (program, emitHost, fileName, file) => new CustomPrinter(emitHost, program, fileName).print(file), // eslint-disable-line unicorn/no-unreadable-new-expression
 };
 exports.default = plugin;

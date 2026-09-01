@@ -11,6 +11,17 @@ declare global {
    */
   const ModConfigMenu: ModConfigMenuInterface | undefined;
 
+  interface ModConfigMenuCategoryData {
+    Info: string;
+    IsOld: boolean;
+    Name: string;
+  }
+
+  interface ModConfigMenuData {
+    Name: string;
+    Subcategories: string[];
+  }
+
   /** @noSelf */
   interface ModConfigMenuInterface {
     AddBooleanSetting: (
@@ -186,19 +197,8 @@ declare global {
     Type: ModConfigMenuOptionType;
   }
 
-  interface ModConfigMenuCategoryData {
-    Info: string;
-    IsOld: boolean;
-    Name: string;
-  }
-
   interface ModConfigMenuSubcategoryData {
     Info: string;
     Name: string;
-  }
-
-  interface ModConfigMenuData {
-    Name: string;
-    Subcategories: string[];
   }
 }

@@ -1,8 +1,6 @@
 import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
-  function Vector(this: void, x: float, y: float): Vector;
-
   interface Vector extends IsaacAPIClass {
     Clamp: (minX: float, minY: float, maxX: float, maxY: float) => void;
     Clamped: (minX: float, minY: float, maxX: float, maxY: float) => Vector;
@@ -55,6 +53,8 @@ declare global {
 
     sub: LuaSubtractionMethod<Vector, Vector>;
   }
+
+  function Vector(this: void, x: float, y: float): Vector;
 
   /** @noSelf */
   namespace Vector {

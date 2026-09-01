@@ -15,6 +15,13 @@ declare global {
    */
   const MinimapAPI: MinimapAPIInterface | undefined;
 
+  interface MinimapAPIIcon {
+    Color: Color;
+    anim: string;
+    frame: number;
+    sprite: Sprite;
+  }
+
   interface MinimapAPIInterface {
     AddDisplayFlagsCallback: (
       mod: Mod,
@@ -264,21 +271,6 @@ declare global {
     Version: string | number;
   }
 
-  interface MinimapAPITeleportHandler {
-    CanTeleport: (
-      room: MinimapAPIRoomDescriptor,
-      cheatMode: boolean,
-    ) => boolean;
-    Teleport: (room: MinimapAPIRoomDescriptor) => void;
-  }
-
-  interface MinimapAPIIcon {
-    Color: Color;
-    anim: string;
-    frame: number;
-    sprite: Sprite;
-  }
-
   interface MinimapAPIRoomAnimsTable {
     RoomCurrent: {
       anim: string;
@@ -360,5 +352,13 @@ declare global {
     Type: RoomType;
     Visited: boolean;
     VisitedIcons: string[];
+  }
+
+  interface MinimapAPITeleportHandler {
+    CanTeleport: (
+      room: MinimapAPIRoomDescriptor,
+      cheatMode: boolean,
+    ) => boolean;
+    Teleport: (room: MinimapAPIRoomDescriptor) => void;
   }
 }

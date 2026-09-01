@@ -16,8 +16,6 @@ import type { DamageFlag } from "../../enums/flags/DamageFlag";
 import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
-  function Game(this: void): Game;
-
   interface Game extends IsaacAPIClass {
     AddDevilRoomDeal: () => void;
     AddEncounteredBoss: (entityType: EntityType, variant: int) => void;
@@ -380,4 +378,6 @@ declare global {
     ScreenShakeOffset: Readonly<Vector>;
     TimeCounter: int;
   }
+
+  function Game(this: void): Game;
 }

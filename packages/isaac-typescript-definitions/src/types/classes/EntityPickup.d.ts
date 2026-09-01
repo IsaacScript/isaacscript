@@ -101,16 +101,22 @@ declare global {
     Wait: int;
   }
 
-  /** For `PickupVariant.NULL` (0). */
-  interface EntityPickupNull extends EntityPickup {
-    SubType: PickupNullSubType;
-    Variant: PickupVariant.NULL;
+  /** For `PickupVariant.LIL_BATTERY` (90). */
+  interface EntityPickupBattery extends EntityPickup {
+    SubType: BatterySubType;
+    Variant: PickupVariant.LIL_BATTERY;
   }
 
-  /** For `PickupVariant.HEART` (10). */
-  interface EntityPickupHeart extends EntityPickup {
-    SubType: HeartSubType;
-    Variant: PickupVariant.HEART;
+  /** For `PickupVariant.BOMB` (40). */
+  interface EntityPickupBomb extends EntityPickup {
+    SubType: BombSubType;
+    Variant: PickupVariant.BOMB;
+  }
+
+  /** For `PickupVariant.CARD` (300). */
+  interface EntityPickupCard extends EntityPickup {
+    SubType: CardType;
+    Variant: PickupVariant.CARD;
   }
 
   /** For `PickupVariant.COIN` (20). */
@@ -119,16 +125,34 @@ declare global {
     Variant: PickupVariant.COIN;
   }
 
+  /** For `PickupVariant.COLLECTIBLE` (100). */
+  interface EntityPickupCollectible extends EntityPickup {
+    SubType: CollectibleType;
+    Variant: PickupVariant.COLLECTIBLE;
+  }
+
+  /** For `PickupVariant.HEART` (10). */
+  interface EntityPickupHeart extends EntityPickup {
+    SubType: HeartSubType;
+    Variant: PickupVariant.HEART;
+  }
+
   /** For `PickupVariant.KEY` (30). */
   interface EntityPickupKey extends EntityPickup {
     SubType: KeySubType;
     Variant: PickupVariant.KEY;
   }
 
-  /** For `PickupVariant.BOMB` (40). */
-  interface EntityPickupBomb extends EntityPickup {
-    SubType: BombSubType;
-    Variant: PickupVariant.BOMB;
+  /** For `PickupVariant.NULL` (0). */
+  interface EntityPickupNull extends EntityPickup {
+    SubType: PickupNullSubType;
+    Variant: PickupVariant.NULL;
+  }
+
+  /** For `PickupVariant.PILL` (70). */
+  interface EntityPickupPill extends EntityPickup {
+    SubType: PillColor;
+    Variant: PickupVariant.PILL;
   }
 
   /** For `PickupVariant.POOP` (42). */
@@ -141,30 +165,6 @@ declare global {
   interface EntityPickupSack extends EntityPickup {
     SubType: SackSubType;
     Variant: PickupVariant.SACK;
-  }
-
-  /** For `PickupVariant.PILL` (70). */
-  interface EntityPickupPill extends EntityPickup {
-    SubType: PillColor;
-    Variant: PickupVariant.PILL;
-  }
-
-  /** For `PickupVariant.LIL_BATTERY` (90). */
-  interface EntityPickupBattery extends EntityPickup {
-    SubType: BatterySubType;
-    Variant: PickupVariant.LIL_BATTERY;
-  }
-
-  /** For `PickupVariant.COLLECTIBLE` (100). */
-  interface EntityPickupCollectible extends EntityPickup {
-    SubType: CollectibleType;
-    Variant: PickupVariant.COLLECTIBLE;
-  }
-
-  /** For `PickupVariant.CARD` (300). */
-  interface EntityPickupCard extends EntityPickup {
-    SubType: CardType;
-    Variant: PickupVariant.CARD;
   }
 
   /** For `PickupVariant.TRINKET` (350). */

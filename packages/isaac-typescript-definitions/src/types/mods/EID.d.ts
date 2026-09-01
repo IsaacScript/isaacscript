@@ -32,9 +32,6 @@ declare type EIDInlineIcon = [
   SpriteObject?: Sprite,
 ];
 
-declare type EIDTransformationTargetType =
-  "collectible" | "trinket" | "card" | "pill" | "entity";
-
 declare interface EIDInterface {
   /** Gets the size of the screen. */
   GetScreenSize: () => Vector;
@@ -498,3 +495,6 @@ declare interface EIDInterface {
    */
   tableToCraftingIconsMerged: (craftTable: readonly int[]) => string;
 }
+
+declare type EIDTransformationTargetType =
+  "collectible" | "trinket" | "card" | "pill" | "entity";

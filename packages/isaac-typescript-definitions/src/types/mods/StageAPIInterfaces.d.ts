@@ -14,6 +14,18 @@ declare global {
     Walls: string[];
   }
 
+  interface StageAPIBossData {
+    Bossname: string; // cspell:ignore Bossname
+    Entity?: {
+      Type: EntityType;
+      Variant: number;
+    };
+    Name: string;
+    Offset?: Vector;
+    Portrait: string;
+    Rooms: StageAPIRoomsList;
+  }
+
   interface StageAPICustomDoor {
     AlwaysOpen: boolean;
     Anm2: string;
@@ -43,13 +55,6 @@ declare global {
     GridConfig: StageAPICustomGrid;
     GridIndex: int;
     PersistentData: Record<string, unknown>;
-  }
-
-  interface StageAPIEntityInfo {
-    Data: StageAPIEntityData;
-    Persistent: boolean;
-    PersistentData: boolean;
-    PersistentIndex: int;
   }
 
   interface StageAPICustomStage {
@@ -159,11 +164,35 @@ declare global {
     RequireTarget?: RoomType[];
   }
 
+  interface StageAPIEntityData {
+    GridX: int;
+    GridY: int;
+    Index: int;
+    SubType: int;
+    Type: int;
+    Variant: int;
+  }
+
+  interface StageAPIEntityInfo {
+    Data: StageAPIEntityData;
+    Persistent: boolean;
+    PersistentData: boolean;
+    PersistentIndex: int;
+  }
+
   interface StageAPIGridContainer {
     Desc: GridEntityDesc;
     Grid: GridEntity;
     Index: int;
     Type: GridEntityType;
+  }
+
+  interface StageAPIGridData {
+    GridX: int;
+    GridY: int;
+    Index: int;
+    Type: int;
+    Variant: int;
   }
 
   interface StageAPIGridGfx {
@@ -220,15 +249,6 @@ declare global {
     Map: StageAPIRoomData[];
   }
 
-  interface StageAPIEntityData {
-    GridX: int;
-    GridY: int;
-    Index: int;
-    SubType: int;
-    Type: int;
-    Variant: int;
-  }
-
   interface StageAPILevelRoom {
     SetTypeOverride: (typeOverride: RoomType) => void;
     AvoidSpawning: unknown;
@@ -265,6 +285,15 @@ declare global {
     Velocity?: Vector;
   }
 
+  interface StageAPIPoolEntry {
+    AlwaysReplaceHorsemen?: boolean;
+    AlwaysReplaceSubtype?: int;
+    BossID: string;
+    Horseman?: boolean;
+    OnlyReplaceSubtype?: int;
+    Weight?: int;
+  }
+
   interface StageAPIRemovedEntityData {
     Position: Vector;
     Seed: Seed;
@@ -287,14 +316,6 @@ declare global {
     GridGfx: Sprite;
     shadingName: string;
     shadingPrefix: string;
-  }
-
-  interface StageAPIGridData {
-    GridX: int;
-    GridY: int;
-    Index: int;
-    Type: int;
-    Variant: int;
   }
 
   interface StageAPIRoomsList {
@@ -329,26 +350,5 @@ declare global {
     NormalStage: true;
     Stage: LevelStage;
     StageType: StageType;
-  }
-
-  interface StageAPIBossData {
-    Bossname: string; // cspell:ignore Bossname
-    Entity?: {
-      Type: EntityType;
-      Variant: number;
-    };
-    Name: string;
-    Offset?: Vector;
-    Portrait: string;
-    Rooms: StageAPIRoomsList;
-  }
-
-  interface StageAPIPoolEntry {
-    AlwaysReplaceHorsemen?: boolean;
-    AlwaysReplaceSubtype?: int;
-    BossID: string;
-    Horseman?: boolean;
-    OnlyReplaceSubtype?: int;
-    Weight?: int;
   }
 }

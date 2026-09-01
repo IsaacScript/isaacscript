@@ -2,8 +2,6 @@ import type { ProjectileVariant } from "../../enums/collections/variants";
 import type { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
 
 declare global {
-  function ProjectileParams(this: void): ProjectileParams;
-
   interface ProjectileParams extends IsaacAPIClass {
     Acceleration: float;
     BulletFlags: BitFlags<ProjectileFlag>;
@@ -29,4 +27,6 @@ declare global {
     VelocityMulti: float;
     WiggleFrameOffset: int;
   }
+
+  function ProjectileParams(this: void): ProjectileParams;
 }

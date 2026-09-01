@@ -546,11 +546,6 @@ declare global {
      */
     function SaveModData(mod: Mod, data: string): void;
 
-    function SetBuiltInCallbackState(
-      modCallback: keyof AddCallbackParameters | string,
-      state: boolean,
-    ): void;
-
     /**
      * Converts screen coordinates (i.e. window coordinates) into world coordinates (i.e. a `Vector`
      * representing an in-game position in the room).
@@ -558,6 +553,11 @@ declare global {
     function ScreenToWorld(position: Vector): Vector;
 
     function ScreenToWorldDistance(position: Vector): Vector;
+
+    function SetBuiltInCallbackState(
+      modCallback: keyof AddCallbackParameters | string,
+      state: boolean,
+    ): void;
 
     /**
      * Spawns a new entity with a randomly generated seed.

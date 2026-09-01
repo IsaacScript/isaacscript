@@ -98,11 +98,11 @@ declare global {
     ID: CollectibleType;
   }
 
-  interface ItemConfigItemTrinket extends ItemConfigItem {
-    ID: TrinketType;
-  }
-
   interface ItemConfigItemNull extends ItemConfigItem {
     ID: NullItemID;
+  }
+
+  interface ItemConfigItemTrinket extends ItemConfigItem {
+    ID: TrinketType;
   }
 }

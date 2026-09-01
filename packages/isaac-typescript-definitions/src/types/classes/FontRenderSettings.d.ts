@@ -1,8 +1,6 @@
 import type { DrawStringAlignment } from "../../enums/DrawStringAlignment";
 
 declare global {
-  function FontRenderSettings(this: void): FontRenderSettings;
-
   /** Added in Repentance+. */
   interface FontRenderSettings extends IsaacAPIClass {
     EnableAutoWrap: (enabled: boolean) => void;
@@ -23,4 +21,6 @@ declare global {
      */
     SetMissingCharacterOverride: (character: int) => void;
   }
+
+  function FontRenderSettings(this: void): FontRenderSettings;
 }

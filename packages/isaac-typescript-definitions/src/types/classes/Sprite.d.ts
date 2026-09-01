@@ -1,5 +1,3 @@
-declare function Sprite(this: void): Sprite;
-
 declare interface Sprite extends IsaacAPIClass {
   /** Return the name of the currently played animation. */
   GetAnimation: () => string;
@@ -277,3 +275,5 @@ declare interface Sprite extends IsaacAPIClass {
   Rotation: float;
   Scale: Vector;
 }
+
+declare function Sprite(this: void): Sprite;

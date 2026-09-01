@@ -141,15 +141,6 @@ declare global {
    * many paragraphs as are needed.
    */
 
-  interface EncyclopediaWikiDescriptionLine {
-    clr?: number;
-    fsize?: number; // cspell:ignore fsize
-    halign?: number; // cspell:ignore halign
-    str: string;
-  }
-
-  type EncyclopediaWikiDescription = EncyclopediaWikiDescriptionLine[][];
-
   /** Encyclopedia's "General Item Variables" object. Used to store data about an item. */
   interface EncyclopediaItemVars {
     CloseFunc: (vars: EncyclopediaItemVars) => void;
@@ -169,12 +160,6 @@ declare global {
     typeString: string;
   }
 
-  /** A single entry on the unlock Post-It. */
-  interface EncyclopediaPostItUnlock {
-    Hard: boolean;
-    Unlock: boolean;
-  }
-
   /** Encyclopedia's "Post-It Notes" object. Used for rendering custom Post-Its. */
   interface EncyclopediaNotes {
     Beast: EncyclopediaPostItUnlock;
@@ -188,5 +173,20 @@ declare global {
     MomsHeart: EncyclopediaPostItUnlock;
     Mother: EncyclopediaPostItUnlock;
     Satan: EncyclopediaPostItUnlock;
+  }
+
+  /** A single entry on the unlock Post-It. */
+  interface EncyclopediaPostItUnlock {
+    Hard: boolean;
+    Unlock: boolean;
+  }
+
+  type EncyclopediaWikiDescription = EncyclopediaWikiDescriptionLine[][];
+
+  interface EncyclopediaWikiDescriptionLine {
+    clr?: number;
+    fsize?: number; // cspell:ignore fsize
+    halign?: number; // cspell:ignore halign
+    str: string;
   }
 }

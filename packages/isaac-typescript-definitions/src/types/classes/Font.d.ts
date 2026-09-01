@@ -1,8 +1,6 @@
-declare function Font(this: void): Font;
-
 declare interface Font extends IsaacAPIClass {
   /**
-   * Converts UTF8 to UTF16, then draws the string on screen.
+   * Converts UTF-8 to UTF16, then draws the string on screen.
    *
    * The `boxWidth` and `center` parameters can be used for aligning the text. Note that:
    *
@@ -41,7 +39,7 @@ declare interface Font extends IsaacAPIClass {
     ) => void);
 
   /**
-   * Converts UTF8 to UTF16, then draws the scaled string on the screen.
+   * Converts UTF-8 to UTF16, then draws the scaled string on the screen.
    *
    * This method is similar to the `Font.DrawString` method; see the documentation for that function
    * for more details.
@@ -125,7 +123,7 @@ declare interface Font extends IsaacAPIClass {
   /** Returns the distance in pixels between each line of text. */
   GetLineHeight: () => int;
 
-  /** Converts a string from UTF8 to UTF16, and returns the string's width. */
+  /** Converts a string from UTF-8 to UTF16, and returns the string's width. */
   GetStringWidth: (str: string) => int;
 
   /** Returns the string width of a Unicode text. */
@@ -140,3 +138,5 @@ declare interface Font extends IsaacAPIClass {
   /** Unloads the font from memory. */
   Unload: () => void;
 }
+
+declare function Font(this: void): Font;

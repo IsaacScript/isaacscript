@@ -40,6 +40,8 @@ export default defineConfig(
     files: ["src/enums/flags/*.ts"],
     rules: {
       "@typescript-eslint/no-redeclare": "off",
+      "complete/sort-objects": "off",
+      "perfectionist/sort-modules": "off",
     },
   },
 );

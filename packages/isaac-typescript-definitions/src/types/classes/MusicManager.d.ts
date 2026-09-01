@@ -1,8 +1,6 @@
 import type { Music } from "../../enums/Music";
 
 declare global {
-  function MusicManager(this: void): MusicManager;
-
   interface MusicManager extends IsaacAPIClass {
     /**
      * @param music
@@ -64,4 +62,6 @@ declare global {
      */
     VolumeSlide: (targetVolume: float, fadeRate?: float) => void;
   }
+
+  function MusicManager(this: void): MusicManager;
 }

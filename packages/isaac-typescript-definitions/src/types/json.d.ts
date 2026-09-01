@@ -22,6 +22,6 @@
  * @noSelf
  */
 declare module "json" {
-  function encode(data: unknown): string;
   function decode(data: string): unknown;
+  function encode(data: unknown): string;
 }

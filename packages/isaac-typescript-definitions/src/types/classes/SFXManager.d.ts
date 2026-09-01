@@ -1,8 +1,6 @@
 import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
-  function SFXManager(this: void): SFXManager;
-
   interface SFXManager extends IsaacAPIClass {
     AdjustPitch: (soundEffect: SoundEffect, pitch: float) => void;
     AdjustVolume: (soundEffect: SoundEffect, volume: float) => void;
@@ -37,4 +35,6 @@ declare global {
     Stop: (soundEffect: SoundEffect) => void;
     StopLoopingSounds: () => void;
   }
+
+  function SFXManager(this: void): SFXManager;
 }

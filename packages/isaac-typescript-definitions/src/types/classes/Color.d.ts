@@ -1,26 +1,6 @@
 import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClassType";
 
 declare global {
-  /**
-   * @param r Range is from 0-1.
-   * @param g Range is from 0-1.
-   * @param b Range is from 0-1.
-   * @param a Default is 1. Range is from 0-1.
-   * @param ro Default is 0. Range is from 0-1.
-   * @param go Default is 0. Range is from 0-1.
-   * @param bo Default is 0. Range is from 0-1.
-   */
-  function Color(
-    this: void,
-    r: float,
-    g: float,
-    b: float,
-    a?: float,
-    ro?: int,
-    go?: int,
-    bo?: int,
-  ): Color;
-
   interface Color extends IsaacAPIClass {
     Reset: () => void;
     SetColorize: (red: float, green: float, blue: float, amount: float) => void;
@@ -60,6 +40,26 @@ declare global {
     /** An identifier that does not exist at run-time. */
     __kind: CopyableIsaacAPIClassType.COLOR;
   }
+
+  /**
+   * @param r Range is from 0-1.
+   * @param g Range is from 0-1.
+   * @param b Range is from 0-1.
+   * @param a Default is 1. Range is from 0-1.
+   * @param ro Default is 0. Range is from 0-1.
+   * @param go Default is 0. Range is from 0-1.
+   * @param bo Default is 0. Range is from 0-1.
+   */
+  function Color(
+    this: void,
+    r: float,
+    g: float,
+    b: float,
+    a?: float,
+    ro?: int,
+    go?: int,
+    bo?: int,
+  ): Color;
 
   /** @noSelf */
   namespace Color {
