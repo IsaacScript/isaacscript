@@ -118,7 +118,7 @@ export function getCharacters(): readonly PlayerType[] {
  */
 export function getClosestPlayer(position: Vector): EntityPlayer {
   let closestPlayer: EntityPlayer | undefined;
-  let closestDistance = Number.POSITIVE_INFINITY;
+  let closestDistance = Infinity;
   for (const player of getPlayers()) {
     const distance = position.Distance(player.Position);
 
@@ -156,7 +156,7 @@ export function getFinalPlayer(): EntityPlayer {
  */
 export function getNewestPlayer(): EntityPlayer {
   let newestPlayer: EntityPlayer | undefined;
-  let lowestFrame = Number.POSITIVE_INFINITY;
+  let lowestFrame = Infinity;
   for (const player of getPlayers()) {
     if (!(player.FrameCount < lowestFrame)) {
       continue;
