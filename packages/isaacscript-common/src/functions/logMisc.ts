@@ -507,7 +507,7 @@ export function logTableDifferences<K extends AnyNotNil, V>(
   const table2KeysSet = new ReadonlySet(table2Keys);
 
   const keysSet = combineSets(table1KeysSet, table2KeysSet);
-  const keys = [...keysSet.values()];
+  const keys = [...keysSet];
   keys.sort(); // eslint-disable-line @typescript-eslint/require-array-sort-compare
 
   for (const key of keys) {

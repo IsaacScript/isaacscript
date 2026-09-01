@@ -86,7 +86,7 @@ export function doesAnyEntityExist(
   const entityTypesMutable = entityTypes as EntityType[] | Set<EntityType>;
 
   const entityTypesArray: readonly EntityType[] = isTSTLSet(entityTypesMutable)
-    ? [...entityTypesMutable.values()]
+    ? [...entityTypesMutable]
     : entityTypesMutable;
 
   return entityTypesArray.some((entityType) =>

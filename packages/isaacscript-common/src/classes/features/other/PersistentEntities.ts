@@ -65,7 +65,7 @@ export class PersistentEntities extends Feature {
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private readonly postNewRoomReordered = () => {
     const roomListIndex = getRoomListIndex();
-    const persistentEntities = [...v.level.persistentEntities.entries()];
+    const persistentEntities = [...v.level.persistentEntities];
     const persistentEntitiesInThisRoom = persistentEntities.filter(
       ([_index, description]) => roomListIndex === description.roomListIndex,
     );

@@ -80,7 +80,7 @@ export function doorSlotsToDoorSlotFlags(
   const doorSlotsMutable = doorSlots as DoorSlot[] | Set<DoorSlot>;
 
   const doorSlotArray: readonly DoorSlot[] = isTSTLSet(doorSlotsMutable)
-    ? [...doorSlotsMutable.values()]
+    ? [...doorSlotsMutable]
     : doorSlotsMutable;
 
   const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
