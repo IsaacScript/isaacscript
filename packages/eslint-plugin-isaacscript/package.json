@@ -42,20 +42,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "8.57.1",
-    "@typescript-eslint/utils": "8.57.1",
-    "typescript-eslint": "8.57.1"
+    "@typescript-eslint/type-utils": "8.69.0",
+    "@typescript-eslint/utils": "8.69.0",
+    "typescript-eslint": "8.69.0"
   },
   "devDependencies": {
-    "@babel/core": "7.29.0",
-    "@babel/preset-env": "7.29.2",
-    "@babel/preset-typescript": "7.28.5",
+    "@babel/core": "8.0.1",
+    "@babel/preset-env": "8.0.2",
+    "@babel/preset-typescript": "8.0.1",
     "@types/jest": "30.0.0",
-    "@typescript-eslint/rule-tester": "8.57.1",
-    "complete-common": "2.21.0",
-    "complete-node": "16.4.0",
-    "jest": "30.3.0",
-    "prettier": "3.8.1"
+    "@typescript-eslint/rule-tester": "8.69.0",
+    "complete-common": "2.32.0",
+    "complete-node": "18.0.0",
+    "jest": "30.5.1",
+    "prettier": "3.9.6"
   },
   "peerDependencies": {
     "eslint": ">= 9.0.0",

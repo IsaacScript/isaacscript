@@ -22,9 +22,9 @@
   "type": "module",
   "dependencies": {
     "@prettier/plugin-xml": "3.4.2",
-    "complete-lint": "5.5.0",
+    "complete-lint": "5.25.2",
     "eslint-config-isaacscript": "6.0.1",
-    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-import-resolver-typescript": "4.4.5",
     "isaacscript-spell": "1.15.2",
     "isaacscript-tsconfig": "7.0.1",
     "ts-prune-2": "0.10.7"
