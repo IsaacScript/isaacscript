@@ -6,16 +6,17 @@
   "extends": [
     // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json
     "complete-tsconfig/tsconfig.base.json",
-
-    // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
-    "@docusaurus/tsconfig",
   ],
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
     "lib": ["DOM", "ES2021"],
+
     "types": ["@docusaurus/theme-classic"],
+
+    // Necessary since "./src" is the default and we type-check files in the root project directory.
+    "rootDir": ".",
   },
 
   "include": [

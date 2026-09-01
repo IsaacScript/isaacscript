@@ -1,9 +1,9 @@
-import { echo, isMain } from "complete-node";
+import { echo } from "complete-node";
 import { generateConfigs } from "./generateConfigs.js";
 import { generateReadme } from "./generateReadme.js";
 import { generateRules } from "./generateRules.js";
 
-if (isMain(import.meta.filename)) {
+if (import.meta.main) {
   await generateAll();
 }
 

@@ -8,7 +8,6 @@ import {
 } from "complete-common";
 import {
   deleteFileOrDirectory,
-  isMain,
   readFile,
   renameFileOrDirectory,
   writeFile,
@@ -46,7 +45,7 @@ const SIDEBAR_POSITIONS = new ReadonlyMap([
   ["Mods", 8],
 ]);
 
-if (isMain(import.meta.filename)) {
+if (import.meta.main) {
   await main();
 }
 
@@ -130,7 +129,7 @@ function getTitle(filePath: string) {
     return customTitle;
   }
 
-  const match = fileName.match(/(?<properName>\w+)\.md/);
+  const match = fileName.match(/(?<properName>\w+)\.md/v);
   if (match === null || match.groups === undefined) {
     throw new Error(
       `Failed to parse the proper name from the file name: ${fileName}`,
@@ -155,7 +154,7 @@ async function renameEnumFiles() {
   const markdownFileNames = getMarkdownFileNames(ENUMS_DIR);
   for (const markdownFileName of markdownFileNames) {
     const markdownFilePath = path.join(ENUMS_DIR, markdownFileName);
-    const match = markdownFileName.match(/\.(?<simplifiedFileName>\w+\.md)/);
+    const match = markdownFileName.match(/\.(?<simplifiedFileName>\w+\.md)/v);
     if (match === null || match.groups === undefined) {
       throw new Error(
         `Failed to parse the Markdown file name of: ${markdownFileName}`,

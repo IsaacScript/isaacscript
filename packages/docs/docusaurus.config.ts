@@ -7,51 +7,32 @@ const darkCodeTheme = themes.vsDark;
 
 const config: Config = {
   title: "IsaacScript",
-  tagline: undefined,
-  favicon: "img/favicon.ico",
-
   url: "https://isaacscript.github.io",
   baseUrl: "/",
-
-  organizationName: "IsaacScript",
-  projectName: "IsaacScript.github.io",
-
-  onBrokenAnchors: "ignore", // This has false positives, so we have to ignore it.
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "throw",
-  onDuplicateRoutes: "throw",
+  favicon: "img/favicon.ico",
 
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
   },
 
-  presets: [
-    [
-      "classic",
-      {
-        docs: {
-          routeBasePath: "/", // Serve the docs at the site's root.
-          sidebarPath: "./sidebars.ts",
-          editUrl:
-            "https://github.com/IsaacScript/isaacscript/edit/main/packages/docs",
-        },
-        theme: {
-          customCss: "./src/css/custom.css",
-        },
-      } satisfies Preset.Options,
-    ],
-  ],
+  onBrokenAnchors: "ignore", // This has false positives, so we have to ignore it.
+  onBrokenMarkdownLinks: "throw",
+  onDuplicateRoutes: "throw",
+
+  tagline: undefined,
+  organizationName: "IsaacScript",
+  projectName: "IsaacScript.github.io",
 
   themeConfig: {
     navbar: {
       title: "IsaacScript",
-      logo: {
-        alt: "IsaacScript Logo",
-        src: "img/isaacscript-logo.png",
-      },
       items: [
-        { to: "main/features", label: "Main", position: "left" },
+        {
+          to: "main/features",
+          label: "Main",
+          position: "left",
+        },
         {
           to: "isaac-typescript-definitions",
           label: "isaac-typescript-definitions",
@@ -83,9 +64,15 @@ const config: Config = {
           position: "right",
         },
       ],
+      logo: {
+        alt: "IsaacScript Logo",
+        src: "img/isaacscript-logo.png",
+      },
     },
 
-    footer: undefined,
+    colorMode: {
+      defaultMode: "dark",
+    },
 
     prism: {
       theme: lightCodeTheme,
@@ -93,9 +80,21 @@ const config: Config = {
       additionalLanguages: ["lua"],
     },
 
+    footer: undefined,
+
     typesense: {
+      // https://docusaurus.io/docs/search#contextual-search
+      contextualSearch: true,
+
       typesenseCollectionName: "isaacscript",
+
+      // https://typesense.org/docs/0.21.0/api/search.md#search-parameters
+      typesenseSearchParameters: {
+        split_join_tokens: "always",
+      },
+
       typesenseServerConfig: {
+        apiKey: "9AiKF0AGD145wC9fc4NafATcCam89XT7v2NxGf2ymFucN7b6",
         nodes: [
           {
             host: "isaacracing.net",
@@ -103,35 +102,36 @@ const config: Config = {
             protocol: "https",
           },
         ],
-        apiKey: "9AiKF0AGD145wC9fc4NafATcCam89XT7v2NxGf2ymFucN7b6",
       },
-
-      // https://typesense.org/docs/0.21.0/api/search.md#search-parameters
-      typesenseSearchParameters: {
-        split_join_tokens: "always",
-      },
-
-      // https://docusaurus.io/docs/search#contextual-search
-      contextualSearch: true,
-    },
-
-    colorMode: {
-      defaultMode: "dark",
     },
   } satisfies Preset.ThemeConfig,
 
-  // -------------------------
-  // Added fields from vanilla
-  // -------------------------
+  themes: ["docusaurus-theme-search-typesense"],
+
+  presets: [
+    [
+      "classic",
+      {
+        docs: {
+          routeBasePath: "/", // Serve the docs at the site's root.
+          editUrl:
+            "https://github.com/IsaacScript/isaacscript/edit/main/packages/docs",
+          sidebarPath: "./sidebars.ts",
+        },
+        theme: {
+          customCss: "./src/css/custom.css",
+        },
+      } satisfies Preset.Options,
+    ],
+  ],
+
+  scripts: ["/js/hotkey.js"],
 
   // Needed so that the following text works properly: `1 << -1 (0)`
   // https://github.com/tgreyuk/typedoc-plugin-markdown/issues/502
   markdown: {
     format: "detect",
   },
-
-  scripts: ["/js/hotkey.js"],
-  themes: ["docusaurus-theme-search-typesense"],
 };
 
 export default config;

@@ -46,7 +46,6 @@ import {
 import {
   deleteFileOrDirectory,
   echo,
-  isMain,
   makeDirectory,
   readFile,
   renameFileOrDirectory,
@@ -133,7 +132,7 @@ const BROKEN_LINK_DIR_NAMES = [
   "types",
 ] as const;
 
-if (isMain(import.meta.filename)) {
+if (import.meta.main) {
   await main();
 }
 
@@ -181,7 +180,7 @@ async function moveModulesFiles() {
     const markdownFilePath = path.join(MODULES_DIR, markdownFileName);
 
     const match = markdownFileName.match(
-      /^(?<directoryName>.+?)_(?<newFileName>.+.md)$/,
+      /^(?<directoryName>.+?)_(?<newFileName>.{2,}md)$/,
     );
     if (match === null || match.groups === undefined) {
       throw new Error(
@@ -315,7 +314,7 @@ function getTitle(filePath: string, directoryName: string) {
 
   // Second, handle the special case of a page with a unnecessary suffix, like "classes_".
   if (DIR_NAMES_WITH_SECOND_BREADCRUMBS_LINE.has(directoryName)) {
-    const match = fileName.match(/(?<properName>\w+)\.md/);
+    const match = fileName.match(/(?<properName>\w+)\.md/v);
     if (match === null || match.groups === undefined) {
       throw new Error(
         `Failed to parse the proper name from the file name: ${fileName}`,
@@ -400,7 +399,7 @@ async function renameDuplicatedPages() {
         continue;
       }
 
-      const match = fileName.match(/\.(?<properName>\w+\.md)/);
+      const match = fileName.match(/\.(?<properName>\w+\.md)/v);
       if (match === null || match.groups === undefined) {
         throw new Error(`Failed to parse the file name: ${fileName}`);
       }
@@ -453,10 +452,10 @@ async function fixLinks() {
 
     // Fix links with a duplicated file name.
     // e.g. "ModUpgraded.ModUpgraded.md"
-    const linkFileNames = newFileContents.match(/\w+\.md/gm);
+    const linkFileNames = newFileContents.match(/\w+\.md/gv);
     if (linkFileNames !== null) {
       for (const linkFileName of linkFileNames) {
-        const fileNameWithoutExtension = linkFileName.replace(/\.md$/, "");
+        const fileNameWithoutExtension = linkFileName.replace(/\.md$/v, "");
         newFileContents = newFileContents.replaceAll(
           `${fileNameWithoutExtension}.${fileNameWithoutExtension}.md`,
           `${fileNameWithoutExtension}.md`,
@@ -509,7 +508,7 @@ async function fixLinks() {
     // Finally, fix links with a "types_" prefix.
     // e.g. "(../interfaces/types_PickingUpItem.PickingUpItemNull.md)" -->
     // "(../interfaces/PickingUpItemNull.md)"
-    newFileContents = newFileContents.replaceAll(/types_\w+\./gm, "");
+    newFileContents = newFileContents.replaceAll(/types_\w+\./gv, "");
 
     if (fileContents !== newFileContents) {
       // eslint-disable-next-line no-await-in-loop
@@ -561,11 +560,11 @@ function pascalCaseToTitleCase(string: string) {
   return (
     string
       // Look for long acronyms and filter out the last letter.
-      .replaceAll(/([A-Z]+)([A-Z][a-z])/g, " $1 $2")
+      .replaceAll(/([A-Z]+)([A-Z][a-z])/gv, " $1 $2")
       // Look for lower-case letters followed by upper-case letters.
-      .replaceAll(/([\da-z])([A-Z])/g, "$1 $2")
+      .replaceAll(/(?<=[\da-z])(?=[A-Z])/gv, " ")
       // Look for lower-case letters followed by numbers.
-      .replaceAll(/([A-Za-z])(\d)/g, "$1 $2")
+      .replaceAll(/(?<=[A-Za-z])(?=\d)/gv, " ")
       .replace(/^./, (s) => s.toUpperCase())
       // Remove any white space left around the word.
       .trim()
