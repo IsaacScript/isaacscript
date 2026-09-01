@@ -147,6 +147,21 @@ export function getSpikes(variant = -1): readonly GridEntitySpikes[] {
   return spikes;
 }
 
+/**
+ * Helper function to get all of the grid entities of type `GridEntityType.TELEPORTER` (23) in the
+ * room.
+ *
+ * @param variant Optional. If specified, will only get the teleporters that match the variant.
+ *                Default is -1, which matches every variant.
+ */
+export function getTeleporters(variant = -1): readonly GridEntity[] {
+  if (variant === -1) {
+    return getGridEntities(GridEntityType.TELEPORTER);
+  }
+
+  return getMatchingGridEntities(GridEntityType.TELEPORTER, variant);
+}
+
 /** Helper function to get all of the `GridEntityTNT` in the room. */
 export function getTNT(variant = -1): readonly GridEntityTNT[] {
   const tntArray: GridEntityTNT[] = [];
@@ -161,21 +176,6 @@ export function getTNT(variant = -1): readonly GridEntityTNT[] {
   }
 
   return tntArray;
-}
-
-/**
- * Helper function to get all of the grid entities of type `GridEntityType.TELEPORTER` (23) in the
- * room.
- *
- * @param variant Optional. If specified, will only get the teleporters that match the variant.
- *                Default is -1, which matches every variant.
- */
-export function getTeleporters(variant = -1): readonly GridEntity[] {
-  if (variant === -1) {
-    return getGridEntities(GridEntityType.TELEPORTER);
-  }
-
-  return getMatchingGridEntities(GridEntityType.TELEPORTER, variant);
 }
 
 /**
@@ -324,26 +324,6 @@ export function removeAllSpikes(
 }
 
 /**
- * Helper function to remove all of the `GridEntityTNT` in the room.
- *
- * @param variant Optional. If specified, will only remove the TNTs that match this variant. Default
- *                is -1, which matches every variant.
- * @param updateRoom Optional. Whether to update the room after the TNTs are removed. Default is
- *                   false. For more information, see the description of the `removeGridEntities`
- *                   helper function.
- * @param cap Optional. If specified, will only remove the given amount of TNTs.
- * @returns The TNTs that were removed.
- */
-export function removeAllTNT(
-  variant = -1,
-  updateRoom = false,
-  cap?: int,
-): readonly GridEntityTNT[] {
-  const tnt = getTNT(variant);
-  return removeGridEntities(tnt, updateRoom, cap);
-}
-
-/**
  * Helper function to remove all of the `GridEntityType.TELEPORTER` (23) in the room.
  *
  * @param variant Optional. If specified, will only remove the teleporters that match this variant.
@@ -361,6 +341,26 @@ export function removeAllTeleporters(
 ): readonly GridEntity[] {
   const teleporters = getTeleporters(variant);
   return removeGridEntities(teleporters, updateRoom, cap);
+}
+
+/**
+ * Helper function to remove all of the `GridEntityTNT` in the room.
+ *
+ * @param variant Optional. If specified, will only remove the TNTs that match this variant. Default
+ *                is -1, which matches every variant.
+ * @param updateRoom Optional. Whether to update the room after the TNTs are removed. Default is
+ *                   false. For more information, see the description of the `removeGridEntities`
+ *                   helper function.
+ * @param cap Optional. If specified, will only remove the given amount of TNTs.
+ * @returns The TNTs that were removed.
+ */
+export function removeAllTNT(
+  variant = -1,
+  updateRoom = false,
+  cap?: int,
+): readonly GridEntityTNT[] {
+  const tnt = getTNT(variant);
+  return removeGridEntities(tnt, updateRoom, cap);
 }
 
 /**
@@ -573,6 +573,25 @@ export function spawnSpikesWithVariant(
   return spikes;
 }
 
+/** Helper function to spawn a `GridEntityType.TELEPORTER` (23). */
+export function spawnTeleporter(
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnTeleporterWithVariant(0, gridIndexOrPosition);
+}
+
+/** Helper function to spawn a `GridEntityType.TELEPORTER` (23) with a specific variant. */
+export function spawnTeleporterWithVariant(
+  variant: int,
+  gridIndexOrPosition: int | Vector,
+): GridEntity | undefined {
+  return spawnGridEntityWithVariant(
+    GridEntityType.TELEPORTER,
+    variant,
+    gridIndexOrPosition,
+  );
+}
+
 /** Helper function to spawn a `GridEntityType.TNT` (12). */
 export function spawnTNT(
   gridIndexOrPosition: int | Vector,
@@ -598,25 +617,6 @@ export function spawnTNTWithVariant(
   assertDefined(tnt, "Failed to spawn TNT.");
 
   return tnt;
-}
-
-/** Helper function to spawn a `GridEntityType.TELEPORTER` (23). */
-export function spawnTeleporter(
-  gridIndexOrPosition: int | Vector,
-): GridEntity | undefined {
-  return spawnTeleporterWithVariant(0, gridIndexOrPosition);
-}
-
-/** Helper function to spawn a `GridEntityType.TELEPORTER` (23) with a specific variant. */
-export function spawnTeleporterWithVariant(
-  variant: int,
-  gridIndexOrPosition: int | Vector,
-): GridEntity | undefined {
-  return spawnGridEntityWithVariant(
-    GridEntityType.TELEPORTER,
-    variant,
-    gridIndexOrPosition,
-  );
 }
 
 /** Helper function to spawn a `GridEntityType.TRAPDOOR` (17). */
