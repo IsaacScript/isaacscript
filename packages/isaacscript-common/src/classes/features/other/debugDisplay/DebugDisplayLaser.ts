@@ -4,6 +4,12 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayLaser extends Feature {
+  // ModCallback.POST_LASER_RENDER (49)
+  private readonly postLaserRender = (laser: EntityLaser) => {
+    const text = this.textCallback(laser);
+    renderTextOnEntity(laser, text);
+  };
+
   public textCallback: (laser: EntityLaser) => string =
     defaultEntityDisplayCallback;
 
@@ -15,10 +21,4 @@ export class DebugDisplayLaser extends Feature {
       [ModCallback.POST_LASER_RENDER, this.postLaserRender],
     ];
   }
-
-  // ModCallback.POST_LASER_RENDER (49)
-  private readonly postLaserRender = (laser: EntityLaser) => {
-    const text = this.textCallback(laser);
-    renderTextOnEntity(laser, text);
-  };
 }

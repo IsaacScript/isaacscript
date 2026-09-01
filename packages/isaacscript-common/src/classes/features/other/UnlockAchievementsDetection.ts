@@ -12,6 +12,17 @@ const v = {
 };
 
 export class UnlockAchievementsDetection extends Feature {
+  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
+  private readonly postGameStartedReordered = () => {
+    const greedDonationMachine = spawnSlot(
+      SlotVariant.GREED_DONATION_MACHINE,
+      0,
+      VectorZero,
+    );
+    v.run.canRunUnlockAchievements = greedDonationMachine.Exists();
+    greedDonationMachine.Remove();
+  };
+
   /** @internal */
   public override v = v;
 
@@ -26,17 +37,6 @@ export class UnlockAchievementsDetection extends Feature {
       ],
     ];
   }
-
-  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  private readonly postGameStartedReordered = () => {
-    const greedDonationMachine = spawnSlot(
-      SlotVariant.GREED_DONATION_MACHINE,
-      0,
-      VectorZero,
-    );
-    v.run.canRunUnlockAchievements = greedDonationMachine.Exists();
-    greedDonationMachine.Remove();
-  };
 
   /**
    * Helper function to see if the current run can unlock achievements. For example, if playing on a

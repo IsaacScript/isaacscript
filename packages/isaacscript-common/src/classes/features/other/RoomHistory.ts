@@ -21,18 +21,6 @@ const v = {
 };
 
 export class RoomHistory extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_EARLY, this.postNewRoomEarly],
-    ];
-  }
-
   // ModCallbackCustom.POST_NEW_ROOM_EARLY
   private readonly postNewRoomEarly = () => {
     const level = game.GetLevel();
@@ -67,6 +55,18 @@ export class RoomHistory extends Feature {
     };
     v.run.roomHistory.push(roomDescription);
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_EARLY, this.postNewRoomEarly],
+    ];
+  }
 
   /**
    * Helper function to manually delete the last room description from the internal array. This is

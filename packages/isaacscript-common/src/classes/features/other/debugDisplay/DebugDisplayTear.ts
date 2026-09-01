@@ -4,6 +4,12 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayTear extends Feature {
+  // ModCallback.POST_TEAR_RENDER (41)
+  private readonly postTearRender = (tear: EntityTear) => {
+    const text = this.textCallback(tear);
+    renderTextOnEntity(tear, text);
+  };
+
   public textCallback: (tear: EntityTear) => string =
     defaultEntityDisplayCallback;
 
@@ -15,10 +21,4 @@ export class DebugDisplayTear extends Feature {
       [ModCallback.POST_TEAR_RENDER, this.postTearRender],
     ];
   }
-
-  // ModCallback.POST_TEAR_RENDER (41)
-  private readonly postTearRender = (tear: EntityTear) => {
-    const text = this.textCallback(tear);
-    renderTextOnEntity(tear, text);
-  };
 }

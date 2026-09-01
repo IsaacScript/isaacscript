@@ -4,6 +4,12 @@ import { Feature } from "../../../private/Feature";
 import { defaultGridEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayTNT extends Feature {
+  // ModCallbackCustom.POST_TNT_RENDER
+  private readonly postTNTRender = (tnt: GridEntityTNT) => {
+    const text = this.textCallback(tnt);
+    renderTextOnEntity(tnt, text);
+  };
+
   public textCallback: (tnt: GridEntityTNT) => string =
     defaultGridEntityDisplayCallback;
 
@@ -14,10 +20,4 @@ export class DebugDisplayTNT extends Feature {
       [ModCallbackCustom.POST_TNT_RENDER, this.postTNTRender],
     ];
   }
-
-  // ModCallbackCustom.POST_TNT_RENDER
-  private readonly postTNTRender = (tnt: GridEntityTNT) => {
-    const text = this.textCallback(tnt);
-    renderTextOnEntity(tnt, text);
-  };
 }

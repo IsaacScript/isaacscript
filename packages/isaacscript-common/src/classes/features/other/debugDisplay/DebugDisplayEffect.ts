@@ -4,6 +4,12 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayEffect extends Feature {
+  // ModCallback.POST_EFFECT_RENDER (56)
+  private readonly postEffectRender = (effect: EntityEffect) => {
+    const text = this.textCallback(effect);
+    renderTextOnEntity(effect, text);
+  };
+
   public textCallback: (effect: EntityEffect) => string =
     defaultEntityDisplayCallback;
 
@@ -15,10 +21,4 @@ export class DebugDisplayEffect extends Feature {
       [ModCallback.POST_EFFECT_RENDER, this.postEffectRender],
     ];
   }
-
-  // ModCallback.POST_EFFECT_RENDER (56)
-  private readonly postEffectRender = (effect: EntityEffect) => {
-    const text = this.textCallback(effect);
-    renderTextOnEntity(effect, text);
-  };
 }

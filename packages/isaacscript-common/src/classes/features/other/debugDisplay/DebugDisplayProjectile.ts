@@ -4,6 +4,12 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayProjectile extends Feature {
+  // ModCallback.POST_PROJECTILE_RENDER (45)
+  private readonly postProjectileRender = (projectile: EntityProjectile) => {
+    const text = this.textCallback(projectile);
+    renderTextOnEntity(projectile, text);
+  };
+
   public textCallback: (projectile: EntityProjectile) => string =
     defaultEntityDisplayCallback;
 
@@ -15,10 +21,4 @@ export class DebugDisplayProjectile extends Feature {
       [ModCallback.POST_PROJECTILE_RENDER, this.postProjectileRender],
     ];
   }
-
-  // ModCallback.POST_PROJECTILE_RENDER (45)
-  private readonly postProjectileRender = (projectile: EntityProjectile) => {
-    const text = this.textCallback(projectile);
-    renderTextOnEntity(projectile, text);
-  };
 }
