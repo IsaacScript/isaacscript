@@ -415,8 +415,8 @@ export function logSet(
   const suffix = name === undefined ? "" : ` "${name}"`;
   log(`Logging a TSTL set${suffix}:`);
 
-  const setValues = getSortedSetValues(set);
-  for (const value of setValues) {
+  const values = getSortedSetValues(set);
+  for (const value of values) {
     log(`  Value: ${value}`);
   }
 

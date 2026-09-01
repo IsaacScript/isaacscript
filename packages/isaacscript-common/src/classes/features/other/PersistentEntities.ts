@@ -157,15 +157,15 @@ export class PersistentEntities extends Feature {
    *
    * @param persistentEntityIndex The index that was returned by the `spawnPersistentEntity`
    *                              function.
-   * @param removeEntity Optional. True by default. Set to false if you want to stop an entity from
-   *                     being persistent but you don't want to actually remove the
-   *                     currently-spawned entity from the room.
+   * @param shouldRemoveEntity Optional. True by default. Set to false if you want to stop an entity
+   *                           from being persistent but you don't want to actually remove the
+   *                           currently-spawned entity from the room.
    * @public
    */
   @Exported
   public removePersistentEntity(
     persistentEntityIndex: int,
-    removeEntity = true,
+    shouldRemoveEntity = true,
   ): void {
     v.level.persistentEntities.delete(persistentEntityIndex);
 
@@ -177,7 +177,7 @@ export class PersistentEntities extends Feature {
 
       v.room.spawnedPersistentEntities.delete(ptrHash);
 
-      if (removeEntity && entityPtr.Ref !== undefined) {
+      if (shouldRemoveEntity && entityPtr.Ref !== undefined) {
         entityPtr.Ref.Remove();
       }
     }

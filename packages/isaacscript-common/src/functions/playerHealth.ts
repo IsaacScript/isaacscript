@@ -600,32 +600,31 @@ export function setPlayerHealth(
   for (const [i, soulHeartType] of playerHealth.soulHeartTypes.entries()) {
     const isHalf =
       playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
-    let addAmount = 2;
-    if (
-      isHalf
-      || soulHeartType === HeartSubType.BONE
-      || soulHeartsRemaining < 2
-    ) {
-      // Fix the bug where a half soul heart to the left of a bone heart will be treated as a full
-      // soul heart.
-      addAmount = 1;
-    }
+
+    /**
+     * Fix the bug where a half soul heart to the left of a bone heart will be treated as a full
+     * soul heart.
+     */
+    const shouldAddOneSoulHeart =
+      isHalf || soulHeartType === HeartSubType.BONE || soulHeartsRemaining < 2;
+
+    const numSoulHearts = shouldAddOneSoulHeart ? 1 : 2;
 
     switch (soulHeartType) {
       case HeartSubType.SOUL: {
-        player.AddSoulHearts(addAmount);
-        soulHeartsRemaining -= addAmount;
+        player.AddSoulHearts(numSoulHearts);
+        soulHeartsRemaining -= numSoulHearts;
         break;
       }
 
       case HeartSubType.BLACK: {
-        player.AddBlackHearts(addAmount);
-        soulHeartsRemaining -= addAmount;
+        player.AddBlackHearts(numSoulHearts);
+        soulHeartsRemaining -= numSoulHearts;
         break;
       }
 
       case HeartSubType.BONE: {
-        player.AddBoneHearts(addAmount);
+        player.AddBoneHearts(numSoulHearts);
         break;
       }
     }

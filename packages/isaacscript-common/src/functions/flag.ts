@@ -101,7 +101,7 @@ export function hasFlag<T extends BitFlag | BitFlag128>(
   const flagsAsInt = flags as int;
 
   for (const flagToCheck of flagsToCheck) {
-    if (!((flagsAsInt & (flagToCheck as int)) === flagToCheck)) {
+    if ((flagsAsInt & (flagToCheck as int)) !== flagToCheck) {
       return false;
     }
   }

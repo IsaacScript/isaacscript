@@ -33,7 +33,6 @@ export default defineConfig(
       "@typescript-eslint/require-array-sort-compare": "error",
 
       // TODO
-      "unicorn/no-non-function-verb-prefix": "off",
       "unicorn/no-top-level-assignment-in-function": "off",
       "unicorn/no-useless-recursion": "off",
       "unicorn/no-useless-template-literals": "off",
