@@ -48,32 +48,26 @@ export function closeDoorFast(door: GridEntityDoor): void {
   sprite.Play("Closed", true);
 }
 
-export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
-  const doorSlot = DOOR_SLOT_FLAG_TO_DOOR_SLOT[doorSlotFlag];
-  return doorSlot ?? DEFAULT_DOOR_SLOT;
-}
-
 export function doorSlotFlagsToDoorSlots(
   doorSlotFlags: BitFlags<DoorSlotFlag>,
 ): readonly DoorSlot[] {
   const doorSlots: DoorSlot[] = [];
 
   for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
-    if (hasFlag(doorSlotFlags, doorSlotFlag)) {
-      const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
-      doorSlots.push(doorSlot);
+    if (!hasFlag(doorSlotFlags, doorSlotFlag)) {
+      continue;
     }
+
+    const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
+    doorSlots.push(doorSlot);
   }
 
   return doorSlots;
 }
 
-export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
-  return DOOR_SLOT_TO_DIRECTION[doorSlot];
-}
-
-export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
-  return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
+export function doorSlotFlagToDoorSlot(doorSlotFlag: DoorSlotFlag): DoorSlot {
+  const doorSlot = DOOR_SLOT_FLAG_TO_DOOR_SLOT[doorSlotFlag];
+  return doorSlot ?? DEFAULT_DOOR_SLOT;
 }
 
 /**
@@ -86,7 +80,7 @@ export function doorSlotsToDoorSlotFlags(
   const doorSlotsMutable = doorSlots as DoorSlot[] | Set<DoorSlot>;
 
   const doorSlotArray: readonly DoorSlot[] = isTSTLSet(doorSlotsMutable)
-    ? [...doorSlotsMutable.values()]
+    ? [...doorSlotsMutable]
     : doorSlotsMutable;
 
   const doorSlotFlagArray = doorSlotArray.map((doorSlot) =>
@@ -94,6 +88,14 @@ export function doorSlotsToDoorSlotFlags(
   );
 
   return arrayToBitFlags(doorSlotFlagArray);
+}
+
+export function doorSlotToDirection(doorSlot: DoorSlot): Direction {
+  return DOOR_SLOT_TO_DIRECTION[doorSlot];
+}
+
+export function doorSlotToDoorSlotFlag(doorSlot: DoorSlot): DoorSlotFlag {
+  return DOOR_SLOT_TO_DOOR_SLOT_FLAG[doorSlot];
 }
 
 export function getAngelRoomDoor(): GridEntityDoor | undefined {
@@ -152,6 +154,46 @@ export function getDoorEnterPosition(door: GridEntityDoor): Readonly<Vector> {
 }
 
 /**
+ * Helper function to get all of the doors in the room. By default, it will return every door.
+ *
+ * You can optionally specify one or more room types to return only the doors that match the
+ * specified room types.
+ *
+ * @allowEmptyVariadic
+ */
+export function getDoors(
+  ...roomTypes: readonly RoomType[]
+): readonly GridEntityDoor[] {
+  const room = game.GetRoom();
+  const roomShape = room.GetRoomShape();
+  const roomTypesSet = new ReadonlySet(roomTypes);
+
+  // We iterate over the possible door slots for this room shape instead of all door slots in order
+  // to prevent crashes from accessing invalid memory.
+  const possibleDoorSlots = getDoorSlotsForRoomShape(roomShape);
+
+  const doors: GridEntityDoor[] = [];
+  for (const doorSlot of possibleDoorSlots) {
+    const door = room.GetDoor(doorSlot);
+    if (door === undefined) {
+      continue;
+    }
+
+    // In Repentance, sometimes doors won't be doors for some reason.
+    const gridEntityType = door.GetType();
+    if (gridEntityType !== GridEntityType.DOOR) {
+      continue;
+    }
+
+    if (roomTypesSet.size === 0 || roomTypesSet.has(door.TargetRoomType)) {
+      doors.push(door);
+    }
+  }
+
+  return doors;
+}
+
+/**
  * Helper function to get the position that a player will enter a room at corresponding to a door
  * slot.
  *
@@ -190,46 +232,6 @@ export function getDoorSlotsForRoomShape(
   roomShape: RoomShape,
 ): ReadonlySet<DoorSlot> {
   return ROOM_SHAPE_TO_DOOR_SLOTS[roomShape];
-}
-
-/**
- * Helper function to get all of the doors in the room. By default, it will return every door.
- *
- * You can optionally specify one or more room types to return only the doors that match the
- * specified room types.
- *
- * @allowEmptyVariadic
- */
-export function getDoors(
-  ...roomTypes: readonly RoomType[]
-): readonly GridEntityDoor[] {
-  const room = game.GetRoom();
-  const roomShape = room.GetRoomShape();
-  const roomTypesSet = new ReadonlySet(roomTypes);
-
-  // We iterate over the possible door slots for this room shape instead of all door slots in order
-  // to prevent crashes from accessing invalid memory.
-  const possibleDoorSlots = getDoorSlotsForRoomShape(roomShape);
-
-  const doors: GridEntityDoor[] = [];
-  for (const doorSlot of possibleDoorSlots) {
-    const door = room.GetDoor(doorSlot);
-    if (door === undefined) {
-      continue;
-    }
-
-    // In Repentance, sometimes doors won't be doors for some reason.
-    const gridEntityType = door.GetType();
-    if (gridEntityType !== GridEntityType.DOOR) {
-      continue;
-    }
-
-    if (roomTypesSet.size === 0 || roomTypesSet.has(door.TargetRoomType)) {
-      doors.push(door);
-    }
-  }
-
-  return doors;
 }
 
 /**

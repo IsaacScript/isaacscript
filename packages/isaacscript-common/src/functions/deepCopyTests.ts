@@ -43,317 +43,25 @@ export function runDeepCopyTests(): void {
   print(successText);
 }
 
-function copiedObjectIsTable() {
-  const oldObject = {
-    abc: "def",
-  };
-  const newObject = deepCopy(
-    oldObject,
-    SerializationType.NONE,
-    "copiedObjectIsTable",
-  );
-  if (!isTable(newObject)) {
-    error(`The copied object had a type of: ${typeof newObject}`);
-  }
-}
-
-function copiedObjectHasKeyAndValueString() {
-  const keyToLookFor = "abc";
-  const valueToLookFor = "def";
-  const oldObject = {
-    abc: valueToLookFor,
-  };
-  const newObject = deepCopy(
-    oldObject,
-    SerializationType.NONE,
-    "copiedObjectHasKeyAndValueString",
-  );
-
-  const value = newObject[keyToLookFor] as string | undefined;
-  if (value === undefined) {
-    error(`The copied object did not have a key of: ${keyToLookFor}`);
-  }
-
-  if (!isString(value)) {
-    error(`The copied object had a value type of: ${typeof value}`);
-  }
-  if (value !== valueToLookFor) {
-    error(`The copied object had a value of: ${value}`);
-  }
-}
-
-function copiedTableHasKeyAndValueNumber() {
-  const keyToLookFor = 123;
-  const valueToLookFor = 456;
-  const oldTable = new LuaMap<AnyNotNil, unknown>();
-  oldTable.set(keyToLookFor, valueToLookFor);
-
+function copiedDefaultMapHasBrand() {
+  const oldDefaultValue = "foo";
+  const oldDefaultMap = new DefaultMap<string, string>(oldDefaultValue);
   const newTable = deepCopy(
-    oldTable,
-    SerializationType.NONE,
-    "copiedTableHasKeyAndValueNumber",
-  );
+    oldDefaultMap,
+    SerializationType.SERIALIZE,
+    "copiedDefaultMapHasBrand",
+  ) as LuaMap<AnyNotNil, unknown>;
 
-  const value = newTable.get(keyToLookFor) as number | undefined;
-  if (value === undefined) {
-    error(`The copied object did not have a key of: ${keyToLookFor}`);
-  }
-
-  if (!isNumber(value)) {
-    error(`The copied object had a value type of: ${typeof value}`);
-  }
-  if (value !== valueToLookFor) {
-    error(`The copied object had a value of: ${value}`);
-  }
-}
-
-function copiedTableDoesNotCoerceTypes() {
-  const keyToLookFor = 123;
-  const valueToLookFor = 456;
-  const oldTable = new LuaMap<AnyNotNil, unknown>();
-  oldTable.set(keyToLookFor, valueToLookFor);
-
-  const newTable = deepCopy(
-    oldTable,
-    SerializationType.NONE,
-    "copiedTableDoesNotCoerceTypes",
-  );
-
-  const keyString = tostring(keyToLookFor);
-  const valueString = tostring(valueToLookFor);
-
-  const valueFromString = newTable.get(keyString);
-  if (valueFromString !== undefined) {
-    error(`The copied object had a string key of: ${keyString}`);
-  }
-
-  const value = newTable.get(keyToLookFor);
-  if (value === valueString) {
+  if (!isTable(newTable)) {
     error(
-      `The copied object had a value that incorrectly matched the string of: ${valueString}`,
-    );
-  }
-}
-
-/** In this context, a reference is a pointer. */
-function copiedObjectHasNoReferencesForPrimitivesForward() {
-  const originalStringValue = "abcdef";
-  const originalNumberValue = 123;
-  const oldObject = {
-    abc: originalStringValue,
-    def: originalNumberValue,
-  };
-  const newObject = deepCopy(
-    oldObject,
-    SerializationType.NONE,
-    "copiedObjectHasNoReferencesForPrimitivesForward",
-  );
-
-  oldObject.abc = "newValue";
-  if (oldObject.abc === newObject.abc) {
-    error("The copied object has a string reference going forward.");
-  }
-
-  oldObject.def = 456;
-  if (oldObject.def === newObject.def) {
-    error("The copied object has a number reference going forward.");
-  }
-}
-
-function copiedObjectHasNoReferencesForPrimitivesBackward() {
-  const originalStringValue = "abcdef";
-  const originalNumberValue = 123;
-  const oldObject = {
-    abc: originalStringValue,
-    def: originalNumberValue,
-  };
-  const newObject = deepCopy(
-    oldObject,
-    SerializationType.NONE,
-    "copiedObjectHasNoReferencesForPrimitivesBackward",
-  );
-
-  newObject.abc = "newValue";
-  if (newObject.abc === oldObject.abc) {
-    error("The copied object has a string reference going backward.");
-  }
-
-  newObject.def = 456;
-  if (newObject.def === oldObject.def) {
-    error("The copied object has a number reference going backward.");
-  }
-}
-
-/** In this context, a reference is a pointer. */
-function copiedObjectHasNoReferencesForArray() {
-  const oldObject = {
-    abc: [1, 2, 3],
-  };
-  const newObject = deepCopy(
-    oldObject,
-    SerializationType.NONE,
-    "copiedObjectHasNoReferencesForArray",
-  );
-
-  if (oldObject.abc === newObject.abc) {
-    error("The copied object has the same point to the child array.");
-  }
-
-  if (!arrayEquals(oldObject.abc, newObject.abc)) {
-    error("The copied object does not have an equal array.");
-  }
-
-  oldObject.abc[0]!++; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-  if (arrayEquals(oldObject.abc, newObject.abc)) {
-    error(
-      "The copied object has an equal array after a modification to the old array.",
-    );
-  }
-  oldObject.abc[0]!--; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-
-  newObject.abc[0]!++; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-  if (arrayEquals(oldObject.abc, newObject.abc)) {
-    error(
-      "The copied object has an equal array after a modification to the new array.",
-    );
-  }
-  newObject.abc[0]!--; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-}
-
-function copiedObjectHasChildObject() {
-  const childObjectIndex = "abc";
-  const keyToLookFor = "def";
-  const valueToLookFor = "ghi";
-  const oldObject = {
-    abc: {
-      def: valueToLookFor,
-    },
-  };
-  const newObject = deepCopy(
-    oldObject,
-    SerializationType.NONE,
-    "copiedObjectHasChildObject",
-  );
-
-  const childObject = newObject[childObjectIndex] as
-    (typeof oldObject)["abc"] | undefined;
-  if (childObject === undefined) {
-    error(`Failed to find the child object at index: ${childObjectIndex}`);
-  }
-
-  if (!isTable(childObject)) {
-    error(`The copied child object had a type of: ${typeof childObject}`);
-  }
-
-  const value = childObject[keyToLookFor] as string | undefined;
-  if (value === undefined) {
-    error(`The child object did not have a key of: ${keyToLookFor}`);
-  }
-
-  if (!isString(value)) {
-    error(`The child object value had a type of: ${typeof value}`);
-  }
-  if (value !== valueToLookFor) {
-    error(`The child object value was: ${valueToLookFor}`);
-  }
-}
-
-function copiedMapIsMap() {
-  const keyToLookFor = "abc";
-  const valueToLookFor = "def";
-  const oldMap = new Map<string, string>([[keyToLookFor, valueToLookFor]]);
-
-  const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
-
-  if (!isTSTLMap(newMap)) {
-    error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
-  }
-}
-
-function copiedMapHasValue() {
-  const keyToLookFor = "abc";
-  const valueToLookFor = "def";
-  const oldMap = new Map<string, string>([[keyToLookFor, valueToLookFor]]);
-
-  const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapHasValue");
-
-  if (!isTSTLMap(newMap)) {
-    error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
-  }
-
-  const value = newMap.get(keyToLookFor);
-  if (value === undefined) {
-    error(`The copied Map did not have a key of: ${keyToLookFor}`);
-  }
-  if (value !== valueToLookFor) {
-    error(`The copied Map did not have a value of: ${valueToLookFor}`);
-  }
-}
-
-function copiedSetIsSet() {
-  const valueToLookFor = "abc";
-  const oldSet = new Set<string>([valueToLookFor]);
-
-  const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
-
-  if (!isTSTLSet(newSet)) {
-    error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
-  }
-}
-
-function copiedSetHasValue() {
-  const valueToLookFor = "abc";
-  const oldSet = new Set<string>([valueToLookFor]);
-
-  const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetHasValue");
-
-  if (!isTSTLSet(newSet)) {
-    error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
-  }
-
-  const hasValue = newSet.has(valueToLookFor);
-  if (!hasValue) {
-    error(`The copied Set did not have a value of: ${valueToLookFor}`);
-  }
-}
-
-function copiedMapHasChildMap() {
-  const childMapKey = 123;
-  const childMapValue = 456;
-  const oldChildMap = new Map<number, number>([[childMapKey, childMapValue]]);
-
-  const keyToLookFor = "childMap";
-  const oldMap = new Map<string, Map<number, number>>([
-    [keyToLookFor, oldChildMap],
-  ]);
-
-  const newMap = deepCopy(
-    oldMap,
-    SerializationType.NONE,
-    "copiedMapHasChildMap",
-  );
-
-  if (!isTSTLMap(newMap)) {
-    error(`The copied Map was not a Map and had a type of: ${typeof newMap}`);
-  }
-
-  const newChildMap = newMap.get(keyToLookFor);
-  if (newChildMap === undefined) {
-    error(`The copied Map did not have a child map at key: ${keyToLookFor}`);
-  }
-
-  if (!isTSTLMap(newChildMap)) {
-    error(
-      `The copied child Map was not a Map and had a type of: ${typeof newChildMap}`,
+      `The copied DefaultMap was not a table and had a type of: ${typeof newTable}`,
     );
   }
 
-  const value = newChildMap.get(childMapKey);
-  if (value === undefined) {
-    error(`The copied child Map did not have a key of: ${childMapKey}`);
-  }
-  if (value !== childMapValue) {
-    error(`The copied child Map did not have a value of: ${childMapValue}`);
+  if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {
+    error(
+      `The copied DefaultMap does not have the brand: ${SerializationBrand.DEFAULT_MAP}`,
+    );
   }
 }
 
@@ -416,76 +124,256 @@ function copiedDefaultMapHasChildDefaultMap() {
   }
 }
 
-function copiedDefaultMapHasBrand() {
-  const oldDefaultValue = "foo";
-  const oldDefaultMap = new DefaultMap<string, string>(oldDefaultValue);
-  const newTable = deepCopy(
+function copiedMapHasChildMap() {
+  const childMapKey = 123;
+  const childMapValue = 456;
+  const oldChildMap = new Map<number, number>([[childMapKey, childMapValue]]);
+
+  const keyToLookFor = "childMap";
+  const oldMap = new Map<string, Map<number, number>>([
+    [keyToLookFor, oldChildMap],
+  ]);
+
+  const newMap = deepCopy(
+    oldMap,
+    SerializationType.NONE,
+    "copiedMapHasChildMap",
+  );
+
+  if (!isTSTLMap(newMap)) {
+    error(`The copied Map was not a Map and had a type of: ${typeof newMap}`);
+  }
+
+  const newChildMap = newMap.get(keyToLookFor);
+  if (newChildMap === undefined) {
+    error(`The copied Map did not have a child map at key: ${keyToLookFor}`);
+  }
+
+  if (!isTSTLMap(newChildMap)) {
+    error(
+      `The copied child Map was not a Map and had a type of: ${typeof newChildMap}`,
+    );
+  }
+
+  const value = newChildMap.get(childMapKey);
+  if (value === undefined) {
+    error(`The copied child Map did not have a key of: ${childMapKey}`);
+  }
+  if (value !== childMapValue) {
+    error(`The copied child Map did not have a value of: ${childMapValue}`);
+  }
+}
+
+function copiedMapHasValue() {
+  const keyToLookFor = "abc";
+  const valueToLookFor = "def";
+  const oldMap = new Map<string, string>([[keyToLookFor, valueToLookFor]]);
+
+  const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapHasValue");
+
+  if (!isTSTLMap(newMap)) {
+    error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
+  }
+
+  const value = newMap.get(keyToLookFor);
+  if (value === undefined) {
+    error(`The copied Map did not have a key of: ${keyToLookFor}`);
+  }
+  if (value !== valueToLookFor) {
+    error(`The copied Map did not have a value of: ${valueToLookFor}`);
+  }
+}
+
+function copiedMapIsMap() {
+  const keyToLookFor = "abc";
+  const valueToLookFor = "def";
+  const oldMap = new Map<string, string>([[keyToLookFor, valueToLookFor]]);
+
+  const newMap = deepCopy(oldMap, SerializationType.NONE, "copiedMapIsMap");
+
+  if (!isTSTLMap(newMap)) {
+    error(`The copied Map was not a Map and has a type of: ${typeof newMap}`);
+  }
+}
+
+function copiedObjectHasChildObject() {
+  const childObjectIndex = "abc";
+  const keyToLookFor = "def";
+  const valueToLookFor = "ghi";
+  const oldObject = {
+    abc: {
+      def: valueToLookFor,
+    },
+  };
+  const newObject = deepCopy(
+    oldObject,
+    SerializationType.NONE,
+    "copiedObjectHasChildObject",
+  );
+
+  const childObject = newObject[childObjectIndex] as
+    (typeof oldObject)["abc"] | undefined;
+  if (childObject === undefined) {
+    error(`Failed to find the child object at index: ${childObjectIndex}`);
+  }
+
+  if (!isTable(childObject)) {
+    error(`The copied child object had a type of: ${typeof childObject}`);
+  }
+
+  const value = childObject[keyToLookFor] as string | undefined;
+  if (value === undefined) {
+    error(`The child object did not have a key of: ${keyToLookFor}`);
+  }
+
+  if (!isString(value)) {
+    error(`The child object value had a type of: ${typeof value}`);
+  }
+  if (value !== valueToLookFor) {
+    error(`The child object value was: ${valueToLookFor}`);
+  }
+}
+
+function copiedObjectHasKeyAndValueString() {
+  const keyToLookFor = "abc";
+  const valueToLookFor = "def";
+  const oldObject = { abc: valueToLookFor };
+  const newObject = deepCopy(
+    oldObject,
+    SerializationType.NONE,
+    "copiedObjectHasKeyAndValueString",
+  );
+
+  const value = newObject[keyToLookFor] as string | undefined;
+  if (value === undefined) {
+    error(`The copied object did not have a key of: ${keyToLookFor}`);
+  }
+
+  if (!isString(value)) {
+    error(`The copied object had a value type of: ${typeof value}`);
+  }
+  if (value !== valueToLookFor) {
+    error(`The copied object had a value of: ${value}`);
+  }
+}
+
+/** In this context, a reference is a pointer. */
+function copiedObjectHasNoReferencesForArray() {
+  const oldObject = { abc: [1, 2, 3] };
+  const newObject = deepCopy(
+    oldObject,
+    SerializationType.NONE,
+    "copiedObjectHasNoReferencesForArray",
+  );
+
+  if (oldObject.abc === newObject.abc) {
+    error("The copied object has the same point to the child array.");
+  }
+
+  if (!arrayEquals(oldObject.abc, newObject.abc)) {
+    error("The copied object does not have an equal array.");
+  }
+
+  oldObject.abc[0]!++; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  if (arrayEquals(oldObject.abc, newObject.abc)) {
+    error(
+      "The copied object has an equal array after a modification to the old array.",
+    );
+  }
+  oldObject.abc[0]!--; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+  newObject.abc[0]!++; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  if (arrayEquals(oldObject.abc, newObject.abc)) {
+    error(
+      "The copied object has an equal array after a modification to the new array.",
+    );
+  }
+  newObject.abc[0]!--; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+}
+
+function copiedObjectHasNoReferencesForPrimitivesBackward() {
+  const originalStringValue = "abcdef";
+  const originalNumberValue = 123;
+  const oldObject = {
+    abc: originalStringValue,
+    def: originalNumberValue,
+  };
+  const newObject = deepCopy(
+    oldObject,
+    SerializationType.NONE,
+    "copiedObjectHasNoReferencesForPrimitivesBackward",
+  );
+
+  newObject.abc = "newValue";
+  if (newObject.abc === oldObject.abc) {
+    error("The copied object has a string reference going backward.");
+  }
+
+  newObject.def = 456;
+  if (newObject.def === oldObject.def) {
+    error("The copied object has a number reference going backward.");
+  }
+}
+
+/** In this context, a reference is a pointer. */
+function copiedObjectHasNoReferencesForPrimitivesForward() {
+  const originalStringValue = "abcdef";
+  const originalNumberValue = 123;
+  const oldObject = {
+    abc: originalStringValue,
+    def: originalNumberValue,
+  };
+  const newObject = deepCopy(
+    oldObject,
+    SerializationType.NONE,
+    "copiedObjectHasNoReferencesForPrimitivesForward",
+  );
+
+  oldObject.abc = "newValue";
+  if (oldObject.abc === newObject.abc) {
+    error("The copied object has a string reference going forward.");
+  }
+
+  oldObject.def = 456;
+  if (oldObject.def === newObject.def) {
+    error("The copied object has a number reference going forward.");
+  }
+}
+
+function copiedObjectIsTable() {
+  const oldObject = { abc: "def" };
+  const newObject = deepCopy(
+    oldObject,
+    SerializationType.NONE,
+    "copiedObjectIsTable",
+  );
+  if (!isTable(newObject)) {
+    error(`The copied object had a type of: ${typeof newObject}`);
+  }
+}
+
+function copiedSerializedDefaultMapHasNumberKey() {
+  const mapKey = 123;
+  const oldDefaultMap = new DefaultMap<number, number>(456);
+  oldDefaultMap.getAndSetDefault(mapKey);
+
+  const serializedOldDefaultMap = deepCopy(
     oldDefaultMap,
     SerializationType.SERIALIZE,
-    "copiedDefaultMapHasBrand",
-  ) as LuaMap<AnyNotNil, unknown>;
-
-  if (!isTable(newTable)) {
-    error(
-      `The copied DefaultMap was not a table and had a type of: ${typeof newTable}`,
-    );
-  }
-
-  if (!newTable.has(SerializationBrand.DEFAULT_MAP)) {
-    error(
-      `The copied DefaultMap does not have the brand: ${SerializationBrand.DEFAULT_MAP}`,
-    );
-  }
-}
-
-function copiedSerializedMapHasStringKey() {
-  const mapKey = "123";
-  const mapValue = 456;
-  const oldMap = new Map<string, number>([[mapKey, mapValue]]);
-
-  const serializedOldMap = deepCopy(
-    oldMap,
-    SerializationType.SERIALIZE,
-    "copiedSerializedMapHasStringKey-serialize",
+    "copiedSerializedDefaultMapHasNumberKey-serialize",
   );
 
   const newTable = deepCopy(
-    serializedOldMap,
+    serializedOldDefaultMap,
     SerializationType.DESERIALIZE,
-    "copiedSerializedMapHasStringKey-deserialize",
+    "copiedSerializedDefaultMapHasNumberKey-deserialize",
   );
 
-  const newMap = newTable as Map<string, number>;
-  if (!newMap.has(mapKey)) {
+  const newDefaultMap = newTable as DefaultMap<number, number>;
+  if (!newDefaultMap.has(mapKey)) {
     const keyType = type(mapKey);
     error(
-      `The copied Map did not have a key of: ${mapKey} with type ${keyType}`,
-    );
-  }
-}
-
-function copiedSerializedMapHasNumberKey() {
-  const mapKey = 123;
-  const mapValue = 456;
-  const oldMap = new Map<number, number>([[mapKey, mapValue]]);
-
-  const serializedOldMap = deepCopy(
-    oldMap,
-    SerializationType.SERIALIZE,
-    "copiedSerializedMapHasNumberKey-serialize",
-  );
-
-  const newTable = deepCopy(
-    serializedOldMap,
-    SerializationType.DESERIALIZE,
-    "copiedSerializedMapHasNumberKey-deserialize",
-  );
-
-  const newMap = newTable as Map<number, number>;
-  if (!newMap.has(mapKey)) {
-    const keyType = type(mapKey);
-    error(
-      `The copied Map did not have a key of: ${mapKey} with type ${keyType}`,
+      `The copied DefaultMap did not have a key of: ${mapKey} with type ${keyType}`,
     );
   }
 }
@@ -516,28 +404,134 @@ function copiedSerializedDefaultMapHasStringKey() {
   }
 }
 
-function copiedSerializedDefaultMapHasNumberKey() {
+function copiedSerializedMapHasNumberKey() {
   const mapKey = 123;
-  const oldDefaultMap = new DefaultMap<number, number>(456);
-  oldDefaultMap.getAndSetDefault(mapKey);
+  const mapValue = 456;
+  const oldMap = new Map<number, number>([[mapKey, mapValue]]);
 
-  const serializedOldDefaultMap = deepCopy(
-    oldDefaultMap,
+  const serializedOldMap = deepCopy(
+    oldMap,
     SerializationType.SERIALIZE,
-    "copiedSerializedDefaultMapHasNumberKey-serialize",
+    "copiedSerializedMapHasNumberKey-serialize",
   );
 
   const newTable = deepCopy(
-    serializedOldDefaultMap,
+    serializedOldMap,
     SerializationType.DESERIALIZE,
-    "copiedSerializedDefaultMapHasNumberKey-deserialize",
+    "copiedSerializedMapHasNumberKey-deserialize",
   );
 
-  const newDefaultMap = newTable as DefaultMap<number, number>;
-  if (!newDefaultMap.has(mapKey)) {
+  const newMap = newTable as Map<number, number>;
+  if (!newMap.has(mapKey)) {
     const keyType = type(mapKey);
     error(
-      `The copied DefaultMap did not have a key of: ${mapKey} with type ${keyType}`,
+      `The copied Map did not have a key of: ${mapKey} with type ${keyType}`,
     );
+  }
+}
+
+function copiedSerializedMapHasStringKey() {
+  const mapKey = "123";
+  const mapValue = 456;
+  const oldMap = new Map<string, number>([[mapKey, mapValue]]);
+
+  const serializedOldMap = deepCopy(
+    oldMap,
+    SerializationType.SERIALIZE,
+    "copiedSerializedMapHasStringKey-serialize",
+  );
+
+  const newTable = deepCopy(
+    serializedOldMap,
+    SerializationType.DESERIALIZE,
+    "copiedSerializedMapHasStringKey-deserialize",
+  );
+
+  const newMap = newTable as Map<string, number>;
+  if (!newMap.has(mapKey)) {
+    const keyType = type(mapKey);
+    error(
+      `The copied Map did not have a key of: ${mapKey} with type ${keyType}`,
+    );
+  }
+}
+
+function copiedSetHasValue() {
+  const valueToLookFor = "abc";
+  const oldSet = new Set<string>([valueToLookFor]);
+
+  const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetHasValue");
+
+  if (!isTSTLSet(newSet)) {
+    error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
+  }
+
+  const hasValue = newSet.has(valueToLookFor);
+  if (!hasValue) {
+    error(`The copied Set did not have a value of: ${valueToLookFor}`);
+  }
+}
+
+function copiedSetIsSet() {
+  const valueToLookFor = "abc";
+  const oldSet = new Set<string>([valueToLookFor]);
+
+  const newSet = deepCopy(oldSet, SerializationType.NONE, "copiedSetIsSet");
+
+  if (!isTSTLSet(newSet)) {
+    error(`The copied Set was not a Set and has a type of: ${typeof newSet}`);
+  }
+}
+
+function copiedTableDoesNotCoerceTypes() {
+  const keyToLookFor = 123;
+  const valueToLookFor = 456;
+  const oldTable = new LuaMap<AnyNotNil, unknown>();
+  oldTable.set(keyToLookFor, valueToLookFor);
+
+  const newTable = deepCopy(
+    oldTable,
+    SerializationType.NONE,
+    "copiedTableDoesNotCoerceTypes",
+  );
+
+  const keyString = tostring(keyToLookFor);
+  const valueString = tostring(valueToLookFor);
+
+  const valueFromString = newTable.get(keyString);
+  if (valueFromString !== undefined) {
+    error(`The copied object had a string key of: ${keyString}`);
+  }
+
+  const value = newTable.get(keyToLookFor);
+  if (value === valueString) {
+    error(
+      `The copied object had a value that incorrectly matched the string of: ${valueString}`,
+    );
+  }
+}
+
+function copiedTableHasKeyAndValueNumber() {
+  const keyToLookFor = 123;
+  const valueToLookFor = 456;
+  const oldTable = new LuaMap<AnyNotNil, unknown>();
+  oldTable.set(keyToLookFor, valueToLookFor);
+
+  const newTable = deepCopy(
+    oldTable,
+    SerializationType.NONE,
+    "copiedTableHasKeyAndValueNumber",
+  );
+
+  const value = newTable.get(keyToLookFor) as number | undefined;
+  if (value === undefined) {
+    error(`The copied object did not have a key of: ${keyToLookFor}`);
+  }
+
+  if (!isNumber(value)) {
+    error(`The copied object had a value type of: ${typeof value}`);
+  }
+  if (value !== valueToLookFor) {
+    error(`The copied object had a value of: ${value}`);
   }
 }
