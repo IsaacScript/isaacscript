@@ -220,12 +220,12 @@ export function getCollectibleDevilHeartPrice(
     collectibleOrCollectibleType,
     "getCollectibleDevilHeartPrice",
   );
-  const maxHearts = player.GetMaxHearts();
 
   if (collectibleType === CollectibleType.NULL) {
     return 0;
   }
 
+  const maxHearts = player.GetMaxHearts();
   if (maxHearts === 0) {
     return PickupPrice.THREE_SOUL_HEARTS;
   }

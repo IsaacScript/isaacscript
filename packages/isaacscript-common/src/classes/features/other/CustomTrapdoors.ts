@@ -641,9 +641,6 @@ export class CustomTrapdoors extends Feature {
     gridEntity: GridEntity,
     firstSpawn: boolean,
   ): boolean {
-    const room = game.GetRoom();
-    const roomClear = room.IsClear();
-
     // Trapdoors created after a room has already initialized should spawn closed by default:
     // - Trapdoors created after bosses should spawn closed so that players do not accidentally jump
     //   into them.
@@ -652,6 +649,9 @@ export class CustomTrapdoors extends Feature {
     if (isAfterRoomFrame(0)) {
       return false;
     }
+
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
 
     // If we just entered a new room with enemies in it, spawn the trapdoor closed so that the
     // player has to defeat the enemies first before using the trapdoor.

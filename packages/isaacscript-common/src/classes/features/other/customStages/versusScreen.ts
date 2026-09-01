@@ -111,13 +111,12 @@ export function playVersusScreenAnimation(
 ): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const roomCleared = room.IsClear();
-  const hud = game.GetHUD();
 
   if (roomType !== RoomType.BOSS) {
     return;
   }
 
+  const roomCleared = room.IsClear();
   if (roomCleared) {
     return;
   }
@@ -133,6 +132,8 @@ export function playVersusScreenAnimation(
     });
     return;
   }
+
+  const hud = game.GetHUD();
 
   v.run.showingBossVersusScreen = true;
 

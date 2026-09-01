@@ -55,7 +55,6 @@ export function anyPlayerHasTrinket(
 export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   const maxTrinkets = player.GetMaxTrinkets();
   const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
-  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (maxTrinkets === 1) {
     return trinketType1 === TrinketType.NULL ? 0 : undefined;
@@ -66,6 +65,7 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
       return 0;
     }
 
+    const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
     return trinketType2 === TrinketType.NULL ? 1 : undefined;
   }
 

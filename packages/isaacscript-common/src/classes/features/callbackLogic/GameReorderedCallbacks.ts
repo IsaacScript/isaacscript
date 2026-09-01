@@ -80,17 +80,17 @@ export class GameReorderedCallbacks extends Feature {
 
   // ModCallback.POST_NEW_LEVEL (18)
   private readonly postNewLevel = (): void => {
-    const level = game.GetLevel();
-    const stage = level.GetStage();
-    const stageType = level.GetStageType();
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-
     if (onGameFrame(0) && !this.forceNewLevel) {
       // Wait for the `POST_GAME_STARTED` callback to fire.
       return;
     }
     this.forceNewLevel = false;
+
+    const level = game.GetLevel();
+    const stage = level.GetStage();
+    const stageType = level.GetStageType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     this.recordCurrentStage();
     this.postNewLevelReordered.fire(stage, stageType);

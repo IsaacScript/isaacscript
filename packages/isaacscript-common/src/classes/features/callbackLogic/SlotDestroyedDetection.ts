@@ -37,13 +37,13 @@ export class SlotDestroyedDetection extends Feature {
   // ModCallback.POST_ENTITY_REMOVE (67)
   // EntityType.SLOT (6)
   private readonly postEntityRemoveSlot = (entity: Entity) => {
-    const slot = entity as EntitySlot;
-
     // The `POST_ENTITY_REMOVE` callback will fire for slots that are naturally despawning as a
     // player leaves a room. We want to ignore all slots that despawn for this reason.
     if (this.roomHistory.isLeavingRoom()) {
       return;
     }
+
+    const slot = entity as EntitySlot;
 
     if (isSlotMachine(slot)) {
       this.postEntityRemoveSlotMachine(slot);
