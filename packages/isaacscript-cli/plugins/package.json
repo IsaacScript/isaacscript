@@ -1,3 +1,7 @@
 {
-  "type": "commonjs"
+  "type": "commonjs",
+  "peerDependencies": {
+    "typescript": ">= 5.0.0",
+    "typescript-to-lua": ">= 1.0.0"
+  }
 }

@@ -268,13 +268,13 @@ async function fillCustomStageMetadata(
 async function validateMetadataLuaFileExists(packageManager: PackageManager) {
   const directory = await isDirectory(ISAACSCRIPT_COMMON_PATH);
   if (!directory) {
-    const addCommand = getPackageManagerAddCommand(
+    const command = getPackageManagerAddCommand(
       packageManager,
       ISAACSCRIPT_COMMON,
     );
     fatalError(
       `The custom stages feature requires a dependency of "${ISAACSCRIPT_COMMON}" in the "package.json" file. You can add it with the following command:\n${chalk.green(
-        addCommand,
+        command,
       )}`,
     );
   }
@@ -458,10 +458,10 @@ async function combineCustomStageXMLs(
     const lines = xmlContents.trim().split("\n");
 
     // Remove the first line of "<?xml version="1.0" ?>".
-    lines.shift();
+    lines.shift(); // eslint-disable-line unicorn/no-array-front-mutation
 
     // Remove the second line of "<rooms>".
-    lines.shift();
+    lines.shift(); // eslint-disable-line unicorn/no-array-front-mutation
 
     // Remove the last line of "</rooms>".
     lines.pop();
@@ -477,7 +477,7 @@ async function combineCustomStageXMLs(
         continue;
       }
 
-      const match = line.match(VARIANT_REGEX);
+      const match = VARIANT_REGEX.exec(line);
       if (match === null || match.groups === undefined) {
         continue;
       }

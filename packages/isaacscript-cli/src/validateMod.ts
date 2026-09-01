@@ -111,13 +111,13 @@ export async function validatePackageJSONDependencies(): Promise<void> {
       continue;
     }
 
-    const addDevCommand = getPackageManagerAddDevCommand(
+    const command = getPackageManagerAddDevCommand(
       packageManager,
       devDependency,
     );
     fatalError(
       `The "${devDependency}" dependency is located in the "dependencies" object instead of the "devDependencies" object in the "${packageJSONPath}" file. You can fix this with the following command:\n${chalk.green(
-        addDevCommand,
+        command,
       )}`,
     );
   }
@@ -127,13 +127,13 @@ export async function validatePackageJSONDependencies(): Promise<void> {
       continue;
     }
 
-    const addDevCommand = getPackageManagerAddDevCommand(
+    const command = getPackageManagerAddDevCommand(
       packageManager,
       devDependency,
     );
     fatalError(
       `IsaacScript projects require a "devDependencies" entry of "${devDependency}" in the "${packageJSONPath}" file. You can add it with the following command:\n${chalk.green(
-        addDevCommand,
+        command,
       )}`,
     );
   }

@@ -33,7 +33,7 @@ const plugin: tstl.Plugin = {
     emitHost: tstl.EmitHost,
     fileName: string,
     file: tstl.File,
-  ) => new CustomPrinter(emitHost, program, fileName).print(file),
+  ) => new CustomPrinter(emitHost, program, fileName).print(file), // eslint-disable-line unicorn/no-unreadable-new-expression
 };
 
 export default plugin;

@@ -12,48 +12,6 @@ import type { CustomStageTSConfig } from "./interfaces/copied/CustomStageTSConfi
 
 const ADVICE = `Try copying the "${TSCONFIG_JSON}" from a brand new ${PROJECT_NAME} project.`;
 
-const isaacScriptSchema = await getJSONC(ISAACSCRIPT_SCHEMA_PATH);
-assertObject(
-  isaacScriptSchema,
-  `The IsaacScript schema was not an object: ${ISAACSCRIPT_SCHEMA_PATH}`,
-);
-
-const ajv = new Ajv();
-const schemaValidate = ajv.compile(isaacScriptSchema);
-
-async function getTSConfigJSON(): Promise<Record<string, unknown>> {
-  const tsconfig = await getJSONC(TSCONFIG_JSON_PATH);
-  assertObject(
-    tsconfig,
-    `The TSConfig was not an object: ${TSCONFIG_JSON_PATH}`,
-  );
-  return tsconfig;
-}
-
-async function getIsaacScriptSection(): Promise<
-  Record<string, unknown> | undefined
-> {
-  const tsConfig = await getTSConfigJSON();
-
-  // We allow different kinds of casing for the field name.
-  for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
-    const field = tsConfig[fieldName];
-    if (field !== undefined) {
-      if (!isObject(field)) {
-        fatalError(
-          `Your "${chalk.green(
-            TSCONFIG_JSON_PATH,
-          )}" file has a non-object value for the "${fieldName}" field, which is surely a mistake. ${ADVICE}`,
-        );
-      }
-
-      return field;
-    }
-  }
-
-  return undefined;
-}
-
 /**
  * Parses the "tsconfig.json" file and returns the "customStages" section. If the section does not
  * exist, returns an empty array.
@@ -67,6 +25,15 @@ export async function getCustomStagesFromTSConfig(): Promise<
   if (isaacScriptSection === undefined) {
     return [];
   }
+
+  const isaacScriptSchema = await getJSONC(ISAACSCRIPT_SCHEMA_PATH);
+  assertObject(
+    isaacScriptSchema,
+    `The IsaacScript schema was not an object: ${ISAACSCRIPT_SCHEMA_PATH}`,
+  );
+
+  const ajv = new Ajv();
+  const schemaValidate = ajv.compile(isaacScriptSchema);
 
   const valid = schemaValidate(isaacScriptSection);
   if (!valid) {
@@ -140,4 +107,37 @@ export async function getCustomStagesFromTSConfig(): Promise<
   }
 
   return customStages as CustomStageTSConfig[];
+}
+
+async function getIsaacScriptSection(): Promise<
+  Record<string, unknown> | undefined
+> {
+  const tsConfig = await getTSConfigJSON();
+
+  // We allow different kinds of casing for the field name.
+  for (const fieldName of ["isaacscript", "isaacScript", "IsaacScript"]) {
+    const field = tsConfig[fieldName];
+    if (field !== undefined) {
+      if (!isObject(field)) {
+        fatalError(
+          `Your "${chalk.green(
+            TSCONFIG_JSON_PATH,
+          )}" file has a non-object value for the "${fieldName}" field, which is surely a mistake. ${ADVICE}`,
+        );
+      }
+
+      return field;
+    }
+  }
+
+  return undefined;
+}
+
+async function getTSConfigJSON(): Promise<Record<string, unknown>> {
+  const tsconfig = await getJSONC(TSCONFIG_JSON_PATH);
+  assertObject(
+    tsconfig,
+    `The TSConfig was not an object: ${TSCONFIG_JSON_PATH}`,
+  );
+  return tsconfig;
 }

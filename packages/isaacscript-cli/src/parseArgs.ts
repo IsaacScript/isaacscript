@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-unreadable-new-expression */
+
 // Other potential args libraries:
 // - util.parseArgs [X]
 //   - https://nodejs.org/api/util.html#utilparseargsconfig

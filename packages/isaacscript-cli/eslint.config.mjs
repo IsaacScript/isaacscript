@@ -8,8 +8,12 @@ export default defineConfig(
 
   {
     rules: {
-      // TODO: https://github.com/eslint/eslint/issues/20272
-      "@typescript-eslint/unified-signatures": "off",
+      /*
+       * Defined at: base-unicorn.js
+       *
+       * It is idiomatic in Isaac mods to use "SubType" instead of "Subtype".
+       */
+      "unicorn/consistent-compound-words": "off",
     },
   },
 
