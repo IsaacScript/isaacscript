@@ -109,10 +109,12 @@ export class SlotDestroyedDetection extends Feature {
    * `EntityGridCollisionClass.GROUND` (5).
    */
   private checkDestroyedFromCollisionClass(slot: EntitySlot) {
-    if (slot.GridCollisionClass === EntityGridCollisionClass.GROUND) {
-      const ptrHash = GetPtrHash(slot);
-      v.room.destroyedSlotSet.add(ptrHash);
-      this.postSlotDestroyed.fire(slot, SlotDestructionType.NORMAL);
+    if (!(slot.GridCollisionClass === EntityGridCollisionClass.GROUND)) {
+    	return;
     }
+
+    const ptrHash = GetPtrHash(slot);
+    v.room.destroyedSlotSet.add(ptrHash);
+    this.postSlotDestroyed.fire(slot, SlotDestructionType.NORMAL);
   }
 }

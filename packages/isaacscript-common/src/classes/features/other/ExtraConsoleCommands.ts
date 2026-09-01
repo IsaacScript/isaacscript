@@ -111,10 +111,12 @@ export class ExtraConsoleCommands extends Feature {
 
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = () => {
-    if (v.persistent.spamBloodRights) {
-      const player = Isaac.GetPlayer();
-      player.UseActiveItem(CollectibleType.BLOOD_RIGHTS);
+    if (!v.persistent.spamBloodRights) {
+    	return;
     }
+
+    const player = Isaac.GetPlayer();
+    player.UseActiveItem(CollectibleType.BLOOD_RIGHTS);
   };
 
   // ModCallback.EVALUATE_CACHE (8)
