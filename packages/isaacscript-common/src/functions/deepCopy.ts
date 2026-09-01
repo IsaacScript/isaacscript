@@ -462,15 +462,9 @@ function deepCopyTable(
 
   const className = getTSTLClassName(luaMap);
 
-  if (className === "WeakMap") {
+  if (className === "WeakMap" || className === "WeakSet") {
     error(
-      `The deep copy function does not support copying the "WeakMap" class for: ${traversalDescription}`,
-    );
-  }
-
-  if (className === "WeakSet") {
-    error(
-      `The deep copy function does not support copying the "WeakSet" class for: ${traversalDescription}`,
+      `The deep copy function does not support copying the "${className}" class for: ${traversalDescription}`,
     );
   }
 

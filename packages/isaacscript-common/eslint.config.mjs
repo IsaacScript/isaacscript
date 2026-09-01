@@ -33,7 +33,6 @@ export default defineConfig(
       "@typescript-eslint/require-array-sort-compare": "error",
 
       // TODO
-      "unicorn/prefer-else-if": "off",
       "unicorn/prefer-global-number-constants": "off",
       "unicorn/prefer-iterable-in-constructor": "off",
       "unicorn/prefer-minimal-ternary": "off",
