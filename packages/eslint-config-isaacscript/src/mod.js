@@ -234,6 +234,9 @@ export const isaacScriptModConfigBase = defineConfig(
        */
       "unicorn/no-null": "off",
 
+      /** `Iterator#toArray()` is not supported by TypeScriptToLua. */
+      "unicorn/prefer-iterator-to-array": "off",
+
       /**
        * Defined at: base-unicorn.js
        *

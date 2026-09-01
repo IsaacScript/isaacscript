@@ -188,15 +188,6 @@ export function getRoomItemPoolType(): ItemPoolType {
 }
 
 /**
- * Helper function to get the proper name of a room type.
- *
- * For example, `RoomType.TREASURE` will return "Treasure Room".
- */
-export function getRoomTypeName(roomType: RoomType): string {
-  return ROOM_TYPE_NAMES[roomType];
-}
-
-/**
  * Helper function to get the room descriptor for every room on the level. This includes off-grid
  * rooms, such as the Devil Room.
  *
@@ -296,6 +287,15 @@ export function getRoomsOutsideGrid(): readonly RoomDescriptor[] {
   return readOnlyRoomsOffGrid.map((readOnlyRoomDescriptor) =>
     getRoomDescriptor(readOnlyRoomDescriptor.SafeGridIndex),
   );
+}
+
+/**
+ * Helper function to get the proper name of a room type.
+ *
+ * For example, `RoomType.TREASURE` will return "Treasure Room".
+ */
+export function getRoomTypeName(roomType: RoomType): string {
+  return ROOM_TYPE_NAMES[roomType];
 }
 
 /**
