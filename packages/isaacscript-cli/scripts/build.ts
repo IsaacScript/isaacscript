@@ -9,6 +9,8 @@ import {
 } from "complete-node";
 import path from "node:path";
 
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
+const TSCONFIG_PATH = path.join(PACKAGE_ROOT, "tsconfig.json");
 const INTERFACE_FILE_NAMES = ["CustomStageTSConfig", "JSONRoomsFile"] as const;
 const ENUM_FILE_NAMES = ["DoorSlot", "RoomShape"] as const;
 const ENUM_FLAG_FILE_NAMES = ["DoorSlotFlag"] as const;
@@ -254,13 +256,15 @@ async function compilePlugins(packageRoot: string) {
 async function renamePluginJSToCJS(pluginsDirPath: string) {
   const fileNames = await getFileNamesInDirectory(pluginsDirPath);
   for (const fileName of fileNames) {
-    if (fileName.endsWith(".js")) {
-      const oldFilePath = path.join(pluginsDirPath, fileName);
-      const newFileName = fileName.replace(".js", ".cjs");
-      const newFilePath = path.join(pluginsDirPath, newFileName);
-      // eslint-disable-next-line no-await-in-loop
-      await moveFileOrDirectory(oldFilePath, newFilePath);
+    if (!fileName.endsWith(".js")) {
+      continue;
     }
+
+    const oldFilePath = path.join(pluginsDirPath, fileName);
+    const newFileName = fileName.replace(".js", ".cjs");
+    const newFilePath = path.join(pluginsDirPath, newFileName);
+    // eslint-disable-next-line no-await-in-loop
+    await moveFileOrDirectory(oldFilePath, newFilePath);
   }
 }
 
@@ -268,13 +272,13 @@ async function renamePluginJSToCJS(pluginsDirPath: string) {
 async function generateJSONSchemaForTSConfigJSON() {
   const TSCONFIG_SCHEMA_PATH =
     "schemas/tsconfig-isaacscript-section-schema.json";
-  await $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig tsconfig.json --out ${TSCONFIG_SCHEMA_PATH}`;
+  await $`ts-json-schema-generator --path src/interfaces/IsaacScriptTSConfig.ts --tsconfig ${TSCONFIG_PATH} --out ${TSCONFIG_SCHEMA_PATH}`;
   await $`prettier ${TSCONFIG_SCHEMA_PATH} --write --log-level=warn`;
 }
 
 /** Generate the JSON schema for the "isaacscript.json" file. */
 async function generateJSONSchemaForIsaacScriptJSON() {
   const ISAACSCRIPT_SCHEMA_PATH = "schemas/isaacscript-schema.json";
-  await $`ts-json-schema-generator --path src/classes/Config.ts --tsconfig tsconfig.json --out ${ISAACSCRIPT_SCHEMA_PATH}`;
+  await $`ts-json-schema-generator --path src/classes/Config.ts --tsconfig ${TSCONFIG_PATH} --out ${ISAACSCRIPT_SCHEMA_PATH}`;
   await $`prettier ${ISAACSCRIPT_SCHEMA_PATH} --write --log-level=warn`;
 }
