@@ -56,7 +56,6 @@ export default defineConfig(
       "unicorn/prefer-early-return": "off",
       "unicorn/prefer-else-if": "off",
       "unicorn/prefer-global-number-constants": "off",
-      "unicorn/prefer-https": "off",
       "unicorn/prefer-iterable-in-constructor": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-number-is-safe-integer": "off",
