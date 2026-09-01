@@ -19,8 +19,7 @@ import { v } from "./extraConsoleCommands/v";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 declare let __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE:
-  | ExtraConsoleCommands
-  | undefined;
+  ExtraConsoleCommands | undefined;
 
 /**
  * When you enable this feature, many custom commands will be added to the in-game console. See the

@@ -29,7 +29,9 @@ type ConceptionFamiliarFlagValue = BitFlag & {
   readonly __conceptionFamiliarFlagBrand: symbol;
 };
 type ConceptionFamiliarFlagType = {
-  readonly [K in keyof typeof ConceptionFamiliarFlagInternal]: ConceptionFamiliarFlagValue;
+  readonly [
+    K in keyof typeof ConceptionFamiliarFlagInternal
+  ]: ConceptionFamiliarFlagValue;
 };
 
 export type ConceptionFamiliarFlag =

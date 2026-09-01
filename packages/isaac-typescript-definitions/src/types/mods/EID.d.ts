@@ -33,11 +33,7 @@ declare type EIDInlineIcon = [
 ];
 
 declare type EIDTransformationTargetType =
-  | "collectible"
-  | "trinket"
-  | "card"
-  | "pill"
-  | "entity";
+  "collectible" | "trinket" | "card" | "pill" | "entity";
 
 declare interface EIDInterface {
   /** Gets the size of the screen. */

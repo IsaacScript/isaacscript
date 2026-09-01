@@ -29,7 +29,9 @@ type WeaponModifierFlagValue = BitFlag & {
   readonly __weaponModifierFlagBrand: symbol;
 };
 type WeaponModifierFlagType = {
-  readonly [K in keyof typeof WeaponModifierFlagInternal]: WeaponModifierFlagValue;
+  readonly [
+    K in keyof typeof WeaponModifierFlagInternal
+  ]: WeaponModifierFlagValue;
 };
 
 export type WeaponModifierFlag =

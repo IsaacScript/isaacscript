@@ -26,7 +26,9 @@ type AddHealthTypeFlagValue = BitFlag & {
   readonly __addHealthTypeFlagBrand: symbol;
 };
 type AddHealthTypeFlagFlag = {
-  readonly [K in keyof typeof AddHealthTypeFlagInternal]: AddHealthTypeFlagValue;
+  readonly [
+    K in keyof typeof AddHealthTypeFlagInternal
+  ]: AddHealthTypeFlagValue;
 };
 
 export const AddHealthTypeFlag =

@@ -39,7 +39,9 @@ type AnimationRenderFlagValue = BitFlag & {
   readonly __animationRenderFlagBrand: symbol;
 };
 type AnimationRenderFlagType = {
-  readonly [K in keyof typeof AnimationRenderFlagInternal]: AnimationRenderFlagValue;
+  readonly [
+    K in keyof typeof AnimationRenderFlagInternal
+  ]: AnimationRenderFlagValue;
 };
 
 export const AnimationRenderFlag =

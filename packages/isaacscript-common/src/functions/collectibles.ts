@@ -171,8 +171,7 @@ export function getCollectibleDescription(
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded map as a workaround.
   const collectibleDescription = COLLECTIBLE_DESCRIPTIONS[collectibleType] as
-    | string
-    | undefined;
+    string | undefined;
   if (collectibleDescription !== undefined) {
     return collectibleDescription;
   }
@@ -361,8 +360,7 @@ export function getCollectibleName(
   // "ItemConfigItem.Name" is bugged with vanilla items on patch v1.7.6, so we use a hard-coded map
   // as a workaround.
   const collectibleName = COLLECTIBLE_NAMES[collectibleType] as
-    | string
-    | undefined;
+    string | undefined;
   if (collectibleName !== undefined) {
     return collectibleName;
   }

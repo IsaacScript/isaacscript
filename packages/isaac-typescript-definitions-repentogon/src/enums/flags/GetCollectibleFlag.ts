@@ -28,7 +28,9 @@ type GetCollectibleFlagValue = BitFlag & {
   readonly __getCollectibleFlagBrand: symbol;
 };
 type GetCollectibleFlagType = {
-  readonly [K in keyof typeof GetCollectibleFlagInternal]: GetCollectibleFlagValue;
+  readonly [
+    K in keyof typeof GetCollectibleFlagInternal
+  ]: GetCollectibleFlagValue;
 };
 
 export const GetCollectibleFlag =

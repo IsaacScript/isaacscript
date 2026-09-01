@@ -9,9 +9,7 @@ import { CollectibleType, ItemType } from "isaac-typescript-definitions";
 import { ReadonlySet } from "./ReadonlySet";
 
 export type PickingUpItem =
-  | PickingUpItemNull
-  | PickingUpItemCollectible
-  | PickingUpItemTrinket;
+  PickingUpItemNull | PickingUpItemCollectible | PickingUpItemTrinket;
 
 /** Part of `PickingUpItem`. */
 export interface PickingUpItemNull {
