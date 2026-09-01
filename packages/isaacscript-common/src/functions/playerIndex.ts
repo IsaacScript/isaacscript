@@ -122,21 +122,6 @@ export function getPlayerIndex(
   return seed as unknown as PlayerIndex;
 }
 
-function getPlayerIndexCollectibleType(
-  player: EntityPlayer,
-  differentiateForgottenAndSoul: boolean,
-) {
-  const character = player.GetPlayerType();
-
-  if (character === PlayerType.SOUL) {
-    return differentiateForgottenAndSoul
-      ? CollectibleType.INNER_EYE
-      : DEFAULT_COLLECTIBLE_TYPE;
-  }
-
-  return DEFAULT_COLLECTIBLE_TYPE;
-}
-
 /**
  * Helper function to return the index of this player with respect to the output of the
  * `Isaac.GetPlayer` method.
@@ -223,4 +208,19 @@ export function isFoundSoul(player: EntityPlayer): boolean {
     && player.Variant === PlayerVariant.COOP_BABY
     && player.SubType === (BabySubType.FOUND_SOUL as int)
   );
+}
+
+function getPlayerIndexCollectibleType(
+  player: EntityPlayer,
+  differentiateForgottenAndSoul: boolean,
+) {
+  const character = player.GetPlayerType();
+
+  if (character === PlayerType.SOUL) {
+    return differentiateForgottenAndSoul
+      ? CollectibleType.INNER_EYE
+      : DEFAULT_COLLECTIBLE_TYPE;
+  }
+
+  return DEFAULT_COLLECTIBLE_TYPE;
 }

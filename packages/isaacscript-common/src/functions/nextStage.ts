@@ -29,14 +29,15 @@ export function getNextStage(): LevelStage {
     GameStateFlag.MAUSOLEUM_HEART_KILLED,
   );
   const stage = level.GetStage();
-  const repentanceStage = onRepentanceStage();
-  const roomGridIndex = getRoomGridIndex();
 
   // First, handle the special case of being on the backwards path.
   if (backwardsPath) {
     const nextStage = stage - 1;
     return nextStage === 0 ? LevelStage.HOME : nextStage;
   }
+
+  const repentanceStage = onRepentanceStage();
+  const roomGridIndex = getRoomGridIndex();
 
   // Second, handle the special case of being in a specific off-grid room.
   switch (roomGridIndex) {
@@ -169,8 +170,8 @@ export function getNextStageType(upwards = false): StageType {
 
   if (
     repentanceStage
-    && stage === LevelStage.DEPTHS_2
     && mausoleumHeartKilled
+    && stage === LevelStage.DEPTHS_2
   ) {
     return calculateStageTypeRepentance(nextStage);
   }
