@@ -4,21 +4,14 @@ import { OptionDefaults } from "typedoc";
 
 /** @type {Partial<import("typedoc").TypeDocOptions>} */
 const config = {
-  sort: ["source-order"],
   tsconfig: "tsconfig.json",
-  readme: "website-root.md",
-  treatWarningsAsErrors: true,
-  validation: {
-    notExported: true,
-    invalidLink: true,
-    notDocumented: false, // Not every enum member has a JSDoc comment.
-  },
-  excludePrivate: true,
   plugin: [
     "typedoc-plugin-markdown",
     "typedoc-plugin-rename",
     "@zamiell/typedoc-plugin-not-exported",
   ],
+  excludePrivate: true,
+  readme: "website-root.md",
   githubPages: false,
 
   blockTags: [
@@ -27,6 +20,13 @@ const config = {
     "@maximum",
     "@minimum",
   ],
+  sort: ["source-order"],
+  treatWarningsAsErrors: true,
+  validation: {
+    notExported: true,
+    invalidLink: true,
+    notDocumented: false, // Not every enum member has a JSDoc comment.
+  },
 };
 
 const configTypeDocPluginMarkdown = {
@@ -55,8 +55,8 @@ export function getTypeDocConfig(packageDirectoryPath) {
   return {
     ...config,
     ...configTypeDocPluginMarkdown,
-    out,
     entryPoints,
+    out,
   };
 }
 
@@ -75,12 +75,13 @@ function getIndexTSExports(typeScriptFilePath) {
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   return exportLines.map((line) => {
-    const match = line.match(/export (?:type )?\* from "(.+)";/v);
-    if (match === null) {
+    const match =
+      /^export (?:type )?\* from "(?<insideQuotes>[^"]+)";$/v.exec(line);
+    if (match?.groups === undefined) {
       throw new Error(`Failed to parse line: ${line}`);
     }
 
-    const insideQuotes = match[1];
+    const { insideQuotes } = match.groups;
     if (insideQuotes === undefined) {
       throw new Error(`Failed to parse inside the quotes: ${line}`);
     }

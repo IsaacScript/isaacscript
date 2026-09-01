@@ -115,8 +115,8 @@ function clickNavButton(i) {
     return;
   }
 
-  const buttonLink = buttonDiv.children[0];
-  if (buttonLink !== undefined && buttonLink instanceof HTMLElement) {
+  const buttonLink = buttonDiv.firstElementChild;
+  if (buttonLink instanceof HTMLElement) {
     buttonLink.click();
   }
 }

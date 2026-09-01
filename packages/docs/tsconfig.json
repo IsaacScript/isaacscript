@@ -10,6 +10,9 @@
 
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
+    // Include the browser JavaScript files in the project used by ESLint.
+    "allowJs": true,
+
     // Necessary since Docusaurus uses JSX.
     "jsx": "preserve",
 
