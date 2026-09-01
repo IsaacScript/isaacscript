@@ -17,8 +17,8 @@
     "outDir": ".",
 
     // Plugins need to be in CJS format so that CJS mods can use them.
-    "module": "CommonJS",
-    "moduleResolution": "Node10",
+    "module": "Node16",
+    "moduleResolution": "Node16",
   },
 
   "include": ["*.ts"],
