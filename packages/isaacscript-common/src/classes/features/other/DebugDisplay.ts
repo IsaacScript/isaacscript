@@ -60,10 +60,7 @@ export class DebugDisplay extends Feature {
     featureName: string,
     force: boolean | undefined,
   ) {
-    let shouldInit = !feature.initialized;
-    if (force !== undefined) {
-      shouldInit = force;
-    }
+    const shouldInit = force ?? !feature.initialized;
 
     if (shouldInit) {
       this.mod.initFeature(feature);

@@ -326,14 +326,12 @@ export function bossRoom(): void {
   const roomType = RoomType.BOSS;
   const roomGridIndexes = getRoomGridIndexesForType(roomType);
 
-  let roomGridIndex = roomGridIndexes[0];
-
-  if (onStage(LevelStage.VOID)) {
-    roomGridIndex = roomGridIndexes.find(
-      (thisRoomGridIndex) =>
-        getRoomData(thisRoomGridIndex)?.Subtype === BossID.DELIRIUM,
-    );
-  }
+  const roomGridIndex = onStage(LevelStage.VOID)
+    ? roomGridIndexes.find(
+        (thisRoomGridIndex) =>
+          getRoomData(thisRoomGridIndex)?.Subtype === BossID.DELIRIUM,
+      )
+    : roomGridIndexes[0];
 
   const roomTypeName = ROOM_TYPE_NAMES[RoomType.BOSS];
   if (roomGridIndex === undefined) {

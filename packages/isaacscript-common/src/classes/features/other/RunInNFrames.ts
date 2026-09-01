@@ -381,10 +381,10 @@ function checkExecuteIntervalFunctions(
     const { func, numIntervalFrames, numRoomsEntered, cancelIfRoomChanges } =
       firingFunction;
 
-    let returnValue = false;
-    if (!cancelIfRoomChanges || numRoomsEntered === newNumRoomsEntered) {
-      returnValue = func();
-    }
+    const returnValue =
+      !cancelIfRoomChanges || numRoomsEntered === newNumRoomsEntered
+        ? func()
+        : false;
 
     arrayRemoveInPlace(intervalFunctions, firingFunction);
 
