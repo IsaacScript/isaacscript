@@ -109,7 +109,7 @@ export class SlotDestroyedDetection extends Feature {
    * `EntityGridCollisionClass.GROUND` (5).
    */
   private checkDestroyedFromCollisionClass(slot: EntitySlot) {
-    if (!(slot.GridCollisionClass === EntityGridCollisionClass.GROUND)) {
+    if (slot.GridCollisionClass !== EntityGridCollisionClass.GROUND) {
       return;
     }
 
