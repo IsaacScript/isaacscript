@@ -5,12 +5,6 @@
 
 /** @type {import("prettier").Config} */
 const config = {
-  plugins: [
-    "prettier-plugin-organize-imports", // Prettier does not format imports by default.
-    "prettier-plugin-packagejson", // Prettier does not format "package.json" by default.
-    "@prettier/plugin-xml", // Prettier does not format XML files by default.
-  ],
-
   overrides: [
     // Allow proper formatting of JSONC files that have JSON file extensions.
     {
@@ -34,6 +28,12 @@ const config = {
         printWidth: 1_000_000,
       },
     },
+  ],
+
+  plugins: [
+    "prettier-plugin-organize-imports", // Prettier does not format imports by default.
+    "prettier-plugin-packagejson", // Prettier does not format "package.json" by default.
+    "@prettier/plugin-xml", // Prettier does not format XML files by default.
   ],
 
   // We break from the default Prettier config for only a single option: operator position. There
