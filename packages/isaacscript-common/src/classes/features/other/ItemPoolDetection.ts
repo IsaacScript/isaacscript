@@ -199,13 +199,15 @@ function removeItemsAndTrinketsThatAffectItemPools(): {
 
     const removedTrinkets: TrinketType[] = [];
     for (const trinketToRemove of TRINKETS_THAT_AFFECT_ITEM_POOLS) {
-      if (player.HasTrinket(trinketToRemove)) {
-        const numTrinkets = player.GetTrinketMultiplier(trinketToRemove);
-        repeat(numTrinkets, () => {
-          player.TryRemoveTrinket(trinketToRemove);
-          removedTrinkets.push(trinketToRemove);
-        });
+      if (!player.HasTrinket(trinketToRemove)) {
+      	continue;
       }
+
+      const numTrinkets = player.GetTrinketMultiplier(trinketToRemove);
+      repeat(numTrinkets, () => {
+        player.TryRemoveTrinket(trinketToRemove);
+        removedTrinkets.push(trinketToRemove);
+      });
     }
 
     mapSetPlayer(removedTrinketsMap, player, removedTrinkets);

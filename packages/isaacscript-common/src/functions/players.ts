@@ -158,10 +158,12 @@ export function getNewestPlayer(): EntityPlayer {
   let newestPlayer: EntityPlayer | undefined;
   let lowestFrame = Number.POSITIVE_INFINITY;
   for (const player of getPlayers()) {
-    if (player.FrameCount < lowestFrame) {
-      newestPlayer = player;
-      lowestFrame = player.FrameCount;
+    if (!(player.FrameCount < lowestFrame)) {
+    	continue;
     }
+
+    newestPlayer = player;
+    lowestFrame = player.FrameCount;
   }
 
   assertDefined(newestPlayer, "Failed to find the newest player.");

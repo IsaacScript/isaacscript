@@ -215,10 +215,12 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
   const defaultGlobals = getDefaultGlobals();
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
-    if (!defaultGlobals.has(key)) {
-      const keyValueTuple: [AnyNotNil, unknown] = [key, value];
-      newGlobals.push(keyValueTuple);
+    if (defaultGlobals.has(key)) {
+    	continue;
     }
+
+    const keyValueTuple: [AnyNotNil, unknown] = [key, value];
+    newGlobals.push(keyValueTuple);
   }
 
   newGlobals.sort(sortTwoDimensionalArray);

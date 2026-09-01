@@ -152,11 +152,13 @@ export function logFlags<T extends BitFlag | BitFlag128>(
   let hasNoFlags = true;
   const entries = getEnumEntries(flagEnum);
   for (const [key, value] of entries) {
-    if (hasFlag(flags, value)) {
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      log(`  Has flag: ${key} (${value})`);
-      hasNoFlags = false;
+    if (!hasFlag(flags, value)) {
+    	continue;
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    log(`  Has flag: ${key} (${value})`);
+    hasNoFlags = false;
   }
 
   if (hasNoFlags) {
@@ -381,10 +383,12 @@ export function logSeedEffects(this: void): void {
   log("Logging seed effects:");
   let hasNoSeedEffects = true;
   for (const [key, seedEffect] of seedEffectEntries) {
-    if (seeds.HasSeedEffect(seedEffect)) {
-      log(`  ${key} (${seedEffect})`);
-      hasNoSeedEffects = false;
+    if (!seeds.HasSeedEffect(seedEffect)) {
+    	continue;
     }
+
+    log(`  ${key} (${seedEffect})`);
+    hasNoSeedEffects = false;
   }
 
   if (hasNoSeedEffects) {

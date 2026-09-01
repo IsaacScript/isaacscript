@@ -54,10 +54,12 @@ export function doorSlotFlagsToDoorSlots(
   const doorSlots: DoorSlot[] = [];
 
   for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
-    if (hasFlag(doorSlotFlags, doorSlotFlag)) {
-      const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
-      doorSlots.push(doorSlot);
+    if (!hasFlag(doorSlotFlags, doorSlotFlag)) {
+    	continue;
     }
+
+    const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
+    doorSlots.push(doorSlot);
   }
 
   return doorSlots;

@@ -24,10 +24,12 @@ export function getRoomAllowedDoors(
   }
 
   for (const doorSlotFlag of DOOR_SLOT_FLAG_VALUES) {
-    if (hasFlag(roomData.Doors, doorSlotFlag)) {
-      const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
-      allowedDoors.add(doorSlot);
+    if (!hasFlag(roomData.Doors, doorSlotFlag)) {
+    	continue;
     }
+
+    const doorSlot = doorSlotFlagToDoorSlot(doorSlotFlag);
+    allowedDoors.add(doorSlot);
   }
 
   return allowedDoors;

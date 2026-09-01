@@ -133,10 +133,12 @@ export function arrayRemoveIndexInPlace<T>(
   const removedElements: T[] = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
-    if (legalIndexesSet.has(i)) {
-      const removedElement = array.splice(i, 1);
-      removedElements.push(...removedElement);
+    if (!legalIndexesSet.has(i)) {
+    	continue;
     }
+
+    const removedElement = array.splice(i, 1);
+    removedElements.push(...removedElement);
   }
 
   return removedElements;

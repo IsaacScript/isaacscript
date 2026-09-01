@@ -41,10 +41,12 @@ export class PostKeyboardChanged extends CustomCallback<T> {
 
   private readonly postRender = () => {
     for (const keyboard of v.run.pressedKeys) {
-      if (!isKeyboardPressed(keyboard)) {
-        v.run.pressedKeys.delete(keyboard);
-        this.fire(keyboard, false);
+      if (isKeyboardPressed(keyboard)) {
+      	continue;
       }
+
+      v.run.pressedKeys.delete(keyboard);
+      this.fire(keyboard, false);
     }
 
     for (const keyboard of KEYBOARD_VALUES) {
