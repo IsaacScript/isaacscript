@@ -10,9 +10,13 @@ export default defineConfig(
 
   {
     rules: {
-      /** Not defined in the parent configs. */
+      /**
+       * Not defined in the parent configs.
+       *
+       * Requiring "public constructor" everywhere is undesirable.
+       */
       "@typescript-eslint/explicit-member-accessibility": [
-        "warn",
+        "error",
         {
           overrides: {
             constructors: "off",
@@ -26,7 +30,9 @@ export default defineConfig(
        * Since we transpile this library to both Lua and JavaScript, we need to re-enable this lint
        * rule.
        */
-      "@typescript-eslint/require-array-sort-compare": "warn",
+      "@typescript-eslint/require-array-sort-compare": "error",
+
+      // TODO
     },
   },
 
@@ -43,6 +49,7 @@ export default defineConfig(
       // When building and linting at the same time, the "indexLua.ts" file can cause a linting
       // error.
       "src/indexLua.ts",
+
       // Ignore files that were transpiled from Lua to JavaScript.
       "src/lib/jsonLua.js",
     ],
