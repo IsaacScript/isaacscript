@@ -144,7 +144,7 @@ function mergeSerializedTable(
     newTable,
     (key, value) => {
       if (SAVE_DATA_MANAGER_DEBUG) {
-        const valueToPrint = value === "" ? "(empty string)" : `${value}`;
+        const valueToPrint = value === "" ? "(empty string)" : String(value);
         log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
       }
 

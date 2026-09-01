@@ -550,7 +550,7 @@ export function logTableKeys(this: void, luaTable: unknown): void {
   let numElements = 0;
   iterateTableInOrder(luaTable, (key) => {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`${key}`);
+    log(String(key));
     numElements++;
   });
 
