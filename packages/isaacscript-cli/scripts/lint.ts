@@ -18,7 +18,7 @@ await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
   "tsc --noEmit --project ./scripts/tsconfig.json",
   "eslint --max-warnings 0 .",
-  "isaac-xml-validator --quiet",
+  "uvx isaac-xml-validator --quiet",
   // eslint-disable-next-line unicorn/prefer-top-level-await
   ["checkGitIgnoreUpdates", checkGitIgnoreUpdates()],
 ]);

@@ -26,10 +26,9 @@ await lintScript(import.meta.dirname, async () => {
     $`cspell-check-unused-words`,
   ];
 
-  const pythonExists = await commandExists("python");
+  const pythonExists = await commandExists("uvx");
   if (pythonExists) {
-    await $`python -m pip install isaac-xml-validator --upgrade --quiet`;
-    promises.push($`isaac-xml-validator --quiet`);
+    promises.push($`uvx isaac-xml-validator --quiet`);
   }
 
   await Promise.all(promises);
