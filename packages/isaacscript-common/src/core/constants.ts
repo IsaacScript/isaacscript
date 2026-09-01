@@ -279,9 +279,7 @@ export const NUM_DIMENSIONS = getEnumLength(Dimension) - 1;
  *
  * We cannot use the values of the `Dimension` enum because it includes -1.
  */
-export const DIMENSIONS: readonly Dimension[] = eRange(
-  NUM_DIMENSIONS,
-) as Dimension[];
+export const DIMENSIONS = eRange(NUM_DIMENSIONS) as readonly Dimension[];
 
 /**
  * The pill pool for each run is comprised of one effect for each unique pill color (minus gold and

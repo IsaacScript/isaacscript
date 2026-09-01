@@ -243,6 +243,7 @@ export function convertVanillaTrapdoors(
     // If we are on the second floor of a custom stage, then the destination will be the vanilla
     // floor equivalent to 2 floors after the floor used as a basis for the custom stage.
     const baseStage = customStage.baseStage ?? DEFAULT_BASE_STAGE;
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const destinationStage = (baseStage + 2) as LevelStage;
     const destinationStageType = calculateStageType(destinationStage);
 

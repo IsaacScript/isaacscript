@@ -97,9 +97,11 @@ export class DeployJSONRoom extends Feature {
       );
 
       const isGridEntity = GRID_ENTITY_XML_TYPE_SET.has(
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         entityTypeNumber as GridEntityXMLType,
       );
       if (isGridEntity) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         const gridEntityXMLType = entityTypeNumber as GridEntityXMLType;
         if (verbose) {
           log(
@@ -108,6 +110,7 @@ export class DeployJSONRoom extends Feature {
         }
         spawnGridEntityForJSONRoom(gridEntityXMLType, variant, x, y);
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         const entityType = entityTypeNumber as EntityType;
         if (verbose) {
           const entityID = getEntityIDFromConstituents(

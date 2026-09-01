@@ -32,5 +32,5 @@ export function Exported<Class extends Feature>(
     constructor[EXPORTED_METHOD_NAMES_KEY] = exportedMethodNames;
   }
 
-  exportedMethodNames.push(propertyKey as string);
+  exportedMethodNames.push(propertyKey);
 }

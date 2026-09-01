@@ -59,7 +59,9 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
     const closestPlayer = getClosestPlayer(effect.Position);
     if (isCloseEnoughToTriggerDiceFloor(closestPlayer, effect)) {
       v.room.diceRoomActivated = true;
-      this.fire(closestPlayer, effect.SubType as DiceFloorSubType);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      const diceFloorSubType = effect.SubType as DiceFloorSubType;
+      this.fire(closestPlayer, diceFloorSubType);
     }
   };
 }

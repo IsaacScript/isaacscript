@@ -372,6 +372,7 @@ export function isActiveEnemy(entity: Entity): boolean {
       case EntityType.ULTRA_GREED: {
         const npc = entity.ToNPC();
         if (npc !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
           const ultraGreedVariant = npc.Variant as UltraGreedVariant;
 
           switch (ultraGreedVariant) {

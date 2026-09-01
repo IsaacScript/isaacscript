@@ -33,7 +33,6 @@ export default defineConfig(
       "@typescript-eslint/require-array-sort-compare": "error",
 
       // TODO
-      "@typescript-eslint/no-unnecessary-type-assertion": "off",
       "@typescript-eslint/unbound-method": "off",
       "complete/consistent-object-braces": "off",
       "complete/sort-destructured-properties": "off",

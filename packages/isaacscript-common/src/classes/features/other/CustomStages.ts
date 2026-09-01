@@ -521,7 +521,8 @@ export class CustomStages extends Feature {
     let baseStage: LevelStage =
       customStage.baseStage === undefined
         ? DEFAULT_BASE_STAGE
-        : (customStage.baseStage as LevelStage);
+        : // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+          (customStage.baseStage as LevelStage);
     if (!firstFloor) {
       baseStage++; // eslint-disable-line complete/strict-enums
     }
@@ -529,7 +530,8 @@ export class CustomStages extends Feature {
     const baseStageType: StageType =
       customStage.baseStageType === undefined
         ? DEFAULT_BASE_STAGE_TYPE
-        : (customStage.baseStageType as StageType);
+        : // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+          (customStage.baseStageType as StageType);
 
     const reseed = stage >= baseStage;
     setStage(baseStage, baseStageType, reseed);
@@ -563,6 +565,7 @@ export class CustomStages extends Feature {
     // play a track. First, prefer the music that is explicitly assigned to this custom floor.
     let customStageMusic: Music | -1 | undefined;
     if (customStage.music !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       customStageMusic = Isaac.GetMusicIdByName(customStage.music) as
         Music | -1;
       if (customStageMusic === -1) {
@@ -611,6 +614,7 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
   >();
 
   for (const roomMetadata of customStageLua.roomsMetadata) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const roomType = roomMetadata.type as RoomType;
 
     let roomShapeMap = roomTypeMap.get(roomType);
@@ -622,6 +626,7 @@ function getRoomTypeMap(customStageLua: CustomStageLua): RoomTypeMap {
       roomTypeMap.set(roomType, roomShapeMap);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const roomShape = roomMetadata.shape as RoomShape;
 
     let roomDoorSlotFlagMap = roomShapeMap.get(roomShape);
