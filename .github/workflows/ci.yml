@@ -90,6 +90,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
+      - uses: astral-sh/setup-uv@v10
       - run: npm run lint
 
   # docs-deploy:
