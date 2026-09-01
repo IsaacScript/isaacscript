@@ -262,6 +262,7 @@ function deepCopyDefaultMap(
     // the proper set method call.
     if (isDefaultMap(newDefaultMap)) {
       newDefaultMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
+      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newDefaultMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
     }
@@ -272,6 +273,7 @@ function deepCopyDefaultMap(
     // the proper set method call.
     if (isDefaultMap(newDefaultMap)) {
       newDefaultMap.set(key, value);
+      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newDefaultMap.set(key, value);
     }
@@ -314,6 +316,7 @@ function deepCopyMap(
     // the proper set method call.
     if (isTSTLMap(newMap)) {
       newMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
+      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
     }
@@ -324,6 +327,7 @@ function deepCopyMap(
     // the proper set method call.
     if (isTSTLMap(newMap)) {
       newMap.set(key, value);
+      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newMap.set(key, value);
     }

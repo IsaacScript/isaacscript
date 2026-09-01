@@ -602,12 +602,7 @@ export function newRoom(
 
     if (hasFullMap) {
       roomDescriptor.DisplayFlags = ALL_DISPLAY_FLAGS;
-    } else if (!isSecretRoom && hasCompass) {
-      roomDescriptor.DisplayFlags = addFlag(
-        DisplayFlag.VISIBLE,
-        DisplayFlag.SHOW_ICON,
-      );
-    } else if (isSecretRoom && hasBlueMap) {
+    } else if ((!isSecretRoom && hasCompass) || (isSecretRoom && hasBlueMap)) {
       roomDescriptor.DisplayFlags = addFlag(
         DisplayFlag.VISIBLE,
         DisplayFlag.SHOW_ICON,
