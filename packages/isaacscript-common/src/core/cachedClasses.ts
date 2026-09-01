@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-top-level-side-effects */
+
 /**
  * A cached version of the class returned from the `Game()` constructor.
  *
