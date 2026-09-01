@@ -1,4 +1,4 @@
-/* eslint-disable sort-exports/sort-exports */
+/* eslint-disable perfectionist/sort-modules */
 
 /** EntityType.FAMILIAR (3), FamiliarVariant.LOST_SOUL (211). */
 export enum LostSoulState {

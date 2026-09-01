@@ -191,6 +191,13 @@ export const isaacScriptModConfigBase = defineConfig(
        */
       "no-restricted-globals": "off",
 
+      /*
+       * Defined at: base-unicorn.js
+       *
+       * It is idiomatic in Isaac mods to use "SubType" instead of "Subtype".
+       */
+      "unicorn/consistent-compound-words": "off",
+
       /**
        * Defined at: base-unicorn.js
        *

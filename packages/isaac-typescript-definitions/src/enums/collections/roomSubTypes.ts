@@ -1,4 +1,4 @@
-/* eslint-disable sort-exports/sort-exports */
+/* eslint-disable perfectionist/sort-modules */
 
 /**
  * For `StageID.SPECIAL_ROOMS` (0), `RoomType.SHOP` (2).

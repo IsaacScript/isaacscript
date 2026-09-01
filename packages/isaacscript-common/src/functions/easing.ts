@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-assign */
-/* eslint-disable sort-exports/sort-exports */
+/* eslint-disable perfectionist/sort-modules */
 
 /**
  * From: https://easings.net/#easeInSine
@@ -257,7 +257,7 @@ export function easeInOutExpo(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInBack(time: number): number {
-  const c1 = 1.701_58;
+  const c1 = 1.70158;
   const c3 = c1 + 1;
 
   return c3 * time * time * time - c1 * time * time;
@@ -269,7 +269,7 @@ export function easeInBack(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeOutBack(time: number): number {
-  const c1 = 1.701_58;
+  const c1 = 1.70158;
   const c3 = c1 + 1;
 
   return 1 + c3 * (time - 1) ** 3 + c1 * (time - 1) ** 2;
@@ -281,7 +281,7 @@ export function easeOutBack(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInOutBack(time: number): number {
-  const c1 = 1.701_58;
+  const c1 = 1.70158;
   const c2 = c1 * 1.525;
 
   return time < 0.5
@@ -319,7 +319,7 @@ export function easeOutBounce(time: number): number {
     return n1 * (time -= 2.25 / d1) * time + 0.9375;
   }
 
-  return n1 * (time -= 2.625 / d1) * time + 0.984_375;
+  return n1 * (time -= 2.625 / d1) * time + 0.984375;
 }
 
 /**

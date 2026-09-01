@@ -1,7 +1,6 @@
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
-import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 import { defineConfig } from "eslint/config";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
 
@@ -10,11 +9,6 @@ export default defineConfig(
   ...isaacScriptModConfigBase,
 
   {
-    plugins: {
-      // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
-      "sort-exports": ESLintPluginSortExports,
-    },
-
     rules: {
       /**
        * Defined at: base-typescript-eslint.js
@@ -31,22 +25,14 @@ export default defineConfig(
       "jsdoc/require-param-description": "off",
 
       /** Not defined in the parent configs. */
-      "sort-exports/sort-exports": [
-        "warn",
-        {
-          sortDir: "asc",
-        },
-      ],
-
-      // TODO: https://github.com/eslint/eslint/issues/20272
-      "@typescript-eslint/unified-signatures": "off",
+      "perfectionist/sort-modules": "error",
     },
   },
 
   {
     files: ["src/index.ts"],
     rules: {
-      "sort-exports/sort-exports": "off",
+      "perfectionist/sort-modules": "off",
     },
   },
 

@@ -1,7 +1,6 @@
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
-import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 import { defineConfig } from "eslint/config";
 import { isaacScriptModConfigBase } from "../eslint-config-isaacscript/src/mod.js";
 
@@ -10,12 +9,6 @@ export default defineConfig(
   ...isaacScriptModConfigBase,
 
   {
-    plugins: {
-      /** The `sort-exports` rule is used in some specific files. */
-      // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
-      "sort-exports": ESLintPluginSortExports,
-    },
-
     rules: {
       /** Not defined in the parent configs. */
       "@typescript-eslint/explicit-member-accessibility": [
@@ -44,12 +37,7 @@ export default defineConfig(
     files: ["src/functions/**"],
     rules: {
       /** Not defined in the parent configs. */
-      "sort-exports/sort-exports": [
-        "warn",
-        {
-          sortDir: "asc",
-        },
-      ],
+      "perfectionist/sort-modules": "error",
     },
   },
 

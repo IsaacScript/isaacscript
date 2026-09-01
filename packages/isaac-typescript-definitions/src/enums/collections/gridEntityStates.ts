@@ -1,4 +1,4 @@
-/* eslint-disable sort-exports/sort-exports */
+/* eslint-disable perfectionist/sort-modules */
 
 /**
  * Used by the following grid entity types:
