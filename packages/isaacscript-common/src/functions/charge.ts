@@ -106,6 +106,25 @@ export function addRoomClearCharge(
 }
 
 /**
+ * Helper function to add a charge to every player's active item, emulating what happens when a room
+ * is cleared.
+ *
+ * This function will take the following things into account:
+ * - L rooms and 2x2 rooms granting a double charge
+ * - The Battery
+ * - AAA Battery
+ *
+ * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
+ *                            room for the purposes of calculating how much charge to grant. Default
+ *                            is true.
+ */
+export function addRoomClearCharges(bigRoomDoubleCharge = true): void {
+  for (const player of getPlayers()) {
+    addRoomClearCharge(player, bigRoomDoubleCharge);
+  }
+}
+
+/**
  * Helper function to add a charge to one of a player's active items, emulating what happens when a
  * room is cleared.
  *
@@ -156,44 +175,6 @@ export function addRoomClearChargeToSlot(
   }
 
   addCharge(player, activeSlot, numCharges, playSoundEffect);
-}
-
-/**
- * The AAA Battery should grant an extra charge when the active item is one away from being fully
- * charged.
- */
-function getChargesToAddWithAAAModifier(
-  player: EntityPlayer,
-  activeSlot: ActiveSlot,
-  chargesToAdd: int,
-) {
-  const hasAAABattery = player.HasTrinket(TrinketType.AAA_BATTERY);
-  if (!hasAAABattery) {
-    return chargesToAdd;
-  }
-
-  const chargesAwayFromMax = getChargesAwayFromMax(player, activeSlot);
-  const AAABatteryShouldApply = chargesToAdd === chargesAwayFromMax - 1;
-  return AAABatteryShouldApply ? chargesToAdd + 1 : chargesToAdd;
-}
-
-/**
- * Helper function to add a charge to every player's active item, emulating what happens when a room
- * is cleared.
- *
- * This function will take the following things into account:
- * - L rooms and 2x2 rooms granting a double charge
- * - The Battery
- * - AAA Battery
- *
- * @param bigRoomDoubleCharge Optional. If set to false, it will treat the current room as a 1x1
- *                            room for the purposes of calculating how much charge to grant. Default
- *                            is true.
- */
-export function addRoomClearCharges(bigRoomDoubleCharge = true): void {
-  for (const player of getPlayers()) {
-    addRoomClearCharge(player, bigRoomDoubleCharge);
-  }
 }
 
 /**
@@ -296,6 +277,25 @@ export function playChargeSoundEffect(
     ? SoundEffect.BATTERY_CHARGE
     : SoundEffect.BEEP;
   sfxManager.Play(chargeSoundEffect);
+}
+
+/**
+ * The AAA Battery should grant an extra charge when the active item is one away from being fully
+ * charged.
+ */
+function getChargesToAddWithAAAModifier(
+  player: EntityPlayer,
+  activeSlot: ActiveSlot,
+  chargesToAdd: int,
+) {
+  const hasAAABattery = player.HasTrinket(TrinketType.AAA_BATTERY);
+  if (!hasAAABattery) {
+    return chargesToAdd;
+  }
+
+  const chargesAwayFromMax = getChargesAwayFromMax(player, activeSlot);
+  const AAABatteryShouldApply = chargesToAdd === chargesAwayFromMax - 1;
+  return AAABatteryShouldApply ? chargesToAdd + 1 : chargesToAdd;
 }
 
 function shouldPlayFullRechargeSound(

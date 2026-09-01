@@ -1,5 +1,3 @@
-/* eslint-disable jsdoc/escape-inline-tags */
-
 /**
  * If you decide to structure your mod as a set of feature classes, you can use decorators to
  * automatically register callbacks.
@@ -94,6 +92,7 @@ export function PriorityCallback<T extends ModCallback>(
   ): void => {
     // First, prepare the arguments for the `Mod.AddPriorityCallback` method.
     const methodName = propertyKey as keyof ModFeature;
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const method = target[methodName] as AddCallbackParameters[T][0];
     const callbackTuple = [modCallback, priority, method, optionalArgs];
 
@@ -141,6 +140,7 @@ export function PriorityCallbackCustom<T extends ModCallbackCustom>(
   ): void => {
     // First, prepare the arguments for the `Mod.AddCallbackCustom` method.
     const methodName = propertyKey as keyof ModFeature;
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const method = target[methodName] as AddCallbackParametersCustom[T][0];
     const callbackTuple = [modCallbackCustom, priority, method, optionalArgs];
 

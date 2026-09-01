@@ -220,12 +220,12 @@ export function getCollectibleDevilHeartPrice(
     collectibleOrCollectibleType,
     "getCollectibleDevilHeartPrice",
   );
-  const maxHearts = player.GetMaxHearts();
 
   if (collectibleType === CollectibleType.NULL) {
     return 0;
   }
 
+  const maxHearts = player.GetMaxHearts();
   if (maxHearts === 0) {
     return PickupPrice.THREE_SOUL_HEARTS;
   }
@@ -775,6 +775,17 @@ export function setCollectibleSprite(
 }
 
 /**
+ * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that
+ * the build has been rerolled.
+ */
+export function setCollectiblesRerolledForItemTracker(): void {
+  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
+  // recognizing the message. The number here does not matter since the tracker does not check for a
+  // specific number.
+  Isaac.DebugString("Added 3 Collectibles");
+}
+
+/**
  * Helper function to change the collectible on a pedestal. Simply updating the `SubType` field is
  * not sufficient because the sprite will not change.
  */
@@ -808,17 +819,6 @@ export function setCollectibleSubType(
     true,
     true,
   );
-}
-
-/**
- * Helper function to put a message in the log.txt file to let the Rebirth Item Tracker know that
- * the build has been rerolled.
- */
-export function setCollectiblesRerolledForItemTracker(): void {
-  // This cannot use the "log" function since the prefix will prevent the Rebirth Item Tracker from
-  // recognizing the message. The number here does not matter since the tracker does not check for a
-  // specific number.
-  Isaac.DebugString("Added 3 Collectibles");
 }
 
 function getCollectibleTypeFromArg(
