@@ -12,7 +12,7 @@ export class PostPickupInitFirst extends CustomCallback<ModCallbackCustom.POST_P
 
     // The room visited count is not reset when re-entering a Treasure Room or Boss room in the
     // Ascent.
-    if (isAfterRoomFrame(0) || roomVisitedCount === 0) {
+    if (roomVisitedCount === 0 || isAfterRoomFrame(0)) {
       this.fire(pickup);
     }
   };

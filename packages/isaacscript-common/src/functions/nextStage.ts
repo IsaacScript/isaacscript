@@ -170,8 +170,8 @@ export function getNextStageType(upwards = false): StageType {
 
   if (
     repentanceStage
-    && stage === LevelStage.DEPTHS_2
     && mausoleumHeartKilled
+    && stage === LevelStage.DEPTHS_2
   ) {
     return calculateStageTypeRepentance(nextStage);
   }

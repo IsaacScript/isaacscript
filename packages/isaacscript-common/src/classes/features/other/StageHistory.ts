@@ -103,7 +103,7 @@ export class StageHistory extends Feature {
       StageType.REPENTANCE_B,
     );
 
-    if (stage === LevelStage.BASEMENT_2 && repentanceStage) {
+    if (repentanceStage && stage === LevelStage.BASEMENT_2) {
       if (visitedDownpour1) {
         return StageType.REPENTANCE;
       }
@@ -113,7 +113,7 @@ export class StageHistory extends Feature {
       }
     }
 
-    if (stage === LevelStage.CAVES_1 && repentanceStage) {
+    if (repentanceStage && stage === LevelStage.CAVES_1) {
       if (visitedDownpour2) {
         return StageType.REPENTANCE;
       }
@@ -123,7 +123,7 @@ export class StageHistory extends Feature {
       }
     }
 
-    if (stage === LevelStage.CAVES_2 && !repentanceStage) {
+    if (!repentanceStage && stage === LevelStage.CAVES_2) {
       if (visitedDownpour2) {
         return StageType.REPENTANCE;
       }
@@ -133,7 +133,7 @@ export class StageHistory extends Feature {
       }
     }
 
-    if (stage === LevelStage.CAVES_2 && repentanceStage) {
+    if (repentanceStage && stage === LevelStage.CAVES_2) {
       if (visitedMines1) {
         return StageType.REPENTANCE;
       }
@@ -143,7 +143,7 @@ export class StageHistory extends Feature {
       }
     }
 
-    if (stage === LevelStage.DEPTHS_2 && !repentanceStage) {
+    if (!repentanceStage && stage === LevelStage.DEPTHS_2) {
       if (visitedAshpit2) {
         return StageType.REPENTANCE_B;
       }

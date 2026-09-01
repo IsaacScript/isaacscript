@@ -24,7 +24,7 @@ export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFI
     const roomType = room.GetType();
     const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
-    if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
+    if (isSpikeDamage && roomType === RoomType.SACRIFICE) {
       v.level.numSacrifices++;
       this.fire(player, v.level.numSacrifices);
     }

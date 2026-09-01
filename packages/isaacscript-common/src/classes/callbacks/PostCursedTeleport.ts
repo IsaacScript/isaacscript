@@ -97,7 +97,7 @@ export class PostCursedTeleport extends CustomCallback<ModCallbackCustom.POST_CU
     const roomType = room.GetType();
     const isSpikeDamage = hasFlag(damageFlags, DamageFlag.SPIKES);
 
-    if (roomType === RoomType.SACRIFICE && isSpikeDamage) {
+    if (isSpikeDamage && roomType === RoomType.SACRIFICE) {
       v.level.numSacrifices++;
     }
   }

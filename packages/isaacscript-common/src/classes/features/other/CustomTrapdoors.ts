@@ -462,8 +462,8 @@ export class CustomTrapdoors extends Feature {
     // In order to prevent a player from accidentally entering a freshly-spawned trapdoor after
     // killing the boss of the floor, we use a wider open distance for a short amount of frames.
     if (
-      roomType !== RoomType.BOSS
-      || roomClearGameFrame === undefined
+      roomClearGameFrame === undefined
+      || roomType !== RoomType.BOSS
       || onOrAfterRenderFrame(
         roomClearGameFrame + TRAPDOOR_BOSS_REACTION_FRAMES,
       )
