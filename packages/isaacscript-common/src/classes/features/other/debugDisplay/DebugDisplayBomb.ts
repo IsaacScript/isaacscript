@@ -4,12 +4,6 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayBomb extends Feature {
-  // ModCallback.POST_BOMB_RENDER (59)
-  private readonly postBombRender = (bomb: EntityBomb) => {
-    const text = this.textCallback(bomb);
-    renderTextOnEntity(bomb, text);
-  };
-
   public textCallback: (bomb: EntityBomb) => string =
     defaultEntityDisplayCallback;
 
@@ -21,4 +15,10 @@ export class DebugDisplayBomb extends Feature {
       [ModCallback.POST_BOMB_RENDER, this.postBombRender],
     ];
   }
+
+  // ModCallback.POST_BOMB_RENDER (59)
+  private readonly postBombRender = (bomb: EntityBomb) => {
+    const text = this.textCallback(bomb);
+    renderTextOnEntity(bomb, text);
+  };
 }

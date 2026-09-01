@@ -1,4 +1,4 @@
-/* eslint-disable perfectionist/sort-modules */
+/* eslint-disable sort-exports/sort-exports */
 
 import { EntityType, PickupVariant } from "isaac-typescript-definitions";
 

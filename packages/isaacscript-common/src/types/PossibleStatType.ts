@@ -5,4 +5,8 @@ import type { TearFlag } from "isaac-typescript-definitions";
  * type `float`, `EntityPlayer.CanFly` is of type `boolean`, and so on.
  */
 export type PossibleStatType =
-  number | boolean | BitFlags<TearFlag> | Color | Vector;
+  | number
+  | boolean
+  | BitFlags<TearFlag>
+  | Color
+  | Vector;

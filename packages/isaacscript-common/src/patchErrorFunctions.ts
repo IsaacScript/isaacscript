@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-top-level-assignment-in-function */
-
 import { getTraceback, isLuaDebugEnabled } from "./functions/debugFunctions";
 
 declare let error: ErrorFunction;

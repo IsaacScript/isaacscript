@@ -194,7 +194,7 @@ const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new ReadonlySet<string>([
  * Returns a slightly different set depending on whether the "--luadebug" flag is enabled.
  */
 export function getDefaultGlobals(): ReadonlySet<string> {
-  const defaultGlobals = copySet(DEFAULT_GLOBALS) as Set<string>;
+  const defaultGlobals = copySet(DEFAULT_GLOBALS);
 
   if (isLuaDebugEnabled()) {
     addSetsToSet(defaultGlobals, LUA_DEBUG_ADDED_GLOBALS);
@@ -207,6 +207,10 @@ export function getDefaultGlobals(): ReadonlySet<string> {
   return defaultGlobals;
 }
 
+function isRacingPlusSandboxEnabled() {
+  return SandboxGetParentFunctionDescription !== undefined;
+}
+
 /**
  * Helper function to get an array of any added global variables in the Isaac Lua environment.
  * Returns a sorted array of key/value tuples.
@@ -215,12 +219,10 @@ export function getNewGlobals(): ReadonlyArray<[AnyNotNil, unknown]> {
   const defaultGlobals = getDefaultGlobals();
   const newGlobals: Array<[AnyNotNil, unknown]> = [];
   for (const [key, value] of pairs(_G)) {
-    if (defaultGlobals.has(key)) {
-      continue;
+    if (!defaultGlobals.has(key)) {
+      const keyValueTuple: [AnyNotNil, unknown] = [key, value];
+      newGlobals.push(keyValueTuple);
     }
-
-    const keyValueTuple: [AnyNotNil, unknown] = [key, value];
-    newGlobals.push(keyValueTuple);
   }
 
   newGlobals.sort(sortTwoDimensionalArray);
@@ -270,8 +272,4 @@ export function setTracebackFunctionsGlobal(): void {
 
   globals["getTraceback"] = getTraceback;
   globals["traceback"] = traceback;
-}
-
-function isRacingPlusSandboxEnabled() {
-  return SandboxGetParentFunctionDescription !== undefined;
 }

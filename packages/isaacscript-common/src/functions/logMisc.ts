@@ -152,13 +152,11 @@ export function logFlags<T extends BitFlag | BitFlag128>(
   let hasNoFlags = true;
   const entries = getEnumEntries(flagEnum);
   for (const [key, value] of entries) {
-    if (!hasFlag(flags, value)) {
-      continue;
+    if (hasFlag(flags, value)) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      log(`  Has flag: ${key} (${value})`);
+      hasNoFlags = false;
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`  Has flag: ${key} (${value})`);
-    hasNoFlags = false;
   }
 
   if (hasNoFlags) {
@@ -383,12 +381,10 @@ export function logSeedEffects(this: void): void {
   log("Logging seed effects:");
   let hasNoSeedEffects = true;
   for (const [key, seedEffect] of seedEffectEntries) {
-    if (!seeds.HasSeedEffect(seedEffect)) {
-      continue;
+    if (seeds.HasSeedEffect(seedEffect)) {
+      log(`  ${key} (${seedEffect})`);
+      hasNoSeedEffects = false;
     }
-
-    log(`  ${key} (${seedEffect})`);
-    hasNoSeedEffects = false;
   }
 
   if (hasNoSeedEffects) {
@@ -415,8 +411,8 @@ export function logSet(
   const suffix = name === undefined ? "" : ` "${name}"`;
   log(`Logging a TSTL set${suffix}:`);
 
-  const values = getSortedSetValues(set);
-  for (const value of values) {
+  const setValues = getSortedSetValues(set);
+  for (const value of setValues) {
     log(`  Value: ${value}`);
   }
 
@@ -507,7 +503,7 @@ export function logTableDifferences<K extends AnyNotNil, V>(
   const table2KeysSet = new ReadonlySet(table2Keys);
 
   const keysSet = combineSets(table1KeysSet, table2KeysSet);
-  const keys = [...keysSet];
+  const keys = [...keysSet.values()];
   keys.sort(); // eslint-disable-line @typescript-eslint/require-array-sort-compare
 
   for (const key of keys) {
@@ -549,7 +545,7 @@ export function logTableKeys(this: void, luaTable: unknown): void {
 
   let numElements = 0;
   iterateTableInOrder(luaTable, (key) => {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string, unicorn/no-useless-template-literals
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     log(`${key}`);
     numElements++;
   });

@@ -30,15 +30,13 @@ import { log } from "./log";
  * Under the hood, this function executes the `challenge 0` console command.
  */
 export function clearChallenge(): void {
-  if (!onAnyChallenge()) {
-    return;
+  if (onAnyChallenge()) {
+    const command = `challenge ${Challenge.NULL}`;
+    log(
+      `Restarting the run to clear the current challenge with a console command of: ${command}`,
+    );
+    Isaac.ExecuteCommand(command);
   }
-
-  const command = `challenge ${Challenge.NULL}`;
-  log(
-    `Restarting the run to clear the current challenge with a console command of: ${command}`,
-  );
-  Isaac.ExecuteCommand(command);
 }
 
 /**
@@ -129,13 +127,11 @@ export function onChallenge(...challenges: readonly Challenge[]): boolean {
  * Under the hood, this function executes the `challenge 0` console command.
  */
 export function setChallenge(challenge: Challenge): void {
-  if (onChallenge(challenge)) {
-    return;
+  if (!onChallenge(challenge)) {
+    const command = `challenge ${challenge}`;
+    log(
+      `Restarting the run to set a challenge with a console command of: ${command}`,
+    );
+    Isaac.ExecuteCommand(command);
   }
-
-  const command = `challenge ${challenge}`;
-  log(
-    `Restarting the run to set a challenge with a console command of: ${command}`,
-  );
-  Isaac.ExecuteCommand(command);
 }

@@ -4,12 +4,6 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPlayer extends Feature {
-  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
-  private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
-    const text = this.textCallback(player);
-    renderTextOnEntity(player, text);
-  };
-
   public textCallback: (player: EntityPlayer) => string =
     defaultEntityDisplayCallback;
 
@@ -23,4 +17,10 @@ export class DebugDisplayPlayer extends Feature {
       ],
     ];
   }
+
+  // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
+  private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
+    const text = this.textCallback(player);
+    renderTextOnEntity(player, text);
+  };
 }

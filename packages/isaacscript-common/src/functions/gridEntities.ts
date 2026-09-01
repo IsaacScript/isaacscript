@@ -264,6 +264,20 @@ export function getGridEntitiesExcept(
   });
 }
 
+function getAllGridEntities(): readonly GridEntity[] {
+  const room = game.GetRoom();
+
+  const gridEntities: GridEntity[] = [];
+  for (const gridIndex of getAllGridIndexes()) {
+    const gridEntity = room.GetGridEntity(gridIndex);
+    if (gridEntity !== undefined) {
+      gridEntities.push(gridEntity);
+    }
+  }
+
+  return gridEntities;
+}
+
 /** Helper function to get all grid entities in a given radius around a given point. */
 export function getGridEntitiesInRadius(
   targetPosition: Vector,
@@ -342,6 +356,134 @@ export function getGridEntityANM2Path(
   return `gfx/grid/${gridEntityANM2Name}`;
 }
 
+function getGridEntityANM2Name(
+  gridEntityType: GridEntityType,
+): string | undefined {
+  switch (gridEntityType) {
+    // 1
+    case GridEntityType.DECORATION: {
+      return getGridEntityANM2NameDecoration();
+    }
+
+    default: {
+      return GRID_ENTITY_TYPE_TO_ANM2_NAME[gridEntityType];
+    }
+  }
+}
+
+/**
+ * Helper function to get the ANM2 path for a decoration. This depends on the current room's
+ * backdrop. The values are taken from the "backdrops.xml" file.
+ */
+function getGridEntityANM2NameDecoration(): string {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  switch (backdropType) {
+    // 1, 2, 3, 36, 49, 52
+    case BackdropType.BASEMENT:
+    case BackdropType.CELLAR:
+    case BackdropType.BURNING_BASEMENT:
+    case BackdropType.DOWNPOUR_ENTRANCE:
+    case BackdropType.ISAACS_BEDROOM:
+    case BackdropType.CLOSET: {
+      return "Props_01_Basement.anm2";
+    }
+
+    // 4, 5, 6, 37
+    case BackdropType.CAVES:
+    case BackdropType.CATACOMBS:
+    case BackdropType.FLOODED_CAVES:
+    case BackdropType.MINES_ENTRANCE: {
+      return "Props_03_Caves.anm2";
+    }
+
+    // 7, 8, 9, 30, 33, 38, 39, 40, 41, 42, 53, 60
+    case BackdropType.DEPTHS:
+    case BackdropType.NECROPOLIS:
+    case BackdropType.DANK_DEPTHS:
+    case BackdropType.SACRIFICE:
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_ENTRANCE:
+    case BackdropType.CORPSE_ENTRANCE:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4:
+    case BackdropType.CLOSET_B:
+    case BackdropType.DARK_CLOSET: {
+      return "Props_05_Depths.anm2";
+    }
+
+    // 10, 12
+    case BackdropType.WOMB:
+    case BackdropType.SCARRED_WOMB: {
+      return "Props_07_The Womb.anm2";
+    }
+
+    // 11
+    case BackdropType.UTERO: {
+      return "Props_07_Utero.anm2";
+    }
+
+    // 13, 27
+    case BackdropType.BLUE_WOMB:
+    case BackdropType.BLUE_WOMB_PASS: {
+      return "Props_07_The Womb_blue.anm2";
+    }
+
+    // 14, 47
+    case BackdropType.SHEOL:
+    case BackdropType.GEHENNA: {
+      return "Props_09_Sheol.anm2";
+    }
+
+    // 15
+    case BackdropType.CATHEDRAL: {
+      return "Props_10_Cathedral.anm2";
+    }
+
+    // 17
+    case BackdropType.CHEST: {
+      return "Props_11_The Chest.anm2";
+    }
+
+    // 28
+    case BackdropType.GREED_SHOP: {
+      return "Props_12_Greed.anm2";
+    }
+
+    // 31
+    case BackdropType.DOWNPOUR: {
+      return "props_01x_downpour.anm2";
+    }
+
+    // 32, 46, 58, 59
+    case BackdropType.MINES:
+    case BackdropType.ASHPIT:
+    case BackdropType.MINES_SHAFT:
+    case BackdropType.ASHPIT_SHAFT: {
+      return "props_03x_mines.anm2";
+    }
+
+    // 34, 43, 44, 48
+    case BackdropType.CORPSE:
+    case BackdropType.CORPSE_2:
+    case BackdropType.CORPSE_3:
+    case BackdropType.MORTIS: {
+      return "props_07_the corpse.anm2";
+    }
+
+    // 45
+    case BackdropType.DROSS: {
+      return "props_02x_dross.anm2";
+    }
+
+    default: {
+      return "Props_01_Basement.anm2";
+    }
+  }
+}
+
 /** Helper function to get the top left and bottom right corners of a given grid entity. */
 export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
   topLeft: Vector;
@@ -356,10 +498,7 @@ export function getGridEntityCollisionPoints(gridEntity: GridEntity): {
     gridEntity.Position.Y + DISTANCE_OF_GRID_TILE / 2,
   );
 
-  return {
-    topLeft,
-    bottomRight,
-  };
+  return { topLeft, bottomRight };
 }
 
 /** Helper function to get a string containing the grid entity's type and variant. */
@@ -405,6 +544,150 @@ export function getMatchingGridEntities(
 export function getRockPNGPath(): string {
   const rockPNGName = getRockPNGName();
   return `gfx/grid/${rockPNGName}`;
+}
+
+function getRockPNGName(): string {
+  const room = game.GetRoom();
+  const backdropType = room.GetBackdropType();
+
+  switch (backdropType) {
+    // 1, 17
+    case BackdropType.BASEMENT:
+    case BackdropType.CHEST: {
+      return "rocks_basement.png";
+    }
+
+    // 2
+    case BackdropType.CELLAR: {
+      return "rocks_cellar.png";
+    }
+
+    // 3
+    case BackdropType.BURNING_BASEMENT: {
+      return "rocks_burningbasement.png"; // cspell:ignore burningbasement
+    }
+
+    // 4
+    case BackdropType.CAVES: {
+      return "rocks_caves.png";
+    }
+
+    // 5
+    case BackdropType.CATACOMBS: {
+      return "rocks_catacombs.png";
+    }
+
+    // 6
+    case BackdropType.FLOODED_CAVES: {
+      return "rocks_drownedcaves.png"; // cspell:ignore drownedcaves
+    }
+
+    // 7, 8, 9, 30, 60
+    case BackdropType.DEPTHS:
+    case BackdropType.NECROPOLIS:
+    case BackdropType.DANK_DEPTHS:
+    case BackdropType.SACRIFICE:
+    case BackdropType.DARK_CLOSET: {
+      return "rocks_depths.png";
+    }
+
+    // 10
+    case BackdropType.WOMB: {
+      return "rocks_womb.png";
+    }
+
+    // 11
+    case BackdropType.UTERO: {
+      return "rocks_utero.png";
+    }
+
+    // 12
+    case BackdropType.SCARRED_WOMB: {
+      return "rocks_scarredwomb.png"; // cspell:ignore scarredwomb
+    }
+
+    // 13, 27
+    case BackdropType.BLUE_WOMB:
+    case BackdropType.BLUE_WOMB_PASS: {
+      return "rocks_bluewomb.png"; // cspell:ignore bluewomb
+    }
+
+    // 14, 16
+    case BackdropType.SHEOL:
+    case BackdropType.DARK_ROOM: {
+      return "rocks_sheol.png";
+    }
+
+    // 15, 35
+    case BackdropType.CATHEDRAL:
+    case BackdropType.PLANETARIUM: {
+      return "rocks_cathedral.png";
+    }
+
+    // 23, 32, 37, 58
+    case BackdropType.SECRET:
+    case BackdropType.MINES:
+    case BackdropType.MINES_ENTRANCE:
+    case BackdropType.MINES_SHAFT: {
+      return "rocks_secretroom.png"; // cspell:ignore secretroom
+    }
+
+    // 31, 36
+    case BackdropType.DOWNPOUR:
+    case BackdropType.DOWNPOUR_ENTRANCE: {
+      return "rocks_downpour.png";
+    }
+
+    // 33, 38, 40, 41, 42
+    case BackdropType.MAUSOLEUM:
+    case BackdropType.MAUSOLEUM_ENTRANCE:
+    case BackdropType.MAUSOLEUM_2:
+    case BackdropType.MAUSOLEUM_3:
+    case BackdropType.MAUSOLEUM_4: {
+      return "rocks_mausoleum.png";
+    }
+
+    // 34, 48
+    case BackdropType.CORPSE:
+    case BackdropType.MORTIS: {
+      return "rocks_corpse.png";
+    }
+
+    // 39
+    case BackdropType.CORPSE_ENTRANCE: {
+      return "rocks_corpseentrance.png"; // cspell:ignore corpseentrance
+    }
+
+    // 43
+    case BackdropType.CORPSE_2: {
+      return "rocks_corpse2.png";
+    }
+
+    // 44
+    case BackdropType.CORPSE_3: {
+      return "rocks_corpse3.png";
+    }
+
+    // 45
+    case BackdropType.DROSS: {
+      return "rocks_dross.png";
+    }
+
+    // 46, 59
+    case BackdropType.ASHPIT:
+    case BackdropType.ASHPIT_SHAFT: {
+      return "rocks_ashpit.png";
+    }
+
+    // 47
+    case BackdropType.GEHENNA: {
+      return "rocks_gehenna.png";
+    }
+
+    default: {
+      return "rocks_basement.png";
+    }
+  }
 }
 
 /**
@@ -898,21 +1181,21 @@ export function spawnGiantPoop(topLeftGridIndex: int): boolean {
  * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
  *                            entity at. If a position is specified, the closest grid index will be
  *                            used.
- * @param shouldRemoveExistingGridEntity Optional. Whether to remove the existing grid entity on the
- *                                 same tile, if it exists. Defaults to true. If false, this
- *                                 function will do nothing, since spawning a grid entity on top of
- *                                 another grid entity will not replace it.
+ * @param removeExistingGridEntity Optional. Whether to remove the existing grid entity on the same
+ *                                 tile, if it exists. Defaults to true. If false, this function
+ *                                 will do nothing, since spawning a grid entity on top of another
+ *                                 grid entity will not replace it.
  */
 export function spawnGridEntity(
   gridEntityType: GridEntityType,
   gridIndexOrPosition: int | Vector,
-  shouldRemoveExistingGridEntity = true,
+  removeExistingGridEntity = true,
 ): GridEntity | undefined {
   return spawnGridEntityWithVariant(
     gridEntityType,
     0,
     gridIndexOrPosition,
-    shouldRemoveExistingGridEntity,
+    removeExistingGridEntity,
   );
 }
 
@@ -929,16 +1212,16 @@ export function spawnGridEntity(
  * @param gridIndexOrPosition The grid index or position in the room that you want to spawn the grid
  *                            entity at. If a position is specified, the closest grid index will be
  *                            used.
- * @param shouldRemoveExistingGridEntity Optional. Whether to remove the existing grid entity on the
- *                                 same tile, if it exists. Defaults to true. If false, this
- *                                 function will do nothing, since spawning a grid entity on top of
- *                                 another grid entity will not replace it.
+ * @param removeExistingGridEntity Optional. Whether to remove the existing grid entity on the same
+ *                                 tile, if it exists. Defaults to true. If false, this function
+ *                                 will do nothing, since spawning a grid entity on top of another
+ *                                 grid entity will not replace it.
  */
 export function spawnGridEntityWithVariant(
   gridEntityType: GridEntityType,
   variant: int,
   gridIndexOrPosition: int | Vector,
-  shouldRemoveExistingGridEntity = true,
+  removeExistingGridEntity = true,
 ): GridEntity | undefined {
   const room = game.GetRoom();
 
@@ -958,7 +1241,7 @@ export function spawnGridEntityWithVariant(
     ? room.GetGridEntityFromPos(gridIndexOrPosition)
     : room.GetGridEntity(gridIndexOrPosition);
   if (existingGridEntity !== undefined) {
-    if (shouldRemoveExistingGridEntity) {
+    if (removeExistingGridEntity) {
       removeGridEntity(existingGridEntity, true);
     } else {
       return undefined;
@@ -1011,290 +1294,4 @@ export function spawnVoidPortal(gridIndex: int): GridEntity | undefined {
   sprite.Load("gfx/grid/voidtrapdoor.anm2", true);
 
   return voidPortal;
-}
-
-function getAllGridEntities(): readonly GridEntity[] {
-  const room = game.GetRoom();
-
-  const gridEntities: GridEntity[] = [];
-  for (const gridIndex of getAllGridIndexes()) {
-    const gridEntity = room.GetGridEntity(gridIndex);
-    if (gridEntity !== undefined) {
-      gridEntities.push(gridEntity);
-    }
-  }
-
-  return gridEntities;
-}
-
-function getGridEntityANM2Name(
-  gridEntityType: GridEntityType,
-): string | undefined {
-  switch (gridEntityType) {
-    // 1
-    case GridEntityType.DECORATION: {
-      return getGridEntityANM2NameDecoration();
-    }
-
-    default: {
-      return GRID_ENTITY_TYPE_TO_ANM2_NAME[gridEntityType];
-    }
-  }
-}
-
-/**
- * Helper function to get the ANM2 path for a decoration. This depends on the current room's
- * backdrop. The values are taken from the "backdrops.xml" file.
- */
-function getGridEntityANM2NameDecoration(): string {
-  const room = game.GetRoom();
-  const backdropType = room.GetBackdropType();
-
-  switch (backdropType) {
-    // 1, 2, 3, 36, 49, 52
-    case BackdropType.BASEMENT:
-    case BackdropType.CELLAR:
-    case BackdropType.BURNING_BASEMENT:
-    case BackdropType.DOWNPOUR_ENTRANCE:
-    case BackdropType.ISAACS_BEDROOM:
-    case BackdropType.CLOSET: {
-      return "Props_01_Basement.anm2";
-    }
-
-    // 4, 5, 6, 37
-    case BackdropType.CAVES:
-    case BackdropType.CATACOMBS:
-    case BackdropType.FLOODED_CAVES:
-    case BackdropType.MINES_ENTRANCE: {
-      return "Props_03_Caves.anm2";
-    }
-
-    // 7, 8, 9, 30, 33, 38, 39, 40, 41, 42, 53, 60
-    case BackdropType.DEPTHS:
-    case BackdropType.NECROPOLIS:
-    case BackdropType.DANK_DEPTHS:
-    case BackdropType.SACRIFICE:
-    case BackdropType.MAUSOLEUM:
-    case BackdropType.MAUSOLEUM_ENTRANCE:
-    case BackdropType.CORPSE_ENTRANCE:
-    case BackdropType.MAUSOLEUM_2:
-    case BackdropType.MAUSOLEUM_3:
-    case BackdropType.MAUSOLEUM_4:
-    case BackdropType.CLOSET_B:
-    case BackdropType.DARK_CLOSET: {
-      return "Props_05_Depths.anm2";
-    }
-
-    // 10, 12
-    case BackdropType.WOMB:
-    case BackdropType.SCARRED_WOMB: {
-      return "Props_07_The Womb.anm2";
-    }
-
-    // 11
-    case BackdropType.UTERO: {
-      return "Props_07_Utero.anm2";
-    }
-
-    // 13, 27
-    case BackdropType.BLUE_WOMB:
-    case BackdropType.BLUE_WOMB_PASS: {
-      return "Props_07_The Womb_blue.anm2";
-    }
-
-    // 14, 47
-    case BackdropType.SHEOL:
-    case BackdropType.GEHENNA: {
-      return "Props_09_Sheol.anm2";
-    }
-
-    // 15
-    case BackdropType.CATHEDRAL: {
-      return "Props_10_Cathedral.anm2";
-    }
-
-    // 17
-    case BackdropType.CHEST: {
-      return "Props_11_The Chest.anm2";
-    }
-
-    // 28
-    case BackdropType.GREED_SHOP: {
-      return "Props_12_Greed.anm2";
-    }
-
-    // 31
-    case BackdropType.DOWNPOUR: {
-      return "props_01x_downpour.anm2";
-    }
-
-    // 32, 46, 58, 59
-    case BackdropType.MINES:
-    case BackdropType.ASHPIT:
-    case BackdropType.MINES_SHAFT:
-    case BackdropType.ASHPIT_SHAFT: {
-      return "props_03x_mines.anm2";
-    }
-
-    // 34, 43, 44, 48
-    case BackdropType.CORPSE:
-    case BackdropType.CORPSE_2:
-    case BackdropType.CORPSE_3:
-    case BackdropType.MORTIS: {
-      return "props_07_the corpse.anm2";
-    }
-
-    // 45
-    case BackdropType.DROSS: {
-      return "props_02x_dross.anm2";
-    }
-
-    default: {
-      return "Props_01_Basement.anm2";
-    }
-  }
-}
-
-function getRockPNGName(): string {
-  const room = game.GetRoom();
-  const backdropType = room.GetBackdropType();
-
-  switch (backdropType) {
-    // 1, 17
-    case BackdropType.BASEMENT:
-    case BackdropType.CHEST: {
-      return "rocks_basement.png";
-    }
-
-    // 2
-    case BackdropType.CELLAR: {
-      return "rocks_cellar.png";
-    }
-
-    // 3
-    case BackdropType.BURNING_BASEMENT: {
-      return "rocks_burningbasement.png"; // cspell:ignore burningbasement
-    }
-
-    // 4
-    case BackdropType.CAVES: {
-      return "rocks_caves.png";
-    }
-
-    // 5
-    case BackdropType.CATACOMBS: {
-      return "rocks_catacombs.png";
-    }
-
-    // 6
-    case BackdropType.FLOODED_CAVES: {
-      return "rocks_drownedcaves.png"; // cspell:ignore drownedcaves
-    }
-
-    // 7, 8, 9, 30, 60
-    case BackdropType.DEPTHS:
-    case BackdropType.NECROPOLIS:
-    case BackdropType.DANK_DEPTHS:
-    case BackdropType.SACRIFICE:
-    case BackdropType.DARK_CLOSET: {
-      return "rocks_depths.png";
-    }
-
-    // 10
-    case BackdropType.WOMB: {
-      return "rocks_womb.png";
-    }
-
-    // 11
-    case BackdropType.UTERO: {
-      return "rocks_utero.png";
-    }
-
-    // 12
-    case BackdropType.SCARRED_WOMB: {
-      return "rocks_scarredwomb.png"; // cspell:ignore scarredwomb
-    }
-
-    // 13, 27
-    case BackdropType.BLUE_WOMB:
-    case BackdropType.BLUE_WOMB_PASS: {
-      return "rocks_bluewomb.png"; // cspell:ignore bluewomb
-    }
-
-    // 14, 16
-    case BackdropType.SHEOL:
-    case BackdropType.DARK_ROOM: {
-      return "rocks_sheol.png";
-    }
-
-    // 15, 35
-    case BackdropType.CATHEDRAL:
-    case BackdropType.PLANETARIUM: {
-      return "rocks_cathedral.png";
-    }
-
-    // 23, 32, 37, 58
-    case BackdropType.SECRET:
-    case BackdropType.MINES:
-    case BackdropType.MINES_ENTRANCE:
-    case BackdropType.MINES_SHAFT: {
-      return "rocks_secretroom.png"; // cspell:ignore secretroom
-    }
-
-    // 31, 36
-    case BackdropType.DOWNPOUR:
-    case BackdropType.DOWNPOUR_ENTRANCE: {
-      return "rocks_downpour.png";
-    }
-
-    // 33, 38, 40, 41, 42
-    case BackdropType.MAUSOLEUM:
-    case BackdropType.MAUSOLEUM_ENTRANCE:
-    case BackdropType.MAUSOLEUM_2:
-    case BackdropType.MAUSOLEUM_3:
-    case BackdropType.MAUSOLEUM_4: {
-      return "rocks_mausoleum.png";
-    }
-
-    // 34, 48
-    case BackdropType.CORPSE:
-    case BackdropType.MORTIS: {
-      return "rocks_corpse.png";
-    }
-
-    // 39
-    case BackdropType.CORPSE_ENTRANCE: {
-      return "rocks_corpseentrance.png"; // cspell:ignore corpseentrance
-    }
-
-    // 43
-    case BackdropType.CORPSE_2: {
-      return "rocks_corpse2.png";
-    }
-
-    // 44
-    case BackdropType.CORPSE_3: {
-      return "rocks_corpse3.png";
-    }
-
-    // 45
-    case BackdropType.DROSS: {
-      return "rocks_dross.png";
-    }
-
-    // 46, 59
-    case BackdropType.ASHPIT:
-    case BackdropType.ASHPIT_SHAFT: {
-      return "rocks_ashpit.png";
-    }
-
-    // 47
-    case BackdropType.GEHENNA: {
-      return "rocks_gehenna.png";
-    }
-
-    default: {
-      return "rocks_basement.png";
-    }
-  }
 }

@@ -92,27 +92,6 @@ export function getAllNonStoryBosses(): readonly BossID[] {
 }
 
 /**
- * Helper function to get all of the bosses in the room.
- *
- * @param entityType Optional. If specified, will only get the bosses that match the type. Default
- *                   is -1, which matches every type.
- * @param variant Optional. If specified, will only get the bosses that match the variant. Default
- *                is -1, which matches every variant.
- * @param subType Optional. If specified, will only get the bosses that match the sub-type. Default
- *                is -1, which matches every sub-type.
- * @param ignoreFriendly Optional. Default is false.
- */
-export function getBosses(
-  entityType?: EntityType,
-  variant?: int,
-  subType?: int,
-  ignoreFriendly = false,
-): readonly EntityNPC[] {
-  const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
-  return npcs.filter((npc) => npc.IsBoss());
-}
-
-/**
  * Helper function to get the boss ID corresponding to the current room. Returns undefined if the
  * current room is not a Boss Room.
  *
@@ -200,6 +179,27 @@ export function getBossStageIDs(bossID: BossID): ReadonlySet<StageID> {
   return BOSS_ID_TO_STAGE_IDS[bossID];
 }
 
+/**
+ * Helper function to get all of the bosses in the room.
+ *
+ * @param entityType Optional. If specified, will only get the bosses that match the type. Default
+ *                   is -1, which matches every type.
+ * @param variant Optional. If specified, will only get the bosses that match the variant. Default
+ *                is -1, which matches every variant.
+ * @param subType Optional. If specified, will only get the bosses that match the sub-type. Default
+ *                is -1, which matches every sub-type.
+ * @param ignoreFriendly Optional. Default is false.
+ */
+export function getBosses(
+  entityType?: EntityType,
+  variant?: int,
+  subType?: int,
+  ignoreFriendly = false,
+): readonly EntityNPC[] {
+  const npcs = getNPCs(entityType, variant, subType, ignoreFriendly);
+  return npcs.filter((npc) => npc.IsBoss());
+}
+
 export function getEntityTypeVariantFromBossID(
   bossID: BossID,
 ): readonly [EntityType, int] {
@@ -220,6 +220,40 @@ export function isRepentanceBoss(bossID: BossID): boolean {
 /** Helper function to check if the provided NPC is a Sin miniboss, such as Sloth or Lust. */
 export function isSin(npc: EntityNPC): boolean {
   return SIN_ENTITY_TYPES_SET.has(npc.Type);
+}
+
+function getNumBossSegments(
+  entityType: EntityType,
+  variant: int,
+  numSegments: int | undefined,
+) {
+  if (numSegments !== undefined) {
+    return numSegments;
+  }
+
+  switch (entityType) {
+    // 28
+    case EntityType.CHUB: {
+      // Chub is always composed of 3 segments.
+      return 3;
+    }
+
+    // 69
+    case EntityType.LOKI: {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+      return variant === LokiVariant.LOKII ? 2 : 1;
+    }
+
+    // 237
+    case EntityType.GURGLING: {
+      // Gurglings & Turdlings are always encountered in groups of 2.
+      return 2;
+    }
+
+    default: {
+      return DEFAULT_BOSS_MULTI_SEGMENTS;
+    }
+  }
 }
 
 /**
@@ -302,38 +336,4 @@ export function spawnBossWithSeed(
     seed,
     numSegments,
   );
-}
-
-function getNumBossSegments(
-  entityType: EntityType,
-  variant: int,
-  numSegments: int | undefined,
-) {
-  if (numSegments !== undefined) {
-    return numSegments;
-  }
-
-  switch (entityType) {
-    // 28
-    case EntityType.CHUB: {
-      // Chub is always composed of 3 segments.
-      return 3;
-    }
-
-    // 69
-    case EntityType.LOKI: {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      return variant === LokiVariant.LOKII ? 2 : 1;
-    }
-
-    // 237
-    case EntityType.GURGLING: {
-      // Gurglings & Turdlings are always encountered in groups of 2.
-      return 2;
-    }
-
-    default: {
-      return DEFAULT_BOSS_MULTI_SEGMENTS;
-    }
-  }
 }

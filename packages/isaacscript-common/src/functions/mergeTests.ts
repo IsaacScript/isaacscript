@@ -31,18 +31,72 @@ export function runMergeTests(): void {
   logAndPrint(successText);
 }
 
+function oldTableHasUpdatedValue() {
+  const key = "foo";
+  const oldValue = "bar";
+  const newValue = "baz";
+  const oldTable = {
+    foo: oldValue,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTable = {
+    foo: newValue,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+
+  merge(oldTable, newTable, "oldTableHasUpdatedValue");
+
+  const oldTableValue = oldTable.get(key) as string;
+  if (oldTableValue !== newValue) {
+    error(`The old table does not have a value of: ${newValue}`);
+  }
+}
+
 function newTableHasSameValue() {
   const key = "foo";
   const oldValue = "bar";
   const newValue = "baz";
-  const oldTable = { foo: oldValue } as unknown as LuaMap<AnyNotNil, unknown>;
-  const newTable = { foo: newValue } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = {
+    foo: oldValue,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTable = {
+    foo: newValue,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "newTableHasSameValue");
 
   const newTableValue = newTable.get(key) as string;
   if (newTableValue !== newValue) {
     error(`The new table does not have a value of: ${newValue}`);
+  }
+}
+
+function oldTableHasUpdatedValueFromNull() {
+  const key = "foo";
+  const newValue = "baz";
+  const oldTable = {
+    foo: null as string | null,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTable = {
+    foo: newValue,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+
+  merge(oldTable, newTable, "oldTableHasUpdatedValueFromNull");
+
+  const oldTableValue = oldTable.get(key) as string;
+  if (oldTableValue !== newValue) {
+    error(`The old table does not have a value of: ${newValue}`);
+  }
+}
+
+function oldTableHasSerializedIsaacAPIClass() {
+  const x = 50;
+  const y = 60;
+  const vector = Vector(x, y);
+
+  const vectorSerialized = serializeVector(vector);
+  if (!isSerializedIsaacAPIClass(vectorSerialized)) {
+    error(
+      'The "isSerializedIsaacAPIClass" function says that a serialized vector is not serialized.',
+    );
   }
 }
 
@@ -53,12 +107,15 @@ function oldTableHasFilledChildTable() {
 
   const key = "foo";
   const newValue = "baz";
-  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<
-    AnyNotNil,
-    unknown
-  >;
-  const foo: Foo = { bar: newValue };
-  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasFilledChildTable");
 
@@ -69,74 +126,6 @@ function oldTableHasFilledChildTable() {
 
   if (oldTableValue.bar !== newValue) {
     error('The old table\'s key of "bar" was not filled.');
-  }
-}
-
-function oldTableHasFilledDefaultMap() {
-  const fakeV = {
-    run: {
-      myDefaultMap: new DefaultMap<string, string>("default"),
-    },
-  };
-
-  const saveData = {
-    run: {
-      myDefaultMap: new DefaultMap<string, string>("default", [
-        ["foo1", "bar1"],
-        ["foo2", "bar2"],
-        ["foo3", "bar3"],
-      ]),
-    },
-  };
-  const serializedSaveData = deepCopy(saveData, SerializationType.SERIALIZE);
-
-  merge(
-    fakeV as unknown as LuaMap,
-    serializedSaveData as LuaMap,
-    "oldTableHasFilledDefaultMap",
-  );
-
-  const expectedSize = 3;
-  if (fakeV.run.myDefaultMap.size !== expectedSize) {
-    error(
-      `The size of the merged default map was equal to ${fakeV.run.myDefaultMap.size}, but it should be equal to: ${expectedSize}`,
-    );
-  }
-
-  {
-    const key = "foo1";
-    const expectedValue = "bar1";
-
-    const value = fakeV.run.myDefaultMap.get(key);
-    if (value !== expectedValue) {
-      error(
-        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
-      );
-    }
-  }
-
-  {
-    const key = "foo2";
-    const expectedValue = "bar2";
-
-    const value = fakeV.run.myDefaultMap.get(key);
-    if (value !== expectedValue) {
-      error(
-        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
-      );
-    }
-  }
-
-  {
-    const key = "foo3";
-    const expectedValue = "bar3";
-
-    const value = fakeV.run.myDefaultMap.get(key);
-    if (value !== expectedValue) {
-      error(
-        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
-      );
-    }
   }
 }
 
@@ -208,119 +197,71 @@ function oldTableHasFilledMap() {
   }
 }
 
-function oldTableHasRNG() {
-  interface Foo {
-    bar: RNG;
-  }
+function oldTableHasFilledDefaultMap() {
+  const fakeV = {
+    run: {
+      myDefaultMap: new DefaultMap<string, string>("default"),
+    },
+  };
 
-  const key = "foo";
-  const seed = 50 as Seed;
-  const newValue = newRNG(seed);
-  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<
-    AnyNotNil,
-    unknown
-  >;
-  const foo: Foo = { bar: newValue };
-  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
+  const saveData = {
+    run: {
+      myDefaultMap: new DefaultMap<string, string>("default", [
+        ["foo1", "bar1"],
+        ["foo2", "bar2"],
+        ["foo3", "bar3"],
+      ]),
+    },
+  };
+  const serializedSaveData = deepCopy(saveData, SerializationType.SERIALIZE);
 
-  merge(oldTable, newTable, "oldTableHasRNG");
+  merge(
+    fakeV as unknown as LuaMap,
+    serializedSaveData as LuaMap,
+    "oldTableHasFilledDefaultMap",
+  );
 
-  const oldTableValue = oldTable.get(key) as Foo | undefined;
-  if (oldTableValue === undefined) {
-    error(`The old table's key of "${key}" was not filled.`);
-  }
-
-  if (!isRNG(oldTableValue.bar)) {
-    error("The old table's value is not an RNG object.");
-  }
-
-  const newSeed = oldTableValue.bar.GetSeed();
-  if (newSeed !== seed) {
-    error(`The old table's seed not match: ${seed}`);
-  }
-}
-
-function oldTableHasRNGSerialized() {
-  interface Foo {
-    bar: RNG;
-  }
-
-  const key = "foo";
-  const seed = 50 as Seed;
-  const newValue = newRNG(seed);
-  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<
-    AnyNotNil,
-    unknown
-  >;
-  const foo: Foo = { bar: newValue };
-  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
-  const newTableSerialized = deepCopy(
-    newTable,
-    SerializationType.SERIALIZE,
-    "oldTableHasRNGSerialized",
-  ) as LuaMap<AnyNotNil, unknown>;
-
-  merge(oldTable, newTableSerialized, "oldTableHasRNGSerialized");
-
-  const oldTableValue = oldTable.get(key) as Foo | undefined;
-  if (oldTableValue === undefined) {
-    error(`The old table's key of "${key}" was not filled.`);
-  }
-
-  if (!isRNG(oldTableValue.bar)) {
+  const expectedSize = 3;
+  if (fakeV.run.myDefaultMap.size !== expectedSize) {
     error(
-      "The old table's value is not an RNG object (during the serialized test).",
+      `The size of the merged default map was equal to ${fakeV.run.myDefaultMap.size}, but it should be equal to: ${expectedSize}`,
     );
   }
 
-  const newSeed = oldTableValue.bar.GetSeed();
-  if (newSeed !== seed) {
-    error(`The old table's seed not match: ${seed}`);
+  {
+    const key = "foo1";
+    const expectedValue = "bar1";
+
+    const value = fakeV.run.myDefaultMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
   }
-}
 
-function oldTableHasSerializedIsaacAPIClass() {
-  const x = 50;
-  const y = 60;
-  const vector = Vector(x, y);
+  {
+    const key = "foo2";
+    const expectedValue = "bar2";
 
-  const vectorSerialized = serializeVector(vector);
-  if (!isSerializedIsaacAPIClass(vectorSerialized)) {
-    error(
-      'The "isSerializedIsaacAPIClass" function says that a serialized vector is not serialized.',
-    );
+    const value = fakeV.run.myDefaultMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
   }
-}
 
-function oldTableHasUpdatedValue() {
-  const key = "foo";
-  const oldValue = "bar";
-  const newValue = "baz";
-  const oldTable = { foo: oldValue } as unknown as LuaMap<AnyNotNil, unknown>;
-  const newTable = { foo: newValue } as unknown as LuaMap<AnyNotNil, unknown>;
+  {
+    const key = "foo3";
+    const expectedValue = "bar3";
 
-  merge(oldTable, newTable, "oldTableHasUpdatedValue");
-
-  const oldTableValue = oldTable.get(key) as string;
-  if (oldTableValue !== newValue) {
-    error(`The old table does not have a value of: ${newValue}`);
-  }
-}
-
-function oldTableHasUpdatedValueFromNull() {
-  const key = "foo";
-  const newValue = "baz";
-  const oldTable = { foo: null as string | null } as unknown as LuaMap<
-    AnyNotNil,
-    unknown
-  >;
-  const newTable = { foo: newValue } as unknown as LuaMap<AnyNotNil, unknown>;
-
-  merge(oldTable, newTable, "oldTableHasUpdatedValueFromNull");
-
-  const oldTableValue = oldTable.get(key) as string;
-  if (oldTableValue !== newValue) {
-    error(`The old table does not have a value of: ${newValue}`);
+    const value = fakeV.run.myDefaultMap.get(key);
+    if (value !== expectedValue) {
+      error(
+        `The old table's default map key of "${key}" was not equal to "${expectedValue}" and was instead equal to: ${value}`,
+      );
+    }
   }
 }
 
@@ -333,12 +274,15 @@ function oldTableHasVector() {
   const x = 50;
   const y = 60;
   const newValue = Vector(x, y);
-  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<
-    AnyNotNil,
-    unknown
-  >;
-  const foo: Foo = { bar: newValue };
-  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
 
   merge(oldTable, newTable, "oldTableHasVector");
 
@@ -369,12 +313,15 @@ function oldTableHasVectorSerialized() {
   const x = 50;
   const y = 60;
   const newValue = Vector(x, y);
-  const oldTable = { foo: null as Foo | null } as unknown as LuaMap<
-    AnyNotNil,
-    unknown
-  >;
-  const foo: Foo = { bar: newValue };
-  const newTable = { foo } as unknown as LuaMap<AnyNotNil, unknown>;
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
   const newTableSerialized = deepCopy(
     newTable,
     SerializationType.SERIALIZE,
@@ -400,5 +347,82 @@ function oldTableHasVectorSerialized() {
     error(
       "The old table's value is not a Vector object (during the serialized test).",
     );
+  }
+}
+
+function oldTableHasRNG() {
+  interface Foo {
+    bar: RNG;
+  }
+
+  const key = "foo";
+  const seed = 50 as Seed;
+  const newValue = newRNG(seed);
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+
+  merge(oldTable, newTable, "oldTableHasRNG");
+
+  const oldTableValue = oldTable.get(key) as Foo | undefined;
+  if (oldTableValue === undefined) {
+    error(`The old table's key of "${key}" was not filled.`);
+  }
+
+  if (!isRNG(oldTableValue.bar)) {
+    error("The old table's value is not an RNG object.");
+  }
+
+  const newSeed = oldTableValue.bar.GetSeed();
+  if (newSeed !== seed) {
+    error(`The old table's seed not match: ${seed}`);
+  }
+}
+
+function oldTableHasRNGSerialized() {
+  interface Foo {
+    bar: RNG;
+  }
+
+  const key = "foo";
+  const seed = 50 as Seed;
+  const newValue = newRNG(seed);
+  const oldTable = {
+    foo: null as Foo | null,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const foo: Foo = {
+    bar: newValue,
+  };
+  const newTable = {
+    foo,
+  } as unknown as LuaMap<AnyNotNil, unknown>;
+  const newTableSerialized = deepCopy(
+    newTable,
+    SerializationType.SERIALIZE,
+    "oldTableHasRNGSerialized",
+  ) as LuaMap<AnyNotNil, unknown>;
+
+  merge(oldTable, newTableSerialized, "oldTableHasRNGSerialized");
+
+  const oldTableValue = oldTable.get(key) as Foo | undefined;
+  if (oldTableValue === undefined) {
+    error(`The old table's key of "${key}" was not filled.`);
+  }
+
+  if (!isRNG(oldTableValue.bar)) {
+    error(
+      "The old table's value is not an RNG object (during the serialized test).",
+    );
+  }
+
+  const newSeed = oldTableValue.bar.GetSeed();
+  if (newSeed !== seed) {
+    error(`The old table's seed not match: ${seed}`);
   }
 }

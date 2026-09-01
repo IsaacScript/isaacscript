@@ -75,6 +75,30 @@ export function isValidGridPosition(
     : isValidGridPositionNormal(gridPosition, roomShape);
 }
 
+function isValidGridPositionNormal(gridPosition: Vector, roomShape: RoomShape) {
+  const topLeft = getRoomShapeTopLeftPosition(roomShape);
+  const bottomRight = getRoomShapeBottomRightPosition(roomShape);
+  return inRectangle(gridPosition, topLeft, bottomRight);
+}
+
+function isValidGridPositionLRoom(gridPosition: Vector, roomShape: RoomShape) {
+  const rectangles = L_ROOM_SHAPE_TO_RECTANGLES[roomShape];
+  if (rectangles === undefined) {
+    return false;
+  }
+
+  const {
+    verticalTopLeft,
+    verticalBottomRight,
+    horizontalTopLeft,
+    horizontalBottomRight,
+  } = rectangles;
+  return (
+    inRectangle(gridPosition, verticalTopLeft, verticalBottomRight)
+    || inRectangle(gridPosition, horizontalTopLeft, horizontalBottomRight)
+  );
+}
+
 /**
  * Helper function to convert a world position `Vector` to a grid position `Vector`.
  *
@@ -101,28 +125,4 @@ export function worldPositionToGridPositionFast(
   const x = worldPos.X / 40 - 2;
   const y = worldPos.Y / 40 - 4;
   return Vector(x, y);
-}
-
-function isValidGridPositionLRoom(gridPosition: Vector, roomShape: RoomShape) {
-  const rectangles = L_ROOM_SHAPE_TO_RECTANGLES[roomShape];
-  if (rectangles === undefined) {
-    return false;
-  }
-
-  const {
-    verticalTopLeft,
-    verticalBottomRight,
-    horizontalTopLeft,
-    horizontalBottomRight,
-  } = rectangles;
-  return (
-    inRectangle(gridPosition, verticalTopLeft, verticalBottomRight)
-    || inRectangle(gridPosition, horizontalTopLeft, horizontalBottomRight)
-  );
-}
-
-function isValidGridPositionNormal(gridPosition: Vector, roomShape: RoomShape) {
-  const topLeft = getRoomShapeTopLeftPosition(roomShape);
-  const bottomRight = getRoomShapeBottomRightPosition(roomShape);
-  return inRectangle(gridPosition, topLeft, bottomRight);
 }

@@ -359,7 +359,7 @@ export function getRoomShapeAdjacentExistingGridIndexes(
 ): ReadonlyMap<DoorSlot, int> {
   const roomShapeAdjacentGridIndexes = copyMap(
     getRoomShapeAdjacentGridIndexes(safeRoomGridIndex, roomShape),
-  ) as Map<DoorSlot, int>;
+  );
 
   for (const [doorSlot, roomGridIndex] of roomShapeAdjacentGridIndexes) {
     const roomData = getRoomData(roomGridIndex);
@@ -425,7 +425,7 @@ export function getRoomShapeAdjacentNonExistingGridIndexes(
 ): ReadonlyMap<DoorSlot, int> {
   const roomShapeAdjacentGridIndexes = copyMap(
     getRoomShapeAdjacentGridIndexes(safeRoomGridIndex, roomShape),
-  ) as Map<DoorSlot, int>;
+  );
 
   for (const [doorSlot, roomGridIndex] of roomShapeAdjacentGridIndexes) {
     const roomData = getRoomData(roomGridIndex);
@@ -602,7 +602,12 @@ export function newRoom(
 
     if (hasFullMap) {
       roomDescriptor.DisplayFlags = ALL_DISPLAY_FLAGS;
-    } else if ((!isSecretRoom && hasCompass) || (isSecretRoom && hasBlueMap)) {
+    } else if (!isSecretRoom && hasCompass) {
+      roomDescriptor.DisplayFlags = addFlag(
+        DisplayFlag.VISIBLE,
+        DisplayFlag.SHOW_ICON,
+      );
+    } else if (isSecretRoom && hasBlueMap) {
       roomDescriptor.DisplayFlags = addFlag(
         DisplayFlag.VISIBLE,
         DisplayFlag.SHOW_ICON,

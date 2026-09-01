@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable complete/sort-objects */
 /* eslint-disable max-classes-per-file */
 
 import type { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFunctions";

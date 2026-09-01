@@ -55,6 +55,7 @@ export function anyPlayerHasTrinket(
 export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
   const maxTrinkets = player.GetMaxTrinkets();
   const trinketType1 = player.GetTrinket(TrinketSlot.SLOT_1);
+  const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
 
   if (maxTrinkets === 1) {
     return trinketType1 === TrinketType.NULL ? 0 : undefined;
@@ -65,27 +66,10 @@ export function getOpenTrinketSlot(player: EntityPlayer): int | undefined {
       return 0;
     }
 
-    const trinketType2 = player.GetTrinket(TrinketSlot.SLOT_2);
     return trinketType2 === TrinketType.NULL ? 1 : undefined;
   }
 
   error(`The player has an unknown number of trinket slots: ${maxTrinkets}`);
-}
-
-/**
- * Helper function to get only the players that have a certain trinket.
- *
- * This function is variadic, meaning that you can supply as many trinket types as you want to check
- * for. It only returns the players that have all of the trinkets.
- */
-export function getPlayersWithTrinket(
-  ...trinketTypes: readonly TrinketType[]
-): readonly EntityPlayer[] {
-  const players = getPlayers();
-
-  return players.filter((player) =>
-    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
-  );
 }
 
 /**
@@ -105,6 +89,22 @@ export function getPlayerTrinkets(
   }
 
   return trinketTypes;
+}
+
+/**
+ * Helper function to get only the players that have a certain trinket.
+ *
+ * This function is variadic, meaning that you can supply as many trinket types as you want to check
+ * for. It only returns the players that have all of the trinkets.
+ */
+export function getPlayersWithTrinket(
+  ...trinketTypes: readonly TrinketType[]
+): readonly EntityPlayer[] {
+  const players = getPlayers();
+
+  return players.filter((player) =>
+    trinketTypes.every((trinketType) => player.HasTrinket(trinketType)),
+  );
 }
 
 /** Helper function to check to see if the player is holding one or more trinkets. */

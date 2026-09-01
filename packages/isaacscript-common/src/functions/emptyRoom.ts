@@ -31,34 +31,6 @@ export function emptyRoom(): void {
   emptyRoomGridEntities();
 }
 
-/** Helper function to remove all grid entities from a room except for doors and walls. */
-export function emptyRoomGridEntities(): void {
-  let removedOneOrMoreGridEntities = false;
-  for (const gridEntity of getGridEntities()) {
-    const gridEntityType = gridEntity.GetType();
-    const gridIndex = gridEntity.GetGridIndex();
-
-    // We cannot simply check if the grid entity type is equal to a wall because other mods use
-    // walls as a base for custom grid entities.
-    if (
-      gridEntityType === GridEntityType.WALL
-      && isVanillaWallGridIndex(gridIndex)
-    ) {
-      continue;
-    }
-
-    if (gridEntityType === GridEntityType.DOOR) {
-      continue;
-    }
-
-    removeGridEntity(gridEntity, false);
-    removedOneOrMoreGridEntities = true;
-  }
-  if (removedOneOrMoreGridEntities) {
-    roomUpdateSafe();
-  }
-}
-
 /**
  * We remove entities in the `POST_NEW_ROOM` callback instead of in the `PRE_ROOM_ENTITY_SPAWN`
  * callback so that they will not re-appear when we re-enter the room.
@@ -89,5 +61,33 @@ function emptyRoomEntities() {
       const gridIndex = room.GetGridIndex(entity.Position);
       room.SetGridPath(gridIndex, 0);
     }
+  }
+}
+
+/** Helper function to remove all grid entities from a room except for doors and walls. */
+export function emptyRoomGridEntities(): void {
+  let removedOneOrMoreGridEntities = false;
+  for (const gridEntity of getGridEntities()) {
+    const gridEntityType = gridEntity.GetType();
+    const gridIndex = gridEntity.GetGridIndex();
+
+    // We cannot simply check if the grid entity type is equal to a wall because other mods use
+    // walls as a base for custom grid entities.
+    if (
+      gridEntityType === GridEntityType.WALL
+      && isVanillaWallGridIndex(gridIndex)
+    ) {
+      continue;
+    }
+
+    if (gridEntityType === GridEntityType.DOOR) {
+      continue;
+    }
+
+    removeGridEntity(gridEntity, false);
+    removedOneOrMoreGridEntities = true;
+  }
+  if (removedOneOrMoreGridEntities) {
+    roomUpdateSafe();
   }
 }

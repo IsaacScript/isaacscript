@@ -55,7 +55,7 @@ export function forEach<T>(
   array: readonly T[],
   func: (value: T, index: number, array: readonly T[]) => void,
 ): void {
-  array.forEach(func); // eslint-disable-line unicorn/no-for-each
+  array.forEach(func); // eslint-disable-line unicorn/no-array-for-each
 }
 
 // `includes` is not included since there is a normal array helper function of that name.

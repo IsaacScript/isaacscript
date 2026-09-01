@@ -2,8 +2,14 @@ import type { DefaultMap } from "../classes/DefaultMap";
 import { sumArray } from "./array";
 
 /** Helper function to copy a map. (You can also use a Map constructor to accomplish this task.) */
-export function copyMap<K, V>(oldMap: ReadonlyMap<K, V>): ReadonlyMap<K, V> {
-  return new Map<K, V>(oldMap);
+// eslint-disable-next-line complete/no-mutable-return
+export function copyMap<K, V>(oldMap: ReadonlyMap<K, V>): Map<K, V> {
+  const newMap = new Map<K, V>();
+  for (const [key, value] of oldMap) {
+    newMap.set(key, value);
+  }
+
+  return newMap;
 }
 
 /**

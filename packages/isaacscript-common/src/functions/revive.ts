@@ -29,6 +29,8 @@ export function isDamageToPlayerFatal(
   lastDamageGameFrame: int | undefined,
 ): boolean {
   const character = player.GetPlayerType();
+  const effects = player.GetEffects();
+  const isBerserk = effects.HasCollectibleEffect(CollectibleType.BERSERK);
 
   // If we are Tainted Jacob and the damage source is Dark Esau, this will not be fatal damage
   // (because we will transform into Tainted Jacob's lost form).
@@ -41,8 +43,6 @@ export function isDamageToPlayerFatal(
 
   // If we are berserk, no damage is fatal. (The death is deferred until the end of the berserk
   // effect.)
-  const effects = player.GetEffects();
-  const isBerserk = effects.HasCollectibleEffect(CollectibleType.BERSERK);
   if (isBerserk) {
     return false;
   }
@@ -102,13 +102,17 @@ export function isDamageToPlayerFatal(
   const eternalHearts = player.GetEternalHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
-  return !(
+  if (
     (hearts > 0 && soulHearts > 0)
     || (hearts > 0 && boneHearts > 0)
     || (soulHearts > 0 && boneHearts > 0)
     || (soulHearts > 0 && eternalHearts > 0)
     || boneHearts >= 2 // Two bone hearts and nothing else should not result in a death
-  );
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 /**

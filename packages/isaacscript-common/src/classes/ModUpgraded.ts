@@ -434,7 +434,8 @@ function getExportedMethodsFromFeature(
     unknown
   >;
   const exportedMethodNames = constructor[EXPORTED_METHOD_NAMES_KEY] as
-    string[] | undefined;
+    | string[]
+    | undefined;
 
   if (exportedMethodNames === undefined) {
     return [];

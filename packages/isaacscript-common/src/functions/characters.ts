@@ -88,7 +88,7 @@ export function getCharacterDamageMultiplier(
   character: PlayerType,
   hasWhoreOfBabylon = false,
 ): float {
-  if (hasWhoreOfBabylon && character === PlayerType.EVE) {
+  if (character === PlayerType.EVE && hasWhoreOfBabylon) {
     return 1;
   }
 

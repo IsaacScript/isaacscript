@@ -4,12 +4,6 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayFamiliar extends Feature {
-  // ModCallback.POST_FAMILIAR_RENDER (25)
-  private readonly postFamiliarRender = (familiar: EntityFamiliar) => {
-    const text = this.textCallback(familiar);
-    renderTextOnEntity(familiar, text);
-  };
-
   public textCallback: (familiar: EntityFamiliar) => string =
     defaultEntityDisplayCallback;
 
@@ -21,4 +15,10 @@ export class DebugDisplayFamiliar extends Feature {
       [ModCallback.POST_FAMILIAR_RENDER, this.postFamiliarRender],
     ];
   }
+
+  // ModCallback.POST_FAMILIAR_RENDER (25)
+  private readonly postFamiliarRender = (familiar: EntityFamiliar) => {
+    const text = this.textCallback(familiar);
+    renderTextOnEntity(familiar, text);
+  };
 }

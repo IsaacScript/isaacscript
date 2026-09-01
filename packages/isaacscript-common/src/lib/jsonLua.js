@@ -118,7 +118,7 @@ function lua_newtable(a) {
   }
   if (a)
     if ((ensure_arraymode(b), 0 == b.uints.length)) b.uints = a;
-    else for (c = a.length; 0 < c--;) b.uints[c] = a[c];
+    else for (c = a.length; 0 < c--; ) b.uints[c] = a[c];
   return b;
 }
 function lua_newtable2(a) {
@@ -132,8 +132,8 @@ function lua_len(a) {
   if ("object" == typeof a && null != a) {
     if (null == a.length) {
       var b = 0;
-      if (a.arraymode) for (; null != a.uints[b++];);
-      else for (; null != a.uints[++b];);
+      if (a.arraymode) for (; null != a.uints[b++]; );
+      else for (; null != a.uints[++b]; );
       return (a.length = b - 1);
     }
     return a.length;
@@ -432,7 +432,7 @@ var lua_libs = {},
       return [_ipairs_next, a, 0];
     },
     load: function (a, b) {
-      for (var c = "", d; null != (d = a()) && "" != d;) c += d;
+      for (var c = "", d; null != (d = a()) && "" != d; ) c += d;
       try {
         return [lua_load(c, b)];
       } catch (e) {
@@ -457,7 +457,7 @@ var lua_libs = {},
         c;
       for (c in a.str) b.push(c);
       if (a.arraymode)
-        for (var d = a.uints.length; 0 < d--;)
+        for (var d = a.uints.length; 0 < d--; )
           null != a.uints[d] && b.push(d + 1);
       else for (c in a.uints) b.push(parseFloat(c));
       for (c in a.floats) b.push(parseFloat(c));
@@ -562,7 +562,7 @@ var lua_libs = {},
       ensure_arraymode(a);
       if (null != a.length) c = a.length;
       else {
-        for (c = 0; null != a.uints[c++];);
+        for (c = 0; null != a.uints[c++]; );
         a.length = --c;
       }
       if (null == b || 1 > b) b = 1;
@@ -608,7 +608,7 @@ var _lua_write_buffer = "",
   _lua_io = (lua_libs.io = {
     write: function () {
       _lua_write_buffer += Array.prototype.join.call(arguments, "");
-      for (var a = _lua_write_buffer.split("\n"); 1 < a.length;)
+      for (var a = _lua_write_buffer.split("\n"); 1 < a.length; )
         _lua_print(a.shift());
       _lua_write_buffer = a[0];
       return [];
@@ -821,7 +821,7 @@ lua_libs.string = {
   byte: function (a, b, c) {
     null == b && (b = 0);
     null == c && (c = b);
-    for (var d = []; b < c && b < a.length;) d.push(a.charCodeAt(b));
+    for (var d = []; b < c && b < a.length; ) d.push(a.charCodeAt(b));
     return d;
   },
   char: function () {
@@ -855,7 +855,7 @@ lua_libs.string = {
   },
   rep: function (a, b) {
     if ("string" == typeof a && "number" == typeof b) {
-      for (var c = []; 0 < b--;) c.push(a);
+      for (var c = []; 0 < b--; ) c.push(a);
       return [c.join("")];
     }
     throw Error("Input not string and number");
@@ -933,11 +933,11 @@ lua_libs.bit = {
   },
   tohex: function (a, b) {
     if (0 < b) {
-      for (var c = a.toString(16).substr(-b); c.length < b;) c = "0" + c;
+      for (var c = a.toString(16).substr(-b); c.length < b; ) c = "0" + c;
       return [c];
     }
     if (0 > b) {
-      for (c = a.toString(16).substr(b).toUpperCase(); c.length < -b;)
+      for (c = a.toString(16).substr(b).toUpperCase(); c.length < -b; )
         c = "0" + c;
       return [c];
     }

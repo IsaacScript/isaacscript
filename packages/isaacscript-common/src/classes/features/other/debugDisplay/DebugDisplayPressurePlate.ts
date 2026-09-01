@@ -4,14 +4,6 @@ import { Feature } from "../../../private/Feature";
 import { defaultGridEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPressurePlate extends Feature {
-  // ModCallbackCustom.POST_PRESSURE_PLATE_RENDER
-  private readonly postPressurePlateRender = (
-    pressurePlate: GridEntityPressurePlate,
-  ) => {
-    const text = this.textCallback(pressurePlate);
-    renderTextOnEntity(pressurePlate, text);
-  };
-
   public textCallback: (pressurePlate: GridEntityPressurePlate) => string =
     defaultGridEntityDisplayCallback;
 
@@ -25,4 +17,12 @@ export class DebugDisplayPressurePlate extends Feature {
       ],
     ];
   }
+
+  // ModCallbackCustom.POST_PRESSURE_PLATE_RENDER
+  private readonly postPressurePlateRender = (
+    pressurePlate: GridEntityPressurePlate,
+  ) => {
+    const text = this.textCallback(pressurePlate);
+    renderTextOnEntity(pressurePlate, text);
+  };
 }

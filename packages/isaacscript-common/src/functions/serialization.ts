@@ -102,6 +102,24 @@ export function deserializeIsaacAPIClass<
 }
 
 /**
+ * In order to find out what type of serialized Isaac API class this is, we search through the
+ * serialized table for brands.
+ */
+function getSerializedTableType(
+  serializedIsaacAPIClass: SerializedIsaacAPIClass,
+): CopyableIsaacAPIClassType | undefined {
+  for (const [copyableIsaacAPIClassType, serializationBrand] of Object.entries(
+    ISAAC_API_CLASS_TYPE_TO_BRAND,
+  )) {
+    if (serializedIsaacAPIClass.has(serializationBrand)) {
+      return copyableIsaacAPIClassType as CopyableIsaacAPIClassType;
+    }
+  }
+
+  return undefined;
+}
+
+/**
  * Helper function to generically check if a given object is a copyable Isaac API class. (This is
  * used by the save data manager when determining what is safe to copy.)
  *
@@ -175,22 +193,4 @@ export function serializeIsaacAPIClass<T extends CopyableIsaacAPIClass>(
   );
 
   return functions.serialize(isaacAPIClass);
-}
-
-/**
- * In order to find out what type of serialized Isaac API class this is, we search through the
- * serialized table for brands.
- */
-function getSerializedTableType(
-  serializedIsaacAPIClass: SerializedIsaacAPIClass,
-): CopyableIsaacAPIClassType | undefined {
-  for (const [copyableIsaacAPIClassType, serializationBrand] of Object.entries(
-    ISAAC_API_CLASS_TYPE_TO_BRAND,
-  )) {
-    if (serializedIsaacAPIClass.has(serializationBrand)) {
-      return copyableIsaacAPIClassType as CopyableIsaacAPIClassType;
-    }
-  }
-
-  return undefined;
 }

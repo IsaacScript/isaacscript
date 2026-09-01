@@ -564,7 +564,8 @@ export class CustomStages extends Feature {
     let customStageMusic: Music | -1 | undefined;
     if (customStage.music !== undefined) {
       customStageMusic = Isaac.GetMusicIdByName(customStage.music) as
-        Music | -1;
+        | Music
+        | -1;
       if (customStageMusic === -1) {
         logError(
           `Failed to get the music ID associated with the name of: ${customStage.music}`,

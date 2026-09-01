@@ -23,7 +23,15 @@ import { assertDefined } from "./utils";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
-const DAMAGE_FLASH_COLOR = newReadonlyColor(0.5, 0.5, 0.5, 1, 200 / 255, 0, 0);
+const DAMAGE_FLASH_COLOR = newReadonlyColor(
+  0.5,
+  0.5,
+  0.5,
+  1,
+  200 / 255,
+  0 / 255,
+  0 / 255,
+);
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
@@ -86,7 +94,7 @@ export function doesAnyEntityExist(
   const entityTypesMutable = entityTypes as EntityType[] | Set<EntityType>;
 
   const entityTypesArray: readonly EntityType[] = isTSTLSet(entityTypesMutable)
-    ? [...entityTypesMutable]
+    ? [...entityTypesMutable.values()]
     : entityTypesMutable;
 
   return entityTypesArray.some((entityType) =>
@@ -136,7 +144,7 @@ export function getClosestEntityTo<T extends AnyEntity>(
   filterFunc?: (entity: T) => boolean,
 ): T | undefined {
   let closestEntity: T | undefined;
-  let closestDistance = Infinity;
+  let closestDistance = Number.POSITIVE_INFINITY;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
 
@@ -252,7 +260,8 @@ export function getEntityFields(
   const entityFields = new LuaMap<string, boolean | number | string>();
 
   const metatable = getmetatable(entity) as
-    LuaMap<AnyNotNil, unknown> | undefined;
+    | LuaMap<AnyNotNil, unknown>
+    | undefined;
   assertDefined(metatable, "Failed to get the metatable for an entity.");
 
   setPrimitiveEntityFields(entity, metatable, entityFields);
@@ -266,7 +275,8 @@ export function getEntityFields(
   }
 
   const parentTable = metatable.get("__parent") as
-    LuaMap<AnyNotNil, unknown> | undefined;
+    | LuaMap<AnyNotNil, unknown>
+    | undefined;
   assertDefined(
     parentTable,
     'Failed to get the "__parent" table for an entity.',
@@ -275,6 +285,31 @@ export function getEntityFields(
   setPrimitiveEntityFields(entity, parentTable, entityFields);
 
   return entityFields;
+}
+
+function setPrimitiveEntityFields(
+  entity: Entity,
+  metatable: LuaMap<AnyNotNil, unknown>,
+  entityFields: LuaMap<string, boolean | number | string>,
+) {
+  const propGetTable = metatable.get("__propget") as
+    | LuaMap<AnyNotNil, unknown>
+    | undefined;
+  assertDefined(
+    propGetTable,
+    'Failed to get the "__propget" table for an entity.',
+  );
+
+  for (const [key] of propGetTable) {
+    // The values of this table are functions. Thus, we use the key to index the original entity.
+    const indexKey = key as keyof typeof entity;
+    const value = entity[indexKey];
+    if (isPrimitive(value)) {
+      entityFields.set(indexKey as string, value);
+    } else if (isVector(value)) {
+      entityFields.set(indexKey as string, vectorToString(value));
+    }
+  }
 }
 
 /**
@@ -364,7 +399,6 @@ export function isActiveEnemy(entity: Entity): boolean {
       case EntityType.ULTRA_GREED: {
         const npc = entity.ToNPC();
         if (npc !== undefined) {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
           const ultraGreedVariant = npc.Variant as UltraGreedVariant;
 
           switch (ultraGreedVariant) {
@@ -712,28 +746,4 @@ export function spawnWithSeed(
     spawner,
     seedOrRNG,
   );
-}
-
-function setPrimitiveEntityFields(
-  entity: Entity,
-  metatable: LuaMap<AnyNotNil, unknown>,
-  entityFields: LuaMap<string, boolean | number | string>,
-) {
-  const propGetTable = metatable.get("__propget") as
-    LuaMap<AnyNotNil, unknown> | undefined;
-  assertDefined(
-    propGetTable,
-    'Failed to get the "__propget" table for an entity.',
-  );
-
-  for (const [key] of propGetTable) {
-    // The values of this table are functions. Thus, we use the key to index the original entity.
-    const indexKey = key as keyof typeof entity;
-    const value = entity[indexKey];
-    if (isPrimitive(value)) {
-      entityFields.set(indexKey as string, value);
-    } else if (isVector(value)) {
-      entityFields.set(indexKey as string, vectorToString(value));
-    }
-  }
 }

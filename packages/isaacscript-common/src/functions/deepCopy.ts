@@ -145,55 +145,98 @@ export function deepCopy(
   }
 }
 
-/**
- * Lua tables can have metatables, which make writing a generic deep cloner impossible. The deep
- * copy function will refuse to copy a table type that has a metatable, outside of specifically
- * supported TSTL objects.
- */
-function checkMetatable(
+function deepCopyTable(
   luaMap: LuaMap<AnyNotNil, unknown>,
-  traversalDescription: string,
-) {
-  const metatable = getmetatable(luaMap);
-  if (metatable === undefined) {
-    return;
-  }
-
-  const tableDescription =
-    traversalDescription === ""
-      ? "the table to copy"
-      : `"${traversalDescription}"`;
-
-  error(
-    `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. TypeScriptToLua Maps, TypeScriptToLua Sets, etc.)`,
-  );
-}
-
-function deepCopyArray(
-  array: readonly unknown[],
   serializationType: SerializationType,
   traversalDescription: string,
   classConstructors: LuaMap<string, AnyClass>,
   insideMap: boolean,
-): readonly unknown[] {
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log("deepCopy is copying an array.");
-  }
-
-  const newArray: unknown[] = [];
-
-  for (const value of array) {
-    const newValue = deepCopy(
-      value,
+): unknown {
+  // First, handle the cases of TSTL classes or serialized TSTL classes.
+  if (isDefaultMap(luaMap) || luaMap.has(SerializationBrand.DEFAULT_MAP)) {
+    return deepCopyDefaultMap(
+      luaMap,
       serializationType,
       traversalDescription,
       classConstructors,
       insideMap,
     );
-    newArray.push(newValue);
   }
 
-  return newArray;
+  if (isTSTLMap(luaMap) || luaMap.has(SerializationBrand.MAP)) {
+    return deepCopyMap(
+      luaMap,
+      serializationType,
+      traversalDescription,
+      classConstructors,
+      insideMap,
+    );
+  }
+
+  if (isTSTLSet(luaMap) || luaMap.has(SerializationBrand.SET)) {
+    return deepCopySet(
+      luaMap,
+      serializationType,
+      traversalDescription,
+      classConstructors,
+      insideMap,
+    );
+  }
+
+  const className = getTSTLClassName(luaMap);
+
+  if (className === "WeakMap") {
+    error(
+      `The deep copy function does not support copying the "WeakMap" class for: ${traversalDescription}`,
+    );
+  }
+
+  if (className === "WeakSet") {
+    error(
+      `The deep copy function does not support copying the "WeakSet" class for: ${traversalDescription}`,
+    );
+  }
+
+  if (className !== undefined || luaMap.has(SerializationBrand.TSTL_CLASS)) {
+    return deepCopyTSTLClass(
+      luaMap as TSTLClass,
+      serializationType,
+      traversalDescription,
+      classConstructors,
+      insideMap,
+    );
+  }
+
+  // This is not a TSTL Map/Set/class. If it has a metatable, abort.
+  checkMetatable(luaMap, traversalDescription);
+
+  // Handle the special case of serialized Isaac API classes.
+  if (
+    isSerializedIsaacAPIClass(luaMap)
+    && serializationType === SerializationType.DESERIALIZE
+  ) {
+    return deserializeIsaacAPIClass(luaMap);
+  }
+
+  // Handle the special case of an array.
+  if (isArray(luaMap)) {
+    return deepCopyArray(
+      luaMap,
+      serializationType,
+      traversalDescription,
+      classConstructors,
+      insideMap,
+    );
+  }
+
+  // Base case: copy a normal Lua table
+  return deepCopyNormalLuaTable(
+    luaMap,
+    serializationType,
+    traversalDescription,
+    classConstructors,
+    insideMap,
+  );
 }
 
 function deepCopyDefaultMap(
@@ -262,7 +305,6 @@ function deepCopyDefaultMap(
     // the proper set method call.
     if (isDefaultMap(newDefaultMap)) {
       newDefaultMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
-      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newDefaultMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
     }
@@ -273,13 +315,59 @@ function deepCopyDefaultMap(
     // the proper set method call.
     if (isDefaultMap(newDefaultMap)) {
       newDefaultMap.set(key, value);
-      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newDefaultMap.set(key, value);
     }
   }
 
   return newDefaultMap;
+}
+
+/**
+ * The new copied default map with either be a TSTL `DefaultMap` class or a Lua table, depending on
+ * whether we are serializing.
+ */
+function getNewDefaultMap(
+  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
+  serializationType: SerializationType,
+  traversalDescription: string,
+  constructorArg: unknown,
+): DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown> {
+  switch (serializationType) {
+    case SerializationType.NONE: {
+      // eslint-disable-next-line isaacscript/no-invalid-default-map
+      return new DefaultMap(constructorArg);
+    }
+
+    case SerializationType.SERIALIZE: {
+      // Since we are serializing, the new object will be a Lua table. (At this point, we already
+      // handled the special case of a DefaultMap instantiated with a factory function.)
+      const newDefaultMap = new LuaMap<AnyNotNil, unknown>();
+      newDefaultMap.set(SerializationBrand.DEFAULT_MAP, "");
+      newDefaultMap.set(SerializationBrand.DEFAULT_MAP_VALUE, constructorArg);
+
+      return newDefaultMap;
+    }
+
+    case SerializationType.DESERIALIZE: {
+      if (isDefaultMap(defaultMap)) {
+        error(
+          `Failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
+        );
+      }
+
+      const defaultMapValue = defaultMap.get(
+        SerializationBrand.DEFAULT_MAP_VALUE,
+      );
+      assertDefined(
+        defaultMapValue,
+        `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
+      );
+
+      // eslint-disable-next-line isaacscript/no-invalid-default-map
+      return new DefaultMap(defaultMapValue);
+    }
+  }
 }
 
 function deepCopyMap(
@@ -316,7 +404,6 @@ function deepCopyMap(
     // the proper set method call.
     if (isTSTLMap(newMap)) {
       newMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
-      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newMap.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
     }
@@ -327,44 +414,12 @@ function deepCopyMap(
     // the proper set method call.
     if (isTSTLMap(newMap)) {
       newMap.set(key, value);
-      // eslint-disable-next-line unicorn/no-duplicate-if-branches
     } else {
       newMap.set(key, value);
     }
   }
 
   return newMap;
-}
-
-function deepCopyNormalLuaTable(
-  luaMap: LuaMap<AnyNotNil, unknown>,
-  serializationType: SerializationType,
-  traversalDescription: string,
-  classConstructors: LuaMap<string, AnyClass>,
-  insideMap: boolean,
-) {
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log("deepCopy is copying a normal Lua table.");
-  }
-
-  const newTable = new LuaMap<AnyNotNil, unknown>();
-  const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
-    luaMap,
-    serializationType,
-    traversalDescription,
-    classConstructors,
-    insideMap,
-  );
-
-  if (convertedNumberKeysToStrings) {
-    newTable.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
-  }
-
-  for (const [key, value] of entries) {
-    newTable.set(key, value);
-  }
-
-  return newTable;
 }
 
 function deepCopySet(
@@ -422,101 +477,6 @@ function deepCopySet(
   return newSet;
 }
 
-function deepCopyTable(
-  luaMap: LuaMap<AnyNotNil, unknown>,
-  serializationType: SerializationType,
-  traversalDescription: string,
-  classConstructors: LuaMap<string, AnyClass>,
-  insideMap: boolean,
-): unknown {
-  // First, handle the cases of TSTL classes or serialized TSTL classes.
-  if (isDefaultMap(luaMap) || luaMap.has(SerializationBrand.DEFAULT_MAP)) {
-    return deepCopyDefaultMap(
-      luaMap,
-      serializationType,
-      traversalDescription,
-      classConstructors,
-      insideMap,
-    );
-  }
-
-  if (isTSTLMap(luaMap) || luaMap.has(SerializationBrand.MAP)) {
-    return deepCopyMap(
-      luaMap,
-      serializationType,
-      traversalDescription,
-      classConstructors,
-      insideMap,
-    );
-  }
-
-  if (isTSTLSet(luaMap) || luaMap.has(SerializationBrand.SET)) {
-    return deepCopySet(
-      luaMap,
-      serializationType,
-      traversalDescription,
-      classConstructors,
-      insideMap,
-    );
-  }
-
-  const className = getTSTLClassName(luaMap);
-
-  switch (className) {
-    case "WeakMap":
-    case "WeakSet": {
-      return error(
-        `The deep copy function does not support copying the "${className}" class for: ${traversalDescription}`,
-      );
-    }
-
-    default: {
-      break;
-    }
-  }
-
-  if (className !== undefined || luaMap.has(SerializationBrand.TSTL_CLASS)) {
-    return deepCopyTSTLClass(
-      luaMap as TSTLClass,
-      serializationType,
-      traversalDescription,
-      classConstructors,
-      insideMap,
-    );
-  }
-
-  // This is not a TSTL Map/Set/class. If it has a metatable, abort.
-  checkMetatable(luaMap, traversalDescription);
-
-  // Handle the special case of serialized Isaac API classes.
-  if (
-    isSerializedIsaacAPIClass(luaMap)
-    && serializationType === SerializationType.DESERIALIZE
-  ) {
-    return deserializeIsaacAPIClass(luaMap);
-  }
-
-  // Handle the special case of an array.
-  if (isArray(luaMap)) {
-    return deepCopyArray(
-      luaMap,
-      serializationType,
-      traversalDescription,
-      classConstructors,
-      insideMap,
-    );
-  }
-
-  // Base case: copy a normal Lua table
-  return deepCopyNormalLuaTable(
-    luaMap,
-    serializationType,
-    traversalDescription,
-    classConstructors,
-    insideMap,
-  );
-}
-
 function deepCopyTSTLClass(
   tstlClass: TSTLClass,
   serializationType: SerializationType,
@@ -551,7 +511,8 @@ function deepCopyTSTLClass(
 
     case SerializationType.DESERIALIZE: {
       const tstlClassName = tstlClass.get(SerializationBrand.TSTL_CLASS) as
-        string | undefined;
+        | string
+        | undefined;
       assertDefined(
         tstlClassName,
         "Failed to deserialize a TSTL class since the brand did not contain the class name.",
@@ -589,34 +550,62 @@ function deepCopyTSTLClass(
   return newClass;
 }
 
-/** Isaac API classes are of type "userdata". End-user code cannot create userdata. */
-function deepCopyUserdata(
-  value: unknown,
+function deepCopyArray(
+  array: readonly unknown[],
   serializationType: SerializationType,
   traversalDescription: string,
-) {
-  if (!isCopyableIsaacAPIClass(value)) {
-    const className = getIsaacAPIClassName(value) ?? "Unknown";
-    error(
-      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${className}`,
+  classConstructors: LuaMap<string, AnyClass>,
+  insideMap: boolean,
+): readonly unknown[] {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying an array.");
+  }
+
+  const newArray: unknown[] = [];
+
+  for (const value of array) {
+    const newValue = deepCopy(
+      value,
+      serializationType,
+      traversalDescription,
+      classConstructors,
+      insideMap,
     );
+    newArray.push(newValue);
   }
 
-  switch (serializationType) {
-    case SerializationType.NONE: {
-      return copyIsaacAPIClass(value);
-    }
+  return newArray;
+}
 
-    case SerializationType.SERIALIZE: {
-      return serializeIsaacAPIClass(value);
-    }
-
-    case SerializationType.DESERIALIZE: {
-      return error(
-        `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
-      );
-    }
+function deepCopyNormalLuaTable(
+  luaMap: LuaMap<AnyNotNil, unknown>,
+  serializationType: SerializationType,
+  traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
+  insideMap: boolean,
+) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log("deepCopy is copying a normal Lua table.");
   }
+
+  const newTable = new LuaMap<AnyNotNil, unknown>();
+  const { entries, convertedNumberKeysToStrings } = getCopiedEntries(
+    luaMap,
+    serializationType,
+    traversalDescription,
+    classConstructors,
+    insideMap,
+  );
+
+  if (convertedNumberKeysToStrings) {
+    newTable.set(SerializationBrand.OBJECT_WITH_NUMBER_KEYS, "");
+  }
+
+  for (const [key, value] of entries) {
+    newTable.set(key, value);
+  }
+
+  return newTable;
 }
 
 /**
@@ -702,48 +691,55 @@ function getCopiedEntries(
 }
 
 /**
- * The new copied default map with either be a TSTL `DefaultMap` class or a Lua table, depending on
- * whether we are serializing.
+ * Lua tables can have metatables, which make writing a generic deep cloner impossible. The deep
+ * copy function will refuse to copy a table type that has a metatable, outside of specifically
+ * supported TSTL objects.
  */
-function getNewDefaultMap(
-  defaultMap: DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown>,
+function checkMetatable(
+  luaMap: LuaMap<AnyNotNil, unknown>,
+  traversalDescription: string,
+) {
+  const metatable = getmetatable(luaMap);
+  if (metatable === undefined) {
+    return;
+  }
+
+  const tableDescription =
+    traversalDescription === ""
+      ? "the table to copy"
+      : `"${traversalDescription}"`;
+
+  error(
+    `The deepCopy function detected that ${tableDescription} has a metatable. Copying tables with metatables is not supported, unless they are explicitly handled by the save data manager. (e.g. TypeScriptToLua Maps, TypeScriptToLua Sets, etc.)`,
+  );
+}
+
+/** Isaac API classes are of type "userdata". End-user code cannot create userdata. */
+function deepCopyUserdata(
+  value: unknown,
   serializationType: SerializationType,
   traversalDescription: string,
-  constructorArg: unknown,
-): DefaultMap<AnyNotNil, unknown> | LuaMap<AnyNotNil, unknown> {
+) {
+  if (!isCopyableIsaacAPIClass(value)) {
+    const className = getIsaacAPIClassName(value) ?? "Unknown";
+    error(
+      `The deep copy function does not support serializing "${traversalDescription}", since it is an Isaac API class of type: ${className}`,
+    );
+  }
+
   switch (serializationType) {
     case SerializationType.NONE: {
-      // eslint-disable-next-line isaacscript/no-invalid-default-map
-      return new DefaultMap(constructorArg);
+      return copyIsaacAPIClass(value);
     }
 
     case SerializationType.SERIALIZE: {
-      // Since we are serializing, the new object will be a Lua table. (At this point, we already
-      // handled the special case of a DefaultMap instantiated with a factory function.)
-      const newDefaultMap = new LuaMap<AnyNotNil, unknown>();
-      newDefaultMap.set(SerializationBrand.DEFAULT_MAP, "");
-      newDefaultMap.set(SerializationBrand.DEFAULT_MAP_VALUE, constructorArg);
-
-      return newDefaultMap;
+      return serializeIsaacAPIClass(value);
     }
 
     case SerializationType.DESERIALIZE: {
-      if (isDefaultMap(defaultMap)) {
-        error(
-          `Failed to deserialize a default map of "${traversalDescription}", since it was not a Lua table.`,
-        );
-      }
-
-      const defaultMapValue = defaultMap.get(
-        SerializationBrand.DEFAULT_MAP_VALUE,
+      return error(
+        `The deep copy function can not deserialize "${traversalDescription}", since it is userdata.`,
       );
-      assertDefined(
-        defaultMapValue,
-        `Failed to deserialize a default map of "${traversalDescription}", since there was no serialization brand of: ${SerializationBrand.DEFAULT_MAP_VALUE}`,
-      );
-
-      // eslint-disable-next-line isaacscript/no-invalid-default-map
-      return new DefaultMap(defaultMapValue);
     }
   }
 }

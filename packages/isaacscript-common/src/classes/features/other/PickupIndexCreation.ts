@@ -27,8 +27,8 @@ const v = {
     /** Is incremented before assignment. Thus, the first pickup will have an index of 1. */
     pickupCounter: 0 as PickupIndex,
 
-    pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
     pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
+    pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
   },
 
   level: {
@@ -186,7 +186,8 @@ export class PickupIndexCreation extends Feature {
    */
   // eslint-disable-next-line complete/no-mutable-return
   private getPickupDataMapForCurrentRoom():
-    Map<PickupIndex, PickupDescription> | undefined {
+    | Map<PickupIndex, PickupDescription>
+    | undefined {
     if (onAscent()) {
       return undefined;
     }

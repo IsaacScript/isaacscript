@@ -111,12 +111,13 @@ export function playVersusScreenAnimation(
 ): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
+  const roomCleared = room.IsClear();
+  const hud = game.GetHUD();
 
   if (roomType !== RoomType.BOSS) {
     return;
   }
 
-  const roomCleared = room.IsClear();
   if (roomCleared) {
     return;
   }
@@ -133,7 +134,6 @@ export function playVersusScreenAnimation(
     return;
   }
 
-  const hud = game.GetHUD();
   v.run.showingBossVersusScreen = true;
 
   pause.pause();
@@ -235,10 +235,7 @@ function getPlayerPNGPaths(): {
   const namePNGPath = getCharacterNamePNGFilePath(character);
   const portraitPNGPath = getCharacterPortraitPNGFilePath(character);
 
-  return {
-    namePNGPath,
-    portraitPNGPath,
-  };
+  return { namePNGPath, portraitPNGPath };
 }
 
 /** Use the boss of the first boss found. */
@@ -260,10 +257,7 @@ function getBossPNGPaths(customStage: CustomStage): {
     const questionMarkPath = getBossNamePNGFilePath(BossID.BLUE_BABY);
     const namePNGPath = questionMarkPath;
     const portraitPNGPath = questionMarkPath;
-    return {
-      namePNGPath,
-      portraitPNGPath,
-    };
+    return { namePNGPath, portraitPNGPath };
   }
 
   // If this is a vanilla boss, it will have a boss ID, and we can use the corresponding vanilla
@@ -271,10 +265,7 @@ function getBossPNGPaths(customStage: CustomStage): {
   const namePNGPath = getBossNamePNGFilePath(bossID);
   const portraitPNGPath = getBossPortraitPNGFilePath(bossID);
 
-  return {
-    namePNGPath,
-    portraitPNGPath,
-  };
+  return { namePNGPath, portraitPNGPath };
 }
 
 function getBossPNGPathsCustom(

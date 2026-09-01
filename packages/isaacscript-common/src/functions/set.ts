@@ -40,8 +40,14 @@ export function combineSets<T>(
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-export function copySet<T>(oldSet: ReadonlySet<T>): ReadonlySet<T> {
-  return new Set(oldSet);
+// eslint-disable-next-line complete/no-mutable-return
+export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
+  const newSet = new Set<T>();
+  for (const value of oldSet) {
+    newSet.add(value);
+  }
+
+  return newSet;
 }
 
 /**

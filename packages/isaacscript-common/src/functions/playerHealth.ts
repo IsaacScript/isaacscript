@@ -177,7 +177,7 @@ export function getPlayerHealth(player: EntityPlayer): Readonly<PlayerHealth> {
   const bloodCharges = player.GetEffectiveBloodCharge();
 
   // The Forgotten and The Soul has special health, so we need to account for this.
-  if (subPlayer !== undefined && character === PlayerType.FORGOTTEN) {
+  if (character === PlayerType.FORGOTTEN && subPlayer !== undefined) {
     // The Forgotten does not have red heart containers.
     maxHearts = boneHearts * 2;
     boneHearts = 0;
@@ -185,7 +185,7 @@ export function getPlayerHealth(player: EntityPlayer): Readonly<PlayerHealth> {
     // The Forgotten will always have 0 soul hearts; we need to get the soul heart amount from the
     // sub player.
     soulHearts = subPlayer.GetSoulHearts();
-  } else if (subPlayer !== undefined && character === PlayerType.SOUL) {
+  } else if (character === PlayerType.SOUL && subPlayer !== undefined) {
     // The Soul will always have 0 bone hearts; we need to get the bone heart amount from the sub
     // player. We need to store it as "maxHearts" instead of "boneHearts".
     maxHearts = subPlayer.GetBoneHearts() * 2;
@@ -202,7 +202,7 @@ export function getPlayerHealth(player: EntityPlayer): Readonly<PlayerHealth> {
   const soulHeartTypes: SoulHeartType[] = [];
   for (let i = 0; i < extraHearts; i++) {
     let isBoneHeart = player.IsBoneHeart(i);
-    if (subPlayer !== undefined && character === PlayerType.FORGOTTEN) {
+    if (character === PlayerType.FORGOTTEN && subPlayer !== undefined) {
       isBoneHeart = subPlayer.IsBoneHeart(i);
     }
     if (isBoneHeart) {
@@ -210,7 +210,7 @@ export function getPlayerHealth(player: EntityPlayer): Readonly<PlayerHealth> {
     } else {
       // We need to add 1 here because only the second half of a black heart is considered black.
       let isBlackHeart = player.IsBlackHeart(currentSoulHeart + 1);
-      if (subPlayer !== undefined && character === PlayerType.FORGOTTEN) {
+      if (character === PlayerType.FORGOTTEN && subPlayer !== undefined) {
         isBlackHeart = subPlayer.IsBlackHeart(currentSoulHeart + 1);
       }
       if (isBlackHeart) {
@@ -531,10 +531,10 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
 
   // To avoid bugs, we have to remove the exact amount of certain types of hearts. We remove Golden
   // Hearts first so that they don't break.
-  player.AddGoldenHearts(-goldenHearts);
-  player.AddEternalHearts(-eternalHearts);
-  player.AddBoneHearts(-boneHearts);
-  player.AddBrokenHearts(-brokenHearts);
+  player.AddGoldenHearts(goldenHearts * -1);
+  player.AddEternalHearts(eternalHearts * -1);
+  player.AddBoneHearts(boneHearts * -1);
+  player.AddBrokenHearts(brokenHearts * -1);
   player.AddMaxHearts(MAX_PLAYER_HEART_CONTAINERS * -2, true);
   player.AddSoulHearts(MAX_PLAYER_HEART_CONTAINERS * -2);
 
@@ -544,7 +544,7 @@ export function removeAllPlayerHealth(player: EntityPlayer): void {
     const forgotten = player.GetSubPlayer();
     if (forgotten !== undefined) {
       const forgottenBoneHearts = forgotten.GetBoneHearts();
-      forgotten.AddBoneHearts(-forgottenBoneHearts);
+      forgotten.AddBoneHearts(forgottenBoneHearts * -1);
     }
   }
 }
@@ -576,16 +576,13 @@ export function setPlayerHealth(
   for (const activeSlot of alabasterBoxActiveSlots) {
     const totalCharge = getTotalCharge(player, activeSlot);
     setActiveItem(player, CollectibleType.NULL, activeSlot);
-    alabasterBoxDescriptions.push({
-      activeSlot,
-      totalCharge,
-    });
+    alabasterBoxDescriptions.push({ activeSlot, totalCharge });
   }
 
   removeAllPlayerHealth(player);
 
   // Add the red heart containers.
-  if (subPlayer !== undefined && character === PlayerType.SOUL) {
+  if (character === PlayerType.SOUL && subPlayer !== undefined) {
     // Adding health to The Soul is a special case.
     subPlayer.AddMaxHearts(playerHealth.maxHearts, false);
   } else {
@@ -600,31 +597,32 @@ export function setPlayerHealth(
   for (const [i, soulHeartType] of playerHealth.soulHeartTypes.entries()) {
     const isHalf =
       playerHealth.soulHearts + playerHealth.boneHearts * 2 < (i + 1) * 2;
-
-    /**
-     * Fix the bug where a half soul heart to the left of a bone heart will be treated as a full
-     * soul heart.
-     */
-    const shouldAdd1 =
-      isHalf || soulHeartType === HeartSubType.BONE || soulHeartsRemaining < 2;
-
-    const soulHeartsToAdd = shouldAdd1 ? 1 : 2;
+    let addAmount = 2;
+    if (
+      isHalf
+      || soulHeartType === HeartSubType.BONE
+      || soulHeartsRemaining < 2
+    ) {
+      // Fix the bug where a half soul heart to the left of a bone heart will be treated as a full
+      // soul heart.
+      addAmount = 1;
+    }
 
     switch (soulHeartType) {
       case HeartSubType.SOUL: {
-        player.AddSoulHearts(soulHeartsToAdd);
-        soulHeartsRemaining -= soulHeartsToAdd;
+        player.AddSoulHearts(addAmount);
+        soulHeartsRemaining -= addAmount;
         break;
       }
 
       case HeartSubType.BLACK: {
-        player.AddBlackHearts(soulHeartsToAdd);
-        soulHeartsRemaining -= soulHeartsToAdd;
+        player.AddBlackHearts(addAmount);
+        soulHeartsRemaining -= addAmount;
         break;
       }
 
       case HeartSubType.BONE: {
-        player.AddBoneHearts(soulHeartsToAdd);
+        player.AddBoneHearts(addAmount);
         break;
       }
     }

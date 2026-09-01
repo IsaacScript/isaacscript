@@ -16,7 +16,6 @@ import {
   MotherVariant,
   PooterVariant,
   RoundWormVariant,
-  SpittyVariant,
   SubHorfVariant,
   SuckerVariant,
   UltraGreedVariant,
@@ -40,7 +39,7 @@ export const ENTITIES_WITH_ARMOR_SET = new ReadonlySet<string>([
   `${EntityType.HIVE}.${HiveVariant.TAINTED_MULLIGAN}`, // 22.3
   `${EntityType.BOOM_FLY}.${BoomFlyVariant.TAINTED_BOOM_FLY}`, // 25.6
   `${EntityType.HOPPER}.${HopperVariant.TAINTED_HOPPER}`, // 29.3
-  `${EntityType.SPITTY}.${SpittyVariant.TAINTED_SPITTY}`, // 31.1
+  `${EntityType.SPITTY}`, // 31.1
   `${EntityType.SUCKER}.${SuckerVariant.TAINTED_SUCKER}`, // 61.7
   `${EntityType.ISAAC}.${IsaacVariant.BLUE_BABY_HUSH}`, // 102.2
   `${EntityType.WALL_CREEP}.${WallCreepVariant.TAINTED_SOY_CREEP}`, // 240.3

@@ -84,6 +84,37 @@ export function arrayRemoveAllInPlace<T>(
 }
 
 /**
+ * Removes the specified element(s) from the array. If the specified element(s) are not found in the
+ * array, this function will do nothing.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will only remove the first
+ * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
+ * function instead.
+ *
+ * @returns The removed elements. This will be an empty array if no elements were removed.
+ */
+export function arrayRemoveInPlace<T>(
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
+  array: T[],
+  ...elementsToRemove: readonly T[]
+  // eslint-disable-next-line complete/no-mutable-return
+): T[] {
+  const removedElements: T[] = [];
+
+  for (const element of elementsToRemove) {
+    const index = array.indexOf(element);
+    if (index !== -1) {
+      const removedElement = array.splice(index, 1);
+      removedElements.push(...removedElement);
+    }
+  }
+
+  return removedElements;
+}
+
+/**
  * Shallow copies and removes the elements at the specified indexes from the array. Returns the
  * copied array. If the specified indexes are not found in the array, it will simply return a
  * shallow copy of the array.
@@ -133,41 +164,8 @@ export function arrayRemoveIndexInPlace<T>(
   const removedElements: T[] = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
-    if (!legalIndexesSet.has(i)) {
-      continue;
-    }
-
-    const removedElement = array.splice(i, 1);
-    removedElements.push(...removedElement);
-  }
-
-  return removedElements;
-}
-
-/**
- * Removes the specified element(s) from the array. If the specified element(s) are not found in the
- * array, this function will do nothing.
- *
- * This function is variadic, meaning that you can specify N arguments to remove N elements.
- *
- * If there is more than one matching element in the array, this function will only remove the first
- * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
- * function instead.
- *
- * @returns The removed elements. This will be an empty array if no elements were removed.
- */
-export function arrayRemoveInPlace<T>(
-  // eslint-disable-next-line complete/prefer-readonly-parameter-types
-  array: T[],
-  ...elementsToRemove: readonly T[]
-  // eslint-disable-next-line complete/no-mutable-return
-): T[] {
-  const removedElements: T[] = [];
-
-  for (const element of elementsToRemove) {
-    const index = array.indexOf(element);
-    if (index !== -1) {
-      const removedElement = array.splice(index, 1);
+    if (legalIndexesSet.has(i)) {
+      const removedElement = array.splice(i, 1);
       removedElements.push(...removedElement);
     }
   }
@@ -231,7 +229,7 @@ export function copyArray<T>(oldArray: readonly T[], numElements?: int): T[] {
 /** Helper function to remove all of the elements in an array in-place. */
 // eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function emptyArray(array: unknown[]): void {
-  array.length = 0;
+  array.splice(0);
 }
 
 /**
@@ -308,10 +306,31 @@ export function getArrayCombinations<T>(
 
   // Finally, account for the empty array combination.
   if (includeEmptyArray) {
-    all.unshift([]); // eslint-disable-line unicorn/no-array-front-mutation
+    all.unshift([]);
   }
 
   return all;
+}
+
+/** Mutates the `all` array in-place. */
+function addCombinations<T>(
+  n: number,
+  src: readonly T[],
+  got: readonly T[],
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
+  all: Array<readonly T[]>,
+) {
+  if (n === 0) {
+    if (got.length > 0) {
+      all[all.length] = got;
+    }
+
+    return;
+  }
+
+  for (const [i, element] of src.entries()) {
+    addCombinations(n - 1, src.slice(i + 1), [...got, element], all);
+  }
 }
 
 /**
@@ -664,25 +683,4 @@ export function swapArrayElements(
 
   array[i] = value2;
   array[j] = value1;
-}
-
-/** Mutates the `all` array in-place. */
-function addCombinations<T>(
-  n: number,
-  src: readonly T[],
-  got: readonly T[],
-  // eslint-disable-next-line complete/prefer-readonly-parameter-types
-  all: Array<readonly T[]>,
-) {
-  if (n === 0) {
-    if (got.length > 0) {
-      all[all.length] = got;
-    }
-
-    return;
-  }
-
-  for (const [i, element] of src.entries()) {
-    addCombinations(n - 1, src.slice(i + 1), [...got, element], all);
-  }
 }

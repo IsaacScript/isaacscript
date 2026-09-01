@@ -4,6 +4,37 @@ import { UI_HEART_WIDTH, VectorZero } from "../core/constants";
 import { copyVector } from "./vector";
 
 /**
+ * In the options menu, players have the ability to set a HUD offset (which gets written to the
+ * `HudOffset` attribute in the "options.ini" file). This function uses the current HUD offset to
+ * generate a vector that should be added to the corresponding position that you want to draw a UI
+ * element at.
+ *
+ * For example:
+ * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
+ * - If the user has a HUD offset of 1.0 configured, this function will return `Vector(20, 12)`.
+ */
+export function getHUDOffsetVector(): Readonly<Vector> {
+  // Convert e.g. 0.4 to 4.
+  const hudOffset = Math.floor(Options.HUDOffset * 10);
+
+  // Expected values are integers between 1 and 10.
+  if (hudOffset < 1 || hudOffset > 10) {
+    return copyVector(VectorZero);
+  }
+
+  const x = hudOffset * 2;
+  let y = hudOffset;
+  if (y >= 4) {
+    y++;
+  }
+  if (y >= 9) {
+    y++;
+  }
+
+  return Vector(x, y);
+}
+
+/**
  * Returns how many hearts are in the heart UI row. If the player has more than 6 hearts, this
  * function will return 6.
  */
@@ -59,37 +90,6 @@ export function getHeartsUIWidth(): int {
   }
 
   return width;
-}
-
-/**
- * In the options menu, players have the ability to set a HUD offset (which gets written to the
- * `HudOffset` attribute in the "options.ini" file). This function uses the current HUD offset to
- * generate a vector that should be added to the corresponding position that you want to draw a UI
- * element at.
- *
- * For example:
- * - If the user does not have a HUD offset configured, this function will return `Vector(0, 0)`.
- * - If the user has a HUD offset of 1.0 configured, this function will return `Vector(20, 12)`.
- */
-export function getHUDOffsetVector(): Readonly<Vector> {
-  // Convert e.g. 0.4 to 4.
-  const hudOffset = Math.floor(Options.HUDOffset * 10);
-
-  // Expected values are integers between 1 and 10.
-  if (hudOffset < 1 || hudOffset > 10) {
-    return copyVector(VectorZero);
-  }
-
-  const x = hudOffset * 2;
-  let y = hudOffset;
-  if (y >= 4) {
-    y++;
-  }
-  if (y >= 9) {
-    y++;
-  }
-
-  return Vector(x, y);
 }
 
 export function getScreenBottomCenterPos(): Readonly<Vector> {

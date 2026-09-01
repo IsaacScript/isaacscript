@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-return-assign */
-/* eslint-disable perfectionist/sort-modules */
+/* eslint-disable sort-exports/sort-exports */
 
 /**
  * From: https://easings.net/#easeInSine
@@ -109,11 +109,9 @@ export function easeOutCirc(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInOutCirc(time: number): number {
-  return (
-    time < 0.5
-      ? 1 - Math.sqrt(1 - (2 * time) ** 2)
-      : Math.sqrt(1 - (-2 * time + 2) ** 2) + 1
-  ) / 2;
+  return time < 0.5
+    ? (1 - Math.sqrt(1 - (2 * time) ** 2)) / 2
+    : (Math.sqrt(1 - (-2 * time + 2) ** 2) + 1) / 2;
 }
 
 /**
@@ -248,9 +246,9 @@ export function easeInOutExpo(time: number): number {
     ? 0
     : time === 1
       ? 1
-      : (time < 0.5
-          ? 2 ** (20 * time - 10)
-          : 2 - 2 ** (-20 * time + 10)) / 2;
+      : time < 0.5
+        ? 2 ** (20 * time - 10) / 2
+        : (2 - 2 ** (-20 * time + 10)) / 2;
 }
 
 /**
@@ -259,7 +257,7 @@ export function easeInOutExpo(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInBack(time: number): number {
-  const c1 = 1.70158;
+  const c1 = 1.701_58;
   const c3 = c1 + 1;
 
   return c3 * time * time * time - c1 * time * time;
@@ -271,7 +269,7 @@ export function easeInBack(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeOutBack(time: number): number {
-  const c1 = 1.70158;
+  const c1 = 1.701_58;
   const c3 = c1 + 1;
 
   return 1 + c3 * (time - 1) ** 3 + c1 * (time - 1) ** 2;
@@ -283,14 +281,12 @@ export function easeOutBack(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInOutBack(time: number): number {
-  const c1 = 1.70158;
+  const c1 = 1.701_58;
   const c2 = c1 * 1.525;
 
-  return (
-    time < 0.5
-      ? (2 * time) ** 2 * ((c2 + 1) * 2 * time - c2)
-      : (2 * time - 2) ** 2 * ((c2 + 1) * (time * 2 - 2) + c2) + 2
-  ) / 2;
+  return time < 0.5
+    ? ((2 * time) ** 2 * ((c2 + 1) * 2 * time - c2)) / 2
+    : ((2 * time - 2) ** 2 * ((c2 + 1) * (time * 2 - 2) + c2) + 2) / 2;
 }
 
 /**
@@ -323,7 +319,7 @@ export function easeOutBounce(time: number): number {
     return n1 * (time -= 2.25 / d1) * time + 0.9375;
   }
 
-  return n1 * (time -= 2.625 / d1) * time + 0.984375;
+  return n1 * (time -= 2.625 / d1) * time + 0.984_375;
 }
 
 /**
@@ -332,9 +328,7 @@ export function easeOutBounce(time: number): number {
  * @param time A value between 0 and 1 that represents how far along you are in the transition.
  */
 export function easeInOutBounce(time: number): number {
-  return (
-    time < 0.5
-      ? 1 - easeOutBounce(1 - 2 * time)
-      : 1 + easeOutBounce(2 * time - 1)
-  ) / 2;
+  return time < 0.5
+    ? (1 - easeOutBounce(1 - 2 * time)) / 2
+    : (1 + easeOutBounce(2 * time - 1)) / 2;
 }

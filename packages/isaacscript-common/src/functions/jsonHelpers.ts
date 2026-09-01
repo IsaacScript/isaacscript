@@ -1,6 +1,14 @@
 import * as jsonLua from "../lib/jsonLua";
 import { logError } from "./log";
 
+function tryDecode(this: void, jsonString: string) {
+  return jsonLua.decode(jsonString) as LuaMap<AnyNotNil, unknown>;
+}
+
+function tryEncode(this: void, luaTable: unknown) {
+  return jsonLua.encode(luaTable);
+}
+
 /**
  * Converts a JSON string to a Lua table.
  *
@@ -42,12 +50,4 @@ export function jsonEncode(luaTable: unknown): string {
   }
 
   return jsonStringOrErrMsg;
-}
-
-function tryDecode(this: void, jsonString: string) {
-  return jsonLua.decode(jsonString) as LuaMap<AnyNotNil, unknown>;
-}
-
-function tryEncode(this: void, luaTable: unknown) {
-  return jsonLua.encode(luaTable);
 }

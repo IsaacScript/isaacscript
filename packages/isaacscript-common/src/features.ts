@@ -125,7 +125,6 @@ export interface ISCFeatureToClass {
   [ISCFeature.UNLOCK_ACHIEVEMENTS_DETECTION]: UnlockAchievementsDetection;
 }
 
-// eslint-disable-next-line unicorn/no-top-level-side-effects
 interfaceSatisfiesEnum<ISCFeatureToClass, ISCFeature>();
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -1,4 +1,11 @@
-/* eslint "perfectionist/sort-modules": "error" */
+/*
+eslint sort-exports/sort-exports: [
+  "warn",
+  {
+    sortDir: "asc",
+  },
+]
+*/
 
 // These are validation functions for specific types of callbacks. (End-users can provide optional
 // arguments during callback registration such that their function should only fire when certain
@@ -459,6 +466,18 @@ export function shouldFireSpikes(
   return callbackVariant === undefined || callbackVariant === variant;
 }
 
+export function shouldFireTNT(
+  fireArgs: [tnt: GridEntityTNT],
+  optionalArgs: [variant?: int],
+): boolean {
+  const [tnt] = fireArgs;
+  const [callbackVariant] = optionalArgs;
+
+  const variant = tnt.GetVariant();
+
+  return callbackVariant === undefined || callbackVariant === variant;
+}
+
 export function shouldFireTear(
   fireArgs:
     | [tear: EntityTear]
@@ -473,18 +492,6 @@ export function shouldFireTear(
     (callbackTearVariant === undefined || callbackTearVariant === tear.Variant)
     && (callbackSubType === undefined || callbackSubType === tear.SubType)
   );
-}
-
-export function shouldFireTNT(
-  fireArgs: [tnt: GridEntityTNT],
-  optionalArgs: [variant?: int],
-): boolean {
-  const [tnt] = fireArgs;
-  const [callbackVariant] = optionalArgs;
-
-  const variant = tnt.GetVariant();
-
-  return callbackVariant === undefined || callbackVariant === variant;
 }
 
 export function shouldFireTrinketType(

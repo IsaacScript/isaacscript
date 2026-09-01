@@ -4,12 +4,6 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayNPC extends Feature {
-  // ModCallback.POST_NPC_RENDER (28)
-  private readonly postNPCRender = (npc: EntityNPC) => {
-    const text = this.textCallback(npc);
-    renderTextOnEntity(npc, text);
-  };
-
   public textCallback: (npc: EntityNPC) => string =
     defaultEntityDisplayCallback;
 
@@ -21,4 +15,10 @@ export class DebugDisplayNPC extends Feature {
       [ModCallback.POST_NPC_RENDER, this.postNPCRender],
     ];
   }
+
+  // ModCallback.POST_NPC_RENDER (28)
+  private readonly postNPCRender = (npc: EntityNPC) => {
+    const text = this.textCallback(npc);
+    renderTextOnEntity(npc, text);
+  };
 }

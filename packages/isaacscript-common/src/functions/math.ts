@@ -120,7 +120,7 @@ export function lerpAngleDegrees(
 /**
  * If rounding fails, this function returns 0.
  *
- * From: https://lua-users.org/wiki/SimpleRound
+ * From: http://lua-users.org/wiki/SimpleRound
  *
  * @param num The number to round.
  * @param numDecimalPlaces Optional. Default is 0.

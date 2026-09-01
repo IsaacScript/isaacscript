@@ -97,14 +97,13 @@ const BACKDROP_ROOM_TYPE_SET = new ReadonlySet<RoomType>([
 export function setCustomStageBackdrop(customStage: CustomStage): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
+  const decorationSeed = room.GetDecorationSeed();
+  const rng = newRNG(decorationSeed);
 
   // We do not want to set the backdrop inside shops, Curse Rooms, and so on.
   if (!BACKDROP_ROOM_TYPE_SET.has(roomType)) {
     return;
   }
-
-  const decorationSeed = room.GetDecorationSeed();
-  const rng = newRNG(decorationSeed);
 
   spawnWallEntity(customStage, rng, false);
   spawnSecondWallEntity(customStage, rng);

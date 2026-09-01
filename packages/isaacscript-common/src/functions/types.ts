@@ -184,8 +184,6 @@ export function isInteger(variable: unknown): variable is int {
     return false;
   }
 
-  // `Number.isSafeInteger` is not supported by TypeScriptToLua.
-  // eslint-disable-next-line unicorn/prefer-number-is-safe-integer
   return variable === Math.floor(variable);
 }
 

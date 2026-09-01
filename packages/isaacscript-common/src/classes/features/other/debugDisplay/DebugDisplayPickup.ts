@@ -4,12 +4,6 @@ import { Feature } from "../../../private/Feature";
 import { defaultEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPickup extends Feature {
-  // ModCallback.POST_PICKUP_RENDER (36)
-  private readonly postPickupRender = (pickup: EntityPickup) => {
-    const text = this.textCallback(pickup);
-    renderTextOnEntity(pickup, text);
-  };
-
   public textCallback: (pickup: EntityPickup) => string =
     defaultEntityDisplayCallback;
 
@@ -21,4 +15,10 @@ export class DebugDisplayPickup extends Feature {
       [ModCallback.POST_PICKUP_RENDER, this.postPickupRender],
     ];
   }
+
+  // ModCallback.POST_PICKUP_RENDER (36)
+  private readonly postPickupRender = (pickup: EntityPickup) => {
+    const text = this.textCallback(pickup);
+    renderTextOnEntity(pickup, text);
+  };
 }

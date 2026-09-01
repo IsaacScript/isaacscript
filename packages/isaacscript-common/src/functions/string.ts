@@ -172,11 +172,7 @@ export function parseSemanticVersion(versionString: string):
     return undefined;
   }
 
-  return {
-    majorVersion,
-    minorVersion,
-    patchVersion,
-  };
+  return { majorVersion, minorVersion, patchVersion };
 }
 
 export function removeAllCharacters(string: string, character: string): string {

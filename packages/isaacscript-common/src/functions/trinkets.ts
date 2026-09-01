@@ -100,7 +100,8 @@ export function getTrinketDescription(trinketType: TrinketType): string {
   // "ItemConfigItem.Description" is bugged with vanilla items on patch v1.7.6, so we use a
   // hard-coded object as a workaround.
   const trinketDescription = TRINKET_DESCRIPTIONS[trinketType] as
-    string | undefined;
+    | string
+    | undefined;
   if (trinketDescription !== undefined) {
     return trinketDescription;
   }
