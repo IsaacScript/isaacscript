@@ -357,7 +357,7 @@ function checkExecuteQueuedFunctions(
   );
 
   for (const firingFunction of firingFunctions) {
-    const { func, cancelIfRoomChanges, numRoomsEntered } = firingFunction;
+    const { func, numRoomsEntered, cancelIfRoomChanges } = firingFunction;
 
     if (!cancelIfRoomChanges || numRoomsEntered === newNumRoomsEntered) {
       func();
@@ -378,7 +378,7 @@ function checkExecuteIntervalFunctions(
   );
 
   for (const firingFunction of firingFunctions) {
-    const { func, cancelIfRoomChanges, numRoomsEntered, numIntervalFrames } =
+    const { func, numIntervalFrames, numRoomsEntered, cancelIfRoomChanges } =
       firingFunction;
 
     let returnValue = false;

@@ -33,7 +33,6 @@ export default defineConfig(
       "@typescript-eslint/require-array-sort-compare": "error",
 
       // TODO
-      "complete/sort-destructured-properties": "off",
       "unicorn/comment-content": "off",
       "unicorn/consistent-class-member-order": "off",
       "unicorn/no-array-front-mutation": "off",
