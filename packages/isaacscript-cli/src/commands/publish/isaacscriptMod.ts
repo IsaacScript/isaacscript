@@ -125,8 +125,7 @@ async function hasIsaacSteamWorkshopUploadGitHubAction(): Promise<boolean> {
   const ciYML = await readFile(ciYMLPath);
   const lines = ciYML.split("\n");
 
-  return lines.some(
-    (line) =>
-      /^\s*uses: IsaacScript\/isaac-steam-workshop-upload/v.test(line),
+  return lines.some((line) =>
+    /^\s*uses: IsaacScript\/isaac-steam-workshop-upload/v.test(line),
   );
 }

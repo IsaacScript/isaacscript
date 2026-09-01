@@ -108,7 +108,7 @@ export async function validatePackageJSONDependencies(): Promise<void> {
 
   for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
     if (!dependenciesArray.includes(devDependency)) {
-    	continue;
+      continue;
     }
 
     const addDevCommand = getPackageManagerAddDevCommand(
@@ -124,7 +124,7 @@ export async function validatePackageJSONDependencies(): Promise<void> {
 
   for (const devDependency of REQUIRED_PACKAGE_JSON_DEV_DEPENDENCIES) {
     if (devDependenciesArray.includes(devDependency)) {
-    	continue;
+      continue;
     }
 
     const addDevCommand = getPackageManagerAddDevCommand(

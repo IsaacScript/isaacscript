@@ -7,7 +7,7 @@ export function checkModSubdirectory(
   modsDirectory: string,
 ): void {
   if (!isSubdirectoryOf(CWD, modsDirectory)) {
-  	return;
+    return;
   }
 
   console.error(

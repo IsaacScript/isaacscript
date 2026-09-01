@@ -129,7 +129,7 @@ export function execShell(
     if (allowFailure) {
       return {
         exitStatus,
-        stdout
+        stdout,
       };
     }
 
@@ -145,7 +145,7 @@ export function execShell(
 
   return {
     exitStatus,
-    stdout
+    stdout,
   };
 }
 

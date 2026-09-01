@@ -56,7 +56,7 @@ export async function getProjectPath(
   console.log(`Using a project name of: ${chalk.green(projectName)}`);
   return {
     projectPath,
-    createNewDir
+    createNewDir,
   };
 }
 

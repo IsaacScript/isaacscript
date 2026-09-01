@@ -1,18 +1,21 @@
-import { $, getMonorepoPackageNames, lintScript } from "complete-node";
+import { $q, getMonorepoPackageNames, lintCommands } from "complete-node";
 import path from "node:path";
+
+const REPO_ROOT = path.resolve(import.meta.dirname, "..");
 
 // This script runs the lint scripts for each individual package. It does not run the lint scripts
 // for the monorepo itself. For that, use the "lint.ts" script.
-await lintScript(import.meta.dirname, async (packageRoot) => {
-  const lintPackages = await getMonorepoPackageNames(packageRoot, "lint");
+const lintPackages = await getMonorepoPackageNames(REPO_ROOT, "lint");
 
-  await Promise.all(
-    lintPackages.map(async (packageName) => {
-      const packagePath = path.join(packageRoot, "packages", packageName);
-      const $$ = $({ cwd: packagePath });
-      await $$`npm run lint`;
-    }),
-  );
-
-  console.log("Successfully linted all monorepo packages.");
+const lintPackageCommands = lintPackages.map((packageName) => {
+  const packagePath = path.join(REPO_ROOT, "packages", packageName);
+  const $$ = $q({
+    cwd: packagePath,
+    all: true,
+  });
+  return [packageName, $$`bun run lint`] as const;
 });
+
+await lintCommands(import.meta.dirname, lintPackageCommands, true);
+
+console.log("Successfully linted all monorepo packages.");

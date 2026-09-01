@@ -133,7 +133,7 @@ async function validateCustomStagePaths(
     if (customStageTSConfig.bossPool !== undefined) {
       for (const bossPoolEntry of Object.values(customStageTSConfig.bossPool)) {
         if (bossPoolEntry.versusScreen === undefined) {
-        	continue;
+          continue;
         }
 
         // eslint-disable-next-line no-await-in-loop
@@ -310,7 +310,7 @@ async function getCustomStagesWithMetadata(
   for (const customStageTSConfig of customStagesTSConfig) {
     // Some manual input validation was already performed in the `getCustomStagesFromTSConfig`
     // function.
-    const {name, xmlPath} = customStageTSConfig;
+    const { name, xmlPath } = customStageTSConfig;
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
     // eslint-disable-next-line no-await-in-loop

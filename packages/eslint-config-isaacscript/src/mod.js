@@ -201,6 +201,20 @@ export const isaacScriptModConfigBase = defineConfig(
       /**
        * Defined at: base-unicorn.js
        *
+       * The rule assumes that `print` is the JavaScript one instead of the Lua one.
+       */
+      "unicorn/no-invalid-argument-count": [
+        "error",
+        {
+          print: {
+            min: 0,
+          },
+        },
+      ],
+
+      /**
+       * Defined at: base-unicorn.js
+       *
        * `null` values are conventionally used with the `isaacscript-common` save data manager (even
        * though they are transpiled to `nil`).
        */
