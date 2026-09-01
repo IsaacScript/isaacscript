@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { $, diff, echo, exit, lintCommands, readFile } from "complete-node";
+import { diff, echo, exit, lintCommands, readFile } from "complete-node";
 import path from "node:path";
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
@@ -11,8 +11,6 @@ const LOCAL_GITIGNORE_PATH = path.join(
 );
 const GITIGNORE_URL =
   "https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore";
-
-await $`python -m pip install isaac-xml-validator --upgrade --quiet`;
 
 await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
