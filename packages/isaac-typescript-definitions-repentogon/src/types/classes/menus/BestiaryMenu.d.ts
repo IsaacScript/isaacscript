@@ -14,9 +14,6 @@ declare namespace BestiaryMenu {
   /** Returns the sprite used for the enemy displayed in the bestiary. */
   function GetEnemySprite(): Sprite;
 
-  /** Returns the index of the currently selected page in the bestiary. */
-  function GetSelectedPage(): int;
-
   /**
    * Returns the index of the last page in the bestiary where enemies are displayed. Pages
    * afterwards are reserved for bosses.
@@ -37,9 +34,12 @@ declare namespace BestiaryMenu {
   /** Returns the index of the currently selected element in the bestiary. */
   function GetSelectedElement(): int;
 
-  /** Sets the current active page in the bestiary. */
-  function SetSelectedPage(page: int): void;
+  /** Returns the index of the currently selected page in the bestiary. */
+  function GetSelectedPage(): int;
 
   /** Sets the current selected element in the bestiary. */
   function SetSelectedElement(element: int): void;
+
+  /** Sets the current active page in the bestiary. */
+  function SetSelectedPage(page: int): void;
 }

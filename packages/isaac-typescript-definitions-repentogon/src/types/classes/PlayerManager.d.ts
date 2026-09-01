@@ -103,7 +103,6 @@ declare global {
       rng?: RNG,
       lazarusSharedGlobalTag?: boolean,
     ): EntityPlayer | undefined;
-
     function FirstTrinketOwner(
       trinket: TrinketType,
       lazarusSharedGlobalTag?: boolean,

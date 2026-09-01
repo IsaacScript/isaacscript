@@ -1,25 +1,4 @@
 /**
- * Constructs a new beam object.
- *
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @param this
- * @param sprite The sprite used must share the same scope as the beam you are creating, otherwise
- *               the beam won't work.
- * @param layerOrLayerName
- * @param useOverlay
- * @param unknownBool The behavior of this argument is currently unknown.
- * @see https://repentogon.com/
- */
-declare function Beam(
-  this: void,
-  sprite: Sprite,
-  layerOrLayerName: int | string,
-  useOverlay: boolean,
-  unknownBool: boolean,
-): RenderBeam;
-
-/**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/
@@ -95,3 +74,24 @@ declare interface RenderBeam extends IsaacAPIClass {
   /** Sets whether the beam is an overlay. */
   SetUseOverlay: (useOverlay: boolean) => void;
 }
+
+/**
+ * Constructs a new beam object.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @param this
+ * @param sprite The sprite used must share the same scope as the beam you are creating, otherwise
+ *               the beam won't work.
+ * @param layerOrLayerName
+ * @param useOverlay
+ * @param unknownBool The behavior of this argument is currently unknown.
+ * @see https://repentogon.com/
+ */
+declare function Beam(
+  this: void,
+  sprite: Sprite,
+  layerOrLayerName: int | string,
+  useOverlay: boolean,
+  unknownBool: boolean,
+): RenderBeam;

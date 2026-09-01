@@ -1017,13 +1017,13 @@ declare global {
         scale: number,
         chargeBarPosition: Vector,
       ) =>
+        | boolean
         | {
             HideItem?: boolean;
             HideOutline?: boolean;
             HideChargeBar?: boolean;
             CropOffset?: Vector;
           }
-        | boolean
         | undefined,
       collectible?: CollectibleType,
     ];
@@ -1788,8 +1788,8 @@ declare global {
         player: EntityPlayer,
         cropOffset: Vector,
       ) =>
-        | { Position?: Vector; Scale?: number; CropOffset?: Vector }
         | boolean
+        | { Position?: Vector; Scale?: number; CropOffset?: Vector }
         | undefined,
       slot?: TrinketSlot,
     ];

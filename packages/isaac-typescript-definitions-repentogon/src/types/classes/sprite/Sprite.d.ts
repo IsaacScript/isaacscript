@@ -1,13 +1,6 @@
 import type { AnimationRenderFlag } from "../../../enums/flags/AnimationRenderFlag";
 
 declare global {
-  /** The constructor for the REPENTOGON `Sprite`. */
-  function Sprite(
-    this: void,
-    anm2Path: string,
-    loadGraphics?: boolean,
-  ): LuaMultiReturn<[sprite: Sprite, loadedSuccessfully: boolean]>;
-
   interface Sprite extends IsaacAPIClass {
     /** Clears the custom shader. */
     ClearCustomChampionShader: () => void;
@@ -190,4 +183,11 @@ declare global {
      */
     WasOverlayEventTriggered: (eventName: string) => boolean;
   }
+
+  /** The constructor for the REPENTOGON `Sprite`. */
+  function Sprite(
+    this: void,
+    anm2Path: string,
+    loadGraphics?: boolean,
+  ): LuaMultiReturn<[sprite: Sprite, loadedSuccessfully: boolean]>;
 }

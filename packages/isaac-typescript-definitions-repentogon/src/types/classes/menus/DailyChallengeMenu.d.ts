@@ -8,17 +8,17 @@ declare global {
    * @see https://repentogon.com/
    */
   namespace DailyChallengeMenu {
-    /** Returns the sprite used for the daily challenge menu. */
-    function GetSprite(): Sprite;
+    /** Returns the sprite used for the leaderboard score menu. */
+    function GetLeaderboardScoreMenuSprite(): Sprite;
 
     /** Returns the sprite used for the daily challenge leaderboard. */
     function GetLeaderboardSprite(): Sprite;
 
-    /** Returns the sprite used for the leaderboard score menu. */
-    function GetLeaderboardScoreMenuSprite(): Sprite;
-
     /** Returns the index of the currently selected element. */
     function GetSelectedElement(): int;
+
+    /** Returns the sprite used for the daily challenge menu. */
+    function GetSprite(): Sprite;
 
     /** Returns the current state of the menu. */
     function GetState(): DailyChallengeMenuState;

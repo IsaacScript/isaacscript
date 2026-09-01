@@ -1233,7 +1233,7 @@ declare global {
      * Spawns a series of pickups the same way Tainted Cain does upon picking up a collectible. The
      * salvaged pickup is removed.
      *
-     * The original name of this method was "SalvageCollectible". However, due to Typescript's poor
+     * The original name of this method was "SalvageCollectible". However, due to TypeScript's poor
      * support with method overloads in interfaces, this overload was renamed to `SalvagePickup`.
      * When the mod is compiled, all references to `SalvagePickup` are renamed to
      * `SalvageCollectible`.

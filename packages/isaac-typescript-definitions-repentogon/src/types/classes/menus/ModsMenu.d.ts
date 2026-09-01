@@ -5,11 +5,11 @@
  * @see https://repentogon.com/
  */
 declare namespace ModsMenu {
-  /** Returns the sprite used for the mods menu. */
-  function GetSprite(): Sprite;
-
   /** Returns the index of the currently selected element. */
   function GetSelectedElement(): int;
+
+  /** Returns the sprite used for the mods menu. */
+  function GetSprite(): Sprite;
 
   /** Sets the currently selected element to the provided index. */
   function SetSelectedElement(element: int): void;

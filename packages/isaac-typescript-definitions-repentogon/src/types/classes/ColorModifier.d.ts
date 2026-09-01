@@ -1,26 +1,4 @@
 /**
- * Constructs a new `ColorModifier` object.
- *
- * @param r Optional. Default is 1.
- * @param g Optional. Default is 1.
- * @param b Optional. Default is 1.
- * @param a Optional. Default is 0.
- * @param brightness Optional. Default is 0.
- * @param contrast Optional. Default is 1. This class is for REPENTOGON, an exe-hack which expands
- *                 the modding API.
- * @see https://repentogon.com/
- */
-declare function ColorModifier(
-  this: void,
-  r?: float,
-  g?: float,
-  b?: float,
-  a?: float,
-  brightness?: float,
-  contrast?: float,
-): ColorModifier;
-
-/**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/
@@ -41,3 +19,25 @@ declare interface ColorModifier extends IsaacAPIClass {
   mul: LuaMultiplicationMethod<number | ColorModifier, ColorModifier>;
   div: LuaDivisionMethod<ColorModifier | number, ColorModifier>;
 }
+
+/**
+ * Constructs a new `ColorModifier` object.
+ *
+ * @param r Optional. Default is 1.
+ * @param g Optional. Default is 1.
+ * @param b Optional. Default is 1.
+ * @param a Optional. Default is 0.
+ * @param brightness Optional. Default is 0.
+ * @param contrast Optional. Default is 1. This class is for REPENTOGON, an exe-hack which expands
+ *                 the modding API.
+ * @see https://repentogon.com/
+ */
+declare function ColorModifier(
+  this: void,
+  r?: float,
+  g?: float,
+  b?: float,
+  a?: float,
+  brightness?: float,
+  contrast?: float,
+): ColorModifier;

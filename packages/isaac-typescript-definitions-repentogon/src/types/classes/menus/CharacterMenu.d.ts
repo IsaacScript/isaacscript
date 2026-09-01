@@ -14,20 +14,20 @@ declare global {
     function GetActiveStatus(): CharacterMenuStatus;
 
     /**
-     * Returns the sprite used for the background of the character wheel background.
-     *
-     * Modded characters with their own unique character wheel background uses a different sprite
-     * than the one this method returns.
-     */
-    function GetBigCharPageSprite(): Sprite;
-
-    /**
      * Returns the sprite used for the background of the character menu.
      *
      * Modded characters with their own unique character menu background uses a different sprite
      * than the one this method returns.
      */
     function GetBGSprite(): Sprite;
+
+    /**
+     * Returns the sprite used for the background of the character wheel background.
+     *
+     * Modded characters with their own unique character wheel background uses a different sprite
+     * than the one this method returns.
+     */
+    function GetBigCharPageSprite(): Sprite;
 
     function GetCharacterPortraitSprite(): Sprite;
 
@@ -40,26 +40,26 @@ declare global {
     /** Returns the currently selected difficulty on the character menu. */
     function GetDifficulty(): Difficulty;
 
-    /** Returns the sprite used to display the difficulty options. */
-    function GetDifficultyPageSprite(): Sprite;
-
     /**
      * Returns sprite that is displayed on the menu as an overlay when the currently selected
      * difficulty is Hard Mode or Greedier.
      */
     function GetDifficultyOverlaySprite(): Sprite;
 
+    /** Returns the sprite used to display the difficulty options. */
+    function GetDifficultyPageSprite(): Sprite;
+
     /** Returns the sprite used to display the easter eggs widget. */
     function GetEasterEggPageSprite(): Sprite;
-
-    /** Returns whether the currently selected character is unlocked. */
-    function GetIsCharacterUnlocked(): boolean;
 
     /**
      * Returns the background of the character menu that is active when Greed or Greedier is
      * selected.
      */
     function GetGreedDecoSprite(): Sprite;
+
+    /** Returns whether the currently selected character is unlocked. */
+    function GetIsCharacterUnlocked(): boolean;
 
     /** Returns the number of characters displayed on the character wheel. */
     function GetNumCharacters(): int;
@@ -111,12 +111,12 @@ declare global {
     /** Sets the scroll speed of the character wheel. */
     function SetScrollSpeed(speed: number): void;
 
+    /** Sets the current selected character to the provided `PlayerType`. */
+    function SetSelectedCharacterID(characterId: PlayerType): void;
+
     /** Sets the current character menu. */
     function SetSelectedCharacterMenu(
       characterMenuType: CharacterMenuType,
     ): void;
-
-    /** Sets the current selected character to the provided `PlayerType`. */
-    function SetSelectedCharacterID(characterId: PlayerType): void;
   }
 }

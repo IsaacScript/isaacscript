@@ -8,25 +8,12 @@ import type {
 import type { GameMode } from "../../../enums/GameMode";
 
 declare global {
-  interface LuaRoomSpawnEntryREPENTOGON {
-    TYPE: int;
-    VARIANT?: int;
-    SUBTYPE?: int;
-    WEIGHT?: number;
-  }
-
   interface LuaRoomDoorREPENTOGON {
     ISDOOR: true; // cspell:ignore ISDOOR
     EXISTS: boolean;
     SLOT?: DoorSlot;
     GRIDX?: int; // cspell:ignore GRIDX
     GRIDY?: int; // cspell:ignore GRIDY
-  }
-
-  interface LuaRoomSpawnREPENTOGON {
-    GRIDX: int; // cspell:ignore GRIDX
-    GRIDY: int; // cspell:ignore GRIDY
-    [index: int]: LuaRoomSpawnEntryREPENTOGON;
   }
 
   interface LuaRoomREPENTOGON {
@@ -38,6 +25,19 @@ declare global {
     DIFFICULTY?: int;
     WEIGHT?: number;
     [index: int]: LuaRoomDoorREPENTOGON | LuaRoomSpawnREPENTOGON;
+  }
+
+  interface LuaRoomSpawnEntryREPENTOGON {
+    TYPE: int;
+    VARIANT?: int;
+    SUBTYPE?: int;
+    WEIGHT?: number;
+  }
+
+  interface LuaRoomSpawnREPENTOGON {
+    GRIDX: int; // cspell:ignore GRIDX
+    GRIDY: int; // cspell:ignore GRIDY
+    [index: int]: LuaRoomSpawnEntryREPENTOGON;
   }
 
   interface RoomConfig extends IsaacAPIClass {

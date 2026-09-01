@@ -5,9 +5,6 @@
  * @see https://repentogon.com/
  */
 declare namespace SaveMenu {
-  /** Returns the sprite used for the save select menu. */
-  function GetSaveSelectMenuSprite(): Sprite;
-
   /** Returns the sprite used by the save delete button. */
   function GetDeleteButtonSprite(): Sprite;
 
@@ -22,6 +19,9 @@ declare namespace SaveMenu {
 
   /** Returns the sprite used by the save file #3 drawing. */
   function GetSave3DrawingSprite(): Sprite;
+
+  /** Returns the sprite used for the save select menu. */
+  function GetSaveSelectMenuSprite(): Sprite;
 
   /** Returns the index of the currently selected element. */
   function GetSelectedElement(): int;

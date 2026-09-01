@@ -1,12 +1,3 @@
-declare function ColorParams(
-  this: void,
-  color: Color,
-  priority: int,
-  duration: int,
-  fadeout: boolean,
-  shared: boolean,
-): ColorParams;
-
 /**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
@@ -52,3 +43,12 @@ declare interface ColorParams extends IsaacAPIClass {
   /** Sets whether the `ColorParams` is shared with the entity's child. */
   SetShared: (shared: boolean) => void;
 }
+
+declare function ColorParams(
+  this: void,
+  color: Color,
+  priority: int,
+  duration: int,
+  fadeout: boolean,
+  shared: boolean,
+): ColorParams;

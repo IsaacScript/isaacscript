@@ -1,13 +1,4 @@
 /**
- * Creates a new `WeightedOutcomePicker` object.
- *
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @see https://repentogon.com/
- */
-declare function WeightedOutcomePicker(this: void): WeightedOutcomePicker;
-
-/**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/
@@ -58,3 +49,12 @@ declare interface WeightedOutcomePicker extends IsaacAPIClass {
   /** Removes an outcome from the outcome picker with the specified `value`. */
   RemoveOutcome: (value: int) => void;
 }
+
+/**
+ * Creates a new `WeightedOutcomePicker` object.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/
+ */
+declare function WeightedOutcomePicker(this: void): WeightedOutcomePicker;

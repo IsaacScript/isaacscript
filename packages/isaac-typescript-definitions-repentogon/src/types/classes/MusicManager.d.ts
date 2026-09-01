@@ -1,8 +1,6 @@
 import type { Music } from "isaac-typescript-definitions";
 
 declare global {
-  function MusicManager(this: void): MusicManager;
-
   interface MusicManager extends IsaacAPIClass {
     /** Returns the current pitch of the music. */
     GetCurrentPitch: () => number;
@@ -16,4 +14,6 @@ declare global {
     /** Stops the currently playing jingle. */
     StopJingle: () => void;
   }
+
+  function MusicManager(this: void): MusicManager;
 }

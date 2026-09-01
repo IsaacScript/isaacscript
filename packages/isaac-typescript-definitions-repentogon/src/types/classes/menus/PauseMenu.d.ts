@@ -20,11 +20,11 @@ declare global {
     /** Returns the sprite used for the pause menu. */
     function GetSprite(): Sprite;
 
-    /** Returns the sprite used to display the stats. */
-    function GetStatsSprite(): Sprite;
-
     /** Returns the current state of the pause menu. */
     function GetState(): PauseMenuState;
+
+    /** Returns the sprite used to display the stats. */
+    function GetStatsSprite(): Sprite;
 
     /** Sets the current element to the provided index. */
     function SetSelectedElement(element: int): void;

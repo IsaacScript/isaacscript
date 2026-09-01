@@ -1,19 +1,4 @@
 /**
- * Constructs a new DestinationQuad class.
- *
- * This class is for REPENTOGON, an exe-hack which expands the modding API.
- *
- * @see https://repentogon.com/
- */
-declare function DestinationQuad(
-  this: void,
-  topLeft: Vector,
-  topRight: Vector,
-  bottomLeft: Vector,
-  bottomRight: Vector,
-): DestinationQuad;
-
-/**
  * This class is for REPENTOGON, an exe-hack which expands the modding API.
  *
  * @see https://repentogon.com/
@@ -28,3 +13,18 @@ declare interface DestinationQuad extends IsaacAPIClass {
   SetTopLeft: (point: Vector) => void;
   SetTopRight: (point: Vector) => void;
 }
+
+/**
+ * Constructs a new DestinationQuad class.
+ *
+ * This class is for REPENTOGON, an exe-hack which expands the modding API.
+ *
+ * @see https://repentogon.com/
+ */
+declare function DestinationQuad(
+  this: void,
+  topLeft: Vector,
+  topRight: Vector,
+  bottomLeft: Vector,
+  bottomRight: Vector,
+): DestinationQuad;

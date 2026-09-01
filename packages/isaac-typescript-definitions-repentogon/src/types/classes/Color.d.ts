@@ -1,3 +1,17 @@
+declare interface Color extends IsaacAPIClass {
+  /** Returns the color's current colorize values. */
+  GetColorize: () => RGBAValue;
+
+  /** Returns the color's current offset values. */
+  GetOffset: () => RGBValue;
+
+  /** Returns the color's current tint. */
+  GetTint: () => RGBAValue;
+
+  /** Returns a string representation of the color. */
+  Print: () => string;
+}
+
 /**
  * @param r Optional. Default is 1.
  * @param g Optional. Default is 1.
@@ -25,20 +39,6 @@ declare function Color(
   bc?: float,
   ac?: float,
 ): Color;
-
-declare interface Color extends IsaacAPIClass {
-  /** Returns the color's current colorize values. */
-  GetColorize: () => RGBAValue;
-
-  /** Returns the color's current offset values. */
-  GetOffset: () => RGBValue;
-
-  /** Returns the color's current tint. */
-  GetTint: () => RGBAValue;
-
-  /** Returns a string representation of the color. */
-  Print: () => string;
-}
 
 /** @noSelf */
 declare namespace Color {

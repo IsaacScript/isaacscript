@@ -44,19 +44,19 @@ declare global {
       strict?: boolean,
     ): Entities2XMLData | undefined;
 
-    /** Returns the attributes of the corresponding xml which matches the provided ID. */
+    /** Returns the attributes of the corresponding XML which matches the provided ID. */
     function GetEntryById(
       nodeType: XMLNode,
       id: int,
     ): Record<string, unknown> | undefined;
 
-    /** Returns the attributes of the corresponding xml which matches the provided name. */
+    /** Returns the attributes of the corresponding XML which matches the provided name. */
     function GetEntryByName(
       nodeType: XMLNode,
       name: string,
     ): Record<string, unknown> | undefined;
 
-    /** Returns the attributes of the corresponding xml which matches the order in the XML. */
+    /** Returns the attributes of the corresponding XML which matches the order in the XML. */
     function GetEntryByOrder(
       nodeType: XMLNode,
       order: int,
@@ -96,6 +96,63 @@ declare global {
   }
 
   /**
+   * Even though the attributes in the "achievements.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/
+   */
+  interface AchievementsXMLData {
+    gfx: string;
+    gfxback?: string;
+    gfxroot: string;
+    hidden?: string;
+    id: string;
+    name?: string;
+    sourceid: string;
+    steam_description?: string;
+    steam_icon?: string;
+    steam_name?: string;
+    text: string;
+  }
+
+  /**
+   * Even though the attributes in the "backdrops.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/
+   */
+  interface BackdropsXMLData {
+    bridge?: string;
+    door?: string;
+    effectsgfxroot?: string;
+    floors?: string;
+    floorvariants?: string;
+    gfx?: string;
+    gfxroot: string;
+    holeinwall?: string;
+    id?: string;
+    lfloorgfx?: string;
+    name?: string;
+    nfloorgfx?: string;
+    pit?: string;
+    props?: string;
+    reftype?: string;
+    reversewatergfx?: string;
+    rocks?: string;
+    sourceid: string;
+    spikes?: string;
+    walls?: string;
+    wallvariants?: string;
+    watergfx?: string;
+    waterpit?: string;
+    waterpitsmode?: string;
+  }
+
+  /**
    * This class is for REPENTOGON, an exe-hack which expands the modding API.
    *
    * @see https://repentogon.com/
@@ -105,6 +162,48 @@ declare global {
     hp?: string;
     idx?: BossColorXMLIndex;
     scale?: string;
+  }
+
+  /**
+   * Even though the attributes in the "costumes2.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/
+   */
+  interface Costumes2XMLData {
+    anm2path?: string;
+    forcebodycolor?: string;
+    forceheadcolor?: string;
+    hasoverlay?: string;
+    hasskinalt?: string;
+    id: string;
+    isflying?: string;
+    name?: string;
+    overwritecolor?: string;
+    priority?: string;
+    relativeid?: string;
+    skincolor?: string;
+    sourceid: string;
+    type?: string;
+  }
+
+  /**
+   * Even though the attributes in the "curses.xml" file are not all lowercase, the parser convents
+   * them all to lowercase, so they must be accessed as such.
+   *
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/
+   */
+  interface CursesXMLData {
+    id: string;
+    name?: string;
+    sourceid: string;
+    sourcepath?: string;
+    relativeid?: string;
+    untranslatedname?: string;
   }
 
   /**
@@ -169,122 +268,6 @@ declare global {
   }
 
   /**
-   * Even though the attributes in the "metadata.xml" file are not all lowercase, the parser
-   * convents them all to lowercase, so they must be accessed as such.
-   *
-   * This class is for REPENTOGON, an exe-hack which expands the modding API.
-   *
-   * @see https://repentogon.com/
-   */
-  interface MetadataXMLData {
-    name?: string;
-    directory?: string;
-    id?: string;
-    description?: string;
-    version?: string;
-    visibility?: string;
-  }
-
-  /**
-   * Even though the attributes in the "achievements.xml" file are not all lowercase, the parser
-   * convents them all to lowercase, so they must be accessed as such.
-   *
-   * This class is for REPENTOGON, an exe-hack which expands the modding API.
-   *
-   * @see https://repentogon.com/
-   */
-  interface AchievementsXMLData {
-    gfx: string;
-    gfxback?: string;
-    gfxroot: string;
-    hidden?: string;
-    id: string;
-    name?: string;
-    sourceid: string;
-    steam_description?: string;
-    steam_icon?: string;
-    steam_name?: string;
-    text: string;
-  }
-
-  /**
-   * Even though the attributes in the "backdrops.xml" file are not all lowercase, the parser
-   * convents them all to lowercase, so they must be accessed as such.
-   *
-   * This class is for REPENTOGON, an exe-hack which expands the modding API.
-   *
-   * @see https://repentogon.com/
-   */
-  interface BackdropsXMLData {
-    bridge?: string;
-    door?: string;
-    effectsgfxroot?: string;
-    floors?: string;
-    floorvariants?: string;
-    gfx?: string;
-    gfxroot: string;
-    holeinwall?: string;
-    id?: string;
-    lfloorgfx?: string;
-    name?: string;
-    nfloorgfx?: string;
-    pit?: string;
-    props?: string;
-    reftype?: string;
-    reversewatergfx?: string;
-    rocks?: string;
-    sourceid: string;
-    spikes?: string;
-    walls?: string;
-    wallvariants?: string;
-    watergfx?: string;
-    waterpit?: string;
-    waterpitsmode?: string;
-  }
-
-  /**
-   * Even though the attributes in the "costumes2.xml" file are not all lowercase, the parser
-   * convents them all to lowercase, so they must be accessed as such.
-   *
-   * This class is for REPENTOGON, an exe-hack which expands the modding API.
-   *
-   * @see https://repentogon.com/
-   */
-  interface Costumes2XMLData {
-    anm2path?: string;
-    forcebodycolor?: string;
-    forceheadcolor?: string;
-    hasoverlay?: string;
-    hasskinalt?: string;
-    id: string;
-    isflying?: string;
-    name?: string;
-    overwritecolor?: string;
-    priority?: string;
-    relativeid?: string;
-    skincolor?: string;
-    sourceid: string;
-    type?: string;
-  }
-
-  /**
-   * Even though the attributes in the "curses.xml" file are not all lowercase, the parser convents
-   * them all to lowercase, so they must be accessed as such.
-   *
-   * This class is for REPENTOGON, an exe-hack which expands the modding API.
-   *
-   * @see https://repentogon.com/
-   */
-  interface CursesXMLData {
-    id: string;
-    name?: string;
-    sourceid: string;
-    sourcepath?: string;
-    relativeid?: string;
-    untranslatedname?: string;
-  }
-
-  /**
    * Even though the attributes in the "items.xml" file are not all lowercase, the parser convents
    * them all to lowercase, so they must be accessed as such.
    *
@@ -338,6 +321,23 @@ declare global {
     tags?: string;
     type: string;
     version: string;
+  }
+
+  /**
+   * Even though the attributes in the "metadata.xml" file are not all lowercase, the parser
+   * convents them all to lowercase, so they must be accessed as such.
+   *
+   * This class is for REPENTOGON, an exe-hack which expands the modding API.
+   *
+   * @see https://repentogon.com/
+   */
+  interface MetadataXMLData {
+    name?: string;
+    directory?: string;
+    id?: string;
+    description?: string;
+    version?: string;
+    visibility?: string;
   }
 
   /**

@@ -3,10 +3,8 @@
  *
  * @see https://repentogon.com/
  */
-declare interface RGBValue {
-  R: float;
-  G: float;
-  B: float;
+declare interface RGBAValue extends RGBValue {
+  A: float;
 }
 
 /**
@@ -14,6 +12,8 @@ declare interface RGBValue {
  *
  * @see https://repentogon.com/
  */
-declare interface RGBAValue extends RGBValue {
-  A: float;
+declare interface RGBValue {
+  R: float;
+  G: float;
+  B: float;
 }
