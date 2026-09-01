@@ -186,7 +186,7 @@ export class ExtraConsoleCommands extends Feature {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
+    // eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this, unicorn/no-top-level-assignment-in-function
     __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE = this;
 
     this.callbacksUsed = [

@@ -449,6 +449,7 @@ export class SaveDataManager extends Feature {
    */
   @Exported
   public saveDataManagerSetGlobal(): void {
+    // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
     g = this.saveDataMap;
   }
 

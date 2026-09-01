@@ -40,9 +40,12 @@ export function patchErrorFunction(): void {
   if (__PATCHED_ERROR !== undefined) {
     return;
   }
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   __PATCHED_ERROR = true;
 
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   vanillaError = error;
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   error = errorWithTraceback;
 }
 
