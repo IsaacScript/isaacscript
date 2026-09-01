@@ -56,8 +56,8 @@ const CUSTOM_STAGE_METADATA_JSON_PATH = path.resolve(
 );
 
 const ROOM_VARIANT_MULTIPLIER = 10_000;
-const VARIANT_REGEX = / variant="(?<variant>\d+)"/;
-const WEIGHT_REGEX = / weight=".+?"/;
+const VARIANT_REGEX = / variant="(?<variant>\d+)"/v;
+const WEIGHT_REGEX = / weight=".+?"/v;
 
 const EMPTY_SHADER_NAME = "IsaacScript-RenderAboveHUD";
 
@@ -132,12 +132,14 @@ async function validateCustomStagePaths(
 
     if (customStageTSConfig.bossPool !== undefined) {
       for (const bossPoolEntry of Object.values(customStageTSConfig.bossPool)) {
-        if (bossPoolEntry.versusScreen !== undefined) {
-          // eslint-disable-next-line no-await-in-loop
-          await checkFile(bossPoolEntry.versusScreen.namePNGPath);
-          // eslint-disable-next-line no-await-in-loop
-          await checkFile(bossPoolEntry.versusScreen.portraitPNGPath);
+        if (bossPoolEntry.versusScreen === undefined) {
+        	continue;
         }
+
+        // eslint-disable-next-line no-await-in-loop
+        await checkFile(bossPoolEntry.versusScreen.namePNGPath);
+        // eslint-disable-next-line no-await-in-loop
+        await checkFile(bossPoolEntry.versusScreen.portraitPNGPath);
       }
     }
   }
@@ -308,8 +310,7 @@ async function getCustomStagesWithMetadata(
   for (const customStageTSConfig of customStagesTSConfig) {
     // Some manual input validation was already performed in the `getCustomStagesFromTSConfig`
     // function.
-    const { name } = customStageTSConfig;
-    const { xmlPath } = customStageTSConfig;
+    const {name, xmlPath} = customStageTSConfig;
 
     const resolvedXMLPath = path.resolve(CWD, xmlPath);
     // eslint-disable-next-line no-await-in-loop

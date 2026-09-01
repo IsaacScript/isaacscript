@@ -88,7 +88,7 @@ async function copyStaticFiles(projectPath: string) {
   );
 
   // Rename "_gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
-  // be committed to git.)
+  // be committed to Git.)
   const gitAttributesPath = path.join(projectPath, "_gitattributes");
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
   await renameFileOrDirectory(gitAttributesPath, correctGitAttributesPath);
@@ -260,7 +260,7 @@ function parseTemplate(template: string): string {
     "@template",
   );
   const templateWithoutMultipleLineBreaks =
-    templateWithoutTemplateComments.replaceAll(/\n\s*\n\s*\n/g, "\n\n");
+    templateWithoutTemplateComments.replaceAll(/\n\s*\n\s*\n/gv, "\n\n");
 
   return templateWithoutMultipleLineBreaks;
 }
@@ -297,7 +297,7 @@ async function fixTypeScriptVersionInPackageJSON(projectPath: string) {
   const packageJSONPath = path.join(projectPath, "package.json");
   const packageJSON = await readFile(packageJSONPath);
   const updatedPackageJSON = packageJSON.replace(
-    /"typescript": "[^"]*"/,
+    /"typescript": "[^"]*"/v,
     `"typescript": "${TSTLTypeScriptVersion}"`,
   );
   await writeFile(packageJSONPath, updatedPackageJSON);

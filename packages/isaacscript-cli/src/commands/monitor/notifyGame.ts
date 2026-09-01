@@ -38,7 +38,7 @@ function printMsgToStandardOut(data: string) {
 
   if (data.includes(COMPILATION_SUCCESSFUL_MESSAGE)) {
     coloredData = chalk.green(data);
-  } else if (data.match(/error/g) !== null) {
+  } else if (data.match(/error/gv) !== null) {
     coloredData = chalk.red(data);
   }
 

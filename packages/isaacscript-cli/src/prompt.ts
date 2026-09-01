@@ -6,8 +6,8 @@ import { ReadonlySet, parseIntSafe } from "complete-common";
 import { fatalError } from "complete-node";
 import prompt from "prompt";
 
-const VALID_YES_RESPONSES = new ReadonlySet(["yes", "ye", "y"]);
-const VALID_NO_RESPONSES = new ReadonlySet(["no", "n"]);
+const VALID_YES_RESPONSES = new ReadonlySet(["y", "ye", "yes"]);
+const VALID_NO_RESPONSES = new ReadonlySet(["n", "no"]);
 
 export function promptInit(): void {
   // Override some of the prompt library's default values:

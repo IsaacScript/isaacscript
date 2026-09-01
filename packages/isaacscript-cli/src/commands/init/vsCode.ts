@@ -46,7 +46,7 @@ async function installVSCodeExtensions(
   VSCodeCommand: string,
   verbose: boolean,
 ) {
-  // Installing extensions from inside WSL on Windows will result in the VSCode process never
+  // Installing extensions from inside WSL on Windows will result in the VS Code process never
   // exiting for some reason. Thus, skip this step on Linux. (Linux users will probably be smart
   // enough to install the extensions on their own.)
   if (process.platform === "linux") {
@@ -112,11 +112,11 @@ async function promptVSCode(
 
   if (yes) {
     // They supplied the "--yes" command-line flag, which implies that they want a silent install,
-    // so skip opening VSCode.
+    // so skip opening VS Code.
     return;
   }
 
-  // The VSCode command does not work properly inside WSL on Windows.
+  // The VS Code command does not work properly inside WSL on Windows.
   if (process.platform === "linux") {
     return;
   }

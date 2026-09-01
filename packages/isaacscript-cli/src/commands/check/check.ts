@@ -394,7 +394,7 @@ export function getTruncatedText(
       fileName === "cspell.config.jsonc"
       || fileName === "_cspell.config.jsonc"
     ) {
-      if (line.match(/"words": \[.*]/) !== null) {
+      if (/"words": \[.*\]/v.test(line)) {
         continue;
       }
 
@@ -416,7 +416,7 @@ export function getTruncatedText(
       }
 
       // Ignore comments, since end-users are expected to delete the explanations.
-      if (line.match(/^\s*#/) !== null) {
+      if (/^\s*#/v.test(line)) {
         continue;
       }
     }

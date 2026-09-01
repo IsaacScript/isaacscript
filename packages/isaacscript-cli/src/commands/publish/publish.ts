@@ -166,7 +166,7 @@ async function writeVersionToConstantsTS(version: string) {
 
   const constantsTS = await readFile(CONSTANTS_TS_PATH);
   const newConstantsTS = constantsTS.replace(
-    /const VERSION = ".+"/,
+    /const VERSION = ".+"/v,
     `const VERSION = "${version}"`,
   );
   await writeFile(CONSTANTS_TS_PATH, newConstantsTS);
@@ -177,7 +177,7 @@ async function writeVersionToConstantsTS(version: string) {
 async function writeVersionToMetadataXML(version: string) {
   const metadataXML = await readFile(METADATA_XML_PATH);
   const newMetadataXML = metadataXML.replace(
-    /<version>.+<\/version>/,
+    /<version>.+<\/version>/v,
     `<version>${version}</version>`,
   );
   await writeFile(METADATA_XML_PATH, newMetadataXML);

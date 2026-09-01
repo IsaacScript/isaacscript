@@ -127,6 +127,6 @@ async function hasIsaacSteamWorkshopUploadGitHubAction(): Promise<boolean> {
 
   return lines.some(
     (line) =>
-      line.match(/^\s*uses: IsaacScript\/isaac-steam-workshop-upload/) !== null,
+      /^\s*uses: IsaacScript\/isaac-steam-workshop-upload/v.test(line),
   );
 }

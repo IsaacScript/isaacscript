@@ -29,8 +29,8 @@ function init() {
   modTargetPath = secondArg;
 
   syncDirectory(modSourcePath, modTargetPath, {
-    watch: true,
     type: "copy",
+    watch: true,
     afterEachSync,
     onError,
     chokidarWatchOptions: {

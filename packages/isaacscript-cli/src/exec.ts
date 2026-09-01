@@ -127,7 +127,10 @@ export function execShell(
 
   if (exitStatus !== 0) {
     if (allowFailure) {
-      return { exitStatus, stdout };
+      return {
+        exitStatus,
+        stdout
+      };
     }
 
     console.error(
@@ -140,7 +143,10 @@ export function execShell(
     process.exit(1);
   }
 
-  return { exitStatus, stdout };
+  return {
+    exitStatus,
+    stdout
+  };
 }
 
 /**

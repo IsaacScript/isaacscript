@@ -18,7 +18,7 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
       `Failed to parse the "shape" field of a custom stage room: ${roomShapeString}`,
     );
   }
-  const roomShape = roomShapeNumber as RoomShape;
+  const roomShape = roomShapeNumber;
 
   let doorSlotFlags = 0;
 

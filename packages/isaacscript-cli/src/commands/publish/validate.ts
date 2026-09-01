@@ -34,7 +34,7 @@ export async function validate(
     );
   }
 
-  if (setVersion !== undefined && /^\d+\.\d+\.\d+$/.exec(setVersion) === null) {
+  if (setVersion !== undefined && !/^\d+\.\d+\.\d+$/v.test(setVersion)) {
     fatalError(
       chalk.red(
         `The version of "${setVersion}" does not match the semantic versioning format of: #.#.#`,
