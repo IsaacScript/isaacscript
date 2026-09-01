@@ -23,15 +23,7 @@ import { assertDefined } from "./utils";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
-const DAMAGE_FLASH_COLOR = newReadonlyColor(
-  0.5,
-  0.5,
-  0.5,
-  1,
-  200 / 255,
-  0 / 255,
-  0 / 255,
-);
+const DAMAGE_FLASH_COLOR = newReadonlyColor(0.5, 0.5, 0.5, 1, 200 / 255, 0, 0);
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
