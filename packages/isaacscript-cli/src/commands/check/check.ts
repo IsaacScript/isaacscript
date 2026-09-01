@@ -392,34 +392,43 @@ export function getTruncatedText(
     }
 
     // End-users can have different ignored words.
-    if (
-      fileName === "cspell.config.jsonc"
-      || fileName === "_cspell.config.jsonc"
-    ) {
-      if (/"words": \[.*\]/v.test(line)) {
-        continue;
+    switch (fileName) {
+      case "cspell.config.jsonc":
+      case "_cspell.config.jsonc": {
+        if (/"words": \[.*\]/v.test(line)) {
+          continue;
+        }
+
+        if (line.includes('"words": [')) {
+          isSkipping = true;
+          continue;
+        }
+
+        if (isSkipping && (line.endsWith("]") || line.endsWith("],"))) {
+          isSkipping = false;
+          continue;
+        }
+
+        break;
       }
 
-      if (line.includes('"words": [')) {
-        isSkipping = true;
-        continue;
+      case "ci.yml":
+      case "action.yml": {
+        // End-users can have different package managers.
+        if (hasPackageManagerString(line)) {
+          continue;
+        }
+
+        // Ignore comments, since end-users are expected to delete the explanations.
+        if (/^\s*#/v.test(line)) {
+          continue;
+        }
+
+        break;
       }
 
-      if (isSkipping && (line.endsWith("]") || line.endsWith("],"))) {
-        isSkipping = false;
-        continue;
-      }
-    }
-
-    if (fileName === "ci.yml" || fileName === "action.yml") {
-      // End-users can have different package managers.
-      if (hasPackageManagerString(line)) {
-        continue;
-      }
-
-      // Ignore comments, since end-users are expected to delete the explanations.
-      if (/^\s*#/v.test(line)) {
-        continue;
+      default: {
+        break;
       }
     }
 
@@ -443,11 +452,18 @@ export function getTruncatedText(
 
 function printTemplateLocation(templateFilePath: string) {
   const unixPath = templateFilePath.split(path.sep).join(path.posix.sep);
-  const match = unixPath.match(/.+\/file-templates\/(?<urlSuffix>.+)/);
-  if (match === null || match.groups === undefined) {
+  const fileTemplatesPathSegment = "/file-templates/";
+  const segmentIndex = unixPath.lastIndexOf(fileTemplatesPathSegment);
+  if (segmentIndex === -1) {
     fatalError(`Failed to parse the template file path: ${templateFilePath}`);
   }
-  const { urlSuffix } = match.groups;
+
+  const urlSuffix = unixPath.slice(
+    segmentIndex + fileTemplatesPathSegment.length,
+  );
+  if (urlSuffix === "") {
+    fatalError(`Failed to parse the template file path: ${templateFilePath}`);
+  }
 
   console.log(
     `You can find the template at: ${chalk.green(
