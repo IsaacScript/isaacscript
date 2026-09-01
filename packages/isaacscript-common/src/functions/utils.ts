@@ -65,6 +65,7 @@ export function assertNotNull<T>(
  */
 export function eRange(start: int, end?: int, increment = 1): readonly int[] {
   if (end === undefined) {
+    // eslint-disable-next-line unicorn/no-useless-recursion
     return eRange(0, start, increment);
   }
 
@@ -131,6 +132,7 @@ export function inRange(num: int, start: int, end: int): boolean {
  */
 export function iRange(start: int, end?: int, increment = 1): readonly int[] {
   if (end === undefined) {
+    // eslint-disable-next-line unicorn/no-useless-recursion
     return iRange(0, start, increment);
   }
 
