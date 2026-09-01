@@ -242,7 +242,7 @@ export class CustomTrapdoors extends Feature {
 
     // If the pixelation effect is not fully allowed to complete, the game's internal buffer will
     // not be flushed. The consequence of this is that after 11 custom stage transitions, the
-    // "log.txt" starts to become become spammed with: [ASSERT] - PushRenderTarget: stack overflow!
+    // "log.txt" starts to become become spammed with: [ASSERT] - PushRenderTarget: Stack Overflow!
 
     // In order to work around this, we fully let the animation complete by only continuing the
     // stage transition on the next game frame.

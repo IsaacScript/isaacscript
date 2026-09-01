@@ -38,7 +38,7 @@ export const ALL_DISPLAY_FLAGS = addFlag(
 export const AZAZEL_DEFAULT_BRIMSTONE_DISTANCE = 75.125;
 
 /**
- * The path to the png file for collectible items during Curse of the Blind, making them appear with
+ * The path to the PNG file for collectible items during Curse of the Blind, making them appear with
  * a red question mark.
  */
 export const BLIND_ITEM_PNG_PATH = "gfx/items/collectibles/questionmark.png";
