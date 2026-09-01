@@ -130,6 +130,65 @@ function mergeSerializedArray(
   );
 }
 
+function mergeSerializedTable(
+  oldTable: LuaMap<AnyNotNil, unknown>,
+  newTable: LuaMap<AnyNotNil, unknown>,
+  traversalDescription: string,
+  classConstructors: LuaMap<string, AnyClass>,
+) {
+  if (SAVE_DATA_MANAGER_DEBUG) {
+    log(`merge encountered a Lua table: ${traversalDescription}`);
+  }
+
+  iterateTableInOrder(
+    newTable,
+    (key, value) => {
+      if (SAVE_DATA_MANAGER_DEBUG) {
+        // The rule is not type-aware, so it does not know that the type is "unknown".
+        // eslint-disable-next-line unicorn/no-useless-template-literals
+        const valueToPrint = value === "" ? "(empty string)" : `${value}`;
+        log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
+      }
+
+      if (isSerializationBrand(key)) {
+        return;
+      }
+
+      // Handle the special case of serialized Isaac API classes.
+      if (isSerializedIsaacAPIClass(value)) {
+        if (SAVE_DATA_MANAGER_DEBUG) {
+          log("merge found a serialized Isaac API class.");
+        }
+
+        const deserializedObject = deserializeIsaacAPIClass(value);
+        oldTable.set(key, deserializedObject);
+        return;
+      }
+
+      if (isTable(value)) {
+        let oldValue = oldTable.get(key) as LuaMap<AnyNotNil, unknown>;
+        if (!isTable(oldValue)) {
+          // The child table does not exist on the old table. However, we still need to copy over
+          // the new table, because we need to handle data types like `Foo | null`. Thus, set up a
+          // blank sub-table on the old table, and continue to recursively merge.
+          oldValue = new LuaMap();
+          oldTable.set(key, oldValue);
+        }
+
+        traversalDescription = getTraversalDescription(
+          key,
+          traversalDescription,
+        );
+        merge(oldValue, value, traversalDescription, classConstructors);
+      } else {
+        // Base case: copy the value
+        oldTable.set(key, value);
+      }
+    },
+    SAVE_DATA_MANAGER_DEBUG,
+  );
+}
+
 function mergeSerializedTSTLObject(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
   oldObject: Map<AnyNotNil, unknown> | Set<AnyNotNil>,
@@ -176,63 +235,6 @@ function mergeSerializedTSTLObject(
         oldObject.set(keyToUse, deserializedValue);
       } else if (isTSTLSet(oldObject)) {
         oldObject.add(keyToUse);
-      }
-    },
-    SAVE_DATA_MANAGER_DEBUG,
-  );
-}
-
-function mergeSerializedTable(
-  oldTable: LuaMap<AnyNotNil, unknown>,
-  newTable: LuaMap<AnyNotNil, unknown>,
-  traversalDescription: string,
-  classConstructors: LuaMap<string, AnyClass>,
-) {
-  if (SAVE_DATA_MANAGER_DEBUG) {
-    log(`merge encountered a Lua table: ${traversalDescription}`);
-  }
-
-  iterateTableInOrder(
-    newTable,
-    (key, value) => {
-      if (SAVE_DATA_MANAGER_DEBUG) {
-        const valueToPrint = value === "" ? "(empty string)" : `${value}`;
-        log(`merge is merging: ${traversalDescription} --> ${valueToPrint}`);
-      }
-
-      if (isSerializationBrand(key)) {
-        return;
-      }
-
-      // Handle the special case of serialized Isaac API classes.
-      if (isSerializedIsaacAPIClass(value)) {
-        if (SAVE_DATA_MANAGER_DEBUG) {
-          log("merge found a serialized Isaac API class.");
-        }
-
-        const deserializedObject = deserializeIsaacAPIClass(value);
-        oldTable.set(key, deserializedObject);
-        return;
-      }
-
-      if (isTable(value)) {
-        let oldValue = oldTable.get(key) as LuaMap<AnyNotNil, unknown>;
-        if (!isTable(oldValue)) {
-          // The child table does not exist on the old table. However, we still need to copy over
-          // the new table, because we need to handle data types like `Foo | null`. Thus, set up a
-          // blank sub-table on the old table, and continue to recursively merge.
-          oldValue = new LuaMap();
-          oldTable.set(key, oldValue);
-        }
-
-        traversalDescription = getTraversalDescription(
-          key,
-          traversalDescription,
-        );
-        merge(oldValue, value, traversalDescription, classConstructors);
-      } else {
-        // Base case: copy the value
-        oldTable.set(key, value);
       }
     },
     SAVE_DATA_MANAGER_DEBUG,
