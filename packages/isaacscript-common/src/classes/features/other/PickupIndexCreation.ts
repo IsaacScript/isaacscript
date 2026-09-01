@@ -186,8 +186,7 @@ export class PickupIndexCreation extends Feature {
    */
   // eslint-disable-next-line complete/no-mutable-return
   private getPickupDataMapForCurrentRoom():
-    | Map<PickupIndex, PickupDescription>
-    | undefined {
+    Map<PickupIndex, PickupDescription> | undefined {
     if (onAscent()) {
       return undefined;
     }

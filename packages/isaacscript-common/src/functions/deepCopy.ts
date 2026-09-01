@@ -511,8 +511,7 @@ function deepCopyTSTLClass(
 
     case SerializationType.DESERIALIZE: {
       const tstlClassName = tstlClass.get(SerializationBrand.TSTL_CLASS) as
-        | string
-        | undefined;
+        string | undefined;
       assertDefined(
         tstlClassName,
         "Failed to deserialize a TSTL class since the brand did not contain the class name.",

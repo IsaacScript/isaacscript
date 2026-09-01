@@ -20,8 +20,7 @@ export function getIsaacAPIClassName(object: unknown): string | undefined {
   }
 
   const metatable = getmetatable(object) as
-    | LuaMap<AnyNotNil, unknown>
-    | undefined;
+    LuaMap<AnyNotNil, unknown> | undefined;
   if (metatable === undefined) {
     return undefined;
   }

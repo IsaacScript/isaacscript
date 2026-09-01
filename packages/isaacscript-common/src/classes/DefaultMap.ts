@@ -85,8 +85,7 @@ export class DefaultMap<Key, Value, Args extends unknown[] = []> extends Map<
 > {
   private readonly defaultValue: Value | undefined;
   private readonly defaultValueFactory:
-    | FactoryFunction<Value, Args>
-    | undefined;
+    FactoryFunction<Value, Args> | undefined;
 
   /**
    * See the main `DefaultMap` documentation:

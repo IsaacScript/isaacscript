@@ -236,8 +236,7 @@ function copiedObjectHasChildObject() {
   );
 
   const childObject = newObject[childObjectIndex] as
-    | (typeof oldObject)["abc"]
-    | undefined;
+    (typeof oldObject)["abc"] | undefined;
   if (childObject === undefined) {
     error(`Failed to find the child object at index: ${childObjectIndex}`);
   }

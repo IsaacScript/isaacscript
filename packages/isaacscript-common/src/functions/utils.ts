@@ -171,8 +171,7 @@ export function isRepentance(): boolean {
   );
 
   const classTable = metatable.get("__class") as
-    | LuaMap<string, unknown>
-    | undefined;
+    LuaMap<string, unknown> | undefined;
   assertDefined(
     classTable,
     'Failed to get the "__class" key of the Sprite metatable.',
@@ -217,8 +216,7 @@ export function isRepentogon(): boolean {
   );
 
   const classTable = metatable.get("__class") as
-    | LuaMap<string, unknown>
-    | undefined;
+    LuaMap<string, unknown> | undefined;
   assertDefined(
     classTable,
     'Failed to get the "__class" key of the Sprite metatable.',

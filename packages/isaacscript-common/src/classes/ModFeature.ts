@@ -36,8 +36,7 @@ type ModFeatureConstructor = TSTLClassMetatable["constructor"] & {
     | undefined;
   [WRAPPED_CALLBACK_METHODS_KEY]: Map<ModCallback, AnyFunction> | undefined;
   [WRAPPED_CUSTOM_CALLBACK_METHODS_KEY]:
-    | Map<ModCallbackCustom, AnyFunction>
-    | undefined;
+    Map<ModCallbackCustom, AnyFunction> | undefined;
 };
 
 /**
@@ -368,8 +367,7 @@ function initSaveDataManager(
     ? "saveDataManager"
     : "saveDataManagerRemove";
   const saveDataManagerMethod = mod[saveDataManagerMethodName] as
-    | AnyFunction
-    | undefined;
+    AnyFunction | undefined;
   assertDefined(
     saveDataManagerMethod,
     'Failed to initialize a mod feature class due to having a "v" object and not having the save data manager initialized. You must pass "ISCFeature.SAVE_DATA_MANAGER" to the "upgradeMod" function.',

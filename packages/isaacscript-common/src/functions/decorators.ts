@@ -101,8 +101,7 @@ export function PriorityCallback<T extends ModCallback>(
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
     const constructor = target.constructor as unknown as
-      | Record<string, unknown>
-      | undefined;
+      Record<string, unknown> | undefined;
 
     if (constructor === undefined) {
       const tstlClassName = getTSTLClassName(target) ?? "Unknown";
@@ -149,8 +148,7 @@ export function PriorityCallbackCustom<T extends ModCallbackCustom>(
     // properties, which are located on the "constructor" table. Thus, we store the callback
     // arguments for later.
     const constructor = target.constructor as unknown as
-      | Record<string, unknown>
-      | undefined;
+      Record<string, unknown> | undefined;
 
     if (constructor === undefined) {
       const tstlClassName = getTSTLClassName(target) ?? "Unknown";
