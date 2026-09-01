@@ -54,6 +54,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
+      # https://github.com/astral-sh/setup-uv
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        if: ${{ matrix.package-name == 'isaacscript-cli' }}
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run lint
 
@@ -90,8 +93,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
-      # https://github.com/astral-sh/setup-uv
-      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
       - run: npm run lint
 
   # docs-deploy:
