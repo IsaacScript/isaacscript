@@ -89,7 +89,7 @@ export function getClosestVectorTo(
   vectors: readonly Vector[],
 ): Vector | undefined {
   let closestVector: Vector | undefined;
-  let closestDistance = Number.POSITIVE_INFINITY;
+  let closestDistance = Infinity;
   for (const vector of vectors) {
     const distance = referenceVector.Distance(vector);
 

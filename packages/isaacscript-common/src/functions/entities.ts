@@ -23,15 +23,7 @@ import { assertDefined } from "./utils";
 import { doesVectorHaveLength, isVector, vectorToString } from "./vector";
 
 /** From DeadInfinity. */
-const DAMAGE_FLASH_COLOR = newReadonlyColor(
-  0.5,
-  0.5,
-  0.5,
-  1,
-  200 / 255,
-  0 / 255,
-  0 / 255,
-);
+const DAMAGE_FLASH_COLOR = newReadonlyColor(0.5, 0.5, 0.5, 1, 200 / 255, 0, 0);
 
 /**
  * Helper function to count the number of entities in room. Use this over the vanilla
@@ -94,7 +86,7 @@ export function doesAnyEntityExist(
   const entityTypesMutable = entityTypes as EntityType[] | Set<EntityType>;
 
   const entityTypesArray: readonly EntityType[] = isTSTLSet(entityTypesMutable)
-    ? [...entityTypesMutable.values()]
+    ? [...entityTypesMutable]
     : entityTypesMutable;
 
   return entityTypesArray.some((entityType) =>
@@ -144,7 +136,7 @@ export function getClosestEntityTo<T extends AnyEntity>(
   filterFunc?: (entity: T) => boolean,
 ): T | undefined {
   let closestEntity: T | undefined;
-  let closestDistance = Number.POSITIVE_INFINITY;
+  let closestDistance = Infinity;
   for (const entity of entities) {
     const distance = referenceEntity.Position.Distance(entity.Position);
 
@@ -285,30 +277,6 @@ export function getEntityFields(
   return entityFields;
 }
 
-function setPrimitiveEntityFields(
-  entity: Entity,
-  metatable: LuaMap<AnyNotNil, unknown>,
-  entityFields: LuaMap<string, boolean | number | string>,
-) {
-  const propGetTable = metatable.get("__propget") as
-    LuaMap<AnyNotNil, unknown> | undefined;
-  assertDefined(
-    propGetTable,
-    'Failed to get the "__propget" table for an entity.',
-  );
-
-  for (const [key] of propGetTable) {
-    // The values of this table are functions. Thus, we use the key to index the original entity.
-    const indexKey = key as keyof typeof entity;
-    const value = entity[indexKey];
-    if (isPrimitive(value)) {
-      entityFields.set(indexKey as string, value);
-    } else if (isVector(value)) {
-      entityFields.set(indexKey as string, vectorToString(value));
-    }
-  }
-}
-
 /**
  * Helper function to get an entity from a `PtrHash`. Note that doing this is very expensive, so you
  * should only use this function when debugging. (Normally, if you need to work backwards from a
@@ -396,6 +364,7 @@ export function isActiveEnemy(entity: Entity): boolean {
       case EntityType.ULTRA_GREED: {
         const npc = entity.ToNPC();
         if (npc !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
           const ultraGreedVariant = npc.Variant as UltraGreedVariant;
 
           switch (ultraGreedVariant) {
@@ -743,4 +712,28 @@ export function spawnWithSeed(
     spawner,
     seedOrRNG,
   );
+}
+
+function setPrimitiveEntityFields(
+  entity: Entity,
+  metatable: LuaMap<AnyNotNil, unknown>,
+  entityFields: LuaMap<string, boolean | number | string>,
+) {
+  const propGetTable = metatable.get("__propget") as
+    LuaMap<AnyNotNil, unknown> | undefined;
+  assertDefined(
+    propGetTable,
+    'Failed to get the "__propget" table for an entity.',
+  );
+
+  for (const [key] of propGetTable) {
+    // The values of this table are functions. Thus, we use the key to index the original entity.
+    const indexKey = key as keyof typeof entity;
+    const value = entity[indexKey];
+    if (isPrimitive(value)) {
+      entityFields.set(indexKey as string, value);
+    } else if (isVector(value)) {
+      entityFields.set(indexKey as string, vectorToString(value));
+    }
+  }
 }

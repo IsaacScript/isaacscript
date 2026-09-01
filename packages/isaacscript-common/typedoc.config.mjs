@@ -23,6 +23,7 @@ for (const fileEntity of FEATURE_CLASS_FILE_ENTITY) {
 }
 
 // Additionally, manually add feature class files that are in their own separate directories.
+// eslint-disable-next-line unicorn/no-top-level-side-effects
 config.entryPoints.push(
   "./src/classes/features/other/extraConsoleCommands/commands.ts",
 );

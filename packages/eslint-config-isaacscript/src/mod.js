@@ -191,6 +191,13 @@ export const isaacScriptModConfigBase = defineConfig(
        */
       "no-restricted-globals": "off",
 
+      /**
+       * Defined at: base-perfectionist.js
+       *
+       * Is it common for set ordering to have semantic meaning in Isaac mods.
+       */
+      "perfectionist/sort-arrays": "off",
+
       /*
        * Defined at: base-unicorn.js
        *
