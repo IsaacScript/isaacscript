@@ -19,9 +19,6 @@
     // Plugins need to be in CJS format so that CJS mods can use them.
     "module": "CommonJS",
     "moduleResolution": "Node10",
-
-    // "Node10" is required to emit classic CommonJS without changing the plugin source format.
-    "ignoreDeprecations": "6.0",
   },
 
   "include": ["*.ts"],

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-global-object-property-assignment */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import type { ReadonlyRecord } from "complete-common";
@@ -67,9 +68,7 @@ function Color(): Color {
 globalThis.Color = Color as never;
 
 function Font(): Font {
-  return {
-    Load: (_filePath) => {},
-  } as Font;
+  return { Load: (_filePath) => {} } as Font;
 }
 
 globalThis.Font = Font;
@@ -99,9 +98,7 @@ function Random(): int {
 globalThis.Random = Random; // eslint-disable-line @typescript-eslint/no-deprecated
 
 function RNG(): RNG {
-  return {
-    SetSeed: (_seed, _shiftIdx) => {},
-  } as RNG;
+  return { SetSeed: (_seed, _shiftIdx) => {} } as RNG;
 }
 
 globalThis.RNG = RNG;

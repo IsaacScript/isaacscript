@@ -6,7 +6,11 @@
     // https://typescripttolua.github.io/docs/getting-started/
     "target": "ESNext",
     "lib": ["ESNext"],
-    "moduleResolution": "Node",
+
+    // Use modern package resolution while preserving CommonJS or ESM semantics according to the
+    // nearest "package.json" file.
+    "module": "Node16",
+    "moduleResolution": "Node16",
 
     // We import the Isaac definitions, which also include the Lua definitions.
     "types": ["isaac-typescript-definitions"],
