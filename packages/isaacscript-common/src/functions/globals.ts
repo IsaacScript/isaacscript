@@ -194,7 +194,7 @@ const RACING_PLUS_SANDBOX_ADDED_GLOBALS = new ReadonlySet<string>([
  * Returns a slightly different set depending on whether the "--luadebug" flag is enabled.
  */
 export function getDefaultGlobals(): ReadonlySet<string> {
-  const defaultGlobals = copySet(DEFAULT_GLOBALS);
+  const defaultGlobals = copySet(DEFAULT_GLOBALS) as Set<string>;
 
   if (isLuaDebugEnabled()) {
     addSetsToSet(defaultGlobals, LUA_DEBUG_ADDED_GLOBALS);
