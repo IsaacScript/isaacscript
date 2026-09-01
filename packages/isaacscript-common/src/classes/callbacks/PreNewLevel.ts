@@ -16,19 +16,6 @@ const v = {
 };
 
 export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
-        this.postPlayerRenderReordered,
-      ],
-    ];
-  }
-
   // ModCallbackCustom.POST_PLAYER_RENDER_REORDERED
   private readonly postPlayerRenderReordered = (player: EntityPlayer) => {
     const effectiveStage = getEffectiveStage();
@@ -52,4 +39,17 @@ export class PreNewLevel extends CustomCallback<ModCallbackCustom.PRE_NEW_LEVEL>
       this.fire(player);
     }
   };
+
+  public override v = v;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_RENDER_REORDERED,
+        this.postPlayerRenderReordered,
+      ],
+    ];
+  }
 }

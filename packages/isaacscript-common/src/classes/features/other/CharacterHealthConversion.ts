@@ -16,27 +16,6 @@ export class CharacterHealthConversion extends Feature {
     ConversionHeartSubType
   >();
 
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 38
-      [
-        ModCallback.PRE_PICKUP_COLLISION,
-        this.prePickupCollisionHeart,
-        [PickupVariant.HEART],
-      ],
-    ];
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
   // ModCallback.PRE_PICKUP_COLLISION (38)
   // PickupVariant.HEART (10)
   private readonly prePickupCollisionHeart = (
@@ -76,6 +55,27 @@ export class CharacterHealthConversion extends Feature {
     convertRedHeartContainers(player, conversionHeartSubType);
     removeRedHearts(player);
   };
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 38
+      [
+        ModCallback.PRE_PICKUP_COLLISION,
+        this.prePickupCollisionHeart,
+        [PickupVariant.HEART],
+      ],
+    ];
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 
   /**
    * Helper function to make a character that has the same health mechanic as Blue Baby (red heart

@@ -25,6 +25,12 @@ const customItemPoolMap = new Map<
 >();
 
 export class CustomItemPools extends Feature {
+  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
+  // false
+  private readonly postGameStartedReorderedFalse = () => {
+    v.run.customItemPools = copyMap(customItemPoolMap);
+  };
+
   /** @internal */
   public override v = v;
 
@@ -40,12 +46,6 @@ export class CustomItemPools extends Feature {
       ],
     ];
   }
-
-  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  // false
-  private readonly postGameStartedReorderedFalse = () => {
-    v.run.customItemPools = copyMap(customItemPoolMap);
-  };
 
   /**
    * Helper function to register a custom item pool. Use this function once when your mod first

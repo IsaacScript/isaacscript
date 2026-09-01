@@ -27,24 +27,8 @@ const v = {
 };
 
 export class ItemPickupDetection extends Feature {
-  public override v = v;
-
   private readonly postItemPickup: PostItemPickup;
   private readonly preItemPickup: PreItemPickup;
-
-  constructor(postItemPickup: PostItemPickup, preItemPickup: PreItemPickup) {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-
-    this.postItemPickup = postItemPickup;
-    this.preItemPickup = preItemPickup;
-  }
 
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
@@ -63,6 +47,22 @@ export class ItemPickupDetection extends Feature {
       this.queueNotEmpty(player, pickingUpItem);
     }
   };
+
+  public override v = v;
+
+  constructor(postItemPickup: PostItemPickup, preItemPickup: PreItemPickup) {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+
+    this.postItemPickup = postItemPickup;
+    this.preItemPickup = preItemPickup;
+  }
 
   private queueEmpty(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     if (

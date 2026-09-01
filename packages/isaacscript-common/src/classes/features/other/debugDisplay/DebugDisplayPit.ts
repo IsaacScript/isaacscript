@@ -4,6 +4,12 @@ import { Feature } from "../../../private/Feature";
 import { defaultGridEntityDisplayCallback } from "./utils";
 
 export class DebugDisplayPit extends Feature {
+  // ModCallbackCustom.POST_PIT_RENDER
+  private readonly postPitRender = (pit: GridEntityPit) => {
+    const text = this.textCallback(pit);
+    renderTextOnEntity(pit, text);
+  };
+
   public textCallback: (pit: GridEntityPit) => string =
     defaultGridEntityDisplayCallback;
 
@@ -14,10 +20,4 @@ export class DebugDisplayPit extends Feature {
       [ModCallbackCustom.POST_PIT_RENDER, this.postPitRender],
     ];
   }
-
-  // ModCallbackCustom.POST_PIT_RENDER
-  private readonly postPitRender = (pit: GridEntityPit) => {
-    const text = this.textCallback(pit);
-    renderTextOnEntity(pit, text);
-  };
 }

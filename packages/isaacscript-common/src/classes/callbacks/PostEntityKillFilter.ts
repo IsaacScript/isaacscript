@@ -4,6 +4,13 @@ import { shouldFireEntity } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostEntityKillFilter extends CustomCallback<ModCallbackCustom.POST_ENTITY_KILL_FILTER> {
+  // ModCallback.POST_ENTITY_KILL (68)
+  private readonly postEntityKill = (entity: Entity) => {
+    this.fire(entity);
+  };
+
+  protected override shouldFire = shouldFireEntity;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostEntityKillFilter extends CustomCallback<ModCallbackCustom.POST_
       [ModCallback.POST_ENTITY_KILL, this.postEntityKill],
     ];
   }
-
-  protected override shouldFire = shouldFireEntity;
-
-  // ModCallback.POST_ENTITY_KILL (68)
-  private readonly postEntityKill = (entity: Entity) => {
-    this.fire(entity);
-  };
 }

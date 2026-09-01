@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostNPCInitLate extends CustomCallback<ModCallbackCustom.POST_NPC_INIT_LATE> {
+  // ModCallback.POST_NPC_UPDATE (0)
+  private readonly postNPCUpdate = (npc: EntityNPC) => {
+    const index = GetPtrHash(npc);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
+      this.fire(npc);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireNPC;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostNPCInitLate extends CustomCallback<ModCallbackCustom.POST_NPC_I
       [ModCallback.POST_NPC_UPDATE, this.postNPCUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireNPC;
-
-  // ModCallback.POST_NPC_UPDATE (0)
-  private readonly postNPCUpdate = (npc: EntityNPC) => {
-    const index = GetPtrHash(npc);
-    if (!v.room.firedSet.has(index)) {
-      v.room.firedSet.add(index);
-      this.fire(npc);
-    }
-  };
 }

@@ -28,45 +28,6 @@ const v = {
 };
 
 export class PostPurchase extends CustomCallback<T> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 3
-      [ModCallback.POST_USE_ITEM, this.postUseItem],
-
-      // 5
-      [ModCallback.POST_USE_CARD, this.postUseCard],
-
-      // 10
-      [ModCallback.POST_USE_PILL, this.postUsePill],
-    ];
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = (
-    fireArgs: FireArgs<T>,
-    optionalArgs: OptionalArgs<T>,
-  ): boolean => {
-    const [_player, pickup] = fireArgs;
-    const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
-
-    return (
-      (callbackPickupVariant === undefined
-        || callbackPickupVariant === pickup.Variant)
-      && (callbackPickupSubType === undefined
-        || callbackPickupSubType === pickup.SubType)
-    );
-  };
-
   // ModCallback.POST_USE_ITEM (3)
   private readonly postUseItem = (
     _collectibleType: CollectibleType,
@@ -118,6 +79,45 @@ export class PostPurchase extends CustomCallback<T> {
       this.playerPickedUpNewItem(player);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [_player, pickup] = fireArgs;
+    const [callbackPickupVariant, callbackPickupSubType] = optionalArgs;
+
+    return (
+      (callbackPickupVariant === undefined
+        || callbackPickupVariant === pickup.Variant)
+      && (callbackPickupSubType === undefined
+        || callbackPickupSubType === pickup.SubType)
+    );
+  };
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 3
+      [ModCallback.POST_USE_ITEM, this.postUseItem],
+
+      // 5
+      [ModCallback.POST_USE_CARD, this.postUseCard],
+
+      // 10
+      [ModCallback.POST_USE_PILL, this.postUsePill],
+    ];
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 
   private playerUsedItemRecently(player: EntityPlayer): boolean {
     const gameFrameCount = game.GetFrameCount();

@@ -11,10 +11,19 @@ const v = {
 };
 
 export class DisableAllSound extends Feature {
+  private musicWasEnabled = false;
+
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = () => {
+    if (v.run.disableSoundSet.size === 0) {
+      return;
+    }
+
+    stopAllSoundEffects();
+  };
+
   /** @internal */
   public override v = v;
-
-  private musicWasEnabled = false;
 
   /** @internal */
   constructor() {
@@ -25,15 +34,6 @@ export class DisableAllSound extends Feature {
       [ModCallback.POST_RENDER, this.postRender],
     ];
   }
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = () => {
-    if (v.run.disableSoundSet.size === 0) {
-      return;
-    }
-
-    stopAllSoundEffects();
-  };
 
   /**
    * Helper function to stop muting all sound effects and music.

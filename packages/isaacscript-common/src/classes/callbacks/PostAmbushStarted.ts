@@ -12,19 +12,6 @@ const v = {
 };
 
 export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMBUSH_STARTED> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFireAmbush;
-
   private readonly postUpdate = (): void => {
     if (v.room.ambushActive) {
       return;
@@ -42,4 +29,17 @@ export class PostAmbushStarted extends CustomCallback<ModCallbackCustom.POST_AMB
       this.fire(ambushType);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireAmbush;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+    ];
+  }
 }

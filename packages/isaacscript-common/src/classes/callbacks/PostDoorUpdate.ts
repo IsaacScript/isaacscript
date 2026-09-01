@@ -5,6 +5,15 @@ import { shouldFireDoor } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostDoorUpdate extends CustomCallback<ModCallbackCustom.POST_DOOR_UPDATE> {
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = (): void => {
+    for (const door of getDoors()) {
+      this.fire(door);
+    }
+  };
+
+  protected override shouldFire = shouldFireDoor;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostDoorUpdate extends CustomCallback<ModCallbackCustom.POST_DOOR_U
       [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireDoor;
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = (): void => {
-    for (const door of getDoors()) {
-      this.fire(door);
-    }
-  };
 }

@@ -84,37 +84,6 @@ export class SaveDataManager extends Feature {
   private inARun = false;
   private restoreGlowingHourGlassDataOnNextRoom = false;
 
-  /** @internal */
-  constructor(mod: Mod) {
-    super();
-
-    this.callbacksUsed = [
-      // 3
-      [
-        ModCallback.POST_USE_ITEM,
-        this.postUseItemGlowingHourGlass,
-        [CollectibleType.GLOWING_HOUR_GLASS],
-      ],
-
-      // 9
-      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
-
-      // 17
-      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
-
-      // 18
-      // We want to avoid a needless dependency on the `GameReorderedCallbacks` feature.
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_EARLY, this.postNewRoomEarly],
-    ];
-
-    this.mod = mod;
-  }
-
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
   private readonly postUseItemGlowingHourGlass = (
@@ -213,6 +182,56 @@ export class SaveDataManager extends Feature {
       );
     }
   };
+
+  /** @internal */
+  constructor(mod: Mod) {
+    super();
+
+    this.callbacksUsed = [
+      // 3
+      [
+        ModCallback.POST_USE_ITEM,
+        this.postUseItemGlowingHourGlass,
+        [CollectibleType.GLOWING_HOUR_GLASS],
+      ],
+
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+
+      // 17
+      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
+
+      // 18
+      // We want to avoid a needless dependency on the `GameReorderedCallbacks` feature.
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_EARLY, this.postNewRoomEarly],
+    ];
+
+    this.mod = mod;
+  }
+
+  /**
+   * Recursively traverses an object, collecting all of the class constructors that it encounters.
+   */
+  private storeClassConstructorsFromObject(luaMap: LuaMap<AnyNotNil, unknown>) {
+    const tstlClassName = getTSTLClassName(luaMap);
+    if (
+      tstlClassName !== undefined
+      && !NON_USER_DEFINED_CLASS_NAMES.has(tstlClassName)
+    ) {
+      this.classConstructors.set(tstlClassName, luaMap as unknown as AnyClass);
+    }
+
+    for (const [_key, value] of luaMap) {
+      if (isTable(value)) {
+        this.storeClassConstructorsFromObject(value);
+      }
+    }
+  }
 
   /**
    * This is the entry point to the save data manager, a system which provides two major features:
@@ -384,25 +403,6 @@ export class SaveDataManager extends Feature {
     // Store the conditional function for later, if present.
     if (conditionalFunc !== undefined) {
       this.saveDataConditionalFuncMap.set(key, conditionalFunc);
-    }
-  }
-
-  /**
-   * Recursively traverses an object, collecting all of the class constructors that it encounters.
-   */
-  private storeClassConstructorsFromObject(luaMap: LuaMap<AnyNotNil, unknown>) {
-    const tstlClassName = getTSTLClassName(luaMap);
-    if (
-      tstlClassName !== undefined
-      && !NON_USER_DEFINED_CLASS_NAMES.has(tstlClassName)
-    ) {
-      this.classConstructors.set(tstlClassName, luaMap as unknown as AnyClass);
-    }
-
-    for (const [_key, value] of luaMap) {
-      if (isTable(value)) {
-        this.storeClassConstructorsFromObject(value);
-      }
     }
   }
 

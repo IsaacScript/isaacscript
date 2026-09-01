@@ -15,29 +15,8 @@ const v = {
 };
 
 export class EsauJrDetection extends Feature {
-  public override v = v;
-
   private readonly postEsauJr: PostEsauJr;
   private readonly postFirstEsauJr: PostFirstEsauJr;
-
-  constructor(postEsauJr: PostEsauJr, postFirstEsauJr: PostFirstEsauJr) {
-    super();
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-
-      // 3
-      [
-        ModCallback.POST_USE_ITEM,
-        this.postUseItemEsauJr,
-        [CollectibleType.ESAU_JR],
-      ],
-    ];
-
-    this.postEsauJr = postEsauJr;
-    this.postFirstEsauJr = postFirstEsauJr;
-  }
 
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = (): void => {
@@ -93,4 +72,25 @@ export class EsauJrDetection extends Feature {
 
     return undefined;
   };
+
+  public override v = v;
+
+  constructor(postEsauJr: PostEsauJr, postFirstEsauJr: PostFirstEsauJr) {
+    super();
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+
+      // 3
+      [
+        ModCallback.POST_USE_ITEM,
+        this.postUseItemEsauJr,
+        [CollectibleType.ESAU_JR],
+      ],
+    ];
+
+    this.postEsauJr = postEsauJr;
+    this.postFirstEsauJr = postFirstEsauJr;
+  }
 }

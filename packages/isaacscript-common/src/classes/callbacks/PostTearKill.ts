@@ -10,25 +10,6 @@ const v = {
 };
 
 export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KILL> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 40
-      [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
-
-      // 42
-      [ModCallback.PRE_TEAR_COLLISION, this.preTearCollision],
-
-      // 67
-      [ModCallback.POST_ENTITY_REMOVE, this.postEntityRemove],
-    ];
-  }
-
-  protected override shouldFire = shouldFireTear;
-
   // ModCallback.POST_PROJECTILE_UPDATE (40)
   private readonly postTearUpdate = (tear: EntityTear) => {
     const ptrHash = GetPtrHash(tear);
@@ -63,4 +44,23 @@ export class PostTearKill extends CustomCallback<ModCallbackCustom.POST_TEAR_KIL
       this.fire(tear);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireTear;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 40
+      [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
+
+      // 42
+      [ModCallback.PRE_TEAR_COLLISION, this.preTearCollision],
+
+      // 67
+      [ModCallback.POST_ENTITY_REMOVE, this.postEntityRemove],
+    ];
+  }
 }

@@ -14,7 +14,19 @@ const v = {
 };
 
 export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_LATE> {
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
+    if (setHasPlayer(v.run.playersFiredSet, player)) {
+      return;
+    }
+
+    setAddPlayer(v.run.playersFiredSet, player);
+    this.fire(player);
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFirePlayer;
 
   constructor() {
     super();
@@ -26,16 +38,4 @@ export class PostPlayerInitLate extends CustomCallback<ModCallbackCustom.POST_PL
       ],
     ];
   }
-
-  protected override shouldFire = shouldFirePlayer;
-
-  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
-    if (setHasPlayer(v.run.playersFiredSet, player)) {
-      return;
-    }
-
-    setAddPlayer(v.run.playersFiredSet, player);
-    this.fire(player);
-  };
 }

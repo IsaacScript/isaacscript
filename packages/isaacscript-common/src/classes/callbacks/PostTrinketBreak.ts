@@ -26,22 +26,6 @@ const v = {
 };
 
 export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRINKET_BREAK> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFireTrinketType;
-
   // ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER
   private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
@@ -94,4 +78,20 @@ export class PostTrinketBreak extends CustomCallback<ModCallbackCustom.POST_TRIN
       }
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireTrinketType;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 }

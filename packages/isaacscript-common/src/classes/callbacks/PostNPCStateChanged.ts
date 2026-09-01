@@ -14,19 +14,6 @@ const v = {
 };
 
 export class PostNPCStateChanged extends CustomCallback<ModCallbackCustom.POST_NPC_STATE_CHANGED> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 0
-      [ModCallback.POST_NPC_UPDATE, this.postNPCUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFireNPC;
-
   // ModCallback.POST_NPC_UPDATE (0)
   private readonly postNPCUpdate = (npc: EntityNPC) => {
     const ptrHash = GetPtrHash(npc);
@@ -38,4 +25,17 @@ export class PostNPCStateChanged extends CustomCallback<ModCallbackCustom.POST_N
       this.fire(npc, previousState, currentState);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireNPC;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 0
+      [ModCallback.POST_NPC_UPDATE, this.postNPCUpdate],
+    ];
+  }
 }

@@ -5,6 +5,15 @@ import { shouldFireTNT } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostTNTUpdate extends CustomCallback<ModCallbackCustom.POST_TNT_UPDATE> {
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = (): void => {
+    for (const tnt of getTNT()) {
+      this.fire(tnt);
+    }
+  };
+
+  protected override shouldFire = shouldFireTNT;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostTNTUpdate extends CustomCallback<ModCallbackCustom.POST_TNT_UPD
       [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireTNT;
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = (): void => {
-    for (const tnt of getTNT()) {
-      this.fire(tnt);
-    }
-  };
 }

@@ -31,23 +31,6 @@ const v = {
 };
 
 export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 23
-      [ModCallback.PRE_USE_ITEM, this.preUseItemBible, [CollectibleType.BIBLE]],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   /**
    * Using The Bible on Satan is one of the few ways to die without taking damage, so we need to
    * handle this case.
@@ -135,4 +118,21 @@ export class PostPlayerFatalDamage extends CustomCallback<ModCallbackCustom.POST
 
     return undefined;
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 23
+      [ModCallback.PRE_USE_ITEM, this.preUseItemBible, [CollectibleType.BIBLE]],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+    ];
+  }
 }

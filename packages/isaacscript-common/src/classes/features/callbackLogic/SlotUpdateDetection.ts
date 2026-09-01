@@ -12,10 +12,25 @@ const v = {
 };
 
 export class SlotUpdateDetection extends Feature {
-  public override v = v;
-
   private readonly postSlotInit: PostSlotInit;
   private readonly postSlotUpdate: PostSlotUpdate;
+
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = () => {
+    for (const slot of getSlots()) {
+      this.checkNewEntity(slot);
+      this.postSlotUpdate.fire(slot);
+    }
+  };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = () => {
+    for (const slot of getSlots()) {
+      this.checkNewEntity(slot);
+    }
+  };
+
+  public override v = v;
 
   constructor(postSlotInit: PostSlotInit, postSlotUpdate: PostSlotUpdate) {
     super();
@@ -34,21 +49,6 @@ export class SlotUpdateDetection extends Feature {
     this.postSlotInit = postSlotInit;
     this.postSlotUpdate = postSlotUpdate;
   }
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = () => {
-    for (const slot of getSlots()) {
-      this.checkNewEntity(slot);
-      this.postSlotUpdate.fire(slot);
-    }
-  };
-
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private readonly postNewRoomReordered = () => {
-    for (const slot of getSlots()) {
-      this.checkNewEntity(slot);
-    }
-  };
 
   private checkNewEntity(slot: EntitySlot) {
     const ptrHash = GetPtrHash(slot);

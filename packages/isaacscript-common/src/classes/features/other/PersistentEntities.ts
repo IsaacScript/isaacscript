@@ -41,28 +41,7 @@ const v = {
 };
 
 export class PersistentEntities extends Feature {
-  /** @internal */
-  public override v = v;
-
   private readonly roomHistory: RoomHistory;
-
-  /** @internal */
-  constructor(roomHistory: RoomHistory) {
-    super();
-
-    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
-
-    this.callbacksUsed = [
-      // 67
-      [ModCallback.POST_ENTITY_REMOVE, this.postEntityRemove],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-    ];
-
-    this.roomHistory = roomHistory;
-  }
 
   // ModCallback.POST_ENTITY_REMOVE (67)
   private readonly postEntityRemove = (entity: Entity) => {
@@ -82,6 +61,48 @@ export class PersistentEntities extends Feature {
       this.removePersistentEntity(index, false);
     }
   };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = () => {
+    const roomListIndex = getRoomListIndex();
+    const persistentEntities = [...v.level.persistentEntities.entries()];
+    const persistentEntitiesInThisRoom = persistentEntities.filter(
+      ([_index, description]) => roomListIndex === description.roomListIndex,
+    );
+
+    for (const [index, description] of persistentEntitiesInThisRoom) {
+      v.level.persistentEntities.delete(index);
+      this.spawnAndTrack(
+        description.entityType,
+        description.variant,
+        description.subType,
+        description.position,
+        index,
+        true,
+      );
+    }
+  };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor(roomHistory: RoomHistory) {
+    super();
+
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
+
+    this.callbacksUsed = [
+      // 67
+      [ModCallback.POST_ENTITY_REMOVE, this.postEntityRemove],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+    ];
+
+    this.roomHistory = roomHistory;
+  }
 
   /**
    * The persistent entity is despawning because the player is in the process of leaving the room.
@@ -105,27 +126,6 @@ export class PersistentEntities extends Feature {
     };
     v.level.persistentEntities.set(index, persistentEntityDescription);
   }
-
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private readonly postNewRoomReordered = () => {
-    const roomListIndex = getRoomListIndex();
-    const persistentEntities = [...v.level.persistentEntities.entries()];
-    const persistentEntitiesInThisRoom = persistentEntities.filter(
-      ([_index, description]) => roomListIndex === description.roomListIndex,
-    );
-
-    for (const [index, description] of persistentEntitiesInThisRoom) {
-      v.level.persistentEntities.delete(index);
-      this.spawnAndTrack(
-        description.entityType,
-        description.variant,
-        description.subType,
-        description.position,
-        index,
-        true,
-      );
-    }
-  };
 
   private spawnAndTrack(
     entityType: EntityType,

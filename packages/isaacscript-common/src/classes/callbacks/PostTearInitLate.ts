@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostTearInitLate extends CustomCallback<ModCallbackCustom.POST_TEAR_INIT_LATE> {
+  // ModCallback.POST_TEAR_UPDATE (40)
+  private readonly postTearUpdate = (tear: EntityTear): void => {
+    const ptrHash = GetPtrHash(tear);
+    if (!v.room.firedSet.has(ptrHash)) {
+      v.room.firedSet.add(ptrHash);
+      this.fire(tear);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireTear;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostTearInitLate extends CustomCallback<ModCallbackCustom.POST_TEAR
       [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireTear;
-
-  // ModCallback.POST_TEAR_UPDATE (40)
-  private readonly postTearUpdate = (tear: EntityTear): void => {
-    const ptrHash = GetPtrHash(tear);
-    if (!v.room.firedSet.has(ptrHash)) {
-      v.room.firedSet.add(ptrHash);
-      this.fire(tear);
-    }
-  };
 }

@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostLaserInitLate extends CustomCallback<ModCallbackCustom.POST_LASER_INIT_LATE> {
+  // ModCallback.POST_LASER_UPDATE (48)
+  private readonly postLaserUpdate = (laser: EntityLaser) => {
+    const index = GetPtrHash(laser);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
+      this.fire(laser);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireLaser;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostLaserInitLate extends CustomCallback<ModCallbackCustom.POST_LAS
       [ModCallback.POST_LASER_UPDATE, this.postLaserUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireLaser;
-
-  // ModCallback.POST_LASER_UPDATE (48)
-  private readonly postLaserUpdate = (laser: EntityLaser) => {
-    const index = GetPtrHash(laser);
-    if (!v.room.firedSet.has(index)) {
-      v.room.firedSet.add(index);
-      this.fire(laser);
-    }
-  };
 }

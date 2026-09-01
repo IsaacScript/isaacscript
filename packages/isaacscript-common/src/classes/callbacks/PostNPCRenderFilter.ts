@@ -4,6 +4,13 @@ import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNPCRenderFilter extends CustomCallback<ModCallbackCustom.POST_NPC_RENDER_FILTER> {
+  // ModCallback.POST_NPC_RENDER (28)
+  private readonly postNPCRender = (npc: EntityNPC, renderOffset: Vector) => {
+    this.fire(npc, renderOffset);
+  };
+
+  protected override shouldFire = shouldFireNPC;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostNPCRenderFilter extends CustomCallback<ModCallbackCustom.POST_N
       [ModCallback.POST_NPC_RENDER, this.postNPCRender],
     ];
   }
-
-  protected override shouldFire = shouldFireNPC;
-
-  // ModCallback.POST_NPC_RENDER (28)
-  private readonly postNPCRender = (npc: EntityNPC, renderOffset: Vector) => {
-    this.fire(npc, renderOffset);
-  };
 }

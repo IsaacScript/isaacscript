@@ -14,27 +14,8 @@ const v = {
 };
 
 export class PickupChangeDetection extends Feature {
-  public override v = v;
-
   private readonly postPickupChanged: PostPickupChanged;
   private readonly pickupIndexCreation: PickupIndexCreation;
-
-  constructor(
-    postPickupChanged: PostPickupChanged,
-    pickupIndexCreation: PickupIndexCreation,
-  ) {
-    super();
-
-    this.featuresUsed = [ISCFeature.PICKUP_INDEX_CREATION];
-
-    this.callbacksUsed = [
-      // 35
-      [ModCallback.POST_PICKUP_UPDATE, this.postPickupUpdate],
-    ];
-
-    this.postPickupChanged = postPickupChanged;
-    this.pickupIndexCreation = pickupIndexCreation;
-  }
 
   // ModCallback.POST_PICKUP_UPDATE (35)
   private readonly postPickupUpdate = (pickup: EntityPickup) => {
@@ -61,4 +42,23 @@ export class PickupChangeDetection extends Feature {
       );
     }
   };
+
+  public override v = v;
+
+  constructor(
+    postPickupChanged: PostPickupChanged,
+    pickupIndexCreation: PickupIndexCreation,
+  ) {
+    super();
+
+    this.featuresUsed = [ISCFeature.PICKUP_INDEX_CREATION];
+
+    this.callbacksUsed = [
+      // 35
+      [ModCallback.POST_PICKUP_UPDATE, this.postPickupUpdate],
+    ];
+
+    this.postPickupChanged = postPickupChanged;
+    this.pickupIndexCreation = pickupIndexCreation;
+  }
 }

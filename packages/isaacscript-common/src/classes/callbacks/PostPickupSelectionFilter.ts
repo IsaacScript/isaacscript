@@ -7,14 +7,12 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.POST_PICKUP_SELECTION_FILTER;
 
 export class PostPickupSelectionFilter extends CustomCallback<T> {
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 37
-      [ModCallback.POST_PICKUP_SELECTION, this.postPickupSelection],
-    ];
-  }
+  // ModCallback.POST_PICKUP_SELECTION (37)
+  private readonly postPickupSelection = (
+    pickup: EntityPickup,
+    variant: PickupVariant,
+    subType: int,
+  ): [PickupVariant, int] | undefined => this.fire(pickup, variant, subType);
 
   /**
    * We cannot use the `shouldFirePickup` helper function because in the case of non-collectibles,
@@ -36,10 +34,12 @@ export class PostPickupSelectionFilter extends CustomCallback<T> {
     );
   };
 
-  // ModCallback.POST_PICKUP_SELECTION (37)
-  private readonly postPickupSelection = (
-    pickup: EntityPickup,
-    variant: PickupVariant,
-    subType: int,
-  ): [PickupVariant, int] | undefined => this.fire(pickup, variant, subType);
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 37
+      [ModCallback.POST_PICKUP_SELECTION, this.postPickupSelection],
+    ];
+  }
 }

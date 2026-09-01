@@ -12,6 +12,12 @@ const v = {
 };
 
 export class NoSirenSteal extends Feature {
+  // ModCallback.POST_NPC_INIT (27)
+  // EntityType.SIREN_HELPER (966)
+  private readonly postNPCInitSirenHelper = (npc: EntityNPC) => {
+    this.checkReturnFamiliarToPlayer(npc);
+  };
+
   /** @internal */
   public override v = v;
 
@@ -28,12 +34,6 @@ export class NoSirenSteal extends Feature {
       ],
     ];
   }
-
-  // ModCallback.POST_NPC_INIT (27)
-  // EntityType.SIREN_HELPER (966)
-  private readonly postNPCInitSirenHelper = (npc: EntityNPC) => {
-    this.checkReturnFamiliarToPlayer(npc);
-  };
 
   private checkReturnFamiliarToPlayer(npc: EntityNPC) {
     if (npc.Target === undefined) {

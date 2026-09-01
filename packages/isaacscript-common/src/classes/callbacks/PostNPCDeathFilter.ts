@@ -4,6 +4,13 @@ import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostNPCDeathFilter extends CustomCallback<ModCallbackCustom.POST_NPC_DEATH_FILTER> {
+  // ModCallback.POST_NPC_DEATH (29)
+  private readonly postNPCDeath = (npc: EntityNPC) => {
+    this.fire(npc);
+  };
+
+  protected override shouldFire = shouldFireNPC;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostNPCDeathFilter extends CustomCallback<ModCallbackCustom.POST_NP
       [ModCallback.POST_NPC_DEATH, this.postNPCDeath],
     ];
   }
-
-  protected override shouldFire = shouldFireNPC;
-
-  // ModCallback.POST_NPC_DEATH (29)
-  private readonly postNPCDeath = (npc: EntityNPC) => {
-    this.fire(npc);
-  };
 }

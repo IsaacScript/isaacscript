@@ -44,47 +44,9 @@ const v = {
 };
 
 export class CustomRevive extends Feature {
-  public override v = v;
-
   private readonly preCustomRevive: PreCustomRevive;
   private readonly postCustomRevive: PostCustomRevive;
   private readonly runInNFrames: RunInNFrames;
-
-  constructor(
-    preCustomRevive: PreCustomRevive,
-    postCustomRevive: PostCustomRevive,
-    runInNFrames: RunInNFrames,
-  ) {
-    super();
-
-    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
-
-    this.callbacksUsed = [
-      // 2
-      [ModCallback.POST_RENDER, this.postRender],
-
-      // 7
-      [
-        ModCallback.POST_FAMILIAR_INIT,
-        this.postFamiliarInitOneUp,
-        [FamiliarVariant.ONE_UP],
-      ],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-      [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE, this.postPlayerFatalDamage],
-      [ModCallbackCustom.PRE_BERSERK_DEATH, this.preBerserkDeath],
-    ];
-
-    this.preCustomRevive = preCustomRevive;
-    this.postCustomRevive = postCustomRevive;
-    this.runInNFrames = runInNFrames;
-  }
 
   // ModCallback.POST_RENDER (2)
   private readonly postRender = (): void => {
@@ -123,6 +85,57 @@ export class CustomRevive extends Feature {
   ): void => {
     this.checkWaitingForItemAnimation(player);
   };
+
+  // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
+  private readonly postPlayerFatalDamage = (
+    player: EntityPlayer,
+  ): boolean | undefined => {
+    this.playerIsAboutToDie(player);
+    return undefined;
+  };
+
+  // ModCallbackCustom.PRE_BERSERK_DEATH
+  private readonly preBerserkDeath = (player: EntityPlayer): void => {
+    this.playerIsAboutToDie(player);
+  };
+
+  public override v = v;
+
+  constructor(
+    preCustomRevive: PreCustomRevive,
+    postCustomRevive: PostCustomRevive,
+    runInNFrames: RunInNFrames,
+  ) {
+    super();
+
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
+
+    this.callbacksUsed = [
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+
+      // 7
+      [
+        ModCallback.POST_FAMILIAR_INIT,
+        this.postFamiliarInitOneUp,
+        [FamiliarVariant.ONE_UP],
+      ],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+      [ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE, this.postPlayerFatalDamage],
+      [ModCallbackCustom.PRE_BERSERK_DEATH, this.preBerserkDeath],
+    ];
+
+    this.preCustomRevive = preCustomRevive;
+    this.postCustomRevive = postCustomRevive;
+    this.runInNFrames = runInNFrames;
+  }
 
   private checkWaitingForItemAnimation(player: EntityPlayer): void {
     if (v.run.state !== CustomReviveState.WAITING_FOR_ITEM_ANIMATION) {
@@ -164,19 +177,6 @@ export class CustomRevive extends Feature {
     v.run.dyingPlayerIndex = null;
     this.logStateChanged();
   }
-
-  // ModCallbackCustom.POST_PLAYER_FATAL_DAMAGE
-  private readonly postPlayerFatalDamage = (
-    player: EntityPlayer,
-  ): boolean | undefined => {
-    this.playerIsAboutToDie(player);
-    return undefined;
-  };
-
-  // ModCallbackCustom.PRE_BERSERK_DEATH
-  private readonly preBerserkDeath = (player: EntityPlayer): void => {
-    this.playerIsAboutToDie(player);
-  };
 
   /**
    * The player is about to die, which will immediately delete the save data for the run. To prevent

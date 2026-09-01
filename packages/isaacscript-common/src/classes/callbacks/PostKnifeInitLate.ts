@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostKnifeInitLate extends CustomCallback<ModCallbackCustom.POST_KNIFE_INIT_LATE> {
+  // ModCallback.POST_KNIFE_UPDATE (51)
+  private readonly postKnifeUpdate = (knife: EntityKnife): void => {
+    const ptrHash = GetPtrHash(knife);
+    if (!v.room.firedSet.has(ptrHash)) {
+      v.room.firedSet.add(ptrHash);
+      this.fire(knife);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireKnife;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostKnifeInitLate extends CustomCallback<ModCallbackCustom.POST_KNI
       [ModCallback.POST_KNIFE_UPDATE, this.postKnifeUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireKnife;
-
-  // ModCallback.POST_KNIFE_UPDATE (51)
-  private readonly postKnifeUpdate = (knife: EntityKnife): void => {
-    const ptrHash = GetPtrHash(knife);
-    if (!v.room.firedSet.has(ptrHash)) {
-      v.room.firedSet.add(ptrHash);
-      this.fire(knife);
-    }
-  };
 }

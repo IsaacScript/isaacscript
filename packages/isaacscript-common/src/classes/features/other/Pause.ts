@@ -42,10 +42,47 @@ const v = {
 };
 
 export class Pause extends Feature {
+  private readonly disableInputs: DisableInputs;
+
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = () => {
+    if (!v.run.isPseudoPaused) {
+      return;
+    }
+
+    const firstPlayer = Isaac.GetPlayer();
+    useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
+
+    if (isRepentancePlus()) {
+      sfxManager.Stop(SoundEffect.PAUSE_FREEZE);
+    }
+
+    this.stopTearsAndProjectilesFromMoving();
+  };
+
+  // ModCallback.INPUT_ACTION (13)
+  // InputHook.GET_ACTION_VALUE (2)
+  private readonly inputActionGetActionValue = (
+    _entity: Entity | undefined,
+    _inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ): boolean | float | undefined => {
+    if (buttonAction !== ButtonAction.SHOOT_RIGHT) {
+      return undefined;
+    }
+
+    if (!v.run.shouldUnpause) {
+      return undefined;
+    }
+    v.run.shouldUnpause = false;
+
+    // Returning a value of 1 for a single sub-frame will be enough for the game to register an
+    // unpause but not enough for a tear to actually be fired.
+    return 1;
+  };
+
   /** @internal */
   public override v = v;
-
-  private readonly disableInputs: DisableInputs;
 
   /** @internal */
   constructor(disableInputs: DisableInputs) {
@@ -65,22 +102,6 @@ export class Pause extends Feature {
 
     this.disableInputs = disableInputs;
   }
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = () => {
-    if (!v.run.isPseudoPaused) {
-      return;
-    }
-
-    const firstPlayer = Isaac.GetPlayer();
-    useActiveItemTemp(firstPlayer, CollectibleType.PAUSE);
-
-    if (isRepentancePlus()) {
-      sfxManager.Stop(SoundEffect.PAUSE_FREEZE);
-    }
-
-    this.stopTearsAndProjectilesFromMoving();
-  };
 
   private stopTearsAndProjectilesFromMoving() {
     const tearsAndProjectiles = [...getTears(), ...getProjectiles()];
@@ -105,27 +126,6 @@ export class Pause extends Feature {
       }
     }
   }
-
-  // ModCallback.INPUT_ACTION (13)
-  // InputHook.GET_ACTION_VALUE (2)
-  private readonly inputActionGetActionValue = (
-    _entity: Entity | undefined,
-    _inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ): boolean | float | undefined => {
-    if (buttonAction !== ButtonAction.SHOOT_RIGHT) {
-      return undefined;
-    }
-
-    if (!v.run.shouldUnpause) {
-      return undefined;
-    }
-    v.run.shouldUnpause = false;
-
-    // Returning a value of 1 for a single sub-frame will be enough for the game to register an
-    // unpause but not enough for a tear to actually be fired.
-    return 1;
-  };
 
   /**
    * Helper function to check if the pause feature from `isaacscript-common` is currently

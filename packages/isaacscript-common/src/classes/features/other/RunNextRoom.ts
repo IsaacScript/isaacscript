@@ -10,6 +10,15 @@ const v = {
 };
 
 export class RunNextRoom extends Feature {
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = () => {
+    for (const func of v.run.queuedFunctions) {
+      func();
+    }
+
+    emptyArray(v.run.queuedFunctions);
+  };
+
   /** @internal */
   public override v = v;
 
@@ -23,15 +32,6 @@ export class RunNextRoom extends Feature {
       [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
     ];
   }
-
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private readonly postNewRoomReordered = () => {
-    for (const func of v.run.queuedFunctions) {
-      func();
-    }
-
-    emptyArray(v.run.queuedFunctions);
-  };
 
   /**
    * Supply a function to run on the next `POST_NEW_ROOM` callback.

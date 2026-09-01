@@ -16,34 +16,6 @@ const v = {
 };
 
 export class PostCollectibleEmpty extends CustomCallback<T> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 35
-      [
-        ModCallback.POST_PICKUP_UPDATE,
-        this.postPickupUpdateCollectible,
-        [PickupVariant.COLLECTIBLE],
-      ],
-    ];
-  }
-
-  protected override shouldFire = (
-    fireArgs: FireArgs<T>,
-    optionalArgs: OptionalArgs<T>,
-  ): boolean => {
-    const [_collectible, oldCollectibleType] = fireArgs;
-    const [callbackCollectibleType] = optionalArgs;
-
-    return (
-      callbackCollectibleType === undefined
-      || callbackCollectibleType === oldCollectibleType
-    );
-  };
-
   // ModCallback.POST_PICKUP_UPDATE (35)
   // PickupVariant.COLLECTIBLE (100)
   private readonly postPickupUpdateCollectible = (
@@ -60,6 +32,34 @@ export class PostCollectibleEmpty extends CustomCallback<T> {
       this.collectibleTypeChanged(collectible, oldCollectibleType);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [_collectible, oldCollectibleType] = fireArgs;
+    const [callbackCollectibleType] = optionalArgs;
+
+    return (
+      callbackCollectibleType === undefined
+      || callbackCollectibleType === oldCollectibleType
+    );
+  };
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 35
+      [
+        ModCallback.POST_PICKUP_UPDATE,
+        this.postPickupUpdateCollectible,
+        [PickupVariant.COLLECTIBLE],
+      ],
+    ];
+  }
 
   private collectibleTypeChanged(
     collectible: EntityPickupCollectible,

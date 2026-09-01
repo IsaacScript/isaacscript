@@ -15,23 +15,6 @@ const v = {
 };
 
 export class PressInput extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 13
-      [
-        ModCallback.INPUT_ACTION,
-        this.isActionTriggered,
-        [InputHook.IS_ACTION_TRIGGERED],
-      ],
-    ];
-  }
-
   // ModCallback.INPUT_ACTION (13)
   // InputHook.IS_ACTION_TRIGGERED (1)
   private readonly isActionTriggered = (
@@ -65,6 +48,23 @@ export class PressInput extends Feature {
 
     return undefined;
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 13
+      [
+        ModCallback.INPUT_ACTION,
+        this.isActionTriggered,
+        [InputHook.IS_ACTION_TRIGGERED],
+      ],
+    ];
+  }
 
   /**
    * Helper function to press an arbitrary `ButtonAction` on the next possible input poll. In most

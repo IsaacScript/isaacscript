@@ -10,19 +10,6 @@ const v = {
 };
 
 export class PostTearInitVeryLate extends CustomCallback<ModCallbackCustom.POST_TEAR_INIT_VERY_LATE> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 40
-      [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFireTear;
-
   // ModCallback.POST_TEAR_UPDATE (40)
   private readonly postTearUpdate = (tear: EntityTear): void => {
     // This callback fires on frame 1.
@@ -36,4 +23,17 @@ export class PostTearInitVeryLate extends CustomCallback<ModCallbackCustom.POST_
       this.fire(tear);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireTear;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 40
+      [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
+    ];
+  }
 }

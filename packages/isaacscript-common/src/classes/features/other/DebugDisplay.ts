@@ -51,6 +51,29 @@ export class DebugDisplay extends Feature {
     this.mod = mod;
   }
 
+  // ----------------
+  // Toggle Functions
+  // ----------------
+
+  private toggleFeature(
+    feature: Feature,
+    featureName: string,
+    force: boolean | undefined,
+  ) {
+    let shouldInit = !feature.initialized;
+    if (force !== undefined) {
+      shouldInit = force;
+    }
+
+    if (shouldInit) {
+      this.mod.initFeature(feature);
+    } else {
+      this.mod.uninitFeature(feature);
+    }
+
+    printEnabled(feature.initialized, `${featureName} display`);
+  }
+
   // -------------
   // Set Functions
   // -------------
@@ -381,29 +404,6 @@ export class DebugDisplay extends Feature {
     textCallback: (pressurePlate: GridEntityPressurePlate) => string,
   ): void {
     this.pressurePlate.textCallback = textCallback;
-  }
-
-  // ----------------
-  // Toggle Functions
-  // ----------------
-
-  private toggleFeature(
-    feature: Feature,
-    featureName: string,
-    force: boolean | undefined,
-  ) {
-    let shouldInit = !feature.initialized;
-    if (force !== undefined) {
-      shouldInit = force;
-    }
-
-    if (shouldInit) {
-      this.mod.initFeature(feature);
-    } else {
-      this.mod.uninitFeature(feature);
-    }
-
-    printEnabled(feature.initialized, `${featureName} display`);
   }
 
   /**

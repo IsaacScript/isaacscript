@@ -17,10 +17,23 @@ const v = {
 };
 
 export class CollectibleItemPoolType extends Feature {
+  private readonly pickupIndexCreation: PickupIndexCreation;
+
+  // ModCallback.POST_PICKUP_INIT (34)
+  // PickupVariant.COLLECTIBLE (100)
+  private readonly postPickupInitCollectible = (collectible: EntityPickup) => {
+    const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
+
+    if (!v.run.collectibleItemPoolTypeMap.has(pickupIndex)) {
+      const itemPool = game.GetItemPool();
+      const lastItemPoolType = itemPool.GetLastPool();
+
+      v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
+    }
+  };
+
   /** @internal */
   public override v = v;
-
-  private readonly pickupIndexCreation: PickupIndexCreation;
 
   /** @internal */
   constructor(pickupIndexCreation: PickupIndexCreation) {
@@ -39,19 +52,6 @@ export class CollectibleItemPoolType extends Feature {
 
     this.pickupIndexCreation = pickupIndexCreation;
   }
-
-  // ModCallback.POST_PICKUP_INIT (34)
-  // PickupVariant.COLLECTIBLE (100)
-  private readonly postPickupInitCollectible = (collectible: EntityPickup) => {
-    const pickupIndex = this.pickupIndexCreation.getPickupIndex(collectible);
-
-    if (!v.run.collectibleItemPoolTypeMap.has(pickupIndex)) {
-      const itemPool = game.GetItemPool();
-      const lastItemPoolType = itemPool.GetLastPool();
-
-      v.run.collectibleItemPoolTypeMap.set(pickupIndex, lastItemPoolType);
-    }
-  };
 
   /**
    * Helper function to get the item pool type that a given collectible came from. Since there is no

@@ -83,9 +83,6 @@ import {
 const MUSIC_DELAY_RENDER_FRAMES = 70;
 
 export class CustomStages extends Feature {
-  /** @internal */
-  public override v = v;
-
   /** Indexed by custom stage name. */
   private readonly customStagesMap = new Map<string, CustomStage>();
 
@@ -100,101 +97,6 @@ export class CustomStages extends Feature {
   private readonly gameReorderedCallbacks: GameReorderedCallbacks;
   private readonly pause: Pause;
   private readonly runInNFrames: RunInNFrames;
-
-  /** @internal */
-  constructor(
-    customGridEntities: CustomGridEntities,
-    customTrapdoors: CustomTrapdoors,
-    disableAllSound: DisableAllSound,
-    gameReorderedCallbacks: GameReorderedCallbacks,
-    pause: Pause,
-    runInNFrames: RunInNFrames,
-  ) {
-    super();
-
-    this.featuresUsed = [
-      ISCFeature.CUSTOM_GRID_ENTITIES,
-      ISCFeature.CUSTOM_TRAPDOORS,
-      ISCFeature.DISABLE_ALL_SOUND,
-      ISCFeature.GAME_REORDERED_CALLBACKS,
-      ISCFeature.PAUSE,
-      ISCFeature.RUN_IN_N_FRAMES,
-    ];
-
-    this.callbacksUsed = [
-      // 2
-      [ModCallback.POST_RENDER, this.postRender],
-
-      // 3
-      [
-        ModCallback.POST_USE_ITEM,
-        this.postUseItemRedKey,
-        [CollectibleType.RED_KEY],
-      ],
-
-      // 12
-      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
-
-      // 21
-      [ModCallback.GET_SHADER_PARAMS, this.getShaderParams],
-
-      // 23
-      [
-        ModCallback.PRE_USE_ITEM,
-        this.preUseItemRedKey,
-        [CollectibleType.RED_KEY],
-      ],
-    ];
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
-        this.postGridEntityBrokenRockAlt,
-        [GridEntityType.ROCK_ALT],
-      ],
-      [ModCallbackCustom.POST_GRID_ENTITY_INIT, this.postGridEntityInit],
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-    ];
-
-    this.customGridEntities = customGridEntities;
-    this.customTrapdoors = customTrapdoors;
-    this.disableAllSound = disableAllSound;
-    this.gameReorderedCallbacks = gameReorderedCallbacks;
-    this.pause = pause;
-    this.runInNFrames = runInNFrames;
-
-    this.initCustomStageMetadata();
-  }
-
-  private initCustomStageMetadata() {
-    if (!isArray(metadataJSON)) {
-      error(
-        'The IsaacScript standard library attempted to read the custom stage metadata from the "customStageMetadata.lua" file, but it was not an array.',
-      );
-    }
-    const customStagesLua = metadataJSON as CustomStageLua[];
-
-    for (const customStageLua of customStagesLua) {
-      this.initRoomTypeMap(customStageLua);
-      this.initCustomTrapdoorDestination(customStageLua);
-    }
-  }
-
-  private initRoomTypeMap(customStageLua: CustomStageLua) {
-    const roomTypeMap = getRoomTypeMap(customStageLua);
-    const customStage: CustomStage = {
-      ...customStageLua,
-      roomTypeMap,
-    };
-    this.customStagesMap.set(customStage.name, customStage);
-  }
-
-  private initCustomTrapdoorDestination(customStageLua: CustomStageLua) {
-    this.customTrapdoors.registerCustomTrapdoorDestination(
-      customStageLua.name,
-      this.goToCustomStage,
-    );
-  }
 
   private readonly goToCustomStage = (
     destinationName: string | undefined,
@@ -374,6 +276,104 @@ export class CustomStages extends Feature {
       }
     }
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor(
+    customGridEntities: CustomGridEntities,
+    customTrapdoors: CustomTrapdoors,
+    disableAllSound: DisableAllSound,
+    gameReorderedCallbacks: GameReorderedCallbacks,
+    pause: Pause,
+    runInNFrames: RunInNFrames,
+  ) {
+    super();
+
+    this.featuresUsed = [
+      ISCFeature.CUSTOM_GRID_ENTITIES,
+      ISCFeature.CUSTOM_TRAPDOORS,
+      ISCFeature.DISABLE_ALL_SOUND,
+      ISCFeature.GAME_REORDERED_CALLBACKS,
+      ISCFeature.PAUSE,
+      ISCFeature.RUN_IN_N_FRAMES,
+    ];
+
+    this.callbacksUsed = [
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+
+      // 3
+      [
+        ModCallback.POST_USE_ITEM,
+        this.postUseItemRedKey,
+        [CollectibleType.RED_KEY],
+      ],
+
+      // 12
+      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
+
+      // 21
+      [ModCallback.GET_SHADER_PARAMS, this.getShaderParams],
+
+      // 23
+      [
+        ModCallback.PRE_USE_ITEM,
+        this.preUseItemRedKey,
+        [CollectibleType.RED_KEY],
+      ],
+    ];
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
+        this.postGridEntityBrokenRockAlt,
+        [GridEntityType.ROCK_ALT],
+      ],
+      [ModCallbackCustom.POST_GRID_ENTITY_INIT, this.postGridEntityInit],
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+    ];
+
+    this.customGridEntities = customGridEntities;
+    this.customTrapdoors = customTrapdoors;
+    this.disableAllSound = disableAllSound;
+    this.gameReorderedCallbacks = gameReorderedCallbacks;
+    this.pause = pause;
+    this.runInNFrames = runInNFrames;
+
+    this.initCustomStageMetadata();
+  }
+
+  private initCustomStageMetadata() {
+    if (!isArray(metadataJSON)) {
+      error(
+        'The IsaacScript standard library attempted to read the custom stage metadata from the "customStageMetadata.lua" file, but it was not an array.',
+      );
+    }
+    const customStagesLua = metadataJSON as CustomStageLua[];
+
+    for (const customStageLua of customStagesLua) {
+      this.initRoomTypeMap(customStageLua);
+      this.initCustomTrapdoorDestination(customStageLua);
+    }
+  }
+
+  private initRoomTypeMap(customStageLua: CustomStageLua) {
+    const roomTypeMap = getRoomTypeMap(customStageLua);
+    const customStage: CustomStage = {
+      ...customStageLua,
+      roomTypeMap,
+    };
+    this.customStagesMap.set(customStage.name, customStage);
+  }
+
+  private initCustomTrapdoorDestination(customStageLua: CustomStageLua) {
+    this.customTrapdoors.registerCustomTrapdoorDestination(
+      customStageLua.name,
+      this.goToCustomStage,
+    );
+  }
 
   /** Pick a custom room for each vanilla room. */
   private setStageRoomsData(

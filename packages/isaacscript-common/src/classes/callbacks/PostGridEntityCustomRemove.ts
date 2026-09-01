@@ -6,12 +6,6 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_REMOVE;
 
 export class PostGridEntityCustomRemove extends CustomCallback<T> {
-  constructor() {
-    super();
-
-    this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
-  }
-
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
@@ -24,4 +18,10 @@ export class PostGridEntityCustomRemove extends CustomCallback<T> {
       || callbackGridEntityTypeCustom === gridEntityTypeCustom
     );
   };
+
+  constructor() {
+    super();
+
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_UPDATE_DETECTION];
+  }
 }

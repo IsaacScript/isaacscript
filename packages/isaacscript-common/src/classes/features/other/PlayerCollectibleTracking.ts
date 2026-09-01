@@ -19,25 +19,6 @@ const v = {
 };
 
 export class PlayerCollectibleTracking extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
-        this.postPlayerCollectibleAdded,
-      ],
-      [
-        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED,
-        this.postPlayerCollectibleRemoved,
-      ],
-    ];
-  }
-
   // ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED
   private readonly postPlayerCollectibleAdded = (
     player: EntityPlayer,
@@ -63,6 +44,25 @@ export class PlayerCollectibleTracking extends Feature {
     );
     arrayRemoveInPlace(collectibleTypes, collectibleType);
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
+        this.postPlayerCollectibleAdded,
+      ],
+      [
+        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED,
+        this.postPlayerCollectibleRemoved,
+      ],
+    ];
+  }
 
   /**
    * Helper function to get all of the collectible types that the player has gotten so far on this

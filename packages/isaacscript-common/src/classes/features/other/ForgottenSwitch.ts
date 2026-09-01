@@ -5,14 +5,14 @@ import { Feature } from "../../private/Feature";
 import type { PressInput } from "./PressInput";
 
 export class ForgottenSwitch extends Feature {
+  private readonly pressInput: PressInput;
+
   /** @internal */
   public override v = {
     run: {
       shouldSwitch: false,
     },
   };
-
-  private readonly pressInput: PressInput;
 
   /** @internal */
   constructor(pressInput: PressInput) {

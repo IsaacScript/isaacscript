@@ -22,16 +22,6 @@ export class CustomHotkeys extends Feature {
 
   private readonly keyPressedMap = new DefaultMap<Keyboard, boolean>(false);
 
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 2
-      [ModCallback.POST_RENDER, this.postRender],
-    ];
-  }
-
   // ModCallback.POST_RENDER (2)
   private readonly postRender = () => {
     for (const [keyboard, triggerFunc] of this.staticHotkeyFunctionMap) {
@@ -45,6 +35,16 @@ export class CustomHotkeys extends Feature {
       }
     }
   };
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+    ];
+  }
 
   private checkIfTriggered(keyboard: Keyboard, triggerFunc: () => void) {
     const isPressed = isKeyboardPressed(keyboard);

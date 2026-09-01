@@ -5,6 +5,15 @@ import { shouldFireSpikes } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostSpikesUpdate extends CustomCallback<ModCallbackCustom.POST_SPIKES_RENDER> {
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = (): void => {
+    for (const spikes of getSpikes()) {
+      this.fire(spikes);
+    }
+  };
+
+  protected override shouldFire = shouldFireSpikes;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostSpikesUpdate extends CustomCallback<ModCallbackCustom.POST_SPIK
       [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireSpikes;
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = (): void => {
-    for (const spikes of getSpikes()) {
-      this.fire(spikes);
-    }
-  };
 }

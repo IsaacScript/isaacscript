@@ -21,18 +21,6 @@ const v = {
 };
 
 export class StageHistory extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_LEVEL_REORDERED, this.postNewLevelReordered],
-    ];
-  }
-
   // ModCallbackCustom.POST_NEW_LEVEL_REORDERED
   private readonly postNewLevelReordered = () => {
     const level = game.GetLevel();
@@ -44,6 +32,18 @@ export class StageHistory extends Feature {
       stageType,
     });
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_LEVEL_REORDERED, this.postNewLevelReordered],
+    ];
+  }
 
   /**
    * Helper function to get the stage type that a trapdoor or heaven door would take the player to,

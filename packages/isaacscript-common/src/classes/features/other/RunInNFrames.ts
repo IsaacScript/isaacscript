@@ -37,29 +37,7 @@ const v = {
 };
 
 export class RunInNFrames extends Feature {
-  /** @internal */
-  public override v = v;
-
-  public override vConditionalFunc = (): boolean => false;
-
   private readonly roomHistory: RoomHistory;
-
-  /** @internal */
-  constructor(roomHistory: RoomHistory) {
-    super();
-
-    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-
-      // 2
-      [ModCallback.POST_RENDER, this.postRender],
-    ];
-
-    this.roomHistory = roomHistory;
-  }
 
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = (): void => {
@@ -94,6 +72,28 @@ export class RunInNFrames extends Feature {
       numRoomsEntered,
     );
   };
+
+  /** @internal */
+  public override v = v;
+
+  public override vConditionalFunc = (): boolean => false;
+
+  /** @internal */
+  constructor(roomHistory: RoomHistory) {
+    super();
+
+    this.featuresUsed = [ISCFeature.ROOM_HISTORY];
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+    ];
+
+    this.roomHistory = roomHistory;
+  }
 
   /**
    * Helper function to restart on the next render frame. Useful because it is impossible to restart

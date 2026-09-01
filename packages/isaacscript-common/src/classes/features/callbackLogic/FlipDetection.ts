@@ -17,22 +17,8 @@ const v = {
 };
 
 export class FlipDetection extends Feature {
-  public override v = v;
-
   private readonly postFlip: PostFlip;
   private readonly postFirstFlip: PostFirstFlip;
-
-  constructor(postFlip: PostFlip, postFirstFlip: PostFirstFlip) {
-    super();
-
-    this.callbacksUsed = [
-      // 3
-      [ModCallback.POST_USE_ITEM, this.postUseItemFlip, [CollectibleType.FLIP]],
-    ];
-
-    this.postFlip = postFlip;
-    this.postFirstFlip = postFirstFlip;
-  }
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.FLIP (711)
@@ -64,6 +50,20 @@ export class FlipDetection extends Feature {
 
     return undefined;
   };
+
+  public override v = v;
+
+  constructor(postFlip: PostFlip, postFirstFlip: PostFirstFlip) {
+    super();
+
+    this.callbacksUsed = [
+      // 3
+      [ModCallback.POST_USE_ITEM, this.postUseItemFlip, [CollectibleType.FLIP]],
+    ];
+
+    this.postFlip = postFlip;
+    this.postFirstFlip = postFirstFlip;
+  }
 }
 
 function getNewLazarus(oldLazarus: EntityPlayer): EntityPlayer | undefined {

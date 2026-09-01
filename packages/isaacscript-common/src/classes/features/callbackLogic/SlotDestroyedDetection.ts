@@ -31,10 +31,40 @@ const v = {
 };
 
 export class SlotDestroyedDetection extends Feature {
-  public override v = v;
-
   private readonly postSlotDestroyed: PostSlotDestroyed;
   private readonly roomHistory: RoomHistory;
+
+  // ModCallback.POST_ENTITY_REMOVE (67)
+  // EntityType.SLOT (6)
+  private readonly postEntityRemoveSlot = (entity: Entity) => {
+    const slot = entity as EntitySlot;
+
+    // The `POST_ENTITY_REMOVE` callback will fire for slots that are naturally despawning as a
+    // player leaves a room. We want to ignore all slots that despawn for this reason.
+    if (this.roomHistory.isLeavingRoom()) {
+      return;
+    }
+
+    if (isSlotMachine(slot)) {
+      this.postEntityRemoveSlotMachine(slot);
+    } else {
+      this.postEntityRemoveBeggar(slot);
+    }
+  };
+
+  // ModCallbackCustom.POST_SLOT_UPDATE
+  private readonly postSlotUpdate = (slot: EntitySlot) => {
+    const ptrHash = GetPtrHash(slot);
+
+    const alreadyDestroyed = v.room.destroyedSlotSet.has(ptrHash);
+    if (alreadyDestroyed) {
+      return;
+    }
+
+    this.checkDestroyedFromCollisionClass(slot);
+  };
+
+  public override v = v;
 
   constructor(postSlotDestroyed: PostSlotDestroyed, roomHistory: RoomHistory) {
     super();
@@ -58,24 +88,6 @@ export class SlotDestroyedDetection extends Feature {
     this.roomHistory = roomHistory;
   }
 
-  // ModCallback.POST_ENTITY_REMOVE (67)
-  // EntityType.SLOT (6)
-  private readonly postEntityRemoveSlot = (entity: Entity) => {
-    const slot = entity as EntitySlot;
-
-    // The `POST_ENTITY_REMOVE` callback will fire for slots that are naturally despawning as a
-    // player leaves a room. We want to ignore all slots that despawn for this reason.
-    if (this.roomHistory.isLeavingRoom()) {
-      return;
-    }
-
-    if (isSlotMachine(slot)) {
-      this.postEntityRemoveSlotMachine(slot);
-    } else {
-      this.postEntityRemoveBeggar(slot);
-    }
-  };
-
   private postEntityRemoveSlotMachine(slot: EntitySlot) {
     this.postSlotDestroyed.fire(slot, SlotDestructionType.COLLECTIBLE_PAYOUT);
   }
@@ -89,18 +101,6 @@ export class SlotDestroyedDetection extends Feature {
         : SlotDestructionType.NORMAL;
     this.postSlotDestroyed.fire(slot, slotDestructionType);
   }
-
-  // ModCallbackCustom.POST_SLOT_UPDATE
-  private readonly postSlotUpdate = (slot: EntitySlot) => {
-    const ptrHash = GetPtrHash(slot);
-
-    const alreadyDestroyed = v.room.destroyedSlotSet.has(ptrHash);
-    if (alreadyDestroyed) {
-      return;
-    }
-
-    this.checkDestroyedFromCollisionClass(slot);
-  };
 
   /**
    * Slots normally have an entity collision class of `EntityCollisionClass.ALL` (4) and a grid

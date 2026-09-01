@@ -4,11 +4,10 @@ import { shouldFireCollectibleType } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPlayerCollectibleRemoved extends CustomCallback<ModCallbackCustom.POST_PLAYER_COLLECTIBLE_REMOVED> {
+  protected override shouldFire = shouldFireCollectibleType;
   constructor() {
     super();
 
     this.featuresUsed = [ISCFeature.PLAYER_COLLECTIBLE_DETECTION];
   }
-
-  protected override shouldFire = shouldFireCollectibleType;
 }

@@ -8,21 +8,6 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PreGetPedestal extends CustomCallback<ModCallbackCustom.PRE_GET_PEDESTAL> {
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 38
-      [
-        ModCallback.PRE_PICKUP_COLLISION,
-        this.prePickupCollision,
-        [PickupVariant.COLLECTIBLE],
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallback.PRE_PICKUP_COLLISION (35)
   private readonly prePickupCollision = (
     pickup: EntityPickup,
@@ -58,4 +43,19 @@ export class PreGetPedestal extends CustomCallback<ModCallbackCustom.PRE_GET_PED
 
     return this.fire(player, collectible);
   };
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 38
+      [
+        ModCallback.PRE_PICKUP_COLLISION,
+        this.prePickupCollision,
+        [PickupVariant.COLLECTIBLE],
+      ],
+    ];
+  }
 }

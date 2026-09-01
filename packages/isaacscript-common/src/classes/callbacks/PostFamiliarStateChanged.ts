@@ -11,19 +11,6 @@ const v = {
 };
 
 export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_STATE_CHANGED> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 6
-      [ModCallback.POST_FAMILIAR_UPDATE, this.postFamiliarUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFireFamiliar;
-
   // ModCallback.POST_FAMILIAR_UPDATE (6)
   private readonly postFamiliarUpdate = (familiar: EntityFamiliar): void => {
     const ptrHash = GetPtrHash(familiar);
@@ -38,4 +25,17 @@ export class PostFamiliarStateChanged extends CustomCallback<ModCallbackCustom.P
       this.fire(familiar, previousState, currentState);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireFamiliar;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 6
+      [ModCallback.POST_FAMILIAR_UPDATE, this.postFamiliarUpdate],
+    ];
+  }
 }

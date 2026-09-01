@@ -34,6 +34,21 @@ const v = {
  * `ItemPool.GetPillEffect` method.
  */
 export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE_PILL_FILTER> {
+  // ModCallback.POST_USE_PILL (10)
+  private readonly postUsePill = (
+    pillEffect: PillEffect,
+    player: EntityPlayer,
+    useFlags: BitFlags<UseFlag>,
+  ) => {
+    const pillColor = this.getPillColorOfCurrentlyUsedPill(player, pillEffect);
+    this.fire(pillEffect, pillColor, player, useFlags);
+  };
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
+    this.updateCurrentPocketItems(player);
+  };
+
   public override v = v;
 
   constructor() {
@@ -51,16 +66,6 @@ export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE
       ],
     ];
   }
-
-  // ModCallback.POST_USE_PILL (10)
-  private readonly postUsePill = (
-    pillEffect: PillEffect,
-    player: EntityPlayer,
-    useFlags: BitFlags<UseFlag>,
-  ) => {
-    const pillColor = this.getPillColorOfCurrentlyUsedPill(player, pillEffect);
-    this.fire(pillEffect, pillColor, player, useFlags);
-  };
 
   private getPillColorOfCurrentlyUsedPill(
     player: EntityPlayer,
@@ -90,11 +95,6 @@ export class PostUsePillFilter extends CustomCallback<ModCallbackCustom.POST_USE
     // `ItemPool.GetPillEffect` method.
     return getPillColorFromEffect(pillEffect);
   }
-
-  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
-    this.updateCurrentPocketItems(player);
-  };
 
   private updateCurrentPocketItems(player: EntityPlayer) {
     const pocketItems = getPocketItems(player);

@@ -4,6 +4,15 @@ import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PreProjectileCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_PROJECTILE_COLLISION_FILTER> {
+  // ModCallback.PRE_PROJECTILE_COLLISION (46)
+  private readonly preProjectileCollision = (
+    projectile: EntityProjectile,
+    collider: Entity,
+    low: boolean,
+  ): boolean | undefined => this.fire(projectile, collider, low);
+
+  protected override shouldFire = shouldFireProjectile;
+
   constructor() {
     super();
 
@@ -12,13 +21,4 @@ export class PreProjectileCollisionFilter extends CustomCallback<ModCallbackCust
       [ModCallback.PRE_PROJECTILE_COLLISION, this.preProjectileCollision],
     ];
   }
-
-  protected override shouldFire = shouldFireProjectile;
-
-  // ModCallback.PRE_PROJECTILE_COLLISION (46)
-  private readonly preProjectileCollision = (
-    projectile: EntityProjectile,
-    collider: Entity,
-    low: boolean,
-  ): boolean | undefined => this.fire(projectile, collider, low);
 }

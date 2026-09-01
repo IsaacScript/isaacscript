@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostPickupInitLate extends CustomCallback<ModCallbackCustom.POST_PICKUP_INIT_LATE> {
+  // ModCallback.POST_PICKUP_UPDATE (35)
+  private readonly postPickupUpdate = (pickup: EntityPickup) => {
+    const index = GetPtrHash(pickup);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
+      this.fire(pickup);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFirePickup;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostPickupInitLate extends CustomCallback<ModCallbackCustom.POST_PI
       [ModCallback.POST_PICKUP_UPDATE, this.postPickupUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFirePickup;
-
-  // ModCallback.POST_PICKUP_UPDATE (35)
-  private readonly postPickupUpdate = (pickup: EntityPickup) => {
-    const index = GetPtrHash(pickup);
-    if (!v.room.firedSet.has(index)) {
-      v.room.firedSet.add(index);
-      this.fire(pickup);
-    }
-  };
 }

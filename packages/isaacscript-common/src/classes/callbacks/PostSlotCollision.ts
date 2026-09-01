@@ -5,17 +5,6 @@ import { shouldFireSlot } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostSlotCollision extends CustomCallback<ModCallbackCustom.POST_SLOT_COLLISION> {
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 33
-      [ModCallback.PRE_PLAYER_COLLISION, this.prePlayerCollision],
-    ];
-  }
-
-  protected override shouldFire = shouldFireSlot;
-
   // ModCallback.PRE_PLAYER_COLLISION (33)
   private readonly prePlayerCollision = (
     player: EntityPlayer,
@@ -27,4 +16,15 @@ export class PostSlotCollision extends CustomCallback<ModCallbackCustom.POST_SLO
 
     return undefined;
   };
+
+  protected override shouldFire = shouldFireSlot;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 33
+      [ModCallback.PRE_PLAYER_COLLISION, this.prePlayerCollision],
+    ];
+  }
 }

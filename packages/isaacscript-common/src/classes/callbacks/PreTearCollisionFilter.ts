@@ -4,6 +4,15 @@ import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PreTearCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_TEAR_COLLISION_FILTER> {
+  // ModCallback.PRE_TEAR_COLLISION (42)
+  private readonly preTearCollision = (
+    tear: EntityTear,
+    collider: Entity,
+    low: boolean,
+  ): boolean | undefined => this.fire(tear, collider, low);
+
+  protected override shouldFire = shouldFireTear;
+
   constructor() {
     super();
 
@@ -12,13 +21,4 @@ export class PreTearCollisionFilter extends CustomCallback<ModCallbackCustom.PRE
       [ModCallback.PRE_TEAR_COLLISION, this.preTearCollision],
     ];
   }
-
-  protected override shouldFire = shouldFireTear;
-
-  // ModCallback.PRE_TEAR_COLLISION (42)
-  private readonly preTearCollision = (
-    tear: EntityTear,
-    collider: Entity,
-    low: boolean,
-  ): boolean | undefined => this.fire(tear, collider, low);
 }

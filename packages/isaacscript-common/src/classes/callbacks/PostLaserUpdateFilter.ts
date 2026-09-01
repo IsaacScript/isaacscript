@@ -4,6 +4,13 @@ import { shouldFireLaser } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostLaserUpdateFilter extends CustomCallback<ModCallbackCustom.POST_LASER_UPDATE_FILTER> {
+  // ModCallback.POST_LASER_UPDATE (48)
+  private readonly postLaserUpdate = (laser: EntityLaser) => {
+    this.fire(laser);
+  };
+
+  protected override shouldFire = shouldFireLaser;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostLaserUpdateFilter extends CustomCallback<ModCallbackCustom.POST
       [ModCallback.POST_LASER_UPDATE, this.postLaserUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireLaser;
-
-  // ModCallback.POST_LASER_UPDATE (48)
-  private readonly postLaserUpdate = (laser: EntityLaser) => {
-    this.fire(laser);
-  };
 }

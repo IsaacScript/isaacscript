@@ -15,34 +15,6 @@ const v = {
 };
 
 export class PostDiceRoomActivated extends CustomCallback<T> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 55
-      [
-        ModCallback.POST_EFFECT_UPDATE,
-        this.postEffectUpdateDiceFloor,
-        [EffectVariant.DICE_FLOOR],
-      ],
-    ];
-  }
-
-  protected override shouldFire = (
-    fireArgs: FireArgs<T>,
-    optionalArgs: OptionalArgs<T>,
-  ): boolean => {
-    const [_player, diceFloorSubType] = fireArgs;
-    const [callbackDiceFloorSubType] = optionalArgs;
-
-    return (
-      callbackDiceFloorSubType === undefined
-      || diceFloorSubType === callbackDiceFloorSubType
-    );
-  };
-
   // ModCallback.POST_EFFECT_UPDATE (55)
   // EffectVariant.DICE_FLOOR (76)
   private readonly postEffectUpdateDiceFloor = (effect: EntityEffect): void => {
@@ -64,4 +36,32 @@ export class PostDiceRoomActivated extends CustomCallback<T> {
       this.fire(closestPlayer, diceFloorSubType);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [_player, diceFloorSubType] = fireArgs;
+    const [callbackDiceFloorSubType] = optionalArgs;
+
+    return (
+      callbackDiceFloorSubType === undefined
+      || diceFloorSubType === callbackDiceFloorSubType
+    );
+  };
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 55
+      [
+        ModCallback.POST_EFFECT_UPDATE,
+        this.postEffectUpdateDiceFloor,
+        [EffectVariant.DICE_FLOOR],
+      ],
+    ];
+  }
 }

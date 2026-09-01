@@ -5,6 +5,15 @@ import { shouldFireRock } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostRockUpdate extends CustomCallback<ModCallbackCustom.POST_ROCK_UPDATE> {
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = (): void => {
+    for (const rock of getRocks()) {
+      this.fire(rock);
+    }
+  };
+
+  protected override shouldFire = shouldFireRock;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostRockUpdate extends CustomCallback<ModCallbackCustom.POST_ROCK_U
       [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireRock;
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = (): void => {
-    for (const rock of getRocks()) {
-      this.fire(rock);
-    }
-  };
 }

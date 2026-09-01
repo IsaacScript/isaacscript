@@ -4,6 +4,16 @@ import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPickupRenderFilter extends CustomCallback<ModCallbackCustom.POST_PICKUP_RENDER_FILTER> {
+  // ModCallback.POST_PICKUP_RENDER (36)
+  private readonly postPickupRender = (
+    pickup: EntityPickup,
+    renderOffset: Vector,
+  ) => {
+    this.fire(pickup, renderOffset);
+  };
+
+  protected override shouldFire = shouldFirePickup;
+
   constructor() {
     super();
 
@@ -12,14 +22,4 @@ export class PostPickupRenderFilter extends CustomCallback<ModCallbackCustom.POS
       [ModCallback.POST_PICKUP_RENDER, this.postPickupRender],
     ];
   }
-
-  protected override shouldFire = shouldFirePickup;
-
-  // ModCallback.POST_PICKUP_RENDER (36)
-  private readonly postPickupRender = (
-    pickup: EntityPickup,
-    renderOffset: Vector,
-  ) => {
-    this.fire(pickup, renderOffset);
-  };
 }

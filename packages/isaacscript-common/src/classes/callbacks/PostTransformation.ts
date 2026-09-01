@@ -20,31 +20,6 @@ const v = {
 };
 
 export class PostTransformation extends CustomCallback<T> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = (
-    fireArgs: FireArgs<T>,
-    optionalArgs: OptionalArgs<T>,
-  ): boolean => {
-    const [_player, playerForm] = fireArgs;
-    const [callbackPlayerForm] = optionalArgs;
-
-    return (
-      callbackPlayerForm === undefined || callbackPlayerForm === playerForm
-    );
-  };
-
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const playerTransformationsMap = defaultMapGetPlayer(
@@ -63,4 +38,29 @@ export class PostTransformation extends CustomCallback<T> {
       }
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [_player, playerForm] = fireArgs;
+    const [callbackPlayerForm] = optionalArgs;
+
+    return (
+      callbackPlayerForm === undefined || callbackPlayerForm === playerForm
+    );
+  };
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 }

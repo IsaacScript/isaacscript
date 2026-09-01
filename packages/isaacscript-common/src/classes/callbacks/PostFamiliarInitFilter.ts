@@ -4,6 +4,13 @@ import { shouldFireFamiliar } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostFamiliarInitFilter extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_INIT_FILTER> {
+  // ModCallback.POST_FAMILIAR_INIT (7)
+  private readonly postFamiliarInit = (familiar: EntityFamiliar) => {
+    this.fire(familiar);
+  };
+
+  protected override shouldFire = shouldFireFamiliar;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostFamiliarInitFilter extends CustomCallback<ModCallbackCustom.POS
       [ModCallback.POST_FAMILIAR_INIT, this.postFamiliarInit],
     ];
   }
-
-  protected override shouldFire = shouldFireFamiliar;
-
-  // ModCallback.POST_FAMILIAR_INIT (7)
-  private readonly postFamiliarInit = (familiar: EntityFamiliar) => {
-    this.fire(familiar);
-  };
 }

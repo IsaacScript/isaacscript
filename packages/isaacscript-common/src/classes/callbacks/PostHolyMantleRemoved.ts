@@ -17,21 +17,6 @@ const v = {
 };
 
 export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom.POST_HOLY_MANTLE_REMOVED> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (
     player: EntityPlayer,
@@ -54,4 +39,19 @@ export class PostHolyMantleRemoved extends CustomCallback<ModCallbackCustom.POST
       this.fire(player, oldNumHolyMantles, newNumHolyMantles);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 }

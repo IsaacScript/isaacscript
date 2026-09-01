@@ -6,23 +6,6 @@ import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPickupInitFirst extends CustomCallback<ModCallbackCustom.POST_PICKUP_INIT_FIRST> {
-  public override v = {
-    room: {
-      firedSet: new Set<PtrHash>(),
-    },
-  };
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 34
-      [ModCallback.POST_PICKUP_INIT, this.postPickupInit],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePickup;
-
   // ModCallback.POST_PICKUP_INIT (34)
   private readonly postPickupInit = (pickup: EntityPickup) => {
     const roomVisitedCount = getRoomVisitedCount();
@@ -33,4 +16,21 @@ export class PostPickupInitFirst extends CustomCallback<ModCallbackCustom.POST_P
       this.fire(pickup);
     }
   };
+
+  public override v = {
+    room: {
+      firedSet: new Set<PtrHash>(),
+    },
+  };
+
+  protected override shouldFire = shouldFirePickup;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 34
+      [ModCallback.POST_PICKUP_INIT, this.postPickupInit],
+    ];
+  }
 }

@@ -4,6 +4,13 @@ import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostBombInitFilter extends CustomCallback<ModCallbackCustom.POST_BOMB_INIT_FILTER> {
+  // ModCallback.POST_BOMB_INIT (57)
+  private readonly postBombInit = (bomb: EntityBomb) => {
+    this.fire(bomb);
+  };
+
+  protected override shouldFire = shouldFireBomb;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostBombInitFilter extends CustomCallback<ModCallbackCustom.POST_BO
       [ModCallback.POST_BOMB_INIT, this.postBombInit],
     ];
   }
-
-  protected override shouldFire = shouldFireBomb;
-
-  // ModCallback.POST_BOMB_INIT (57)
-  private readonly postBombInit = (bomb: EntityBomb) => {
-    this.fire(bomb);
-  };
 }

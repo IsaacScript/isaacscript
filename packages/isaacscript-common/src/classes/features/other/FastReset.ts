@@ -15,6 +15,15 @@ declare let AwaitingTextInput: boolean;
 export class FastReset extends Feature {
   private enabled = false;
 
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = () => {
+    if (!this.enabled) {
+      return;
+    }
+
+    checkResetInput();
+  };
+
   /** @internal */
   constructor() {
     super();
@@ -24,15 +33,6 @@ export class FastReset extends Feature {
       [ModCallback.POST_RENDER, this.postRender],
     ];
   }
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = () => {
-    if (!this.enabled) {
-      return;
-    }
-
-    checkResetInput();
-  };
 
   /**
    * Enables the fast-reset feature, which allows you to restart the game instantaneously. If this

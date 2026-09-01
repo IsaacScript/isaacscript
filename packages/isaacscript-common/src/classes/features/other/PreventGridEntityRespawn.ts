@@ -33,32 +33,7 @@ const v = {
 };
 
 export class PreventGridEntityRespawn extends Feature {
-  /** @internal */
-  public override v = v;
-
   private readonly runInNFrames: RunInNFrames;
-
-  /** @internal */
-  constructor(runInNFrames: RunInNFrames) {
-    super();
-
-    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
-
-    this.callbacksUsed = [
-      // 23
-      [
-        ModCallback.PRE_USE_ITEM,
-        this.preUseItemWeNeedToGoDeeper,
-        [CollectibleType.WE_NEED_TO_GO_DEEPER],
-      ],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-    ];
-
-    this.runInNFrames = runInNFrames;
-  }
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
@@ -121,6 +96,31 @@ export class PreventGridEntityRespawn extends Feature {
   private readonly postNewRoomReordered = () => {
     this.setDecorationsInvisible();
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor(runInNFrames: RunInNFrames) {
+    super();
+
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
+
+    this.callbacksUsed = [
+      // 23
+      [
+        ModCallback.PRE_USE_ITEM,
+        this.preUseItemWeNeedToGoDeeper,
+        [CollectibleType.WE_NEED_TO_GO_DEEPER],
+      ],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+    ];
+
+    this.runInNFrames = runInNFrames;
+  }
 
   /**
    * Every time we re-enter the room, the sprites for all of the decorations will come back, so we

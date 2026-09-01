@@ -33,8 +33,6 @@ const v = {
 };
 
 export class GridEntityUpdateDetection extends Feature {
-  public override v = v;
-
   private readonly postGridEntityInit: PostGridEntityInit;
   private readonly postGridEntityCustomInit: PostGridEntityCustomInit;
   private readonly postGridEntityUpdate: PostGridEntityUpdate;
@@ -46,6 +44,39 @@ export class GridEntityUpdateDetection extends Feature {
   private readonly postGridEntityBroken: PostGridEntityBroken;
   private readonly postGridEntityCustomBroken: PostGridEntityCustomBroken;
   private readonly customGridEntities: CustomGridEntities;
+
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = (): void => {
+    const gridEntitiesMap = getGridEntitiesMap();
+
+    // We check for removed grid entities first so that grid entities that change type will count as
+    // being removed and fire the PostGridEntityRemoved callback.
+    this.checkGridEntitiesRemoved(gridEntitiesMap);
+
+    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
+      this.checkGridEntityStateChanged(gridIndex, gridEntity);
+      this.checkNewGridEntity(gridIndex, gridEntity);
+
+      const gridEntityTypeCustom =
+        this.customGridEntities.getCustomGridEntityType(gridIndex);
+      if (gridEntityTypeCustom === undefined) {
+        this.postGridEntityUpdate.fire(gridEntity);
+      } else {
+        this.postGridEntityCustomUpdate.fire(gridEntity, gridEntityTypeCustom);
+      }
+    }
+  };
+
+  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
+  private readonly postNewRoomReordered = (): void => {
+    const gridEntitiesMap = getGridEntitiesMap();
+
+    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
+      this.checkNewGridEntity(gridIndex, gridEntity);
+    }
+  };
+
+  public override v = v;
 
   constructor(
     postGridEntityInit: PostGridEntityInit,
@@ -85,28 +116,6 @@ export class GridEntityUpdateDetection extends Feature {
     this.postGridEntityCustomBroken = postGridEntityCustomBroken;
     this.customGridEntities = customGridEntities;
   }
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = (): void => {
-    const gridEntitiesMap = getGridEntitiesMap();
-
-    // We check for removed grid entities first so that grid entities that change type will count as
-    // being removed and fire the PostGridEntityRemoved callback.
-    this.checkGridEntitiesRemoved(gridEntitiesMap);
-
-    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
-      this.checkGridEntityStateChanged(gridIndex, gridEntity);
-      this.checkNewGridEntity(gridIndex, gridEntity);
-
-      const gridEntityTypeCustom =
-        this.customGridEntities.getCustomGridEntityType(gridIndex);
-      if (gridEntityTypeCustom === undefined) {
-        this.postGridEntityUpdate.fire(gridEntity);
-      } else {
-        this.postGridEntityCustomUpdate.fire(gridEntity, gridEntityTypeCustom);
-      }
-    }
-  };
 
   private checkGridEntitiesRemoved(
     gridEntitiesMap: ReadonlyMap<int, GridEntity>,
@@ -208,13 +217,4 @@ export class GridEntityUpdateDetection extends Feature {
     ];
     v.room.initializedGridEntities.set(gridIndex, newTuple);
   }
-
-  // ModCallbackCustom.POST_NEW_ROOM_REORDERED
-  private readonly postNewRoomReordered = (): void => {
-    const gridEntitiesMap = getGridEntitiesMap();
-
-    for (const [gridIndex, gridEntity] of gridEntitiesMap) {
-      this.checkNewGridEntity(gridIndex, gridEntity);
-    }
-  };
 }

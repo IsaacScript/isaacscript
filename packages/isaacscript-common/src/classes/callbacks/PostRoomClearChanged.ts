@@ -13,31 +13,6 @@ const v = {
 };
 
 export class PostRoomClearChanged extends CustomCallback<T> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-    ];
-  }
-
-  protected override shouldFire = (
-    fireArgs: FireArgs<T>,
-    optionalArgs: OptionalArgs<T>,
-  ): boolean => {
-    const [roomClear] = fireArgs;
-    const [callbackRoomClear] = optionalArgs;
-
-    return callbackRoomClear === undefined || callbackRoomClear === roomClear;
-  };
-
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = (): void => {
     const room = game.GetRoom();
@@ -56,4 +31,29 @@ export class PostRoomClearChanged extends CustomCallback<T> {
 
     v.room.cleared = roomClear;
   };
+
+  public override v = v;
+
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [roomClear] = fireArgs;
+    const [callbackRoomClear] = optionalArgs;
+
+    return callbackRoomClear === undefined || callbackRoomClear === roomClear;
+  };
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+    ];
+  }
 }

@@ -4,6 +4,13 @@ import { shouldFirePickup } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPickupInitFilter extends CustomCallback<ModCallbackCustom.POST_PICKUP_INIT_FILTER> {
+  // ModCallback.POST_PICKUP_INIT (34)
+  private readonly postPickupInit = (pickup: EntityPickup) => {
+    this.fire(pickup);
+  };
+
+  protected override shouldFire = shouldFirePickup;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostPickupInitFilter extends CustomCallback<ModCallbackCustom.POST_
       [ModCallback.POST_PICKUP_INIT, this.postPickupInit],
     ];
   }
-
-  protected override shouldFire = shouldFirePickup;
-
-  // ModCallback.POST_PICKUP_INIT (34)
-  private readonly postPickupInit = (pickup: EntityPickup) => {
-    this.fire(pickup);
-  };
 }

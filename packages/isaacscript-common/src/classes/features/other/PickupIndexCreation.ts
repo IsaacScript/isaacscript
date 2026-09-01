@@ -44,11 +44,22 @@ const v = {
 };
 
 export class PickupIndexCreation extends Feature {
-  /** @internal */
-  public override v = v;
-
   private readonly roomHistory: RoomHistory;
   private readonly saveDataManager: SaveDataManager;
+
+  // ModCallback.POST_PICKUP_INIT (34)
+  private readonly postPickupInit = (pickup: EntityPickup) => {
+    this.setPickupIndex(pickup);
+  };
+
+  // ModCallback.POST_ENTITY_REMOVE (67)
+  // EntityType.PICKUP (5)
+  private readonly postEntityRemovePickup = (entity: Entity) => {
+    this.checkDespawningFromPlayerLeavingRoom(entity);
+  };
+
+  /** @internal */
+  public override v = v;
 
   /** @internal */
   constructor(roomHistory: RoomHistory, saveDataManager: SaveDataManager) {
@@ -71,11 +82,6 @@ export class PickupIndexCreation extends Feature {
     this.roomHistory = roomHistory;
     this.saveDataManager = saveDataManager;
   }
-
-  // ModCallback.POST_PICKUP_INIT (34)
-  private readonly postPickupInit = (pickup: EntityPickup) => {
-    this.setPickupIndex(pickup);
-  };
 
   private setPickupIndex(pickup: EntityPickup): void {
     const ptrHash = GetPtrHash(pickup);
@@ -120,12 +126,6 @@ export class PickupIndexCreation extends Feature {
 
     return pickupIndex;
   }
-
-  // ModCallback.POST_ENTITY_REMOVE (67)
-  // EntityType.PICKUP (5)
-  private readonly postEntityRemovePickup = (entity: Entity) => {
-    this.checkDespawningFromPlayerLeavingRoom(entity);
-  };
 
   private checkDespawningFromPlayerLeavingRoom(entity: Entity) {
     const ptrHash = GetPtrHash(entity);

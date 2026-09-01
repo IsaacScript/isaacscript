@@ -33,44 +33,9 @@ const v = {
 };
 
 export class PlayerReorderedCallbacks extends Feature {
-  public override v = v;
-
   private readonly postPEffectUpdateReordered: PostPEffectUpdateReordered;
   private readonly postPlayerRenderReordered: PostPlayerRenderReordered;
   private readonly postPlayerUpdateReordered: PostPlayerUpdateReordered;
-
-  constructor(
-    postPEffectUpdateReordered: PostPEffectUpdateReordered,
-    postPlayerRenderReordered: PostPlayerRenderReordered,
-    postPlayerUpdateReordered: PostPlayerUpdateReordered,
-  ) {
-    super();
-
-    this.callbacksUsed = [
-      // 4
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_PEFFECT_UPDATE, this.postPEffectUpdate],
-
-      // 31
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_PLAYER_UPDATE, this.postPlayerUpdate],
-
-      // 32
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
-    ];
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST,
-        this.postGameStartedReorderedLast,
-      ],
-    ];
-
-    this.postPEffectUpdateReordered = postPEffectUpdateReordered;
-    this.postPlayerRenderReordered = postPlayerRenderReordered;
-    this.postPlayerUpdateReordered = postPlayerUpdateReordered;
-  }
 
   // ModCallback.POST_PEFFECT_UPDATE (4)
   private readonly postPEffectUpdate = (player: EntityPlayer): void => {
@@ -125,6 +90,41 @@ export class PlayerReorderedCallbacks extends Feature {
     dequeue(v.run.postPlayerUpdateQueue, this.postPlayerUpdateReordered.fire);
     dequeue(v.run.postPlayerRenderQueue, this.postPlayerRenderReordered.fire);
   };
+
+  public override v = v;
+
+  constructor(
+    postPEffectUpdateReordered: PostPEffectUpdateReordered,
+    postPlayerRenderReordered: PostPlayerRenderReordered,
+    postPlayerUpdateReordered: PostPlayerUpdateReordered,
+  ) {
+    super();
+
+    this.callbacksUsed = [
+      // 4
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_PEFFECT_UPDATE, this.postPEffectUpdate],
+
+      // 31
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_PLAYER_UPDATE, this.postPlayerUpdate],
+
+      // 32
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_PLAYER_RENDER, this.postPlayerRender],
+    ];
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_GAME_STARTED_REORDERED_LAST,
+        this.postGameStartedReorderedLast,
+      ],
+    ];
+
+    this.postPEffectUpdateReordered = postPEffectUpdateReordered;
+    this.postPlayerRenderReordered = postPlayerRenderReordered;
+    this.postPlayerUpdateReordered = postPlayerUpdateReordered;
+  }
 }
 
 function dequeue(

@@ -35,6 +35,27 @@ const v = {
 };
 
 export class DisableInputs extends Feature {
+  // InputHook.IS_ACTION_PRESSED (0)
+  private readonly isActionPressed = (
+    _entity: Entity | undefined,
+    _inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => this.getReturnValue(buttonAction, true);
+
+  // InputHook.IS_ACTION_TRIGGERED (1)
+  private readonly isActionTriggered = (
+    _entity: Entity | undefined,
+    _inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => this.getReturnValue(buttonAction, true);
+
+  // InputHook.GET_ACTION_VALUE (2)
+  private readonly getActionValue = (
+    _entity: Entity | undefined,
+    _inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => this.getReturnValue(buttonAction, false);
+
   /** @internal */
   public override v = v;
 
@@ -65,27 +86,6 @@ export class DisableInputs extends Feature {
       ],
     ];
   }
-
-  // InputHook.IS_ACTION_PRESSED (0)
-  private readonly isActionPressed = (
-    _entity: Entity | undefined,
-    _inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ) => this.getReturnValue(buttonAction, true);
-
-  // InputHook.IS_ACTION_TRIGGERED (1)
-  private readonly isActionTriggered = (
-    _entity: Entity | undefined,
-    _inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ) => this.getReturnValue(buttonAction, true);
-
-  // InputHook.GET_ACTION_VALUE (2)
-  private readonly getActionValue = (
-    _entity: Entity | undefined,
-    _inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ) => this.getReturnValue(buttonAction, false);
 
   private getReturnValue(buttonAction: ButtonAction, booleanCallback: boolean) {
     const disableValue = booleanCallback ? false : 0;

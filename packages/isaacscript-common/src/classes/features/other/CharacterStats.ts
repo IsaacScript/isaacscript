@@ -10,16 +10,6 @@ type StatMap = ReadonlyMap<CacheFlag, number>;
 export class CharacterStats extends Feature {
   private readonly charactersStatMap = new Map<PlayerType, StatMap>();
 
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 8
-      [ModCallback.EVALUATE_CACHE, this.evaluateCache],
-    ];
-  }
-
   // ModCallback.EVALUATE_CACHE (8)
   private readonly evaluateCache = (
     player: EntityPlayer,
@@ -40,6 +30,16 @@ export class CharacterStats extends Feature {
 
     addPlayerStat(player, cacheFlag, delta);
   };
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 8
+      [ModCallback.EVALUATE_CACHE, this.evaluateCache],
+    ];
+  }
 
   /**
    * Helper function to manage the stats for a vanilla or custom character. Call this function once

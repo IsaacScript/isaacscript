@@ -29,43 +29,6 @@ export abstract class CustomCallback<
 > extends Feature {
   private subscriptions: Array<Subscription<T>> = [];
 
-  public addSubscriber(
-    priority: CallbackPriority | int,
-    callbackFunc: AddCallbackParametersCustom[T][0],
-    ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
-  ): void {
-    const subscription: Subscription<T> = {
-      priority,
-      callbackFunc,
-      optionalArgs,
-    };
-    this.subscriptions.push(subscription);
-
-    // Sort the subscriptions by priority so that the callbacks with the lowest priority are first.
-    // By default, the `Array.sort` method is transpiled to using Lua's sort, which is not stable.
-    // We need to do a stable sort so that we preserve the subscription order.
-    this.subscriptions = stableSort(
-      this.subscriptions,
-      sortObjectArrayByKey("priority"),
-    );
-  }
-
-  /**
-   * If the submitted function does not match any of the existing subscriptions, this method will do
-   * nothing.
-   */
-  public removeSubscriber(callback: AddCallbackParametersCustom[T][0]): void {
-    const subscriptionIndexMatchingCallback = this.subscriptions.findIndex(
-      (subscription) => {
-        const subscriptionCallback = subscription.callbackFunc;
-        return callback === subscriptionCallback;
-      },
-    );
-    if (subscriptionIndexMatchingCallback !== -1) {
-      this.subscriptions.splice(subscriptionIndexMatchingCallback, 1);
-    }
-  }
-
   public fire = (
     ...fireArgs: FireArgs<T>
   ): ReturnType<AddCallbackParametersCustom[T][0]> => {
@@ -103,4 +66,41 @@ export abstract class CustomCallback<
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
   ) => boolean = () => true;
+
+  public addSubscriber(
+    priority: CallbackPriority | int,
+    callbackFunc: AddCallbackParametersCustom[T][0],
+    ...optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>
+  ): void {
+    const subscription: Subscription<T> = {
+      priority,
+      callbackFunc,
+      optionalArgs,
+    };
+    this.subscriptions.push(subscription);
+
+    // Sort the subscriptions by priority so that the callbacks with the lowest priority are first.
+    // By default, the `Array.sort` method is transpiled to using Lua's sort, which is not stable.
+    // We need to do a stable sort so that we preserve the subscription order.
+    this.subscriptions = stableSort(
+      this.subscriptions,
+      sortObjectArrayByKey("priority"),
+    );
+  }
+
+  /**
+   * If the submitted function does not match any of the existing subscriptions, this method will do
+   * nothing.
+   */
+  public removeSubscriber(callback: AddCallbackParametersCustom[T][0]): void {
+    const subscriptionIndexMatchingCallback = this.subscriptions.findIndex(
+      (subscription) => {
+        const subscriptionCallback = subscription.callbackFunc;
+        return callback === subscriptionCallback;
+      },
+    );
+    if (subscriptionIndexMatchingCallback !== -1) {
+      this.subscriptions.splice(subscriptionIndexMatchingCallback, 1);
+    }
+  }
 }

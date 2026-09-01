@@ -5,21 +5,6 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class EntityTakeDmgPlayer extends CustomCallback<ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER> {
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 11
-      [
-        ModCallback.ENTITY_TAKE_DMG,
-        this.entityTakeDmgPlayer,
-        [EntityType.PLAYER],
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallback.ENTITY_TAKE_DMG (11)
   private readonly entityTakeDmgPlayer = (
     entity: Entity,
@@ -35,4 +20,19 @@ export class EntityTakeDmgPlayer extends CustomCallback<ModCallbackCustom.ENTITY
 
     return this.fire(player, amount, damageFlags, source, countdownFrames);
   };
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 11
+      [
+        ModCallback.ENTITY_TAKE_DMG,
+        this.entityTakeDmgPlayer,
+        [EntityType.PLAYER],
+      ],
+    ];
+  }
 }

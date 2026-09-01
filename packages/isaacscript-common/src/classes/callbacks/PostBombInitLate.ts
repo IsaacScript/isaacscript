@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB_INIT_LATE> {
+  // ModCallback.POST_BOMB_UPDATE (58)
+  private readonly postBombUpdate = (bomb: EntityBomb): void => {
+    const ptrHash = GetPtrHash(bomb);
+    if (!v.room.firedSet.has(ptrHash)) {
+      v.room.firedSet.add(ptrHash);
+      this.fire(bomb);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireBomb;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostBombInitLate extends CustomCallback<ModCallbackCustom.POST_BOMB
       [ModCallback.POST_BOMB_UPDATE, this.postBombUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireBomb;
-
-  // ModCallback.POST_BOMB_UPDATE (58)
-  private readonly postBombUpdate = (bomb: EntityBomb): void => {
-    const ptrHash = GetPtrHash(bomb);
-    if (!v.room.firedSet.has(ptrHash)) {
-      v.room.firedSet.add(ptrHash);
-      this.fire(bomb);
-    }
-  };
 }

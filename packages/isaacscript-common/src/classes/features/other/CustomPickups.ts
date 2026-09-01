@@ -40,23 +40,6 @@ export class CustomPickups extends Feature {
     CustomPickupFunctions
   >();
 
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 38
-      [ModCallback.PRE_PICKUP_COLLISION, this.prePickupCollision],
-
-      // 56
-      [
-        ModCallback.POST_EFFECT_RENDER,
-        this.postEffectRenderPickupEffect,
-        [PICKUP_EFFECT_VARIANT],
-      ],
-    ];
-  }
-
   // ModCallback.PRE_PICKUP_COLLISION (38)
   private readonly prePickupCollision = (
     pickup: EntityPickup,
@@ -110,6 +93,23 @@ export class CustomPickups extends Feature {
       effect.Remove();
     }
   };
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 38
+      [ModCallback.PRE_PICKUP_COLLISION, this.prePickupCollision],
+
+      // 56
+      [
+        ModCallback.POST_EFFECT_RENDER,
+        this.postEffectRenderPickupEffect,
+        [PICKUP_EFFECT_VARIANT],
+      ],
+    ];
+  }
 
   /**
    * Helper function to register a custom pickup with the IsaacScript standard library. Use this

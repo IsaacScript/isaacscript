@@ -31,12 +31,6 @@ import type { Feature } from "./private/Feature";
  * corresponds to the internal-type `ModUpgradedWithFeatures` type, which extends `ModUpgraded`.)
  */
 export class ModUpgraded implements Mod {
-  // -----------------
-  // Vanilla variables
-  // -----------------
-
-  public Name: string;
-
   // ----------------
   // Custom variables
   // ----------------
@@ -49,6 +43,12 @@ export class ModUpgraded implements Mod {
 
   private readonly callbacks;
   private readonly features;
+
+  // -----------------
+  // Vanilla variables
+  // -----------------
+
+  public Name: string;
 
   // -----------
   // Constructor
@@ -66,6 +66,147 @@ export class ModUpgraded implements Mod {
     );
   }
 
+  // ----------------------
+  // Custom private methods
+  // ----------------------
+
+  /**
+   * This is used to initialize both custom callbacks and "extra features".
+   *
+   * This mirrors the `uninitFeature` method.
+   */
+  private initFeature(feature: Feature): void {
+    feature.numConsumers++;
+
+    if (feature.initialized) {
+      return;
+    }
+
+    feature.initialized = true;
+
+    if (feature.v !== undefined) {
+      feature.featuresUsed ??= [];
+      if (!feature.featuresUsed.includes(ISCFeature.SAVE_DATA_MANAGER)) {
+        feature.featuresUsed.unshift(ISCFeature.SAVE_DATA_MANAGER);
+      }
+    }
+
+    if (feature.featuresUsed !== undefined) {
+      for (const featureUsed of feature.featuresUsed) {
+        const featureClass = this.features[featureUsed];
+        this.initFeature(featureClass);
+      }
+    }
+
+    if (feature.callbacksUsed !== undefined) {
+      for (const callbackTuple of feature.callbacksUsed) {
+        const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
+        // TypeScript is not smart enough to know that the arguments match the function.
+        (this.AddPriorityCallback as AnyFunction)(
+          modCallback,
+          CallbackPriority.IMPORTANT,
+          callbackFunc,
+          ...(optionalArgs ?? []),
+        );
+      }
+    }
+
+    if (feature.customCallbacksUsed !== undefined) {
+      for (const callbackTuple of feature.customCallbacksUsed) {
+        const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
+        // TypeScript is not smart enough to know that the arguments match the function.
+        (this.AddPriorityCallbackCustom as AnyFunction)(
+          modCallback,
+          CallbackPriority.IMPORTANT,
+          callbackFunc,
+          ...(optionalArgs ?? []),
+        );
+      }
+    }
+
+    if (feature.v !== undefined) {
+      const className = getTSTLClassName(feature);
+      assertDefined(className, "Failed to get the name of a feature.");
+
+      const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
+      saveDataManagerClass.saveDataManager(
+        className,
+        feature.v,
+        feature.vConditionalFunc,
+      );
+    }
+  }
+
+  /**
+   * This is used to uninitialize both custom callbacks and "extra features".
+   *
+   * This mirrors the `initFeature` method.
+   */
+  private uninitFeature(feature: Feature): void {
+    if (feature.numConsumers <= 0) {
+      const className = getTSTLClassName(feature) ?? "unknown";
+      error(
+        `Failed to uninit feature "${className}" since it has ${feature.numConsumers} consumers, which should never happen.`,
+      );
+    }
+
+    if (!feature.initialized) {
+      const className = getTSTLClassName(feature) ?? "unknown";
+      error(
+        `Failed to uninit feature "${className}" since it was not initialized, which should never happen.`,
+      );
+    }
+
+    feature.numConsumers--;
+
+    if (feature.numConsumers > 0) {
+      return;
+    }
+
+    feature.initialized = false;
+
+    if (feature.featuresUsed !== undefined) {
+      for (const featureUsed of feature.featuresUsed) {
+        const featureClass = this.features[featureUsed];
+        this.uninitFeature(featureClass);
+      }
+    }
+
+    if (feature.callbacksUsed !== undefined) {
+      for (const callbackTuple of feature.callbacksUsed) {
+        const [modCallback, callbackFunc] = callbackTuple;
+        this.RemoveCallback(modCallback, callbackFunc);
+      }
+    }
+
+    if (feature.customCallbacksUsed !== undefined) {
+      for (const callbackTuple of feature.customCallbacksUsed) {
+        const [modCallback, callbackFunc] = callbackTuple;
+        this.RemoveCallbackCustom(modCallback, callbackFunc);
+      }
+    }
+
+    if (feature.v !== undefined) {
+      const className = getTSTLClassName(feature);
+      assertDefined(className, "Failed to get the name of a feature.");
+
+      const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
+      saveDataManagerClass.saveDataManagerRemove(className);
+    }
+  }
+
+  /**
+   * Returns the names of the exported class methods from the features that were added. This is
+   * called from the "upgradeMod" function, but we want to mark it as private so that end-users
+   * don't have access to it.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-private-class-members
+  private initOptionalFeature(feature: ISCFeature): readonly FunctionTuple[] {
+    const featureClass = this.features[feature];
+    this.initFeature(featureClass);
+
+    return getExportedMethodsFromFeature(featureClass);
+  }
   // ---------------
   // Vanilla methods
   // ---------------
@@ -274,148 +415,6 @@ export class ModUpgraded implements Mod {
 
       log(`- ISCFeature.${ISCFeature[iscFeature]} (${iscFeature})`);
     }
-  }
-
-  // ----------------------
-  // Custom private methods
-  // ----------------------
-
-  /**
-   * This is used to initialize both custom callbacks and "extra features".
-   *
-   * This mirrors the `uninitFeature` method.
-   */
-  private initFeature(feature: Feature): void {
-    feature.numConsumers++;
-
-    if (feature.initialized) {
-      return;
-    }
-
-    feature.initialized = true;
-
-    if (feature.v !== undefined) {
-      feature.featuresUsed ??= [];
-      if (!feature.featuresUsed.includes(ISCFeature.SAVE_DATA_MANAGER)) {
-        feature.featuresUsed.unshift(ISCFeature.SAVE_DATA_MANAGER);
-      }
-    }
-
-    if (feature.featuresUsed !== undefined) {
-      for (const featureUsed of feature.featuresUsed) {
-        const featureClass = this.features[featureUsed];
-        this.initFeature(featureClass);
-      }
-    }
-
-    if (feature.callbacksUsed !== undefined) {
-      for (const callbackTuple of feature.callbacksUsed) {
-        const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
-        // TypeScript is not smart enough to know that the arguments match the function.
-        (this.AddPriorityCallback as AnyFunction)(
-          modCallback,
-          CallbackPriority.IMPORTANT,
-          callbackFunc,
-          ...(optionalArgs ?? []),
-        );
-      }
-    }
-
-    if (feature.customCallbacksUsed !== undefined) {
-      for (const callbackTuple of feature.customCallbacksUsed) {
-        const [modCallback, callbackFunc, optionalArgs] = callbackTuple;
-        // TypeScript is not smart enough to know that the arguments match the function.
-        (this.AddPriorityCallbackCustom as AnyFunction)(
-          modCallback,
-          CallbackPriority.IMPORTANT,
-          callbackFunc,
-          ...(optionalArgs ?? []),
-        );
-      }
-    }
-
-    if (feature.v !== undefined) {
-      const className = getTSTLClassName(feature);
-      assertDefined(className, "Failed to get the name of a feature.");
-
-      const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
-      saveDataManagerClass.saveDataManager(
-        className,
-        feature.v,
-        feature.vConditionalFunc,
-      );
-    }
-  }
-
-  /**
-   * This is used to uninitialize both custom callbacks and "extra features".
-   *
-   * This mirrors the `initFeature` method.
-   */
-  private uninitFeature(feature: Feature): void {
-    if (feature.numConsumers <= 0) {
-      const className = getTSTLClassName(feature) ?? "unknown";
-      error(
-        `Failed to uninit feature "${className}" since it has ${feature.numConsumers} consumers, which should never happen.`,
-      );
-    }
-
-    if (!feature.initialized) {
-      const className = getTSTLClassName(feature) ?? "unknown";
-      error(
-        `Failed to uninit feature "${className}" since it was not initialized, which should never happen.`,
-      );
-    }
-
-    feature.numConsumers--;
-
-    if (feature.numConsumers > 0) {
-      return;
-    }
-
-    feature.initialized = false;
-
-    if (feature.featuresUsed !== undefined) {
-      for (const featureUsed of feature.featuresUsed) {
-        const featureClass = this.features[featureUsed];
-        this.uninitFeature(featureClass);
-      }
-    }
-
-    if (feature.callbacksUsed !== undefined) {
-      for (const callbackTuple of feature.callbacksUsed) {
-        const [modCallback, callbackFunc] = callbackTuple;
-        this.RemoveCallback(modCallback, callbackFunc);
-      }
-    }
-
-    if (feature.customCallbacksUsed !== undefined) {
-      for (const callbackTuple of feature.customCallbacksUsed) {
-        const [modCallback, callbackFunc] = callbackTuple;
-        this.RemoveCallbackCustom(modCallback, callbackFunc);
-      }
-    }
-
-    if (feature.v !== undefined) {
-      const className = getTSTLClassName(feature);
-      assertDefined(className, "Failed to get the name of a feature.");
-
-      const saveDataManagerClass = this.features[ISCFeature.SAVE_DATA_MANAGER];
-      saveDataManagerClass.saveDataManagerRemove(className);
-    }
-  }
-
-  /**
-   * Returns the names of the exported class methods from the features that were added. This is
-   * called from the "upgradeMod" function, but we want to mark it as private so that end-users
-   * don't have access to it.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-unused-private-class-members
-  private initOptionalFeature(feature: ISCFeature): readonly FunctionTuple[] {
-    const featureClass = this.features[feature];
-    this.initFeature(featureClass);
-
-    return getExportedMethodsFromFeature(featureClass);
   }
 }
 

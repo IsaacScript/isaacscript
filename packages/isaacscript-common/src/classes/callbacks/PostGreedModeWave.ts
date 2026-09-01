@@ -10,17 +10,6 @@ const v = {
 };
 
 export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GREED_MODE_WAVE> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-    ];
-  }
-
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = (): void => {
     if (!game.IsGreedMode()) {
@@ -36,4 +25,15 @@ export class PostGreedModeWave extends CustomCallback<ModCallbackCustom.POST_GRE
       this.fire(oldWave, newWave);
     }
   };
+
+  public override v = v;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+    ];
+  }
 }

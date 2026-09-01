@@ -4,6 +4,15 @@ import { shouldFireFamiliar } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PreFamiliarCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_FAMILIAR_COLLISION_FILTER> {
+  // ModCallback.PRE_FAMILIAR_COLLISION (26)
+  private readonly preFamiliarCollision = (
+    familiar: EntityFamiliar,
+    collider: Entity,
+    low: boolean,
+  ): boolean | undefined => this.fire(familiar, collider, low);
+
+  protected override shouldFire = shouldFireFamiliar;
+
   constructor() {
     super();
 
@@ -12,13 +21,4 @@ export class PreFamiliarCollisionFilter extends CustomCallback<ModCallbackCustom
       [ModCallback.PRE_FAMILIAR_COLLISION, this.preFamiliarCollision],
     ];
   }
-
-  protected override shouldFire = shouldFireFamiliar;
-
-  // ModCallback.PRE_FAMILIAR_COLLISION (26)
-  private readonly preFamiliarCollision = (
-    familiar: EntityFamiliar,
-    collider: Entity,
-    low: boolean,
-  ): boolean | undefined => this.fire(familiar, collider, low);
 }

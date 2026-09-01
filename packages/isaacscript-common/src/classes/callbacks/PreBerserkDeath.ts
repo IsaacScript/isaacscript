@@ -7,19 +7,6 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSERK_DEATH> {
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (
     player: EntityPlayer,
@@ -44,4 +31,17 @@ export class PreBerserkDeath extends CustomCallback<ModCallbackCustom.PRE_BERSER
       this.fire(player);
     }
   };
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 }

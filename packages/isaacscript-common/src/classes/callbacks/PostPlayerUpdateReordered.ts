@@ -4,11 +4,10 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPlayerUpdateReordered extends CustomCallback<ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED> {
+  protected override shouldFire = shouldFirePlayer;
   constructor() {
     super();
 
     this.featuresUsed = [ISCFeature.PLAYER_REORDERED_CALLBACKS];
   }
-
-  protected override shouldFire = shouldFirePlayer;
 }

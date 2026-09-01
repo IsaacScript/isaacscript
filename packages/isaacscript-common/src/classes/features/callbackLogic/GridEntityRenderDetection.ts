@@ -10,6 +10,20 @@ export class GridEntityRenderDetection extends Feature {
   private readonly postGridEntityCustomRender: PostGridEntityCustomRender;
   private readonly customGridEntities: CustomGridEntities;
 
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = () => {
+    for (const gridEntity of getGridEntities()) {
+      const gridIndex = gridEntity.GetGridIndex();
+      const gridEntityTypeCustom =
+        this.customGridEntities.getCustomGridEntityType(gridIndex);
+      if (gridEntityTypeCustom === undefined) {
+        this.postGridEntityRender.fire(gridEntity);
+      } else {
+        this.postGridEntityCustomRender.fire(gridEntity, gridEntityTypeCustom);
+      }
+    }
+  };
+
   constructor(
     postGridEntityRender: PostGridEntityRender,
     postGridEntityCustomRender: PostGridEntityCustomRender,
@@ -26,18 +40,4 @@ export class GridEntityRenderDetection extends Feature {
     this.postGridEntityCustomRender = postGridEntityCustomRender;
     this.customGridEntities = customGridEntities;
   }
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = () => {
-    for (const gridEntity of getGridEntities()) {
-      const gridIndex = gridEntity.GetGridIndex();
-      const gridEntityTypeCustom =
-        this.customGridEntities.getCustomGridEntityType(gridIndex);
-      if (gridEntityTypeCustom === undefined) {
-        this.postGridEntityRender.fire(gridEntity);
-      } else {
-        this.postGridEntityCustomRender.fire(gridEntity, gridEntityTypeCustom);
-      }
-    }
-  };
 }

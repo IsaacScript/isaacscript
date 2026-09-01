@@ -6,12 +6,6 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.POST_CUSTOM_REVIVE;
 
 export class PostCustomRevive extends CustomCallback<ModCallbackCustom.POST_CUSTOM_REVIVE> {
-  constructor() {
-    super();
-
-    this.featuresUsed = [ISCFeature.CUSTOM_REVIVE];
-  }
-
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
@@ -23,4 +17,10 @@ export class PostCustomRevive extends CustomCallback<ModCallbackCustom.POST_CUST
       callbackRevivalType === undefined || revivalType === callbackRevivalType
     );
   };
+
+  constructor() {
+    super();
+
+    this.featuresUsed = [ISCFeature.CUSTOM_REVIVE];
+  }
 }

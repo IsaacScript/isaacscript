@@ -5,6 +5,15 @@ import { shouldFirePoop } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPoopRender extends CustomCallback<ModCallbackCustom.POST_POOP_RENDER> {
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = (): void => {
+    for (const poop of getPoops()) {
+      this.fire(poop);
+    }
+  };
+
+  protected override shouldFire = shouldFirePoop;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostPoopRender extends CustomCallback<ModCallbackCustom.POST_POOP_R
       [ModCallback.POST_RENDER, this.postRender],
     ];
   }
-
-  protected override shouldFire = shouldFirePoop;
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = (): void => {
-    for (const poop of getPoops()) {
-      this.fire(poop);
-    }
-  };
 }

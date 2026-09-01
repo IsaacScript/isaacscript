@@ -13,22 +13,6 @@ const v = {
 };
 
 export class RerunDetection extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_GAME_STARTED_REORDERED,
-        this.postGameStartedReordered,
-      ],
-      [ModCallbackCustom.POST_NEW_LEVEL_REORDERED, this.postNewLevelReordered],
-    ];
-  }
-
   // ModCallbackCustom.POST_GAME_STARTED_REORDERED
   private readonly postGameStartedReordered = (isContinued: boolean) => {
     if (isContinued) {
@@ -44,6 +28,22 @@ export class RerunDetection extends Feature {
   private readonly postNewLevelReordered = () => {
     v.persistent.pastFirstFloor = !onFirstFloor();
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_GAME_STARTED_REORDERED,
+        this.postGameStartedReordered,
+      ],
+      [ModCallbackCustom.POST_NEW_LEVEL_REORDERED, this.postNewLevelReordered],
+    ];
+  }
 
   /**
    * Helper function to detect if the current run was starting using the "Rerun" option from the

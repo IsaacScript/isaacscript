@@ -34,80 +34,12 @@ declare let __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE:
  * you might need to get another mod author to update their version of `isaacscript-common`.
  */
 export class ExtraConsoleCommands extends Feature {
-  /** @internal */
-  public override v = v;
-
   private readonly isMainFeature: boolean;
 
   private readonly commandFunctionMap = new Map<
     string,
     (params: string) => void
   >();
-
-  /** @internal */
-  constructor() {
-    super();
-
-    // Only one instance of this feature can be instantiated across all mods.
-    this.isMainFeature =
-      __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE === undefined;
-    if (!this.isMainFeature) {
-      return;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
-    __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE = this;
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-
-      // 8
-      [
-        ModCallback.EVALUATE_CACHE,
-        this.evaluateCacheDamage,
-        [CacheFlag.DAMAGE], // 1 << 0
-      ],
-
-      // 8
-      [
-        ModCallback.EVALUATE_CACHE,
-        this.evaluateCacheFireDelay,
-        [CacheFlag.FIRE_DELAY], // 1 << 1
-      ],
-
-      // 8
-      [
-        ModCallback.EVALUATE_CACHE,
-        this.evaluateCacheSpeed,
-        [CacheFlag.SPEED], // 1 << 4
-      ],
-
-      // 8
-      [
-        ModCallback.EVALUATE_CACHE,
-        this.evaluateCacheFlying,
-        [CacheFlag.FLYING], // 1 << 7
-      ],
-
-      // 12
-      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
-
-      // 22
-      [ModCallback.EXECUTE_CMD, this.executeCmd],
-
-      // 61
-      [ModCallback.POST_FIRE_TEAR, this.postFireTear],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
-    ];
-
-    for (const [funcName, func] of Object.entries(commands)) {
-      this.commandFunctionMap.set(funcName, func);
-    }
-  }
 
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = () => {
@@ -239,6 +171,74 @@ export class ExtraConsoleCommands extends Feature {
 
     return undefined;
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    // Only one instance of this feature can be instantiated across all mods.
+    this.isMainFeature =
+      __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE === undefined;
+    if (!this.isMainFeature) {
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
+    __ISAACSCRIPT_COMMON_EXTRA_CONSOLE_COMMANDS_FEATURE = this;
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+
+      // 8
+      [
+        ModCallback.EVALUATE_CACHE,
+        this.evaluateCacheDamage,
+        [CacheFlag.DAMAGE], // 1 << 0
+      ],
+
+      // 8
+      [
+        ModCallback.EVALUATE_CACHE,
+        this.evaluateCacheFireDelay,
+        [CacheFlag.FIRE_DELAY], // 1 << 1
+      ],
+
+      // 8
+      [
+        ModCallback.EVALUATE_CACHE,
+        this.evaluateCacheSpeed,
+        [CacheFlag.SPEED], // 1 << 4
+      ],
+
+      // 8
+      [
+        ModCallback.EVALUATE_CACHE,
+        this.evaluateCacheFlying,
+        [CacheFlag.FLYING], // 1 << 7
+      ],
+
+      // 12
+      [ModCallback.POST_CURSE_EVAL, this.postCurseEval],
+
+      // 22
+      [ModCallback.EXECUTE_CMD, this.executeCmd],
+
+      // 61
+      [ModCallback.POST_FIRE_TEAR, this.postFireTear],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+    ];
+
+    for (const [funcName, func] of Object.entries(commands)) {
+      this.commandFunctionMap.set(funcName, func);
+    }
+  }
 
   /**
    * Helper function to add a custom console command.

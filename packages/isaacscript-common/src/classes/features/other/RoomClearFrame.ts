@@ -12,6 +12,19 @@ const v = {
 };
 
 export class RoomClearFrame extends Feature {
+  // ModCallbackCustom.POST_ROOM_CLEAR_CHANGED
+  // true
+  private readonly postRoomClearChangedTrue = () => {
+    const gameFrameCount = game.GetFrameCount();
+    const room = game.GetRoom();
+    const roomFrameCount = room.GetFrameCount();
+    const renderFrameCount = Isaac.GetFrameCount();
+
+    v.room.roomClearGameFrame = gameFrameCount;
+    v.room.roomClearRenderFrame = renderFrameCount;
+    v.room.roomClearRoomFrame = roomFrameCount;
+  };
+
   /** @internal */
   public override v = v;
 
@@ -26,19 +39,6 @@ export class RoomClearFrame extends Feature {
       ],
     ];
   }
-
-  // ModCallbackCustom.POST_ROOM_CLEAR_CHANGED
-  // true
-  private readonly postRoomClearChangedTrue = () => {
-    const gameFrameCount = game.GetFrameCount();
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-    const renderFrameCount = Isaac.GetFrameCount();
-
-    v.room.roomClearGameFrame = gameFrameCount;
-    v.room.roomClearRenderFrame = renderFrameCount;
-    v.room.roomClearRoomFrame = roomFrameCount;
-  };
 
   /**
    * Helper function to get the game frame (i.e. `Game.GetFrameCount`) of the last time that this

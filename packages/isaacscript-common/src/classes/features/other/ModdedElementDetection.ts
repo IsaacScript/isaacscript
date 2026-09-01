@@ -45,6 +45,11 @@ const FIRST_MODDED_PILL_EFFECT: PillEffect = LAST_VANILLA_PILL_EFFECT + 1;
 export class ModdedElementDetection extends Feature {
   private atLeastOneCallbackFired = false;
 
+  // ModCallback.POST_PLAYER_INIT (9)
+  private readonly postPlayerInit = () => {
+    this.atLeastOneCallbackFired = true;
+  };
+
   /** @internal */
   constructor() {
     super();
@@ -54,11 +59,6 @@ export class ModdedElementDetection extends Feature {
       [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
     ];
   }
-
-  // ModCallback.POST_PLAYER_INIT (9)
-  private readonly postPlayerInit = () => {
-    this.atLeastOneCallbackFired = true;
-  };
 
   private errorIfNoCallbacksFired(constantType: string) {
     if (!this.atLeastOneCallbackFired) {

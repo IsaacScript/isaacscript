@@ -11,19 +11,6 @@ const v = {
 };
 
 export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PICKUP_COLLECT> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 36
-      [ModCallback.POST_PICKUP_RENDER, this.postPickupRender],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePickup;
-
   // ModCallback.POST_PICKUP_RENDER (36)
   private readonly postPickupRender = (pickup: EntityPickup) => {
     const sprite = pickup.GetSprite();
@@ -40,4 +27,17 @@ export class PostPickupCollect extends CustomCallback<ModCallbackCustom.POST_PIC
       this.fire(pickup, player);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePickup;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 36
+      [ModCallback.POST_PICKUP_RENDER, this.postPickupRender],
+    ];
+  }
 }

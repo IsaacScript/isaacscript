@@ -111,9 +111,6 @@ export class CustomTrapdoors extends Feature {
     ) => void
   >();
 
-  /** @internal */
-  public override v = v;
-
   /**
    * In order to represent a black sprite, we just use the first frame of the boss versus screen
    * animation. However, we must lazy load the sprite in order to prevent issues with mods that
@@ -129,6 +126,41 @@ export class CustomTrapdoors extends Feature {
   private readonly runInNFrames: RunInNFrames;
   private readonly runNextRoom: RunNextRoom;
   private readonly stageHistory: StageHistory;
+
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = () => {
+    this.checkAllPlayersJumpComplete();
+    this.checkPixelationToBlackComplete();
+    this.checkSecondPixelationHalfWay();
+    this.checkAllPlayersLayingDownComplete();
+    this.drawBlackSprite();
+  };
+
+  // ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE
+  // GridEntityTypeCustom.TRAPDOOR_CUSTOM
+  private readonly postGridEntityCustomUpdateTrapdoor = (
+    gridEntity: GridEntity,
+  ) => {
+    const roomListIndex = getRoomListIndex();
+    const gridIndex = gridEntity.GetGridIndex();
+
+    const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
+    const trapdoorDescription = roomTrapdoorMap.get(gridIndex);
+    if (trapdoorDescription === undefined) {
+      return;
+    }
+
+    this.checkCustomTrapdoorOpenClose(gridEntity, trapdoorDescription);
+    this.checkCustomTrapdoorPlayerTouched(gridEntity, trapdoorDescription);
+  };
+
+  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
+    this.checkJumpComplete(player);
+  };
+
+  /** @internal */
+  public override v = v;
 
   /** @internal */
   constructor(
@@ -177,15 +209,6 @@ export class CustomTrapdoors extends Feature {
     this.runNextRoom = runNextRoom;
     this.stageHistory = stageHistory;
   }
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = () => {
-    this.checkAllPlayersJumpComplete();
-    this.checkPixelationToBlackComplete();
-    this.checkSecondPixelationHalfWay();
-    this.checkAllPlayersLayingDownComplete();
-    this.drawBlackSprite();
-  };
 
   private checkAllPlayersJumpComplete() {
     if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {
@@ -394,24 +417,6 @@ export class CustomTrapdoors extends Feature {
     this.blackSprite.RenderLayer(0, VectorZero);
   }
 
-  // ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_UPDATE
-  // GridEntityTypeCustom.TRAPDOOR_CUSTOM
-  private readonly postGridEntityCustomUpdateTrapdoor = (
-    gridEntity: GridEntity,
-  ) => {
-    const roomListIndex = getRoomListIndex();
-    const gridIndex = gridEntity.GetGridIndex();
-
-    const roomTrapdoorMap = v.level.trapdoors.getAndSetDefault(roomListIndex);
-    const trapdoorDescription = roomTrapdoorMap.get(gridIndex);
-    if (trapdoorDescription === undefined) {
-      return;
-    }
-
-    this.checkCustomTrapdoorOpenClose(gridEntity, trapdoorDescription);
-    this.checkCustomTrapdoorPlayerTouched(gridEntity, trapdoorDescription);
-  };
-
   private checkCustomTrapdoorOpenClose(
     gridEntity: GridEntity,
     trapdoorDescription: CustomTrapdoorDescription,
@@ -616,11 +621,6 @@ export class CustomTrapdoors extends Feature {
     player.Position = targetPosition;
     player.Velocity = VectorZero;
   }
-
-  // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-  private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
-    this.checkJumpComplete(player);
-  };
 
   private checkJumpComplete(player: EntityPlayer) {
     if (v.run.state !== StageTravelState.PLAYERS_JUMPING_DOWN) {

@@ -8,6 +8,13 @@ const INSTANT_FADE_IN_SPEED = 1;
 export class FadeInRemover extends Feature {
   private enabled = false;
 
+  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
+  private readonly postGameStartedReordered = () => {
+    if (this.enabled) {
+      game.Fadein(INSTANT_FADE_IN_SPEED);
+    }
+  };
+
   /** @internal */
   constructor() {
     super();
@@ -20,13 +27,6 @@ export class FadeInRemover extends Feature {
       ],
     ];
   }
-
-  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  private readonly postGameStartedReordered = () => {
-    if (this.enabled) {
-      game.Fadein(INSTANT_FADE_IN_SPEED);
-    }
-  };
 
   /**
    * Removes the fade-in that occurs at the beginning of a run. If this behavior is desired, call

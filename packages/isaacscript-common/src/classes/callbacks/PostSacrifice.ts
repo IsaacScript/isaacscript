@@ -12,18 +12,6 @@ const v = {
 };
 
 export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFICE> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallbackCustom.ENTITY_TAKE_DMG
   private readonly entityTakeDmgPlayer = (
     player: EntityPlayer,
@@ -43,4 +31,16 @@ export class PostSacrifice extends CustomCallback<ModCallbackCustom.POST_SACRIFI
 
     return undefined;
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+    ];
+  }
 }

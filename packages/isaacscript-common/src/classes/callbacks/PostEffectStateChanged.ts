@@ -11,19 +11,6 @@ const v = {
 };
 
 export class PostEffectStateChanged extends CustomCallback<ModCallbackCustom.POST_EFFECT_STATE_CHANGED> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 55
-      [ModCallback.POST_EFFECT_UPDATE, this.postEffectUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFireEffect;
-
   // ModCallback.POST_EFFECT_UPDATE (55)
   private readonly postEffectUpdate = (effect: EntityEffect): void => {
     const ptrHash = GetPtrHash(effect);
@@ -38,4 +25,17 @@ export class PostEffectStateChanged extends CustomCallback<ModCallbackCustom.POS
       this.fire(effect, previousState, currentState);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireEffect;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 55
+      [ModCallback.POST_EFFECT_UPDATE, this.postEffectUpdate],
+    ];
+  }
 }

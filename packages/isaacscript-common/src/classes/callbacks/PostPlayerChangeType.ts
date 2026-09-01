@@ -20,21 +20,6 @@ const v = {
 };
 
 export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_TYPE> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectReordered = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
@@ -48,4 +33,19 @@ export class PostPlayerChangeType extends CustomCallback<ModCallbackCustom.POST_
       this.fire(player, storedCharacter, character);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectReordered,
+      ],
+    ];
+  }
 }

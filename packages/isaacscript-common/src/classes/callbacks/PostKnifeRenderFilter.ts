@@ -4,6 +4,16 @@ import { shouldFireKnife } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostKnifeRenderFilter extends CustomCallback<ModCallbackCustom.POST_KNIFE_RENDER_FILTER> {
+  // ModCallback.POST_KNIFE_RENDER (52)
+  private readonly postKnifeRender = (
+    knife: EntityKnife,
+    renderOffset: Vector,
+  ) => {
+    this.fire(knife, renderOffset);
+  };
+
+  protected override shouldFire = shouldFireKnife;
+
   constructor() {
     super();
 
@@ -12,14 +22,4 @@ export class PostKnifeRenderFilter extends CustomCallback<ModCallbackCustom.POST
       [ModCallback.POST_KNIFE_RENDER, this.postKnifeRender],
     ];
   }
-
-  protected override shouldFire = shouldFireKnife;
-
-  // ModCallback.POST_KNIFE_RENDER (52)
-  private readonly postKnifeRender = (
-    knife: EntityKnife,
-    renderOffset: Vector,
-  ) => {
-    this.fire(knife, renderOffset);
-  };
 }

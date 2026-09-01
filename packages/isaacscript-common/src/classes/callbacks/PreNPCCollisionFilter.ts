@@ -4,6 +4,15 @@ import { shouldFireNPC } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PreNPCCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_NPC_COLLISION_FILTER> {
+  // ModCallback.PRE_NPC_COLLISION (30)
+  private readonly preNPCCollision = (
+    npc: EntityNPC,
+    collider: Entity,
+    low: boolean,
+  ) => this.fire(npc, collider, low);
+
+  protected override shouldFire = shouldFireNPC;
+
   constructor() {
     super();
 
@@ -12,13 +21,4 @@ export class PreNPCCollisionFilter extends CustomCallback<ModCallbackCustom.PRE_
       [ModCallback.PRE_NPC_COLLISION, this.preNPCCollision],
     ];
   }
-
-  protected override shouldFire = shouldFireNPC;
-
-  // ModCallback.PRE_NPC_COLLISION (30)
-  private readonly preNPCCollision = (
-    npc: EntityNPC,
-    collider: Entity,
-    low: boolean,
-  ) => this.fire(npc, collider, low);
 }

@@ -10,19 +10,6 @@ const v = {
 };
 
 export class PostProjectileInitLate extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_INIT_LATE> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 44
-      [ModCallback.POST_PROJECTILE_UPDATE, this.postProjectileUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFireProjectile;
-
   // ModCallback.POST_PROJECTILE_UPDATE (44)
   private readonly postProjectileUpdate = (
     projectile: EntityProjectile,
@@ -33,4 +20,17 @@ export class PostProjectileInitLate extends CustomCallback<ModCallbackCustom.POS
       this.fire(projectile);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFireProjectile;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 44
+      [ModCallback.POST_PROJECTILE_UPDATE, this.postProjectileUpdate],
+    ];
+  }
 }

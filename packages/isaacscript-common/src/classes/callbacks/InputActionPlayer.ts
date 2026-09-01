@@ -7,14 +7,23 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.INPUT_ACTION_PLAYER;
 
 export class InputActionPlayer extends CustomCallback<T> {
-  constructor() {
-    super();
+  // ModCallback.INPUT_ACTION (13)
+  private readonly inputAction = (
+    entity: Entity | undefined,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ): boolean | float | undefined => {
+    if (entity === undefined) {
+      return undefined;
+    }
 
-    this.callbacksUsed = [
-      // 13
-      [ModCallback.INPUT_ACTION, this.inputAction],
-    ];
-  }
+    const player = entity.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    return this.fire(player, inputHook, buttonAction);
+  };
 
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
@@ -40,21 +49,12 @@ export class InputActionPlayer extends CustomCallback<T> {
     );
   };
 
-  // ModCallback.INPUT_ACTION (13)
-  private readonly inputAction = (
-    entity: Entity | undefined,
-    inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ): boolean | float | undefined => {
-    if (entity === undefined) {
-      return undefined;
-    }
+  constructor() {
+    super();
 
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
-    }
-
-    return this.fire(player, inputHook, buttonAction);
-  };
+    this.callbacksUsed = [
+      // 13
+      [ModCallback.INPUT_ACTION, this.inputAction],
+    ];
+  }
 }

@@ -9,19 +9,6 @@ const v = {
 };
 
 export class PreventChildEntities extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 27
-      [ModCallback.POST_NPC_INIT, this.postNPCInit],
-    ];
-  }
-
   // ModCallback.POST_NPC_INIT (27)
   private readonly postNPCInit = (npc: EntityNPC) => {
     const spawnerEntityMatch =
@@ -36,6 +23,19 @@ export class PreventChildEntities extends Feature {
       npc.Remove();
     }
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 27
+      [ModCallback.POST_NPC_INIT, this.postNPCInit],
+    ];
+  }
 
   /**
    * Helper function to prevent an entity from spawning any other entities. Meant to be used on NPCs

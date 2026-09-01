@@ -5,6 +5,15 @@ import { shouldFireBomb } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostBombExploded extends CustomCallback<ModCallbackCustom.POST_BOMB_EXPLODED> {
+  // ModCallback.POST_BOMB_UPDATE (58)
+  private readonly postBombUpdate = (bomb: EntityBomb): void => {
+    if (bomb.FrameCount === BOMB_EXPLODE_FRAME) {
+      this.fire(bomb);
+    }
+  };
+
+  protected override shouldFire = shouldFireBomb;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostBombExploded extends CustomCallback<ModCallbackCustom.POST_BOMB
       [ModCallback.POST_BOMB_UPDATE, this.postBombUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireBomb;
-
-  // ModCallback.POST_BOMB_UPDATE (58)
-  private readonly postBombUpdate = (bomb: EntityBomb): void => {
-    if (bomb.FrameCount === BOMB_EXPLODE_FRAME) {
-      this.fire(bomb);
-    }
-  };
 }

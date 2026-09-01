@@ -16,6 +16,15 @@ const v = {
 };
 
 export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SWING> {
+  // ModCallback.POST_KNIFE_RENDER (52)
+  private readonly postKnifeRender = (knife: EntityKnife): void => {
+    // The tertiary argument of the `POST_KNIFE_RENDER` callback takes sub-types instead of knife
+    // variants.
+    if (knife.Variant === KnifeVariant.BONE_CLUB) {
+      this.postKnifeRenderBoneClub(knife);
+    }
+  };
+
   public override v = v;
 
   constructor() {
@@ -26,15 +35,6 @@ export class PostBoneSwing extends CustomCallback<ModCallbackCustom.POST_BONE_SW
       [ModCallback.POST_KNIFE_RENDER, this.postKnifeRender],
     ];
   }
-
-  // ModCallback.POST_KNIFE_RENDER (52)
-  private readonly postKnifeRender = (knife: EntityKnife): void => {
-    // The tertiary argument of the `POST_KNIFE_RENDER` callback takes sub-types instead of knife
-    // variants.
-    if (knife.Variant === KnifeVariant.BONE_CLUB) {
-      this.postKnifeRenderBoneClub(knife);
-    }
-  };
 
   // ModCallback.POST_KNIFE_RENDER (52)
   // KnifeVariant.BONE_CLUB (1)

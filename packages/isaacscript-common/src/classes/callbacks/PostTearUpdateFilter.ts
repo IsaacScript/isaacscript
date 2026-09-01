@@ -4,6 +4,13 @@ import { shouldFireTear } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostTearUpdateFilter extends CustomCallback<ModCallbackCustom.POST_TEAR_UPDATE_FILTER> {
+  // ModCallback.POST_TEAR_UPDATE (40)
+  private readonly postTearUpdate = (tear: EntityTear) => {
+    this.fire(tear);
+  };
+
+  protected override shouldFire = shouldFireTear;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostTearUpdateFilter extends CustomCallback<ModCallbackCustom.POST_
       [ModCallback.POST_TEAR_UPDATE, this.postTearUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireTear;
-
-  // ModCallback.POST_TEAR_UPDATE (40)
-  private readonly postTearUpdate = (tear: EntityTear) => {
-    this.fire(tear);
-  };
 }

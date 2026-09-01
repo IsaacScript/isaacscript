@@ -7,14 +7,12 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.INPUT_ACTION_FILTER;
 
 export class InputActionFilter extends CustomCallback<T> {
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 13
-      [ModCallback.INPUT_ACTION, this.inputAction],
-    ];
-  }
+  // ModCallback.INPUT_ACTION (13)
+  private readonly inputAction = (
+    entity: Entity | undefined,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ): boolean | float | undefined => this.fire(entity, inputHook, buttonAction);
 
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
@@ -30,10 +28,12 @@ export class InputActionFilter extends CustomCallback<T> {
     );
   };
 
-  // ModCallback.INPUT_ACTION (13)
-  private readonly inputAction = (
-    entity: Entity | undefined,
-    inputHook: InputHook,
-    buttonAction: ButtonAction,
-  ): boolean | float | undefined => this.fire(entity, inputHook, buttonAction);
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 13
+      [ModCallback.INPUT_ACTION, this.inputAction],
+    ];
+  }
 }

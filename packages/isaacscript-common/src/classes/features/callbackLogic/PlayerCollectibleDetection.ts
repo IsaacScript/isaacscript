@@ -42,97 +42,10 @@ const v = {
 };
 
 export class PlayerCollectibleDetection extends Feature {
-  public override v = v;
-
   private readonly postPlayerCollectibleAdded: PostPlayerCollectibleAdded;
   private readonly postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved;
   private readonly moddedElementSets: ModdedElementSets;
   private readonly runInNFrames: RunInNFrames;
-
-  constructor(
-    postPlayerCollectibleAdded: PostPlayerCollectibleAdded,
-    postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved,
-    moddedElementSets: ModdedElementSets,
-    runInNFrames: RunInNFrames,
-  ) {
-    super();
-
-    this.featuresUsed = [
-      ISCFeature.MODDED_ELEMENT_SETS,
-      ISCFeature.RUN_IN_N_FRAMES,
-    ];
-
-    this.callbacksUsed = [
-      // 3
-      [ModCallback.POST_USE_ITEM, this.postUseItemD4, [CollectibleType.D4]],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
-      [ModCallbackCustom.POST_ITEM_PICKUP, this.postItemPickup],
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-
-    this.postPlayerCollectibleAdded = postPlayerCollectibleAdded;
-    this.postPlayerCollectibleRemoved = postPlayerCollectibleRemoved;
-    this.moddedElementSets = moddedElementSets;
-    this.runInNFrames = runInNFrames;
-  }
-
-  /**
-   * This is called when the collectible count changes and in situations where the entire build is
-   * rerolled.
-   *
-   * Since getting a new player collectible map is expensive, we want to only run this function when
-   * necessary, and not on e.g. every frame. Unfortunately, this has the side effect of missing out
-   * on collectible changes from mods that add and remove a collectible on the same frame.
-   *
-   * @param player The player to update.
-   * @param numCollectiblesChanged Pass undefined for situations where the entire build was
-   *                               rerolled.
-   */
-  private updateCollectibleMapAndFire(
-    player: EntityPlayer,
-    numCollectiblesChanged: int | undefined,
-  ) {
-    const oldCollectibleMap = defaultMapGetPlayer(
-      v.run.playersCollectibleMap,
-      player,
-    );
-    const newCollectibleMap =
-      this.moddedElementSets.getPlayerCollectibleMap(player);
-    mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
-
-    const collectibleTypesSet = new Set<CollectibleType>([
-      ...oldCollectibleMap.keys(),
-      ...newCollectibleMap.keys(),
-    ]);
-
-    let numFired = 0;
-    for (const collectibleType of collectibleTypesSet) {
-      const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
-      const newNum = newCollectibleMap.get(collectibleType) ?? 0;
-      const difference = newNum - oldNum;
-      const increased = difference > 0;
-      const absoluteDifference = Math.abs(difference);
-
-      repeat(absoluteDifference, () => {
-        if (increased) {
-          this.postPlayerCollectibleAdded.fire(player, collectibleType);
-        } else {
-          this.postPlayerCollectibleRemoved.fire(player, collectibleType);
-        }
-        numFired++;
-      });
-
-      if (numFired === numCollectiblesChanged) {
-        return;
-      }
-    }
-  }
 
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.D4 (284)
@@ -231,6 +144,93 @@ export class PlayerCollectibleDetection extends Feature {
       this.checkActiveItemsChanged(player);
     }
   };
+
+  public override v = v;
+
+  constructor(
+    postPlayerCollectibleAdded: PostPlayerCollectibleAdded,
+    postPlayerCollectibleRemoved: PostPlayerCollectibleRemoved,
+    moddedElementSets: ModdedElementSets,
+    runInNFrames: RunInNFrames,
+  ) {
+    super();
+
+    this.featuresUsed = [
+      ISCFeature.MODDED_ELEMENT_SETS,
+      ISCFeature.RUN_IN_N_FRAMES,
+    ];
+
+    this.callbacksUsed = [
+      // 3
+      [ModCallback.POST_USE_ITEM, this.postUseItemD4, [CollectibleType.D4]],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, this.entityTakeDmgPlayer],
+      [ModCallbackCustom.POST_ITEM_PICKUP, this.postItemPickup],
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+
+    this.postPlayerCollectibleAdded = postPlayerCollectibleAdded;
+    this.postPlayerCollectibleRemoved = postPlayerCollectibleRemoved;
+    this.moddedElementSets = moddedElementSets;
+    this.runInNFrames = runInNFrames;
+  }
+
+  /**
+   * This is called when the collectible count changes and in situations where the entire build is
+   * rerolled.
+   *
+   * Since getting a new player collectible map is expensive, we want to only run this function when
+   * necessary, and not on e.g. every frame. Unfortunately, this has the side effect of missing out
+   * on collectible changes from mods that add and remove a collectible on the same frame.
+   *
+   * @param player The player to update.
+   * @param numCollectiblesChanged Pass undefined for situations where the entire build was
+   *                               rerolled.
+   */
+  private updateCollectibleMapAndFire(
+    player: EntityPlayer,
+    numCollectiblesChanged: int | undefined,
+  ) {
+    const oldCollectibleMap = defaultMapGetPlayer(
+      v.run.playersCollectibleMap,
+      player,
+    );
+    const newCollectibleMap =
+      this.moddedElementSets.getPlayerCollectibleMap(player);
+    mapSetPlayer(v.run.playersCollectibleMap, player, newCollectibleMap);
+
+    const collectibleTypesSet = new Set<CollectibleType>([
+      ...oldCollectibleMap.keys(),
+      ...newCollectibleMap.keys(),
+    ]);
+
+    let numFired = 0;
+    for (const collectibleType of collectibleTypesSet) {
+      const oldNum = oldCollectibleMap.get(collectibleType) ?? 0;
+      const newNum = newCollectibleMap.get(collectibleType) ?? 0;
+      const difference = newNum - oldNum;
+      const increased = difference > 0;
+      const absoluteDifference = Math.abs(difference);
+
+      repeat(absoluteDifference, () => {
+        if (increased) {
+          this.postPlayerCollectibleAdded.fire(player, collectibleType);
+        } else {
+          this.postPlayerCollectibleRemoved.fire(player, collectibleType);
+        }
+        numFired++;
+      });
+
+      if (numFired === numCollectiblesChanged) {
+        return;
+      }
+    }
+  }
 
   /**
    * Checking for collectible count will work to detect when a player swaps their active item for

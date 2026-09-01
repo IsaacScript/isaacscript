@@ -38,32 +38,7 @@ const v = {
 };
 
 export class CustomGridEntities extends Feature {
-  /** @internal */
-  public override v = v;
-
   private readonly runInNFrames: RunInNFrames;
-
-  /** @internal */
-  constructor(runInNFrames: RunInNFrames) {
-    super();
-
-    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
-
-    this.callbacksUsed = [
-      // 23
-      [
-        ModCallback.PRE_USE_ITEM,
-        this.preUseItemWeNeedToGoDeeper,
-        [CollectibleType.WE_NEED_TO_GO_DEEPER],
-      ],
-    ];
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-    ];
-
-    this.runInNFrames = runInNFrames;
-  }
 
   // ModCallback.PRE_USE_ITEM (23)
   // CollectibleType.WE_NEED_TO_GO_DEEPER (84)
@@ -144,6 +119,31 @@ export class CustomGridEntities extends Feature {
       }
     }
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor(runInNFrames: RunInNFrames) {
+    super();
+
+    this.featuresUsed = [ISCFeature.RUN_IN_N_FRAMES];
+
+    this.callbacksUsed = [
+      // 23
+      [
+        ModCallback.PRE_USE_ITEM,
+        this.preUseItemWeNeedToGoDeeper,
+        [CollectibleType.WE_NEED_TO_GO_DEEPER],
+      ],
+    ];
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+    ];
+
+    this.runInNFrames = runInNFrames;
+  }
 
   /**
    * Helper function to spawn a custom grid entity. Custom grid entities are persistent in that they

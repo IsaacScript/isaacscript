@@ -27,26 +27,6 @@ const v = {
 };
 
 export class EdenStartingStatsHealth extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 9
-      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
-    ];
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
-        this.postPlayerCollectibleAdded,
-      ],
-    ];
-  }
-
   /**
    * We must use the `POST_PLAYER_INIT` callback since the two random collectibles have not been
    * granted yet.
@@ -59,26 +39,6 @@ export class EdenStartingStatsHealth extends Feature {
     this.getEdenStats(player);
     this.getEdenHealth(player);
   };
-
-  private getEdenStats(player: EntityPlayer): void {
-    const existingStatMap = mapGetPlayer(v.run.edenPlayerStats, player);
-    if (existingStatMap !== undefined) {
-      return;
-    }
-
-    const playerStats = getPlayerStats(player);
-    mapSetPlayer(v.run.edenPlayerStats, player, playerStats);
-  }
-
-  private getEdenHealth(player: EntityPlayer): void {
-    const existingHealthMap = mapGetPlayer(v.run.edenPlayerHealth, player);
-    if (existingHealthMap !== undefined) {
-      return;
-    }
-
-    const playerHealth = getPlayerHealth(player);
-    mapSetPlayer(v.run.edenPlayerHealth, player, playerHealth);
-  }
 
   /**
    * We must use the `POST_PLAYER_COLLECTIBLE_ADDED` callback since the collectibles are not yet
@@ -100,6 +60,46 @@ export class EdenStartingStatsHealth extends Feature {
       mapSetPlayer(map, player, collectibleType);
     }
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+    ];
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PLAYER_COLLECTIBLE_ADDED,
+        this.postPlayerCollectibleAdded,
+      ],
+    ];
+  }
+
+  private getEdenStats(player: EntityPlayer): void {
+    const existingStatMap = mapGetPlayer(v.run.edenPlayerStats, player);
+    if (existingStatMap !== undefined) {
+      return;
+    }
+
+    const playerStats = getPlayerStats(player);
+    mapSetPlayer(v.run.edenPlayerStats, player, playerStats);
+  }
+
+  private getEdenHealth(player: EntityPlayer): void {
+    const existingHealthMap = mapGetPlayer(v.run.edenPlayerHealth, player);
+    if (existingHealthMap !== undefined) {
+      return;
+    }
+
+    const playerHealth = getPlayerHealth(player);
+    mapSetPlayer(v.run.edenPlayerHealth, player, playerHealth);
+  }
 
   /**
    * Helper function to get the active collectible that Eden started with at the beginning of the

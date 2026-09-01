@@ -16,21 +16,6 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
   /** The wall entity directly to the right of the top-left wall. */
   private currentRoomTopLeftWallPtrHash2: PtrHash | null = null;
 
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 19
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
-
-      // 24
-      [ModCallback.PRE_ENTITY_SPAWN, this.preEntitySpawn],
-    ];
-  }
-
-  protected override shouldFire = shouldFireRoom;
-
   // ModCallback.POST_NEW_ROOM (19)
   private readonly postNewRoom = (): void => {
     this.checkRoomChanged();
@@ -43,6 +28,21 @@ export class PostNewRoomEarly extends CustomCallback<ModCallbackCustom.POST_NEW_
     this.checkRoomChanged();
     return undefined;
   };
+
+  protected override shouldFire = shouldFireRoom;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 19
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
+
+      // 24
+      [ModCallback.PRE_ENTITY_SPAWN, this.preEntitySpawn],
+    ];
+  }
 
   private checkRoomChanged(): void {
     if (!this.isNewRoom()) {

@@ -39,48 +39,6 @@ export class GameReorderedCallbacks extends Feature {
   private readonly postNewRoomReordered: PostNewRoomReordered;
   private readonly postGameStartedReorderedLast: PostGameStartedReorderedLast;
 
-  /** @internal */
-  constructor(
-    postGameStartedReordered: PostGameStartedReordered,
-    postNewLevelReordered: PostNewLevelReordered,
-    postNewRoomReordered: PostNewRoomReordered,
-    postGameStartedReorderedLast: PostGameStartedReorderedLast,
-  ) {
-    super();
-
-    this.callbacksUsed = [
-      // 3
-      [
-        ModCallback.POST_USE_ITEM,
-        this.postUseItemGlowingHourGlass,
-        [CollectibleType.GLOWING_HOUR_GLASS],
-      ],
-
-      // 9
-      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
-
-      // 15
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_GAME_STARTED, this.postGameStarted],
-
-      // 17
-      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
-
-      // 18
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
-
-      // 19
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
-    ];
-
-    this.postGameStartedReordered = postGameStartedReordered;
-    this.postNewLevelReordered = postNewLevelReordered;
-    this.postNewRoomReordered = postNewRoomReordered;
-    this.postGameStartedReorderedLast = postGameStartedReorderedLast;
-  }
-
   // ModCallback.POST_USE_ITEM (3)
   // CollectibleType.GLOWING_HOUR_GLASS (422)
   private readonly postUseItemGlowingHourGlass = (): boolean | undefined => {
@@ -174,6 +132,48 @@ export class GameReorderedCallbacks extends Feature {
 
     this.postNewRoomReordered.fire(roomType);
   };
+
+  /** @internal */
+  constructor(
+    postGameStartedReordered: PostGameStartedReordered,
+    postNewLevelReordered: PostNewLevelReordered,
+    postNewRoomReordered: PostNewRoomReordered,
+    postGameStartedReorderedLast: PostGameStartedReorderedLast,
+  ) {
+    super();
+
+    this.callbacksUsed = [
+      // 3
+      [
+        ModCallback.POST_USE_ITEM,
+        this.postUseItemGlowingHourGlass,
+        [CollectibleType.GLOWING_HOUR_GLASS],
+      ],
+
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+
+      // 15
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_GAME_STARTED, this.postGameStarted],
+
+      // 17
+      [ModCallback.PRE_GAME_EXIT, this.preGameExit],
+
+      // 18
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_NEW_LEVEL, this.postNewLevel],
+
+      // 19
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      [ModCallback.POST_NEW_ROOM, this.postNewRoom],
+    ];
+
+    this.postGameStartedReordered = postGameStartedReordered;
+    this.postNewLevelReordered = postNewLevelReordered;
+    this.postNewRoomReordered = postNewRoomReordered;
+    this.postGameStartedReorderedLast = postGameStartedReorderedLast;
+  }
 
   private recordCurrentStage(): void {
     const level = game.GetLevel();

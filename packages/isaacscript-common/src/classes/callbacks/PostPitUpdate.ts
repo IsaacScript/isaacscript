@@ -5,6 +5,15 @@ import { shouldFirePit } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPitUpdate extends CustomCallback<ModCallbackCustom.POST_PIT_UPDATE> {
+  // ModCallback.POST_UPDATE (1)
+  private readonly postUpdate = (): void => {
+    for (const pit of getPits()) {
+      this.fire(pit);
+    }
+  };
+
+  protected override shouldFire = shouldFirePit;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostPitUpdate extends CustomCallback<ModCallbackCustom.POST_PIT_UPD
       [ModCallback.POST_UPDATE, this.postUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFirePit;
-
-  // ModCallback.POST_UPDATE (1)
-  private readonly postUpdate = (): void => {
-    for (const pit of getPits()) {
-      this.fire(pit);
-    }
-  };
 }

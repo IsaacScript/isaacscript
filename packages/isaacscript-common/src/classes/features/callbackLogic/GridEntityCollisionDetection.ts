@@ -19,28 +19,9 @@ const v = {
 };
 
 export class GridEntityCollisionDetection extends Feature {
-  public override v = v;
-
   private readonly postGridEntityCollision: PostGridEntityCollision;
   private readonly postGridEntityCustomCollision: PostGridEntityCustomCollision;
   private readonly customGridEntities: CustomGridEntities;
-
-  constructor(
-    postGridEntityCollision: PostGridEntityCollision,
-    postGridEntityCustomCollision: PostGridEntityCustomCollision,
-    customGridEntities: CustomGridEntities,
-  ) {
-    super();
-
-    this.callbacksUsed = [
-      // 1
-      [ModCallback.POST_UPDATE, this.postUpdate],
-    ];
-
-    this.postGridEntityCollision = postGridEntityCollision;
-    this.postGridEntityCustomCollision = postGridEntityCustomCollision;
-    this.customGridEntities = customGridEntities;
-  }
 
   // ModCallback.POST_UPDATE (1)
   private readonly postUpdate = (): void => {
@@ -86,4 +67,23 @@ export class GridEntityCollisionDetection extends Feature {
       }
     }
   };
+
+  public override v = v;
+
+  constructor(
+    postGridEntityCollision: PostGridEntityCollision,
+    postGridEntityCustomCollision: PostGridEntityCustomCollision,
+    customGridEntities: CustomGridEntities,
+  ) {
+    super();
+
+    this.callbacksUsed = [
+      // 1
+      [ModCallback.POST_UPDATE, this.postUpdate],
+    ];
+
+    this.postGridEntityCollision = postGridEntityCollision;
+    this.postGridEntityCustomCollision = postGridEntityCustomCollision;
+    this.customGridEntities = customGridEntities;
+  }
 }

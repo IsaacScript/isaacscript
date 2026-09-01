@@ -4,6 +4,13 @@ import { shouldFireEffect } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostEffectInitFilter extends CustomCallback<ModCallbackCustom.POST_EFFECT_INIT_FILTER> {
+  // ModCallback.POST_EFFECT_INIT (54)
+  private readonly postEffectInit = (effect: EntityEffect) => {
+    this.fire(effect);
+  };
+
+  protected override shouldFire = shouldFireEffect;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostEffectInitFilter extends CustomCallback<ModCallbackCustom.POST_
       [ModCallback.POST_EFFECT_INIT, this.postEffectInit],
     ];
   }
-
-  protected override shouldFire = shouldFireEffect;
-
-  // ModCallback.POST_EFFECT_INIT (54)
-  private readonly postEffectInit = (effect: EntityEffect) => {
-    this.fire(effect);
-  };
 }

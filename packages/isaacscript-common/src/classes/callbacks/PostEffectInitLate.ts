@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostEffectInitLate extends CustomCallback<ModCallbackCustom.POST_EFFECT_INIT_LATE> {
+  // ModCallback.POST_EFFECT_UPDATE (55)
+  private readonly postEffectUpdate = (effect: EntityEffect): void => {
+    const index = GetPtrHash(effect);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
+      this.fire(effect);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireEffect;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostEffectInitLate extends CustomCallback<ModCallbackCustom.POST_EF
       [ModCallback.POST_EFFECT_UPDATE, this.postEffectUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireEffect;
-
-  // ModCallback.POST_EFFECT_UPDATE (55)
-  private readonly postEffectUpdate = (effect: EntityEffect): void => {
-    const index = GetPtrHash(effect);
-    if (!v.room.firedSet.has(index)) {
-      v.room.firedSet.add(index);
-      this.fire(effect);
-    }
-  };
 }

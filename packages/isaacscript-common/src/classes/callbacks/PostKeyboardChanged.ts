@@ -15,30 +15,6 @@ const v = {
 };
 
 export class PostKeyboardChanged extends CustomCallback<T> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 2
-      [ModCallback.POST_RENDER, this.postRender],
-    ];
-  }
-
-  protected override shouldFire = (
-    fireArgs: FireArgs<T>,
-    optionalArgs: OptionalArgs<T>,
-  ): boolean => {
-    const [keyboard, pressed] = fireArgs;
-    const [callbackKeyboard, callbackPressed] = optionalArgs;
-
-    return (
-      (callbackKeyboard === undefined || callbackKeyboard === keyboard)
-      && (callbackPressed === undefined || callbackPressed === pressed)
-    );
-  };
-
   private readonly postRender = () => {
     for (const keyboard of v.run.pressedKeys) {
       if (isKeyboardPressed(keyboard)) {
@@ -60,4 +36,28 @@ export class PostKeyboardChanged extends CustomCallback<T> {
       }
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = (
+    fireArgs: FireArgs<T>,
+    optionalArgs: OptionalArgs<T>,
+  ): boolean => {
+    const [keyboard, pressed] = fireArgs;
+    const [callbackKeyboard, callbackPressed] = optionalArgs;
+
+    return (
+      (callbackKeyboard === undefined || callbackKeyboard === keyboard)
+      && (callbackPressed === undefined || callbackPressed === pressed)
+    );
+  };
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 2
+      [ModCallback.POST_RENDER, this.postRender],
+    ];
+  }
 }

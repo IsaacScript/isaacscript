@@ -18,10 +18,18 @@ const v = {
 };
 
 export class SlotRenderDetection extends Feature {
-  public override v = v;
-
   private readonly postSlotRender: PostSlotRender;
   private readonly postSlotAnimationChanged: PostSlotAnimationChanged;
+
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = () => {
+    for (const slot of getSlots()) {
+      this.postSlotRender.fire(slot);
+      this.checkSlotAnimationChanged(slot);
+    }
+  };
+
+  public override v = v;
 
   constructor(
     postSlotRender: PostSlotRender,
@@ -37,14 +45,6 @@ export class SlotRenderDetection extends Feature {
     this.postSlotRender = postSlotRender;
     this.postSlotAnimationChanged = postSlotAnimationChanged;
   }
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = () => {
-    for (const slot of getSlots()) {
-      this.postSlotRender.fire(slot);
-      this.checkSlotAnimationChanged(slot);
-    }
-  };
 
   private checkSlotAnimationChanged(slot: EntitySlot) {
     const sprite = slot.GetSprite();

@@ -10,14 +10,21 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.PRE_ROOM_ENTITY_SPAWN_FILTER;
 
 export class PreRoomEntitySpawnFilter extends CustomCallback<T> {
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 71
-      [ModCallback.PRE_ROOM_ENTITY_SPAWN, this.preRoomEntitySpawn],
-    ];
-  }
+  // ModCallback.PRE_ROOM_ENTITY_SPAWN (71)
+  private readonly preRoomEntitySpawn = (
+    entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+    variant: int,
+    subType: int,
+    gridIndex: int,
+    initSeed: Seed,
+  ) =>
+    this.fire(
+      entityTypeOrGridEntityXMLType,
+      variant,
+      subType,
+      gridIndex,
+      initSeed,
+    );
 
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
@@ -39,19 +46,12 @@ export class PreRoomEntitySpawnFilter extends CustomCallback<T> {
     );
   };
 
-  // ModCallback.PRE_ROOM_ENTITY_SPAWN (71)
-  private readonly preRoomEntitySpawn = (
-    entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
-    variant: int,
-    subType: int,
-    gridIndex: int,
-    initSeed: Seed,
-  ) =>
-    this.fire(
-      entityTypeOrGridEntityXMLType,
-      variant,
-      subType,
-      gridIndex,
-      initSeed,
-    );
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 71
+      [ModCallback.PRE_ROOM_ENTITY_SPAWN, this.preRoomEntitySpawn],
+    ];
+  }
 }

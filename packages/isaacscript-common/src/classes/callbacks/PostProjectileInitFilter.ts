@@ -4,6 +4,13 @@ import { shouldFireProjectile } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostProjectileInitFilter extends CustomCallback<ModCallbackCustom.POST_PROJECTILE_INIT_FILTER> {
+  // ModCallback.POST_PROJECTILE_INIT (43)
+  private readonly postProjectileInit = (projectile: EntityProjectile) => {
+    this.fire(projectile);
+  };
+
+  protected override shouldFire = shouldFireProjectile;
+
   constructor() {
     super();
 
@@ -12,11 +19,4 @@ export class PostProjectileInitFilter extends CustomCallback<ModCallbackCustom.P
       [ModCallback.POST_PROJECTILE_INIT, this.postProjectileInit],
     ];
   }
-
-  protected override shouldFire = shouldFireProjectile;
-
-  // ModCallback.POST_PROJECTILE_INIT (43)
-  private readonly postProjectileInit = (projectile: EntityProjectile) => {
-    this.fire(projectile);
-  };
 }

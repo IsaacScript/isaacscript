@@ -5,6 +5,15 @@ import { shouldFirePressurePlate } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPressurePlateRender extends CustomCallback<ModCallbackCustom.POST_PRESSURE_PLATE_RENDER> {
+  // ModCallback.POST_RENDER (2)
+  private readonly postRender = (): void => {
+    for (const pressurePlate of getPressurePlates()) {
+      this.fire(pressurePlate);
+    }
+  };
+
+  protected override shouldFire = shouldFirePressurePlate;
+
   constructor() {
     super();
 
@@ -13,13 +22,4 @@ export class PostPressurePlateRender extends CustomCallback<ModCallbackCustom.PO
       [ModCallback.POST_RENDER, this.postRender],
     ];
   }
-
-  protected override shouldFire = shouldFirePressurePlate;
-
-  // ModCallback.POST_RENDER (2)
-  private readonly postRender = (): void => {
-    for (const pressurePlate of getPressurePlates()) {
-      this.fire(pressurePlate);
-    }
-  };
 }

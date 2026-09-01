@@ -17,21 +17,6 @@ const v = {
 };
 
 export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectReordered,
-      ],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectReordered = (player: EntityPlayer) => {
     // We call the "getPlayerIndex" function with the "differentiateForgottenAndSoul" argument. If
@@ -61,4 +46,19 @@ export class PostPlayerChangeHealth extends CustomCallback<ModCallbackCustom.POS
       }
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectReordered,
+      ],
+    ];
+  }
 }

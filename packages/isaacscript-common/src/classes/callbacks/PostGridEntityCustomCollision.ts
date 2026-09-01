@@ -6,12 +6,6 @@ import { CustomCallback } from "../private/CustomCallback";
 type T = ModCallbackCustom.POST_GRID_ENTITY_CUSTOM_COLLISION;
 
 export class PostGridEntityCustomCollision extends CustomCallback<T> {
-  constructor() {
-    super();
-
-    this.featuresUsed = [ISCFeature.GRID_ENTITY_COLLISION_DETECTION];
-  }
-
   protected override shouldFire = (
     fireArgs: FireArgs<T>,
     optionalArgs: OptionalArgs<T>,
@@ -35,4 +29,10 @@ export class PostGridEntityCustomCollision extends CustomCallback<T> {
         || callbackEntitySubType === entity.SubType)
     );
   };
+
+  constructor() {
+    super();
+
+    this.featuresUsed = [ISCFeature.GRID_ENTITY_COLLISION_DETECTION];
+  }
 }

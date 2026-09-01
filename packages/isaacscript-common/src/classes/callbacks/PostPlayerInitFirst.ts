@@ -5,17 +5,6 @@ import { shouldFirePlayer } from "../../shouldFire";
 import { CustomCallback } from "../private/CustomCallback";
 
 export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_PLAYER_INIT_FIRST> {
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
-      [ModCallbackCustom.POST_PLAYER_INIT_LATE, this.postPlayerInitLate],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePlayer;
-
   // ModCallbackCustom.POST_NEW_ROOM_REORDERED
   private readonly postNewRoomReordered = () => {
     // When a player uses the Genesis collectible, they will lose all of their collectibles,
@@ -40,4 +29,15 @@ export class PostPlayerInitFirst extends CustomCallback<ModCallbackCustom.POST_P
 
     this.fire(player);
   };
+
+  protected override shouldFire = shouldFirePlayer;
+
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [ModCallbackCustom.POST_NEW_ROOM_REORDERED, this.postNewRoomReordered],
+      [ModCallbackCustom.POST_PLAYER_INIT_LATE, this.postPlayerInitLate],
+    ];
+  }
 }

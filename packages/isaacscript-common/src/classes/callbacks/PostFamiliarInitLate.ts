@@ -10,7 +10,18 @@ const v = {
 };
 
 export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_FAMILIAR_INIT_LATE> {
+  // ModCallback.POST_FAMILIAR_UPDATE (6)
+  private readonly postFamiliarUpdate = (familiar: EntityFamiliar): void => {
+    const index = GetPtrHash(familiar);
+    if (!v.room.firedSet.has(index)) {
+      v.room.firedSet.add(index);
+      this.fire(familiar);
+    }
+  };
+
   public override v = v;
+
+  protected override shouldFire = shouldFireFamiliar;
 
   constructor() {
     super();
@@ -20,15 +31,4 @@ export class PostFamiliarInitLate extends CustomCallback<ModCallbackCustom.POST_
       [ModCallback.POST_FAMILIAR_UPDATE, this.postFamiliarUpdate],
     ];
   }
-
-  protected override shouldFire = shouldFireFamiliar;
-
-  // ModCallback.POST_FAMILIAR_UPDATE (6)
-  private readonly postFamiliarUpdate = (familiar: EntityFamiliar): void => {
-    const index = GetPtrHash(familiar);
-    if (!v.room.firedSet.has(index)) {
-      v.room.firedSet.add(index);
-      this.fire(familiar);
-    }
-  };
 }

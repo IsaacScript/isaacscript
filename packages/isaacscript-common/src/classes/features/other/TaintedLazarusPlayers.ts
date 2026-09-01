@@ -29,21 +29,6 @@ const v = {
  * Lazarus.
  */
 export class TaintedLazarusPlayers extends Feature {
-  /** @internal */
-  public override v = v;
-
-  public override vConditionalFunc = (): boolean => false;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 9
-      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
-    ];
-  }
-
   // ModCallback.POST_PLAYER_INIT (9)
   private readonly postPlayerInit = (player: EntityPlayer) => {
     const character = player.GetPlayerType();
@@ -58,6 +43,21 @@ export class TaintedLazarusPlayers extends Feature {
 
     this.checkDequeue();
   };
+
+  /** @internal */
+  public override v = v;
+
+  public override vConditionalFunc = (): boolean => false;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 9
+      [ModCallback.POST_PLAYER_INIT, this.postPlayerInit],
+    ];
+  }
 
   /**
    * Indexes are the `PtrHash`, values are the `EntityPtr` of the *other* Lazarus.

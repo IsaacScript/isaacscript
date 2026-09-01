@@ -10,6 +10,16 @@ const v = {
 };
 
 export class RunNextRun extends Feature {
+  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
+  // false
+  private readonly postGameStartedReorderedFalse = () => {
+    for (const func of v.persistent.queuedFunctions) {
+      func();
+    }
+
+    emptyArray(v.persistent.queuedFunctions);
+  };
+
   /** @internal */
   public override v = v;
 
@@ -27,16 +37,6 @@ export class RunNextRun extends Feature {
       ],
     ];
   }
-
-  // ModCallbackCustom.POST_GAME_STARTED_REORDERED
-  // false
-  private readonly postGameStartedReorderedFalse = () => {
-    for (const func of v.persistent.queuedFunctions) {
-      func();
-    }
-
-    emptyArray(v.persistent.queuedFunctions);
-  };
 
   /**
    * Supply a function to run on the next `POST_GAME_STARTED` callback.

@@ -11,19 +11,6 @@ const v = {
 };
 
 export class PostPickupStateChanged extends CustomCallback<ModCallbackCustom.POST_PICKUP_STATE_CHANGED> {
-  public override v = v;
-
-  constructor() {
-    super();
-
-    this.callbacksUsed = [
-      // 35
-      [ModCallback.POST_PICKUP_UPDATE, this.postPickupUpdate],
-    ];
-  }
-
-  protected override shouldFire = shouldFirePickup;
-
   // ModCallback.POST_PICKUP_UPDATE (35)
   private readonly postPickupUpdate = (pickup: EntityPickup) => {
     const ptrHash = GetPtrHash(pickup);
@@ -38,4 +25,17 @@ export class PostPickupStateChanged extends CustomCallback<ModCallbackCustom.POS
       this.fire(pickup, previousState, currentState);
     }
   };
+
+  public override v = v;
+
+  protected override shouldFire = shouldFirePickup;
+
+  constructor() {
+    super();
+
+    this.callbacksUsed = [
+      // 35
+      [ModCallback.POST_PICKUP_UPDATE, this.postPickupUpdate],
+    ];
+  }
 }

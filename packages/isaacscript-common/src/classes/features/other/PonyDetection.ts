@@ -24,21 +24,6 @@ const v = {
 };
 
 export class PonyDetection extends Feature {
-  /** @internal */
-  public override v = v;
-
-  /** @internal */
-  constructor() {
-    super();
-
-    this.customCallbacksUsed = [
-      [
-        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-        this.postPEffectUpdateReordered,
-      ],
-    ];
-  }
-
   // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
   private readonly postPEffectUpdateReordered = (player: EntityPlayer) => {
     const effects = player.GetEffects();
@@ -60,6 +45,21 @@ export class PonyDetection extends Feature {
       setDeletePlayer(v.run.playersIsPonyActive, player);
     }
   };
+
+  /** @internal */
+  public override v = v;
+
+  /** @internal */
+  constructor() {
+    super();
+
+    this.customCallbacksUsed = [
+      [
+        ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+        this.postPEffectUpdateReordered,
+      ],
+    ];
+  }
 
   /**
    * Helper function to see if the player is under the effects of A Pony or White Pony charge.
