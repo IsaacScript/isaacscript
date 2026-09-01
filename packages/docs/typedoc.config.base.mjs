@@ -75,7 +75,7 @@ function getIndexTSExports(typeScriptFilePath) {
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   return exportLines.map((line) => {
-    const match = line.match(/export (?:type )?\* from "(.+)";/);
+    const match = line.match(/export (?:type )?\* from "(.+)";/v);
     if (match === null) {
       throw new Error(`Failed to parse line: ${line}`);
     }

@@ -8,9 +8,7 @@ import { clsx } from "clsx";
 import HomepageFeatures from "../components/HomepageFeatures/index"; // eslint-disable-line @typescript-eslint/no-restricted-imports
 import styles from "./index.module.css";
 
-const CENTER_STYLE = {
-  textAlign: "center",
-} as const;
+const CENTER_STYLE = { textAlign: "center" } as const;
 
 function HomepageHeader(): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext();

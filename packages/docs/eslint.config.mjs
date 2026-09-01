@@ -15,7 +15,5 @@ export default defineConfig(
     },
   },
 
-  {
-    ignores: ["**/.docusaurus/", "**/build/"],
-  },
+  { ignores: ["**/.docusaurus/", "**/build/"] },
 );
