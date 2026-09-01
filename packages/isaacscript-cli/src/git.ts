@@ -19,7 +19,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
   }
 
   // Hard-code certain project names as never causing a Git repository to be initialized.
-  if (projectName.startsWith("test") || projectName === "foo") {
+  if (projectName === "foo" || projectName.startsWith("test")) {
     return undefined;
   }
 
@@ -76,12 +76,12 @@ export async function promptGitHubRepoOrGitRemoteURL(
       return getGitRemoteURL(projectName, gitHubUsername);
     }
 
-    const createNewGitHubRepo = await getInputYesNo(
+    const shouldCreateNewGitHubRepo = await getInputYesNo(
       `Would you like to create a new GitHub repository at: ${chalk.green(
         url,
       )}`,
     );
-    if (createNewGitHubRepo) {
+    if (shouldCreateNewGitHubRepo) {
       execShell("gh", ["repo", "create", projectName, "--public"]);
       console.log("Successfully created a new GitHub repository.");
       return getGitRemoteURL(projectName, gitHubUsername);

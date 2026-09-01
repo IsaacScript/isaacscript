@@ -22,6 +22,7 @@ export function spawnSaveDatWriter(config: ValidatedConfig): void {
   const saveDatFileName = `save${config.saveSlot}.dat`;
   const saveDatPath = path.join(watcherModDataPath, saveDatFileName);
 
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   saveDatWriter = fork(processPath, [saveDatPath], {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
   });

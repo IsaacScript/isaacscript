@@ -164,7 +164,7 @@ export function execShellString(
   cwd = CWD,
 ): { exitStatus: number; stdout: string } {
   const args = commandString.split(" ");
-  const command = args.shift();
+  const command = args.shift(); // eslint-disable-line unicorn/no-array-front-mutation
   if (command === undefined) {
     fatalError(
       `execShellString failed to parse the command of: ${commandString}`,

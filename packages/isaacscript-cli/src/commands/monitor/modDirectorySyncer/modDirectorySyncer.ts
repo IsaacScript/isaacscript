@@ -25,7 +25,9 @@ function init() {
     `The ${SUBPROCESS_NAME} process did not get a valid second argument.`,
   );
 
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   modSourcePath = firstArg;
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   modTargetPath = secondArg;
 
   syncDirectory(modSourcePath, modTargetPath, {

@@ -43,7 +43,7 @@ import { initGitRepository } from "../../git.js";
 export async function createProject(
   projectName: string,
   projectPath: string,
-  createNewDir: boolean,
+  shouldCreateNewDir: boolean,
   modsDirectory: string | undefined,
   saveSlot: number | undefined,
   gitRemoteURL: string | undefined,
@@ -52,7 +52,7 @@ export async function createProject(
   dev: boolean,
   verbose: boolean,
 ): Promise<void> {
-  if (createNewDir) {
+  if (shouldCreateNewDir) {
     await makeDirectory(projectPath);
   }
 

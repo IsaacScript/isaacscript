@@ -10,7 +10,7 @@ import { execPowershell } from "../../exec.js";
 
 export async function validate(
   typeScript: boolean,
-  setVersion: string | undefined,
+  version: string | undefined,
   verbose: boolean,
 ): Promise<void> {
   const isGitRepo = await isGitRepository(CWD);
@@ -34,10 +34,10 @@ export async function validate(
     );
   }
 
-  if (setVersion !== undefined && !/^\d+\.\d+\.\d+$/v.test(setVersion)) {
+  if (version !== undefined && !/^\d+\.\d+\.\d+$/v.test(version)) {
     fatalError(
       chalk.red(
-        `The version of "${setVersion}" does not match the semantic versioning format of: #.#.#`,
+        `The version of "${version}" does not match the semantic versioning format of: #.#.#`,
       ),
     );
   }

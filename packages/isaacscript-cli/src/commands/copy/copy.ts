@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-unreadable-new-expression */
+
 import { Command } from "@commander-js/extra-typings";
 import type { PackageManager } from "complete-node";
 import {

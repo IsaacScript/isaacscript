@@ -118,7 +118,7 @@ async function copyITDEnumsFlag(packageRoot: string) {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (fileName === "DoorSlotFlag") {
-      fileContents = `/* eslint-disable no-bitwise */\n\n${fileContents}`;
+      fileContents = `/* eslint-disable complete/sort-objects */\n/* eslint-disable no-bitwise */\n\n${fileContents}`;
       fileContents = fileContents.replace(
         'import { DoorSlot } from "../DoorSlot";',
         'import { DoorSlot } from "./DoorSlot.js";',

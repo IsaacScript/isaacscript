@@ -1,4 +1,4 @@
-import { strictEqual } from "node:assert";
+import { strictEqual } from "node:assert/strict";
 import test from "node:test";
 import { getTruncatedText } from "./check.js";
 

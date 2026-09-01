@@ -24,39 +24,39 @@ export async function getProjectPath(
   customDirectory: string | undefined,
   yes: boolean,
   forceName: boolean,
-): Promise<{ projectPath: string; createNewDir: boolean }> {
+): Promise<{ projectPath: string; shouldCreateNewDir: boolean }> {
   let projectName = name;
   let projectPath: string;
-  let createNewDir: boolean;
+  let shouldCreateNewDir: boolean;
   if (useCurrentDirectory) {
     // The "--use-current-directory" command-line flag was specified, so there is no need to prompt
     // the user.
     projectName = CURRENT_DIRECTORY_NAME;
     projectPath = CWD;
-    createNewDir = false;
+    shouldCreateNewDir = false;
   } else if (projectName !== undefined) {
     // The project name was specified on the command-line.
     const baseDirectory =
       customDirectory === undefined ? CWD : path.join(CWD, customDirectory);
     projectPath = path.join(baseDirectory, projectName);
-    createNewDir = true;
+    shouldCreateNewDir = true;
   } else if (yes) {
     // The "--yes" command-line flag was specified and the project name was not specified on the
     // command-line, so default to using the current directory.
     projectName = CURRENT_DIRECTORY_NAME;
     projectPath = CWD;
-    createNewDir = false;
+    shouldCreateNewDir = false;
   } else {
     // The project name was not specified on the command-line, so prompt the user for it.
-    [projectName, projectPath, createNewDir] = await getNewProjectName();
+    [projectName, projectPath, shouldCreateNewDir] = await getNewProjectName();
   }
 
   validateProjectName(projectName, forceName);
-
   console.log(`Using a project name of: ${chalk.green(projectName)}`);
+
   return {
     projectPath,
-    createNewDir,
+    shouldCreateNewDir,
   };
 }
 

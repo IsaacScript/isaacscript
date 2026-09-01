@@ -76,6 +76,7 @@ async function onTSTLStdoutData(
   } else if (
     msg.includes("File change detected. Starting incremental compilation...")
   ) {
+    // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
     compilationStartTime = new Date();
     const newMsg = `TypeScript change detected${suffix}. Compiling...`;
     notifyGameMsg(newMsg);

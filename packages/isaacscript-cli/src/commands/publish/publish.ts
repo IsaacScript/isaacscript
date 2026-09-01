@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-unreadable-new-expression */
+
 import { Command } from "@commander-js/extra-typings";
 import type { PackageManager } from "complete-node";
 import {
@@ -33,7 +35,7 @@ export const publishCommand = new Command()
   .option("--patch", "Perform a patch version bump.", false)
   .option("--skip-increment", "Skip incrementing the version number.", false)
   .option(
-    "--set-version <version>",
+    "--version <version>",
     "Specify the version number instead of incrementing it.",
   )
   .option(
@@ -53,12 +55,12 @@ const publishOptions = publishCommand.opts();
 type PublishOptions = typeof publishOptions;
 
 async function publish(options: PublishOptions) {
-  const { dryRun, setVersion, verbose } = options;
+  const { dryRun, version, verbose } = options;
 
   const isaacScriptModMissingFile = await getIsaacScriptModMissingFile(CWD);
   const typeScript = isaacScriptModMissingFile !== undefined;
 
-  await validate(typeScript, setVersion, verbose);
+  await validate(typeScript, version, verbose);
   await prePublish(options, typeScript);
 
   await (typeScript
@@ -134,9 +136,9 @@ async function incrementVersion(options: PublishOptions, typeScript: boolean) {
 }
 
 function getVersionCommandArgument(options: PublishOptions): string {
-  if (options.setVersion !== undefined) {
+  if (options.version !== undefined) {
     // They want to use a specific version, which was manually specified.
-    return options.setVersion;
+    return options.version;
   }
 
   if (options.major) {

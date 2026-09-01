@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-unreadable-new-expression */
+
 import {
   Command,
   InvalidOptionArgumentError,
@@ -112,7 +114,7 @@ async function init(name: string | undefined, options: InitOptions) {
   const packageManager = await getPackageManagerUsedForNewProject(options);
 
   // Prompt the end-user for some information (and validate it as we go).
-  const { projectPath, createNewDir } = await getProjectPath(
+  const { projectPath, shouldCreateNewDir } = await getProjectPath(
     name,
     useCurrentDirectory,
     customDirectory,
@@ -144,7 +146,7 @@ async function init(name: string | undefined, options: InitOptions) {
   await createProject(
     projectName,
     projectPath,
-    createNewDir,
+    shouldCreateNewDir,
     modsDirectory,
     saveSlot,
     gitRemoteURL,

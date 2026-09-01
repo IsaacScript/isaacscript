@@ -23,7 +23,9 @@ async function init() {
     `The ${SUBPROCESS_NAME} process did not get a valid first argument.`,
   );
 
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   saveDatPath = firstArg;
+  // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
   saveDatFileName = path.basename(saveDatPath);
 
   // Check to see if the data directory exists.

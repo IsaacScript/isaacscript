@@ -1,10 +1,10 @@
 // These are functions copied from `isaacscript-common`.
 
-import { parseIntSafe } from "complete-common";
+import { isEnumValue, parseIntSafe } from "complete-common";
 import { fatalError } from "complete-node";
 import type { DoorSlot } from "./enums/copied/DoorSlot.js";
 import type { DoorSlotFlag } from "./enums/copied/DoorSlotFlag.js";
-import type { RoomShape } from "./enums/copied/RoomShape.js";
+import { RoomShape } from "./enums/copied/RoomShape.js";
 import type { JSONRoom } from "./interfaces/copied/JSONRoomsFile.js";
 import { DOOR_SLOT_TO_DOOR_SLOT_FLAG } from "./objects/copied/doorSlotToDoorSlotFlag.js";
 import { ROOM_SHAPE_TO_DOOR_SLOT_COORDINATES } from "./objects/copied/roomShapeToDoorSlotCoordinates.js";
@@ -16,6 +16,12 @@ export function getJSONRoomDoorSlotFlags(jsonRoom: JSONRoom): number {
   if (roomShapeNumber === undefined) {
     fatalError(
       `Failed to parse the "shape" field of a custom stage room: ${roomShapeString}`,
+    );
+  }
+
+  if (!isEnumValue(roomShapeNumber, RoomShape)) {
+    fatalError(
+      `The "shape" field of a custom stage room is not a valid RoomShape: ${roomShapeNumber}`,
     );
   }
   const roomShape = roomShapeNumber;
