@@ -140,7 +140,7 @@ export const isaacScriptModConfigBase = defineConfig(
       "@typescript-eslint/require-array-sort-compare": "off",
 
       /**
-       * Defined in "complete/recommended".
+       * Defined at: complete/recommended
        *
        * Enums that are used with the API use upper case letters. We also prefer that unofficial
        * enums are also use upper case letters for consistency.
@@ -148,12 +148,20 @@ export const isaacScriptModConfigBase = defineConfig(
       "complete/consistent-enum-values": "off",
 
       /**
-       * Defined in "complete/recommended".
+       * Defined at: complete/recommended
        *
        * Enums that are used with the API must be numbers since that is what the API expects. We
        * also prefer that unofficial enums are also number enums for consistency.
        */
       "complete/no-number-enums": "off",
+
+      /**
+       * Defined at: complete/recommended
+       *
+       * "v" objects should be in a semantic order and it would be too cumbersome to annotate all of
+       * them.
+       */
+      "complete/sort-objects": "off",
 
       /**
        * Defined at: base-n.js

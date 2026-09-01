@@ -27,8 +27,8 @@ const v = {
     /** Is incremented before assignment. Thus, the first pickup will have an index of 1. */
     pickupCounter: 0 as PickupIndex,
 
-    pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
     pickupDataBossRooms: new Map<PickupIndex, PickupDescription>(),
+    pickupDataTreasureRooms: new Map<PickupIndex, PickupDescription>(),
   },
 
   level: {
