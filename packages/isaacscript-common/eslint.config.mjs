@@ -33,6 +33,37 @@ export default defineConfig(
       "@typescript-eslint/require-array-sort-compare": "error",
 
       // TODO
+      "@typescript-eslint/no-unnecessary-type-assertion": "off",
+      "@typescript-eslint/unbound-method": "off",
+      "complete/consistent-object-braces": "off",
+      "complete/sort-destructured-properties": "off",
+      "unicorn/comment-content": "off",
+      "unicorn/consistent-class-member-order": "off",
+      "unicorn/no-array-front-mutation": "off",
+      "unicorn/no-constant-zero-expression": "off",
+      "unicorn/no-declarations-before-early-exit": "off",
+      "unicorn/no-duplicate-if-branches": "off",
+      "unicorn/no-for-each": "off",
+      "unicorn/no-negated-comparison": "off",
+      "unicorn/no-non-function-verb-prefix": "off",
+      "unicorn/no-top-level-assignment-in-function": "off",
+      "unicorn/no-unnecessary-splice": "off",
+      "unicorn/no-useless-recursion": "off",
+      "unicorn/no-useless-template-literals": "off",
+      "unicorn/numeric-separators-style": "off",
+      "unicorn/prefer-boolean-return": "off",
+      "unicorn/prefer-continue": "off",
+      "unicorn/prefer-direct-iteration": "off",
+      "unicorn/prefer-early-return": "off",
+      "unicorn/prefer-else-if": "off",
+      "unicorn/prefer-global-number-constants": "off",
+      "unicorn/prefer-https": "off",
+      "unicorn/prefer-iterable-in-constructor": "off",
+      "unicorn/prefer-minimal-ternary": "off",
+      "unicorn/prefer-number-is-safe-integer": "off",
+      "unicorn/prefer-simple-condition-first": "off",
+      "unicorn/prefer-ternary": "off",
+      "unicorn/prefer-unary-minus": "off",
     },
   },
 
@@ -40,7 +71,7 @@ export default defineConfig(
     files: ["src/functions/**"],
     rules: {
       /** Not defined in the parent configs. */
-      "perfectionist/sort-modules": "error",
+      "perfectionist/sort-modules": "off", // TODO
     },
   },
 

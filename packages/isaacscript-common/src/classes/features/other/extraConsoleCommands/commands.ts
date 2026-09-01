@@ -1,14 +1,6 @@
 // cspell:ignore addcharges
 
-/*
-eslint "sort-exports/sort-exports": [
-  "warn",
-  {
-    sortDir: "asc",
-  },
-],
-*/
-
+/* eslint "perfectionist/sort-modules": "error" */
 /* eslint "jsdoc/require-jsdoc": "warn" */
 
 /**
@@ -757,26 +749,6 @@ export function goldBomb(): void {
   goldenBomb();
 }
 
-/** Alias for the "goldenHearts" command. */
-export function goldHearts(params: string): void {
-  goldenHearts(params);
-}
-
-/** Alias for the "goldenKey" command. */
-export function goldKey(): void {
-  goldenKey();
-}
-
-/** Alias for the "goldenPill" command. */
-export function goldPill(): void {
-  goldenPill();
-}
-
-/** Alias for the "spawnGoldenTrinket" command. */
-export function goldTrinket(params: string): void {
-  spawnGoldenTrinket(params);
-}
-
 /** Gives the player a golden bomb. */
 export function goldenBomb(): void {
   const player = Isaac.GetPlayer();
@@ -805,6 +777,26 @@ export function goldenPill(): void {
 
 /** Alias for the "spawnGoldenTrinket" command. */
 export function goldenTrinket(params: string): void {
+  spawnGoldenTrinket(params);
+}
+
+/** Alias for the "goldenHearts" command. */
+export function goldHearts(params: string): void {
+  goldenHearts(params);
+}
+
+/** Alias for the "goldenKey" command. */
+export function goldKey(): void {
+  goldenKey();
+}
+
+/** Alias for the "goldenPill" command. */
+export function goldPill(): void {
+  goldenPill();
+}
+
+/** Alias for the "spawnGoldenTrinket" command. */
+export function goldTrinket(params: string): void {
   spawnGoldenTrinket(params);
 }
 
@@ -1297,18 +1289,18 @@ export function secretShop(): void {
   changeRoom(GridRoom.SECRET_SHOP);
 }
 
+/** Logs all of the current run's seed effects to the "log.txt" file. */
+export function seeds(): void {
+  logSeedEffects();
+  print('Logged the seed effects to the "log.txt" file.');
+}
+
 /** Changes to a seeded run, using the seed of the current run. */
 export function seedStick(): void {
   const seedsClass = game.GetSeeds();
   const startSeedString = seedsClass.GetStartSeedString();
   Isaac.ExecuteCommand(`seed ${startSeedString}`);
   print(`Sticking to seed: ${startSeedString}`);
-}
-
-/** Logs all of the current run's seed effects to the "log.txt" file. */
-export function seeds(): void {
-  logSeedEffects();
-  print('Logged the seed effects to the "log.txt" file.');
 }
 
 /**
@@ -1569,11 +1561,6 @@ export function spawnCollectibleAt(params: string): void {
   spawnCollectibleFunc(collectibleType, gridIndex, undefined);
 }
 
-/** Alias for the `spawnGoldenTrinket` command. */
-export function spawnGoldTrinket(params: string): void {
-  spawnGoldenTrinket(params);
-}
-
 /**
  * The same thing as the `spawnTrinket` command but spawns a golden version of the specified
  * trinket.
@@ -1588,6 +1575,11 @@ export function spawnGoldenTrinket(params: string): void {
  */
 export function spawnGoldenTrinketAt(params: string): void {
   spawnTrinketAt(params, true);
+}
+
+/** Alias for the `spawnGoldenTrinket` command. */
+export function spawnGoldTrinket(params: string): void {
+  spawnGoldenTrinket(params);
 }
 
 /**
@@ -1728,16 +1720,16 @@ export function spikes(): void {
   spawnGridEntity(GridEntityType.SPIKES, tilePosition);
 }
 
-/** Alias for the "startingRoom" command. */
-export function startRoom(): void {
-  startingRoom();
-}
-
 /** Warps to the starting room of the floor. */
 export function startingRoom(): void {
   const level = game.GetLevel();
   const startingRoomIndex = level.GetStartingRoomIndex();
   changeRoom(startingRoomIndex);
+}
+
+/** Alias for the "startingRoom" command. */
+export function startRoom(): void {
+  startingRoom();
 }
 
 /** Warps to the first Super Secret Room on the floor. */
