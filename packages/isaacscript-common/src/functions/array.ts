@@ -308,6 +308,7 @@ export function getArrayCombinations<T>(
 
   // Finally, account for the empty array combination.
   if (includeEmptyArray) {
+    // eslint-disable-next-line unicorn/no-array-front-mutation
     all.unshift([]);
   }
 

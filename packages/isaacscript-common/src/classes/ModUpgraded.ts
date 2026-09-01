@@ -87,6 +87,7 @@ export class ModUpgraded implements Mod {
     if (feature.v !== undefined) {
       feature.featuresUsed ??= [];
       if (!feature.featuresUsed.includes(ISCFeature.SAVE_DATA_MANAGER)) {
+        // eslint-disable-next-line unicorn/no-array-front-mutation
         feature.featuresUsed.unshift(ISCFeature.SAVE_DATA_MANAGER);
       }
     }

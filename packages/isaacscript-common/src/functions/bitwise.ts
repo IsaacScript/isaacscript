@@ -48,6 +48,7 @@ export function convertDecimalToBinary(
 
   if (minLength !== undefined) {
     while (bits.length < minLength) {
+      // eslint-disable-next-line unicorn/no-array-front-mutation
       bits.unshift(0);
     }
   }

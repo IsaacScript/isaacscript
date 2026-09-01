@@ -76,7 +76,9 @@ export class TaintedLazarusPlayers extends Feature {
       return;
     }
 
+    // eslint-disable-next-line unicorn/no-array-front-mutation
     const taintedLazarus = v.run.queuedTaintedLazarus.shift();
+    // eslint-disable-next-line unicorn/no-array-front-mutation
     const deadTaintedLazarus = v.run.queuedDeadTaintedLazarus.shift();
 
     if (taintedLazarus === undefined || deadTaintedLazarus === undefined) {
