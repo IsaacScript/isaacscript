@@ -194,7 +194,7 @@ declare global {
     /** This will be undefined if the user canceled the popup dialog. */
     readonly OnChange: (newValue: number | boolean | undefined) => void;
 
-    readonly Popup?: () => void;
+    readonly Popup?: () => string;
     PopupGfx?: string;
     PopupWidth?: int;
     Type: ModConfigMenuOptionType;
