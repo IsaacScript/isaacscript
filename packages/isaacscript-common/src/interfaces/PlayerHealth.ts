@@ -19,7 +19,7 @@ export interface PlayerHealth {
   soulCharges: int;
   bloodCharges: int;
 
-  soulHeartTypes: readonly SoulHeartType[];
+  soulHeartTypes: SoulHeartType[];
 }
 
 export type SoulHeartType =
