@@ -5,38 +5,38 @@
  */
 declare interface AnimationFrame extends IsaacAPIClass {
   /** Returns the frame's color. */
-  GetColor: () => Readonly<Color>;
+  readonly GetColor: () => Readonly<Color>;
 
   /** Returns the frame's crop. */
-  GetCrop: () => Readonly<Vector>;
+  readonly GetCrop: () => Readonly<Vector>;
 
   /** Returns the final frame of the animation. */
-  GetEndFrame: () => int;
+  readonly GetEndFrame: () => int;
 
   /** Returns the frame's height. */
-  GetHeight: () => number;
+  readonly GetHeight: () => number;
 
   /** Returns the frame's pivot. */
-  GetPivot: () => Readonly<Vector>;
+  readonly GetPivot: () => Readonly<Vector>;
 
   /** Returns the frame's position. */
-  GetPos: () => Readonly<Vector>;
+  readonly GetPos: () => Readonly<Vector>;
 
   /** Returns the frame's rotation. */
-  GetRotation: () => number;
+  readonly GetRotation: () => number;
 
   /** Returns the frame's scale. */
-  GetScale: () => Readonly<Vector>;
+  readonly GetScale: () => Readonly<Vector>;
 
   /** Returns the starting frame. */
-  GetStartFrame: () => number;
+  readonly GetStartFrame: () => number;
 
   /** Returns the frame's width. */
-  GetWidth: () => number;
+  readonly GetWidth: () => number;
 
   /** Returns whether the frame is interpolated. */
-  IsInterpolated: () => boolean;
+  readonly IsInterpolated: () => boolean;
 
   /** Returns whether the frame is visible. */
-  IsVisible: () => boolean;
+  readonly IsVisible: () => boolean;
 }

@@ -14,7 +14,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      */
-    AddBaited: (source: EntityRef, duration: int) => void;
+    readonly AddBaited: (source: EntityRef, duration: int) => void;
 
     /**
      * Adds a bleeding effect to the entity.
@@ -24,7 +24,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      */
-    AddBleeding: (source: EntityRef, duration: int) => void;
+    readonly AddBleeding: (source: EntityRef, duration: int) => void;
 
     /**
      * Adds a brimstone mark to the entity.
@@ -34,7 +34,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      */
-    AddBrimstoneMark: (source: EntityRef, duration: int) => void;
+    readonly AddBrimstoneMark: (source: EntityRef, duration: int) => void;
 
     /**
      * Adds the ice status effect to the entity.
@@ -48,7 +48,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      */
-    AddIce: (source: EntityRef, duration: int) => void;
+    readonly AddIce: (source: EntityRef, duration: int) => void;
 
     /**
      * Adds a knockback effect to the entity.
@@ -61,7 +61,7 @@ declare global {
      * @param takeImpactDamage Whether the entity should take damage if they collide into a solid
      *                         grid entity while the knockback effect is active.
      */
-    AddKnockback: (
+    readonly AddKnockback: (
       source: EntityRef,
       pushDirection: Vector,
       duration: int,
@@ -76,7 +76,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      */
-    AddMagnetized: (source: EntityRef, duration: int) => void;
+    readonly AddMagnetized: (source: EntityRef, duration: int) => void;
 
     /**
      * Adds a weakness effect to the entity.
@@ -86,12 +86,12 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The minimum is 2
      *                 frames.
      */
-    AddWeakness: (source: EntityRef, duration: int) => void;
+    readonly AddWeakness: (source: EntityRef, duration: int) => void;
 
     /** Returns whether the entity can devolve from D10. */
-    CanDevolve: () => boolean;
+    readonly CanDevolve: () => boolean;
 
-    ComputeStatusEffectDuration: (initialLength: int, source: EntityRef) => int;
+    readonly ComputeStatusEffectDuration: (initialLength: int, source: EntityRef) => int;
 
     /**
      * Copies the entity's status effects onto the specified target.
@@ -101,7 +101,7 @@ declare global {
      * @param overwrite Optional. Whether all other status effects that the entity does not have
      *                  should be removed from the target. Default is false.
      */
-    CopyStatusEffects: (target?: Entity, overwrite?: boolean) => void;
+    readonly CopyStatusEffects: (target?: Entity, overwrite?: boolean) => void;
 
     /**
      * Attempts force the game to detect a collision between the entity and the provided `target`,
@@ -110,48 +110,48 @@ declare global {
      * @param target
      * @param low Optional. Default is false.
      */
-    ForceCollide: (target: Entity, low?: boolean) => boolean;
+    readonly ForceCollide: (target: Entity, low?: boolean) => boolean;
 
     /** Returns how many frames are left until the baited status effect goes away. */
-    GetBaitedCountdown: () => int;
+    readonly GetBaitedCountdown: () => int;
 
     /** Returns how many frames are left until the bleeding status effect goes away. */
-    GetBleedingCountdown: () => int;
+    readonly GetBleedingCountdown: () => int;
 
     /**
      * Returns how many frames until the entity is able to receive another status effect. The
      * cooldown is only present in bosses.
      */
-    GetBossStatusEffectCooldown: () => int;
+    readonly GetBossStatusEffectCooldown: () => int;
 
     /** Returns how many frames are left until the brimstone mark status effect goes away. */
-    GetBrimstoneMarkCountdown: () => int;
+    readonly GetBrimstoneMarkCountdown: () => int;
 
     /** Returns how many frames are left until the burn status effect goes away. */
-    GetBurnCountdown: () => int;
+    readonly GetBurnCountdown: () => int;
 
     /**
      * Returns how many frames are left until the entity takes damage from the burn status effect.
      */
-    GetBurnDamageTimer: () => int;
+    readonly GetBurnDamageTimer: () => int;
 
     /** Returns how many frames are left until the charmed status effect goes away. */
-    GetCharmedCountdown: () => int;
+    readonly GetCharmedCountdown: () => int;
 
     /**
      * Returns the entity's collision capsule.
      *
      * @param offset Optional. Default is `VectorZero`.
      */
-    GetCollisionCapsule: (offset?: Vector) => Capsule;
+    readonly GetCollisionCapsule: (offset?: Vector) => Capsule;
 
     /**
      * Returns an array of all of the entity's `ColorParams` queued by the `Entity.SetColor` method.
      */
-    GetColorParams: () => ColorParams[];
+    readonly GetColorParams: () => ColorParams[];
 
     /** Returns how many frames are left until the confusion status effect goes away. */
-    GetConfusionCountdown: () => int;
+    readonly GetConfusionCountdown: () => int;
 
     /**
      * Returns how many frames until the entity can take damage with the `DamageFlag.COUNTDOWN`
@@ -161,74 +161,74 @@ declare global {
      * This is not the same as the player's invincibility frames. If you wish to see how many more
      * invincible frames the player has, use the `EntityPlayer.GetDamageCooldown` method.
      */
-    GetDamageCountdown: () => int;
+    readonly GetDamageCountdown: () => int;
 
     /**
      * Returns the entity's debug shape.
      *
      * @param unknown The behavior of this parameter is currently unknown and remains undocumented.
      */
-    GetDebugShape: (unknown: boolean) => Shape;
+    readonly GetDebugShape: (unknown: boolean) => Shape;
 
     /** Returns the entity's corresponding `EntityConfigEntity`. */
-    GetEntityConfigEntity: () => EntityConfigEntity;
+    readonly GetEntityConfigEntity: () => EntityConfigEntity;
 
     /** Returns how many frames are left until the fear status effect goes away. */
-    GetFearCountdown: () => int;
+    readonly GetFearCountdown: () => int;
 
     /** Returns how many frames until the entity takes damage from the burn status effect. */
-    GetFireDamageCooldown: () => int;
+    readonly GetFireDamageCooldown: () => int;
 
     /** Returns how many frames are left until the freeze status effect goes away. */
-    GetFreezeCountdown: () => int;
+    readonly GetFreezeCountdown: () => int;
 
     /** Returns the entity's hit list index. */
-    GetHitListIndex: () => int;
+    readonly GetHitListIndex: () => int;
 
     /** Returns how many frames are left until the ice status effect goes away. */
-    GetIceCountdown: () => int;
+    readonly GetIceCountdown: () => int;
 
     /** Returns how many frames are left until the knockback status effect goes away. */
-    GetKnockbackCountdown: () => int;
+    readonly GetKnockbackCountdown: () => int;
 
     /**
      * Returns the direction the entity is being knocked back to when the knockback status effect is
      * present.
      */
-    GetKnockbackDirection: () => int;
+    readonly GetKnockbackDirection: () => int;
 
     /** Returns how many frames are left until the magnetized status effect goes away. */
-    GetMagnetizedCountdown: () => int;
+    readonly GetMagnetizedCountdown: () => int;
 
     /** Returns how many frames are left until the Midas Freeze status effect goes away. */
-    GetMidasFreezeCountdown: () => int;
+    readonly GetMidasFreezeCountdown: () => int;
 
     /**
      * Returns the minecart the entity is riding. Returns undefined if the entity is not riding a
      * minecart.
      */
-    GetMinecart: () => EntityNPC | undefined;
+    readonly GetMinecart: () => EntityNPC | undefined;
 
     /** Returns the entity's null capsule. */
-    GetNullCapsule: (name: string) => Capsule;
+    readonly GetNullCapsule: (name: string) => Capsule;
 
     /**
      * Returns the position of the null layer mark. If the layer is not visible or no frame is
      * available for the current animation, `VectorZero` is returned instead.
      */
-    GetNullOffset: (nullLayerName: string | undefined) => Vector;
+    readonly GetNullOffset: (nullLayerName: string | undefined) => Vector;
 
     /** Returns how many frames are left until the pause status effect goes away. */
-    GetPauseTime: () => int;
+    readonly GetPauseTime: () => int;
 
     /** Returns how many frames are left until the poison status effect goes away. */
-    GetPoisonCountdown: () => int;
+    readonly GetPoisonCountdown: () => int;
 
     /** Returns how many frames until the entity takes damage from the poison status effect. */
-    GetPoisonDamageTimer: () => int;
+    readonly GetPoisonDamageTimer: () => int;
 
     /** Returns a dictionary with fields containing the entity's position and velocity. */
-    GetPosVel: () => PosVel;
+    readonly GetPosVel: () => PosVel;
 
     /**
      * Returns the predicted position of a target entity after the specified delay.
@@ -238,36 +238,36 @@ declare global {
      *              a value of 1 would predict where the target's velocity would take them on the
      *              next update.
      */
-    GetPredictedTargetPosition: (target: Entity, delay: number) => Vector;
+    readonly GetPredictedTargetPosition: (target: Entity, delay: number) => Vector;
 
     /** Returns the size of the entity's shadow. */
-    GetShadowSize: () => number;
+    readonly GetShadowSize: () => number;
 
     /** Returns how many frames are left until the shrink status effect goes away. */
-    GetShrinkCountdown: () => number;
+    readonly GetShrinkCountdown: () => number;
 
     /** Returns how many frames are left until the slowness status effect goes away. */
-    GetSlowingCountdown: () => number;
+    readonly GetSlowingCountdown: () => number;
 
     /** Returns the entity's speed multiplier. */
-    GetSpeedMultiplier: () => number;
+    readonly GetSpeedMultiplier: () => number;
 
     /** Returns the entity's `EntityType`. */
-    GetType: () => EntityType;
+    readonly GetType: () => EntityType;
 
     /** Returns the entity's water clip flags. */
-    GetWaterClipFlags: () => BitFlags<WaterClipFlag>;
+    readonly GetWaterClipFlags: () => BitFlags<WaterClipFlag>;
 
     /** Returns how many frames are left until the weakness status effect goes away. */
-    GetWeaknessCountdown: () => int;
+    readonly GetWeaknessCountdown: () => int;
 
     /**
      * Attempts to give the entity a minecart and places them in it. Returns the created minecart.
      */
-    GiveMinecart: (position: Vector, velocity: Vector) => EntityNPC;
+    readonly GiveMinecart: (position: Vector, velocity: Vector) => EntityNPC;
 
     /** Returns whether the entity should ignore status effects from the provided `EntityRef`. */
-    IgnoreEffectFromFriendly: (source: EntityRef) => boolean;
+    readonly IgnoreEffectFromFriendly: (source: EntityRef) => boolean;
 
     /**
      * Spawns two blood poof effects, one with a sub-type of `Poof2SubType.LARGE_BLOOD_POOF` and
@@ -278,7 +278,7 @@ declare global {
      * @param color Optional.
      * @param scale Optional. Default is 1.
      */
-    MakeBloodPoof: (
+    readonly MakeBloodPoof: (
       position?: Vector,
       color?: Color,
       scale?: number,
@@ -293,65 +293,65 @@ declare global {
      * @param color Optional.
      * @param scale Optional. Default is 1.
      */
-    MakeGroundPoof: (
+    readonly MakeGroundPoof: (
       position?: Vector,
       color?: Color,
       scale?: number,
     ) => EntityEffect;
 
     /** Resets the entity's water clip flags. */
-    ResetWaterClipFlags: () => void;
+    readonly ResetWaterClipFlags: () => void;
 
     /**
      * Updates the remaining frames until the baited status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetBaitedCountdown: (countdown: int) => void;
+    readonly SetBaitedCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the bleeding status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetBleedingCountdown: (countdown: int) => void;
+    readonly SetBleedingCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the entity can be inflicted with another status effect. If
      * the entity is not a boss, then this cooldown will do nothing.
      */
-    SetBossStatusEffectCooldown: (cooldown: int) => void;
+    readonly SetBossStatusEffectCooldown: (cooldown: int) => void;
 
     /**
      * Updates the remaining frames until the brimstone status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetBrimstoneMarkCountdown: (countdown: int) => void;
+    readonly SetBrimstoneMarkCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the burn status effect is removed. If the entity does not
      * have the status effect, then this method will do nothing.
      */
-    SetBurnCountdown: (countdown: int) => void;
+    readonly SetBurnCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the entity takes damage from the burn status effect. If
      * the entity does not have the status effect, then this method will do nothing.
      */
-    SetBurnDamageTimer: (countdown: int) => void;
+    readonly SetBurnDamageTimer: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the charmed status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetCharmedCountdown: (countdown: int) => void;
+    readonly SetCharmedCountdown: (countdown: int) => void;
 
     /** Sets the entity's color parameters. */
-    SetColorParams: (colorParams: readonly ColorParams[]) => void;
+    readonly SetColorParams: (colorParams: readonly ColorParams[]) => void;
 
     /**
      * Updates the remaining frames until the confusion status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetConfusionCountdown: (countdown: int) => void;
+    readonly SetConfusionCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the entity can take damage from the `DamageFlag.COUNTDOWN`
@@ -359,106 +359,106 @@ declare global {
      *
      * This is not the same as the player's invincibility frames.
      */
-    SetDamageCountdown: (countdown: int) => void;
+    readonly SetDamageCountdown: (countdown: int) => void;
 
     /** Sets whether the entity is dead. */
-    SetDead: (isDead: boolean) => void;
+    readonly SetDead: (isDead: boolean) => void;
 
     /**
      * Updates the remaining frames until the fear status effect is removed. If the entity does not
      * have the status effect, then this method will do nothing.
      */
-    SetFearCountdown: (countdown: int) => void;
+    readonly SetFearCountdown: (countdown: int) => void;
 
     /** Updates the remaining frames until the entity can take fire damage again. */
-    SetFireDamageCooldown: (cooldown: int) => void;
+    readonly SetFireDamageCooldown: (cooldown: int) => void;
 
     /**
      * Updates the remaining frames until the freeze status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetFreezeCountdown: (countdown: int) => void;
+    readonly SetFreezeCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the ice status effect is removed. If the entity does not
      * have the status effect, then this method will do nothing.
      */
-    SetIceCountdown: (countdown: int) => void;
+    readonly SetIceCountdown: (countdown: int) => void;
 
     /** Sets whether the entity is invincible. */
-    SetInvincible: (isInvincible: boolean) => void;
+    readonly SetInvincible: (isInvincible: boolean) => void;
 
     /**
      * Updates the remaining frames until the knockback status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetKnockbackCountdown: (countdown: int) => void;
+    readonly SetKnockbackCountdown: (countdown: int) => void;
 
     /**
      * Updates the direction the entity is being knocked back as a result of the knockback status
      * effect. If the entity does not have the status effect, then this method will do nothing.
      */
-    SetKnockbackDirection: (direction: Vector) => void;
+    readonly SetKnockbackDirection: (direction: Vector) => void;
 
     /**
      * Updates the remaining frames until the magnetized status effect is removed. If the entity
      * does not have the status effect, then this method will do nothing.
      */
-    SetMagnetizedCountdown: (countdown: int) => void;
+    readonly SetMagnetizedCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the Midas Freeze status effect is removed. If the entity
      * does not have the status effect, then this method will do nothing.
      */
-    SetMidasFreezeCountdown: (countdown: int) => void;
+    readonly SetMidasFreezeCountdown: (countdown: int) => void;
 
     /**
      * Sets how many frames the entity is paused for. Paused entities will remain in place and their
      * AI is disabled.
      */
-    SetPauseTime: (duration: int) => void;
+    readonly SetPauseTime: (duration: int) => void;
 
     /**
      * Updates the remaining frames until the poison status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetPoisonCountdown: (countdown: int) => void;
+    readonly SetPoisonCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the entity takes damage from the poison status effect. If
      * the entity does not have the status effect, then this method will do nothing.
      */
-    SetPoisonDamageTimer: (countdown: int) => void;
+    readonly SetPoisonDamageTimer: (countdown: int) => void;
 
     /**
      * Updates the size of the entity's shadow. This method must be called every update as the game
      * will try to revert the shadow back to its original size.
      */
-    SetShadowSize: (size: number) => void;
+    readonly SetShadowSize: (size: number) => void;
 
     /**
      * Updates the remaining frames until the shrink status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetShrinkCountdown: (countdown: int) => void;
+    readonly SetShrinkCountdown: (countdown: int) => void;
 
     /**
      * Updates the remaining frames until the slowness status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetSlowingCountdown: (countdown: int) => void;
+    readonly SetSlowingCountdown: (countdown: int) => void;
 
     /** Sets the entity's speed multiplier. */
-    SetSpeedMultiplier: (multiplier: number) => void;
+    readonly SetSpeedMultiplier: (multiplier: number) => void;
 
     /** Sets the entity's water clip flags. */
-    SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
+    readonly SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
 
     /**
      * Updates the remaining frames until the weakness status effect is removed. If the entity does
      * not have the status effect, then this method will do nothing.
      */
-    SetWeaknessCountdown: (countdown: int) => void;
+    readonly SetWeaknessCountdown: (countdown: int) => void;
 
     /**
      * Shortcut method of spawning `EntityEffect.BLOOD_EXPLOSION`.
@@ -469,7 +469,7 @@ declare global {
      * @param color Optional. Default is `ColorDefault`.
      * @param velocity Optional. Default is `VectorZero`.
      */
-    SpawnBloodEffect: (
+    readonly SpawnBloodEffect: (
       subType?: BloodExplosionSubType,
       position?: Vector,
       spriteOffset?: Vector,
@@ -481,25 +481,25 @@ declare global {
      * Spawns a water impact effect. If `Room.GetWaterAmount` is less than or equal to 0.2, nothing
      * will spawn.
      */
-    SpawnWaterImpactEffects: (
+    readonly SpawnWaterImpactEffects: (
       position: Vector,
       velocity: Vector,
       strength: number,
     ) => void;
 
-    TeleportToRandomPosition: () => void;
+    readonly TeleportToRandomPosition: () => void;
 
     /**
      * Casts an `Entity` into an `EntityDelirium`, which has delirium-specific methods and
      * properties. If the associated entity is not Delirium, then this method will return undefined.
      */
-    ToDelirium: () => EntityDelirium | undefined;
+    readonly ToDelirium: () => EntityDelirium | undefined;
 
     /**
      * Casts an `Entity` into an `EntitySlot`, which has delirium-specific methods and properties.
      * If the associated entity is not a slot, then this method will return undefined.
      */
-    ToSlot: () => EntitySlot | undefined;
+    readonly ToSlot: () => EntitySlot | undefined;
 
     /**
      * Attempts to throw the entity. This is the same effect as when the player is knocked up from a
@@ -507,7 +507,7 @@ declare global {
      *
      * Returns whether the entity was thrown successfully.
      */
-    TryThrow: (
+    readonly TryThrow: (
       source: EntityRef,
       throwDirection: Vector,
       force: number,

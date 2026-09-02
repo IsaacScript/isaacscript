@@ -8,67 +8,67 @@ declare global {
    */
   interface LayerState extends IsaacAPIClass {
     /** Clears the custom shader. */
-    ClearCustomChampionShader: () => void;
+    readonly ClearCustomChampionShader: () => void;
 
     /** Clears the custom shader. */
-    ClearCustomShader: () => void;
+    readonly ClearCustomShader: () => void;
 
     /** Returns the layer's `BlendMode`. */
-    GetBlendMode: () => BlendMode;
+    readonly GetBlendMode: () => BlendMode;
 
     /** Returns the layer's color. */
-    GetColor: () => Color;
+    readonly GetColor: () => Color;
 
     /** Returns the layer's crop offset. */
-    GetCropOffset: () => Vector;
+    readonly GetCropOffset: () => Vector;
 
     /** Returns the layer's default spritesheet. */
-    GetDefaultSpritesheetPath: () => string;
+    readonly GetDefaultSpritesheetPath: () => string;
 
     /** Returns whether the layer is flipped on the X axis. */
-    GetFlipX: () => boolean;
+    readonly GetFlipX: () => boolean;
 
     /** Returns whether the layer is flipped on the Y axis. */
-    GetFlipY: () => boolean;
+    readonly GetFlipY: () => boolean;
 
     /** Returns the layer's ?ID. */
-    GetLayerID: () => int;
+    readonly GetLayerID: () => int;
 
     /** Returns the layer's name. */
-    GetName: () => string;
+    readonly GetName: () => string;
 
     /** Returns the layer's position. */
-    GetPos: () => Vector;
+    readonly GetPos: () => Vector;
 
     /** Returns the layer's animation render flags. */
-    GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
+    readonly GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
 
     /** Returns the layer's rotation. */
-    GetRotation: () => number;
+    readonly GetRotation: () => number;
 
     /** Returns the layer's size. */
-    GetSize: () => Vector;
+    readonly GetSize: () => Vector;
 
     /** Returns the path of the layer's spritesheet. */
-    GetSpritesheetPath: () => string;
+    readonly GetSpritesheetPath: () => string;
 
-    GetWrapSMode: () => int;
-    GetWrapTMode: () => int;
-
-    /** Returns whether the shader from the specified path is active. */
-    HasCustomChampionShader: (path: string) => boolean;
+    readonly GetWrapSMode: () => int;
+    readonly GetWrapTMode: () => int;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomShader: (path: string) => boolean;
+    readonly HasCustomChampionShader: (path: string) => boolean;
+
+    /** Returns whether the shader from the specified path is active. */
+    readonly HasCustomShader: (path: string) => boolean;
 
     /** Returns whether the layer is visible. */
-    IsVisible: () => boolean;
+    readonly IsVisible: () => boolean;
 
     /** Sets the layer's color. */
-    SetColor: (color: Color) => void;
+    readonly SetColor: (color: Color) => void;
 
     /** Sets the layer's crop offset. */
-    SetCropOffset: (cropOffset: Vector) => void;
+    readonly SetCropOffset: (cropOffset: Vector) => void;
 
     /**
      * Overrides the `coloroffset_champion` shader the sprite uses with a custom one. This shader is
@@ -80,7 +80,7 @@ declare global {
      * @param shaderPath A path to the folder containing the shaders. The path starts on the
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
-    SetCustomChampionShader: (shaderPath: string) => void;
+    readonly SetCustomChampionShader: (shaderPath: string) => void;
 
     /**
      * Overrides the `coloroffset` shader the sprite uses with a custom one.
@@ -93,32 +93,32 @@ declare global {
      * @param shaderPath A path to the folder containing the shaders. The path starts on the
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
-    SetCustomShader: (shaderPath: string) => void;
+    readonly SetCustomShader: (shaderPath: string) => void;
 
     /** Sets whether the layer is flipped on the X axis. */
-    SetFlipX: (flipped: boolean) => void;
+    readonly SetFlipX: (flipped: boolean) => void;
 
     /** Sets whether the layer is flipped on the Y axis. */
-    SetFlipY: (flipped: boolean) => void;
+    readonly SetFlipY: (flipped: boolean) => void;
 
     /** Sets the layer's position. */
-    SetPos: (position: Vector) => void;
+    readonly SetPos: (position: Vector) => void;
 
     /** Sets the layer's animation render flags. */
-    SetRenderFlags: (
+    readonly SetRenderFlags: (
       flags: AnimationRenderFlag | BitFlags<AnimationRenderFlag>,
     ) => void;
 
     /** Sets the layer's rotation. */
-    SetRotation: (rotation: number) => void;
+    readonly SetRotation: (rotation: number) => void;
 
     /** Sets the layer's size. */
-    SetSize: (size: Vector) => void;
+    readonly SetSize: (size: Vector) => void;
 
     /** Sets the layer's visibility. */
-    SetVisible: (isVisible: boolean) => void;
+    readonly SetVisible: (isVisible: boolean) => void;
 
-    SetWrapSMode: (mode: int) => void;
-    SetWrapTMode: (mode: int) => void;
+    readonly SetWrapSMode: (mode: int) => void;
+    readonly SetWrapTMode: (mode: int) => void;
   }
 }

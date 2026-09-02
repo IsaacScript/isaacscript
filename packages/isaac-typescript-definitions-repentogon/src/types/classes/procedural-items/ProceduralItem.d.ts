@@ -5,41 +5,41 @@
  */
 declare interface ProceduralItem {
   /** Returns the damage the item grants. */
-  GetDamage: () => number;
+  readonly GetDamage: () => number;
 
   /**
    * Returns the `ProceduralEffect` of the item from the specified index. Returns undefined if none
    * were found.
    */
-  GetEffect: (index: int) => ProceduralEffect | undefined;
+  readonly GetEffect: (index: int) => ProceduralEffect | undefined;
 
   /** Returns the total number of effects the item has. */
-  GetEffectCount: () => int;
+  readonly GetEffectCount: () => int;
 
   /** Returns the fire delay the item grants. */
-  GetFireDelay: () => number;
+  readonly GetFireDelay: () => number;
 
   /** Returns the `CollectibleType` of the item. */
-  GetID: () => int;
+  readonly GetID: () => int;
 
   /** Returns the `ItemConfigItem` of the item. */
-  GetItem: () => ItemConfigItem;
+  readonly GetItem: () => ItemConfigItem;
 
   /** Returns the luck the item grants. */
-  GetLuck: () => number;
+  readonly GetLuck: () => number;
 
   /** Returns the amount of range the item grants. */
-  GetRange: () => number;
+  readonly GetRange: () => number;
 
   /** Returns the amount of shot speed the item grants. */
-  GetShotSpeed: () => number;
+  readonly GetShotSpeed: () => number;
 
   /** Returns the amount of speed the item grants. */
-  GetSpeed: () => number;
+  readonly GetSpeed: () => number;
 
   /**
    * Returns the target `ItemConfigItem` that was randomly selected during the procedural item's
    * creation. Returns undefined if none were selected.
    */
-  GetTargetItem: () => ItemConfigItem | undefined;
+  readonly GetTargetItem: () => ItemConfigItem | undefined;
 }

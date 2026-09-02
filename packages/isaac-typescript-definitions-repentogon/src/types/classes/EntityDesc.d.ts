@@ -2,20 +2,20 @@ import type { ChampionColor, EntityType } from "isaac-typescript-definitions";
 
 declare global {
   interface EntityDesc extends IsaacAPIClass {
-    GetHealth: () => void;
-    GetChampionId: () => ChampionColor | -1;
-    GetMaxHealth: () => number;
-    GetSubtype: () => int;
-    GetType: () => EntityType;
-    GetVariant: () => int;
-    IsPlayerControlled: () => boolean;
-    SetChampionId: (championColor: ChampionColor | -1) => void;
-    SetHealth: (health: int) => void;
-    SetMaxHealth: (maxHealth: number) => void;
-    SetPlayerControlled: (controlled: boolean) => void;
-    SetSubtype: (subType: int) => void;
-    SetType: (entityType: EntityType) => void;
-    SetVariant: (variant: int) => void;
+    readonly GetHealth: () => void;
+    readonly GetChampionId: () => ChampionColor | -1;
+    readonly GetMaxHealth: () => number;
+    readonly GetSubtype: () => int;
+    readonly GetType: () => EntityType;
+    readonly GetVariant: () => int;
+    readonly IsPlayerControlled: () => boolean;
+    readonly SetChampionId: (championColor: ChampionColor | -1) => void;
+    readonly SetHealth: (health: int) => void;
+    readonly SetMaxHealth: (maxHealth: number) => void;
+    readonly SetPlayerControlled: (controlled: boolean) => void;
+    readonly SetSubtype: (subType: int) => void;
+    readonly SetType: (entityType: EntityType) => void;
+    readonly SetVariant: (variant: int) => void;
   }
 
   /**

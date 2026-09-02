@@ -5,17 +5,17 @@
  */
 declare interface NullFrame extends IsaacAPIClass {
   /** Returns the frame's color. */
-  GetColor: () => Color;
+  readonly GetColor: () => Color;
 
   /** Returns the frame's position. */
-  GetPos: () => Vector;
+  readonly GetPos: () => Vector;
 
   /** Returns the frame's rotation. */
-  GetRotation: () => number;
+  readonly GetRotation: () => number;
 
   /** Returns the frame's scale. */
-  GetScale: () => Vector;
+  readonly GetScale: () => Vector;
 
   /** Returns whether the frame is visible. */
-  IsVisible: () => boolean;
+  readonly IsVisible: () => boolean;
 }

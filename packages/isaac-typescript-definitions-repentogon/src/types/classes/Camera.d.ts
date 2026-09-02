@@ -5,13 +5,13 @@
  */
 declare interface Camera extends IsaacAPIClass {
   /** Returns whether the camera is clamped to the room's boundaries. */
-  IsClampEnabled: () => boolean;
+  readonly IsClampEnabled: () => boolean;
 
   /** Returns whether the specified position is visible within the camera's current view. */
-  IsPosVisible: (position: Vector) => boolean;
+  readonly IsPosVisible: (position: Vector) => boolean;
 
   /** Sets whether the camera is clamped to the room's boundaries. */
-  SetClampEnabled: (enabled: boolean) => void;
+  readonly SetClampEnabled: (enabled: boolean) => void;
 
   /**
    * Sets the camera's current focus position, causing it to shift towards the specified position.
@@ -23,7 +23,7 @@ declare interface Camera extends IsaacAPIClass {
    * This method must be called on every game update, otherwise the game will override the camera's
    * focus position.
    */
-  SetFocusPosition: (position: Vector) => void;
+  readonly SetFocusPosition: (position: Vector) => void;
 
   /**
    * Changes the camera's position immediately. If you want the camera to smoothly change its
@@ -37,12 +37,12 @@ declare interface Camera extends IsaacAPIClass {
    *
    * This method does not work if `Options.CameraStyle` is not equal to `CameraStyle.ON`.
    */
-  SnapToPosition: (position: Vector) => void;
+  readonly SnapToPosition: (position: Vector) => void;
 
   /**
    * Updates the camera.
    *
    * @param interpolated Optional. Default is false.
    */
-  Update: (interpolated?: boolean) => void;
+  readonly Update: (interpolated?: boolean) => void;
 }

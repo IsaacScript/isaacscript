@@ -4,5 +4,5 @@
  * @see https://repentogon.com/
  */
 declare interface FXLayers {
-  AddPoopFx: (color: Color) => void;
+  readonly AddPoopFx: (color: Color) => void;
 }

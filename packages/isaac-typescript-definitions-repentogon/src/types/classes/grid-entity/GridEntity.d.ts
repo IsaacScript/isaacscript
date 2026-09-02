@@ -4,12 +4,12 @@ import type { WaterClipFlag } from "../../../enums/flags/WaterClipFlag";
 declare global {
   interface GridEntity extends IsaacAPIClass {
     /** Returns the grid's render position. */
-    GetRenderPosition: () => Vector;
+    readonly GetRenderPosition: () => Vector;
 
-    GetWaterClipFlags: () => BitFlags<WaterClipFlag>;
+    readonly GetWaterClipFlags: () => BitFlags<WaterClipFlag>;
 
     /** Forces the grid entity to hurt the provided entity. */
-    HurtDamage: (
+    readonly HurtDamage: (
       entity: Entity,
       damage: int,
       damageFlags: DamageFlag | BitFlags<DamageFlag>,
@@ -17,7 +17,7 @@ declare global {
       ignoreGridCollision: boolean,
     ) => void;
 
-    HurtSurroundings: (
+    readonly HurtSurroundings: (
       enemyDistance: number,
       playerDistance: number,
       enemyDamage: number,
@@ -27,9 +27,9 @@ declare global {
     ) => void;
 
     /** Returns whether the grid entity is a breakable rock. */
-    IsBreakableRock: () => boolean;
+    readonly IsBreakableRock: () => boolean;
 
-    ResetWaterClipFlags: () => void;
-    SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
+    readonly ResetWaterClipFlags: () => void;
+    readonly SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
   }
 }

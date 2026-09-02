@@ -3,10 +3,10 @@ import type { AnimationRenderFlag } from "../../../enums/flags/AnimationRenderFl
 declare global {
   interface Sprite extends IsaacAPIClass {
     /** Clears the custom shader. */
-    ClearCustomChampionShader: () => void;
+    readonly ClearCustomChampionShader: () => void;
 
     /** Clears the custom shader. */
-    ClearCustomShader: () => void;
+    readonly ClearCustomShader: () => void;
 
     /**
      * If the animation is currently stopped, it will start playing again from the current frame.
@@ -15,7 +15,7 @@ declare global {
      *
      * @param continueOverlay Optional. Default is true.
      */
-    Continue: (continueOverlay?: boolean) => void;
+    readonly Continue: (continueOverlay?: boolean) => void;
 
     /**
      * If the overlay animation is currently stopped, it will start playing again from the current
@@ -23,72 +23,72 @@ declare global {
      *
      * This will not restart a finished non-looping animation.
      */
-    ContinueOverlay: () => void;
+    readonly ContinueOverlay: () => void;
 
     /** Returns an array of all `LayerState` in the sprite. */
-    GetAllLayers: () => LayerState[];
+    readonly GetAllLayers: () => LayerState[];
 
     /**
      * Returns an array of `AnimationData` representing all of the animations in the sprite's .anm2
      * file.
      */
-    GetAllAnimationData: () => AnimationData[];
+    readonly GetAllAnimationData: () => AnimationData[];
 
     /**
      * Returns the animation data from the provided animation name. Returns undefined if the
      * animation does not exist.
      */
-    GetAnimationData: (animationName: string) => AnimationData | undefined;
+    readonly GetAnimationData: (animationName: string) => AnimationData | undefined;
 
     /** Returns the current animation data. Returns undefined if no animation is playing. */
-    GetCurrentAnimationData: () => AnimationData | undefined;
+    readonly GetCurrentAnimationData: () => AnimationData | undefined;
 
     /** Returns the layer data from the specified layer id. Returns undefined if none were found. */
-    GetLayer: (layerIdOrName: string | int) => LayerState | undefined;
+    readonly GetLayer: (layerIdOrName: string | int) => LayerState | undefined;
 
     /**
      * Returns the `AnimationFrame` currently being displayed on the provided layer ID of the
      * current animation. Returns undefined if the layer ID is invalid.
      */
-    GetLayerFrameData: (layerId: int) => AnimationFrame | undefined;
+    readonly GetLayerFrameData: (layerId: int) => AnimationFrame | undefined;
 
     /**
      * Returns the null frame from the specified layer name. Returns undefined if the null frame
      * does not exist.
      */
-    GetNullFrame: (LayerName: string) => NullFrame | undefined;
+    readonly GetNullFrame: (LayerName: string) => NullFrame | undefined;
 
     /**
      * Returns the `AnimationData` of the current playing overlay animation. Returns undefined if no
      * overlay animation is playing.
      */
-    GetOverlayAnimationData: () => AnimationData | undefined;
+    readonly GetOverlayAnimationData: () => AnimationData | undefined;
 
     /**
      * Returns the `AnimationFrame` currently being displayed on the provided layer ID of the
      * current overlay animation. Returns undefined if the layer ID is invalid.
      */
-    GetOverlayLayerFrameData: (layerId: int) => AnimationFrame | undefined;
+    readonly GetOverlayLayerFrameData: (layerId: int) => AnimationFrame | undefined;
 
     /**
      * Returns the null frame from the specified layer name of the current overlay animation.
      * Returns undefined if the null frame does not exist.
      */
-    GetOverlayNullFrame: () => NullFrame | undefined;
+    readonly GetOverlayNullFrame: () => NullFrame | undefined;
 
     /** Returns a bitmask of the sprite's `AnimationRenderFlag`. */
-    GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
+    readonly GetRenderFlags: () => BitFlags<AnimationRenderFlag>;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomChampionShader: (path: string) => boolean;
+    readonly HasCustomChampionShader: (path: string) => boolean;
 
     /** Returns whether the shader from the specified path is active. */
-    HasCustomShader: (path: string) => boolean;
+    readonly HasCustomShader: (path: string) => boolean;
 
     /**
      * Returns true if the specified event in the overlay animation is currently being triggered.
      */
-    IsOverlayEventTriggered: (eventName: string) => boolean;
+    readonly IsOverlayEventTriggered: (eventName: string) => boolean;
 
     /**
      * Repentogon's modified `Sprite.ReplaceSpritesheet` method.
@@ -106,7 +106,7 @@ declare global {
      * @param loadGraphics Optional. Default is false.
      * @customName ReplaceSpritesheet
      */
-    ReplaceSpritesheetEx: (
+    readonly ReplaceSpritesheetEx: (
       layerID: int,
       pngFileName: string,
       loadGraphics?: boolean,
@@ -122,7 +122,7 @@ declare global {
      * @param shaderPath A path to the folder containing the shaders. The path starts on the
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
-    SetCustomChampionShader: (shaderPath: string) => void;
+    readonly SetCustomChampionShader: (shaderPath: string) => void;
 
     /**
      * Overrides the `coloroffset` shader the sprite uses with a custom one.
@@ -135,7 +135,7 @@ declare global {
      * @param shaderPath A path to the folder containing the shaders. The path starts on the
      *                   resources folder and expects to find both a `.vs` and `.fs` file.
      */
-    SetCustomShader: (shaderPath: string) => void;
+    readonly SetCustomShader: (shaderPath: string) => void;
 
     /**
      * Repentogon's modified `Sprite.SetOverlayFrame` method.
@@ -149,13 +149,13 @@ declare global {
      *
      * @customName SetOverlayFrame
      */
-    SetOverlayFrameEx: (frameNumber: int) => void;
+    readonly SetOverlayFrameEx: (frameNumber: int) => void;
 
     /** Sets the overlay layer's frame. */
-    SetOverlayLayerFrame: (layer: int, frame: int) => void;
+    readonly SetOverlayLayerFrame: (layer: int, frame: int) => void;
 
     /** Sets the animation's render flags. */
-    SetRenderFlags: (
+    readonly SetRenderFlags: (
       flags: AnimationRenderFlag | BitFlags<AnimationRenderFlag>,
     ) => void;
 
@@ -172,16 +172,16 @@ declare global {
      * @param stopOverlay Optional. Default is true.
      * @customName Stop
      */
-    StopEx: (stopOverlay: boolean) => void;
+    readonly StopEx: (stopOverlay: boolean) => void;
 
     /** Stops the currently playing overlay animation. */
-    StopOverlay: () => void;
+    readonly StopOverlay: () => void;
 
     /**
      * Returns true if the specified event in the overlay animation was triggered at some point. (It
      * remains true until the animation stops playing.)
      */
-    WasOverlayEventTriggered: (eventName: string) => boolean;
+    readonly WasOverlayEventTriggered: (eventName: string) => boolean;
   }
 
   /** The constructor for the REPENTOGON `Sprite`. */

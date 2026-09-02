@@ -11,13 +11,13 @@ declare interface Backdrop {
    * Returns the sprite of the player controls that are displayed on the starting room's floor at
    * the start of the run.
    */
-  GetControlsANM2: () => Sprite;
+  readonly GetControlsANM2: () => Sprite;
 
   /**
    * Returns the sprite of the buttons tied to the player's controls that are displayed on the
    * starting room's floor at the start of the run.
    */
-  GetControlsButtonsANM2: () => Sprite;
+  readonly GetControlsButtonsANM2: () => Sprite;
 
   /**
    * Returns the sprite of the backdrop's details.
@@ -25,13 +25,13 @@ declare interface Backdrop {
    * The backdrop's details are not the same as the randomly spawning details on the ground as the
    * latter is a GridEntity (`GridEntityType.DECORATION`).
    */
-  GetDetailANM2: () => Sprite;
+  readonly GetDetailANM2: () => Sprite;
 
   /**
    * Returns the ANM2 of the fake backdrop used to render extremely small room. This can only be
    * seen in the small closet room in Home.
    */
-  GetFloorANM2: () => Sprite;
+  readonly GetFloorANM2: () => Sprite;
 
   // `GetWallImage` and `GetFloorImage` are not implemented due to the Image buffer class not being
   // implemented yet.

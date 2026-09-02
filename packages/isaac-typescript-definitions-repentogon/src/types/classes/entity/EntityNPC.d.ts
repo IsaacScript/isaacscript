@@ -14,7 +14,7 @@ declare global {
      * @param source Optional. Default is undefined.
      * @param damage Optional. Default is 3.5.
      */
-    ApplyTearflagEffects: (
+    readonly ApplyTearflagEffects: (
       position: Vector,
       flags: BitFlags<TearFlag>,
       source?: Entity,
@@ -22,13 +22,13 @@ declare global {
     ) => void;
 
     /** Clears the flying override set by `EntityNPC.SetFlyingOverride`. */
-    ClearFlyingOverride: () => void;
+    readonly ClearFlyingOverride: () => void;
 
     /**
      * Behaves the same as `EntityNPC.FireBossProjectiles` except it returns an array of the
      * projectiles fired.
      */
-    FireBossProjectilesEx: (
+    readonly FireBossProjectilesEx: (
       numProjectiles: int,
       targetPos: Vector,
       trajectoryModifier: number,
@@ -43,7 +43,7 @@ declare global {
      * @param velocity
      * @param backdrop Optional. Default is `BackdropType.BASEMENT`.
      */
-    FireGridEntity: (
+    readonly FireGridEntity: (
       sprite: Sprite,
       desc: GridEntityDesc,
       velocity: Vector,
@@ -57,7 +57,7 @@ declare global {
      * Use this over Isaacscript Common's `fireProjectiles` function as it's significantly more
      * optimized and safe.
      */
-    FireProjectilesEx: (
+    readonly FireProjectilesEx: (
       position: Vector,
       velocity: Vector,
       mode: ProjectilesMode,
@@ -65,25 +65,25 @@ declare global {
     ) => EntityProjectile[];
 
     /** Returns the NPC's `ControllerIndex`, which indicates a player is controlling it. */
-    GetControllerId: () => ControllerIndex;
+    readonly GetControllerId: () => ControllerIndex;
 
     /**
      * Returns the number of frames until the NPC regenerates back to normal if it is currently a
      * pile of goo. This is only for dark red champions.
      */
-    GetDarkRedChampionRegenTimer: () => int;
+    readonly GetDarkRedChampionRegenTimer: () => int;
 
     /** Returns the NPC's dynamic dirt color. */
-    GetDirtColor: () => Color;
+    readonly GetDirtColor: () => Color;
 
     /** Returns a unique `LootList` used by fireplaces when they are extinguished. */
-    GetFireplaceLoot: () => LootList;
+    readonly GetFireplaceLoot: () => LootList;
 
     /** Returns whether the NPC's flying override was set. */
-    GetFlyingOverride: () => boolean;
+    readonly GetFlyingOverride: () => boolean;
 
     /** Returns an array of entity indexes that the NPC is hitting. */
-    GetHitList: () => int[];
+    readonly GetHitList: () => int[];
 
     /**
      * Returns the NPC's pathfinder with fixed bindings.
@@ -96,18 +96,18 @@ declare global {
      * To not break existing mods, the Pathfinder object returned from the `Pathfinder` field is
      * unchanged, so you should use `EntityNPC.GetPathfinder` whenever possible.
      */
-    GetPathfinder: () => PathFinder;
+    readonly GetPathfinder: () => PathFinder;
 
     /** Returns the NPC's shield strength/armor. */
-    GetShieldStrength: () => number;
+    readonly GetShieldStrength: () => number;
 
     /** Returns a unique `LootList` used by Shopkeepers when they are blown up. */
-    GetShopkeeperLoot: () => LootList;
+    readonly GetShopkeeperLoot: () => LootList;
 
-    GetSirenPlayerEntity: () => EntityPlayer | undefined;
+    readonly GetSirenPlayerEntity: () => EntityPlayer | undefined;
 
     /** Returns whether the entity has a boss champion color. */
-    IsBossColor: () => boolean;
+    readonly IsBossColor: () => boolean;
 
     /**
      * Changes the ".png" file associated with a specific layer of the NPC's sprite.
@@ -126,7 +126,7 @@ declare global {
      * @param loadGraphics Optional. If true, `Sprite.LoadGraphics()` is immediately fired. Default
      *                     is false.
      */
-    ReplaceSpritesheet: (
+    readonly ReplaceSpritesheet: (
       layerID: int,
       pngPath: string,
       loadGraphics?: boolean,
@@ -136,7 +136,7 @@ declare global {
      * Sets the NPC's `ControllerIndex`, which allows a player to control it. If the controller
      * index is `ControllerIndex.NONE`, the NPC will continue its normal behavior.
      */
-    SetControllerId: (index: ControllerIndex) => void;
+    readonly SetControllerId: (index: ControllerIndex) => void;
 
     /**
      * Applies an override to the return value of the `EntityNPC.IsFlying` method, which is normally
@@ -145,10 +145,10 @@ declare global {
      * This method can be used to make grounded enemies ignore creep or flying enemies take damage
      * from creep.
      */
-    SetFlyingOverride: (override: boolean) => void;
+    readonly SetFlyingOverride: (override: boolean) => void;
 
     /** Sets the NPC's shield strength/armor. */
-    SetShieldStrength: (strength: number) => void;
+    readonly SetShieldStrength: (strength: number) => void;
 
     /**
      * Spawns a blood cloud effect.
@@ -156,16 +156,16 @@ declare global {
      * @param position Optional. Default is the entity's current position.
      * @param color Optional. Default is `ColorDefault`.
      */
-    SpawnBloodCloud: (position?: Vector, color?: Color) => EntityEffect;
+    readonly SpawnBloodCloud: (position?: Vector, color?: Color) => EntityEffect;
 
     /** Spawns a blood splash effect. */
-    SpawnBloodSplash: () => void;
+    readonly SpawnBloodSplash: () => void;
 
     /**
      * Attempts to change the NPC's target. This is used by Lost Fly to force NPCs to target it.
      * Returns whether the NPCs target changed successfully.
      */
-    TryForceTarget: (target: Entity, duration: int) => boolean;
+    readonly TryForceTarget: (target: Entity, duration: int) => boolean;
 
     /**
      * Attempts to split the NPC in half. This is used by the Meat Cleaver collectible when
@@ -181,7 +181,7 @@ declare global {
      * @param doScreenEffects Optional. If true, the split sound effect is played and the screen
      *                        shakes. Default is false.
      */
-    TrySplit: (
+    readonly TrySplit: (
       defaultDamage: number,
       source: EntityRef,
       doScreenEffects?: boolean,
@@ -194,7 +194,7 @@ declare global {
      * @param direction
      * @param force This is only used by `EntityNPC` poops.
      */
-    TryThrow: (source: EntityRef, direction: Vector, force: number) => boolean;
+    readonly TryThrow: (source: EntityRef, direction: Vector, force: number) => boolean;
 
     /**
      * Updates the NPC's dirt color.
@@ -202,7 +202,7 @@ declare global {
      * @param immediate If true, the dirt color will be set to exactly what is beneath the entity.
      *                  Otherwise, it will be updated smoothly over the course of multiple frames.
      */
-    UpdateDirtColor: (immediate: boolean) => void;
+    readonly UpdateDirtColor: (immediate: boolean) => void;
   }
 
   /** @noSelf */

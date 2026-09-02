@@ -19,7 +19,7 @@ declare interface WeightedOutcomePicker extends IsaacAPIClass {
    * @param weight
    * @param scaleFactor Optional. The maximum weight. Default is 100.
    */
-  AddOutcomeFloat: (value: int, weight: float, scaleFactor?: int) => void;
+  readonly AddOutcomeFloat: (value: int, weight: float, scaleFactor?: int) => void;
 
   /**
    * Adds a float outcome to the outcome selector with the weight as an integer.
@@ -32,22 +32,22 @@ declare interface WeightedOutcomePicker extends IsaacAPIClass {
    * picker.AddOutcomeFloat(3, 5); // 5%
    * ```
    */
-  AddOutcomeWeight: (value: int, weight: int) => void;
+  readonly AddOutcomeWeight: (value: int, weight: int) => void;
 
   /** Clears all outcomes from the outcome picker. */
-  ClearOutcomes: () => void;
+  readonly ClearOutcomes: () => void;
 
   /** Returns the number of outcomes in the outcome picker. */
-  GetNumOutcomes: () => int;
+  readonly GetNumOutcomes: () => int;
 
   /** Returns an array of all of the outcomes in the outcome picker. */
-  GetOutcomes: () => Array<{ Value: int; Weight: number }>;
+  readonly GetOutcomes: () => Array<{ Value: int; Weight: number }>;
 
   /** Picks a random outcome from the list of outcomes. */
-  PickOutcome: (rng: RNG) => int;
+  readonly PickOutcome: (rng: RNG) => int;
 
   /** Removes an outcome from the outcome picker with the specified `value`. */
-  RemoveOutcome: (value: int) => void;
+  readonly RemoveOutcome: (value: int) => void;
 }
 
 /**

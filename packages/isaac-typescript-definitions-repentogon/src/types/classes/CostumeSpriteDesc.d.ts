@@ -9,45 +9,45 @@ declare global {
    */
   interface CostumeSpriteDesc extends IsaacAPIClass {
     /** Returns whether the costume overrides the character's body color. */
-    CanOverwriteColor: () => boolean;
+    readonly CanOverwriteColor: () => boolean;
 
     /** Returns the costume body's `SkinColor`. */
-    GetBodyColor: () => SkinColor;
+    readonly GetBodyColor: () => SkinColor;
 
     /** Returns the costume head's `SkinColor`. */
-    GetHeadColor: () => SkinColor;
+    readonly GetHeadColor: () => SkinColor;
 
     /** Returns the `ItemConfigItem` associated with the costume. */
-    GetItemConfig: () => ItemConfigItem;
+    readonly GetItemConfig: () => ItemConfigItem;
 
     /** Returns the `PlayerType` of the player wearing the costume. */
-    GetPlayerType: () => PlayerType;
+    readonly GetPlayerType: () => PlayerType;
 
     /** Returns the costume's display priority. */
-    GetPriority: () => int;
+    readonly GetPriority: () => int;
 
     /** Returns the costume's sprite. */
-    GetSprite: () => Sprite;
+    readonly GetSprite: () => Sprite;
 
     /** Returns whether the costume has an overlay effect. */
-    HasOverlay: () => boolean;
+    readonly HasOverlay: () => boolean;
 
     /** Returns whether the costume has alternative versions for other skin colors. */
-    HasSkinAlt: () => boolean;
+    readonly HasSkinAlt: () => boolean;
 
     /**
      * Returns whether the costume displays the player as flying. This does not actually grant
      * flying.
      */
-    IsFlying: () => boolean;
+    readonly IsFlying: () => boolean;
 
     /** Returns whether the costume's item animation is playing. */
-    IsItemAnimPlaying: () => boolean;
+    readonly IsItemAnimPlaying: () => boolean;
 
     /**
      * Returns whether or not the costume is only visible when the player's item state matches is
      * the same as the associated collectible.
      */
-    IsItemStateOnly: () => boolean;
+    readonly IsItemStateOnly: () => boolean;
   }
 }

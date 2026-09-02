@@ -35,7 +35,7 @@ declare global {
      * }
      * ```
      */
-    GetSlot: () => CardType | PillColor | ActiveSlot;
+    readonly GetSlot: () => CardType | PillColor | ActiveSlot;
 
     /**
      * Returns the pocket item's `PocketItemType`.
@@ -43,6 +43,6 @@ declare global {
      * Do not use this method if the slot is currently empty as the game sometimes does not clear
      * the value.
      */
-    GetType: () => PocketItemType;
+    readonly GetType: () => PocketItemType;
   }
 }

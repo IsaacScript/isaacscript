@@ -4,7 +4,7 @@ import type { ModCallbackRepentogon } from "../../enums/ModCallbackRepentogon";
 declare global {
   interface Mod {
     /** @customName AddCallback */
-    AddCallbackRepentogon: <
+    readonly AddCallbackRepentogon: <
       T extends keyof AddCallbackParametersRepentogon | string,
     >(
       modCallback: T,
@@ -14,7 +14,7 @@ declare global {
     ) => void;
 
     /** @customName AddPriorityCallback */
-    AddPriorityCallbackRepentogon: <
+    readonly AddPriorityCallbackRepentogon: <
       T extends keyof AddCallbackParametersRepentogon,
     >(
       modCallback: T,
@@ -25,7 +25,7 @@ declare global {
     ) => void;
 
     /** @customName RemoveCallback */
-    RemoveCallbackRepentogon: <T extends ModCallbackRepentogon>(
+    readonly RemoveCallbackRepentogon: <T extends ModCallbackRepentogon>(
       modCallback: T,
       callback: AddCallbackParametersRepentogon[T][0],
     ) => void;

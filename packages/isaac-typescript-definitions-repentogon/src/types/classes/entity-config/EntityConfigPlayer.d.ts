@@ -16,53 +16,53 @@ declare global {
    */
   interface EntityConfigPlayer extends IsaacAPIClass {
     /** Returns true if the player can shoot, as defined in `players.xml`. */
-    CanShoot: () => boolean;
+    readonly CanShoot: () => boolean;
 
     /** Returns the achievement tied to the player's unlock, as defined in `players.xml`. */
-    GetAchievementID: () => Achievement;
+    readonly GetAchievementID: () => Achievement;
 
     /**
      * Returns the description of the birthright associated with the player, as defined in
      * `players.xml`.
      */
-    GetBirthrightDescription: () => string;
+    readonly GetBirthrightDescription: () => string;
 
     /** Returns the number of black hearts the player starts with, as defined in `players.xml`. */
-    GetBlackHearts: () => int;
+    readonly GetBlackHearts: () => int;
 
     /** Returns the number of bombs the player starts with, as defined in `players.xml`. */
-    GetBombs: () => int;
+    readonly GetBombs: () => int;
 
     /** Returns the number of broken hearts the player starts with, as defined in `players.xml`. */
-    GetBrokenHearts: () => int;
+    readonly GetBrokenHearts: () => int;
 
     /**
      * Returns the `CardType` the player starts with, as defined in `players.xml`.
      *
      * This does not include starting cards obtained via unlocks or cards added by mods.
      */
-    GetCard: () => CardType;
+    readonly GetCard: () => CardType;
 
     /** Returns the number of coins the player starts with, as defined in `players.xml`. */
-    GetCoins: () => int;
+    readonly GetCoins: () => int;
 
     /** Returns an array of collectibles the player starts with. */
-    GetCollectibles: () => CollectibleType[];
+    readonly GetCollectibles: () => CollectibleType[];
 
     /**
      * Returns the player's starting costume ID, as defined in `players.xml`. If the player has no
      * starting costume, -1 is returned instead.
      */
-    GetCostumeID: () => int;
+    readonly GetCostumeID: () => int;
 
     /** Returns the player's costume suffix, as defined in `players.xml`. */
-    GetCostumeSuffix: () => string;
+    readonly GetCostumeSuffix: () => string;
 
     /** Returns the path of the extra portrait .anm2, as defined in `players.xml`. */
-    GetExtraPortraitPath: () => string;
+    readonly GetExtraPortraitPath: () => string;
 
     /** Returns the number of keys the player starts with, as defined in `players.xml`. */
-    GetKeys: () => int;
+    readonly GetKeys: () => int;
 
     /**
      * Returns the sprite used for a modded character's starting room controls.
@@ -72,7 +72,7 @@ declare global {
      *
      * Returns undefined for vanilla characters, or characters with no corresponding animation.
      */
-    GetModdedControlsSprite: () => Sprite | undefined;
+    readonly GetModdedControlsSprite: () => Sprite | undefined;
 
     /**
      * Returns the sprite used for a modded character's icon in the co-op character select wheel.
@@ -82,7 +82,7 @@ declare global {
      *
      * Returns undefined for vanilla characters, or characters with no corresponding animation.
      */
-    GetModdedCoopMenuSprite: () => Sprite | undefined;
+    readonly GetModdedCoopMenuSprite: () => Sprite | undefined;
 
     /**
      * Returns the sprite used for a modded character's game over screen (i.e, their name).
@@ -92,7 +92,7 @@ declare global {
      *
      * Returns undefined for vanilla characters, or characters with no corresponding animation.
      */
-    GetModdedGameOverSprite: () => Sprite | undefined;
+    readonly GetModdedGameOverSprite: () => Sprite | undefined;
 
     /**
      * Returns the sprite used for a modded character's character select screen.
@@ -102,7 +102,7 @@ declare global {
      *
      * Returns undefined for vanilla characters, or characters with no corresponding animation.
      */
-    GetModdedMenuBackgroundSprite: () => Sprite | undefined;
+    readonly GetModdedMenuBackgroundSprite: () => Sprite | undefined;
 
     /**
      * Returns the sprite used for a modded character's character select portrait.
@@ -112,54 +112,54 @@ declare global {
      *
      * Returns undefined for vanilla characters, or characters with no corresponding animation.
      */
-    GetModdedMenuPortraitSprite: () => Sprite | undefined;
+    readonly GetModdedMenuPortraitSprite: () => Sprite | undefined;
 
     /** Returns the name of the character, as defined in `players.xml`. */
-    GetName: () => string;
+    readonly GetName: () => string;
 
     /**
      * Returns the path to the .png file used for the character's name on the boss VS screen, as
      * defined in `players.xml`.
      */
-    GetNameImagePath: () => string;
+    readonly GetNameImagePath: () => string;
 
     /**
      * Returns the pill the character starts with, as defined in `players.xml`.
      *
      * This does not include pills obtained via unlocks.
      */
-    GetPill: () => PillColor;
+    readonly GetPill: () => PillColor;
 
     /** Returns the `PlayerType` of the character. */
-    GetPlayerType: () => PlayerType;
+    readonly GetPlayerType: () => PlayerType;
 
     /**
      * Returns the pocket active the character starts with.
      *
      * This does not include items added by mods.
      */
-    GetPocketActive: () => CollectibleType;
+    readonly GetPocketActive: () => CollectibleType;
 
     /**
      * Returns the path to the .png file used for the character's main level transition and boss
      * versus screen portrait, as defined in `players.xml`.
      */
-    GetPortraitPath: () => string;
+    readonly GetPortraitPath: () => string;
 
     /** Returns the amount of red hearts the player starts with, as defined in `players.xml`. */
-    GetRedHearts: () => int;
+    readonly GetRedHearts: () => int;
 
     /** Returns the player's skin color, as defined in `players.xml`. */
-    GetSkinColor: () => SkinColor;
+    readonly GetSkinColor: () => SkinColor;
 
     /**
      * Returns the path to the .png file used for the character's primary sprite sheet, as defined
      * in `players.xml`.
      */
-    GetSkinPath: () => string;
+    readonly GetSkinPath: () => string;
 
     /** Returns the amount of soul hearts the character starts with, as defined in `players.xml`. */
-    GetSoulHearts: () => int;
+    readonly GetSoulHearts: () => int;
 
     /**
      * For non-tainted characters, this function returns their tainted counterpart, or undefined if
@@ -167,14 +167,14 @@ declare global {
      *
      * For tainted characters, this function returns their non-tainted counterpart.
      */
-    GetTaintedCounterpart: () => EntityConfigPlayer | undefined;
+    readonly GetTaintedCounterpart: () => EntityConfigPlayer | undefined;
 
     /**
      * Returns the trinket the character starts with.
      *
      * This does not include starting trinkets added by mods or obtained via unlocks.
      */
-    GetTrinket: () => TrinketType;
+    readonly GetTrinket: () => TrinketType;
 
     /**
      * Returns true if the character is not visible/selectable from the character select screen, as
@@ -182,9 +182,9 @@ declare global {
      *
      * This does not include characters who are only hidden until unlocked.
      */
-    IsHidden: () => boolean;
+    readonly IsHidden: () => boolean;
 
     /** Returns true if the character is tainted, as defined in `players.xml`. */
-    IsTainted: () => boolean;
+    readonly IsTainted: () => boolean;
   }
 }

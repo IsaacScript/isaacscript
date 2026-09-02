@@ -6,25 +6,25 @@ import type {
 
 declare global {
   interface RoomDescriptor extends IsaacAPIClass {
-    AddRestrictedGridIndex: (gridIndex: int) => void;
+    readonly AddRestrictedGridIndex: (gridIndex: int) => void;
 
     /** Returns the `EntitiesSaveStateVector` of the room's decorations. */
-    GetDecoSaveState: () => EntitiesSaveStateVector;
+    readonly GetDecoSaveState: () => EntitiesSaveStateVector;
 
     /** Returns the dimension that the room is in. */
-    GetDimension: () => Dimension;
+    readonly GetDimension: () => Dimension;
 
-    GetEntitiesSaveState: () => EntitiesSaveStateVector;
-    GetGridEntitiesSaveState: () => GridEntitiesSaveStateVector;
+    readonly GetEntitiesSaveState: () => EntitiesSaveStateVector;
+    readonly GetGridEntitiesSaveState: () => GridEntitiesSaveStateVector;
 
     /**
      * Returns a map that maps the door slots to a `RoomDescriptor` for all of the room's current
      * neighbors.
      */
-    GetNeighboringRooms: () => LuaMap<DoorSlot, RoomDescriptor>;
+    readonly GetNeighboringRooms: () => LuaMap<DoorSlot, RoomDescriptor>;
 
-    GetRestrictedGridIndexes: () => int[];
-    InitSeeds: (rng: RNG) => void;
+    readonly GetRestrictedGridIndexes: () => int[];
+    readonly InitSeeds: (rng: RNG) => void;
 
     /** Bitflags corresponding to which door slots are currently enabled. */
     readonly AllowedDoors: BitFlags<DoorSlotFlag>;

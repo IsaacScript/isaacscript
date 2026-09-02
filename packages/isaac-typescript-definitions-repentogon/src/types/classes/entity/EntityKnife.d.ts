@@ -3,7 +3,7 @@ import type { SplitTearType } from "../../../enums/SplitTearType";
 
 declare interface EntityKnife extends Entity {
   /** Adds an entity to the knife's hit list. */
-  AddToHitList: (entity: Entity) => void;
+  readonly AddToHitList: (entity: Entity) => void;
 
   /**
    * Fires a split tear.
@@ -16,7 +16,7 @@ declare interface EntityKnife extends Entity {
    * @param splitTearType Optional. Default is `SplitTearType.GENERIC`. Custom split tear effects
    *                      can be implemented by passing in a string instead.
    */
-  FireSplitTear: (
+  readonly FireSplitTear: (
     position: Vector,
     velocity: Vector,
     damageMultiplier?: number,
@@ -25,40 +25,40 @@ declare interface EntityKnife extends Entity {
     splitTearType?: SplitTearType | string,
   ) => EntityTear;
 
-  GetHitboxParentKnife: () => EntityKnife | undefined;
+  readonly GetHitboxParentKnife: () => EntityKnife | undefined;
 
   /** Returns an array of entity indexes that the knife is currently hitting. */
-  GetHitList: () => int[];
+  readonly GetHitList: () => int[];
 
   /** Returns whether the knife is performing a spinning attack. */
-  GetIsSpinAttack: () => boolean;
+  readonly GetIsSpinAttack: () => boolean;
 
   /** Returns whether the entity knife is swinging. */
-  GetIsSwinging: () => boolean;
+  readonly GetIsSwinging: () => boolean;
 
   /** Returns whether the entity is in the knife's hit list. */
-  InHitList: (entity: Entity) => boolean;
+  readonly InHitList: (entity: Entity) => boolean;
 
   /** Returns whether the knife was created through the Multidimensional Baby effect. */
-  IsMultidimensionalTouched: () => boolean;
+  readonly IsMultidimensionalTouched: () => boolean;
 
   /** Returns whether the knife was created through the Angelic Prism effect. */
-  IsPrismTouched: () => boolean;
+  readonly IsPrismTouched: () => boolean;
 
   /** Removes an entity from the knife's hit list. */
-  RemoveFromHitList: (entity: Entity) => void;
+  readonly RemoveFromHitList: (entity: Entity) => void;
 
-  SetHitboxParentKnife: (parentKnife: EntityKnife | undefined) => void;
+  readonly SetHitboxParentKnife: (parentKnife: EntityKnife | undefined) => void;
 
   /** Returns whether the entity knife is performing a spin attack. */
-  SetIsSpinAttack: (isSpinAttack: boolean) => void;
+  readonly SetIsSpinAttack: (isSpinAttack: boolean) => void;
 
   /** Sets whether the knife is swinging. */
-  SetIsSwinging: (isSwinging: boolean) => void;
+  readonly SetIsSwinging: (isSwinging: boolean) => void;
 
   /** Sets whether the knife was created through the Multidimensional Baby effect. */
-  SetMultidimensionalTouched: (touched: boolean) => void;
+  readonly SetMultidimensionalTouched: (touched: boolean) => void;
 
   /** Sets whether the knife was created through the Angelic Prism effect. */
-  SetPrismTouched: (touched: boolean) => void;
+  readonly SetPrismTouched: (touched: boolean) => void;
 }

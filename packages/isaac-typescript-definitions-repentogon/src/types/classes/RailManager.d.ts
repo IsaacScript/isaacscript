@@ -4,5 +4,5 @@
  * @see https://repentogon.com/
  */
 declare interface RailManager extends IsaacAPIClass {
-  GetRailsSprite: () => Sprite;
+  readonly GetRailsSprite: () => Sprite;
 }

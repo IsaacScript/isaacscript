@@ -5,7 +5,7 @@
  */
 declare interface History extends IsaacAPIClass {
   /** Returns an array of the list of `HistoryItem` found in the current run. */
-  GetCollectiblesHistory: () => HistoryItem[];
+  readonly GetCollectiblesHistory: () => HistoryItem[];
 
   /**
    * Removes a `HistoryItem` from the player's item history. This does *not* actually remove the
@@ -13,5 +13,5 @@ declare interface History extends IsaacAPIClass {
    *
    * @returns Whether the item was removed or not.
    */
-  RemoveHistoryItemByIndex: (index: int) => boolean;
+  readonly RemoveHistoryItemByIndex: (index: int) => boolean;
 }

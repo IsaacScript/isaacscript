@@ -1,11 +1,11 @@
 declare interface HUDMessage extends IsaacAPIClass {
-  GetMainText: () => string;
-  GetSprite: () => Sprite;
-  GetSubText: () => string;
-  Hide: () => void;
-  IsShowing: () => boolean;
-  SetMainText: (text: string) => void;
-  SetSubText: (subText: string) => void;
+  readonly GetMainText: () => string;
+  readonly GetSprite: () => Sprite;
+  readonly GetSubText: () => string;
+  readonly Hide: () => void;
+  readonly IsShowing: () => boolean;
+  readonly SetMainText: (text: string) => void;
+  readonly SetSubText: (subText: string) => void;
 
   /**
    * @param text
@@ -13,7 +13,7 @@ declare interface HUDMessage extends IsaacAPIClass {
    * @param sticky Optional. Default is false.
    * @param curseDisplay Optional. Default is false.
    */
-  Show: (
+  readonly Show: (
     text: string,
     subText?: string,
     sticky?: boolean,

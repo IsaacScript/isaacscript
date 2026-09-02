@@ -13,7 +13,7 @@ declare global {
      * Returns a set of properties describing the effect.The available properties depends on the
      * effect's `ProceduralEffectActionType`.
      */
-    GetActionProperty: () => {
+    readonly GetActionProperty: () => {
       id?: CollectibleType;
       type?: EntityType;
       variant?: int;
@@ -30,21 +30,21 @@ declare global {
      * Returns the effect's `ProceduralEffectActionType`, which describes what the effect does when
      * triggered.
      */
-    GetActionType: () => ProceduralEffectActionType;
+    readonly GetActionType: () => ProceduralEffectActionType;
 
-    GetConditionProperty: () => { type?: EntityType; variant?: int };
+    readonly GetConditionProperty: () => { type?: EntityType; variant?: int };
 
     /**
      * Returns the effect's `ProceduralEffectConditionType`, which describes the conditions to
      * trigger the effect.
      */
-    GetConditionType: () => ProceduralEffectConditionType;
+    readonly GetConditionType: () => ProceduralEffectConditionType;
 
-    GetScore: () => number;
+    readonly GetScore: () => number;
 
     /** Returns the chance (between 0 and 1) for the effect to be triggered. */
-    GetTriggerChance: () => float;
+    readonly GetTriggerChance: () => float;
 
-    GetTriggerChanceScale: () => number;
+    readonly GetTriggerChanceScale: () => number;
   }
 }

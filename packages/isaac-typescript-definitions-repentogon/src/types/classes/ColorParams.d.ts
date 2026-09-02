@@ -5,43 +5,43 @@
  */
 declare interface ColorParams extends IsaacAPIClass {
   /** Returns the current color. */
-  GetColor: () => Color;
+  readonly GetColor: () => Color;
 
   /** Returns the duration (in frames) over which the color change should last. */
-  GetDuration: () => int;
+  readonly GetDuration: () => int;
 
   /** Returns whether the color fades out. */
-  GetFadeout: () => boolean;
+  readonly GetFadeout: () => boolean;
 
   /**
    * Returns the remaining frames before the color change is complete. This decreases by 1 for each
    * non-interpolation update, at 30 updates per second.
    */
-  GetLifespan: () => int;
+  readonly GetLifespan: () => int;
 
   /** Returns the display priority for the color change. */
-  GetPriority: () => int;
+  readonly GetPriority: () => int;
 
   /** Returns whether the color parameters are shared with the entity's child. */
-  GetShared: () => boolean;
+  readonly GetShared: () => boolean;
 
   /** Sets the color. */
-  SetColor: (color: Color) => void;
+  readonly SetColor: (color: Color) => void;
 
   /** Sets the duration (in frames) for the color change. */
-  SetDuration: (duration: int) => void;
+  readonly SetDuration: (duration: int) => void;
 
   /** Sets whether or not the color fades out. */
-  SetFadeout: (isFading: boolean) => void;
+  readonly SetFadeout: (isFading: boolean) => void;
 
   /** Sets the remaining frames before the color change is complete. */
-  SetLifespan: (duration: int) => void;
+  readonly SetLifespan: (duration: int) => void;
 
   /** Sets the display priority of the color change. */
-  SetPriority: (priority: int) => void;
+  readonly SetPriority: (priority: int) => void;
 
   /** Sets whether the `ColorParams` is shared with the entity's child. */
-  SetShared: (shared: boolean) => void;
+  readonly SetShared: (shared: boolean) => void;
 }
 
 declare function ColorParams(

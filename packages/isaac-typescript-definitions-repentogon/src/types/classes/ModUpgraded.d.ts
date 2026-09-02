@@ -4,7 +4,7 @@ import type { ModCallbackRepentogon } from "../../enums/ModCallbackRepentogon";
 declare module "isaacscript-common" {
   interface ModUpgraded {
     /** @customName AddCallback */
-    AddCallbackRepentogon: <
+    readonly AddCallbackRepentogon: <
       T extends keyof AddCallbackParametersRepentogon | string,
     >(
       modCallback: T,
@@ -14,7 +14,7 @@ declare module "isaacscript-common" {
     ) => void;
 
     /** @customName AddPriorityCallback */
-    AddPriorityCallbackRepentogon: <
+    readonly AddPriorityCallbackRepentogon: <
       T extends keyof AddCallbackParametersRepentogon,
     >(
       modCallback: T,
@@ -25,7 +25,7 @@ declare module "isaacscript-common" {
     ) => void;
 
     /** @customName RemoveCallback */
-    RemoveCallbackRepentogon: <T extends ModCallbackRepentogon>(
+    readonly RemoveCallbackRepentogon: <T extends ModCallbackRepentogon>(
       modCallback: T,
       callback: AddCallbackParametersRepentogon[T][0],
     ) => void;

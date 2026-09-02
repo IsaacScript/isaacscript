@@ -8,24 +8,24 @@ declare global {
    */
   interface PlayerHUDHeart extends IsaacAPIClass {
     /** Returns the heart's flash type. */
-    GetFlashType: () => HeartFlashType;
+    readonly GetFlashType: () => HeartFlashType;
 
     /** Returns the name of the animation currently playing on the heart. */
-    GetHeartAnim: () => string;
+    readonly GetHeartAnim: () => string;
 
     /** Returns the name of the overlay animation currently playing on the heart. */
-    GetHeartOverlayAnim: () => string;
+    readonly GetHeartOverlayAnim: () => string;
 
     /** Returns whether the Eternal Heart overlay is visible. */
-    IsEternalHeartOverlayVisible: () => boolean;
+    readonly IsEternalHeartOverlayVisible: () => boolean;
 
     /** Returns whether the heart is fading. */
-    IsFadingHeart: () => boolean;
+    readonly IsFadingHeart: () => boolean;
 
     /** Returns whether the golden heart overlay is visible on the heart. */
-    IsGoldenHeartOverlayVisible: () => boolean;
+    readonly IsGoldenHeartOverlayVisible: () => boolean;
 
     /** Returns whether the heart is visible. */
-    IsVisible: () => boolean;
+    readonly IsVisible: () => boolean;
   }
 }

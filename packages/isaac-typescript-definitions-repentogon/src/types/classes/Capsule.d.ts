@@ -8,28 +8,28 @@ declare interface Capsule extends IsaacAPIClass {
    * Attempts to trigger a collision between two capsules at a specific position. Returns whether
    * the capsules have collided or not.
    */
-  Collide: (capsule1: Capsule, capsule2: Capsule, point: Vector) => boolean;
+  readonly Collide: (capsule1: Capsule, capsule2: Capsule, point: Vector) => boolean;
 
   /**
    * Returns a unit vector corresponding to the direction the capsule relative to its origin. This
    * takes its rotation and size into account.
    */
-  GetDirection: () => Vector;
+  readonly GetDirection: () => Vector;
 
   /** Returns the end point of the capsule. */
-  GetEndPoint: () => Vector;
+  readonly GetEndPoint: () => Vector;
 
   /** Returns the capsule's position. */
-  GetPosition: () => Vector;
+  readonly GetPosition: () => Vector;
 
   /** Returns the size of the capsule. */
-  GetSize: () => number;
+  readonly GetSize: () => number;
 
   /** Returns the start point of the capsule. */
-  GetStartPoint: () => Vector;
+  readonly GetStartPoint: () => Vector;
 
   /** Returns the size difference of the capsule. */
-  GetSizeDifference: () => number;
+  readonly GetSizeDifference: () => number;
 
   // DEPRECATED METHODS
 
@@ -44,7 +44,7 @@ declare interface Capsule extends IsaacAPIClass {
    * @deprecated Use `Capsule.GetSize` instead as REPENTOGON added new methods that accurately
    *             reflect what the capsule does.
    */
-  GetRadius: () => number;
+  readonly GetRadius: () => number;
 
   /**
    * Returns the distance between the two endpoints of the capsule.
@@ -58,7 +58,7 @@ declare interface Capsule extends IsaacAPIClass {
    * @deprecated Use `Capsule.GetSizeDifference` instead as REPENTOGON added new methods that
    *             accurately reflect what the capsule does.
    */
-  GetEndpointsDistance: () => number;
+  readonly GetEndpointsDistance: () => number;
 
   /**
    * Returns the position of one of the two capsule's endpoints.
@@ -72,7 +72,7 @@ declare interface Capsule extends IsaacAPIClass {
    * @deprecated Use `Capsule.GetStartPoint` instead as REPENTOGON added new methods that accurately
    *             reflect what the capsule does.
    */
-  GetEndpoint1Position: () => Vector;
+  readonly GetEndpoint1Position: () => Vector;
 
   /**
    * Returns the position of one of the two capsule's endpoints.
@@ -86,7 +86,7 @@ declare interface Capsule extends IsaacAPIClass {
    * @deprecated Use `Capsule.GetEndPoint` instead as REPENTOGON added new methods that accurately
    *             reflect what the capsule does.
    */
-  GetEndpoint2Position: () => Vector;
+  readonly GetEndpoint2Position: () => Vector;
 }
 
 /**

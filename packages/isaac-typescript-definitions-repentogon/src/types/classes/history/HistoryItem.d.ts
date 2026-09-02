@@ -14,24 +14,24 @@ declare global {
    */
   interface HistoryItem extends IsaacAPIClass {
     /** Returns the `CollectibleType` this history item represents. */
-    GetItemID: () => CollectibleType;
+    readonly GetItemID: () => CollectibleType;
 
     /** Returns the `ItemPoolType` for which the history item was added. */
-    GetItemPoolType: () => ItemPoolType;
+    readonly GetItemPoolType: () => ItemPoolType;
 
     /** Returns the `LevelStage` where the history item was added. */
-    GetLevelStage: () => LevelStage;
+    readonly GetLevelStage: () => LevelStage;
 
     /** Returns the `RoomType` where the history item was added. */
-    GetRoomType: () => RoomType;
+    readonly GetRoomType: () => RoomType;
 
     /** Returns the `StageType` `StageType` where the history item was added. */
-    GetStageType: () => StageType;
+    readonly GetStageType: () => StageType;
 
     /** Returns the time of when the history item was added. */
-    GetTime: () => int;
+    readonly GetTime: () => int;
 
     /** Returns whether the history item is a trinket. */
-    IsTrinket: () => boolean;
+    readonly IsTrinket: () => boolean;
   }
 }

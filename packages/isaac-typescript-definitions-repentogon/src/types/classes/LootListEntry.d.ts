@@ -8,18 +8,18 @@ declare global {
    */
   interface LootListEntry extends IsaacAPIClass {
     /** Returns the entry's RNG. Returns undefined if it has no RNG object. */
-    GetRNG: () => RNG | undefined;
+    readonly GetRNG: () => RNG | undefined;
 
     /** Returns the entry's seed. */
-    GetSeed: () => Seed;
+    readonly GetSeed: () => Seed;
 
     /** Returns the entry's sub-type. */
-    GetSubType: () => int;
+    readonly GetSubType: () => int;
 
     /** Returns the entry's `EntityType`. */
-    GetType: () => EntityType;
+    readonly GetType: () => EntityType;
 
     /** Returns the entry's variant. */
-    GetVariant: () => int;
+    readonly GetVariant: () => int;
   }
 }

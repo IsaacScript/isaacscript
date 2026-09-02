@@ -15,7 +15,7 @@ declare global {
      * @param alphaDst Optional. Default is its current value.
      * @param equation Optional. Default is its current value.
      */
-    SetMode: ((blendMode: BlendMode) => void)
+    readonly SetMode: ((blendMode: BlendMode) => void)
       & ((
         rgbSrc?: BlendFactor,
         rgbDst?: BlendFactor,

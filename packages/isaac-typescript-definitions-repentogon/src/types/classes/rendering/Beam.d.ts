@@ -17,7 +17,7 @@ declare interface RenderBeam extends IsaacAPIClass {
    * @param color Optional. Default is `ColorDefault`.
    * @param worldSpace Optional. Default is false.
    */
-  Add: ((point: Point) => void)
+  readonly Add: ((point: Point) => void)
     & ((
       position: Vector,
       spritesheetCoordinate?: number,
@@ -27,38 +27,38 @@ declare interface RenderBeam extends IsaacAPIClass {
     ) => void);
 
   /** Returns the layer of the beam. */
-  GetLayer: () => int;
+  readonly GetLayer: () => int;
 
   /** Returns an array of all of the points the beam has. */
-  GetPoints: () => Point[];
+  readonly GetPoints: () => Point[];
 
   /** Returns the beam's sprite. */
-  GetSprite: () => Sprite;
+  readonly GetSprite: () => Sprite;
 
   /**
    * Returns the unknown boolean set from the beam's constructor. The exact behavior of this boolean
    * is unknown.
    */
-  GetUnkBool: () => boolean;
+  readonly GetUnkBool: () => boolean;
 
   /** Returns whether the beam is an overlay. */
-  GetUseOverlay: () => boolean;
+  readonly GetUseOverlay: () => boolean;
 
   /**
    * Renders the beam.
    *
    * @param clearPoints Optional. Default is true.
    */
-  Render: (clearPoints: boolean) => void;
+  readonly Render: (clearPoints: boolean) => void;
 
   /** Sets the beam's layer. */
-  SetLayer: (layerIdOrName: int | string) => void;
+  readonly SetLayer: (layerIdOrName: int | string) => void;
 
   /** Sets the beam's points to the specified array of points. */
-  SetPoints: (points: readonly Point[]) => void;
+  readonly SetPoints: (points: readonly Point[]) => void;
 
   /** Sets the sprite of the beam. */
-  SetSprite: ((sprite: Sprite) => void)
+  readonly SetSprite: ((sprite: Sprite) => void)
     & ((
       sprite: Sprite,
       layerNameOrId: string | int,
@@ -69,10 +69,10 @@ declare interface RenderBeam extends IsaacAPIClass {
    * Sets the unknown boolean used in the beam's constructor. The exact behavior of this boolean is
    * unknown.
    */
-  SetUnkBool: (bool: boolean) => void;
+  readonly SetUnkBool: (bool: boolean) => void;
 
   /** Sets whether the beam is an overlay. */
-  SetUseOverlay: (useOverlay: boolean) => void;
+  readonly SetUseOverlay: (useOverlay: boolean) => void;
 }
 
 /**

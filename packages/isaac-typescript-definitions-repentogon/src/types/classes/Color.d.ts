@@ -1,15 +1,15 @@
 declare interface Color extends IsaacAPIClass {
   /** Returns the color's current colorize values. */
-  GetColorize: () => RGBAValue;
+  readonly GetColorize: () => RGBAValue;
 
   /** Returns the color's current offset values. */
-  GetOffset: () => RGBValue;
+  readonly GetOffset: () => RGBValue;
 
   /** Returns the color's current tint. */
-  GetTint: () => RGBAValue;
+  readonly GetTint: () => RGBAValue;
 
   /** Returns a string representation of the color. */
-  Print: () => string;
+  readonly Print: () => string;
 }
 
 /**

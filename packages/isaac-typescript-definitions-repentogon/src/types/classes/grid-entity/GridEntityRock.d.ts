@@ -13,7 +13,7 @@ declare global {
      *                     alternative rock type is a mushroom. Default is `BackdropType.NULL` (The
      *                     current backdrop).
      */
-    GetAltRockType: (backdropType?: BackdropType) => int;
+    readonly GetAltRockType: (backdropType?: BackdropType) => int;
 
     /**
      * Plays the grid break sound.
@@ -22,23 +22,23 @@ declare global {
      * @param backdrop Optional. Some grid entities have unique break sounds based on the room's
      *                 current backdrop. Default is `BackdropType.NULL` (The current backdrop).
      */
-    PlayBreakSound: (
+    readonly PlayBreakSound: (
       gridEntityType: GridEntityType,
       backdrop?: BackdropType,
     ) => void;
 
     /** Forces the game to treat the rock as if it's been destroyed. */
-    RegisterRockDestroyed: (gridEntityType: GridEntityType) => void;
+    readonly RegisterRockDestroyed: (gridEntityType: GridEntityType) => void;
 
-    RenderTop: (offset: Vector) => void;
+    readonly RenderTop: (offset: Vector) => void;
 
-    TrySpawnLadder: () => void;
-    TrySpawnWorms: () => void;
+    readonly TrySpawnLadder: () => void;
+    readonly TrySpawnWorms: () => void;
 
     /** Updates the rock's collision. */
-    UpdateCollision: () => void;
+    readonly UpdateCollision: () => void;
 
-    UpdateNeighbors: () => void;
+    readonly UpdateNeighbors: () => void;
   }
 
   namespace GridEntityRock {

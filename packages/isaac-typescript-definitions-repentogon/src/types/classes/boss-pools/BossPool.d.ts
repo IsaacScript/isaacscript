@@ -5,18 +5,18 @@
  */
 declare interface BossPool extends IsaacAPIClass {
   /** Returns the ID of the Boss Pool's Double Trouble room. */
-  GetDoubleTroubleRoomID: () => int;
-  GetDoubleTroubleRoomVariantStart: () => int;
+  readonly GetDoubleTroubleRoomID: () => int;
+  readonly GetDoubleTroubleRoomVariantStart: () => int;
 
   /** Returns an array of the Boss Pool's entries. */
-  GetEntries: () => BossPoolEntry[];
+  readonly GetEntries: () => BossPoolEntry[];
 
   /** Returns the name of the Boss Pool. */
-  GetName: () => string;
+  readonly GetName: () => string;
 
   /** Returns the RNG object of the Boss Pool. The RNG object is used to select the floor's boss. */
-  GetRNG: () => RNG;
+  readonly GetRNG: () => RNG;
 
   /** Returns the Boss Pool's weight. */
-  GetWeight: () => float;
+  readonly GetWeight: () => float;
 }

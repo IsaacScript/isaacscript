@@ -5,17 +5,17 @@
  */
 declare interface LRoomTileDesc {
   /** Returns the grid coordinates of the upper half's bottom right corner. */
-  GetHighBottomRight: () => [int, int];
+  readonly GetHighBottomRight: () => [int, int];
 
   /** Returns the grid coordinates of the upper half's top left corner. */
-  GetHighTopLeft: () => [int, int];
+  readonly GetHighTopLeft: () => [int, int];
 
   /** Returns the grid coordinates of the lower half's bottom right corner. */
-  GetLowBottomRight: () => [int, int];
+  readonly GetLowBottomRight: () => [int, int];
 
   /** Returns the grid coordinates of the lower half's top left corner. */
-  GetLowTopLeft: () => [int, int];
+  readonly GetLowTopLeft: () => [int, int];
 
   /** Returns the grid coordinates of a random tile. */
-  GetRandomTile: (seed: Seed) => [int, int];
+  readonly GetRandomTile: (seed: Seed) => [int, int];
 }

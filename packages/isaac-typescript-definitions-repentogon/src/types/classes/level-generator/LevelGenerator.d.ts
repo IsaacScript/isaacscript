@@ -8,19 +8,19 @@ declare global {
    */
   interface LevelGenerator extends IsaacAPIClass {
     /** Returns an array containing all the rooms that have been generated for the level. */
-    GetAllRooms: () => LevelGeneratorRoom[];
+    readonly GetAllRooms: () => LevelGeneratorRoom[];
 
     /**
      * Returns an array containing all the rooms that are considered dead-ends within the layout
      * (rooms with a single entrance/exit).
      */
-    GetDeadEnds: () => LevelGeneratorRoom[];
+    readonly GetDeadEnds: () => LevelGeneratorRoom[];
 
     /**
      * Returns an array containing all the rooms that are not dead-ends (rooms with multiple
      * entrances/exits).
      */
-    GetNonDeadEnds: () => LevelGeneratorRoom[];
+    readonly GetNonDeadEnds: () => LevelGeneratorRoom[];
 
     /**
      * Places a `LevelGeneratorRoom` onto the grid. Returns the generation index of the placed room.
@@ -35,7 +35,7 @@ declare global {
      *               existing rooms. During the generation phase, the game always picks a room and
      *               starts placing rooms around it. This parameter reflects this behavior.
      */
-    PlaceRoom: (
+    readonly PlaceRoom: (
       column: int,
       row: int,
       shape: RoomShape,

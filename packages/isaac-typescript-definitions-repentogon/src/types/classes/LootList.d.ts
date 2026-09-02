@@ -8,7 +8,7 @@ declare global {
    */
   interface LootList extends IsaacAPIClass {
     /** Returns an array of entries in the `LootList`. */
-    GetEntries: () => LootListEntry[];
+    readonly GetEntries: () => LootListEntry[];
 
     /**
      * Adds a new entry into the `LootList`.
@@ -49,7 +49,7 @@ declare global {
      * @param seed Optional. Default is `Random()`.
      * @param RNG Optional. Default is undefined.
      */
-    PushEntry: (
+    readonly PushEntry: (
       entityType: EntityType,
       variant: int,
       subType: int,

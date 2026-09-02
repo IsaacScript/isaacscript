@@ -23,7 +23,7 @@ declare global {
      * @param allowNoNeighbors Optional. If true, the room can be placed anywhere on the map without
      *                         having any neighbors. Default is false.
      */
-    CanPlaceRoom: (
+    readonly CanPlaceRoom: (
       roomConfigToPlace: RoomConfig,
       gridIndex: int,
       dimension?: Dimension,
@@ -44,7 +44,7 @@ declare global {
      * @param allowSpecialNeighbors Optional. If true, the game will allow the room to connect with
      *                              special rooms. Default is false.
      */
-    CanPlaceRoomAtDoor: (
+    readonly CanPlaceRoomAtDoor: (
       roomConfigToPlace: RoomConfig,
       neighborRoomDescriptor: RoomDescriptor,
       doorSlot: DoorSlot,
@@ -53,7 +53,7 @@ declare global {
     ) => boolean;
 
     /** Returns whether the Red Door outline can spawn at the specified `DoorSlot`. */
-    CanSpawnDoorOutline: (roomIndex: int, doorSlot: DoorSlot) => boolean;
+    readonly CanSpawnDoorOutline: (roomIndex: int, doorSlot: DoorSlot) => boolean;
 
     /**
      * Returns an array of grid indices that are valid locations to place the provided room using
@@ -66,7 +66,7 @@ declare global {
      * @param allowSpecialNeighbors Optional. If true, the game will allow the room to connect with
      *                              special rooms. Default is false.
      */
-    FindValidRoomPlacementLocations: (
+    readonly FindValidRoomPlacementLocations: (
       roomConfigToPlace: RoomConfig,
       dimension?: Dimension,
       allowMultipleDoors?: boolean,
@@ -74,24 +74,24 @@ declare global {
     ) => int[];
 
     /** Returns the current dimension the player is in. */
-    GetDimension: () => Dimension;
+    readonly GetDimension: () => Dimension;
 
     /**
      * Returns the level's forced special quest. This can be set through
      * `Level.SetForceSpecialQuest`.
      */
-    GetForceSpecialQuest: () => SpecialQuest;
+    readonly GetForceSpecialQuest: () => SpecialQuest;
 
-    GetGenerationRNG: () => RNG;
+    readonly GetGenerationRNG: () => RNG;
 
     /** Returns the number of Greed Mode waves cleared without a player taking Red Heart damage. */
-    GetGreedWavesClearedWithoutRedHeartDamage: () => int;
+    readonly GetGreedWavesClearedWithoutRedHeartDamage: () => int;
 
     /**
      * Returns the pickups that will be transferred to the next floor by the Myosotis trinket
      * effect.
      */
-    GetMyosotisPickups: () => EntitiesSaveStateVector;
+    readonly GetMyosotisPickups: () => EntitiesSaveStateVector;
 
     /**
      * Returns a map that maps `DoorSlot` to `RoomDescriptor` for all of the neighbors that a room
@@ -107,29 +107,29 @@ declare global {
      * @param roomShape
      * @param dimension Optional. Default is `Dimension.CURRENT`.
      */
-    GetNeighboringRooms: (
+    readonly GetNeighboringRooms: (
       gridIndex: int,
       roomShape: RoomShape,
       dimension?: Dimension,
     ) => LuaMap<DoorSlot, RoomDescriptor>;
 
     /** Returns whether the floor has the mineshaft room used for the second Knife Piece puzzle. */
-    HasAbandonedMineshaft: () => boolean;
+    readonly HasAbandonedMineshaft: () => boolean;
 
     /** Returns whether the floor has the mirror dimension used for the first Knife Piece puzzle. */
-    HasMirrorDimension: () => boolean;
+    readonly HasMirrorDimension: () => boolean;
 
     /**
      * Returns whether the floor has the mysterious door used to enter Mausoleum/Gehenna leading to
      * the Ascent sequence.
      */
-    HasPhotoDoor: () => boolean;
+    readonly HasPhotoDoor: () => boolean;
 
     /**
      * Returns whether the specified level and stage combination can be generated in any given run
      * and is not locked behind an achievement.
      */
-    IsStageAvailable: (level: LevelStage, stage: StageType) => boolean;
+    readonly IsStageAvailable: (level: LevelStage, stage: StageType) => boolean;
 
     /**
      * Attempts to place a room.
@@ -140,7 +140,7 @@ declare global {
      *
      * Returns whether room placement was successful.
      */
-    PlaceRoom: (
+    readonly PlaceRoom: (
       room: LevelGeneratorEntry,
       roomConfig: RoomConfig,
       seed: Seed,
@@ -150,13 +150,13 @@ declare global {
      * Sets the level's forced special quest on the floor. For this method to work properly, it
      * should be called in `ModCallbackRepentogon.PRE_LEVEL_INIT`.
      */
-    SetForceSpecialQuest: (quest: SpecialQuest) => void;
+    readonly SetForceSpecialQuest: (quest: SpecialQuest) => void;
 
     /** Sets how many Greed Mode waves were cleared without taking Red Heart damage. */
-    SetGreedWavesClearedWithoutRedHeartDamage: (waves: int) => void;
+    readonly SetGreedWavesClearedWithoutRedHeartDamage: (waves: int) => void;
 
     /** Sets the display name of the level. */
-    SetName: (name: string) => void;
+    readonly SetName: (name: string) => void;
 
     /**
      * Tries to place a room corresponding to the provided room config at the provided grid index.
@@ -175,7 +175,7 @@ declare global {
      * @param allowNoNeighbors Optional. If true, the room can be placed anywhere on the map without
      *                         having any neighbors. Default is false.
      */
-    TryPlaceRoom: (
+    readonly TryPlaceRoom: (
       roomConfigToPlace: RoomConfig,
       gridIndex: int,
       dimension?: Dimension,
@@ -200,7 +200,7 @@ declare global {
      * @param allowSpecialNeighbors Optional. If true, the game will allow the room to connect with
      *                              special rooms. Default is false.
      */
-    TryPlaceRoomAtDoor: (
+    readonly TryPlaceRoomAtDoor: (
       roomConfigToPlace: RoomConfig,
       neighborRoomDescriptor: RoomDescriptor,
       doorSlot: DoorSlot,

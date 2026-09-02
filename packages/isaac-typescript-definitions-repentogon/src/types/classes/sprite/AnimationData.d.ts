@@ -8,17 +8,17 @@ declare interface AnimationData extends IsaacAPIClass {
    * Returns an array of all of the animation layers. The array is ordered from bottom to top, not
    * by layer ID.
    */
-  GetAllLayers: () => AnimationLayer[];
+  readonly GetAllLayers: () => AnimationLayer[];
 
   /** Returns an `AnimationLayer` from the specified ID. Returns undefined if the ID is invalid. */
-  GetLayer: (layerID: int) => AnimationLayer | undefined;
+  readonly GetLayer: (layerID: int) => AnimationLayer | undefined;
 
   /** Returns the number of frames in the animation. */
-  GetLength: () => int;
+  readonly GetLength: () => int;
 
   /** Returns the name of the animation. */
-  GetName: () => string;
+  readonly GetName: () => string;
 
   /** Returns whether the animation is set to loop. */
-  IsLoopingAnimation: () => boolean;
+  readonly IsLoopingAnimation: () => boolean;
 }

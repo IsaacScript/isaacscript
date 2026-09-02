@@ -14,10 +14,10 @@ declare interface ColorModifier extends IsaacAPIClass {
   // The underscore methods like `__add` are not implemented in favor of having `add` and so on.
   // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
 
-  add: LuaAdditionMethod<ColorModifier, ColorModifier>;
-  sub: LuaSubtractionMethod<ColorModifier, ColorModifier>;
-  mul: LuaMultiplicationMethod<number | ColorModifier, ColorModifier>;
-  div: LuaDivisionMethod<ColorModifier | number, ColorModifier>;
+  readonly add: LuaAdditionMethod<ColorModifier, ColorModifier>;
+  readonly sub: LuaSubtractionMethod<ColorModifier, ColorModifier>;
+  readonly mul: LuaMultiplicationMethod<number | ColorModifier, ColorModifier>;
+  readonly div: LuaDivisionMethod<ColorModifier | number, ColorModifier>;
 }
 
 /**

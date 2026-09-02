@@ -5,14 +5,14 @@
  */
 declare interface LRoomAreaDesc {
   /** Returns the position of the upper half's bottom right corner. */
-  GetHighBottomRight: () => Vector;
+  readonly GetHighBottomRight: () => Vector;
 
   /** Returns the position of the upper half's bottom right corner. */
-  GetHighTopLeft: () => Vector;
+  readonly GetHighTopLeft: () => Vector;
 
   /** Returns the position of the bottom half's bottom right corner. */
-  GetLowBottomRight: () => Vector;
+  readonly GetLowBottomRight: () => Vector;
 
   /** Returns the position of the lower half's top left corner. */
-  GetLowTopLeft: () => Vector;
+  readonly GetLowTopLeft: () => Vector;
 }

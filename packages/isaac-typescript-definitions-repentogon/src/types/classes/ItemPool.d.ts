@@ -17,19 +17,19 @@ declare global {
      * @param ignoreLocked If true, the method will return true for items that could appear but are
      *                     locked behind achievements.
      */
-    CanSpawnCollectible: (
+    readonly CanSpawnCollectible: (
       collectible: CollectibleType,
       ignoreLocked: boolean,
     ) => boolean;
 
     /** Returns the number of Bible collectibles added to provided `itemPool`. */
-    GetBibleUpgrades: (itemPoolType: ItemPoolType) => int;
+    readonly GetBibleUpgrades: (itemPoolType: ItemPoolType) => int;
 
     /**
      * A more sophisticated version of `ItemPool.GetCard` that allows you to define individual
      * chances.
      */
-    GetCardEx: (
+    readonly GetCardEx: (
       seed: Seed,
       specialChance: int,
       runeChance: int,
@@ -49,7 +49,7 @@ declare global {
      * @param excludeLockedItems Optional. Determines whether to exclude locked items. Default is
      *                           false.
      */
-    GetCollectibleFromList: (
+    readonly GetCollectibleFromList: (
       collectibleList: readonly CollectibleType[],
       seed?: Seed,
       defaultItem?: CollectibleType,
@@ -58,7 +58,7 @@ declare global {
     ) => CollectibleType;
 
     /** Returns an array of collectibles registered in the specified `ItemPoolType`. */
-    GetCollectiblesFromPool: (itemPoolType: ItemPoolType) => Array<{
+    readonly GetCollectiblesFromPool: (itemPoolType: ItemPoolType) => Array<{
       decreaseBy: float;
       initialWeight: float;
       isUnlocked: boolean;
@@ -68,13 +68,13 @@ declare global {
     }>;
 
     /** Returns the number of trinkets available in the item pool. */
-    GetNumAvailableTrinkets: () => int;
+    readonly GetNumAvailableTrinkets: () => int;
 
     /**
      * Returns the number of item pools in the game, including modded item pools defined in
      * `itempools.xml`.
      */
-    GetNumItemPools: () => int;
+    readonly GetNumItemPools: () => int;
 
     /**
      * Returns a `PillColor` matching the specified `PillEffect`. Returns `PillColor.NULL` if the
@@ -82,7 +82,7 @@ declare global {
      *
      * This method is not applied by pill modifications, such as PHD/False PHD.
      */
-    GetPillColor: (pillEffect: PillEffect) => PillColor;
+    readonly GetPillColor: (pillEffect: PillEffect) => PillColor;
 
     /**
      * Returns a random item pool that is present in the current game mode. The pool selection is
@@ -98,7 +98,7 @@ declare global {
      *                    Otherwise, the game will not select item pools from the filter. Default is
      *                    false.
      */
-    GetRandomPool: (
+    readonly GetRandomPool: (
       rng: RNG,
       advancedSearch?: boolean,
       filter?: ItemPoolType[],
@@ -106,16 +106,16 @@ declare global {
     ) => ItemPoolType;
 
     /** Returns a map of collectibles removed from all pools. */
-    GetRemovedCollectibles: () => LuaMap<CollectibleType, boolean>;
+    readonly GetRemovedCollectibles: () => LuaMap<CollectibleType, boolean>;
 
     /** Returns an array of all collectibles blacklisted in the current room. */
-    GetRoomBlacklistedCollectibles: () => LuaMap<CollectibleType, boolean>;
+    readonly GetRoomBlacklistedCollectibles: () => LuaMap<CollectibleType, boolean>;
 
     /** Returns whether the specified collectible is available in item pools. */
-    HasCollectible: (collectible: CollectibleType) => boolean;
+    readonly HasCollectible: (collectible: CollectibleType) => boolean;
 
     /** Returns whether the specified trinket is available in the trinket pool. */
-    HasTrinket: (trinket: TrinketType) => boolean;
+    readonly HasTrinket: (trinket: TrinketType) => boolean;
 
     /**
      * Returns the raw result of `ItemPool.GetCollectible` without applying the filtering used in
@@ -138,7 +138,7 @@ declare global {
      * @param rng Optional. Default is a new RNG object seeded with `Random()`.
      * @param flags Optional. Default is `GetCollectibleFlagZero`.
      */
-    PickCollectible: (
+    readonly PickCollectible: (
       itemPoolType: ItemPoolType,
       decrease?: boolean,
       rng?: RNG,
@@ -158,12 +158,12 @@ declare global {
      * Makes the provided collectible available again in every item pool. Its `initialWeight` is
      * also restored.
      */
-    ResetCollectible: (collectible: CollectibleType) => void;
+    readonly ResetCollectible: (collectible: CollectibleType) => void;
 
     /** Sets the currently selected `ItemPoolType`. */
-    SetLastPool: (itemPoolType: ItemPoolType) => void;
+    readonly SetLastPool: (itemPoolType: ItemPoolType) => void;
 
     /** Resets the specified `PillColor` back to its unidentified state. */
-    UnidentifyPill: (pill: PillColor) => void;
+    readonly UnidentifyPill: (pill: PillColor) => void;
   }
 }

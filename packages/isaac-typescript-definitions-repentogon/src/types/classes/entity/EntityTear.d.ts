@@ -9,10 +9,10 @@ declare global {
    */
   interface EntityTear extends Entity {
     /** Adds an entity to the tear's hit list. */
-    AddToHitList: (entity: Entity) => void;
+    readonly AddToHitList: (entity: Entity) => void;
 
     /** Clears the tear's hit list. */
-    ClearHitList: () => void;
+    readonly ClearHitList: () => void;
 
     /**
      * Fires a split tear.
@@ -25,7 +25,7 @@ declare global {
      * @param splitTearType Optional. Default is `SplitTearType.GENERIC`. Custom split tear effects
      *                      can be implemented by passing in a string instead.
      */
-    FireSplitTear: (
+    readonly FireSplitTear: (
       position: Vector,
       velocity: Vector,
       damageMultiplier?: number,
@@ -38,40 +38,40 @@ declare global {
      * Returns the intensity value of the tear as a result of the Dead Eye collectible. The
      * intensity is between 0 and 1.
      */
-    GetDeadEyeIntensity: () => float;
+    readonly GetDeadEyeIntensity: () => float;
 
     /** Returns the hit list indices of all entities the tear has hit. */
-    GetHitList: () => int[];
+    readonly GetHitList: () => int[];
 
     /**
      * Copies the tear and applies the Multidimensional Baby tear effect to it. Returns the copied
      * tear.
      */
-    MakeMultidimensionalCopy: () => EntityTear;
+    readonly MakeMultidimensionalCopy: () => EntityTear;
 
     /** Returns the red aura sprite used by Dead Eye. */
-    GetDeadEyeSprite: () => Sprite;
+    readonly GetDeadEyeSprite: () => Sprite;
 
     /**
      * Returns the effect sprite used by numerous tear variants such as Fire Mind and Mysterious
      * Liquid.
      */
-    GetTearEffectSprite: () => Sprite;
+    readonly GetTearEffectSprite: () => Sprite;
 
     /** Returns the aura sprite used by Godhead tears. */
-    GetTearHaloSprite: () => Sprite;
+    readonly GetTearHaloSprite: () => Sprite;
 
     /** Returns whether the entity is in the tear's hit list. */
-    InHitList: (entity: Entity) => boolean;
+    readonly InHitList: (entity: Entity) => boolean;
 
     /** Returns whether the tear was created through the Multidimensional Baby effect. */
-    IsMultidimensionalTouched: () => boolean;
+    readonly IsMultidimensionalTouched: () => boolean;
 
     /** Returns whether the tear was created through the Angelic Prism effect. */
-    IsPrismTouched: () => boolean;
+    readonly IsPrismTouched: () => boolean;
 
     /** Removes an entity from the tear's hit list. */
-    RemoveFromHitList: (entity: Entity) => void;
+    readonly RemoveFromHitList: (entity: Entity) => void;
 
     /**
      * Repentogon's modified `EntityTear.ResetSpriteScale` method.
@@ -86,7 +86,7 @@ declare global {
      * @param force Optional. Default is false.
      * @customName ResetSpriteScale
      */
-    ResetSpriteScaleEx: (force?: boolean) => void;
+    readonly ResetSpriteScaleEx: (force?: boolean) => void;
 
     /**
      * Sets the sound that the tear plays when the tear is first spawned. This function must be
@@ -96,12 +96,12 @@ declare global {
      *
      * @param soundId
      */
-    SetInitSound: (soundId: SoundEffect) => void;
+    readonly SetInitSound: (soundId: SoundEffect) => void;
 
     /** Sets whether the tear was created through the Multidimensional Baby effect. */
-    SetMultidimensionalTouched: (touched: boolean) => void;
+    readonly SetMultidimensionalTouched: (touched: boolean) => void;
 
     /** Sets whether the tear was created through the Angelic Prism effect. */
-    SetPrismTouched: (touched: boolean) => void;
+    readonly SetPrismTouched: (touched: boolean) => void;
   }
 }

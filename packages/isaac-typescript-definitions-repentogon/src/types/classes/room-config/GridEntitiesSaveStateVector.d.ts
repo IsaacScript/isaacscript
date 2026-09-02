@@ -7,10 +7,10 @@ declare global {
    * @see https://repentogon.com/
    */
   interface GridEntitiesSaveStateVector extends IsaacAPIClass {
-    Clear: () => void;
-    Get: (index: int) => GridEntityDesc;
-    GetByType: (gridEntityType: GridEntityType) => GridEntityDesc[];
+    readonly Clear: () => void;
+    readonly Get: (index: int) => GridEntityDesc;
+    readonly GetByType: (gridEntityType: GridEntityType) => GridEntityDesc[];
 
-    len: LuaLengthMethod<int>;
+    readonly len: LuaLengthMethod<int>;
   }
 }

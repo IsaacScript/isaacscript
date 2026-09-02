@@ -8,7 +8,7 @@ declare global {
    */
   interface EntityDelirium extends Entity {
     /** Returns the number of frames remaining until Delirium teleports. */
-    GetTeleportationTimer: () => int;
+    readonly GetTeleportationTimer: () => int;
 
     /**
      * Returns whether delirium is in red mode.
@@ -17,7 +17,7 @@ declare global {
      * Delirium's movement speed is increased in a way that cannot be normally observed through the
      * API as it occurs outside of the update callbacks.
      */
-    IsRedMode: () => boolean;
+    readonly IsRedMode: () => boolean;
 
     /**
      * Sets whether Delirium is in Red Mode.
@@ -26,10 +26,10 @@ declare global {
      * Delirium's movement speed is increased in a way that cannot be normally observed through the
      * API as it occurs outside of the update callbacks.
      */
-    SetRedMode: (isRedMode: boolean) => void;
+    readonly SetRedMode: (isRedMode: boolean) => void;
 
     /** Sets the number of frames remaining until Delirium teleports. */
-    SetTeleportationTimer: (timeLeft: int) => void;
+    readonly SetTeleportationTimer: (timeLeft: int) => void;
 
     /**
      * Transforms Delirium into another entity.
@@ -41,7 +41,7 @@ declare global {
      * @param triggerCallback Optional. Whether to trigger the transformation callback. Default is
      *                        false.
      */
-    Transform: (
+    readonly Transform: (
       entityType: EntityType,
       variant?: int,
       triggerCallback?: boolean,

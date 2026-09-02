@@ -5,40 +5,40 @@
  */
 declare interface Point extends IsaacAPIClass {
   /** Returns the point's color. */
-  GetColor: () => Color;
+  readonly GetColor: () => Color;
 
   /**
    * Returns whether the game automatically converts the point's position from world space to screen
    * space when rendering.
    */
-  GetIsWorldSpace: () => boolean;
+  readonly GetIsWorldSpace: () => boolean;
 
   /** Returns the vertical position of the point. */
-  GetSpritesheetCoordinate: () => number;
+  readonly GetSpritesheetCoordinate: () => number;
 
   /** Returns the width multiplier of the point. */
-  GetWidth: () => number;
+  readonly GetWidth: () => number;
 
   /** Returns the position of the point. */
-  GetPosition: () => Vector;
+  readonly GetPosition: () => Vector;
 
   /** Sets the point's color. */
-  SetColor: (color: Color) => void;
+  readonly SetColor: (color: Color) => void;
 
   /**
    * Sets whether the game automatically converts the point's position from world space to screen
    * space when rendering.
    */
-  SetIsWorldSpace: (isWorldSpace: boolean) => void;
+  readonly SetIsWorldSpace: (isWorldSpace: boolean) => void;
 
   /** Sets the vertical position of the point. */
-  SetSpritesheetCoordinate: (height: number) => void;
+  readonly SetSpritesheetCoordinate: (height: number) => void;
 
   /** Sets the width multiplier of the point. */
-  SetWidth: (width: number) => void;
+  readonly SetWidth: (width: number) => void;
 
   /** Sets the position of the point. */
-  SetPosition: (position: Vector) => void;
+  readonly SetPosition: (position: Vector) => void;
 }
 
 /**

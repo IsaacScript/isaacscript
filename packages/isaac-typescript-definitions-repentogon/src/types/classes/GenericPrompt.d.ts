@@ -18,13 +18,13 @@ declare global {
    */
   interface GenericPrompt {
     /** Returns the selection the player is hovering over. */
-    GetCurrentSelection: () => GenericPromptSelection;
+    readonly GetCurrentSelection: () => GenericPromptSelection;
 
     /** Returns the sprite used by the prompt. */
-    GetSprite: () => Sprite;
+    readonly GetSprite: () => Sprite;
 
     /** Returns the selection the player has submitted. */
-    GetSubmittedSelection: () => GenericPromptSubmittedSelection;
+    readonly GetSubmittedSelection: () => GenericPromptSubmittedSelection;
 
     /**
      * Initializes the generic prompt. This method should be called immediately after constructing
@@ -32,18 +32,18 @@ declare global {
      *
      * @param smallPrompt Optional. Default is false.
      */
-    Initialize: (smallPrompt?: boolean) => void;
+    readonly Initialize: (smallPrompt?: boolean) => void;
 
     /** Returns whether the prompt is currently active. */
-    IsActive: () => boolean;
+    readonly IsActive: () => boolean;
 
     /**
      * Renders the prompt on the screen. This method should be called in `ModCallback.POST_RENDER`.
      */
-    Render: () => void;
+    readonly Render: () => void;
 
     /** Sets the prompt's image to the victory run image. */
-    SetImageToVictoryRun: () => void;
+    readonly SetImageToVictoryRun: () => void;
 
     /**
      * Sets the paper's text.
@@ -54,7 +54,7 @@ declare global {
      * @param line2 Optional. Default is an empty string.
      * @param line3 Optional. Default is an empty string.
      */
-    SetText: (
+    readonly SetText: (
       header1?: string,
       header2?: string,
       line1?: string,
@@ -63,7 +63,7 @@ declare global {
     ) => void;
 
     /** Displays the prompt on-screen. */
-    Show: () => void;
+    readonly Show: () => void;
 
     /**
      * Updates the animation of the prompt paper and its functionality. This method should be called
@@ -71,6 +71,6 @@ declare global {
      *
      * @param processInput If true, the game will process the player's input for selecting yes/no.
      */
-    Update: (processInput: boolean) => void;
+    readonly Update: (processInput: boolean) => void;
   }
 }

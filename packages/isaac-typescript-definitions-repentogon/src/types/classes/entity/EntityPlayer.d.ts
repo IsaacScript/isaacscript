@@ -47,7 +47,7 @@ declare global {
      *                   is false.
      * @param force Optional. Default is false.
      */
-    AddActiveCharge: (
+    readonly AddActiveCharge: (
       charge: int,
       slot: ActiveSlot,
       flashHUD?: boolean,
@@ -56,7 +56,7 @@ declare global {
     ) => int;
 
     /** Adds a bone orbital to the player. */
-    AddBoneOrbital: (position: Vector) => void;
+    readonly AddBoneOrbital: (position: Vector) => void;
 
     /**
      * Repentogon's modified `EntityPlayer.AddCacheFlags` method.
@@ -72,7 +72,7 @@ declare global {
      * @param evaluateItems Optional. Default is false.
      * @customName AddCacheFlags
      */
-    AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
+    readonly AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
 
     /**
      * Adds a candy heart bonus to the player.
@@ -80,7 +80,7 @@ declare global {
      * @param cacheFlags Optional. Default is CacheFlagZero.
      * @param amount Optional. Default is 1.
      */
-    AddCandyHeartBonus: (
+    readonly AddCandyHeartBonus: (
       cacheFlags?: BitFlags<CacheFlag>,
       amount?: int,
     ) => void;
@@ -100,7 +100,7 @@ declare global {
      *                for some active items like the number of uses for Jar of Wisps). Default is 0.
      * @param itemPoolType Optional. Default is `ItemPoolType.TREASURE`.
      */
-    AddCollectibleEx: (
+    readonly AddCollectibleEx: (
       collectibleType: CollectibleType,
       charge?: int,
       firstTimePickingUp?: boolean,
@@ -130,7 +130,7 @@ declare global {
      * @param additive Optional. If true, calling this method will increment the current cooldown.
      *                 Default is true.
      */
-    AddCollectibleEffect: (
+    readonly AddCollectibleEffect: (
       collectibleType: CollectibleType,
       applyCostume: boolean,
       cooldown?: int,
@@ -148,7 +148,7 @@ declare global {
      * @param evaluateItems Optional. Whether `EntityPlayer.EvaluateCache` should immediately run.
      *                      Default is false.
      */
-    AddCustomCacheTag: (
+    readonly AddCustomCacheTag: (
       tags: string | string[],
       evaluateItems?: boolean,
     ) => void;
@@ -169,7 +169,7 @@ declare global {
      * @param amount Optional. Default is 1.
      * @param evaluateItems Optional. Default is true.
      */
-    AddInnateCollectible: (
+    readonly AddInnateCollectible: (
       collectible: CollectibleType,
       amount?: int,
       evaluateItems?: boolean,
@@ -179,10 +179,10 @@ declare global {
      * Adds a Leprosy orbital to the player. This is capped at a maximum of three Leprosy orbitals.
      * This is capped at a max of three familiars.
      */
-    AddLeprosy: () => void;
+    readonly AddLeprosy: () => void;
 
     /** Adds an item locust to the player. */
-    AddLocust: (collectible: CollectibleType, position: Vector) => void;
+    readonly AddLocust: (collectible: CollectibleType, position: Vector) => void;
 
     /**
      * Adds a collectible effect associated with the provided `nullItemId`.
@@ -204,7 +204,7 @@ declare global {
      * @param additive Optional. If true, calling this method will increment the current cooldown.
      *                 Default is true.
      */
-    AddNullItemEffect: (
+    readonly AddNullItemEffect: (
       nullItemId: NullItemID,
       applyCostume: boolean,
       cooldown?: int,
@@ -219,7 +219,7 @@ declare global {
      * @param trinket
      * @param firstTimePickingUp Optional. Default is true.
      */
-    AddSmeltedTrinket: (
+    readonly AddSmeltedTrinket: (
       trinket: TrinketType,
       firstTimePickingUp?: boolean,
     ) => boolean;
@@ -228,7 +228,7 @@ declare global {
      * @param cacheFlags Optional. Default is `CacheFlagZero`.
      * @param amount Optional. Default is 1.
      */
-    AddSoulLocketBonus: (
+    readonly AddSoulLocketBonus: (
       cacheFlags?: CacheFlag | BitFlags<CacheFlag>,
       amount?: int,
     ) => void;
@@ -242,7 +242,7 @@ declare global {
      * @param additive Optional. If true, calling this method will increment the current cooldown.
      *                 Default is true.
      */
-    AddTrinketEffect: (
+    readonly AddTrinketEffect: (
       trinket: TrinketType,
       showCostume: boolean,
       cooldown?: int,
@@ -256,7 +256,7 @@ declare global {
      * The game always keeps track of the amount of souls the player has, even if they do not have
      * the Urn of Souls in their inventory.
      */
-    AddUrnSouls: (count: number) => void;
+    readonly AddUrnSouls: (count: number) => void;
 
     /**
      * Blocks the provided `collectibleType`.
@@ -280,10 +280,10 @@ declare global {
      * print(player.HasCollectible(CollectibleType.SAD_ONION)); // true
      * ```
      */
-    BlockCollectible: (collectibleType: CollectibleType) => void;
+    readonly BlockCollectible: (collectibleType: CollectibleType) => void;
 
     /** Returns whether the collectible can be added to the player's inventory. */
-    CanAddCollectibleToInventory: (collectible: CollectibleType) => boolean;
+    readonly CanAddCollectibleToInventory: (collectible: CollectibleType) => boolean;
 
     /**
      * Returns whether the player can crush rocks and similar grid entities on contact.
@@ -294,13 +294,13 @@ declare global {
      * - The effects from The Nail or Mega Mush is active.
      * - The player has the Stompy transformation.
      */
-    CanCrushRocks: () => boolean;
+    readonly CanCrushRocks: () => boolean;
 
     /** Returns whether the active item at the provided `slot` can be overridden. */
-    CanOverrideActiveItem: (slot: ActiveSlot) => boolean;
+    readonly CanOverrideActiveItem: (slot: ActiveSlot) => boolean;
 
     /** Returns whether the player can use the provided `pillEffect`. */
-    CanUsePill: (pillEffect: PillEffect) => boolean;
+    readonly CanUsePill: (pillEffect: PillEffect) => boolean;
 
     /**
      * Behaves the same as `EntityPlayer.CheckFamiliar` except it returns an array of all of the
@@ -312,7 +312,7 @@ declare global {
      * @param sourceItem Optional. Default is undefined.
      * @param familiarSubType Optional. Default is -1.
      */
-    CheckFamiliarEx: (
+    readonly CheckFamiliarEx: (
       familiar: FamiliarVariant,
       targetCount: int,
       rng: RNG,
@@ -326,7 +326,7 @@ declare global {
      * This method seems to only apply to costumes where they have multiple animations instead of a
      * single one (i.e Monstros Lung, Larynx, etc.).
      */
-    ClearCollectibleAnim: (collectible: CollectibleType) => void;
+    readonly ClearCollectibleAnim: (collectible: CollectibleType) => void;
 
     /**
      * Repentogon's modified `EntityPlayer.ClearDeadEyeCharge` method.
@@ -341,7 +341,7 @@ declare global {
      * @param force Optional. Default is false.
      * @customName ClearDeadEyeCharge
      */
-    ClearDeadEyeChargeEx: (force?: boolean) => void;
+    readonly ClearDeadEyeChargeEx: (force?: boolean) => void;
 
     /**
      * Stops the currently playing costume animation tied to the provided `collectible`.
@@ -349,10 +349,10 @@ declare global {
      * This method seems to only apply to costumes where they have multiple animations instead of a
      * single one (i.e Monstros Lung, Larynx, etc.).
      */
-    ClearItemAnimCollectible: (collectible: CollectibleType) => void;
+    readonly ClearItemAnimCollectible: (collectible: CollectibleType) => void;
 
     /** Stops all playing costume animations tied to Null Items. */
-    ClearItemAnimNullItems: () => void;
+    readonly ClearItemAnimNullItems: () => void;
 
     /**
      * Removes the player's queued item.
@@ -363,10 +363,10 @@ declare global {
      * This method adds a new item to the item queue. If the player is not currently playing an
      * animation, then the queued item will simply be awarded instantly.
      */
-    ClearQueueItem: () => void;
+    readonly ClearQueueItem: () => void;
 
     /** Creates an afterimage of the player that is used by items such as Suplex and A Pony. */
-    CreateAfterimage: (duration: int, position: Vector) => void;
+    readonly CreateAfterimage: (duration: int, position: Vector) => void;
 
     /**
      * Removes the collectible from the player's inventory and spawns a pedestal containing the
@@ -378,7 +378,7 @@ declare global {
      *                         spawning. Default is undefined.
      * @param removeFromPlayerForm Optional. Default is false.
      */
-    DropCollectible: (
+    readonly DropCollectible: (
       collectible: CollectibleType,
       existingPedestal?: EntityPickupCollectible,
       removeFromPlayerForm?: boolean,
@@ -394,13 +394,13 @@ declare global {
      *                         swapped out for the dropped collectible instead of a new pedestal
      *                         spawning. Default is undefined.
      */
-    DropCollectibleByHistoryIndex: (
+    readonly DropCollectibleByHistoryIndex: (
       index: int,
       existingPedestal?: EntityPickupCollectible,
     ) => EntityPickupCollectible;
 
     /** Sets whether the provided `weaponType` is enabled. */
-    EnableWeaponType: (weaponType: WeaponType, set: boolean) => void;
+    readonly EnableWeaponType: (weaponType: WeaponType, set: boolean) => void;
 
     /**
      * Fires a Brimstone ball. If the player has Tech X, they will fire a laser as well, with the
@@ -410,21 +410,21 @@ declare global {
      * @param velocity
      * @param offset Optional. Default is `VectorZero`.
      */
-    FireBrimstoneBall: (
+    readonly FireBrimstoneBall: (
       position: Vector,
       velocity: Vector,
       offset?: Vector,
     ) => EntityEffect;
 
     /** Returns how many frames the player has been holding the drop trinket button. */
-    GetActionHoldDrop: () => int;
+    readonly GetActionHoldDrop: () => int;
 
     /**
      * Returns an `ActiveItemDesc` corresponding to the provided `activeSlot`.
      *
      * @param activeSlot Optional. Default is `ActiveSlot.PRIMARY`.
      */
-    GetActiveItemDesc: (activeSlot?: ActiveSlot) => ActiveItemDesc;
+    readonly GetActiveItemDesc: (activeSlot?: ActiveSlot) => ActiveItemDesc;
 
     /**
      * Returns the `ActiveSlot` that the player has the provided `collectibleType` in. Returns -1 if
@@ -435,19 +435,19 @@ declare global {
      * `ActiveSlot.POCKET_SINGLE_USE` being the lowest. If you need to get all of the active slots,
      * use Isaacscript Common's `getActiveItemSlots` helper function instead.
      */
-    GetActiveItemSlot: (collectibleType: CollectibleType) => ActiveSlot | -1;
+    readonly GetActiveItemSlot: (collectibleType: CollectibleType) => ActiveSlot | -1;
 
     /**
      * Returns the maximum amount of charges the collectible in the provided slot has. This does not
      * account for overcharging. Returns 0 if there is no collectible in the slot.
      */
-    GetActiveMaxCharge: (slot: ActiveSlot) => int;
+    readonly GetActiveMaxCharge: (slot: ActiveSlot) => int;
 
     /**
      * Returns the minimum amount of charges the collectible in the provided slot needs in order for
      * it to be used. Returns 0 if there is no collectible in the slot.
      */
-    GetActiveMinUsableCharge: (slot: ActiveSlot) => int;
+    readonly GetActiveMinUsableCharge: (slot: ActiveSlot) => int;
 
     /**
      * Returns how many times the player has attacked with their currently active weapon. The value
@@ -455,56 +455,56 @@ declare global {
      *
      * Returns undefined if the player has no weapon.
      */
-    GetActiveWeaponNumFired: () => int | undefined;
+    readonly GetActiveWeaponNumFired: () => int | undefined;
 
     /** Returns an array containing the contents of the player's Bag of Crafting. */
-    GetBagOfCraftingContent: () => BagOfCraftingPickup[];
+    readonly GetBagOfCraftingContent: () => BagOfCraftingPickup[];
 
     /**
      * Returns the current output collectible in the player's Bag of Crafting. Returns
      * `CollectibleType.NULL` if there is no output collectible.
      */
-    GetBagOfCraftingOutput: () => CollectibleType;
+    readonly GetBagOfCraftingOutput: () => CollectibleType;
 
     /** Returns the `ItemPoolType` corresponding to the Bag of Crafting's output. */
-    GetBagOfCraftingOutputItemPool: () => ItemPoolType;
+    readonly GetBagOfCraftingOutputItemPool: () => ItemPoolType;
 
     /** Returns the `BagOfCraftingPickup` in the player's Bag of Crafting at the provided index. */
-    GetBagOfCraftingSlot: (slot: int) => BagOfCraftingPickup;
+    readonly GetBagOfCraftingSlot: (slot: int) => BagOfCraftingPickup;
 
     /**
      * Returns the current charge for when the player stops shooting and charges the Kidney Stone
      * collectible. This is normally capped at 90 but can be overridden through the
      * `EntityPlayer.SetBladderCharge` method.
      */
-    GetBladderCharge: () => int;
+    readonly GetBladderCharge: () => int;
 
     /**
      * Returns how many times the player has taken damage in the current floor while having Bloody
      * Lust in their inventory.
      */
-    GetBloodLustCounter: () => int;
+    readonly GetBloodLustCounter: () => int;
 
     /** Returns the direction the player's body is moving. */
-    GetBodyMoveDirection: () => Vector;
+    readonly GetBodyMoveDirection: () => Vector;
 
     /** Returns the number of frames until the player can place another bomb. */
-    GetBombPlaceDelay: () => int;
+    readonly GetBombPlaceDelay: () => int;
 
     /**
      * Returns how many times the player has taken damage while having Cambion Conception in their
      * inventory.
      */
-    GetCambionConceptionState: () => int;
+    readonly GetCambionConceptionState: () => int;
 
     /** Returns the current visible state of Cambion Conception's costume. */
-    GetCambionPregnancyLevel: () => CambionPregnancyLevel;
+    readonly GetCambionPregnancyLevel: () => CambionPregnancyLevel;
 
     /**
      * Returns an object of every Candy Heart stat boost and how many times each has been applied to
      * the player.
      */
-    GetCandyHeartBonus: () => {
+    readonly GetCandyHeartBonus: () => {
       Damage: int;
       FireDelay: int;
       Luck: int;
@@ -513,13 +513,13 @@ declare global {
       TearRange: int;
     };
 
-    GetCharmOfTheVampireKills: () => int;
+    readonly GetCharmOfTheVampireKills: () => int;
 
     /**
      * Returns a dictionary with the keys being a collectible and their value being how many of the
      * collectible the player has in their inventory. Innate collectibles are not counted.
      */
-    GetCollectiblesList: () => LuaTable<CollectibleType, int>;
+    readonly GetCollectiblesList: () => LuaTable<CollectibleType, int>;
 
     /**
      * Repentogon's modified `EntityPlayer.GetCollectibleNum` method.
@@ -539,7 +539,7 @@ declare global {
      *                     collectibles. Default is false.
      * @customName GetCollectibleNum
      */
-    GetCollectibleNumEx: (
+    readonly GetCollectibleNumEx: (
       collectibleType: CollectibleType,
       onlyCountTrueItems?: boolean,
       ignoreInnate?: boolean,
@@ -549,7 +549,7 @@ declare global {
      * Returns a bitmask corresponding to which familiars have been spawned by Cambion Conception or
      * Immaculate Conception.
      */
-    GetConceptionFamiliarFlags: () => BitFlags<ConceptionFamiliarFlag>;
+    readonly GetConceptionFamiliarFlags: () => BitFlags<ConceptionFamiliarFlag>;
 
     /**
      * Returns an array of the layer data of all of the player's costumes.
@@ -601,7 +601,7 @@ declare global {
      * }
      * ```
      */
-    GetCostumeLayerMap: () => Array<{
+    readonly GetCostumeLayerMap: () => Array<{
       costumeIndex: int;
       layerID: int;
       priority: int;
@@ -609,76 +609,76 @@ declare global {
     }>;
 
     /** Returns an array of all of the player's `CostumeSpriteDesc`. */
-    GetCostumeSpriteDescs: () => CostumeSpriteDesc[];
+    readonly GetCostumeSpriteDescs: () => CostumeSpriteDesc[];
 
     /**
      * Returns the value corresponding to the custom cache tag. Returns 0 if the value does not
      * exist.
      */
-    GetCustomCacheValue: (customCacheTag: string) => number;
+    readonly GetCustomCacheValue: (customCacheTag: string) => number;
 
     /** Returns the damage modifier used by the D8. */
-    GetD8DamageModifier: () => number;
+    readonly GetD8DamageModifier: () => number;
 
     /** Returns the fire delay modifier used by the D8. */
-    GetD8FireDelayModifier: () => number;
+    readonly GetD8FireDelayModifier: () => number;
 
     /** Returns the range modifier used by the D8. */
-    GetD8RangeModifier: () => number;
+    readonly GetD8RangeModifier: () => number;
 
     /** Returns the speed modifier used by the D8. */
-    GetD8SpeedModifier: () => number;
+    readonly GetD8SpeedModifier: () => number;
 
     /**
      * Returns the player's current damage modifier. The damage modifier is either set through
      * Experimental Treatment or `EntityPlayer.SetDamageModifier`.
      */
-    GetDamageModifier: () => number;
+    readonly GetDamageModifier: () => number;
 
     /** Returns the current charge of Dead Eye. */
-    GetDeadEyeCharge: () => int;
+    readonly GetDeadEyeCharge: () => int;
 
     /** Returns the name of the player's death animation. */
-    GetDeathAnimName: () => DeathAnimationName;
+    readonly GetDeathAnimName: () => DeathAnimationName;
 
     /** Returns the offset of the player's damage stat for Eden's random stats. */
-    GetEdenDamage: () => number;
+    readonly GetEdenDamage: () => number;
 
     /** Returns the offset of the player's fire delay stat for Eden's random stats. */
-    GetEdenFireDelay: () => number;
+    readonly GetEdenFireDelay: () => number;
 
     /** Returns the offset of the player's luck stat for Eden's random stats. */
-    GetEdenLuck: () => number;
+    readonly GetEdenLuck: () => number;
 
     /** Returns the offset of the player's range stat for Eden's random stats. */
-    GetEdenRange: () => number;
+    readonly GetEdenRange: () => number;
 
     /** Returns the offset of the player's shot speed stat for Eden's random stats. */
-    GetEdenShotSpeed: () => number;
+    readonly GetEdenShotSpeed: () => number;
 
     /** Returns the offset of the player's speed stat for Eden's random states. */
-    GetEdenSpeed: () => number;
+    readonly GetEdenSpeed: () => number;
 
-    GetEnterPosition: () => Vector;
+    readonly GetEnterPosition: () => Vector;
 
     /** Returns the player's `EntityConfigPlayer`. */
-    GetEntityConfigPlayer: () => EntityConfigPlayer;
+    readonly GetEntityConfigPlayer: () => EntityConfigPlayer;
 
     /**
      * Returns how many frames the player has been firing in one direction with Epiphora in their
      * inventory. The charge stops increasing when the player's fire rate can no longer increase
      * from the effect.
      */
-    GetEpiphoraCharge: () => int;
+    readonly GetEpiphoraCharge: () => int;
 
     /** Returns how many frames Tainted Eve's innate Sumptorium has been charging. */
-    GetEveSumptoriumCharge: () => int;
+    readonly GetEveSumptoriumCharge: () => int;
 
     /**
      * Returns the player's current fire delay modifier. The fire delay modifier is either set
      * through Experimental Treatment or `EntityPlayer.SetFireDelayModifier`.
      */
-    GetFireDelayModifier: () => int;
+    readonly GetFireDelayModifier: () => int;
 
     /**
      * Returns the player's flipped form. Returns undefined if the player does not have a flipped
@@ -686,32 +686,32 @@ declare global {
      *
      * This is only used by Tainted Lazarus.
      */
-    GetFlippedForm: () => EntityPlayer | undefined;
+    readonly GetFlippedForm: () => EntityPlayer | undefined;
 
     /**
      * Returns the entity used by Active Camera to determine where the camera should focus. This can
      * either be the Marked target `EntityEffect` or a weapon's entity. Returns undefined if no
      * entity exists.
      */
-    GetFocusEntity: () => Entity | undefined;
+    readonly GetFocusEntity: () => Entity | undefined;
 
     /** Returns the color of the player's footprint. */
-    GetFootprintColor: (useLeftFootprint: boolean) => KColor;
+    readonly GetFootprintColor: (useLeftFootprint: boolean) => KColor;
 
     /**
      * Returns how many frames until the player can switch between the Skeleton/Soul form as the
      * Forgotten.
      */
-    GetForgottenSwapFormCooldown: () => int;
+    readonly GetForgottenSwapFormCooldown: () => int;
 
     /**
      * Returns the EntityDesc corresponding to the enemy the player last captured using Friendly
      * Ball.
      */
-    GetFriendBallEnemy: () => EntityDesc;
+    readonly GetFriendBallEnemy: () => EntityDesc;
 
     /** Returns the SubType of the glitched baby. */
-    GetGlitchBabySubType: () => BabySubType;
+    readonly GetGlitchBabySubType: () => BabySubType;
 
     /**
      * Returns an array containing what pickup Glyph of Balance will drop upon the room being
@@ -720,7 +720,7 @@ declare global {
      * @param variant Optional. Default is -1.
      * @param subType Optional. Default is -1.
      */
-    GetGlyphOfBalanceDrop: (
+    readonly GetGlyphOfBalanceDrop: (
       variant?: PickupVariant,
       subType?: int,
     ) => [PickupVariant, int];
@@ -729,114 +729,114 @@ declare global {
      * Returns how many frames the player has been holding still with Gnawed Leaf in their
      * inventory.
      */
-    GetGnawedLeafTimer: () => int;
+    readonly GetGnawedLeafTimer: () => int;
 
     /** Returns the amount of heart containers the player has that were given by Greed's Gullet. */
-    GetGreedsGulletHearts: () => int;
+    readonly GetGreedsGulletHearts: () => int;
 
     /**
      * Returns the amount of frames until the player loses their stat boost from the aura used by
      * Hallowed Ground and Star of Bethlehem. The countdown decreases when they leave the aura.
      */
-    GetHallowedGroundCountdown: () => int;
+    readonly GetHallowedGroundCountdown: () => int;
 
     /**
      * Returns the number of frames the player's head was forced to stay in a specific direction.
      * Returns -1 or lower if the direction is not locked.
      */
-    GetHeadDirectionLockTime: () => int;
+    readonly GetHeadDirectionLockTime: () => int;
 
     /** Returns the player's health type. */
-    GetHealthType: () => HealthType;
+    readonly GetHealthType: () => HealthType;
 
     /**
      * Returns the entity the player is holding over their head. Returns undefined if no entity is
      * being held.
      */
-    GetHeldEntity: () => Entity | undefined;
+    readonly GetHeldEntity: () => Entity | undefined;
 
     /**
      * Returns the `Sprite` used for when the player is doing an animation that involves holding a
      * sprite over their head, such as active item usage.
      */
-    GetHeldSprite: () => Sprite;
+    readonly GetHeldSprite: () => Sprite;
 
     /**
      * Returns the player's `History`. This is used to keep track of the collectibles the player has
      * gotten throughout the run.
      */
-    GetHistory: () => History;
+    readonly GetHistory: () => History;
 
     /**
      * Returns how many hearts have been collected with Immaculate Conception in the player's
      * inventory.
      */
-    GetImmaculateConceptionState: () => int;
+    readonly GetImmaculateConceptionState: () => int;
 
     /** Returns the number of coins spent while possessing Keeper's Sack. */
-    GetKeepersSackBonus: () => int;
+    readonly GetKeepersSackBonus: () => int;
 
     /** Returns the player's laser color. */
-    GetLaserColor: () => Color;
+    readonly GetLaserColor: () => Color;
 
     /**
      * Returns the player's current luck modifier. The luck modifier is either set through
      * Experimental Treatment or `EntityPlayer.SetLuckModifier`.
      */
-    GetLuckModifier: () => number;
+    readonly GetLuckModifier: () => number;
 
     /**
      * Returns how many frames are left until one of Tainted Magdalene's temporary hearts is
      * drained.
      */
-    GetMaggyHealthDrainCooldown: () => int;
+    readonly GetMaggyHealthDrainCooldown: () => int;
 
     /**
      * Returns how many frames are left until Tainted Magdalene's swing attack can be used again.
      * Returns 0 if the player is not Tainted Magdalene.
      */
-    GetMaggySwingCooldown: () => int;
+    readonly GetMaggySwingCooldown: () => int;
 
     /** Returns the Marked target effect, if it exists. Otherwise, returns undefined. */
-    GetMarkedTarget: () => EntityEffect | undefined;
+    readonly GetMarkedTarget: () => EntityEffect | undefined;
 
     /**
      * Returns the maximum amount of charge until the player stops shooting and charges the Kidney
      * Stone collectible.
      */
-    GetMaxBladderCharge: () => int;
+    readonly GetMaxBladderCharge: () => int;
 
     /** Returns the maximum amount of bombs the player can have. */
-    GetMaxBombs: () => int;
+    readonly GetMaxBombs: () => int;
 
     /** Returns the maximum amount of coins the player can have. */
-    GetMaxCoins: () => int;
+    readonly GetMaxCoins: () => int;
 
     /** Returns the maximum amount of keys the player can have. */
-    GetMaxKeys: () => int;
+    readonly GetMaxKeys: () => int;
 
     /** Returns the maximum duration of the Kidney Stone collectible. */
-    GetMaxPeeBurstCooldown: () => int;
+    readonly GetMaxPeeBurstCooldown: () => int;
 
     /** Returns the maximum amount of pocket items. */
-    GetMaxPocketItems: () => int;
+    readonly GetMaxPocketItems: () => int;
 
     /** Returns how many frames until the effects of Mega Blast stop. */
-    GetMegaBlastDuration: () => int;
+    readonly GetMegaBlastDuration: () => int;
 
     /** Returns the `CollectibleType` of the last collectible given by Metronome. */
-    GetMetronomeCollectibleID: () => CollectibleType;
+    readonly GetMetronomeCollectibleID: () => CollectibleType;
 
     /**
      * Returns the `EntitiesSaveStateVector` corresponding to the pickups the player has stored
      * using the Moving Box collectible.
      */
-    GetMovingBoxContents: () => EntitiesSaveStateVector;
+    readonly GetMovingBoxContents: () => EntitiesSaveStateVector;
 
     /** Returns the `MultiShotParams` of the provided `weaponType`. */
-    GetMultiShotParams: (weaponType: WeaponType) => MultiShotParams;
+    readonly GetMultiShotParams: (weaponType: WeaponType) => MultiShotParams;
 
-    GetMultiShotPositionVelocity: (
+    readonly GetMultiShotPositionVelocity: (
       loopIndex: int,
       weaponType: WeaponType,
       shotDirection: Vector,
@@ -848,15 +848,15 @@ declare global {
      * Returns the frame at which the player stops shooting and starts charging the Kidney Stone
      * collectible.
      */
-    GetNextUrethraBlockFrame: () => int;
+    readonly GetNextUrethraBlockFrame: () => int;
 
     /** Returns the attack duration of the Kidney Stone item. */
-    GetPeeBurstCooldown: () => int;
+    readonly GetPeeBurstCooldown: () => int;
 
     /** Returns the amount of collectibles the player has tied to the specified transformation. */
-    GetPlayerFormCounter: (playerFormID: PlayerForm) => void;
+    readonly GetPlayerFormCounter: (playerFormID: PlayerForm) => void;
 
-    GetPlayerHUD: () => PlayerHUD | undefined;
+    readonly GetPlayerHUD: () => PlayerHUD | undefined;
 
     /**
      * Returns the player's index.
@@ -865,56 +865,56 @@ declare global {
      * function. If you need to store any data pertaining to a player, use `getPlayerIndex` over
      * this.
      */
-    GetPlayerIndex: () => int;
+    readonly GetPlayerIndex: () => int;
 
     /** Returns the `PocketItem` from the provided `slotId`. */
-    GetPocketItem: (slotId: PillCardSlot) => PocketItem;
+    readonly GetPocketItem: (slotId: PillCardSlot) => PocketItem;
 
     /**
      * Returns the amount of frames left until the charging effect from the A Pony or White Pony
      * item deactivates.
      */
-    GetPonyCharge: () => int;
+    readonly GetPonyCharge: () => int;
 
     /**
      * Returns the state in which the Purity item effect currently is. Returns `PurityState.BLUE` if
      * the player does not have the Purity collectible.
      */
-    GetPurityState: () => PurityState;
+    readonly GetPurityState: () => PurityState;
 
     /** Returns the frames left until the damage bonus from Red Stew expires. */
-    GetRedStewBonusDuration: () => int;
+    readonly GetRedStewBonusDuration: () => int;
 
-    GetRevelationCharge: () => int;
+    readonly GetRevelationCharge: () => int;
 
-    GetRockBottomDamage: () => number;
-    GetRockBottomLuck: () => number;
-    GetRockBottomMaxFireDelay: () => number;
-    GetRockBottomMoveSpeed: () => number;
-    GetRockBottomShotSpeed: () => number;
-    GetRockBottomTearRange: () => number;
+    readonly GetRockBottomDamage: () => number;
+    readonly GetRockBottomLuck: () => number;
+    readonly GetRockBottomMaxFireDelay: () => number;
+    readonly GetRockBottomMoveSpeed: () => number;
+    readonly GetRockBottomShotSpeed: () => number;
+    readonly GetRockBottomTearRange: () => number;
 
     /**
      * Returns the player's current shot speed modifier. The shot speed modifier is either set
      * through Experimental Treatment or `EntityPlayer.SetShotSpeedModifier`.
      */
-    GetShotSpeedModifier: () => number;
+    readonly GetShotSpeedModifier: () => number;
 
     /**
      * Returns a table with the keys being the `TrinketType` and the value being being a table with
      * the corresponding amount of smelted trinkets.
      */
-    GetSmeltedTrinkets: () => LuaTable<
+    readonly GetSmeltedTrinkets: () => LuaTable<
       TrinketType,
       { trinketAmount: int; goldenTrinketAmount: int }
     >;
 
-    GetSmeltedTrinketDesc: (trinket: TrinketType) => {
+    readonly GetSmeltedTrinketDesc: (trinket: TrinketType) => {
       trinketAmount: int;
       goldenTrinketAmount: int;
     };
 
-    GetSoulLocketBonus: () => {
+    readonly GetSoulLocketBonus: () => {
       Damage: int;
       FireDelay: int;
       TearRange: int;
@@ -924,52 +924,52 @@ declare global {
     };
 
     /** @param position Optional. Default is the player's position. */
-    GetSpecialGridCollision: (position?: Vector) => EntityGridCollisionClass;
+    readonly GetSpecialGridCollision: (position?: Vector) => EntityGridCollisionClass;
 
     /**
      * Returns the player's current speed modifier. The speed modifier is either set through
      * Experimental Treatment or `EntityPlayer.SetSpeedModifier`.
      */
-    GetSpeedModifier: () => number;
+    readonly GetSpeedModifier: () => number;
 
     /** Returns an array containing information of all of the player's innate collectibles. */
-    GetSpoofedCollectiblesList: () => Array<{
+    readonly GetSpoofedCollectiblesList: () => Array<{
       CollectibleID: CollectibleType;
       AppendedCount: int;
       IsBlocked: boolean;
     }>;
 
-    GetStatMultiplier: () => number;
-    GetSuplexAimCountdown: () => int;
-    GetSuplexLandPosition: () => Vector;
-    GetSuplexState: () => SuplexState;
-    GetSuplexTargetPosition: () => Vector;
+    readonly GetStatMultiplier: () => number;
+    readonly GetSuplexAimCountdown: () => int;
+    readonly GetSuplexLandPosition: () => Vector;
+    readonly GetSuplexState: () => SuplexState;
+    readonly GetSuplexTargetPosition: () => Vector;
 
     /**
      * Returns the player's tear displacement. The displacement corresponds to the eye the tear is
      * being fired from, with 1 being the right eye and -1 being the left eye.
      */
-    GetTearDisplacement: () => number;
+    readonly GetTearDisplacement: () => number;
 
-    GetTearsCap: () => number;
+    readonly GetTearsCap: () => number;
 
     /**
      * Returns the amount of charges the collectible in the provided slot has. Returns 0 if there is
      * no collectible in the slot.
      */
-    GetTotalActiveCharge: (slot: ActiveSlot) => int;
+    readonly GetTotalActiveCharge: (slot: ActiveSlot) => int;
 
     /** Returns the amount charges the player has for the Urn of Souls item. */
-    GetUrnSouls: () => int;
+    readonly GetUrnSouls: () => int;
 
     /** Returns an array of all active items that were consumed by the Void item. */
-    GetVoidedCollectiblesList: () => CollectibleType[];
+    readonly GetVoidedCollectiblesList: () => CollectibleType[];
 
     /** Returns a Weapon from the provided slot. Returns undefined if no weapon is in the slot. */
-    GetWeapon: (slot: WeaponSlot) => Weapon | undefined;
+    readonly GetWeapon: (slot: WeaponSlot) => Weapon | undefined;
 
     /** Returns a bitmask of the player's weapon modifiers. */
-    GetWeaponModifiers: () => BitFlags<WeaponModifierFlag>;
+    readonly GetWeaponModifiers: () => BitFlags<WeaponModifierFlag>;
 
     /**
      * Returns the item that was used by the player and would be activated again upon using Wild
@@ -979,21 +979,21 @@ declare global {
      * consumable, its sub type is returned. If the player used the Question Mark card, 1 is
      * returned. Otherwise, 0 is returned.
      */
-    GetWildCardItem: () => CollectibleType | CardType | PillEffect;
+    readonly GetWildCardItem: () => CollectibleType | CardType | PillEffect;
 
     /**
      * Returns the type of item that was last used by the player and would be used again upon using
      * Wild Card. Returns 255 if no item has been used.
      */
-    GetWildCardItemType: () => PocketItemType | 255;
+    readonly GetWildCardItemType: () => PocketItemType | 255;
 
     /**
      * Returns a dictionary of the Lemegeton wisps the player has, with the keys being the
      * `CollectibleType` and the value being the corresponding amount.
      */
-    GetWispCollectiblesList: () => LuaMap<CollectibleType, int>;
+    readonly GetWispCollectiblesList: () => LuaMap<CollectibleType, int>;
 
-    HasCamoEffect: () => boolean;
+    readonly HasCamoEffect: () => boolean;
 
     /**
      * Repentogon's modified `EntityPlayer.HasCollectible` method.
@@ -1013,7 +1013,7 @@ declare global {
      *                     collectibles. Default is false.
      * @customName HasCollectible
      */
-    HasCollectibleEx: (
+    readonly HasCollectibleEx: (
       collectibleType: CollectibleType,
       ignoreModifiers?: boolean,
       ignoreInnate?: boolean,
@@ -1023,19 +1023,19 @@ declare global {
      * Returns whether the player has a question mark as their extra life count indicating a %
      * chance to revive (i.e. Guppy's Collar).
      */
-    HasChanceRevive: () => boolean;
+    readonly HasChanceRevive: () => boolean;
 
-    HasForcedCamoEffect: () => boolean;
+    readonly HasForcedCamoEffect: () => boolean;
 
     /** Returns whether the player has the golden variant of the provided trinket. */
-    HasGoldenTrinket: (trinket: TrinketType) => boolean;
+    readonly HasGoldenTrinket: (trinket: TrinketType) => boolean;
 
     /**
      * Returns whether the player is in the Lost form triggered by either the white fire in
      * Downpour, using Soul of The Lost, or touching Dark Esau if the player is playing as Tainted
      * Jacob.
      */
-    HasInstantDeathCurse: () => boolean;
+    readonly HasInstantDeathCurse: () => boolean;
 
     /**
      * Behaves the same as `EntityPlayer.HasInvincibility` except it now allows for passing an
@@ -1045,16 +1045,16 @@ declare global {
      * @param source Optional. Default is undefined.
      * @customName HasInvincibility
      */
-    HasInvincibilityEx: (
+    readonly HasInvincibilityEx: (
       damageFlag?: BitFlags<DamageFlag>,
       source?: EntityRef,
     ) => boolean;
 
     /** Returns whether the player is immune to poison. */
-    HasPoisonImmunity: () => boolean;
+    readonly HasPoisonImmunity: () => boolean;
 
     /** Increments the counter towards a transformation. */
-    IncrementPlayerFormCounter: (form: PlayerForm, count: int) => void;
+    readonly IncrementPlayerFormCounter: (form: PlayerForm, count: int) => void;
 
     /**
      * Initializes the "special" tear or weapon type for characters like Forgotten, Lilith, and
@@ -1063,7 +1063,7 @@ declare global {
      * This method should be called after spawning a player using `EntityPlayer.InitTwin`, otherwise
      * their special tear/weapon may not be initialized properly.
      */
-    InitPostLevelInitStats: () => void;
+    readonly InitPostLevelInitStats: () => void;
 
     /**
      * Initializes a new player that is controlled by the player's controller.
@@ -1075,10 +1075,10 @@ declare global {
      * This method is intended to only work on vanilla characters as this method is hardcoded, as
      * confirmed by _Kilburn.
      */
-    InitTwin: (playerType: PlayerType) => EntityPlayer;
+    readonly InitTwin: (playerType: PlayerType) => EntityPlayer;
 
     /** Returns whether the animation associated with the collectible is visible. */
-    IsCollectibleAnimFinished: (
+    readonly IsCollectibleAnimFinished: (
       collectible: CollectibleType,
       animation: string,
     ) => boolean;
@@ -1105,15 +1105,15 @@ declare global {
      * print(player.HasCollectible(CollectibleType.SAD_ONION)); // true
      * ```
      */
-    IsCollectibleBlocked: (collectible: CollectibleType) => boolean;
+    readonly IsCollectibleBlocked: (collectible: CollectibleType) => boolean;
 
     /** Returns whether the costume associated with the collectible is visible. */
-    IsCollectibleCostumeVisible: (
+    readonly IsCollectibleCostumeVisible: (
       collectible: CollectibleType,
       playerSpriteLayerIDOrName: int | string,
     ) => boolean;
 
-    IsEntityValidTarget: (entity: Entity) => boolean;
+    readonly IsEntityValidTarget: (entity: Entity) => boolean;
 
     /**
      * Returns whether the provided foot has touched the ground for the current animation frame if
@@ -1121,42 +1121,42 @@ declare global {
      *
      * @param foot Optional. Default is `PlayerFoot.RIGHT`.
      */
-    IsFootstepFrame: (foot?: PlayerFoot) => boolean;
+    readonly IsFootstepFrame: (foot?: PlayerFoot) => boolean;
 
     /**
      * Returns whether the player is headless due to collectibles such as Guillotine and Scissors.
      */
-    IsHeadless: () => boolean;
+    readonly IsHeadless: () => boolean;
 
     /** Returns whether the player is the non-active form of Tainted Lazarus with Birthright. */
-    IsHologram: () => boolean;
+    readonly IsHologram: () => boolean;
 
     /** Returns whether the invisibility effect of Faded Polaroid/Camo Undies is active. */
-    IsInvisible: () => boolean;
+    readonly IsInvisible: () => boolean;
 
     /** Returns whether the costume associated with the `ItemConfigItem` is visible. */
-    IsItemCostumeVisible: (
+    readonly IsItemCostumeVisible: (
       item: ItemConfigItem,
       playerSpriteLayerIDOrName: int | string,
     ) => boolean;
 
     /** Returns whether the player is a local player on the machine. */
-    IsLocalPlayer: () => boolean;
+    readonly IsLocalPlayer: () => boolean;
 
     /** Returns whether the costume associated with the null item is visible. */
-    IsNullItemCostumeVisible: (
+    readonly IsNullItemCostumeVisible: (
       nullItem: NullItemID,
       playerSpriteLayerIDOrName: int | string,
     ) => boolean;
 
-    IsPacifist: () => boolean;
-    IsPostLevelInitFinished: () => boolean;
+    readonly IsPacifist: () => boolean;
+    readonly IsPostLevelInitFinished: () => boolean;
 
     /** Returns whether the player can no longer shoot due to charging the Kidney Stone item. */
-    IsUrethraBlocked: () => boolean;
+    readonly IsUrethraBlocked: () => boolean;
 
     /** Turns the player into a co-op ghost. */
-    MorphToCoopGhost: () => void;
+    readonly MorphToCoopGhost: () => void;
 
     /**
      * Plays an animation tied to the provided collectible.
@@ -1166,7 +1166,7 @@ declare global {
      * @param animationName
      * @param frame Optional. Default is -1.
      */
-    PlayCollectibleAnim: (
+    readonly PlayCollectibleAnim: (
       collectible: CollectibleType,
       checkBodyLayers: boolean,
       animationName: string,
@@ -1181,17 +1181,17 @@ declare global {
      * @param frameDelay Optional. Default is 2.
      * @param volume Optional. Default is 1.
      */
-    PlayDelayedSFX: (
+    readonly PlayDelayedSFX: (
       soundEffect: SoundEffect,
       soundDelay?: int,
       frameDelay?: int,
       volume?: number,
     ) => void;
 
-    RemoveCollectibleByHistoryIndex: (index: int) => void;
+    readonly RemoveCollectibleByHistoryIndex: (index: int) => void;
 
     /** Removes the pocket item from the provided slot. */
-    RemovePocketItem: (slot: PillCardSlot) => void;
+    readonly RemovePocketItem: (slot: PillCardSlot) => void;
 
     /**
      * Removes the poop spell from the provided queue position. All spells are shifted to fill the
@@ -1201,10 +1201,10 @@ declare global {
      *
      * @param queuePosition Optional. Default is 0.
      */
-    RemovePoopSpell: (queuePosition?: int) => void;
+    readonly RemovePoopSpell: (queuePosition?: int) => void;
 
     /** Rerolls all of the player's collectibles. */
-    RerollAllCollectibles: (rng: RNG, includeActiveItems: boolean) => void;
+    readonly RerollAllCollectibles: (rng: RNG, includeActiveItems: boolean) => void;
 
     // ResetPlayer is bugged and currently does nothing.
 
@@ -1212,7 +1212,7 @@ declare global {
      * Revives the player with half a heart if they are a co-op ghost. Returns whether they were
      * successfully revived.
      */
-    ReviveCoopGhost: () => boolean;
+    readonly ReviveCoopGhost: () => boolean;
 
     /**
      * Spawns a series of pickups the same way Tainted Cain does upon picking up a collectible.
@@ -1222,7 +1222,7 @@ declare global {
      * @param rng Optional. Default is the player's drop RNG.
      * @param itemPoolType Optional. Default is `ItemPoolType.NULL`.
      */
-    SalvageCollectible: (
+    readonly SalvageCollectible: (
       collectibleType: CollectibleType,
       position?: Vector,
       rng?: RNG,
@@ -1243,33 +1243,33 @@ declare global {
      * @param itemPoolType Optional. Default is `ItemPoolType.NULL`.
      * @customName SalvageCollectible
      */
-    SalvagePickup: (
+    readonly SalvagePickup: (
       pickup: EntityPickup,
       rng?: RNG,
       itemPoolType?: ItemPoolType,
     ) => void;
 
     /** Sets how many frames the player has been holding the drop trinket button. */
-    SetActionHoldDrop: (frames: int) => void;
+    readonly SetActionHoldDrop: (frames: int) => void;
 
     /** Sets the `VarData` of the collectible at the provided active slot. */
-    SetActiveVarData: (varData: int, slot: ActiveSlot) => void;
+    readonly SetActiveVarData: (varData: int, slot: ActiveSlot) => void;
 
-    SetBabySkin: (skin: BabySubType) => void;
+    readonly SetBabySkin: (skin: BabySubType) => void;
 
     /** Sets the contents of the player's Bag of Crafting. */
-    SetBagOfCraftingContent: (content: readonly BagOfCraftingPickup[]) => void;
+    readonly SetBagOfCraftingContent: (content: readonly BagOfCraftingPickup[]) => void;
 
     /** Sets the output of the player's Bag of Crafting to the provided collectible. */
-    SetBagOfCraftingOutput: (output: CollectibleType) => void;
+    readonly SetBagOfCraftingOutput: (output: CollectibleType) => void;
 
     /** Sets the provided slot in the player's Bag of Crafting to the provided pickup. */
-    SetBagOfCraftingSlot: (
+    readonly SetBagOfCraftingSlot: (
       slotID: int,
       bagOfCraftingPickup: BagOfCraftingPickup,
     ) => void;
 
-    SetBlackHeart: (blackHearts: int) => void;
+    readonly SetBlackHeart: (blackHearts: int) => void;
 
     /**
      * Sets the player's Bladder Charge. This is used by Kidney Stone.
@@ -1277,7 +1277,7 @@ declare global {
      * This method is bugged as calling it without having Kidney Stone in the player's inventory
      * causes their head to turn pitch black.
      */
-    SetBladderCharge: (charge: int) => void;
+    readonly SetBladderCharge: (charge: int) => void;
 
     /**
      * Sets how many times the player has hit with Bloody Lust in their inventory. Bloody Lust's
@@ -1287,10 +1287,10 @@ declare global {
      * add the appropriate cache flags and call `EntityPlayer.EvaluateItems` if you wish to
      * immediately change them.
      */
-    SetBloodLustCounter: (counter: int) => void;
+    readonly SetBloodLustCounter: (counter: int) => void;
 
     /** Sets how many frames until the player can place another bomb. */
-    SetBombPlaceDelay: (delay: int) => void;
+    readonly SetBombPlaceDelay: (delay: int) => void;
 
     /**
      * Sets how much damage the player has taken with Cambion Conception in their inventory.
@@ -1298,75 +1298,75 @@ declare global {
      * This does not spawn the familiar even if it's set to a value where the player gives birth.
      * The birth is only triggered once the player takes damage.
      */
-    SetCambionConceptionState: (state: int) => void;
+    readonly SetCambionConceptionState: (state: int) => void;
 
     /** Sets whether the player can shoot. */
-    SetCanShoot: (canShoot: boolean) => void;
+    readonly SetCanShoot: (canShoot: boolean) => void;
 
     /**
      * Sets which familiars were spawned by Cambion/Immaculate Conception. The familiars only spawn
      * when the familiars cache is evaluated and the player has one of the two collectibles in their
      * inventory.
      */
-    SetCambionFamiliarFlags: (
+    readonly SetCambionFamiliarFlags: (
       flags: BitFlags<ConceptionFamiliarFlag> | ConceptionFamiliarFlag,
     ) => void;
 
     /** Sets how many kills the player got with Charm of the Vampire. */
-    SetCharmOfTheVampireKills: (kills: int) => void;
+    readonly SetCharmOfTheVampireKills: (kills: int) => void;
 
     /** Sets the player's controller index. */
-    SetControllerIndex: (index: ControllerIndex) => void;
+    readonly SetControllerIndex: (index: ControllerIndex) => void;
 
-    SetD8DamageModifier: (modifier: number) => void;
-    SetD8FireDelayModifier: (modifier: number) => void;
-    SetD8RangeModifier: (modifier: number) => void;
-    SetD8SpeedModifier: (modifier: number) => void;
+    readonly SetD8DamageModifier: (modifier: number) => void;
+    readonly SetD8FireDelayModifier: (modifier: number) => void;
+    readonly SetD8RangeModifier: (modifier: number) => void;
+    readonly SetD8SpeedModifier: (modifier: number) => void;
 
     /** Sets the player's current damage modifier used by Experimental Treatment. */
-    SetDamageModifier: (modifier: number) => void;
+    readonly SetDamageModifier: (modifier: number) => void;
 
     /**
      * Sets the offset of the player's damage stat for Eden's random stats. Has no effect if the
      * player isn't Eden or Tainted Eden.
      */
-    SetEdenDamage: (damage: number) => void;
+    readonly SetEdenDamage: (damage: number) => void;
 
     /**
      * Sets the offset of the player's fire delay stat for Eden's random stats. Has no effect if the
      * player isn't Eden or Tainted Eden.
      */
-    SetEdenFireDelay: (fireDelay: number) => void;
+    readonly SetEdenFireDelay: (fireDelay: number) => void;
 
     /**
      * Sets the offset of the player's luck stat for Eden's random stats. Has no effect if the
      * player isn't Eden or Tainted Eden.
      */
-    SetEdenLuck: (luck: number) => void;
+    readonly SetEdenLuck: (luck: number) => void;
 
     /**
      * Sets the offset of the player's range stat for Eden's random stats. Has no effect if the
      * player isn't Eden or Tainted Eden.
      */
-    SetEdenRange: (range: number) => void;
+    readonly SetEdenRange: (range: number) => void;
 
     /**
      * Sets the offset of the player's shot speed stat for Eden's random stats. Has no effect if the
      * player isn't Eden or Tainted Eden.
      */
-    SetEdenShotSpeed: (shotSpeed: number) => void;
+    readonly SetEdenShotSpeed: (shotSpeed: number) => void;
 
     /**
      * Sets the offset of the player's speed stat for Eden's random stats. Has no effect if the
      * player isn't Eden or Tainted Eden.
      */
-    SetEdenSpeed: (speed: number) => void;
+    readonly SetEdenSpeed: (speed: number) => void;
 
     /** Sets the current charge of Tainted Eve's innate Sumptorium ability. */
-    SetEveSumptoriumCharge: (charge: int) => void;
+    readonly SetEveSumptoriumCharge: (charge: int) => void;
 
     /** Sets the player's current fire delay modifier used by Experimental Treatment. */
-    SetFireDelayModifier: (modifier: number) => void;
+    readonly SetFireDelayModifier: (modifier: number) => void;
 
     /**
      * Sets the player's footprint color.
@@ -1374,22 +1374,22 @@ declare global {
      * @param color
      * @param rightFoot Optional. Default is false.
      */
-    SetFootprintColor: (color: KColor, rightFoot?: boolean) => void;
+    readonly SetFootprintColor: (color: KColor, rightFoot?: boolean) => void;
 
-    SetForceCamoEffect: (force: boolean) => void;
-    SetForgottenSwapFormCooldown: (cooldown: int) => void;
-    SetFriendBallEnemy: (desc: EntityDesc) => void;
+    readonly SetForceCamoEffect: (force: boolean) => void;
+    readonly SetForgottenSwapFormCooldown: (cooldown: int) => void;
+    readonly SetFriendBallEnemy: (desc: EntityDesc) => void;
 
     /**
      * Sets how many frames the player has been holding still with Gnawed Leaf in their inventory.
      */
-    SetGnawedLeafTimer: (timer: int) => void;
+    readonly SetGnawedLeafTimer: (timer: int) => void;
 
     /**
      * Sets how many frames until the player's stat boost from standing in the aura of Hallowed
      * Ground/Star of Bethlehem goes away.
      */
-    SetHallowedGroundCountdown: (countdown: int) => void;
+    readonly SetHallowedGroundCountdown: (countdown: int) => void;
 
     /**
      * Locks the player's head animation to a direction.
@@ -1399,14 +1399,14 @@ declare global {
      * @param force Optional. If true, existing head direction locks are overridden. Default is
      *              false.
      */
-    SetHeadDirection: (
+    readonly SetHeadDirection: (
       direction: Direction,
       time: int,
       force?: boolean,
     ) => void;
 
     /** Sets how many frames the player's head direction is locked in its current direction. */
-    SetHeadDirectionLockTime: (time: int) => void;
+    readonly SetHeadDirectionLockTime: (time: int) => void;
 
     /**
      * Sets how many hearts the player has picked up with Immaculate Conception in their inventory.
@@ -1415,7 +1415,7 @@ declare global {
      * This does not spawn the familiar even if it's set to a value where the player gives birth.
      * The birth is only triggered once the player picks up a heart.
      */
-    SetImmaculateConceptionState: (heartsPickedUp: int) => void;
+    readonly SetImmaculateConceptionState: (heartsPickedUp: int) => void;
 
     /**
      * Sets the player's item stat to the provided collectible.
@@ -1423,88 +1423,88 @@ declare global {
      * Item states are usually used by collectibles that the player holds above their head before
      * activating, such as Bob's Rotten Head and Glass Cannon.
      */
-    SetItemState: (collectible: CollectibleType) => void;
+    readonly SetItemState: (collectible: CollectibleType) => void;
 
     /** Sets the current coin bonus for the player's Keepers Sack collectible. */
-    SetKeepersSackBonus: (bonus: int) => void;
+    readonly SetKeepersSackBonus: (bonus: int) => void;
 
     /** Sets the player's laser color. */
-    SetLaserColor: (color: Color) => void;
+    readonly SetLaserColor: (color: Color) => void;
 
     /** Sets the player's current luck modifier used by Experimental Treatment. */
-    SetLuckModifier: (modifier: int) => void;
+    readonly SetLuckModifier: (modifier: int) => void;
 
     /** Sets how many frames until one of Tainted Magdalene's hearts are drained. */
-    SetMaggyHealthDrainCooldown: (cooldown: int) => void;
+    readonly SetMaggyHealthDrainCooldown: (cooldown: int) => void;
 
     /** Sets how many frames until Tainted Magdalene's swing attack can be used again. */
-    SetMaggySwingCooldown: (cooldown: int) => void;
+    readonly SetMaggySwingCooldown: (cooldown: int) => void;
 
     /**
      * Sets the maximum charge for when the player stops shooting and charges the Kidney Stone
      * collectible.
      */
-    SetMaxBladderCharge: (charge: int) => void;
+    readonly SetMaxBladderCharge: (charge: int) => void;
 
     /**
      * Sets the countdown in frames until the Mega Blast laser goes away. Setting the countdown to a
      * value above 0 will activate the effects of Mega Blast.
      */
-    SetMegaBlastDuration: (countdown: int) => void;
+    readonly SetMegaBlastDuration: (countdown: int) => void;
 
     /**
      * Sets the frame at which the player stops shooting and starts charging the Kidney Stone
      * collectible.
      */
-    SetNextUrethraBlockFrame: (frame: int) => void;
+    readonly SetNextUrethraBlockFrame: (frame: int) => void;
 
     /**
      * Sets the duration of the charge effect used A Pony/White Pony. Calling this method with a
      * positive value will activate the charge effect.
      */
-    SetPonyCharge: (time: int) => void;
+    readonly SetPonyCharge: (time: int) => void;
 
     /**
      * Sets the provided slot to the provided poop spell. Poop spells are only used by Tainted Blue
      * Baby.
      */
-    SetPoopSpell: (slot: int, poopSpellType: PoopSpellType) => void;
+    readonly SetPoopSpell: (slot: int, poopSpellType: PoopSpellType) => void;
 
     /** Sets the state of the player's Purity collectible. */
-    SetPurityState: (state: PurityState) => void;
+    readonly SetPurityState: (state: PurityState) => void;
 
     /**
      * Sets the duration of the damage bonus given by the Red Stew collectible to the specified
      * amount of frames. Setting the duration above 0 will activate the effect if it wasn't active
      * already.
      */
-    SetRedStewBonusDuration: (duration: int) => void;
+    readonly SetRedStewBonusDuration: (duration: int) => void;
 
-    SetRevelationCharge: (charge: int) => void;
+    readonly SetRevelationCharge: (charge: int) => void;
 
-    SetRockBottomDamage: (damage: number) => void;
-    SetRockBottomLuck: (luck: number) => void;
-    SetRockBottomMaxFireDelay: (maxFireDelay: number) => void;
-    SetRockBottomMoveSpeed: (speed: number) => void;
-    SetRockBottomShotSpeed: (shotSpeed: number) => void;
-    SetRockBottomTearRange: (range: number) => void;
+    readonly SetRockBottomDamage: (damage: number) => void;
+    readonly SetRockBottomLuck: (luck: number) => void;
+    readonly SetRockBottomMaxFireDelay: (maxFireDelay: number) => void;
+    readonly SetRockBottomMoveSpeed: (speed: number) => void;
+    readonly SetRockBottomShotSpeed: (shotSpeed: number) => void;
+    readonly SetRockBottomTearRange: (range: number) => void;
 
     /** Sets the player's current shot speed modifier used by Experimental Treatment. */
-    SetShotSpeedModifier: (modifier: int) => void;
+    readonly SetShotSpeedModifier: (modifier: int) => void;
 
     /** Sets the player's current speed modifier used by Experimental Treatment. */
-    SetSpeedModifier: (modifier: int) => void;
+    readonly SetSpeedModifier: (modifier: int) => void;
 
-    SetSuplexAimCountdown: (countdown: int) => void;
-    SetSuplexLandPosition: (position: Vector) => void;
-    SetSuplexState: (state: SuplexState) => void;
-    SetSuplexTargetPosition: (position: Vector) => void;
+    readonly SetSuplexAimCountdown: (countdown: int) => void;
+    readonly SetSuplexLandPosition: (position: Vector) => void;
+    readonly SetSuplexState: (state: SuplexState) => void;
+    readonly SetSuplexTargetPosition: (position: Vector) => void;
 
     /** Sets the amount of damage the player's poison tears deals. */
-    SetTearPoisonDamage: (damage: number) => void;
+    readonly SetTearPoisonDamage: (damage: number) => void;
 
     /** Sets the player's current tear range modifier used by Experimental Treatment. */
-    SetTearRangeModifier: (modifier: int) => void;
+    readonly SetTearRangeModifier: (modifier: int) => void;
 
     /**
      * Sets whether the tear spam attack from the Kidney Stone collectible is about to activate. If
@@ -1512,20 +1512,20 @@ declare global {
      *
      * @param blocked This argument does nothing if it is set to false. This is a bug.
      */
-    SetUrethraBlock: (blocked: boolean) => void;
+    readonly SetUrethraBlock: (blocked: boolean) => void;
 
     /** Sets the player's weapon to the provided slot. */
-    SetWeapon: (weapon: Weapon, slot: WeaponSlot) => void;
+    readonly SetWeapon: (weapon: Weapon, slot: WeaponSlot) => void;
 
     /** Shoots a blue fire from the Candle collectible from the player. */
-    ShootBlueCandle: (direction: Vector) => void;
+    readonly ShootBlueCandle: (direction: Vector) => void;
 
     /**
      * Shuffles the player's costumes.
      *
      * @param seed Optional. Default is a call to `Random()`.
      */
-    ShuffleCostumes: (seed?: Seed) => void;
+    readonly ShuffleCostumes: (seed?: Seed) => void;
 
     /**
      * Spawns an Aquarius creep effect.
@@ -1534,7 +1534,7 @@ declare global {
      *                   undefined will have the creep inherit the player's current tear params
      *                   instead. Default is undefined.
      */
-    SpawnAquariusCreep: (tearParams?: TearParams) => EntityEffect;
+    readonly SpawnAquariusCreep: (tearParams?: TearParams) => EntityEffect;
 
     /**
      * Removes half a heart and spawns a Blood Clot based on the type of heart removed.
@@ -1544,13 +1544,13 @@ declare global {
      *                     less, killing them as a result. Otherwise, no clots will spawn if the
      *                     player has half a heart or less. Default is false.
      */
-    SpawnClot: (pos: Vector, allowOnDeath?: boolean) => void;
+    readonly SpawnClot: (pos: Vector, allowOnDeath?: boolean) => void;
 
     /**
      * Spawns a ring of tears that orbit around the player akin to the Saturnus collectible. Returns
      * the number of tears fired.
      */
-    SpawnSaturnusTears: () => int;
+    readonly SpawnSaturnusTears: () => int;
 
     /**
      * If the player is The Forgotten/The Soul, the two will swap forms. Otherwise, this method does
@@ -1562,9 +1562,9 @@ declare global {
      *              health or while a room/stage transition is active. Default is false.
      * @param noEffects Optional. If true, the dust and fade effect will not play. Default is false.
      */
-    SwapForgottenForm: (force?: boolean, noEffects?: boolean) => boolean;
+    readonly SwapForgottenForm: (force?: boolean, noEffects?: boolean) => boolean;
 
-    SyncConsumableCounts: (player: EntityPlayer, collectibleFlags: int) => void;
+    readonly SyncConsumableCounts: (player: EntityPlayer, collectibleFlags: int) => void;
 
     /**
      * Teleports the player.
@@ -1575,20 +1575,20 @@ declare global {
      * @param teleportTwins Optional. Determines whether twin players (Esau, Tainted Lazarus with
      *                      Birthright, etc) are teleported alongside the player. Default is false.
      */
-    Teleport: (
+    readonly Teleport: (
       position: Vector,
       doEffects?: boolean,
       teleportTwins?: boolean,
     ) => void;
 
     /** Triggers effects on the player as if a room was cleared (i.e Charging active items). */
-    TriggerRoomClear: () => void;
+    readonly TriggerRoomClear: () => void;
 
     /**
      * Attempts to add the specified pickup to the player's Bag of Crafting. Returns whether the
      * addition was successful.
      */
-    TryAddToBagOfCrafting: (pickup: EntityPickup) => boolean;
+    readonly TryAddToBagOfCrafting: (pickup: EntityPickup) => boolean;
 
     /**
      * Attempts to decrease the uses left for the Glowing Hourglass collectible, if the player has
@@ -1598,7 +1598,7 @@ declare global {
      * @param forceHourglass Optional. If true, all charges are instantly removed and the Glowing
      *                       Hourglass is turned into its regular form. Default is false.
      */
-    TryDecreaseGlowingHourglassUses: (
+    readonly TryDecreaseGlowingHourglassUses: (
       uses: int,
       forceHourglass?: boolean,
     ) => void;
@@ -1609,13 +1609,13 @@ declare global {
      *
      * Returns whether the fake player was spawned successfully.
      */
-    TryFakeDeath: () => boolean;
+    readonly TryFakeDeath: () => boolean;
 
     /**
      * Attempts to throw Tainted Forgotten in the provided direction if the player is holding him.
      * Returns whether he was thrown.
      */
-    TryForgottenThrow: (direction: Vector) => boolean;
+    readonly TryForgottenThrow: (direction: Vector) => boolean;
 
     /**
      * Adds a heart container to the player if there are none to prevent death, depending on the
@@ -1623,10 +1623,10 @@ declare global {
      *
      * Returns whether the death was prevented successfully.
      */
-    TryPreventDeath: () => boolean;
+    readonly TryPreventDeath: () => boolean;
 
     /** Attempts to remove a smelted trinket from the player. */
-    TryRemoveSmeltedTrinket: (trinket: TrinketType) => void;
+    readonly TryRemoveSmeltedTrinket: (trinket: TrinketType) => void;
 
     /**
      * Unblocks the provided collectible.
@@ -1650,7 +1650,7 @@ declare global {
      * print(player.HasCollectible(CollectibleType.SAD_ONION)); // true
      * ```
      */
-    UnblockCollectible: (collectible: CollectibleType) => void;
+    readonly UnblockCollectible: (collectible: CollectibleType) => void;
 
     /**
      * Updates Isaac's pregnancy state.
@@ -1658,10 +1658,10 @@ declare global {
      * @param updateCambion If true, the Cambion Conception costume is updated. Otherwise, the
      *                      Immaculate Conception costume is updated.
      */
-    UpdateIsaacPregnancy: (updateCambion: boolean) => void;
+    readonly UpdateIsaacPregnancy: (updateCambion: boolean) => void;
 
     /** Returns whether the player has consumed the specified collectible with Void. */
-    VoidHasCollectible: (collectible: CollectibleType) => boolean;
+    readonly VoidHasCollectible: (collectible: CollectibleType) => boolean;
 
     BabySkin: BabySubType;
     FriendBallEnemy: EntityDesc;

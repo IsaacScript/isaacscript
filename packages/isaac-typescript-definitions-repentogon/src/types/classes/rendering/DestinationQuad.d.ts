@@ -4,14 +4,14 @@
  * @see https://repentogon.com/
  */
 declare interface DestinationQuad extends IsaacAPIClass {
-  GetBottomLeft: () => Vector;
-  GetBottomRight: () => Vector;
-  GetTopLeft: () => Vector;
-  GetTopRight: () => Vector;
-  SetBottomLeft: (point: Vector) => void;
-  SetBottomRight: (point: Vector) => void;
-  SetTopLeft: (point: Vector) => void;
-  SetTopRight: (point: Vector) => void;
+  readonly GetBottomLeft: () => Vector;
+  readonly GetBottomRight: () => Vector;
+  readonly GetTopLeft: () => Vector;
+  readonly GetTopRight: () => Vector;
+  readonly SetBottomLeft: (point: Vector) => void;
+  readonly SetBottomRight: (point: Vector) => void;
+  readonly SetTopLeft: (point: Vector) => void;
+  readonly SetTopRight: (point: Vector) => void;
 }
 
 /**

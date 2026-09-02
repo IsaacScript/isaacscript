@@ -11,16 +11,16 @@ import type { StbRailVariant } from "../../enums/StbRailVariant";
 declare global {
   interface Room extends IsaacAPIClass {
     /** Returns whether the grid entity with the specified GridIndex can be picked up. */
-    CanPickupGridEntity: (gridIndex: int) => boolean;
+    readonly CanPickupGridEntity: (gridIndex: int) => boolean;
 
     /** Returns whether an obstacle can be spawned at the provided grid index. */
-    CanSpawnObstacleAtPosition: (gridIndex: int, force: boolean) => boolean;
+    readonly CanSpawnObstacleAtPosition: (gridIndex: int, force: boolean) => boolean;
 
     /**
      * @param excludeNPCs Optional. Default is false.
      * @param source Optional. Default is undefined.
      */
-    ClearBossHazards: (excludeNPCs?: boolean, source?: Entity) => void;
+    readonly ClearBossHazards: (excludeNPCs?: boolean, source?: Entity) => void;
 
     /**
      * Creates a lightning strike effect as seen in Downpour.
@@ -30,37 +30,37 @@ declare global {
      *             0.6` and `0.9 + RNG.RandomFloat() * 0.2` respectively. Default is a randomized
      *             seed.
      */
-    DoLightningStrike: (seed?: Seed) => void;
+    readonly DoLightningStrike: (seed?: Seed) => void;
 
-    GetBackdrop: () => Backdrop;
+    readonly GetBackdrop: () => Backdrop;
 
     /** Returns the room's `BackdropType`. */
-    GetBackdropType: () => BackdropType;
+    readonly GetBackdropType: () => BackdropType;
 
     /** Returns the room's boss victory jingle. */
-    GetBossVictoryJingle: () => Music;
+    readonly GetBossVictoryJingle: () => Music;
 
     /** Returns a `Camera` object. */
-    GetCamera: () => Camera;
+    readonly GetCamera: () => Camera;
 
     /** Returns the probability that boss spawns in this room will be champions. */
-    GetChampionBossChance: () => float;
+    readonly GetChampionBossChance: () => float;
 
-    GetEffects: () => TemporaryEffects;
-    GetFloorColor: () => Color;
-    GetFXParams: () => FXParams;
+    readonly GetEffects: () => TemporaryEffects;
+    readonly GetFloorColor: () => Color;
+    readonly GetFXParams: () => FXParams;
 
     /**
      * Returns the amount of time left in frames before the next Greed wave starts. Returns -1 if
      * the timer is not counting down.
      */
-    GetGreedWaveTimer: () => int;
+    readonly GetGreedWaveTimer: () => int;
 
     /**
      * Returns the grid index from the specified row and column. Returns -1 if no grid index exists
      * at that point.
      */
-    GetGridIndexByTile: ((row: int, column: int) => int)
+    readonly GetGridIndexByTile: ((row: int, column: int) => int)
       & ((tile: [int, int]) => int);
 
     /**
@@ -69,45 +69,45 @@ declare global {
      * @param seed Optional. Default is a call to `Random()`.
      * @param raw Optional. Default is false.
      */
-    GetItemPool: (seed?: Seed, raw?: boolean) => ItemPoolType;
+    readonly GetItemPool: (seed?: Seed, raw?: boolean) => ItemPoolType;
 
     /** Returns the intensity of the lightning effect. */
-    GetLightningIntensity: () => float;
+    readonly GetLightningIntensity: () => float;
 
     /** Returns a descriptor of the corners of an L-room shape in world coordinates. */
-    GetLRoomAreaDesc: () => LRoomAreaDesc;
+    readonly GetLRoomAreaDesc: () => LRoomAreaDesc;
 
     /** Returns a descriptor of the corners of an L-room shape in grid coordinates. */
-    GetLRoomTileDesc: () => LRoomTileDesc;
+    readonly GetLRoomTileDesc: () => LRoomTileDesc;
 
     /**
      * Returns the approximate number of areas in a room that spawn a rain effect in a tight radius.
      */
-    GetNumRainSpawners: () => int;
+    readonly GetNumRainSpawners: () => int;
 
     /**
      * Returns the `StbRailVariant` at the provided grid index. Returns undefined if there is no
      * rail.
      */
-    GetRail: (gridIndex: int) => StbRailVariant | undefined;
+    readonly GetRail: (gridIndex: int) => StbRailVariant | undefined;
 
     /** Returns the room's `RailManager` object. */
-    GetRailManager: () => RailManager;
+    readonly GetRailManager: () => RailManager;
 
     /** Returns the rain intensity in the room. */
-    GetRainIntensity: () => float;
+    readonly GetRainIntensity: () => float;
 
     /** Returns the room clear delay. */
-    GetRoomClearDelay: () => int;
+    readonly GetRoomClearDelay: () => int;
 
     /** Returns the price of the item in the current room. */
-    GetShopItemPrice: (
+    readonly GetShopItemPrice: (
       pickupVariant: PickupVariant,
       subType: int,
       shopItemID: int,
     ) => int;
 
-    GetWallColor: () => Color;
+    readonly GetWallColor: () => Color;
 
     /**
      * Returns the amount of water in the room.
@@ -115,16 +115,16 @@ declare global {
      * During normal play, the value is between 0 and 1, with 0 meaning no water is present in the
      * room. However, mods can set this value to be above 1.
      */
-    GetWaterAmount: () => number;
+    readonly GetWaterAmount: () => number;
 
     /** Returns the color of the water in the current room. */
-    GetWaterColor: () => KColor;
+    readonly GetWaterColor: () => KColor;
 
     /** Returns the water's color multiplier. */
-    GetWaterColorMultiplier: () => KColor;
+    readonly GetWaterColorMultiplier: () => KColor;
 
     /** Returns whether boss spawns in this room will be champions. */
-    IsChampionBossSeed: () => boolean;
+    readonly IsChampionBossSeed: () => boolean;
 
     /**
      * Returns whether the specified entity can persist in a room.
@@ -132,22 +132,22 @@ declare global {
      * @param entityType
      * @param variant Optional. Default is 0.
      */
-    IsPersistentRoomEntity: (entityType: EntityType, variant?: int) => void;
+    readonly IsPersistentRoomEntity: (entityType: EntityType, variant?: int) => void;
 
     /**
      * Attempts to pick up the grid entity at the specified index. Returns an `EntityEffect` of the
      * picked up entity if successful, otherwise undefined is returned.
      */
-    PickupGridEntity: (index: int) => EntityEffect | undefined;
+    readonly PickupGridEntity: (index: int) => EntityEffect | undefined;
 
     /** Immediately removes the grid index at the specified grid index. */
-    RemoveGridEntityImmediate: (
+    readonly RemoveGridEntityImmediate: (
       gridIndex: int,
       pathTrail: int,
       keepDecoration: boolean,
     ) => void;
 
-    SaveState: () => void;
+    readonly SaveState: () => void;
 
     /**
      * Sets the room's backdrop.
@@ -160,12 +160,12 @@ declare global {
      * @param unknown This method does not work unless the value of this parameter is 0. This
      *                parameter is currently undocumented.
      */
-    SetBackdropType: (backdrop: BackdropType, unknown: int) => void;
+    readonly SetBackdropType: (backdrop: BackdropType, unknown: int) => void;
 
-    GetFXLayers: () => FXLayers;
+    readonly GetFXLayers: () => FXLayers;
 
     /** Sets the greed wave timer. */
-    SetGreedWaveTimer: (time: int) => void;
+    readonly SetGreedWaveTimer: (time: int) => void;
 
     /**
      * Sets the room's item pool. This takes priority over the game's regular pool selection code.
@@ -173,13 +173,13 @@ declare global {
      *
      * This is reset upon leaving the room.
      */
-    SetItemPool: (itemPoolType: ItemPoolType) => void;
+    readonly SetItemPool: (itemPoolType: ItemPoolType) => void;
 
     /** Sets the intensity of the lava in the room. */
-    SetLavaIntensity: (intensity: float) => void;
+    readonly SetLavaIntensity: (intensity: float) => void;
 
     /** Sets the intensity of the lightning effect in the room. */
-    SetLightningIntensity: (intensity: float) => void;
+    readonly SetLightningIntensity: (intensity: float) => void;
 
     /**
      * Sets how many frames the room is paused for. When the room is paused, the AI and animations
@@ -188,27 +188,27 @@ declare global {
      * NPCs and effects that are spawned while the room is still paused will still update until the
      * method is called again.
      */
-    SetPauseTimer: (duration: int) => void;
+    readonly SetPauseTimer: (duration: int) => void;
 
     /** Adds a rail at the provided grid index. */
-    SetRail: (gridIndex: int, railVariant: StbRailVariant) => void;
+    readonly SetRail: (gridIndex: int, railVariant: StbRailVariant) => void;
 
     /** Sets the room's rain intensity. This is used by the rain effect spawners in Downpour. */
-    SetRainIntensity: (intensity: number) => void;
+    readonly SetRainIntensity: (intensity: number) => void;
 
     /** Sets the room's clear delay. */
-    SetRoomClearDelay: (delay: int) => void;
+    readonly SetRoomClearDelay: (delay: int) => void;
 
     /**
      * Sets the amount of water in the current room. Setting the amount to 0 will remove the water.
      */
-    SetWaterAmount: (amount: number) => void;
+    readonly SetWaterAmount: (amount: number) => void;
 
     /** Sets the color of the water in the room. */
-    SetWaterColor: (color: KColor) => void;
+    readonly SetWaterColor: (color: KColor) => void;
 
     /** Sets the water's color multiplier. */
-    SetWaterColorMultiplier: (color: KColor) => void;
+    readonly SetWaterColorMultiplier: (color: KColor) => void;
 
     /**
      * Sets the strength of the water current in the room. The water current particles and sounds
@@ -216,7 +216,7 @@ declare global {
      *
      * Setting the current to `VectorZero` will remove the current.
      */
-    SetWaterCurrent: (current: Vector) => void;
+    readonly SetWaterCurrent: (current: Vector) => void;
 
     /**
      * Repentogon's modified `Room.SpawnGridEntity` method.
@@ -233,7 +233,7 @@ declare global {
      * @param descriptor
      * @customName SpawnGridEntity
      */
-    SpawnGridEntityEx: ((
+    readonly SpawnGridEntityEx: ((
       gridIndex: int,
       gridEntityType: GridEntityType,
       variant?: int,
@@ -247,12 +247,12 @@ declare global {
      *
      * @param output Must be between 0 and 9, otherwise the method will error.
      */
-    TriggerOutput: (output: int) => void;
+    readonly TriggerOutput: (output: int) => void;
 
-    TriggerRestock: (gridIndex: int, shopIndex: int) => void;
+    readonly TriggerRestock: (gridIndex: int, shopIndex: int) => void;
 
     /** Returns a discounted price of a shop item. */
-    TryGetShopDiscount: (shopItem: int, price: int) => int;
+    readonly TryGetShopDiscount: (shopItem: int, price: int) => int;
 
     /**
      * Repentogon's modified `Room.TrySpawnSpecialQuestDoor` method.
@@ -265,7 +265,7 @@ declare global {
      *                        stages outside of the alt-floor. Default is false.
      * @customName TrySpawnSpecialQuestDoor
      */
-    TrySpawnSpecialQuestDoorEx: (ignoreStageType?: boolean) => boolean;
+    readonly TrySpawnSpecialQuestDoorEx: (ignoreStageType?: boolean) => boolean;
 
     /**
      * Updates the room's color correction with the copy of `FXParams.ColorModifier`.
@@ -275,7 +275,7 @@ declare global {
      * @param lerp Optional. Default is true.
      * @param rate Optional. Default is 0.015.
      */
-    UpdateColorModifier: (
+    readonly UpdateColorModifier: (
       process?: boolean,
       lerp?: boolean,
       rate?: float,

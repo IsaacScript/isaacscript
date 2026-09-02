@@ -9,15 +9,15 @@ declare global {
    */
   interface EntityConfigBaby extends IsaacAPIClass {
     /** Returns the `Achievement` tied to the baby's unlock. */
-    GetAchievementID: () => Achievement;
+    readonly GetAchievementID: () => Achievement;
 
     /** Returns the `BabySubType` of the baby. */
-    GetID: () => BabySubType;
+    readonly GetID: () => BabySubType;
 
     /** Returns the name of the baby. */
-    GetName: () => string;
+    readonly GetName: () => string;
 
     /** Returns a path to the baby's spritesheet. */
-    GetSpritesheetPath: () => string;
+    readonly GetSpritesheetPath: () => string;
   }
 }

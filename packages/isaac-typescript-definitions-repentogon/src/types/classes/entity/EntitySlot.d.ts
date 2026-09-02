@@ -10,7 +10,7 @@ import type { SlotState } from "../../../enums/SlotState";
 declare global {
   interface EntitySlot extends Entity {
     /** Forces the slot to drop what it typically would drop if blown up. */
-    CreateDropsFromExplosion: () => void;
+    readonly CreateDropsFromExplosion: () => void;
 
     /**
      * Returns the slot's donation value. The donation value varies on the slot's variant:
@@ -23,74 +23,74 @@ declare global {
      *
      * The donation value can be overridden by using `EntitySlot.SetDonationValue`.
      */
-    GetDonationValue: () => int;
+    readonly GetDonationValue: () => int;
 
     /**
      * Returns the collectible that the slot will pay out with. This is only used by Crane Game and
      * Hell Game.
      */
-    GetPrizeCollectible: () => CollectibleType;
+    readonly GetPrizeCollectible: () => CollectibleType;
 
-    GetPrizeSprite: () => Sprite;
+    readonly GetPrizeSprite: () => Sprite;
 
     /** Returns the slot's prize type. */
-    GetPrizeType: () => int;
+    readonly GetPrizeType: () => int;
 
     /**
      * Returns the index used by Shell Game and Hell Game used to determine which animation to play.
      */
-    GetShellGameAnimationIndex: () => int;
+    readonly GetShellGameAnimationIndex: () => int;
 
     /** Returns the slot's state. */
-    GetState: () => SlotState;
+    readonly GetState: () => SlotState;
 
     /** Returns the timeout in frames until the slot determines its prize. */
-    GetTimeout: () => int;
+    readonly GetTimeout: () => int;
 
     /**
      * Returns how many frames a player has been touching the slot. This is reset once no player is
      * touching it.
      */
-    GetTouch: () => int;
+    readonly GetTouch: () => int;
 
     /**
      * Returns the slot's trigger timer number. This is only used by Bomb Bums and Reroll Machines.
      */
-    GetTriggerTimerNum: () => int;
+    readonly GetTriggerTimerNum: () => int;
 
     /** Returns a random coin jam animation name. */
-    RandomCoinJamAnim: () => CoinJamAnimation;
+    readonly RandomCoinJamAnim: () => CoinJamAnimation;
 
     /** Sets the slot's donation value. */
-    SetDonationValue: (value: int) => void;
+    readonly SetDonationValue: (value: int) => void;
 
     /**
      * Sets the collectible that the slot will pay out with. This is only used by Crane Game and
      * Hell Game.
      */
-    SetPrizeCollectible: (collectible: CollectibleType) => void;
+    readonly SetPrizeCollectible: (collectible: CollectibleType) => void;
 
     /** Sets the slot's prize type. */
-    SetPrizeType: (prizeType: int) => void;
+    readonly SetPrizeType: (prizeType: int) => void;
 
     /**
      * Sets the index used by Shell Game and Hell game to determine which prize animation to play.
      */
-    SetShellGameAnimationIndex: (index: int) => void;
+    readonly SetShellGameAnimationIndex: (index: int) => void;
 
     /** Sets the slot's state. */
-    SetState: (state: SlotState) => void;
+    readonly SetState: (state: SlotState) => void;
 
     /** Sets the slot's timeout. */
-    SetTimeout: (timeout: int) => void;
+    readonly SetTimeout: (timeout: int) => void;
 
     /**
      * Sets how many frames a player has been touching the slot. This is reset to 0 once no players
      * are touching the slot.
      */
-    SetTouch: (duration: int) => void;
+    readonly SetTouch: (duration: int) => void;
 
     /** Sets the slot's trigger timer number. */
-    SetTriggerTimerNum: (timerNum: int) => void;
+    readonly SetTriggerTimerNum: (timerNum: int) => void;
   }
 }

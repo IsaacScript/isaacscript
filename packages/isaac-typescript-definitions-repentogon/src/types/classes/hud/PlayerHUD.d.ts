@@ -11,19 +11,19 @@ declare global {
      * Returns a specific heart from the HUD by its index. Returns `undefined` if no heart with the
      * provided index exists.
      */
-    GetHeartByIndex: (index: int) => PlayerHUDHeart | undefined;
+    readonly GetHeartByIndex: (index: int) => PlayerHUDHeart | undefined;
 
     /** Returns an array of all of the hearts currently displayed. */
-    GetHearts: () => PlayerHUDHeart[];
+    readonly GetHearts: () => PlayerHUDHeart[];
 
     /** Returns the `HUD`. */
-    GetHUD: () => HUD;
+    readonly GetHUD: () => HUD;
 
-    GetIndex: () => int;
-    GetLayout: () => int;
+    readonly GetIndex: () => int;
+    readonly GetLayout: () => int;
 
     /** Returns the `EntityPlayer` associated with the `PlayerHUD`. */
-    GetPlayer: () => EntityPlayer;
+    readonly GetPlayer: () => EntityPlayer;
 
     /**
      * Renders the active item sprite and chargebar on the HUD.
@@ -33,7 +33,7 @@ declare global {
      * @param alpha Optional. Default is 1.
      * @param scale Optional. Default is 1.
      */
-    RenderActiveItem: (
+    readonly RenderActiveItem: (
       slot: ActiveSlot,
       position: Vector,
       alpha?: number,
