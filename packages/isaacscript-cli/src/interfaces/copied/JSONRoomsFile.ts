@@ -23,83 +23,83 @@ export interface JSONRoomsFile {
 
 /** Part of `JSONRoomsFile`. */
 export interface JSONRooms {
-  room: JSONRoom[];
+  readonly room: readonly JSONRoom[];
 }
 
 /** Part of `JSONRoomsFile`. */
 export interface JSONRoom {
-  $: {
+  readonly $: {
     /** Needs to be converted to an `int`. */
-    difficulty: string;
+    readonly difficulty: string;
 
     /** Needs to be converted to an `int`. */
-    height: string;
+    readonly height: string;
 
-    name: string;
-
-    /** Needs to be converted to an `int`. */
-    shape: string;
+    readonly name: string;
 
     /** Needs to be converted to an `int`. */
-    subtype: string;
+    readonly shape: string;
 
     /** Needs to be converted to an `int`. */
-    type: string;
+    readonly subtype: string;
 
     /** Needs to be converted to an `int`. */
-    variant: string;
+    readonly type: string;
+
+    /** Needs to be converted to an `int`. */
+    readonly variant: string;
 
     /** Needs to be converted to a `float`. */
-    weight: string;
+    readonly weight: string;
 
     /** Needs to be converted to an `int`. */
-    width: string;
+    readonly width: string;
   };
 
-  door: JSONDoor[];
-  spawn: JSONSpawn[];
+  readonly door: readonly JSONDoor[];
+  readonly spawn: readonly JSONSpawn[];
 }
 
 /** Part of `JSONRoomsFile`. */
 export interface JSONDoor {
-  $: {
+  readonly $: {
     /** Equal to "True" or "False". Needs to be converted to an `boolean`. */
-    exists: string;
+    readonly exists: string;
 
     /** Needs to be converted to an `int`. */
-    x: string;
+    readonly x: string;
 
     /** Needs to be converted to an `int`. */
-    y: string;
+    readonly y: string;
   };
 }
 
 /** Part of `JSONRoomsFile`. */
 export interface JSONSpawn {
-  $: {
+  readonly $: {
     /** Needs to be converted to an `int`. */
-    x: string;
+    readonly x: string;
 
     /** Needs to be converted to an `int`. */
-    y: string;
+    readonly y: string;
   };
 
-  entity: JSONEntity[];
+  readonly entity: readonly JSONEntity[];
 }
 
 /** Part of `JSONRoomsFile`. */
 export interface JSONEntity {
-  $: {
+  readonly $: {
     /** Needs to be converted to an `int`. */
-    type: string;
+    readonly type: string;
 
     /** Needs to be converted to an `int`. */
-    variant: string;
+    readonly variant: string;
 
     /** Needs to be converted to an `int`. */
-    subtype: string;
+    readonly subtype: string;
 
     /** Needs to be converted to a `float`. */
-    weight: string;
+    readonly weight: string;
   };
 }

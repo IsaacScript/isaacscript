@@ -435,30 +435,30 @@ export interface CustomStageTSConfig {
      * For a list of the colors that correspond to the vanilla stages, see
      * `versusScreenDirtSpotColors.ts`.
      */
-    dirtSpotColor?: {
+    readonly dirtSpotColor?: {
       /**
        * @minimum 0
        * @maximum 1
        */
-      r: number;
+      readonly r: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      g: number;
+      readonly g: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      b: number;
+      readonly b: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      a: number;
+      readonly a: number;
     };
   };
 }
@@ -493,19 +493,19 @@ export interface CustomStageShadow {
      * @minimum 0
      * @maximum 1
      */
-    readonly g: number;
+    g: number;
 
     /**
      * @minimum 0
      * @maximum 1
      */
-    readonly b: number;
+    b: number;
 
     /**
      * @minimum 0
      * @maximum 1
      */
-    readonly a: number;
+    a: number;
   };
 }
 
@@ -518,7 +518,7 @@ export interface CustomStageBossPoolEntry {
    * The name of the boss. This should correspond to the entry for the boss in the "entities2.xml"
    * file.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * The arbitrary sub-type chosen for this boss, ranging between 1 and 999. You must set the boss
@@ -536,24 +536,24 @@ export interface CustomStageBossPoolEntry {
    * @minimum 1
    * @maximum 999
    */
-  subType: number;
+  readonly subType: number;
 
   /**
    * The weight of the boss. This is used when randomly selecting which boss to use for the floor.
    * For example, use a value of 1 if you want this boss to be equally likely as any other boss, 0.5
    * if you want it to be half as likely, 2 if you want it to be twice as likely, and so on.
    */
-  weight: number;
+  readonly weight: number;
 
   /** Optional. A collection of sprites used for the boss on the "versus" screen. */
-  versusScreen?: {
+  readonly versusScreen?: {
     /**
      * Mandatory. The full path to the spritesheet that contains the graphics of the name of the
      * boss that will be displayed on the top of the boss "versus" screen.
      *
      * If not specified, a sprite showing "???" will be used.
      */
-    namePNGPath: string;
+    readonly namePNGPath: string;
 
     /**
      * Mandatory. The full path to the spritesheet that contains the portrait of the boss that will
@@ -561,7 +561,7 @@ export interface CustomStageBossPoolEntry {
      *
      * If not specified, a sprite showing "???" will be used.
      */
-    portraitPNGPath: string;
+    readonly portraitPNGPath: string;
   };
 }
 
@@ -572,7 +572,7 @@ interface CustomStageLuaUnsafe extends CustomStageTSConfig {
    * (Internally, the IsaacScript standard library uses this as a basis for determining which rooms
    * should randomly appear on the floor.)
    */
-  roomsMetadata: CustomStageRoomMetadata[];
+  readonly roomsMetadata: readonly CustomStageRoomMetadata[];
 }
 
 /**
@@ -589,10 +589,10 @@ export type CustomStageLua = Immutable<CustomStageLuaUnsafe>;
  * each room.
  */
 export interface CustomStageRoomMetadata {
-  type: number;
-  variant: number;
-  subType: number;
-  shape: number;
-  doorSlotFlags: number;
-  weight: number;
+  readonly type: number;
+  readonly variant: number;
+  readonly subType: number;
+  readonly shape: number;
+  readonly doorSlotFlags: number;
+  readonly weight: number;
 }
