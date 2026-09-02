@@ -15,7 +15,7 @@ export interface PlayerStats {
   readonly [PlayerStat.TEAR_FALLING_ACCELERATION]: float;
   readonly [PlayerStat.TEAR_FALLING_SPEED]: float;
   readonly [PlayerStat.MOVE_SPEED]: float;
-  readonly [PlayerStat.TEAR_FLAG]: BitFlags<TearFlag>;
+  readonly [PlayerStat.TEAR_FLAG]: Readonly<BitFlags<TearFlag>>;
   readonly [PlayerStat.TEAR_COLOR]: Readonly<Color>;
   readonly [PlayerStat.FLYING]: boolean;
   readonly [PlayerStat.LUCK]: float;

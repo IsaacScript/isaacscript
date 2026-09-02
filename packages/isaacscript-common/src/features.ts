@@ -62,6 +62,7 @@ import { ModCallbackCustom } from "./enums/ModCallbackCustom";
 import { interfaceSatisfiesEnum } from "./functions/enums";
 import type { ModUpgradedInterface } from "./interfaces/private/ModUpgradedInterface";
 
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface ISCFeatureToClass {
   // Callback logic
   readonly [ISCFeature.CUSTOM_REVIVE]: CustomRevive;

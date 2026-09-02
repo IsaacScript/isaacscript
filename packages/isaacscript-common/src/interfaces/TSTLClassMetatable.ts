@@ -7,7 +7,7 @@ export interface TSTLClassMetatable {
   readonly __index: unknown;
   readonly constructor: {
     readonly name: string;
-    readonly prototype: LuaMetatable<LuaMap<AnyNotNil, unknown>>;
+    readonly prototype: Readonly<LuaMetatable<LuaMap<AnyNotNil, unknown>>>;
     // Other static things on the class will be here, if any.
   };
 }
