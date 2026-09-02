@@ -12,7 +12,7 @@ import { assertDefined } from "./utils";
 
 /** This represents either a `JSONRoom` or a `JSONEntity`. */
 interface JSONObject {
-  $: { weight: string | undefined };
+  readonly $: { readonly weight: string | undefined };
 }
 
 /**

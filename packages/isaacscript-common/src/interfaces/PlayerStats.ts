@@ -7,19 +7,19 @@ import { interfaceSatisfiesEnum } from "../functions/enums";
  * is a `float` type.
  */
 export interface PlayerStats {
-  [PlayerStat.DAMAGE]: float;
-  [PlayerStat.FIRE_DELAY]: float;
-  [PlayerStat.SHOT_SPEED]: float;
-  [PlayerStat.TEAR_HEIGHT]: float;
-  [PlayerStat.TEAR_RANGE]: float;
-  [PlayerStat.TEAR_FALLING_ACCELERATION]: float;
-  [PlayerStat.TEAR_FALLING_SPEED]: float;
-  [PlayerStat.MOVE_SPEED]: float;
-  [PlayerStat.TEAR_FLAG]: BitFlags<TearFlag>;
-  [PlayerStat.TEAR_COLOR]: Color;
-  [PlayerStat.FLYING]: boolean;
-  [PlayerStat.LUCK]: float;
-  [PlayerStat.SIZE]: Vector;
+  readonly [PlayerStat.DAMAGE]: float;
+  readonly [PlayerStat.FIRE_DELAY]: float;
+  readonly [PlayerStat.SHOT_SPEED]: float;
+  readonly [PlayerStat.TEAR_HEIGHT]: float;
+  readonly [PlayerStat.TEAR_RANGE]: float;
+  readonly [PlayerStat.TEAR_FALLING_ACCELERATION]: float;
+  readonly [PlayerStat.TEAR_FALLING_SPEED]: float;
+  readonly [PlayerStat.MOVE_SPEED]: float;
+  readonly [PlayerStat.TEAR_FLAG]: BitFlags<TearFlag>;
+  readonly [PlayerStat.TEAR_COLOR]: Readonly<Color>;
+  readonly [PlayerStat.FLYING]: boolean;
+  readonly [PlayerStat.LUCK]: float;
+  readonly [PlayerStat.SIZE]: Readonly<Vector>;
 }
 
 interfaceSatisfiesEnum<PlayerStats, PlayerStat>();

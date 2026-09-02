@@ -3,7 +3,7 @@ import type { PocketItemType } from "../enums/PocketItemType";
 
 /** This is used by the `getPocketItems` and related helper functions. */
 export interface PocketItemDescription {
-  slot: PocketItemSlot;
-  type: PocketItemType;
-  subType: int;
+  readonly slot: PocketItemSlot;
+  readonly type: PocketItemType;
+  readonly subType: int;
 }

@@ -25,6 +25,7 @@ import type { CopyableIsaacAPIClass } from "../objects/isaacAPIClassTypeToFuncti
  * - TSTL classes (i.e. classes that you made yourself)
  * - sub-objects or a `LuaMap` that contains the above values
  */
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface SaveData<
   Persistent = unknown,
   Run = unknown,

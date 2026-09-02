@@ -48,7 +48,7 @@ function newTableHasSameValue() {
 
 function oldTableHasFilledChildTable() {
   interface Foo {
-    bar: string;
+    readonly bar: string;
   }
 
   const key = "foo";
@@ -210,7 +210,7 @@ function oldTableHasFilledMap() {
 
 function oldTableHasRNG() {
   interface Foo {
-    bar: RNG;
+    readonly bar: Readonly<RNG>;
   }
 
   const key = "foo";
@@ -242,7 +242,7 @@ function oldTableHasRNG() {
 
 function oldTableHasRNGSerialized() {
   interface Foo {
-    bar: RNG;
+    readonly bar: Readonly<RNG>;
   }
 
   const key = "foo";
@@ -326,7 +326,7 @@ function oldTableHasUpdatedValueFromNull() {
 
 function oldTableHasVector() {
   interface Foo {
-    bar: Vector;
+    bar: Readonly<Vector>;
   }
 
   const key = "foo";
@@ -362,7 +362,7 @@ function oldTableHasVector() {
 
 function oldTableHasVectorSerialized() {
   interface Foo {
-    bar: Vector;
+    bar: Readonly<Vector>;
   }
 
   const key = "foo";

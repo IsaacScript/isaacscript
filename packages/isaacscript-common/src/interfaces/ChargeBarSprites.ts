@@ -4,9 +4,9 @@
  * This is used in the `newChargeBarSprites` and related helper functions.
  */
 export interface ChargeBarSprites {
-  back: Sprite;
-  meter: Sprite;
-  meterBattery: Sprite;
-  lines: Sprite;
-  maxCharges: int;
+  readonly back: Sprite;
+  readonly meter: Sprite;
+  readonly meterBattery: Sprite;
+  readonly lines: Sprite;
+  readonly maxCharges: int;
 }

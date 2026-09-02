@@ -14,11 +14,11 @@ export interface GridEntityCustomData {
    * This is not a real `GridEntityType`; rather it is an arbitrary integer selected by end-user
    * mods.
    */
-  gridEntityTypeCustom: GridEntityType;
+  readonly gridEntityTypeCustom: GridEntityType;
 
-  roomListIndex: int;
-  gridIndex: int;
-  gridCollisionClass?: GridCollisionClass;
-  anm2Path?: string;
-  defaultAnimation?: string;
+  readonly roomListIndex: int;
+  readonly gridIndex: int;
+  readonly gridCollisionClass?: GridCollisionClass;
+  readonly anm2Path?: string;
+  readonly defaultAnimation?: string;
 }
