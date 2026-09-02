@@ -7,5 +7,5 @@ import type { CustomStageTSConfig } from "./copied/CustomStageTSConfig.js";
  * library.
  */
 export interface IsaacScriptTSConfig {
-  customStages?: CustomStageTSConfig[];
+  readonly customStages?: readonly CustomStageTSConfig[];
 }

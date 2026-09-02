@@ -12,13 +12,13 @@ import type { Immutable } from "../types/Immutable";
  */
 export interface CustomStageTSConfig {
   /** Mandatory. The name of the custom stage. */
-  name: string;
+  readonly name: string;
 
   /**
    * Mandatory. The path to the XML file that contains the rooms for the custom stage (created with
    * Basement Renovator).
    */
-  xmlPath: string;
+  readonly xmlPath: string;
 
   /**
    * Mandatory. An arbitrarily chosen prefix in the range of 101-999 that will be unique to this
@@ -32,7 +32,7 @@ export interface CustomStageTSConfig {
    * @minimum 100
    * @maximum 999
    */
-  roomVariantPrefix: number;
+  readonly roomVariantPrefix: number;
 
   /**
    * Optional. An integer between 2 and 13, corresponding to the `LevelStage` enum. This is the
@@ -53,7 +53,7 @@ export interface CustomStageTSConfig {
    * @minimum 2
    * @maximum 13
    */
-  baseStage?: number;
+  readonly baseStage?: number;
 
   /**
    * Optional. An integer between 0 and 5, corresponding to the `StageType` enum. This is the number
@@ -65,7 +65,7 @@ export interface CustomStageTSConfig {
    * @minimum 0
    * @maximum 5
    */
-  baseStageType?: number;
+  readonly baseStageType?: number;
 
   /**
    * Optional. A string that represents the name of the music track from the "content/music.xml"
@@ -73,14 +73,14 @@ export interface CustomStageTSConfig {
    *
    * If not specified, the same music track as the base stage will be used.
    */
-  music?: string;
+  readonly music?: string;
 
   /**
    * Optional. An object containing the paths to the backdrop graphics for the stage. (A backdrop is
    * the graphics for the walls and floor.) If not specified, the graphics for Basement will be
    * used.
    */
-  backdropPNGPaths?: {
+  readonly backdropPNGPaths?: {
     /**
      * An array that contains the full paths to the graphic files that are used for the floor in
      * narrow rooms. (The "n" stands for "narrow").
@@ -90,7 +90,7 @@ export interface CustomStageTSConfig {
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_basement_nfloor.png".
      */
-    nFloors: string[];
+    readonly nFloors: readonly string[];
 
     /**
      * An array that contains the full paths to the graphic files that are used for the floor in L
@@ -101,7 +101,7 @@ export interface CustomStageTSConfig {
      *
      * For an example of this, see the vanilla file "resources/gfx/backdrop/01_lbasementfloor.png".
      */
-    lFloors: string[];
+    readonly lFloors: readonly string[];
 
     /**
      * An array that contains the full paths to the graphic files that are used for the walls of the
@@ -114,7 +114,7 @@ export interface CustomStageTSConfig {
      * the vanilla file, they concatenate all four variations together into one PNG file. However,
      * for the custom stages feature, you must separate each wall variation into a separate file.)
      */
-    walls: string[];
+    readonly walls: readonly string[];
 
     /**
      * An array that contains the full paths to the graphic files for the stage's corners.
@@ -129,7 +129,7 @@ export interface CustomStageTSConfig {
      * you must separate each corner variation into a separate file (and put it in a different file
      * from the walls).
      */
-    corners: string[];
+    readonly corners: readonly string[];
   };
 
   /**
@@ -142,7 +142,7 @@ export interface CustomStageTSConfig {
    * If you want to have custom animations for your decorations, then do not use this field and use
    * `decorationsANM2Path` instead.
    */
-  decorationsPNGPath?: string;
+  readonly decorationsPNGPath?: string;
 
   /**
    * Optional. The full path to the anm2 file that contains the custom animations for the
@@ -154,7 +154,7 @@ export interface CustomStageTSConfig {
    * If you do not want to have custom animations for your decorations, then do not use this field
    * and use `decorationsPNGPath` instead.
    */
-  decorationsANM2Path?: string;
+  readonly decorationsANM2Path?: string;
 
   /**
    * Optional. The full path to the spritesheet that contains the graphics of the rocks/blocks/urns
@@ -171,7 +171,7 @@ export interface CustomStageTSConfig {
    * If you want to have custom animations for your rocks, then do not use this field and use
    * `rocksANM2Path` instead.
    */
-  rocksPNGPath?: string;
+  readonly rocksPNGPath?: string;
 
   /**
    * Optional. The full path to the anm2 file that contains the custom animations for the
@@ -188,7 +188,7 @@ export interface CustomStageTSConfig {
    * If you do not want to have custom animations for your rocks, then do not use this field and use
    * `rocksPNGPath` instead.
    */
-  rocksANM2Path?: string;
+  readonly rocksANM2Path?: string;
 
   /**
    * Optional. The full path to the spritesheet that contains the graphics of the pits for the
@@ -200,7 +200,7 @@ export interface CustomStageTSConfig {
    * If you do not want to have custom animations for your pits, then do not use this field and use
    * `pitsANM2Path` instead.
    */
-  pitsPNGPath?: string;
+  readonly pitsPNGPath?: string;
 
   /**
    * Optional. The full path to the anm2 file that contains the custom animations for the pits of
@@ -212,13 +212,13 @@ export interface CustomStageTSConfig {
    * If you do not want to have custom animations for your pits, then do not use this field and use
    * `pitsPNGPath` instead.
    */
-  pitsANM2Path?: string;
+  readonly pitsANM2Path?: string;
 
   /**
    * Optional. A collection of paths that contain graphics for the doors of the floor. If not
    * specified, the doors for Basement will be used.
    */
-  doorPNGPaths?: {
+  readonly doorPNGPaths?: {
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the normal doors for
      * the floor.
@@ -226,7 +226,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_01_normaldoor.png`
      */
-    normal?: string; // RoomType.DEFAULT (1)
+    readonly normal?: string; // RoomType.DEFAULT (1)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Treasure Room
@@ -235,7 +235,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_02_treasureroomdoor.png`
      */
-    treasureRoom?: string; // RoomType.TREASURE (4)
+    readonly treasureRoom?: string; // RoomType.TREASURE (4)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Boss Room doors
@@ -244,7 +244,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_10_bossroomdoor.png`
      */
-    bossRoom?: string; // RoomType.BOSS (5)
+    readonly bossRoom?: string; // RoomType.BOSS (5)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Secret Room and
@@ -253,7 +253,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_08_holeinwall.png`
      */
-    secretRoom?: string; // RoomType.SECRET (7) and RoomType.SUPER_SECRET (8)
+    readonly secretRoom?: string; // RoomType.SECRET (7) and RoomType.SUPER_SECRET (8)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the arcade doors for
@@ -262,7 +262,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_05_arcaderoomdoor.png`
      */
-    arcade?: string; // RoomType.ARCADE (9)
+    readonly arcade?: string; // RoomType.ARCADE (9)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Curse Room doors
@@ -271,7 +271,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_04_selfsacrificeroomdoor.png`
      */
-    curseRoom?: string; // RoomType.CURSE (10)
+    readonly curseRoom?: string; // RoomType.CURSE (10)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the normal Challenge
@@ -280,7 +280,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_03_ambushroomdoor.png`
      */
-    normalChallengeRoom?: string; // RoomType.CHALLENGE (11)
+    readonly normalChallengeRoom?: string; // RoomType.CHALLENGE (11)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Boss Challenge
@@ -289,7 +289,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_09_bossambushroomdoor.png`
      */
-    bossChallengeRoom?: string; // RoomType.CHALLENGE (11)
+    readonly bossChallengeRoom?: string; // RoomType.CHALLENGE (11)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Devil Room doors
@@ -298,7 +298,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_07_devilroomdoor.png`
      */
-    devilRoom?: string; // RoomType.DEVIL (14)
+    readonly devilRoom?: string; // RoomType.DEVIL (14)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Angel Room doors
@@ -307,7 +307,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_07_holyroomdoor.png`
      */
-    angelRoom?: string; // RoomType.ANGEL (15)
+    readonly angelRoom?: string; // RoomType.ANGEL (15)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Boss Rush doors
@@ -316,7 +316,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_15_bossrushdoor.png`
      */
-    bossRush?: string; // RoomType.BOSS_RUSH (17)
+    readonly bossRush?: string; // RoomType.BOSS_RUSH (17)
 
     /**
      * Optional. The full path to the spritesheet that contains the graphics of the Chest Room doors
@@ -325,7 +325,7 @@ export interface CustomStageTSConfig {
      * If not specified, the vanilla Basement door spritesheet will be used. For reference, this is
      * located at: `resources/gfx/grid/door_02b_chestroomdoor.png`
      */
-    chestRoom?: string; // RoomType.CHEST (20)
+    readonly chestRoom?: string; // RoomType.CHEST (20)
   };
 
   /**
@@ -343,7 +343,7 @@ export interface CustomStageTSConfig {
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "1x1"?: CustomStageShadow[];
+    readonly "1x1"?: readonly CustomStageShadow[];
 
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
@@ -353,7 +353,7 @@ export interface CustomStageTSConfig {
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "1x2"?: CustomStageShadow[];
+    readonly "1x2"?: readonly CustomStageShadow[];
 
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
@@ -363,7 +363,7 @@ export interface CustomStageTSConfig {
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "2x1"?: CustomStageShadow[];
+    readonly "2x1"?: readonly CustomStageShadow[];
 
     /**
      * Optional. An array containing the shadows that will be used in rooms of shape
@@ -374,14 +374,14 @@ export interface CustomStageTSConfig {
      *
      * If not specified, no extra shadows will be drawn in these room shapes.
      */
-    "2x2"?: CustomStageShadow[];
+    readonly "2x2"?: readonly CustomStageShadow[];
   };
 
   /**
    * Optional. An array containing the bosses that should be used for the stage. This can include
    * both vanilla bosses and modded bosses.
    */
-  bossPool?: CustomStageBossPoolEntry[];
+  readonly bossPool?: readonly CustomStageBossPoolEntry[];
 
   /**
    * Optional. A collection of colors used for in the boss "versus" screen for all of the bosses.
@@ -389,7 +389,7 @@ export interface CustomStageTSConfig {
    * Note that these graphics will only be applied if one or more bosses are specified in the
    * `bossPool` field.
    */
-  versusScreen?: {
+  readonly versusScreen?: {
     /**
      * Optional. An object representing the color to use for the background of the boss "versus"
      * screen. If not specified, the color for Basement 1 will be used.
@@ -397,30 +397,30 @@ export interface CustomStageTSConfig {
      * For a list of the colors that correspond to the vanilla stages, see
      * `versusScreenBackgroundColors.ts`.
      */
-    backgroundColor?: {
+    readonly backgroundColor?: {
       /**
        * @minimum 0
        * @maximum 1
        */
-      r: number;
+      readonly r: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      g: number;
+      readonly g: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      b: number;
+      readonly b: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      a: number;
+      readonly a: number;
     };
 
     /**
@@ -431,30 +431,30 @@ export interface CustomStageTSConfig {
      * For a list of the colors that correspond to the vanilla stages, see
      * `versusScreenDirtSpotColors.ts`.
      */
-    dirtSpotColor?: {
+    readonly dirtSpotColor?: {
       /**
        * @minimum 0
        * @maximum 1
        */
-      r: number;
+      readonly r: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      g: number;
+      readonly g: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      b: number;
+      readonly b: number;
 
       /**
        * @minimum 0
        * @maximum 1
        */
-      a: number;
+      readonly a: number;
     };
   };
 }
@@ -470,7 +470,7 @@ export interface CustomStageShadow {
    * For an example of a vanilla shadow overlay, see:
    * `resources/gfx/overlays/basement/1x1_overlay_1.png`
    */
-  pngPath: string;
+  readonly pngPath: string;
 
   /**
    * Optional. An object representing the color used for the shadow.
@@ -478,12 +478,12 @@ export interface CustomStageShadow {
    * If not specified, an object of `{ r: 0, g: 0, b: 0, a: 0.25 }` will be used (which corresponds
    * to 75% faded black).
    */
-  color?: {
+  readonly color?: {
     /**
      * @minimum 0
      * @maximum 1
      */
-    r: number;
+    readonly r: number;
 
     /**
      * @minimum 0

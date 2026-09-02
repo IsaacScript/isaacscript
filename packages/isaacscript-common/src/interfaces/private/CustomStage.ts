@@ -15,4 +15,7 @@ export interface CustomStage extends CustomStageLua {
 
 export type RoomTypeMap = ReadonlyMap<RoomType, RoomShapeMap>;
 type RoomShapeMap = ReadonlyMap<RoomShape, RoomDoorSlotMap>;
-type RoomDoorSlotMap = ReadonlyMap<DoorSlotFlag, CustomStageRoomMetadata[]>;
+type RoomDoorSlotMap = ReadonlyMap<
+  DoorSlotFlag,
+  readonly CustomStageRoomMetadata[]
+>;

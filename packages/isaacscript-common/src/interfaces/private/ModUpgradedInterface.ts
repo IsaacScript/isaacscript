@@ -9,6 +9,6 @@ import type { Feature } from "../../classes/private/Feature";
  * unsafely type-asserted.
  */
 export interface ModUpgradedInterface extends Mod {
-  initFeature: (feature: Feature) => void;
-  uninitFeature: (feature: Feature) => void;
+  readonly initFeature: (feature: Feature) => void;
+  readonly uninitFeature: (feature: Feature) => void;
 }

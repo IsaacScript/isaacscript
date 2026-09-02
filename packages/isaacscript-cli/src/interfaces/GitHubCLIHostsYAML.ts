@@ -1,7 +1,7 @@
 export interface GitHubCLIHostsYAML {
-  "github.com"?: {
-    user?: string;
-    oauth_token?: string;
-    git_protocol?: string;
+  readonly "github.com"?: {
+    readonly user?: string;
+    readonly oauth_token?: string;
+    readonly git_protocol?: string;
   };
 }

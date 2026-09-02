@@ -18,8 +18,8 @@ import type { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdate
 import { Feature } from "../../private/Feature";
 
 interface QueueElement {
-  playerIndex: PlayerIndex;
-  renderOffset: Vector;
+  readonly playerIndex: PlayerIndex;
+  readonly renderOffset: Readonly<Vector>;
 }
 
 const v = {

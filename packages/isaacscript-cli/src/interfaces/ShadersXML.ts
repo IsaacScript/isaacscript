@@ -1,12 +1,14 @@
 /** This is the format of the "shaders.xml" file that goes in the "content" directory of a mod. */
+// This data is mutated before being serialized back to XML.
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface ShadersXML {
-  shaders: {
-    shader: ShadersXMLShader[];
+  readonly shaders: {
+    readonly shader: ShadersXMLShader[];
   };
 }
 
 interface ShadersXMLShader {
-  $: {
-    name: string;
+  readonly $: {
+    readonly name: string;
   };
 }

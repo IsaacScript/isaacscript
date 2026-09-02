@@ -57,27 +57,27 @@ export type SerializedIsaacAPIClass =
   | SerializedVector;
 
 export interface IsaacAPIClassTypeToType {
-  [CopyableIsaacAPIClassType.BIT_SET_128]: BitSet128;
-  [CopyableIsaacAPIClassType.COLOR]: Color;
-  [CopyableIsaacAPIClassType.K_COLOR]: KColor;
-  [CopyableIsaacAPIClassType.RNG]: RNG;
-  [CopyableIsaacAPIClassType.VECTOR]: Vector;
+  readonly [CopyableIsaacAPIClassType.BIT_SET_128]: Readonly<BitSet128>;
+  readonly [CopyableIsaacAPIClassType.COLOR]: Readonly<Color>;
+  readonly [CopyableIsaacAPIClassType.K_COLOR]: Readonly<KColor>;
+  readonly [CopyableIsaacAPIClassType.RNG]: Readonly<RNG>;
+  readonly [CopyableIsaacAPIClassType.VECTOR]: Readonly<Vector>;
 }
 
 export interface IsaacAPIClassTypeToSerializedType {
-  [CopyableIsaacAPIClassType.BIT_SET_128]: SerializedBitSet128;
-  [CopyableIsaacAPIClassType.COLOR]: SerializedColor;
-  [CopyableIsaacAPIClassType.K_COLOR]: SerializedKColor;
-  [CopyableIsaacAPIClassType.RNG]: SerializedRNG;
-  [CopyableIsaacAPIClassType.VECTOR]: SerializedVector;
+  readonly [CopyableIsaacAPIClassType.BIT_SET_128]: Readonly<SerializedBitSet128>;
+  readonly [CopyableIsaacAPIClassType.COLOR]: Readonly<SerializedColor>;
+  readonly [CopyableIsaacAPIClassType.K_COLOR]: Readonly<SerializedKColor>;
+  readonly [CopyableIsaacAPIClassType.RNG]: Readonly<SerializedRNG>;
+  readonly [CopyableIsaacAPIClassType.VECTOR]: Readonly<SerializedVector>;
 }
 
 export interface IsaacAPIClassTypeFunctions<T, SerializedT> {
-  is: (object: unknown) => object is T;
-  isSerialized: (object: unknown) => object is SerializedT;
-  copy: (object: T) => T;
-  serialize: (object: T) => SerializedT;
-  deserialize: (object: SerializedT) => T;
+  readonly is: (object: unknown) => object is T;
+  readonly isSerialized: (object: unknown) => object is SerializedT;
+  readonly copy: (object: T) => T;
+  readonly serialize: (object: T) => SerializedT;
+  readonly deserialize: (object: SerializedT) => T;
 }
 
 type IsaacAPIClassTypeToFunctions = {

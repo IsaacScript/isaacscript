@@ -25,12 +25,12 @@ import { Feature } from "../../private/Feature";
 import type { DisableInputs } from "./DisableInputs";
 
 interface InitialDescription {
-  position: Vector;
-  positionOffset: Vector;
-  velocity: Vector;
-  height: float;
-  fallingSpeed: float;
-  fallingAcceleration: float;
+  readonly position: Readonly<Vector>;
+  readonly positionOffset: Readonly<Vector>;
+  readonly velocity: Readonly<Vector>;
+  readonly height: float;
+  readonly fallingSpeed: float;
+  readonly fallingAcceleration: float;
 }
 
 const v = {

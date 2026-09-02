@@ -15,9 +15,9 @@ export type OptionalArgs<T extends ModCallbackCustom> = AllButFirst<
 >;
 
 interface Subscription<T extends ModCallbackCustom> {
-  priority: CallbackPriority | int;
-  callbackFunc: AddCallbackParametersCustom[T][0];
-  optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>;
+  readonly priority: CallbackPriority | int;
+  readonly callbackFunc: AddCallbackParametersCustom[T][0];
+  readonly optionalArgs: AllButFirst<AddCallbackParametersCustom[T]>;
 }
 
 /**

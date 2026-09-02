@@ -1,3 +1,5 @@
+/* eslint-disable complete/type-declaration-immutability */
+
 /**
  * This is the type that is fed to the `PRE_ITEM_PICKUP` and `POST_ITEM_PICKUP` custom callbacks.
  *

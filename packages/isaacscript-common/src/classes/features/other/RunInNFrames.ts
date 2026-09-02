@@ -10,10 +10,10 @@ import type { RoomHistory } from "./RoomHistory";
 
 /** Used for `runInNFrames` functions. */
 interface QueuedFunction {
-  func: () => void;
-  frameCountToFire: int;
-  numRoomsEntered: int;
-  cancelIfRoomChanges: boolean;
+  readonly func: () => void;
+  readonly frameCountToFire: int;
+  readonly numRoomsEntered: int;
+  readonly cancelIfRoomChanges: boolean;
 }
 
 /**
@@ -22,8 +22,8 @@ interface QueuedFunction {
  * The return value is whether to continue the function from firing.
  */
 interface IntervalFunction extends QueuedFunction {
-  func: () => boolean;
-  numIntervalFrames: int;
+  readonly func: () => boolean;
+  readonly numIntervalFrames: int;
 }
 
 const v = {

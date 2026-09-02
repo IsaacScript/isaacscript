@@ -14,12 +14,12 @@
  * specifically.
  */
 export interface JSONRoomsFile {
-  rooms: JSONRooms;
+  readonly rooms: JSONRooms;
 }
 
 /** Part of `JSONRoomsFile`. */
 export interface JSONRooms {
-  room: JSONRoom[];
+  readonly room: readonly JSONRoom[];
 }
 
 /** Part of `JSONRoomsFile`. */

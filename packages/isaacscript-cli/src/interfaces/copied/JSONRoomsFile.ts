@@ -18,7 +18,7 @@
  * specifically.
  */
 export interface JSONRoomsFile {
-  rooms: JSONRooms;
+  readonly rooms: JSONRooms;
 }
 
 /** Part of `JSONRoomsFile`. */

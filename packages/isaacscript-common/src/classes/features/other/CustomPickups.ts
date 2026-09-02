@@ -14,8 +14,12 @@ import { spawnEffect } from "../../../functions/entitiesSpecific";
 import { Feature } from "../../private/Feature";
 
 interface CustomPickupFunctions {
-  collectFunc: (this: void, pickup: EntityPickup, player: EntityPlayer) => void;
-  collisionFunc: (
+  readonly collectFunc: (
+    this: void,
+    pickup: EntityPickup,
+    player: EntityPlayer,
+  ) => void;
+  readonly collisionFunc: (
     this: void,
     pickup: EntityPickup,
     player: EntityPlayer,

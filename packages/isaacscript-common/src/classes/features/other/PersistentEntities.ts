@@ -9,12 +9,12 @@ import { Feature } from "../../private/Feature";
 import type { RoomHistory } from "./RoomHistory";
 
 interface PersistentEntityDescription {
-  entityType: EntityType;
-  variant: int;
-  subType: int;
-  dimension: Dimension;
-  roomListIndex: int;
-  position: Readonly<Vector>;
+  readonly entityType: EntityType;
+  readonly variant: int;
+  readonly subType: int;
+  readonly dimension: Dimension;
+  readonly roomListIndex: int;
+  readonly position: Readonly<Vector>;
 }
 
 type PersistentEntityTuple = [index: int, entityPtr: EntityPtr];

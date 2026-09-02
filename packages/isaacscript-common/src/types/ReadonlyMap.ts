@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+// eslint-disable-next-line complete/type-declaration-immutability
 interface ReadonlyMapConstructor {
   new (): ReadonlyMap<any, any>;
   new <K, V>(

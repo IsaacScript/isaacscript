@@ -11,10 +11,10 @@ import { CWD } from "./constants.js";
 export const PACKAGE_MANAGER_USED_FOR_ISAACSCRIPT = PackageManager.npm;
 
 interface PackageManagerOptions {
-  npm: boolean;
-  yarn: boolean;
-  pnpm: boolean;
-  dev?: boolean;
+  readonly npm: boolean;
+  readonly yarn: boolean;
+  readonly pnpm: boolean;
+  readonly dev?: boolean;
 }
 
 export async function getPackageManagerUsedForNewProject(

@@ -18,8 +18,8 @@ import type { RoomHistory } from "./RoomHistory";
 import type { SaveDataManager } from "./SaveDataManager";
 
 interface PickupDescription {
-  position: Vector;
-  initSeed: Seed;
+  readonly position: Readonly<Vector>;
+  readonly initSeed: Seed;
 }
 
 const v = {
