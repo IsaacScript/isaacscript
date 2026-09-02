@@ -431,8 +431,10 @@ export interface AddCallbackParametersCustom {
   ];
 
   readonly [ModCallbackCustom.POST_ITEM_PICKUP]:
-    | [callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void]
-    | [
+    | readonly [
+        callback: (player: EntityPlayer, pickingUpItem: PickingUpItem) => void,
+      ]
+    | readonly [
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItemCollectible,
@@ -440,7 +442,7 @@ export interface AddCallbackParametersCustom {
         itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
         collectibleType?: CollectibleType,
       ]
-    | [
+    | readonly [
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItemTrinket,
@@ -986,13 +988,13 @@ export interface AddCallbackParametersCustom {
   ];
 
   readonly [ModCallbackCustom.PRE_ITEM_PICKUP]:
-    | [
+    | readonly [
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItem,
         ) => boolean | undefined,
       ]
-    | [
+    | readonly [
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItemCollectible,
@@ -1000,7 +1002,7 @@ export interface AddCallbackParametersCustom {
         itemType: ItemType.PASSIVE | ItemType.ACTIVE | ItemType.FAMILIAR,
         collectibleType?: CollectibleType,
       ]
-    | [
+    | readonly [
         callback: (
           player: EntityPlayer,
           pickingUpItem: PickingUpItemTrinket,
