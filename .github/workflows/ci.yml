@@ -8,7 +8,7 @@ jobs:
     outputs:
       package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: set-matrix
         uses: complete-ts/get-package-names@main
         with:
@@ -22,13 +22,13 @@ jobs:
         package-name: ${{ fromJson(needs.get-build-packages.outputs.package-names) }}
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: npm run build
       - name: Store the docs build directory
         if: ${{ matrix.package-name == 'docs' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docs-build
           path: ./packages/docs/build
@@ -38,7 +38,7 @@ jobs:
     outputs:
       package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: set-matrix
         uses: complete-ts/get-package-names@main
         with:
@@ -52,7 +52,7 @@ jobs:
         package-name: ${{ fromJson(needs.get-lint-packages.outputs.package-names) }}
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/workflows/setup
       # https://github.com/astral-sh/setup-uv
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
@@ -65,7 +65,7 @@ jobs:
     outputs:
       package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: set-matrix
         uses: complete-ts/get-package-names@main
         with:
@@ -79,7 +79,7 @@ jobs:
         package-name: ${{ fromJson(needs.get-test-packages.outputs.package-names) }}
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         # We specify custom Node.js options in order to increase the memory size, since GitHub
@@ -91,7 +91,7 @@ jobs:
   monorepo-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/workflows/setup
       - run: npm run lint
 
@@ -100,11 +100,11 @@ jobs:
   #   runs-on: ubuntu-latest
   #   if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v7
   #     - uses: ./.github/workflows/setup
 
   #     - name: Retrieve the docs build directory
-  #       uses: actions/download-artifact@v4
+  #       uses: actions/download-artifact@v8
   #       with:
   #         name: docs-build
   #         path: ./packages/docs/build
@@ -150,7 +150,7 @@ jobs:
   #        exit 1
 
   #     - name: Checkout the docs repository
-  #       uses: actions/checkout@v4
+  #       uses: actions/checkout@v7
   #       with:
   #         ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
   #         repository: IsaacScript/isaacscript.github.io
