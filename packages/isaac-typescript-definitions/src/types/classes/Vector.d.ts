@@ -2,12 +2,12 @@ import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClas
 
 declare global {
   interface Vector extends IsaacAPIClass {
-    Clamp: (minX: float, minY: float, maxX: float, maxY: float) => void;
-    Clamped: (minX: float, minY: float, maxX: float, maxY: float) => Vector;
-    Cross: (secondVector: Vector) => float;
-    Distance: (secondVector: Vector) => float;
-    DistanceSquared: (secondVector: Vector) => float;
-    Dot: (secondVector: Vector) => float;
+    readonly Clamp: (minX: float, minY: float, maxX: float, maxY: float) => void;
+    readonly Clamped: (minX: float, minY: float, maxX: float, maxY: float) => Vector;
+    readonly Cross: (secondVector: Vector) => float;
+    readonly Distance: (secondVector: Vector) => float;
+    readonly DistanceSquared: (secondVector: Vector) => float;
+    readonly Dot: (secondVector: Vector) => float;
 
     /**
      * This method returns a value from -180 to 180.
@@ -20,16 +20,16 @@ declare global {
      * - Left: 180
      * - Down: 90
      */
-    GetAngleDegrees: () => float;
+    readonly GetAngleDegrees: () => float;
 
-    Length: () => float;
-    LengthSquared: () => float;
-    Lerp: (secondVector: Vector, t: float) => Vector;
-    Normalize: () => void;
-    Normalized: () => Vector;
-    Resize: (newLength: float) => void;
-    Resized: (newLength: float) => Vector;
-    Rotated: (angleDegrees: float) => Vector;
+    readonly Length: () => float;
+    readonly LengthSquared: () => float;
+    readonly Lerp: (secondVector: Vector, t: float) => Vector;
+    readonly Normalize: () => void;
+    readonly Normalized: () => Vector;
+    readonly Resize: (newLength: float) => void;
+    readonly Resized: (newLength: float) => Vector;
+    readonly Rotated: (angleDegrees: float) => Vector;
 
     X: float;
     Y: float;
@@ -40,18 +40,18 @@ declare global {
     // The underscore methods like `__add` are not implemented in favor of having `add` and so on.
     // https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
 
-    add: LuaAdditionMethod<Vector, Vector>;
+    readonly add: LuaAdditionMethod<Vector, Vector>;
 
     /**
      * Vector multiplication was extended to allow numbers or vectors in Repentance. However, this
      * functionality does not apply to division.
      */
-    div: LuaDivisionMethod<number, Vector>;
+    readonly div: LuaDivisionMethod<number, Vector>;
 
     /** Vector multiplication was extended to allow numbers or vectors in Repentance. */
-    mul: LuaMultiplicationMethod<number | Vector, Vector>;
+    readonly mul: LuaMultiplicationMethod<number | Vector, Vector>;
 
-    sub: LuaSubtractionMethod<Vector, Vector>;
+    readonly sub: LuaSubtractionMethod<Vector, Vector>;
   }
 
   function Vector(this: void, x: float, y: float): Vector;

@@ -12,7 +12,7 @@ declare global {
 
   /** @noSelf */
   interface EncyclopediaInterface {
-    AddCharacter: (args: {
+    readonly AddCharacter: (args: {
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
       CompletionRenderFuncs?: [
@@ -29,7 +29,7 @@ declare global {
       WikiDesc?: EncyclopediaWikiDescription;
     }) => void;
 
-    AddCharacterTainted: (args: {
+    readonly AddCharacterTainted: (args: {
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
       CompletionRenderFuncs?: [
@@ -46,7 +46,7 @@ declare global {
       WikiDesc?: EncyclopediaWikiDescription;
     }) => void;
 
-    AddItem: (itemTab: {
+    readonly AddItem: (itemTab: {
       ActiveCharge?: number;
       Class?: string;
       CloseFunc?: (vars: EncyclopediaItemVars) => void;
@@ -62,9 +62,9 @@ declare global {
       WikiDesc?: EncyclopediaWikiDescription;
     }) => void;
 
-    AddItemPoolSprite: (id: number, sprite: Sprite) => void;
+    readonly AddItemPoolSprite: (id: number, sprite: Sprite) => void;
 
-    AddPocketItem: (
+    readonly AddPocketItem: (
       itemTab: {
         Class?: string;
         Desc?: string;
@@ -83,7 +83,7 @@ declare global {
       eType: string,
     ) => void;
 
-    AddRune: (itemTab: {
+    readonly AddRune: (itemTab: {
       Class?: string;
       Desc?: string;
       ID: number;
@@ -99,7 +99,7 @@ declare global {
       WikiDesc?: EncyclopediaWikiDescription;
     }) => void;
 
-    AddTrinket: (itemTab: {
+    readonly AddTrinket: (itemTab: {
       Class?: string;
       Desc?: string;
       Hide?: boolean;
@@ -115,11 +115,11 @@ declare global {
       WikiDesc?: EncyclopediaWikiDescription;
     }) => void;
 
-    EIDtoWiki: (desc: string, title?: string) => void;
+    readonly EIDtoWiki: (desc: string, title?: string) => void;
 
-    GetItemPoolIdByName: (name: string) => number;
+    readonly GetItemPoolIdByName: (name: string) => number;
 
-    RegisterSprite: (
+    readonly RegisterSprite: (
       gfxRoot: string,
       anmToPlay: string,
       anmFrame: number,
@@ -143,8 +143,8 @@ declare global {
 
   /** Encyclopedia's "General Item Variables" object. Used to store data about an item. */
   interface EncyclopediaItemVars {
-    CloseFunc: (vars: EncyclopediaItemVars) => void;
-    StatusFunc: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
+    readonly CloseFunc: (vars: EncyclopediaItemVars) => void;
+    readonly StatusFunc: (vars: EncyclopediaItemVars) => EncyclopediaItemVars;
 
     AllIndex?: number;
     AllIntIndex: number;

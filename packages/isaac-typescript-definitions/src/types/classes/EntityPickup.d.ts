@@ -17,10 +17,10 @@ import type { EntityType } from "../../enums/EntityType";
 
 declare global {
   interface EntityPickup extends Entity {
-    AppearFast: () => void;
-    CanReroll: () => boolean;
-    GetCoinValue: () => int;
-    IsShopItem: () => boolean;
+    readonly AppearFast: () => void;
+    readonly CanReroll: () => boolean;
+    readonly GetCoinValue: () => int;
+    readonly IsShopItem: () => boolean;
 
     /**
      * @param entityType
@@ -33,7 +33,7 @@ declare global {
      *                        something other than the specified variant and subtype. Default is
      *                        false.
      */
-    Morph: (
+    readonly Morph: (
       entityType: EntityType,
       variant: int,
       subType: int,
@@ -42,11 +42,11 @@ declare global {
       ignoreModifiers?: boolean,
     ) => void;
 
-    PlayDropSound: () => void;
-    PlayPickupSound: () => void;
+    readonly PlayDropSound: () => void;
+    readonly PlayPickupSound: () => void;
 
     /** @param player Default is undefined. */
-    TryOpenChest: (player?: EntityPlayer) => boolean;
+    readonly TryOpenChest: (player?: EntityPlayer) => boolean;
 
     AutoUpdatePrice: boolean;
     Charge: int;

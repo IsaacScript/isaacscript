@@ -4,20 +4,20 @@ import type { TargetFlag } from "../../enums/flags/TargetFlag";
 
 declare global {
   interface EntityFamiliar extends Entity {
-    AddCoins: (value: int) => void;
-    AddHearts: (hearts: int) => void;
-    AddKeys: (keys: int) => void;
-    AddToDelayed: () => void;
-    AddToFollowers: () => void;
-    AddToOrbit: (layer: int) => void;
-    FireProjectile: (direction: Vector) => EntityTear;
-    FollowParent: () => void;
-    FollowPosition: (position: Vector) => void;
-    GetOrbitPosition: (position: Vector) => Vector;
-    IsDelayed: () => boolean;
-    IsFollower: () => boolean;
-    MoveDelayed: (numFrames: int) => void;
-    MoveDiagonally: (speed: float) => void;
+    readonly AddCoins: (value: int) => void;
+    readonly AddHearts: (hearts: int) => void;
+    readonly AddKeys: (keys: int) => void;
+    readonly AddToDelayed: () => void;
+    readonly AddToFollowers: () => void;
+    readonly AddToOrbit: (layer: int) => void;
+    readonly FireProjectile: (direction: Vector) => EntityTear;
+    readonly FollowParent: () => void;
+    readonly FollowPosition: (position: Vector) => void;
+    readonly GetOrbitPosition: (position: Vector) => Vector;
+    readonly IsDelayed: () => boolean;
+    readonly IsFollower: () => boolean;
+    readonly MoveDelayed: (numFrames: int) => void;
+    readonly MoveDiagonally: (speed: float) => void;
 
     /**
      * @param maxDistance
@@ -29,7 +29,7 @@ declare global {
      *                  half angle of the search cone in degrees. (For example, 45 results in a
      *                  search angle of 90 degrees.)
      */
-    PickEnemyTarget: (
+    readonly PickEnemyTarget: (
       maxDistance: float,
       frameInterval?: int,
       flags?: TargetFlag | BitFlags<TargetFlag>,
@@ -37,14 +37,14 @@ declare global {
       coneAngle?: float,
     ) => void;
 
-    PlayChargeAnim: (direction: Direction) => void;
-    PlayFloatAnim: (direction: Direction) => void;
-    PlayShootAnim: (direction: Direction) => void;
-    RecalculateOrbitOffset: (layer: int, add: boolean) => int;
-    RemoveFromDelayed: () => void;
-    RemoveFromFollowers: () => void;
-    RemoveFromOrbit: () => void;
-    Shoot: () => void;
+    readonly PlayChargeAnim: (direction: Direction) => void;
+    readonly PlayFloatAnim: (direction: Direction) => void;
+    readonly PlayShootAnim: (direction: Direction) => void;
+    readonly RecalculateOrbitOffset: (layer: int, add: boolean) => int;
+    readonly RemoveFromDelayed: () => void;
+    readonly RemoveFromFollowers: () => void;
+    readonly RemoveFromOrbit: () => void;
+    readonly Shoot: () => void;
 
     Coins: int;
     FireCooldown: int;

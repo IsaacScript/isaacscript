@@ -2,13 +2,13 @@ import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClas
 
 declare global {
   interface RNG extends IsaacAPIClass {
-    GetSeed: () => Seed;
+    readonly GetSeed: () => Seed;
 
     /**
      * "Iterates" the RNG object and returns the iterated seed, which will be a new random number
      * between 1 and 4294967295 (2^32 - 1).
      */
-    Next: () => Seed;
+    readonly Next: () => Seed;
 
     /**
      * Returns a random float between 0 and 1. It is inclusive on the lower end and exclusive on the
@@ -17,7 +17,7 @@ declare global {
      * Note that this will automatically call the `RNG.Next` method before retrieving the random
      * number. Since this mutates the RNG object, you should use this method with care.
      */
-    RandomFloat: () => float;
+    readonly RandomFloat: () => float;
 
     /**
      * Returns a random integer between 0 and max. It is inclusive on the lower end and exclusive on
@@ -28,7 +28,7 @@ declare global {
      * Note that this will automatically call the `RNG.Next` method before retrieving the random
      * number. Since this mutates the RNG object, you should use this method with care.
      */
-    RandomInt: (max: int) => int;
+    readonly RandomInt: (max: int) => int;
 
     /**
      * It is recommended to never use the `RNG.SetSeed` method directly and instead use the
@@ -45,7 +45,7 @@ declare global {
      * @param shiftIdx Can be any value between 0 and 80 (inclusive).
      * @deprecated
      */
-    SetSeed: (seed: Seed, shiftIdx: int) => void;
+    readonly SetSeed: (seed: Seed, shiftIdx: int) => void;
 
     /** An identifier that does not exist at run-time. */
     __kind: CopyableIsaacAPIClassType.RNG;

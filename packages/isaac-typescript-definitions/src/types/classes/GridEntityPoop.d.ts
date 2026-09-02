@@ -7,9 +7,9 @@ declare global {
    * `GridEntity.ToPoop` method.
    */
   interface GridEntityPoop extends GridEntity {
-    GetVariant: () => PoopGridEntityVariant;
-    ReduceSpawnRate: () => void;
-    RespawnRedPoop: () => void;
+    readonly GetVariant: () => PoopGridEntityVariant;
+    readonly ReduceSpawnRate: () => void;
+    readonly RespawnRedPoop: () => void;
 
     ReducedSpawnRate: boolean;
     ReviveTimer: int;

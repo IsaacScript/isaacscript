@@ -4,24 +4,24 @@ import type { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
 declare global {
   interface EntityProjectile extends Entity {
     /** See `ChangeFlags`. */
-    AddChangeFlags: (flags: ProjectileFlag | BitFlags<ProjectileFlag>) => void;
+    readonly AddChangeFlags: (flags: ProjectileFlag | BitFlags<ProjectileFlag>) => void;
 
-    AddFallingAccel: (value: float) => void;
-    AddFallingSpeed: (value: float) => void;
-    AddHeight: (value: float) => void;
+    readonly AddFallingAccel: (value: float) => void;
+    readonly AddFallingSpeed: (value: float) => void;
+    readonly AddHeight: (value: float) => void;
 
     /** You can change the attributes of the projectile by adding one or more `ProjectileFlag`. */
-    AddProjectileFlags: (
+    readonly AddProjectileFlags: (
       flags: ProjectileFlag | BitFlags<ProjectileFlag>,
     ) => void;
 
-    AddScale: (value: float) => void;
+    readonly AddScale: (value: float) => void;
 
-    ClearProjectileFlags: (
+    readonly ClearProjectileFlags: (
       flags: ProjectileFlag | BitFlags<ProjectileFlag>,
     ) => void;
 
-    HasProjectileFlags: (
+    readonly HasProjectileFlags: (
       flags: ProjectileFlag | BitFlags<ProjectileFlag>,
     ) => boolean;
 

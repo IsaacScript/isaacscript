@@ -20,7 +20,7 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth Default is 0.
    * @param center Default is false.
    */
-  DrawString: ((
+  readonly DrawString: ((
     str: string,
     positionX: float,
     positionY: float,
@@ -53,7 +53,7 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth Default is 0.
    * @param center Default is false.
    */
-  DrawStringScaled: (
+  readonly DrawStringScaled: (
     str: string,
     positionX: float,
     positionY: float,
@@ -79,7 +79,7 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth
    * @param center
    */
-  DrawStringScaledUTF8: (
+  readonly DrawStringScaledUTF8: (
     str: string,
     positionX: float,
     positionY: float,
@@ -103,7 +103,7 @@ declare interface Font extends IsaacAPIClass {
    * @param boxWidth Default is 0.
    * @param center Default is false.
    */
-  DrawStringUTF8: (
+  readonly DrawStringUTF8: (
     str: string,
     positionX: float,
     positionY: float,
@@ -115,28 +115,28 @@ declare interface Font extends IsaacAPIClass {
   /**
    * Returns the number of pixels from the absolute top of the line to the base of the characters.
    */
-  GetBaselineHeight: () => int;
+  readonly GetBaselineHeight: () => int;
 
   /** Returns the width of a specific character. */
-  GetCharacterWidth: (character: string) => int;
+  readonly GetCharacterWidth: (character: string) => int;
 
   /** Returns the distance in pixels between each line of text. */
-  GetLineHeight: () => int;
+  readonly GetLineHeight: () => int;
 
   /** Converts a string from UTF-8 to UTF16, and returns the string's width. */
-  GetStringWidth: (str: string) => int;
+  readonly GetStringWidth: (str: string) => int;
 
   /** Returns the string width of a Unicode text. */
-  GetStringWidthUTF8: (str: string) => int;
+  readonly GetStringWidthUTF8: (str: string) => int;
 
-  IsLoaded: () => boolean;
-  Load: (filePath: string) => boolean;
+  readonly IsLoaded: () => boolean;
+  readonly Load: (filePath: string) => boolean;
 
   /** Sets the character that will be used when a missing character is encountered by the font. */
-  SetMissingCharacter: (missingCharacter: int) => void;
+  readonly SetMissingCharacter: (missingCharacter: int) => void;
 
   /** Unloads the font from memory. */
-  Unload: () => void;
+  readonly Unload: () => void;
 }
 
 declare function Font(this: void): Font;

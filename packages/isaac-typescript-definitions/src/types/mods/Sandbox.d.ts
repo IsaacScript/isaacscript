@@ -5,17 +5,17 @@
  * @see https://isaacracing.net/
  */
 declare interface Sandbox {
-  connect: (
+  readonly connect: (
     hostname: string,
     port: int,
     useTCP: boolean,
   ) => SocketClient | undefined;
-  connectLocalhost: (port: int, useTCP: boolean) => SocketClient | undefined;
-  getDate: (format?: string) => string;
-  getParentFunctionDescription: (levels: int) => string;
-  getTime: () => float;
-  getTraceback: () => string;
-  init: () => void;
-  isSocketInitialized: () => boolean;
-  traceback: () => void;
+  readonly connectLocalhost: (port: int, useTCP: boolean) => SocketClient | undefined;
+  readonly getDate: (format?: string) => string;
+  readonly getParentFunctionDescription: (levels: int) => string;
+  readonly getTime: () => float;
+  readonly getTraceback: () => string;
+  readonly init: () => void;
+  readonly isSocketInitialized: () => boolean;
+  readonly traceback: () => void;
 }

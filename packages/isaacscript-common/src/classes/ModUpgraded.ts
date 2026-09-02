@@ -48,7 +48,7 @@ export class ModUpgraded implements Mod {
   // Vanilla variables
   // -----------------
 
-  public Name: string;
+  public readonly Name: string;
 
   // -----------
   // Constructor

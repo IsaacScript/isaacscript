@@ -3,31 +3,31 @@ import type { GridEntityType } from "../../enums/GridEntityType";
 
 declare global {
   interface GridEntity extends IsaacAPIClass {
-    Destroy: (immediate: boolean) => boolean;
+    readonly Destroy: (immediate: boolean) => boolean;
 
     /** Added in Repentance+. */
-    DestroyWithSource: (immediate: boolean, source: EntityRef) => boolean;
+    readonly DestroyWithSource: (immediate: boolean, source: EntityRef) => boolean;
 
-    GetGridIndex: () => int;
+    readonly GetGridIndex: () => int;
 
     /** The RNG returned is a reference (i.e. not a copy). */
-    GetRNG: () => RNG;
+    readonly GetRNG: () => RNG;
 
-    GetSaveState: () => GridEntityDesc;
+    readonly GetSaveState: () => GridEntityDesc;
 
     /** The `Sprite` returned is a reference (i.e. not a copy). */
-    GetSprite: () => Sprite;
+    readonly GetSprite: () => Sprite;
 
-    GetType: () => GridEntityType;
-    GetVariant: () => int;
-    Hurt: (damage: int) => boolean;
+    readonly GetType: () => GridEntityType;
+    readonly GetVariant: () => int;
+    readonly Hurt: (damage: int) => boolean;
 
     /** Added in Repentance+. */
-    HurtWithSource: (damage: int, source: EntityRef) => boolean;
+    readonly HurtWithSource: (damage: int, source: EntityRef) => boolean;
 
-    Init: (seed: Seed) => void;
-    PostInit: () => void;
-    Render: (offset: Vector) => void;
+    readonly Init: (seed: Seed) => void;
+    readonly PostInit: () => void;
+    readonly Render: (offset: Vector) => void;
 
     /**
      * Note that changing the type of a grid entity does not update the corresponding sprite. Use
@@ -35,17 +35,17 @@ declare global {
      *
      * Setting the new type to `GridEntityType.NULL` (0) will have no effect.
      */
-    SetType: (gridEntityType: GridEntityType) => void;
+    readonly SetType: (gridEntityType: GridEntityType) => void;
 
-    SetVariant: (variant: int) => void;
-    ToDoor: () => GridEntityDoor | undefined;
-    ToPit: () => GridEntityPit | undefined;
-    ToPoop: () => GridEntityPoop | undefined;
-    ToPressurePlate: () => GridEntityPressurePlate | undefined;
-    ToRock: () => GridEntityRock | undefined;
-    ToSpikes: () => GridEntitySpikes | undefined;
-    ToTNT: () => GridEntityTNT | undefined;
-    Update: () => void;
+    readonly SetVariant: (variant: int) => void;
+    readonly ToDoor: () => GridEntityDoor | undefined;
+    readonly ToPit: () => GridEntityPit | undefined;
+    readonly ToPoop: () => GridEntityPoop | undefined;
+    readonly ToPressurePlate: () => GridEntityPressurePlate | undefined;
+    readonly ToRock: () => GridEntityRock | undefined;
+    readonly ToSpikes: () => GridEntitySpikes | undefined;
+    readonly ToTNT: () => GridEntityTNT | undefined;
+    readonly Update: () => void;
 
     CollisionClass: GridCollisionClass;
 

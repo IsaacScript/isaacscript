@@ -7,8 +7,8 @@ declare global {
    * the `GridEntity.ToPressurePlate` method.
    */
   interface GridEntityPressurePlate extends GridEntity {
-    GetVariant: () => PressurePlateVariant;
-    Reward: () => void;
+    readonly GetVariant: () => PressurePlateVariant;
+    readonly Reward: () => void;
 
     GreedModeRNG: RNG;
     NextGreedAnimation: string;

@@ -3,35 +3,35 @@ import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface EntityLaser extends Entity {
-    AddTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
-    ClearTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
-    GetEndPoint: () => Readonly<Vector>;
+    readonly AddTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
+    readonly ClearTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => void;
+    readonly GetEndPoint: () => Readonly<Vector>;
 
     // GetNonOptimizedSamples is not implemented.
 
-    GetRenderZ: () => int;
+    readonly GetRenderZ: () => int;
 
     // GetSamples is not implemented.
 
-    HasTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => boolean;
-    IsCircleLaser: () => boolean;
-    IsSampleLaser: () => boolean;
+    readonly HasTearFlags: (flags: TearFlag | BitFlags<TearFlag>) => boolean;
+    readonly IsCircleLaser: () => boolean;
+    readonly IsSampleLaser: () => boolean;
 
-    SetActiveRotation: (
+    readonly SetActiveRotation: (
       delay: int,
       angleDegrees: float,
       rotationSpeed: float,
       timeoutComplete: boolean,
     ) => void;
 
-    SetBlackHpDropChance: (chance: float) => void;
+    readonly SetBlackHpDropChance: (chance: float) => void;
 
     // SetHomingType is not implemented.
 
-    SetMaxDistance: (distance: float) => void;
-    SetMultidimensionalTouched: (value: boolean) => void;
-    SetOneHit: (value: boolean) => void;
-    SetTimeout: (value: int) => void;
+    readonly SetMaxDistance: (distance: float) => void;
+    readonly SetMultidimensionalTouched: (value: boolean) => void;
+    readonly SetOneHit: (value: boolean) => void;
+    readonly SetTimeout: (value: int) => void;
 
     Angle: float;
     AngleDegrees: float;

@@ -41,7 +41,7 @@ declare global {
   }
 
   interface StageAPICustomGrid {
-    Spawn: (
+    readonly Spawn: (
       grindex: number, // cspell:ignore grindex
       force: boolean,
       reSpawning: boolean,
@@ -50,7 +50,7 @@ declare global {
   }
 
   interface StageAPICustomGridEntity {
-    Remove: (keepBaseGrid: boolean) => void;
+    readonly Remove: (keepBaseGrid: boolean) => void;
     Data: Record<string, unknown>;
     GridConfig: StageAPICustomGrid;
     GridIndex: int;
@@ -59,7 +59,7 @@ declare global {
 
   interface StageAPICustomStage {
     /** Gets the ID of the currently playing music. */
-    GetPlayingMusic: () => int;
+    readonly GetPlayingMusic: () => int;
 
     /**
      * Automatically aliases the new stage to the old one, if noSetAlias is not set.
@@ -68,10 +68,10 @@ declare global {
      *
      * STILL NEEDS A UNIQUE NAME.
      */
-    InheritInit: (name: string, noSetAlias?: boolean) => void;
+    readonly InheritInit: (name: string, noSetAlias?: boolean) => void;
 
     /** If this CustomStage is, in fact, a stage. */
-    IsStage: (noAlias: boolean) => boolean;
+    readonly IsStage: (noAlias: boolean) => boolean;
 
     /**
      * Indicates that this stage overrides alt rock effects.
@@ -81,10 +81,10 @@ declare global {
      *
      * DOES NOT add any new effects on its own.
      */
-    OverrideRockAltEffects: (rooms?: readonly RoomType[]) => void;
+    readonly OverrideRockAltEffects: (rooms?: readonly RoomType[]) => void;
 
     /** Sets the boss music used by the stage. */
-    SetBossMusic: (
+    readonly SetBossMusic: (
       musicID: int,
       clearedMusicID: int,
       introMusicID: int,
@@ -92,31 +92,31 @@ declare global {
     ) => void;
 
     /** Sets the available bosses for the stage. */
-    SetBosses: (bossIDs: readonly string[]) => void;
+    readonly SetBosses: (bossIDs: readonly string[]) => void;
 
     /** Sets the name displayed to the player. */
-    SetDisplayName: (name: string) => void;
+    readonly SetDisplayName: (name: string) => void;
 
     /** Sets if this is the second half of a stage. */
-    SetIsSecondStage: (isSecondStage: boolean) => void;
+    readonly SetIsSecondStage: (isSecondStage: boolean) => void;
 
     /** Sets the music used by the stage. */
-    SetMusic: (musicID: int, roomType: RoomType) => void;
+    readonly SetMusic: (musicID: int, roomType: RoomType) => void;
 
     /**
      * Sets the internal name/id.
      *
      * MUST BE UNIQUE.
      */
-    SetName: (name: string) => void;
+    readonly SetName: (name: string) => void;
 
     /** Sets the stage after this one. */
-    SetNextStage: (
+    readonly SetNextStage: (
       nextStage: StageAPICustomStage | StageAPIVanillaStage,
     ) => void;
 
     /** Sets the stage this `CustomStage` overrides. */
-    SetReplace: (stageOverrideStage: StageAPIStageOverrideStage) => void;
+    readonly SetReplace: (stageOverrideStage: StageAPIStageOverrideStage) => void;
 
     /**
      * Sets the RoomGfx used by the stage.
@@ -125,19 +125,19 @@ declare global {
      * @param roomTypes The room types these gfx apply to. Can be a string identifier, a `RoomType`,
      *                  or an array of either.
      */
-    SetRoomGfx: (
+    readonly SetRoomGfx: (
       roomGfx: StageAPIRoomGfx,
       roomTypes: string | RoomType | readonly string[] | readonly RoomType[],
     ) => void;
 
     /** Sets the list room layouts used by the stage. */
-    SetRooms: (roomsList: StageAPIRoomsList) => void;
+    readonly SetRooms: (roomsList: StageAPIRoomsList) => void;
 
     /**
      * Sets the paths to the "spot" graphic, the patch of ground underneath the boss, and player
      * sprites in the pre-boss cutscene.
      */
-    SetSpots: (
+    readonly SetSpots: (
       bossSpot?: string,
       playerSpot?: string,
       bgColor?: Color,
@@ -145,13 +145,13 @@ declare global {
     ) => void;
 
     /** Sets the stage's music. */
-    SetStageMusic: (music: number, types: readonly RoomType[]) => void;
+    readonly SetStageMusic: (music: number, types: readonly RoomType[]) => void;
 
     /** Sets the stage's number. */
-    SetStageNumber: (num: int) => void;
+    readonly SetStageNumber: (num: int) => void;
 
     /** Sets the path to the stage transition icon. */
-    SetTransitionIcon: (iconPath: string) => void;
+    readonly SetTransitionIcon: (iconPath: string) => void;
   }
 
   interface StageAPIDoorInfo {
@@ -197,23 +197,23 @@ declare global {
 
   interface StageAPIGridGfx {
     /** Sets the path to the gfx sprite sheet of the specified subset of doors. */
-    AddDoors: (filename: string, DoorInfo: StageAPIDoorInfo) => void;
+    readonly AddDoors: (filename: string, DoorInfo: StageAPIDoorInfo) => void;
 
     /** Sets the path to the bridge gfx sprite sheet. */
-    SetBridges: (filename: string) => void;
+    readonly SetBridges: (filename: string) => void;
 
     /** Sets the path to the decoration gfx sprite sheet. */
-    SetDecorations: (filename: string) => void;
+    readonly SetDecorations: (filename: string) => void;
 
     /** Sets the path to the gfx sprite sheet for the specified `GridEntityType`. */
-    SetGrid: (
+    readonly SetGrid: (
       filename: string,
       GridEntityType: GridEntityType,
       variant: int,
     ) => void;
 
     /** Sets the path to the pay-to-play door gfx sprite sheet. */
-    SetPayToPlayDoor: (filename: string) => void;
+    readonly SetPayToPlayDoor: (filename: string) => void;
 
     /**
      * Sets the path to the pit gfx sprite sheet.
@@ -223,7 +223,7 @@ declare global {
      * @param hasExtraFrames Controls for situations where the base game would not normally tile
      *                       pits specially.
      */
-    SetPits: ((
+    readonly SetPits: ((
       filename: string,
       altPitsFilename?: string,
       hasExtraFrames?: boolean,
@@ -240,17 +240,17 @@ declare global {
       ) => void);
 
     /** Sets the path to the rock gfx sprite sheet. */
-    SetRocks: (filename: string) => void;
+    readonly SetRocks: (filename: string) => void;
   }
 
   interface StageAPILevelMap {
-    GetCurrentRoomData: () => StageAPIRoomData;
-    GetRoom: (roomData: StageAPIRoomData) => StageAPILevelRoom;
+    readonly GetCurrentRoomData: () => StageAPIRoomData;
+    readonly GetRoom: (roomData: StageAPIRoomData) => StageAPILevelRoom;
     Map: StageAPIRoomData[];
   }
 
   interface StageAPILevelRoom {
-    SetTypeOverride: (typeOverride: RoomType) => void;
+    readonly SetTypeOverride: (typeOverride: RoomType) => void;
     AvoidSpawning: unknown;
     AwardSeed: Seed;
     ClearCount: int;
@@ -276,9 +276,9 @@ declare global {
   }
 
   interface StageAPIOverlay {
-    Fade: (total: int, time: int, step: int) => void;
-    Render: (noCenterCorrect: boolean) => void;
-    SetAlpha: (alpha: int, noCancelFade: boolean) => void;
+    readonly Fade: (total: int, time: int, step: int) => void;
+    readonly Render: (noCenterCorrect: boolean) => void;
+    readonly SetAlpha: (alpha: int, noCancelFade: boolean) => void;
     Anm2: string;
     Offset?: Vector;
     Size?: Vector;
@@ -319,7 +319,7 @@ declare global {
   }
 
   interface StageAPIRoomsList {
-    AddRooms: (
+    readonly AddRooms: (
       roomFiles: readonly string[] | readonly StageAPICustomRoomConfig[],
     ) => void;
   }

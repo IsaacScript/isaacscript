@@ -35,10 +35,10 @@ import type { WeaponType } from "../../enums/WeaponType";
 declare global {
   interface EntityPlayer extends Entity {
     /** 1 unit is half a heart. Remove them with negative numbers. */
-    AddBlackHearts: (blackHearts: int) => void;
+    readonly AddBlackHearts: (blackHearts: int) => void;
 
     /** Adds Tainted Bethany's blood charges. Only works on Tainted Bethany. */
-    AddBloodCharge: (num: int) => void;
+    readonly AddBloodCharge: (num: int) => void;
 
     /**
      * @param amount
@@ -46,33 +46,33 @@ declare global {
      * @param target This argument is not optional. If you want to spawn a fly without a target,
      *               then you must explicitly pass undefined.
      */
-    AddBlueFlies: (
+    readonly AddBlueFlies: (
       amount: int,
       position: Vector,
       target: Entity | undefined,
     ) => Entity;
 
-    AddBlueSpider: (position: Vector) => Entity;
+    readonly AddBlueSpider: (position: Vector) => Entity;
 
     /** Remove them with negative numbers. */
-    AddBombs: (amount: int) => void;
+    readonly AddBombs: (amount: int) => void;
 
     /** Remove them with negative numbers. */
-    AddBoneHearts: (hearts: int) => void;
+    readonly AddBoneHearts: (hearts: int) => void;
 
     /** Remove them with negative numbers. */
-    AddBrokenHearts: (hearts: int) => void;
+    readonly AddBrokenHearts: (hearts: int) => void;
 
     /**
      * Used to specify the kinds of stats that should be evaluated the next time the
      * `EntityPlayer.EvaluateCache` method is run.
      */
-    AddCacheFlags: (cacheFlags: CacheFlag | BitFlags<CacheFlag>) => void;
+    readonly AddCacheFlags: (cacheFlags: CacheFlag | BitFlags<CacheFlag>) => void;
 
-    AddCard: (cardType: CardType) => void;
+    readonly AddCard: (cardType: CardType) => void;
 
     /** Remove them with negative numbers. */
-    AddCoins: (amount: int) => void;
+    readonly AddCoins: (amount: int) => void;
 
     /**
      * Note that adding a collectible to `ActiveSlot.POCKET` or `ActiveSlot.POCKET_SINGLE_USE` will
@@ -89,7 +89,7 @@ declare global {
      *                for some active items like the number of uses for Jar of Wisps). Default is 0.
      * @param itemPoolType This parameter was added in Repentance+.
      */
-    AddCollectible: (
+    readonly AddCollectible: (
       collectibleType: CollectibleType,
       charge?: int,
       firstTimePickingUp?: boolean,
@@ -98,8 +98,8 @@ declare global {
       itemPoolType?: ItemPoolType,
     ) => void;
 
-    AddControlsCooldown: (cooldown: int) => void;
-    AddCostume: (
+    readonly AddControlsCooldown: (cooldown: int) => void;
+    readonly AddCostume: (
       itemConfigItem: ItemConfigItem,
       itemStateOnly: boolean,
     ) => void;
@@ -108,16 +108,16 @@ declare global {
      * Disables all item effects, similar to what happens in the abandoned mineshaft in Mines II.
      * This also temporarily removes consumables and pocket items.
      */
-    AddCurseMistEffect: () => void;
+    readonly AddCurseMistEffect: () => void;
 
-    AddDeadEyeCharge: () => void;
-    AddDollarBillEffect: () => void;
+    readonly AddDeadEyeCharge: () => void;
+    readonly AddDollarBillEffect: () => void;
 
     /** Remove them with negative numbers. */
-    AddEternalHearts: (eternalHearts: int) => void;
+    readonly AddEternalHearts: (eternalHearts: int) => void;
 
     /** Spawns a friendly dip from Dirty Mind. */
-    AddFriendlyDip: (
+    readonly AddFriendlyDip: (
       subType: DipFamiliarSubType,
       position: Vector,
     ) => EntityFamiliar;
@@ -130,19 +130,19 @@ declare global {
      *
      * @param num
      */
-    AddGigaBombs: (num: int) => void;
+    readonly AddGigaBombs: (num: int) => void;
 
     /** Remove them with negative numbers. */
-    AddGoldenBomb: () => void;
+    readonly AddGoldenBomb: () => void;
 
-    AddGoldenHearts: (hearts: int) => void;
-    AddGoldenKey: () => void;
+    readonly AddGoldenHearts: (hearts: int) => void;
+    readonly AddGoldenKey: () => void;
 
     /**
      * Adds red hearts to the player if there are any empty heart containers. 1 unit is half a
      * heart. Remove health with negative numbers.
      */
-    AddHearts: (hearts: int) => void;
+    readonly AddHearts: (hearts: int) => void;
 
     /**
      * Spawns a Lemegeton wisp.
@@ -151,24 +151,24 @@ declare global {
      * @param position
      * @param adjustOrbitLayer Default is false.
      */
-    AddItemWisp: (
+    readonly AddItemWisp: (
       subType: int,
       position: Vector,
       adjustOrbitLayer?: boolean,
     ) => EntityFamiliar;
 
-    AddJarFlies: (flies: int) => void;
-    AddJarHearts: (hearts: int) => void;
+    readonly AddJarFlies: (flies: int) => void;
+    readonly AddJarHearts: (hearts: int) => void;
 
     /** Remove them with negative numbers. */
-    AddKeys: (amount: int) => void;
+    readonly AddKeys: (amount: int) => void;
 
     /**
      * Adds heart containers to the player. 2 units is a full heart container.
      *
      * Remove them with negative numbers.
      */
-    AddMaxHearts: (maxHearts: int, ignoreKeeper: boolean) => void;
+    readonly AddMaxHearts: (maxHearts: int, ignoreKeeper: boolean) => void;
 
     /**
      * Spawns a mini Isaac from Giant Cell.
@@ -176,16 +176,16 @@ declare global {
      * @param position
      * @param playAnim If false, skips the appear animation for the familiars.
      */
-    AddMinisaac: (position: Vector, playAnim?: boolean) => EntityFamiliar;
+    readonly AddMinisaac: (position: Vector, playAnim?: boolean) => EntityFamiliar;
 
-    AddNullCostume: (nullItemID: NullItemID) => void;
-    AddPill: (pillColor: PillColor) => void;
-    AddPlayerFormCostume: (playerForm: PlayerForm) => void;
+    readonly AddNullCostume: (nullItemID: NullItemID) => void;
+    readonly AddPill: (pillColor: PillColor) => void;
+    readonly AddPlayerFormCostume: (playerForm: PlayerForm) => void;
 
     /** Adds (or removes) poop consumables from the player. */
-    AddPoopMana: (num: int) => void;
+    readonly AddPoopMana: (num: int) => void;
 
-    AddPrettyFly: () => void;
+    readonly AddPrettyFly: () => void;
 
     /**
      * Remove them with negative numbers.
@@ -197,16 +197,16 @@ declare global {
      * @param hearts Rotten hearts must be specified in a multiple of 2. For example,
      *               `AddRottenHearts(4)` will add 2 rotten hearts.
      */
-    AddRottenHearts: (hearts: int) => void;
+    readonly AddRottenHearts: (hearts: int) => void;
 
     /** Adds Bethany's soul heart charges. Only works on Bethany. */
-    AddSoulCharge: (num: int) => void;
+    readonly AddSoulCharge: (num: int) => void;
 
     /** 1 unit is half a heart. Remove them with negative numbers. */
-    AddSoulHearts: (soulHearts: int) => void;
+    readonly AddSoulHearts: (soulHearts: int) => void;
 
     /** Spawns a defensive fly from The Swarm. */
-    AddSwarmFlyOrbital: (position: Vector) => EntityFamiliar;
+    readonly AddSwarmFlyOrbital: (position: Vector) => EntityFamiliar;
 
     /**
      * - If the player does not have any open trinket slots, this function will do nothing.
@@ -219,7 +219,7 @@ declare global {
      *                           and will not cause it to count towards transformations. Default is
      *                           true.
      */
-    AddTrinket: (
+    readonly AddTrinket: (
       trinketType: TrinketType,
       firstTimePickingUp?: boolean,
     ) => void;
@@ -237,7 +237,7 @@ declare global {
      *                   properties to be set on the first frame before the wisp is fully
      *                   initialized. Default is false.
      */
-    AddWisp: (
+    readonly AddWisp: (
       subType: int,
       position: Vector,
       adjustOrbitLayer?: boolean,
@@ -248,13 +248,13 @@ declare global {
      * Play the animation that is normally played at the beginning of a stage (where Isaac is laying
      * down).
      */
-    AnimateAppear: () => void;
+    readonly AnimateAppear: () => void;
 
     /**
      * @param cardType
      * @param playerItemAnimation Default is "Pickup".
      */
-    AnimateCard: (
+    readonly AnimateCard: (
       cardType: CardType,
       playerItemAnimation?: PlayerItemAnimation,
     ) => void;
@@ -264,17 +264,17 @@ declare global {
      * @param playerItemAnimation Default is "Pickup".
      * @param collectibleAnimation Default is "PlayerPickupSparkle".
      */
-    AnimateCollectible: (
+    readonly AnimateCollectible: (
       collectibleType: CollectibleType,
       playerItemAnimation?: PlayerItemAnimation,
       collectibleAnimation?: CollectibleAnimation,
     ) => void;
 
     /** Plays the "thumbs up" animation. Also plays `SoundEffect.THUMBS_UP`. */
-    AnimateHappy: () => void;
+    readonly AnimateHappy: () => void;
 
     /** Play the animation where Isaac steps into a beam of light (e.g. at the end of Womb 2). */
-    AnimateLightTravel: () => void;
+    readonly AnimateLightTravel: () => void;
 
     /**
      * Plays a pickup animation using any supplied Sprite object.
@@ -284,7 +284,7 @@ declare global {
      *                   sprite with a custom shadow layer.
      * @param animation Default is "Pickup".
      */
-    AnimatePickup: (
+    readonly AnimatePickup: (
       sprite: Sprite,
       hideShadow?: boolean,
       animation?: string,
@@ -294,67 +294,67 @@ declare global {
      * @param pillColor
      * @param playerItemAnimation Default is "Pickup".
      */
-    AnimatePill: (
+    readonly AnimatePill: (
       pillColor: PillColor,
       playerItemAnimation?: PlayerItemAnimation,
     ) => void;
 
-    AnimatePitfallIn: () => void;
-    AnimatePitfallOut: () => void;
+    readonly AnimatePitfallIn: () => void;
+    readonly AnimatePitfallOut: () => void;
 
     /**
      * Play the animation where Isaac holds his head in his hands. Also plays
      * `SoundEffect.SOUND_THUMBS_DOWN`.
      */
-    AnimateSad: () => void;
+    readonly AnimateSad: () => void;
 
-    AnimateTeleport: (up: boolean) => void;
-    AnimateTrapdoor: () => void;
+    readonly AnimateTeleport: (up: boolean) => void;
+    readonly AnimateTrapdoor: () => void;
 
     /**
      * @param trinketType
      * @param playerItemAnimation Default is "Pickup".
      * @param spriteAnimation Default is "PlayerPickupSparkle".
      */
-    AnimateTrinket: (
+    readonly AnimateTrinket: (
       trinketType: TrinketType,
       playerItemAnimation?: PlayerItemAnimation,
       spriteAnimation?: string,
     ) => void;
 
-    AreControlsEnabled: () => boolean;
-    AreOpposingShootDirectionsPressed: () => boolean;
+    readonly AreControlsEnabled: () => boolean;
+    readonly AreOpposingShootDirectionsPressed: () => boolean;
 
     /** @param collectibleType Default is `CollectibleType.NULL`. */
-    CanAddCollectible: (collectibleType?: CollectibleType) => boolean;
+    readonly CanAddCollectible: (collectibleType?: CollectibleType) => boolean;
 
     /** Returns true if the player can pick up black hearts, false otherwise. */
-    CanPickBlackHearts: () => boolean;
+    readonly CanPickBlackHearts: () => boolean;
 
     /** Returns true if the player can pick up bone hearts, false otherwise. */
-    CanPickBoneHearts: () => boolean;
+    readonly CanPickBoneHearts: () => boolean;
 
     /** Returns true if the player can pick up golden hearts, false otherwise. */
-    CanPickGoldenHearts: () => boolean;
+    readonly CanPickGoldenHearts: () => boolean;
 
     /** Returns true if the player can pick up red hearts, false otherwise. */
-    CanPickRedHearts: () => boolean;
+    readonly CanPickRedHearts: () => boolean;
 
     /** Returns true if the player can pick up rotten hearts, false otherwise. */
-    CanPickRottenHearts: () => boolean;
+    readonly CanPickRottenHearts: () => boolean;
 
     /** Returns true if the player can pick up soul hearts, false otherwise. */
-    CanPickSoulHearts: () => boolean;
+    readonly CanPickSoulHearts: () => boolean;
 
-    CanPickupItem: () => boolean;
-    CanShoot: () => boolean;
+    readonly CanPickupItem: () => boolean;
+    readonly CanShoot: () => boolean;
 
     /**
      * When the player presses the different shoot buttons, Isaac will normally turn his head to
      * face the direction that he is supposed to shoot in. This returns true if head will react to
      * shooting, false otherwise.
      */
-    CanTurnHead: () => boolean;
+    readonly CanTurnHead: () => boolean;
 
     /**
      * Changes the current character of the player. This will attempt to merge forms when called on
@@ -363,7 +363,7 @@ declare global {
      *
      * If you attempt to change to an invalid character, the game will crash.
      */
-    ChangePlayerType: (character: PlayerType) => void;
+    readonly ChangePlayerType: (character: PlayerType) => void;
 
     /**
      * Spawns the appropriate amount of familiars associated with a custom collectible.
@@ -405,7 +405,7 @@ declare global {
      * @param familiarSubType The subtype of the familiar to check. Default is -1, which matches
      *                        every sub-type.
      */
-    CheckFamiliar: (
+    readonly CheckFamiliar: (
       familiarVariant: FamiliarVariant,
       targetCount: int,
       rng: RNG,
@@ -413,38 +413,38 @@ declare global {
       familiarSubType?: int,
     ) => void;
 
-    ClearCostumes: () => void;
-    ClearDeadEyeCharge: () => void;
+    readonly ClearCostumes: () => void;
+    readonly ClearDeadEyeCharge: () => void;
 
     /** Called automatically by the game when the player exits a room. */
-    ClearTemporaryEffects: () => void;
+    readonly ClearTemporaryEffects: () => void;
 
     /**
      * Sets the charge of the active item to 0 without triggering the active item effect.
      *
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    DischargeActiveItem: (activeSlot?: ActiveSlot) => void;
+    readonly DischargeActiveItem: (activeSlot?: ActiveSlot) => void;
 
-    DoZitEffect: (direction: Vector) => void;
-    DonateLuck: (luck: int) => void;
-    DropPocketItem: (pocketItemSlot: PocketItemSlot, position: Vector) => void;
+    readonly DoZitEffect: (direction: Vector) => void;
+    readonly DonateLuck: (luck: int) => void;
+    readonly DropPocketItem: (pocketItemSlot: PocketItemSlot, position: Vector) => void;
 
     /** If the player does not currently have a trinket, this function will be a no-op. */
-    DropTrinket: (dropPos: Vector, replaceTick: boolean) => void;
+    readonly DropTrinket: (dropPos: Vector, replaceTick: boolean) => void;
 
     /**
      * Triggers the `EVALUATE_CACHE` callback. Before calling this function, you need to set the
      * appropriate cache flags by using the `EntityPlayer.AddCacheFlag` method.
      */
-    EvaluateItems: () => void;
+    readonly EvaluateItems: () => void;
 
     /**
      * @param position
      * @param velocity
      * @param source Default is undefined.
      */
-    FireBomb: (
+    readonly FireBomb: (
       position: Vector,
       velocity: Vector,
       source?: Entity,
@@ -455,13 +455,13 @@ declare global {
      * @param source Default is undefined.
      * @param damageMultiplier Default is 1.
      */
-    FireBrimstone: (
+    readonly FireBrimstone: (
       direction: Vector,
       source?: Entity,
       damageMultiplier?: float,
     ) => EntityLaser;
 
-    FireDelayedBrimstone: (angle: float, parent: Entity) => EntityLaser;
+    readonly FireDelayedBrimstone: (angle: float, parent: Entity) => EntityLaser;
 
     /**
      * @param parent
@@ -470,7 +470,7 @@ declare global {
      * @param subType Default is 0.
      * @param variant Default is 0.
      */
-    FireKnife: (
+    readonly FireKnife: (
       parent: Entity,
       rotationOffset?: float,
       cantOverwrite?: boolean,
@@ -487,7 +487,7 @@ declare global {
      * @param source Default is undefined.
      * @param damageMultiplier Default is 1.
      */
-    FireTear: (
+    readonly FireTear: (
       position: Vector,
       velocity: Vector,
       canBeEye?: boolean,
@@ -506,7 +506,7 @@ declare global {
      * @param source Default is undefined.
      * @param damageMultiplier Default is 1.
      */
-    FireTechLaser: (
+    readonly FireTechLaser: (
       position: Vector,
       laserOffset: LaserOffset,
       direction: Vector,
@@ -523,7 +523,7 @@ declare global {
      * @param source Default is undefined.
      * @param damageMultiplier Default is 1.
      */
-    FireTechXLaser: (
+    readonly FireTechXLaser: (
       position: Vector,
       direction: Vector,
       radius: float,
@@ -531,54 +531,54 @@ declare global {
       damageMultiplier?: float,
     ) => EntityLaser;
 
-    FlushQueueItem: () => boolean;
+    readonly FlushQueueItem: () => boolean;
 
     /**
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      * @param force If set, items will always be charged even if they normally cannot be recharged
      *              by batteries.
      */
-    FullCharge: (activeSlot?: ActiveSlot, force?: boolean) => boolean;
+    readonly FullCharge: (activeSlot?: ActiveSlot, force?: boolean) => boolean;
 
     /** @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`. */
-    GetActiveCharge: (activeSlot?: ActiveSlot) => int;
+    readonly GetActiveCharge: (activeSlot?: ActiveSlot) => int;
 
     /**
      * Returns `CollectibleType.NULL` (0) if no item is held.
      *
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    GetActiveItem: (activeSlot?: ActiveSlot) => CollectibleType;
+    readonly GetActiveItem: (activeSlot?: ActiveSlot) => CollectibleType;
 
     /**
      * Returns 0 if there is no active item in the specified slot.
      *
      * @param activeSlot Default is ActiveSlot.SLOT_PRIMARY.
      */
-    GetActiveSubCharge: (activeSlot?: ActiveSlot) => int;
+    readonly GetActiveSubCharge: (activeSlot?: ActiveSlot) => int;
 
-    GetActiveWeaponEntity: () => Entity;
-    GetAimDirection: () => Readonly<Vector>;
-    GetBabySkin: () => BabySubType;
+    readonly GetActiveWeaponEntity: () => Entity;
+    readonly GetAimDirection: () => Readonly<Vector>;
+    readonly GetBabySkin: () => BabySubType;
 
     /** @param activeSlot Default is ActiveSlot.SLOT_PRIMARY. */
-    GetBatteryCharge: (activeSlot?: ActiveSlot) => int;
+    readonly GetBatteryCharge: (activeSlot?: ActiveSlot) => int;
 
     /** Returns the bit mask for which soul hearts are black hearts. */
-    GetBlackHearts: () => int;
+    readonly GetBlackHearts: () => int;
 
     /**
      * Gets Tainted Bethany's blood charges. Returns 0 on characters other than Tainted Bethany. (It
      * is unknown how this method is different from `EntityPlayer.GetEffectiveBloodCharge`.)
      */
-    GetBloodCharge: () => int;
+    readonly GetBloodCharge: () => int;
 
-    GetBodyColor: () => SkinColor;
+    readonly GetBodyColor: () => SkinColor;
 
     /** There is no separate `BombFlag` enum, so bombs use `TearFlag`. */
-    GetBombFlags: () => BitFlags<TearFlag>;
+    readonly GetBombFlags: () => BitFlags<TearFlag>;
 
-    GetBombVariant: (
+    readonly GetBombVariant: (
       tearFlags: TearFlag | BitFlags<TearFlag>,
       forceSmallBomb: boolean,
     ) => BombVariant;
@@ -588,25 +588,25 @@ declare global {
      * `EntityPlayer.GetMaxHearts` method is, so if e.g. the player has 3 bone hearts, this will
      * return 3.
      */
-    GetBoneHearts: () => int;
+    readonly GetBoneHearts: () => int;
 
     /**
      * Returns the amount of broken hearts that the player has. This is not doubled like the
      * `EntityPlayer.GetMaxHearts` method is, so if e.g. the player has 3 broken hearts, this will
      * return 3.
      */
-    GetBrokenHearts: () => int;
+    readonly GetBrokenHearts: () => int;
 
     /** Returns `CardType.NULL` (0) if there is no card. */
-    GetCard: (pocketItemSlot: PocketItemSlot) => CardType;
+    readonly GetCard: (pocketItemSlot: PocketItemSlot) => CardType;
 
-    GetCardRNG: (cardType: CardType) => RNG;
+    readonly GetCardRNG: (cardType: CardType) => RNG;
 
     /**
      * Returns the total amount of collectibles that the player has. For example, if the player has
      * 1 Sad Onion and 2 Inner Eyes, then this function will return 3.
      */
-    GetCollectibleCount: () => int;
+    readonly GetCollectibleCount: () => int;
 
     /**
      * @param collectibleType
@@ -614,14 +614,14 @@ declare global {
      *                           player actually owns and ignores things like Lilith's Incubus,
      *                           items granted by 3 Dollar Bill, and so forth.
      */
-    GetCollectibleNum: (
+    readonly GetCollectibleNum: (
       collectibleType: CollectibleType,
       onlyCountTrueItems?: boolean,
     ) => int;
 
-    GetCollectibleRNG: (collectibleType: CollectibleType) => RNG;
+    readonly GetCollectibleRNG: (collectibleType: CollectibleType) => RNG;
 
-    GetCostumeNullPos: (
+    readonly GetCostumeNullPos: (
       nullFrameName: string,
       headScale: boolean,
       direction: Vector,
@@ -636,36 +636,36 @@ declare global {
      *
      * Note that the frames returned by this function are render frames, not game frames.
      */
-    GetDamageCooldown: () => int;
+    readonly GetDamageCooldown: () => int;
 
     /**
      * Gets Tainted Bethany's blood charges. Returns 0 on characters other than Tainted Bethany. (It
      * is unknown how this method is different from `EntityPlayer.GetBloodCharge`.)
      */
-    GetEffectiveBloodCharge: () => int;
+    readonly GetEffectiveBloodCharge: () => int;
 
     /**
      * Returns the amount of red hearts the player can have in their normal heart containers and
      * bone heart containers. 1 unit is half a red heart. For example, if you have 3 red heart
      * containers and 1 bone heart container, then this function would return 8 (i.e. 6 + 2).
      */
-    GetEffectiveMaxHearts: () => int;
+    readonly GetEffectiveMaxHearts: () => int;
 
     /**
      * Gets Bethany's soul heart charges. Returns 0 on characters other than Bethany. (It is unknown
      * how this function is different from `EntityPlayer.GetSoulCharge`.)
      */
-    GetEffectiveSoulCharge: () => int;
+    readonly GetEffectiveSoulCharge: () => int;
 
-    GetEffects: () => TemporaryEffects;
-    GetEternalHearts: () => int;
-    GetExtraLives: () => int;
-    GetFireDirection: () => Direction;
-    GetFlyingOffset: () => Vector;
-    GetGoldenHearts: () => int;
-    GetGreedDonationBreakChance: () => float;
-    GetHeadColor: () => SkinColor;
-    GetHeadDirection: () => Direction;
+    readonly GetEffects: () => TemporaryEffects;
+    readonly GetEternalHearts: () => int;
+    readonly GetExtraLives: () => int;
+    readonly GetFireDirection: () => Direction;
+    readonly GetFlyingOffset: () => Vector;
+    readonly GetGoldenHearts: () => int;
+    readonly GetGreedDonationBreakChance: () => float;
+    readonly GetHeadColor: () => SkinColor;
+    readonly GetHeadDirection: () => Direction;
 
     /**
      * Returns the maximum heart containers that the provided player can have. Normally, this is 12,
@@ -675,34 +675,34 @@ declare global {
      * This function automatically accounts for Broken Hearts. For example, if Isaac has one broken
      * heart, this function will return 22 instead of 24.
      */
-    GetHeartLimit: () => int;
+    readonly GetHeartLimit: () => int;
 
     /**
      * Returns the amount of red hearts the player has inside their heart containers and bone
      * hearts. 1 unit is half a heart.
      */
-    GetHearts: () => int;
+    readonly GetHearts: () => int;
 
-    GetItemState: () => CollectibleType;
-    GetJarFlies: () => int;
-    GetJarHearts: () => int;
-    GetLaserOffset: (laserOffset: LaserOffset, direction: Vector) => Vector;
-    GetLastActionTriggers: () => int;
-    GetLastDamageFlags: () => BitFlags<DamageFlag>;
-    GetLastDamageSource: () => Readonly<EntityRef>;
-    GetLastDirection: () => Readonly<Vector>;
+    readonly GetItemState: () => CollectibleType;
+    readonly GetJarFlies: () => int;
+    readonly GetJarHearts: () => int;
+    readonly GetLaserOffset: (laserOffset: LaserOffset, direction: Vector) => Vector;
+    readonly GetLastActionTriggers: () => int;
+    readonly GetLastDamageFlags: () => BitFlags<DamageFlag>;
+    readonly GetLastDamageSource: () => Readonly<EntityRef>;
+    readonly GetLastDirection: () => Readonly<Vector>;
 
     /**
      * - When called on Jacob or Esau, returns Jacob.
      * - When called on Tainted Forgotten or Tainted Forgotten's Soul, returns Tainted Forgotten.
      * - When called on any other character, returns that character.
      */
-    GetMainTwin: () => EntityPlayer;
+    readonly GetMainTwin: () => EntityPlayer;
 
     /**
      * Returns the amount of heart containers that the player has. 1 unit is half a heart container.
      */
-    GetMaxHearts: () => int;
+    readonly GetMaxHearts: () => int;
 
     /**
      * Returns the maximum number of pocket items + pocket actives that the player can currently
@@ -715,28 +715,28 @@ declare global {
      * - If the player has a dice from the Dice Bag trinket, it will increment the number by 1.
      * - The maximum number this can return is 4.
      */
-    GetMaxPocketItems: () => int;
+    readonly GetMaxPocketItems: () => int;
 
     /** Returns the max amount of poop consumables that can be held by the player. */
-    GetMaxPoopMana: () => int;
+    readonly GetMaxPoopMana: () => int;
 
     /**
      * Returns the maximum number of trinkets that the player can currently hold. Usually, this will
      * return 1, but the player can hold up to 2 trinkets under certain conditions (e.g. having
      * Mom's Purse).
      */
-    GetMaxTrinkets: () => int;
+    readonly GetMaxTrinkets: () => int;
 
     /**
      * Returns the current passive item mimicked by Modeling Clay or CollectibleType.NULL if no
      * effect is being mimicked.
      */
-    GetModelingClayEffect: () => CollectibleType;
+    readonly GetModelingClayEffect: () => CollectibleType;
 
-    GetMovementDirection: () => Direction;
-    GetMovementInput: () => Vector;
-    GetMovementJoystick: () => Vector;
-    GetMovementVector: () => Readonly<Vector>;
+    readonly GetMovementDirection: () => Direction;
+    readonly GetMovementInput: () => Vector;
+    readonly GetMovementJoystick: () => Vector;
+    readonly GetMovementVector: () => Readonly<Vector>;
 
     // `GetMultiShotParams` used to be used for the `GetMultiShotPositionVelocity` method, but since
     // that method is now removed, `GetMultiShotParams` has no purpose.
@@ -746,23 +746,23 @@ declare global {
      * attack another target, in which case this function will return the alternate target (e.g.
      * after using Best Friend).
      */
-    GetNPCTarget: () => Entity;
+    readonly GetNPCTarget: () => Entity;
 
     /**
      * Returns the character name, like "Isaac" or "Cain". Note that this will return the localized
      * version of the character's name, e.g. "Magdalena" for Magdalene in Spanish.
      */
-    GetName: () => string;
+    readonly GetName: () => string;
 
-    GetNumBlueFlies: () => int;
-    GetNumBlueSpiders: () => int;
-    GetNumBombs: () => int;
-    GetNumCoins: () => int;
+    readonly GetNumBlueFlies: () => int;
+    readonly GetNumBlueSpiders: () => int;
+    readonly GetNumBombs: () => int;
+    readonly GetNumCoins: () => int;
 
     /** Returns the number of giga bombs held. */
-    GetNumGigaBombs: () => int;
+    readonly GetNumGigaBombs: () => int;
 
-    GetNumKeys: () => int;
+    readonly GetNumKeys: () => int;
 
     /**
      * - When called on Jacob, returns Esau.
@@ -771,29 +771,29 @@ declare global {
      * - When called on Tainted Forgotten's Soul, returns Tainted Forgotten.
      * - When called on any other character, returns undefined.
      */
-    GetOtherTwin: () => EntityPlayer | undefined;
+    readonly GetOtherTwin: () => EntityPlayer | undefined;
 
     /** Returns `PillColor.NULL` (0) if there is no pill. */
-    GetPill: (pocketItemSlot: PocketItemSlot) => PillColor;
+    readonly GetPill: (pocketItemSlot: PocketItemSlot) => PillColor;
 
-    GetPillRNG: (pillEffect: PillEffect) => RNG;
+    readonly GetPillRNG: (pillEffect: PillEffect) => RNG;
 
     /** The player type is the sub-type of the player. This is equal to what character they are. */
-    GetPlayerType: () => PlayerType;
+    readonly GetPlayerType: () => PlayerType;
 
     // GetPocketItem is not implemented.
 
     /** Returns how many poop consumables the player is currently holding. */
-    GetPoopMana: () => int;
+    readonly GetPoopMana: () => int;
 
     /** Returns the poop spell at the given position in the player's spell queue. */
-    GetPoopSpell: (position: int) => PoopSpellType;
+    readonly GetPoopSpell: (position: int) => PoopSpellType;
 
     /**
      * Returns the joystick direction that drives player movement, taking into account certain
      * modifiers like disabled controls and seed effects.
      */
-    GetRecentMovementVector: () => Readonly<Vector>;
+    readonly GetRecentMovementVector: () => Readonly<Vector>;
 
     /**
      * This returns the number of rotten hearts.
@@ -801,24 +801,24 @@ declare global {
      * Unlike other heart functions, it returns the actual number of rotten hearts. For example,
      * this returns 2 if the player has 2 rotten hearts.
      */
-    GetRottenHearts: () => int;
+    readonly GetRottenHearts: () => int;
 
-    GetShootingInput: () => Vector;
-    GetShootingJoystick: () => Vector;
-    GetSmoothBodyRotation: () => float;
+    readonly GetShootingInput: () => Vector;
+    readonly GetShootingJoystick: () => Vector;
+    readonly GetSmoothBodyRotation: () => float;
 
     /**
      * Gets Bethany's soul heart charges. Returns 0 on characters other than Bethany. (It is unknown
      * how this function is different from `EntityPlayer.GetEffectiveSoulCharge`.)
      */
-    GetSoulCharge: () => int;
+    readonly GetSoulCharge: () => int;
 
     /**
      * 1 unit is half a heart. Black hearts count toward this total.
      *
      * Remove them with negative numbers.
      */
-    GetSoulHearts: () => int;
+    readonly GetSoulHearts: () => int;
 
     /**
      * - When on The Forgotten, returns the sub-player object for The Soul.
@@ -827,7 +827,7 @@ declare global {
      * - This will always return undefined if you call it on a sub-player. To get the "parent"
      *   player, use the `getSubPlayerParent` helper function.
      */
-    GetSubPlayer: () => EntitySubPlayer | undefined;
+    readonly GetSubPlayer: () => EntitySubPlayer | undefined;
 
     /**
      * Used for tear parameters that are calculated on hit (e.g. Tough Love, Common Cold).
@@ -837,32 +837,32 @@ declare global {
      * @param tearDisplacement Default is 1.
      * @param source Default is undefined.
      */
-    GetTearHitParams: (
+    readonly GetTearHitParams: (
       weaponType: WeaponType,
       damageScale?: float,
       tearDisplacement?: int,
       source?: Entity,
     ) => TearParams;
 
-    GetTearMovementInheritance: (shotDirection: Vector) => Vector;
-    GetTearPoisonDamage: () => float;
-    GetTearRangeModifier: () => int;
-    GetTotalDamageTaken: () => int;
-    GetTractorBeam: () => Entity;
+    readonly GetTearMovementInheritance: (shotDirection: Vector) => Vector;
+    readonly GetTearPoisonDamage: () => float;
+    readonly GetTearRangeModifier: () => int;
+    readonly GetTotalDamageTaken: () => int;
+    readonly GetTractorBeam: () => Entity;
 
     /** Returns `TrinketType.NULL` (0) if there is no trinket. */
-    GetTrinket: (trinketSlot: TrinketSlot) => TrinketType;
+    readonly GetTrinket: (trinketSlot: TrinketSlot) => TrinketType;
 
     /**
      * This is the number of times that the trinket effect is applied.
      *
      * Returns 0 if the player does not have the particular trinket.
      */
-    GetTrinketMultiplier: (trinketType: TrinketType) => int;
+    readonly GetTrinketMultiplier: (trinketType: TrinketType) => int;
 
-    GetTrinketRNG: (trinketType: TrinketType) => RNG;
-    GetVelocityBeforeUpdate: () => Readonly<Vector>;
-    GetZodiacEffect: () => ZodiacCollectibleType;
+    readonly GetTrinketRNG: (trinketType: TrinketType) => RNG;
+    readonly GetVelocityBeforeUpdate: () => Readonly<Vector>;
+    readonly GetZodiacEffect: () => ZodiacCollectibleType;
 
     /**
      * @param collectibleType
@@ -870,65 +870,65 @@ declare global {
      *                        ignores effects granted by items like Zodiac, 3 Dollar Bill and
      *                        Lemegeton. Default is false.
      */
-    HasCollectible: (
+    readonly HasCollectible: (
       collectibleType: CollectibleType,
       ignoreModifiers?: boolean,
     ) => boolean;
 
     /** Returns true if the player's item effects are currently being disabled. */
-    HasCurseMistEffect: () => boolean;
+    readonly HasCurseMistEffect: () => boolean;
 
     /** Returns true if all of the player's red heart containers are filled. */
-    HasFullHearts: () => boolean;
+    readonly HasFullHearts: () => boolean;
 
     /**
      * Returns true if the combined value of the player's red hearts and soul hearts is equal to or
      * greater than the value of the player's max hearts.
      */
-    HasFullHeartsAndSoulHearts: () => boolean;
+    readonly HasFullHeartsAndSoulHearts: () => boolean;
 
-    HasGoldenBomb: () => boolean;
-    HasGoldenKey: () => boolean;
+    readonly HasGoldenBomb: () => boolean;
+    readonly HasGoldenKey: () => boolean;
 
     /** @param damageFlag Default is 0. */
-    HasInvincibility: (
+    readonly HasInvincibility: (
       damageFlag?: DamageFlag | BitFlags<DamageFlag>,
     ) => boolean;
 
-    HasPlayerForm: (playerForm: PlayerForm) => boolean;
-    HasTimedItem: () => boolean;
+    readonly HasPlayerForm: (playerForm: PlayerForm) => boolean;
+    readonly HasTimedItem: () => boolean;
 
     /**
      * @param trinketType
      * @param ignoreModifiers If set to true, only counts trinkets the player actually holds and
      *                        ignores effects granted by other items. Default is false.
      */
-    HasTrinket: (
+    readonly HasTrinket: (
       trinketType: TrinketType,
       ignoreModifiers?: boolean,
     ) => boolean;
 
-    HasWeaponType: (weaponType: WeaponType) => boolean;
-    InitBabySkin: () => void;
-    IsBlackHeart: (heart: int) => boolean;
-    IsBoneHeart: (heartSlot: int) => boolean;
+    readonly HasWeaponType: (weaponType: WeaponType) => boolean;
+    readonly InitBabySkin: () => void;
+    readonly IsBlackHeart: (heart: int) => boolean;
+    readonly IsBoneHeart: (heartSlot: int) => boolean;
 
     /**
      * In a multiplayer game, if a player dies, they will return as a tiny ghost. This method
      * returns true if the player is a co-op ghost.
      */
-    IsCoopGhost: () => boolean;
+    readonly IsCoopGhost: () => boolean;
 
-    IsExtraAnimationFinished: () => boolean;
-    IsFullSpriteRendering: () => boolean;
-    IsHeldItemVisible: () => boolean;
+    readonly IsExtraAnimationFinished: () => boolean;
+    readonly IsFullSpriteRendering: () => boolean;
+    readonly IsHeldItemVisible: () => boolean;
 
     /** Is the player holding up an item (card/collectible/etc.)? */
-    IsHoldingItem: () => boolean;
+    readonly IsHoldingItem: () => boolean;
 
-    IsItemQueueEmpty: () => boolean;
-    IsP2Appearing: () => boolean;
-    IsPosInSpotLight: (position: Vector) => boolean;
+    readonly IsItemQueueEmpty: () => boolean;
+    readonly IsP2Appearing: () => boolean;
+    readonly IsPosInSpotLight: (position: Vector) => boolean;
 
     /**
      * Returns true for The Soul. Otherwise, returns false.
@@ -938,7 +938,7 @@ declare global {
      * `POST_PLAYER_INIT` callback fires first for Dead Tainted Lazarus before firing for the normal
      * Tainted Lazarus.)
      */
-    IsSubPlayer: () => boolean;
+    readonly IsSubPlayer: () => boolean;
 
     /**
      * This will always return false for active items that have `chargetype="special"` set in the
@@ -946,10 +946,10 @@ declare global {
      *
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    NeedsCharge: (activeSlot?: ActiveSlot) => boolean;
+    readonly NeedsCharge: (activeSlot?: ActiveSlot) => boolean;
 
-    PlayExtraAnimation: (animation: string) => void;
-    QueueExtraAnimation: (animation: string) => void;
+    readonly PlayExtraAnimation: (animation: string) => void;
+    readonly QueueExtraAnimation: (animation: string) => void;
 
     /**
      * When the player touches a collectible item, they are not granted it immediately. Instead, the
@@ -964,7 +964,7 @@ declare global {
      * @param golden Default is false.
      * @param varData Default is false.
      */
-    QueueItem: (
+    readonly QueueItem: (
       itemConfigItem: ItemConfigItem,
       charge?: int,
       touched?: boolean,
@@ -972,9 +972,9 @@ declare global {
       varData?: int,
     ) => void;
 
-    RemoveBlackHeart: (blackHeart: int) => void;
-    RemoveBlueFly: () => void;
-    RemoveBlueSpider: () => void;
+    readonly RemoveBlackHeart: (blackHeart: int) => void;
+    readonly RemoveBlueFly: () => void;
+    readonly RemoveBlueSpider: () => void;
 
     /**
      * @param collectibleType
@@ -985,56 +985,56 @@ declare global {
      * @param removeFromPlayerForm If successfully removed and part of a transformation, decrease
      *                             that transformation's counter by 1. Default is true.
      */
-    RemoveCollectible: (
+    readonly RemoveCollectible: (
       collectibleType: CollectibleType,
       ignoreModifiers?: boolean,
       activeSlot?: ActiveSlot,
       removeFromPlayerForm?: boolean,
     ) => void;
 
-    RemoveCostume: (itemConfigItem: ItemConfigItem) => void;
+    readonly RemoveCostume: (itemConfigItem: ItemConfigItem) => void;
 
     /**
      * Re-enables item effects, consumables, and pocket items removed by
      * `EntityPlayer.AddCurseMistEffect`.
      */
-    RemoveCurseMistEffect: () => void;
+    readonly RemoveCurseMistEffect: () => void;
 
-    RemoveGoldenBomb: () => void;
-    RemoveGoldenKey: () => void;
+    readonly RemoveGoldenBomb: () => void;
+    readonly RemoveGoldenKey: () => void;
 
     /** Removes player-specific costumes like Magdalene's hair or Cain's eyepatch. */
-    RemoveSkinCostume: () => void;
+    readonly RemoveSkinCostume: () => void;
 
-    RenderBody: (position: Vector) => void;
-    RenderGlow: (position: Vector) => void;
-    RenderHead: (position: Vector) => void;
-    RenderTop: (position: Vector) => void;
+    readonly RenderBody: (position: Vector) => void;
+    readonly RenderGlow: (position: Vector) => void;
+    readonly RenderHead: (position: Vector) => void;
+    readonly RenderTop: (position: Vector) => void;
 
-    ReplaceCostumeSprite: (
+    readonly ReplaceCostumeSprite: (
       itemConfigItem: ItemConfigItem,
       spritePath: string,
       spriteID: int,
     ) => void;
 
-    ResetDamageCooldown: () => void;
-    ResetItemState: () => void;
-    RespawnFamiliars: () => void;
-    Revive: () => void;
+    readonly ResetDamageCooldown: () => void;
+    readonly ResetItemState: () => void;
+    readonly RespawnFamiliars: () => void;
+    readonly Revive: () => void;
 
     /**
      * @param charge
      * @param activeSlot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    SetActiveCharge: (charge: int, activeSlot?: ActiveSlot) => void;
+    readonly SetActiveCharge: (charge: int, activeSlot?: ActiveSlot) => void;
 
     /** This sets Tainted Bethany's blood charges. Only works on Tainted Bethany. */
-    SetBloodCharge: (num: int) => void;
+    readonly SetBloodCharge: (num: int) => void;
 
-    SetCard: (pocketItemSlot: PocketItemSlot, cardType: CardType) => void;
-    SetFullHearts: () => void;
-    SetMinDamageCooldown: (damageCooldown: int) => void;
-    SetPill: (pocketItemSlot: PocketItemSlot, pillColor: PillColor) => void;
+    readonly SetCard: (pocketItemSlot: PocketItemSlot, cardType: CardType) => void;
+    readonly SetFullHearts: () => void;
+    readonly SetMinDamageCooldown: (damageCooldown: int) => void;
+    readonly SetPill: (pocketItemSlot: PocketItemSlot, pillColor: PillColor) => void;
 
     /**
      * Sets the player's pocket active item to the given collectible.
@@ -1050,30 +1050,30 @@ declare global {
      * @param keepInPools If true, the item will not be removed from the item pools. Default is
      *                    false.
      */
-    SetPocketActiveItem: (
+    readonly SetPocketActiveItem: (
       collectibleType: CollectibleType,
       slot?: ActiveSlot.POCKET | ActiveSlot.POCKET_SINGLE_USE,
       keepInPools?: boolean,
     ) => void;
 
-    SetShootingCooldown: (cooldown: int) => void;
+    readonly SetShootingCooldown: (cooldown: int) => void;
 
     /**
      * This sets Bethany's soul heart charges.
      *
      * @param num
      */
-    SetSoulCharge: (num: int) => void;
+    readonly SetSoulCharge: (num: int) => void;
 
-    SetTargetTrapDoor: (trapDoor: GridEntity) => void;
-    ShootRedCandle: (direction: Vector) => void;
-    SpawnMawOfVoid: (durationGameFrames: int) => EntityLaser;
-    StopExtraAnimation: () => void;
+    readonly SetTargetTrapDoor: (trapDoor: GridEntity) => void;
+    readonly ShootRedCandle: (direction: Vector) => void;
+    readonly SpawnMawOfVoid: (durationGameFrames: int) => EntityLaser;
+    readonly StopExtraAnimation: () => void;
 
     /** This will do nothing if the player does not have a Schoolbag. */
-    SwapActiveItems: () => void;
+    readonly SwapActiveItems: () => void;
 
-    ThrowBlueSpider: (position: Vector, target: Vector) => Entity;
+    readonly ThrowBlueSpider: (position: Vector, target: Vector) => Entity;
 
     /**
      * Spawns a friendly dip (from Dirty Mind) and throws it towards the specified target.
@@ -1082,7 +1082,7 @@ declare global {
      * @param position
      * @param target If Vector.Zero, throws the spawned dip in a random direction.
      */
-    ThrowFriendlyDip: (
+    readonly ThrowFriendlyDip: (
       subType: DipFamiliarSubType,
       position: Vector,
       target: Vector,
@@ -1094,7 +1094,7 @@ declare global {
      *
      * @param velocity
      */
-    ThrowHeldEntity: (velocity: Vector) => Entity;
+    readonly ThrowHeldEntity: (velocity: Vector) => Entity;
 
     /**
      * Triggers the extra effect granted by Book of Virtues for the given active item.
@@ -1102,7 +1102,7 @@ declare global {
      * @param collectibleType Default is `CollectibleType.NULL`.
      * @param charge Default is 0.
      */
-    TriggerBookOfVirtues: (
+    readonly TriggerBookOfVirtues: (
       collectibleType?: CollectibleType,
       charge?: int,
     ) => void;
@@ -1112,9 +1112,9 @@ declare global {
      *
      * Currently only works with some entity types (mainly bombs and enemies).
      */
-    TryHoldEntity: (entity: Entity) => boolean;
+    readonly TryHoldEntity: (entity: Entity) => boolean;
 
-    TryHoldTrinket: (trinketType: TrinketType) => boolean;
+    readonly TryHoldTrinket: (trinketType: TrinketType) => boolean;
 
     /**
      * This method will crash the game if you provide it an invalid collectible type, such as -1 or
@@ -1124,12 +1124,12 @@ declare global {
      * @param collectibleType
      * @param keepPersistent If set to false, this method will only remove temporary costumes.
      */
-    TryRemoveCollectibleCostume: (
+    readonly TryRemoveCollectibleCostume: (
       collectibleType: CollectibleType,
       keepPersistent: boolean,
     ) => void;
 
-    TryRemoveNullCostume: (nullItemID: NullItemID) => void;
+    readonly TryRemoveNullCostume: (nullItemID: NullItemID) => void;
 
     /**
      * Will remove the specified trinket, if it exists. This will also remove The Tick and smelted
@@ -1139,16 +1139,16 @@ declare global {
      *                    game will crash.
      * @returns Whether the specified trinket was removed successfully.
      */
-    TryRemoveTrinket: (trinketType: TrinketType) => boolean;
+    readonly TryRemoveTrinket: (trinketType: TrinketType) => boolean;
 
     /**
      * This method will crash the game if you provide it an invalid trinket type, such as -1, 0, or
      * 500. Thus, it is safer to use the `RemoveCostume` method instead.
      */
-    TryRemoveTrinketCostume: (trinketType: TrinketType) => void;
+    readonly TryRemoveTrinketCostume: (trinketType: TrinketType) => void;
 
-    TryUseKey: () => boolean;
-    UpdateCanShoot: () => void;
+    readonly TryUseKey: () => boolean;
+    readonly UpdateCanShoot: () => void;
 
     /**
      * @param collectibleType
@@ -1157,7 +1157,7 @@ declare global {
      *                   triggered by any active slot.) Default is `ActiveSlot.SLOT_PRIMARY`.
      * @param customVarData Default is 0.
      */
-    UseActiveItem: ((
+    readonly UseActiveItem: ((
       collectibleType: CollectibleType,
       useFlag?: UseFlag | BitFlags<UseFlag>,
       activeSlot?: ActiveSlot | -1,
@@ -1177,7 +1177,7 @@ declare global {
      * @param cardType
      * @param useFlag Default is 0.
      */
-    UseCard: (
+    readonly UseCard: (
       cardType: CardType,
       useFlag?: UseFlag | BitFlags<UseFlag>,
     ) => void;
@@ -1187,14 +1187,14 @@ declare global {
      * @param pillColor
      * @param useFlag Default is 0.
      */
-    UsePill: (
+    readonly UsePill: (
       pillEffect: PillEffect,
       pillColor: PillColor,
       useFlag?: UseFlag | BitFlags<UseFlag>,
     ) => void;
 
     /** Triggers one of Tainted Blue Baby's poop spells. */
-    UsePoopSpell: (poopSpellType: PoopSpellType) => void;
+    readonly UsePoopSpell: (poopSpellType: PoopSpellType) => void;
 
     /**
      * This function will return true if the player has one or more extra lives or if a conditional
@@ -1210,7 +1210,7 @@ declare global {
      *   Poster every 4 frames, because it evaluates only one of its 4 possible item effects each
      *   frame.
      */
-    WillPlayerRevive: () => boolean;
+    readonly WillPlayerRevive: () => boolean;
 
     BabySkin: BabySubType;
 

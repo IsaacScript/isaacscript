@@ -9,37 +9,37 @@ import type { PillEffect } from "../../enums/PillEffect";
 declare global {
   interface ItemConfig extends IsaacAPIClass {
     /** Returns undefined if the card was not found. */
-    GetCard: (cardType: CardType) => Readonly<ItemConfigCard> | undefined;
+    readonly GetCard: (cardType: CardType) => Readonly<ItemConfigCard> | undefined;
 
-    GetCards: () => Readonly<CardConfigList>;
+    readonly GetCards: () => Readonly<CardConfigList>;
 
     /** Returns undefined if the collectible type was not found. */
-    GetCollectible: (
+    readonly GetCollectible: (
       collectibleType: CollectibleType,
     ) => Readonly<ItemConfigItemCollectible> | undefined;
 
-    GetCollectibles: () => Readonly<ItemConfigList>;
+    readonly GetCollectibles: () => Readonly<ItemConfigList>;
 
     /** Returns undefined if the item was not found. */
-    GetNullItem: (
+    readonly GetNullItem: (
       nullItemID: NullItemID,
     ) => Readonly<ItemConfigItemNull> | undefined;
 
-    GetNullItems: () => Readonly<ItemConfigList>;
+    readonly GetNullItems: () => Readonly<ItemConfigList>;
 
     /** Returns undefined if the pill effect was not found. */
-    GetPillEffect: (
+    readonly GetPillEffect: (
       pillEffect: PillEffect,
     ) => Readonly<ItemConfigPillEffect> | undefined;
 
-    GetPillEffects: () => Readonly<PillConfigList>;
+    readonly GetPillEffects: () => Readonly<PillConfigList>;
 
     /** Returns undefined if the trinket was not found. */
-    GetTrinket: (
+    readonly GetTrinket: (
       trinketType: TrinketType,
     ) => Readonly<ItemConfigItemTrinket> | undefined;
 
-    GetTrinkets: () => Readonly<ItemConfigList>;
+    readonly GetTrinkets: () => Readonly<ItemConfigList>;
 
     /**
      * In the "enums.lua" file, the ItemConfig class is extended with many members:

@@ -17,12 +17,12 @@ import type { TearFlag } from "../../enums/flags/TearFlag";
 
 declare global {
   interface Game extends IsaacAPIClass {
-    AddDevilRoomDeal: () => void;
-    AddEncounteredBoss: (entityType: EntityType, variant: int) => void;
-    AddPixelation: (duration: int) => void;
-    AddStageWithoutDamage: () => void;
-    AddStageWithoutHeartsPicked: () => void;
-    AddTreasureRoomsVisited: () => void;
+    readonly AddDevilRoomDeal: () => void;
+    readonly AddEncounteredBoss: (entityType: EntityType, variant: int) => void;
+    readonly AddPixelation: (duration: int) => void;
+    readonly AddStageWithoutDamage: () => void;
+    readonly AddStageWithoutHeartsPicked: () => void;
+    readonly AddTreasureRoomsVisited: () => void;
 
     /**
      * There is no separate `BombFlag` enum, so bombs use `TearFlag`.
@@ -36,7 +36,7 @@ declare global {
      * @param damageFlags Default is `DamageFlag.DAMAGE_EXPLOSION`.
      * @param damageSource Default is false.
      */
-    BombDamage: (
+    readonly BombDamage: (
       position: Vector,
       damage: float,
       radius: float,
@@ -60,7 +60,7 @@ declare global {
      * @param damageSource Default is false.
      * @param damageFlags Default is `DamageFlag.DAMAGE_EXPLOSION`.
      */
-    BombExplosionEffects: (
+    readonly BombExplosionEffects: (
       position: Vector,
       damage: float,
       tearFlags?: TearFlag | BitFlags<TearFlag>,
@@ -81,7 +81,7 @@ declare global {
      * @param source Default is undefined.
      * @param radiusMultiplier Default is 1.
      */
-    BombTearflagEffects: (
+    readonly BombTearflagEffects: (
       position: Vector,
       radius: float,
       tearFlags: TearFlag | BitFlags<TearFlag>,
@@ -96,7 +96,7 @@ declare global {
      * @param showEffect Optional. Default is false.
      * @param doSuperKnockback Optional. Default is false.
      */
-    ButterBeanFart: (
+    readonly ButterBeanFart: (
       position: Vector,
       radius: float,
       source: Entity | undefined,
@@ -115,17 +115,17 @@ declare global {
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    ChangeRoom: (roomGridIndex: int | GridRoom, dimension?: Dimension) => void;
+    readonly ChangeRoom: (roomGridIndex: int | GridRoom, dimension?: Dimension) => void;
 
-    CharmFart: (position: Vector, radius: float, source: Entity) => void;
-    ClearDonationModAngel: () => void;
-    ClearDonationModGreed: () => void;
-    ClearStagesWithoutDamage: () => void;
-    ClearStagesWithoutHeartsPicked: () => void;
-    Darken: (darkness: float, timeout: int) => void;
-    DonateAngel: (donate: int) => void;
-    DonateGreed: (donate: int) => void;
-    End: (ending: Cutscene) => void;
+    readonly CharmFart: (position: Vector, radius: float, source: Entity) => void;
+    readonly ClearDonationModAngel: () => void;
+    readonly ClearDonationModGreed: () => void;
+    readonly ClearStagesWithoutDamage: () => void;
+    readonly ClearStagesWithoutHeartsPicked: () => void;
+    readonly Darken: (darkness: float, timeout: int) => void;
+    readonly DonateAngel: (donate: int) => void;
+    readonly DonateGreed: (donate: int) => void;
+    readonly End: (ending: Cutscene) => void;
 
     /**
      * @param speed A value between 0 and 1. Using a value of 0 will soft-lock the game. Using a
@@ -134,7 +134,7 @@ declare global {
      * @param kColor Optional. Defaults to `K_COLORS.Black`. This parameter was added in
      *               Repentance+.
      */
-    Fadein: (speed: float, showIcon?: boolean, kColor?: KColor) => void;
+    readonly Fadein: (speed: float, showIcon?: boolean, kColor?: KColor) => void;
 
     /**
      * Using a non-valid `FadeoutTarget` value will be interpreted the same as `FadeoutTarget.NONE`.
@@ -145,7 +145,7 @@ declare global {
      * @param kColor Optional. Defaults to `K_COLORS.Black`. This parameter was added in
      *               Repentance+.
      */
-    Fadeout: (
+    readonly Fadeout: (
       speed: float,
       fadeoutTarget: FadeoutTarget,
       kColor?: KColor,
@@ -159,7 +159,7 @@ declare global {
      * @param fartSubType Default is 0.
      * @param fartColor Default is `Color.Default`.
      */
-    Fart: (
+    readonly Fart: (
       position: Vector,
       radius?: float,
       source?: Entity,
@@ -168,15 +168,15 @@ declare global {
       fartColor?: Color,
     ) => void;
 
-    FinishChallenge: () => void;
+    readonly FinishChallenge: () => void;
 
     // GetAmbush is not implemented.
 
-    GetDarknessModifier: () => float;
-    GetDevilRoomDeals: () => int;
-    GetDonationModAngel: () => int;
-    GetDonationModGreed: () => int;
-    GetFont: () => Font;
+    readonly GetDarknessModifier: () => float;
+    readonly GetDevilRoomDeals: () => int;
+    readonly GetDonationModAngel: () => int;
+    readonly GetDonationModGreed: () => int;
+    readonly GetFont: () => Font;
 
     /**
      * Returns the amount of game frames that have passed since the run was started.
@@ -190,82 +190,82 @@ declare global {
      * - Game frames and render frames are synchronized such two render frames will always
      *   correspond to one game frame, and the first render frame in the pair will always be odd.
      */
-    GetFrameCount: () => int;
+    readonly GetFrameCount: () => int;
 
-    GetGreedBossWaveNum: () => int;
-    GetGreedWavesNum: () => int;
+    readonly GetGreedBossWaveNum: () => int;
+    readonly GetGreedWavesNum: () => int;
 
     // GetItemOverlay is not implemented.
 
-    GetHUD: () => HUD;
-    GetItemPool: () => ItemPool;
+    readonly GetHUD: () => HUD;
+    readonly GetItemPool: () => ItemPool;
 
     /** @deprecated This method is bugged and returns useless `userdata`. */
-    GetLastDevilRoomStage: () => LuaUserdata;
+    readonly GetLastDevilRoomStage: () => LuaUserdata;
 
-    GetLastLevelWithDamage: () => LevelStage;
-    GetLastLevelWithoutHalfHp: () => LevelStage;
-    GetLevel: () => Level;
-    GetNearestPlayer: (position: Vector) => EntityPlayer;
-    GetNumEncounteredBosses: () => int;
-    GetNumPlayers: () => int;
+    readonly GetLastLevelWithDamage: () => LevelStage;
+    readonly GetLastLevelWithoutHalfHp: () => LevelStage;
+    readonly GetLevel: () => Level;
+    readonly GetNearestPlayer: (position: Vector) => EntityPlayer;
+    readonly GetNumEncounteredBosses: () => int;
+    readonly GetNumPlayers: () => int;
 
     /** @deprecated Use the `Isaac.GetPlayer` method instead. */
-    GetPlayer: (index: int) => EntityPlayer | undefined;
+    readonly GetPlayer: (index: int) => EntityPlayer | undefined;
 
-    GetRandomPlayer: (position: Vector, radius: float) => EntityPlayer;
-    GetRoom: () => Room;
-    GetScreenShakeCountdown: () => Readonly<int>;
-    GetSeeds: () => Seeds;
-    GetStagesWithoutDamage: () => int;
-    GetStagesWithoutHeartsPicked: () => int;
-    GetStateFlag: (gameStateFlag: GameStateFlag) => boolean;
-    GetTargetDarkness: () => float;
-    GetTreasureRoomVisitCount: () => int;
-    GetVictoryLap: () => int;
-    HasEncounteredBoss: (entityType: EntityType, variant: int) => boolean;
-    HasHallucination: () => int;
-    IsGreedMode: () => boolean;
+    readonly GetRandomPlayer: (position: Vector, radius: float) => EntityPlayer;
+    readonly GetRoom: () => Room;
+    readonly GetScreenShakeCountdown: () => Readonly<int>;
+    readonly GetSeeds: () => Seeds;
+    readonly GetStagesWithoutDamage: () => int;
+    readonly GetStagesWithoutHeartsPicked: () => int;
+    readonly GetStateFlag: (gameStateFlag: GameStateFlag) => boolean;
+    readonly GetTargetDarkness: () => float;
+    readonly GetTreasureRoomVisitCount: () => int;
+    readonly GetVictoryLap: () => int;
+    readonly HasEncounteredBoss: (entityType: EntityType, variant: int) => boolean;
+    readonly HasHallucination: () => int;
+    readonly IsGreedMode: () => boolean;
 
     /**
      * Returns true if the game is paused or the console is open or a room transition animation is
      * occurring.
      */
-    IsPaused: () => boolean;
+    readonly IsPaused: () => boolean;
 
-    MakeShockwave: (
+    readonly MakeShockwave: (
       position: Vector,
       amplitude: float,
       speed: float,
       duration: int,
     ) => void;
 
-    MoveToRandomRoom: (
+    readonly MoveToRandomRoom: (
       includeIAmErrorRoom: boolean,
       seed: Seed,
       player: EntityPlayer,
     ) => void;
 
-    NextVictoryLap: () => void;
-    Render: () => void;
-    RerollEnemy: (entity: Entity) => boolean;
-    RerollLevelCollectibles: () => void;
-    RerollLevelPickups: (seed: Seed) => void;
-    SetLastDevilRoomStage: (levelStage: LevelStage) => void;
-    SetLastLevelWithDamage: (levelStage: LevelStage) => void;
-    SetLastLevelWithoutHalfHp: (levelStage: LevelStage) => void;
-    SetStateFlag: (gameStateFlag: GameStateFlag, value: boolean) => void;
-    ShakeScreen: (timeout: int) => void;
-    ShowFortune: () => void;
+    readonly NextVictoryLap: () => void;
+    readonly Render: () => void;
+    readonly RerollEnemy: (entity: Entity) => boolean;
+    readonly RerollLevelCollectibles: () => void;
+    readonly RerollLevelPickups: (seed: Seed) => void;
+    readonly SetLastDevilRoomStage: (levelStage: LevelStage) => void;
+    readonly SetLastLevelWithDamage: (levelStage: LevelStage) => void;
+    readonly SetLastLevelWithoutHalfHp: (levelStage: LevelStage) => void;
+    readonly SetStateFlag: (gameStateFlag: GameStateFlag, value: boolean) => void;
+    readonly ShakeScreen: (timeout: int) => void;
+    readonly ShowFortune: () => void;
 
     /**
      * @param frameCount
      * @param backdropType Default is a random backdrop, similar to what happens after using the
      *                     Delirious collectible.
      */
-    ShowHallucination: (frameCount: int, backdropType?: BackdropType) => void;
+    readonly ShowHallucination: (frameCount: int, backdropType?: BackdropType) => void;
 
-    ShowRule: () => void;
+    readonly ShowRule: () => void;
 
     /**
      * Spawns a new entity with a specified seed.
@@ -302,7 +302,7 @@ declare global {
      *             from an RNG object or another entity's `InitSeed`, which is why it is typed as a
      *             `Seed` instead of an `int`.)
      */
-    Spawn: (
+    readonly Spawn: (
       entityType: EntityType,
       variant: int,
       position: Vector,
@@ -323,7 +323,7 @@ declare global {
      * @param height Default is 100000.
      * @param subType Default is 0.
      */
-    SpawnParticles: (
+    readonly SpawnParticles: (
       position: Vector,
       effectVariant: EffectVariant,
       numParticles: int,
@@ -343,7 +343,7 @@ declare global {
      * @param player Default is undefined.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    StartRoomTransition: (
+    readonly StartRoomTransition: (
       roomGridIndex: int | GridRoom,
       direction: Direction,
       roomTransitionAnim?: RoomTransitionAnim,
@@ -352,20 +352,20 @@ declare global {
     ) => void;
 
     /** If the `player` argument is not provided, the game will crash. */
-    StartStageTransition: (
+    readonly StartStageTransition: (
       sameStage: boolean,
       stageTransitionType: StageTransitionType,
       player: EntityPlayer,
     ) => void;
 
-    Update: () => void;
+    readonly Update: () => void;
 
     /**
      * @param position
      * @param force Default is 10.
      * @param radius Default is 250.
      */
-    UpdateStrangeAttractor: (
+    readonly UpdateStrangeAttractor: (
       position: Vector,
       force?: float,
       radius?: float,

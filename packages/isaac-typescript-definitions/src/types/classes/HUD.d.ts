@@ -9,7 +9,7 @@ declare global {
      * @param player
      * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    FlashChargeBar: (player: EntityPlayer, slot?: ActiveSlot) => void;
+    readonly FlashChargeBar: (player: EntityPlayer, slot?: ActiveSlot) => void;
 
     /**
      * Forces the specified active item slot to update. This might be useful for functions that
@@ -18,19 +18,19 @@ declare global {
      * @param player
      * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    InvalidateActiveItem: (player: EntityPlayer, slot?: ActiveSlot) => void;
+    readonly InvalidateActiveItem: (player: EntityPlayer, slot?: ActiveSlot) => void;
 
     /**
      * Forces the crafting output from Bag of Crafting to update.
      *
      * @param player
      */
-    InvalidateCraftingItem: (player: EntityPlayer) => void;
+    readonly InvalidateCraftingItem: (player: EntityPlayer) => void;
 
-    IsVisible: () => boolean;
-    PostUpdate: () => void;
-    Render: () => void;
-    SetVisible: (visible: boolean) => void;
+    readonly IsVisible: () => boolean;
+    readonly PostUpdate: () => void;
+    readonly Render: () => void;
+    readonly SetVisible: (visible: boolean) => void;
 
     /**
      * Accepts an array of up to 32 strings, where each string is a line of text.
@@ -40,7 +40,7 @@ declare global {
      *
      * @param text
      */
-    ShowFortuneText: (...text: readonly string[]) => void;
+    readonly ShowFortuneText: (...text: readonly string[]) => void;
 
     /**
      * Shows the pickup text for the specified item as if it was picked up by the specified player.
@@ -51,7 +51,7 @@ declare global {
      * up (Repentance+ functionality). These values are counterintuitive, so it seems likely that
      * the developers made a mistake.
      */
-    ShowItemText: ((
+    readonly ShowItemText: ((
       player: EntityPlayer,
       item: ItemConfigItem,
       stackUpText: boolean,
@@ -63,6 +63,6 @@ declare global {
         stackUpText?: boolean,
       ) => void);
 
-    Update: () => void;
+    readonly Update: () => void;
   }
 }

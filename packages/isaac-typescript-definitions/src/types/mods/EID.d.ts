@@ -34,10 +34,10 @@ declare type EIDInlineIcon = [
 
 declare interface EIDInterface {
   /** Gets the size of the screen. */
-  GetScreenSize: () => Vector;
+  readonly GetScreenSize: () => Vector;
 
   /** Adds a character specific description for the item "Birthright". */
-  addBirthright: (
+  readonly addBirthright: (
     characterId: int,
     description: string,
     playerName?: string,
@@ -45,7 +45,7 @@ declare interface EIDInterface {
   ) => void;
 
   /** Adds a description for a card/rune. */
-  addCard: (
+  readonly addCard: (
     id: int,
     description: string,
     itemName?: string,
@@ -53,7 +53,7 @@ declare interface EIDInterface {
   ) => void;
 
   /** Adds a description for a collectible. */
-  addCollectible: (
+  readonly addCollectible: (
     id: int,
     description: string,
     itemName?: string,
@@ -69,7 +69,7 @@ declare interface EIDInterface {
    * Define a callback to let it be called when interpreting the color-markup. Define a `KColor`
    * otherwise for a simple color change.
    */
-  addColor: (
+  readonly addColor: (
     shortcut: string,
     kColor: KColor,
     callback?: (color: KColor) => KColor,
@@ -84,7 +84,7 @@ declare interface EIDInterface {
    *                  EIDDescriptionObject.
    * @param callback A function that returns a modified version of the given EIDDescriptionObject.
    */
-  addDescriptionModifier: (
+  readonly addDescriptionModifier: (
     modifierName: string,
     condition: (this: void, testDescription: EIDDescriptionObject) => boolean,
     callback: (
@@ -98,7 +98,7 @@ declare interface EIDInterface {
    *
    * When subtype is -1 or undefined, it will affect all subtypes of that entity.
    */
-  addEntity: (
+  readonly addEntity: (
     id: int,
     variant: int,
     subtype: int | undefined,
@@ -122,7 +122,7 @@ declare interface EIDInterface {
    * @param topOffset Default is 0.
    * @param spriteObject Needs to be a `Sprite` with an .anm2 loaded.
    */
-  addIcon: (
+  readonly addIcon: (
     shortcut: string,
     animationName: string,
     animationFrame: int,
@@ -134,7 +134,7 @@ declare interface EIDInterface {
   ) => void;
 
   /** Adds a description for a pill effect. */
-  addPill: (
+  readonly addPill: (
     id: int,
     description: string,
     itemName?: string,
@@ -146,10 +146,10 @@ declare interface EIDInterface {
    *
    * Useful to add small offsets. For example: for schoolbag HUD.
    */
-  addTextPosModifier: (identifier: string, modifierVector: Vector) => void;
+  readonly addTextPosModifier: (identifier: string, modifierVector: Vector) => void;
 
   /** Adds a description for a trinket. */
-  addTrinket: (
+  readonly addTrinket: (
     id: int,
     description: string,
     itemName?: string,
@@ -161,16 +161,16 @@ declare interface EIDInterface {
    *
    * Useful to totally alter and override the current initial overlay position.
    */
-  alterTextPos: (newPosVector: Vector) => void;
+  readonly alterTextPos: (newPosVector: Vector) => void;
 
   /** Appends a given string to the description of a given `EIDDescriptionObj`. */
-  appendToDescription: (
+  readonly appendToDescription: (
     descObj: EIDDescriptionObject,
     appendString: string,
   ) => void;
 
   /** Compares two KColors. Returns true if they are equal. */
-  areColorsEqual: (c1: KColor, c2: KColor) => boolean;
+  readonly areColorsEqual: (c1: KColor, c2: KColor) => boolean;
 
   /**
    * Assigns transformations to an entity (Adds to existing transformations).
@@ -180,14 +180,14 @@ declare interface EIDInterface {
    *
    * Example: `EID.assignTransformation("collectible", 1, "My Transformation")`.
    */
-  assignTransformation: (
+  readonly assignTransformation: (
     targetType: EIDTransformationTargetType,
     targetIdentifier: string | int,
     transformationString: string,
   ) => void;
 
   /** Creates a copy of a `KColor` object. This prevents overwriting existing `KColor` objects. */
-  copyKColor: (colorObj: KColor) => KColor;
+  readonly copyKColor: (colorObj: KColor) => KColor;
 
   /**
    * Tries to read special markup used to generate icons for all collectibles/trinkets and the
@@ -195,10 +195,10 @@ declare interface EIDInterface {
    *
    * @returns An `EIDInlineIcon` Object or `undefined` if no parsing was possible.
    */
-  createItemIconObject: (str: string) => EIDInlineIcon | undefined;
+  readonly createItemIconObject: (str: string) => EIDInlineIcon | undefined;
 
   /** Creates a new transformation. */
-  createTransformation: (
+  readonly createTransformation: (
     uniqueName: string,
     displayName: string,
     language?: string,
@@ -208,7 +208,7 @@ declare interface EIDInterface {
    * Overrides all potentially displayed texts and permanently displays the given texts. Can be
    * turned off again using `EID.hidePermanentText`.
    */
-  displayPermanentText: (descriptionObject: EIDDescriptionObject) => void;
+  readonly displayPermanentText: (descriptionObject: EIDDescriptionObject) => void;
 
   /**
    * Filters a given string and looks for `KColor` markup. Splits the text into subsections limited
@@ -217,7 +217,7 @@ declare interface EIDInterface {
    * @returns An array of tables containing subsections of the text, their respective `KColor`, and
    *          the width of the subsection.
    */
-  filterColorMarkup: (
+  readonly filterColorMarkup: (
     text: string,
     baseKColor: KColor,
   ) => Array<[string, KColor, int]>;
@@ -228,7 +228,7 @@ declare interface EIDInterface {
    * - The string without the placeholders but with an accurate space between lines.
    * - An array of tables containing each Inline Sprite and the preceding text width.
    */
-  filterIconMarkup: (
+  readonly filterIconMarkup: (
     text: string,
     textPosX?: int,
     textPosY?: int,
@@ -239,7 +239,7 @@ declare interface EIDInterface {
    *
    * @returns The string as a table of lines.
    */
-  fitTextToWidth: (
+  readonly fitTextToWidth: (
     str: string,
     textboxWidth: number, // cspell:ignore textbox
   ) => string[];
@@ -249,10 +249,10 @@ declare interface EIDInterface {
    *
    * This will only work for EID's specific custom font.
    */
-  generatePlaceholderString: (length: int) => string;
+  readonly generatePlaceholderString: (length: int) => string;
 
   /** Returns an adjusted SubType id for special cases like Horse Pills and Golden Trinkets. */
-  getAdjustedSubtype: (Type: int, Variant: int, SubType: int) => int;
+  readonly getAdjustedSubtype: (Type: int, Variant: int, SubType: int) => int;
 
   /**
    * Gets a `KColor` from a Markup-string (example Input: `"{{ColorText}}"`).
@@ -260,7 +260,7 @@ declare interface EIDInterface {
    * @returns The `KColor` object and a `boolean` value indicating if the given string was a color
    *          markup.
    */
-  getColor: (
+  readonly getColor: (
     str: string,
     baseKColor: KColor,
   ) => LuaMultiReturn<[KColor, boolean]>;
@@ -271,7 +271,7 @@ declare interface EIDInterface {
    *
    * Falls back to English if it doesn't exist.
    */
-  getDescriptionData: (
+  readonly getDescriptionData: (
     Type: int,
     Variant: int,
     SubType: int,
@@ -282,7 +282,7 @@ declare interface EIDInterface {
    *
    * Falls back to English if it doesn't exist.
    */
-  getDescriptionEntry: (
+  readonly getDescriptionEntry: (
     objTable: string,
     objID?: string,
   ) => EIDDescriptionObject;
@@ -292,30 +292,30 @@ declare interface EIDInterface {
    *
    * Falls back to English if the objID isn't available.
    */
-  getDescriptionObj: (
+  readonly getDescriptionObj: (
     Type: int,
     Variant: int,
     SubType: int,
   ) => EIDDescriptionObject;
 
   /** Get `KColor` object of "Error" texts. */
-  getErrorColor: () => KColor;
+  readonly getErrorColor: () => KColor;
 
   /** Turns entity type names into actual in-game ID.Variant pairs. */
-  getIDVariantString: (typeName: string) => string;
+  readonly getIDVariantString: (typeName: string) => string;
 
   /**
    * Returns the `EIDInlineIcon` object of a given icon string.
    *
    * Can be used to validate an icon string.
    */
-  getIcon: (str: string) => EIDInlineIcon;
+  readonly getIcon: (str: string) => EIDInlineIcon;
 
   /**
    * Returns the entity that is currently described. Returns last described entity if currently not
    * displaying text.
    */
-  getLastDescribedEntity: () => Entity;
+  readonly getLastDescribedEntity: () => Entity;
 
   /**
    * Fetches description table from the legacy mod descriptions if they exist.
@@ -323,100 +323,100 @@ declare interface EIDInterface {
    * @returns ["", "", description], ["", name, description], or `undefined` (if there is no legacy
    *          description).
    */
-  getLegacyModDescription: (
+  readonly getLegacyModDescription: (
     Type: int,
     Variant: int,
     SubType: int,
   ) => ["", string, string] | undefined;
 
   /** Get `KColor` object of "Entity Name" texts. */
-  getNameColor: () => KColor;
+  readonly getNameColor: () => KColor;
 
   /** Tries to get the in-game name of an item based on its ID. */
-  getObjectName: (Type: int, Variant: int, SubType: int) => string;
+  readonly getObjectName: (Type: int, Variant: int, SubType: int) => string;
 
   /** Converts a given CollectibleID into the respective Spindown dice result. */
-  getSpindownResult: (collectibleID: int) => int;
+  readonly getSpindownResult: (collectibleID: int) => int;
 
   /** Returns the width of a given string in pixels. */
-  getStrWidth: (str: string) => int;
+  readonly getStrWidth: (str: string) => int;
 
   /** Turns entity type and variants into their EID table-name. */
-  getTableName: (Type: int, Variant: int, SubType: int) => string;
+  readonly getTableName: (Type: int, Variant: int, SubType: int) => string;
 
   /** Get `KColor` object of "Description" texts. */
-  getTextColor: () => KColor;
+  readonly getTextColor: () => KColor;
 
   /** Returns the current text position. */
-  getTextPosition: () => Vector;
+  readonly getTextPosition: () => Vector;
 
   /**
    * Gets the transformation uniqueName / ID of a given entity.
    *
    * Example: `EID:getTransformation(5,100,34)` will return `"12"` which is the id for Bookworm.
    */
-  getTransformation: (Type: int, Variant: int, SubType: int) => string;
+  readonly getTransformation: (Type: int, Variant: int, SubType: int) => string;
 
   /** Get `KColor` object of "Transformation" texts. */
-  getTransformationColor: () => KColor;
+  readonly getTransformationColor: () => KColor;
 
   /** Returns the icon for a given transformation name or ID. */
-  getTransformationIcon: (str: string) => EIDInlineIcon;
+  readonly getTransformationIcon: (str: string) => EIDInlineIcon;
 
   /**
    * Gets the name of the given transformation by its uniqueName / ID.
    *
    * (Note: this function might be broken.)
    */
-  getTransformationName: (id: string) => string;
+  readonly getTransformationName: (id: string) => string;
 
   /**
    * Tries to get the in-game description of an object, based on their description in the XML files.
    *
    * @returns `"(no description available)"` if it cannot find the given object's description.
    */
-  getXMLDescription: (Type: int, Variant: int, SubType: int) => string;
+  readonly getXMLDescription: (Type: int, Variant: int, SubType: int) => string;
 
   /**
    * Returns the icon used for the bullet-point. It will look at the first word in the given string.
    */
-  handleBulletpointIcon: (text: string) => EIDInlineIcon; // cspell:ignore Bulletpoint
+  readonly handleBulletpointIcon: (text: string) => EIDInlineIcon; // cspell:ignore Bulletpoint
 
   /** Returns `true`, if curse of blind is active. */
-  hasCurseBlind: () => boolean;
+  readonly hasCurseBlind: () => boolean;
 
   /** Check if an entity is part of the describable entities. */
-  hasDescription: (entity: Entity) => boolean;
+  readonly hasDescription: (entity: Entity) => boolean;
 
   /** Hides permanently displayed text objects if they exist. */
-  hidePermanentText: () => void;
+  readonly hidePermanentText: () => void;
 
   /** Interpolates between 2 KColors with a given fraction. */
-  interpolateColors: (
+  readonly interpolateColors: (
     kColor1: KColor,
     kColor2: KColor,
     fraction: number,
   ) => KColor;
 
   /** Returns if EID is displaying text right now. */
-  isDisplayingText: () => boolean;
+  readonly isDisplayingText: () => boolean;
 
   /** Loads a given font from a given file path and use it to render text. */
-  loadFont: (fontFileName: string) => boolean;
+  readonly loadFont: (fontFileName: string) => boolean;
 
   /**
    * Removes a Description object modifier. Used for altering descriptions.
    *
    * Examples: Spindown Dice, Tarot Cloth, etc.
    */
-  removeDescriptionModifier: (modifierName: string) => void;
+  readonly removeDescriptionModifier: (modifierName: string) => void;
 
   /**
    * Removes a given value from the string inside a table.
    *
    * Example: `"1,2,3"`, removing `2` will return `"1,3"`.
    */
-  removeEntryFromString: (
+  readonly removeEntryFromString: (
     sourceTable: LuaMap<string | number, string> | readonly string[],
     entryKey: string | number,
     entryValue: string,
@@ -427,7 +427,7 @@ declare interface EIDInterface {
    *
    * Useful to remove small offsets. For example: for schoolbag HUD.
    */
-  removeTextPosModifier: (identifier: string) => void;
+  readonly removeTextPosModifier: (identifier: string) => void;
 
   /**
    * Removes a transformation from an entity.
@@ -437,19 +437,19 @@ declare interface EIDInterface {
    *
    * EXAMPLE: `EID.removeTransformation("collectible", 1, "My Transformation")`.
    */
-  removeTransformation: (
+  readonly removeTransformation: (
     targetType: EIDTransformationTargetType,
     targetIdentifier: string | int,
     transformationString: string,
   ) => void;
 
   /** Helper function to render Icons in specific EID settings. */
-  renderIcon: (spriteObj: Sprite, posX: int, posY: int) => void;
+  readonly renderIcon: (spriteObj: Sprite, posX: int, posY: int) => void;
 
   /**
    * Renders a list of given inline sprite objects returned by the `EID.filterIconMarkup` function.
    */
-  renderInlineIcons: (
+  readonly renderInlineIcons: (
     spriteTable: ReadonlyArray<readonly [icon: EIDInlineIcon, width: int]>,
     posX: int,
     posY: int,
@@ -463,7 +463,7 @@ declare interface EIDInterface {
    *
    * @returns The last used `KColor`.
    */
-  renderString: (
+  readonly renderString: (
     str: string,
     position: Vector,
     scale: Vector,
@@ -471,7 +471,7 @@ declare interface EIDInterface {
   ) => KColor;
 
   /** Replaces shorthand-representations of a character with the internal reference. */
-  replaceShortMarkupStrings: (text: string) => string;
+  readonly replaceShortMarkupStrings: (text: string) => string;
 
   /**
    * Converts a given table into a string containing the crafting icons of the table.
@@ -483,7 +483,7 @@ declare interface EIDInterface {
    *
    * Prefer `EID.tableToCraftingIconsMerged` due to improved render performance.
    */
-  tableToCraftingIconsFull: (craftTable: readonly int[]) => string;
+  readonly tableToCraftingIconsFull: (craftTable: readonly int[]) => string;
 
   /**
    * Converts a given table into a string containing the crafting icons of the table, which are also
@@ -493,7 +493,7 @@ declare interface EIDInterface {
    *
    * Result: `"3{{Crafting3}}2{{Crafting2}}3{{Crafting1}}"`.
    */
-  tableToCraftingIconsMerged: (craftTable: readonly int[]) => string;
+  readonly tableToCraftingIconsMerged: (craftTable: readonly int[]) => string;
 }
 
 declare type EIDTransformationTargetType =

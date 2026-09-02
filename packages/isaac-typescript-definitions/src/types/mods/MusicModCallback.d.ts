@@ -25,7 +25,7 @@ declare global {
      * @param tracks The tracks that will trigger your function call. If this argument is omitted,
      *               all music changes will trigger this callback.
      */
-    AddMusicCallback: (
+    readonly AddMusicCallback: (
       mod: Mod,
       callback: (
         id: Music,
@@ -41,7 +41,7 @@ declare global {
      * @returns The ID of the intended boss room entry music for this room (e.g. Satan, Mom). If not
      *          in a boss room, it will simply return one of the two generic themes.
      */
-    GetBossTrack: () => Music;
+    readonly GetBossTrack: () => Music;
 
     /**
      * @returns Either the ID of the current room's music, or a `LuaMultiReturn` containing the
@@ -50,26 +50,26 @@ declare global {
      * WARNING: Using this in an uncleared boss room will return ONLY the boss jingle. If you want
      * the intended boss music, use the `GetBossTrack` method.
      */
-    GetMusicTrack: () => LuaMultiReturn<
+    readonly GetMusicTrack: () => LuaMultiReturn<
       [currentRoomMusicOrJingle: Music, currentRoomMusic?: Music]
     >;
 
-    GetStageTrack: () => Music;
-    InCustomStage: () => boolean;
+    readonly GetStageTrack: () => Music;
+    readonly InCustomStage: () => boolean;
 
     /**
      * @returns A table that behaves identically to the MusicManager class, except that it will call
      *          all mod callbacks. Useful if you want to allow others to change the music of your
      *          custom room or stage with Music API.
      */
-    Manager: () => MusicManager;
+    readonly Manager: () => MusicManager;
 
     /**
      * This will remove all callbacks associated with the mod.
      *
      * @param mod The mod object that you created with RegisterMod.
      */
-    RemoveMusicCallback: (mod: Mod) => void;
+    readonly RemoveMusicCallback: (mod: Mod) => void;
 
     /**
      * True if music layers are disabled in favour of a mod that does not allow them. False by

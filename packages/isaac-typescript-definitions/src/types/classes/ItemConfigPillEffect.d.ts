@@ -1,5 +1,5 @@
 declare interface ItemConfigPillEffect extends IsaacAPIClass {
-  IsAvailable: () => boolean;
+  readonly IsAvailable: () => boolean;
 
   AchievementID: int;
   AnnouncerDelay: int;

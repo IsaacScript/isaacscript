@@ -13,7 +13,7 @@ declare global {
      * @param addCostume Default is true.
      * @param count Default is 1.
      */
-    AddCollectibleEffect: (
+    readonly AddCollectibleEffect: (
       collectibleType: TemporaryCollectibleType,
       addCostume?: boolean,
       count?: int,
@@ -24,7 +24,7 @@ declare global {
      * @param addCostume
      * @param count Default is 1.
      */
-    AddNullEffect: (
+    readonly AddNullEffect: (
       nullItemID: NullItemID,
       addCostume: boolean,
       count?: int,
@@ -35,41 +35,41 @@ declare global {
      * @param addCostume
      * @param count Default is 1.
      */
-    AddTrinketEffect: (
+    readonly AddTrinketEffect: (
       trinketType: TrinketType,
       addCostume: boolean,
       count?: int,
     ) => void;
 
-    ClearEffects: () => void;
+    readonly ClearEffects: () => void;
 
-    GetCollectibleEffect: (
+    readonly GetCollectibleEffect: (
       collectibleType: CollectibleType,
     ) => Readonly<TemporaryEffect> | undefined;
 
-    GetCollectibleEffectNum: (collectibleType: CollectibleType) => int;
-    GetEffectsList: () => Readonly<EffectList>;
+    readonly GetCollectibleEffectNum: (collectibleType: CollectibleType) => int;
+    readonly GetEffectsList: () => Readonly<EffectList>;
 
-    GetNullEffect: (
+    readonly GetNullEffect: (
       nullItemID: NullItemID,
     ) => Readonly<TemporaryEffect> | undefined;
 
-    GetNullEffectNum: (nullItemID: NullItemID) => int;
+    readonly GetNullEffectNum: (nullItemID: NullItemID) => int;
 
-    GetTrinketEffect: (
+    readonly GetTrinketEffect: (
       trinketType: TrinketType,
     ) => Readonly<TemporaryEffect> | undefined;
 
-    GetTrinketEffectNum: (trinketType: TrinketType) => int;
-    HasCollectibleEffect: (collectibleType: CollectibleType) => boolean;
-    HasNullEffect: (nullItemID: NullItemID) => boolean;
-    HasTrinketEffect: (trinketType: TrinketType) => boolean;
+    readonly GetTrinketEffectNum: (trinketType: TrinketType) => int;
+    readonly HasCollectibleEffect: (collectibleType: CollectibleType) => boolean;
+    readonly HasNullEffect: (nullItemID: NullItemID) => boolean;
+    readonly HasTrinketEffect: (trinketType: TrinketType) => boolean;
 
     /**
      * @param collectibleType
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    RemoveCollectibleEffect: (
+    readonly RemoveCollectibleEffect: (
       collectibleType: CollectibleType,
       count?: int,
     ) => void;
@@ -78,12 +78,12 @@ declare global {
      * @param nullItemID
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    RemoveNullEffect: (nullItemID: NullItemID, count?: int) => void;
+    readonly RemoveNullEffect: (nullItemID: NullItemID, count?: int) => void;
 
     /**
      * @param trinketType
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    RemoveTrinketEffect: (trinketType: TrinketType, count?: int) => void;
+    readonly RemoveTrinketEffect: (trinketType: TrinketType, count?: int) => void;
   }
 }

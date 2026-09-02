@@ -7,10 +7,10 @@ declare global {
    * `GridEntity.ToPit` method.
    */
   interface GridEntityPit extends GridEntity {
-    GetVariant: () => PitVariant;
-    MakeBridge: (bridgeSource?: GridEntity) => void;
-    SetLadder: (value: boolean) => void;
-    UpdateCollision: () => void;
+    readonly GetVariant: () => PitVariant;
+    readonly MakeBridge: (bridgeSource?: GridEntity) => void;
+    readonly SetLadder: (value: boolean) => void;
+    readonly UpdateCollision: () => void;
 
     HasLadder: boolean;
     State: PitState;

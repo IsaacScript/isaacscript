@@ -23,7 +23,7 @@ declare global {
   }
 
   interface MinimapAPIInterface {
-    AddDisplayFlagsCallback: (
+    readonly AddDisplayFlagsCallback: (
       mod: Mod,
       func: (
         room: MinimapAPIRoomDescriptor,
@@ -31,7 +31,7 @@ declare global {
       ) => BitFlags<DisplayFlag> | undefined,
     ) => void;
 
-    AddIcon: (
+    readonly AddIcon: (
       id: number | string,
       sprite: Sprite,
       animationName: string,
@@ -45,7 +45,7 @@ declare global {
       id: number | string;
     };
 
-    AddMapFlag: (
+    readonly AddMapFlag: (
       id: number | string,
       condition: () => boolean,
       sprite: Sprite,
@@ -60,7 +60,7 @@ declare global {
       sprite: Sprite;
     };
 
-    AddPickup: (
+    readonly AddPickup: (
       id: number | string,
       icon: string | MinimapAPIIcon,
       entityType: EntityType,
@@ -71,7 +71,7 @@ declare global {
       priority: number,
     ) => MinimapAPIRoomDescriptor;
 
-    AddPlayerPositionCallback: (
+    readonly AddPlayerPositionCallback: (
       mod: Mod,
       func: (
         room: MinimapAPIRoomDescriptor,
@@ -79,7 +79,7 @@ declare global {
       ) => Vector | undefined,
     ) => void;
 
-    AddRoom: (table: {
+    readonly AddRoom: (table: {
       /**
        * The display flags that this room will take on if seen from an adjacent room. This is
        * usually 0 for secret rooms, 3 for locked rooms and 5 for all others.
@@ -155,7 +155,7 @@ declare global {
       Visited?: boolean;
     }) => MinimapAPIRoomDescriptor;
 
-    AddRoomShape: (
+    readonly AddRoomShape: (
       id: number | string,
       smallAnims: MinimapAPIRoomAnimsTable, // cspell:ignore Anims
       largeAnims: MinimapAPIRoomAnimsTable,
@@ -170,51 +170,51 @@ declare global {
       doorSlots?: readonly DoorSlot[],
     ) => void;
 
-    GetConfig: (configOption: string) => boolean | number | undefined;
+    readonly GetConfig: (configOption: string) => boolean | number | undefined;
 
-    GetCurrentRoom: () => MinimapAPIRoomDescriptor | undefined;
+    readonly GetCurrentRoom: () => MinimapAPIRoomDescriptor | undefined;
 
-    GetLevel: (dimension?: Dimension) => MinimapAPIRoomDescriptor[];
+    readonly GetLevel: (dimension?: Dimension) => MinimapAPIRoomDescriptor[];
 
-    GetPlayerPosition: () => Vector;
+    readonly GetPlayerPosition: () => Vector;
 
-    GetPositionRelativeToDoor: (
+    readonly GetPositionRelativeToDoor: (
       room: MinimapAPIRoomDescriptor,
       doorslot: DoorSlot, // cspell:ignore doorslot
     ) => Vector;
 
-    GetRoom: (position: Vector) => MinimapAPIRoomDescriptor | undefined;
+    readonly GetRoom: (position: Vector) => MinimapAPIRoomDescriptor | undefined;
 
-    GetRoomAtPosition: (
+    readonly GetRoomAtPosition: (
       position: Vector,
     ) => MinimapAPIRoomDescriptor | undefined;
 
-    GetRoomById: (id: number | string) => MinimapAPIRoomDescriptor | undefined;
+    readonly GetRoomById: (id: number | string) => MinimapAPIRoomDescriptor | undefined;
 
-    GetRoomByIdx: (
+    readonly GetRoomByIdx: (
       roomGridIndex: int | GridRoom,
     ) => MinimapAPIRoomDescriptor | undefined;
 
-    GetSaveTable: (menuExit: boolean) => LuaMap;
+    readonly GetSaveTable: (menuExit: boolean) => LuaMap;
 
-    IsPositionFree: (position: Vector) => boolean;
+    readonly IsPositionFree: (position: Vector) => boolean;
 
-    IsPositionFreeNoAlign: (position: Vector, roomShape?: RoomShape) => boolean;
+    readonly IsPositionFreeNoAlign: (position: Vector, roomShape?: RoomShape) => boolean;
 
-    IsRoomAdjacent: (
+    readonly IsRoomAdjacent: (
       room1: MinimapAPIRoomDescriptor,
       room2: MinimapAPIRoomDescriptor,
     ) => boolean;
 
-    PlayerInRoom: (room: MinimapAPIRoomDescriptor) => boolean;
+    readonly PlayerInRoom: (room: MinimapAPIRoomDescriptor) => boolean;
 
-    RemoveIcon: (id: string | number) => void;
+    readonly RemoveIcon: (id: string | number) => void;
 
-    RemoveRoom: (position: Vector) => void;
+    readonly RemoveRoom: (position: Vector) => void;
 
-    RemoveRoomByID: (id: number | string) => void;
+    readonly RemoveRoomByID: (id: number | string) => void;
 
-    SetPlayerPosition: (position: Vector) => void;
+    readonly SetPlayerPosition: (position: Vector) => void;
 
     Config: {
       Disable: boolean;
@@ -263,9 +263,9 @@ declare global {
       SmoothSlidingSpeed?: number;
     };
 
-    PickupChestNotCollected: (pickup: EntityPickup) => boolean | undefined;
-    PickupNotCollected: (pickup: EntityPickup) => boolean | undefined;
-    PickupSlotMachineNotBroken: (slot: Entity) => boolean | undefined;
+    readonly PickupChestNotCollected: (pickup: EntityPickup) => boolean | undefined;
+    readonly PickupNotCollected: (pickup: EntityPickup) => boolean | undefined;
+    readonly PickupSlotMachineNotBroken: (slot: Entity) => boolean | undefined;
 
     ReleaseVersion?: number;
     Version: string | number;
@@ -299,28 +299,28 @@ declare global {
   }
 
   interface MinimapAPIRoomDescriptor {
-    AddAdjacentRoom: (room: MinimapAPIRoomDescriptor) => void;
-    GetAdjacentRooms: () => MinimapAPIRoomDescriptor[];
-    GetColor: () => Color;
-    GetDisplayFlags: () => BitFlags<DisplayFlag>;
-    GetDisplayPosition: () => Vector;
-    GetPosition: () => Vector;
-    IsClear: () => boolean;
-    IsIconVisible: () => boolean;
-    IsShadow: () => boolean;
-    IsValidTeleportTarget: () => boolean;
-    IsVisible: () => boolean;
-    IsVisited: () => boolean;
-    Remove: () => void;
-    RemoveAdjacentRoom: (
+    readonly AddAdjacentRoom: (room: MinimapAPIRoomDescriptor) => void;
+    readonly GetAdjacentRooms: () => MinimapAPIRoomDescriptor[];
+    readonly GetColor: () => Color;
+    readonly GetDisplayFlags: () => BitFlags<DisplayFlag>;
+    readonly GetDisplayPosition: () => Vector;
+    readonly GetPosition: () => Vector;
+    readonly IsClear: () => boolean;
+    readonly IsIconVisible: () => boolean;
+    readonly IsShadow: () => boolean;
+    readonly IsValidTeleportTarget: () => boolean;
+    readonly IsVisible: () => boolean;
+    readonly IsVisited: () => boolean;
+    readonly Remove: () => void;
+    readonly RemoveAdjacentRoom: (
       roomToRemove: MinimapAPIRoomDescriptor,
     ) => MinimapAPIRoomDescriptor;
-    Reveal: () => void;
-    SetDisplayFlags: (displayFlags: BitFlags<DisplayFlag>) => void;
-    SetPosition: (pos: Vector) => void;
-    SyncRoomDescriptor: () => void;
-    UpdateAdjacentRoomsCache: () => void;
-    UpdateType: () => void;
+    readonly Reveal: () => void;
+    readonly SetDisplayFlags: (displayFlags: BitFlags<DisplayFlag>) => void;
+    readonly SetPosition: (pos: Vector) => void;
+    readonly SyncRoomDescriptor: () => void;
+    readonly UpdateAdjacentRoomsCache: () => void;
+    readonly UpdateType: () => void;
 
     AdjacentDisplayFlags: BitFlags<DisplayFlag>;
     Clear: boolean;
@@ -355,10 +355,10 @@ declare global {
   }
 
   interface MinimapAPITeleportHandler {
-    CanTeleport: (
+    readonly CanTeleport: (
       room: MinimapAPIRoomDescriptor,
       cheatMode: boolean,
     ) => boolean;
-    Teleport: (room: MinimapAPIRoomDescriptor) => void;
+    readonly Teleport: (room: MinimapAPIRoomDescriptor) => void;
   }
 }

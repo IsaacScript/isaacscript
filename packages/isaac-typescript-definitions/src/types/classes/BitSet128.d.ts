@@ -24,11 +24,11 @@ declare global {
      * https://typescripttolua.github.io/docs/advanced/language-extensions/#operator-map-types
      */
 
-    band: LuaBitwiseAndMethod<BitSet128, BitSet128>;
-    bnot: LuaBitwiseNotMethod<BitSet128>;
-    bor: LuaBitwiseOrMethod<BitSet128, BitSet128>;
-    bshl: LuaBitwiseLeftShiftMethod<BitSet128, BitSet128>;
-    bshr: LuaBitwiseRightShiftMethod<BitSet128, BitSet128>;
+    readonly band: LuaBitwiseAndMethod<BitSet128, BitSet128>;
+    readonly bnot: LuaBitwiseNotMethod<BitSet128>;
+    readonly bor: LuaBitwiseOrMethod<BitSet128, BitSet128>;
+    readonly bshl: LuaBitwiseLeftShiftMethod<BitSet128, BitSet128>;
+    readonly bshr: LuaBitwiseRightShiftMethod<BitSet128, BitSet128>;
 
     /** An identifier that does not exist at run-time. */
     __kind: CopyableIsaacAPIClassType.BIT_SET_128;

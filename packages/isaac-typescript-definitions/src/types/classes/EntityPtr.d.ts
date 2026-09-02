@@ -1,5 +1,5 @@
 declare interface EntityPtr extends IsaacAPIClass {
-  SetReference: (ref: Entity | undefined) => void;
+  readonly SetReference: (ref: Entity | undefined) => void;
 
   readonly Ref?: Entity;
 }

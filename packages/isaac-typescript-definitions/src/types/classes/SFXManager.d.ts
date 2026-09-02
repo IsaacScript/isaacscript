@@ -2,10 +2,10 @@ import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   interface SFXManager extends IsaacAPIClass {
-    AdjustPitch: (soundEffect: SoundEffect, pitch: float) => void;
-    AdjustVolume: (soundEffect: SoundEffect, volume: float) => void;
-    GetAmbientSoundVolume: (soundEffect: SoundEffect) => float;
-    IsPlaying: (soundEffect: SoundEffect) => boolean;
+    readonly AdjustPitch: (soundEffect: SoundEffect, pitch: float) => void;
+    readonly AdjustVolume: (soundEffect: SoundEffect, volume: float) => void;
+    readonly GetAmbientSoundVolume: (soundEffect: SoundEffect) => float;
+    readonly IsPlaying: (soundEffect: SoundEffect) => boolean;
 
     /**
      * @param soundEffect
@@ -15,7 +15,7 @@ declare global {
      * @param pitch Default is 1.
      * @param pan Default is 0.
      */
-    Play: (
+    readonly Play: (
       soundEffect: SoundEffect,
       volume?: float,
       frameDelay?: int,
@@ -24,16 +24,16 @@ declare global {
       pan?: float,
     ) => void;
 
-    Preload: (soundEffect: SoundEffect) => void;
+    readonly Preload: (soundEffect: SoundEffect) => void;
 
-    SetAmbientSound: (
+    readonly SetAmbientSound: (
       soundEffect: SoundEffect,
       volume: float,
       pitch: float,
     ) => void;
 
-    Stop: (soundEffect: SoundEffect) => void;
-    StopLoopingSounds: () => void;
+    readonly Stop: (soundEffect: SoundEffect) => void;
+    readonly StopLoopingSounds: () => void;
   }
 
   function SFXManager(this: void): SFXManager;

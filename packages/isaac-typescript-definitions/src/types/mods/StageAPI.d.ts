@@ -205,10 +205,10 @@ declare global {
   /** @noSelf */
   interface StageAPIInterface {
     /** Creates a custom boss. */
-    AddBossData: (id: string, bossData: StageAPIBossData) => void;
+    readonly AddBossData: (id: string, bossData: StageAPIBossData) => void;
 
     /** Add boss to current floor. */
-    AddBossToBaseFloorPool: (
+    readonly AddBossToBaseFloorPool: (
       pool: StageAPIPoolEntry,
       stage: LevelStage,
       stageType: StageType,
@@ -218,7 +218,7 @@ declare global {
      * Stores a function and its params in a table indexed by `ID` and sorted by `priority`, where
      * low priority is at the start.
      */
-    AddCallback: <T extends StageAPICallback>(
+    readonly AddCallback: <T extends StageAPICallback>(
       modID: string,
       id: T,
       priority: int,
@@ -233,13 +233,13 @@ declare global {
      *               shared prefix. Example: `gfx/backdrop/revel1/glacier/main_`
      * @param suffix Generally the file extension, e.g.: `".png"`
      */
-    BackdropHelper: (
+    readonly BackdropHelper: (
       backdrop: StageAPIBackdrop | readonly StageAPIBackdrop[],
       prefix: string,
       suffix: string,
     ) => StageAPIBackdrop[];
 
-    ChangeBackdrop: ((
+    readonly ChangeBackdrop: ((
       backdrop: StageAPIBackdrop,
       justWalls?: boolean,
       storeBackdropEntities?: false,
@@ -250,31 +250,31 @@ declare global {
         storeBackdropEntities: true,
       ) => Entity[]);
 
-    ChangeDecoration: (decoration: StageAPIGridContainer) => void;
+    readonly ChangeDecoration: (decoration: StageAPIGridContainer) => void;
 
-    ChangeDoor: (
+    readonly ChangeDoor: (
       container: StageAPIGridContainer,
       doorInfo: StageAPIDoorInfo,
       payToPlayFile?: string,
     ) => void;
 
-    ChangePit: (
+    readonly ChangePit: (
       gridContainer: StageAPIGridContainer,
       fileName?: string,
       bridgeFileName?: string,
       altFileName?: string,
     ) => void;
 
-    ChangeRock: (container: StageAPIGridContainer) => void;
+    readonly ChangeRock: (container: StageAPIGridContainer) => void;
 
-    CheckBridge: (
+    readonly CheckBridge: (
       gridEntity: GridEntity,
       gridIndex: int,
       bridgeFileName: string,
     ) => void;
 
     /** Function to create a custom floor layout. */
-    CreateMapFromRoomsList: (
+    readonly CreateMapFromRoomsList: (
       roomsList: StageAPIRoomsList,
       mapRoomVariant?: int,
     ) => StageAPILevelMap;
@@ -295,7 +295,7 @@ declare global {
      * @param overrideGridSpawnAtState
      * @param forceSpawning
      */
-    CustomGrid: (
+    readonly CustomGrid: (
       name: string,
       gridEntityType: GridEntityType,
       baseVariant: number,
@@ -316,14 +316,14 @@ declare global {
      * @param stageOverrideStage
      * @param noSetReplaces Replaces defaults to catacombs one if noSetReplaces is not set.
      */
-    CustomStage: (
+    readonly CustomStage: (
       name: string,
       stageOverrideStage?: StageAPIStageOverrideStage,
       noSetReplaces?: boolean,
     ) => StageAPICustomStage;
 
     /** Used to go to a specific room when on a custom StageAPI floor. */
-    ExtraRoomTransition: (
+    readonly ExtraRoomTransition: (
       levelMapRoomID: int,
       direction: Direction,
       transitionType: RoomTransitionAnim,
@@ -340,69 +340,69 @@ declare global {
      * custom stage, they must first check on every `POST_RENDER` frame until this method returns
      * true.
      */
-    FinishedLoadingData: () => boolean;
+    readonly FinishedLoadingData: () => boolean;
 
-    GetBossData: (id: string) => StageAPIBossData;
-    GetCurrentLevelMap: () => StageAPILevelMap;
-    GetCurrentRoom: () => StageAPILevelRoom | undefined;
+    readonly GetBossData: (id: string) => StageAPIBossData;
+    readonly GetCurrentLevelMap: () => StageAPILevelMap;
+    readonly GetCurrentRoom: () => StageAPILevelRoom | undefined;
 
     /** Roughly analogous to the vanilla `Level.GetCurrentRoomIndex` function. */
-    GetCurrentRoomID: () => int;
+    readonly GetCurrentRoomID: () => int;
 
-    GetCurrentRoomType: () => RoomType;
+    readonly GetCurrentRoomType: () => RoomType;
 
     /** Gets the current custom stage. */
-    GetCurrentStage: () => StageAPICustomStage | undefined;
+    readonly GetCurrentStage: () => StageAPICustomStage | undefined;
 
-    GetCurrentStageDisplayName: () => string;
+    readonly GetCurrentStageDisplayName: () => string;
 
-    GetCustomGrids: (
+    readonly GetCustomGrids: (
       index: int | undefined,
       name: string,
     ) => StageAPICustomGridEntity[];
 
     /** Teleports the player(s) to a specified stage. */
-    GotoCustomStage: (
+    readonly GotoCustomStage: (
       customStage: StageAPICustomStage,
       playTransition?: boolean,
       noForgetSeed?: boolean,
     ) => void;
 
-    GridGfx: () => StageAPIGridGfx;
-    InNewStage: () => boolean;
-    InOverrideStage: () => boolean;
-    InOverridenStage: () => boolean; // cspell:ignore overriden
-    InitCustomLevel: (
+    readonly GridGfx: () => StageAPIGridGfx;
+    readonly InNewStage: () => boolean;
+    readonly InOverrideStage: () => boolean;
+    readonly InOverridenStage: () => boolean; // cspell:ignore overriden
+    readonly InitCustomLevel: (
       levelMap: StageAPILevelMap,
       levelStartRoom: boolean,
     ) => void;
-    IsCustomGrid: (gridIndex: int) => boolean;
-    IsDoorSlotAllowed: (slot: DoorSlot) => boolean;
+    readonly IsCustomGrid: (gridIndex: int) => boolean;
+    readonly IsDoorSlotAllowed: (slot: DoorSlot) => boolean;
 
-    LoadCustomMapRoomDoors: (
+    readonly LoadCustomMapRoomDoors: (
       levelRoom: StageAPILevelRoom,
       roomData: StageAPIRoomData,
       levelMap?: StageAPILevelMap,
     ) => void;
 
-    PlayTextStreak: (params: StageAPITextStreakParams) => void;
+    readonly PlayTextStreak: (params: StageAPITextStreakParams) => void;
 
     /** Constructor for the RoomGfx object. */
-    RoomGfx: (
+    readonly RoomGfx: (
       backdrop: StageAPIBackdrop,
       gridGfx: StageAPIGridGfx | undefined,
       shadingName: string,
       shadingPrefix: string,
     ) => StageAPIRoomGfx;
 
-    RoomsList: (
+    readonly RoomsList: (
       name: string,
       ...layouts: readonly unknown[]
     ) => StageAPIRoomsList;
-    SetCurrentRoom: (room: StageAPILevelRoom) => void;
-    SetDoorOpen: (open: boolean, door: Entity) => void;
+    readonly SetCurrentRoom: (room: StageAPILevelRoom) => void;
+    readonly SetDoorOpen: (open: boolean, door: Entity) => void;
 
-    SpawnCustomDoor: (
+    readonly SpawnCustomDoor: (
       slot: DoorSlot,
       leadsToExtraRoomName: string,
       levelMapID: unknown,
@@ -411,7 +411,7 @@ declare global {
       exitSlot: DoorSlot | undefined,
     ) => void;
 
-    SpawnCustomTrapdoor: (
+    readonly SpawnCustomTrapdoor: (
       position: Vector,
       goesTo: StageAPICustomStage,
       anm2: string | undefined,
@@ -419,7 +419,7 @@ declare global {
     ) => Entity;
 
     /** Unregisters all mod callbacks, should be used when a mod loads, useful for `luamod`. */
-    UnregisterCallbacks: (modID: string) => void;
+    readonly UnregisterCallbacks: (modID: string) => void;
 
     Callbacks: Record<StageAPICallback, unknown>;
 

@@ -16,12 +16,12 @@ declare global {
      *
      * @param tags The composition of one or more `ItemConfigTag`.
      */
-    HasTags: (tags: ItemConfigTag) => boolean;
+    readonly HasTags: (tags: ItemConfigTag) => boolean;
 
-    IsAvailable: () => boolean;
-    IsCollectible: () => this is ItemConfigItemCollectible;
-    IsNull: () => this is ItemConfigItemNull;
-    IsTrinket: () => this is ItemConfigItemTrinket;
+    readonly IsAvailable: () => boolean;
+    readonly IsCollectible: () => this is ItemConfigItemCollectible;
+    readonly IsNull: () => this is ItemConfigItemNull;
+    readonly IsTrinket: () => this is ItemConfigItemTrinket;
 
     AchievementID: int;
     AddBlackHearts: int;

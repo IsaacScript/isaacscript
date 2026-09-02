@@ -6,37 +6,37 @@ import type { SoundEffect } from "../../enums/SoundEffect";
 
 declare global {
   interface EntityNPC extends Entity {
-    AnimWalkFrame: (
+    readonly AnimWalkFrame: (
       horizontalAnim: string,
       verticalAnim: string,
       speedThreshold: float,
     ) => void;
 
-    CalcTargetPosition: (distanceLimit: float) => Vector;
-    CanBeDamagedFromVelocity: (velocity: Vector) => boolean;
-    CanReroll: () => boolean;
+    readonly CalcTargetPosition: (distanceLimit: float) => Vector;
+    readonly CanBeDamagedFromVelocity: (velocity: Vector) => boolean;
+    readonly CanReroll: () => boolean;
 
-    FireBossProjectiles: (
+    readonly FireBossProjectiles: (
       numProjectiles: int,
       targetPos: Vector,
       trajectoryModifier: float,
       projectileParams: ProjectileParams,
     ) => EntityProjectile;
 
-    FireProjectiles: (
+    readonly FireProjectiles: (
       position: Vector,
       velocity: Vector,
       projectilesMode: ProjectilesMode,
       projectileParams: ProjectileParams,
     ) => void;
 
-    GetAliveEnemyCount: () => int;
-    GetBossColorIdx: () => int;
-    GetChampionColorIdx: () => ChampionColor;
-    GetPlayerTarget: () => Entity;
-    IsBoss: () => boolean;
-    IsChampion: () => boolean;
-    KillUnique: () => void;
+    readonly GetAliveEnemyCount: () => int;
+    readonly GetBossColorIdx: () => int;
+    readonly GetChampionColorIdx: () => ChampionColor;
+    readonly GetPlayerTarget: () => Entity;
+    readonly IsBoss: () => boolean;
+    readonly IsChampion: () => boolean;
+    readonly KillUnique: () => void;
 
     /**
      * @param seed
@@ -45,13 +45,13 @@ declare global {
      * @param init Set to true when called while initializing the enemy, false otherwise. Default is
      *             false.
      */
-    MakeChampion: (
+    readonly MakeChampion: (
       seed: Seed,
       championColor?: ChampionColor,
       init?: boolean,
     ) => void;
 
-    MakeSplat: (size: float) => EntityEffect;
+    readonly MakeSplat: (size: float) => EntityEffect;
 
     /**
      * Change the NPC into another one.
@@ -61,14 +61,14 @@ declare global {
      * @param subType
      * @param championColorIdx Pass -1 to morph into a non-champion.
      */
-    Morph: (
+    readonly Morph: (
       entityType: EntityType,
       variant: int,
       subType: int,
       championColorIdx: ChampionColor | -1,
     ) => boolean;
 
-    PlaySound: (
+    readonly PlaySound: (
       soundEffect: SoundEffect,
       volume: float,
       frameDelay: int,
@@ -76,16 +76,16 @@ declare global {
       pitch: float,
     ) => void;
 
-    QueryNPCsGroup: (groupIdx: int) => EntityList;
+    readonly QueryNPCsGroup: (groupIdx: int) => EntityList;
 
-    QueryNPCsSpawnerType: (
+    readonly QueryNPCsSpawnerType: (
       spawnerType: EntityType,
       entityType: EntityType,
       onlyEnemies: boolean,
     ) => EntityList;
 
-    QueryNPCsType: (entityType: EntityNPC, variant: int) => EntityList;
-    ResetPathFinderTarget: () => void;
+    readonly QueryNPCsType: (entityType: EntityNPC, variant: int) => EntityList;
+    readonly ResetPathFinderTarget: () => void;
 
     /**
      * The `EntityNPC.CanShutDoors` field conflicts with the `Entity.CanShutDoors` method, but the

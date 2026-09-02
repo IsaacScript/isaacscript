@@ -19,7 +19,7 @@ declare global {
      * @param damage The damage taken per tick. Each damage tick is 20 frames apart.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddBurn: (
+    readonly AddBurn: (
       source: EntityRef,
       duration: int,
       damage: float,
@@ -35,7 +35,7 @@ declare global {
      *                 effect will be permanent and the entity will follow you to different rooms.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddCharmed: (
+    readonly AddCharmed: (
       source: EntityRef,
       duration: int,
       ignoreBosses?: boolean,
@@ -49,7 +49,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddConfusion: (
+    readonly AddConfusion: (
       source: EntityRef,
       duration: int,
       ignoreBosses?: boolean,
@@ -59,7 +59,7 @@ declare global {
      * Adds one or more `EntityFlag` to the entity. Flags are used to add specific effects like
      * being friendly or being shrunk.
      */
-    AddEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => void;
+    readonly AddEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => void;
 
     /**
      * Adds a fear effect to the entity.
@@ -69,7 +69,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddFear: (source: EntityRef, duration: int, ignoreBosses?: boolean) => void;
+    readonly AddFear: (source: EntityRef, duration: int, ignoreBosses?: boolean) => void;
 
     /**
      * Adds a freeze effect to the entity.
@@ -79,14 +79,14 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddFreeze: (
+    readonly AddFreeze: (
       source: EntityRef,
       duration: int,
       ignoreBosses?: boolean,
     ) => void;
 
     /** Heals the entity. */
-    AddHealth: (hitPoints: float) => void;
+    readonly AddHealth: (hitPoints: float) => void;
 
     /**
      * Turns the entity into a gold statue. Effectively, this means that they cannot move, cannot
@@ -99,7 +99,7 @@ declare global {
      *                 150 frames, but the gold color will persist for the full duration.)
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddMidasFreeze: (
+    readonly AddMidasFreeze: (
       source: EntityRef,
       duration: int,
       ignoreBosses?: boolean,
@@ -115,7 +115,7 @@ declare global {
      * @param damage The damage taken per tick. Each damage tick is 20 frames apart.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddPoison: (
+    readonly AddPoison: (
       source: EntityRef,
       duration: int,
       damage: float,
@@ -130,7 +130,7 @@ declare global {
      * @param duration The number of frames that the effect should apply for.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddShrink: (
+    readonly AddShrink: (
       source: EntityRef,
       duration: int,
       ignoreBosses?: boolean,
@@ -147,7 +147,7 @@ declare global {
      * @param slowColor The color modification to make to the enemy.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    AddSlowing: (
+    readonly AddSlowing: (
       source: EntityRef,
       duration: int,
       slowValue: float,
@@ -164,23 +164,23 @@ declare global {
      *                        ignoring effects that would otherwise slow down or speed up the entity
      *                        (like Stopwatch). Defaults to false.
      */
-    AddVelocity: (velocity: Vector, ignoreTimeScale: boolean) => void;
+    readonly AddVelocity: (velocity: Vector, ignoreTimeScale: boolean) => void;
 
-    BloodExplode: () => void;
+    readonly BloodExplode: () => void;
 
     // `CanShutDoors` is deliberately not implemented here because it conflicts with
     // `EntityNPC.CanShutDoors`.
 
     /** Removes one or more `EntityFlag` from the entity. */
-    ClearEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => void;
+    readonly ClearEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => void;
 
     /**
      * Returns true if the entity is currently colliding with a valid `GridEntity`, as dictated by
      * its `Entity.GridCollisionClass`.
      */
-    CollidesWithGrid: () => boolean;
+    readonly CollidesWithGrid: () => boolean;
 
-    Die: () => void;
+    readonly Die: () => void;
 
     /**
      * Checks whether the entity is still spawned in the current room.
@@ -188,7 +188,7 @@ declare global {
      * This is mostly useful in situations where you are unwrapping an `EntityPtr` and the
      * corresponding entity may or may not have been killed in the interim period.
      */
-    Exists: () => boolean;
+    readonly Exists: () => boolean;
 
     /**
      * Note that `BossID` is not equal to `EntityType`; see the `BossID` enum.
@@ -196,9 +196,9 @@ declare global {
      * Returns 0 if the entity is not a boss. It will also return 0 if this a custom boss without a
      * "bossID" attribute set in the "entities2.xml" file.
      */
-    GetBossID: () => BossID | 0;
+    readonly GetBossID: () => BossID | 0;
 
-    GetColor: () => Readonly<Color>;
+    readonly GetColor: () => Readonly<Color>;
 
     /**
      * Returns a Lua table that contains mod-related data associated with the entity. Initially,
@@ -212,58 +212,58 @@ declare global {
      * For more information, see the tutorial on the IsaacScript website:
      * https://isaacscript.github.io/main/using-get-data/
      */
-    GetData: () => Record<string, unknown>;
+    readonly GetData: () => Record<string, unknown>;
 
-    GetDropRNG: () => RNG;
-    GetEntityFlags: () => EntityFlag | BitFlags<EntityFlag>;
+    readonly GetDropRNG: () => RNG;
+    readonly GetEntityFlags: () => EntityFlag | BitFlags<EntityFlag>;
 
     /**
      * Returns the last child of this entity. This is useful for certain segmented enemies so you
      * can go all the way to the bottom "tail" entity in one method call.
      */
-    GetLastChild: () => Entity;
+    readonly GetLastChild: () => Entity;
 
     /**
      * Returns the last parent of this entity. This is useful for certain segmented enemies so you
      * can go all the way to the top "head" entity in one method call.
      */
-    GetLastParent: () => Entity;
+    readonly GetLastParent: () => Entity;
 
-    GetSprite: () => Sprite;
-    HasCommonParentWithEntity: (other: Entity) => boolean;
-    HasEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => boolean;
-    HasFullHealth: () => boolean;
-    HasMortalDamage: () => boolean;
+    readonly GetSprite: () => Sprite;
+    readonly HasCommonParentWithEntity: (other: Entity) => boolean;
+    readonly HasEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => boolean;
+    readonly HasFullHealth: () => boolean;
+    readonly HasMortalDamage: () => boolean;
 
     /**
      * @deprecated Consider using the `isActiveEnemy` helper function from `isaacscript-common`
      *             instead, since it will correctly handle friendly entities, Grimaces, Ultra Greed,
      *             and Mother.
      */
-    IsActiveEnemy: (includeDead: boolean) => boolean;
+    readonly IsActiveEnemy: (includeDead: boolean) => boolean;
 
-    IsBoss: () => boolean;
-    IsDead: () => boolean;
-    IsEnemy: () => boolean;
-    IsFlying: () => boolean;
-    IsFrame: (frame: int, offset: int) => boolean;
-    IsInvincible: () => boolean;
-    IsVisible: () => boolean;
+    readonly IsBoss: () => boolean;
+    readonly IsDead: () => boolean;
+    readonly IsEnemy: () => boolean;
+    readonly IsFlying: () => boolean;
+    readonly IsFrame: (frame: int, offset: int) => boolean;
+    readonly IsInvincible: () => boolean;
+    readonly IsVisible: () => boolean;
 
     /** Returns true for enemies that can be damaged. */
-    IsVulnerableEnemy: () => boolean;
+    readonly IsVulnerableEnemy: () => boolean;
 
-    Kill: () => void;
+    readonly Kill: () => void;
 
     /** Added in Repentance+. */
-    KillWithSource: (source: EntityRef) => void;
+    readonly KillWithSource: (source: EntityRef) => void;
 
-    MultiplyFriction: (value: float) => void;
-    PostRender: () => void;
-    Remove: () => void;
-    RemoveStatusEffects: () => void;
-    Render: (offset: Vector) => void;
-    RenderShadowLayer: (offset: Vector) => boolean;
+    readonly MultiplyFriction: (value: float) => void;
+    readonly PostRender: () => void;
+    readonly Remove: () => void;
+    readonly RemoveStatusEffects: () => void;
+    readonly Render: (offset: Vector) => void;
+    readonly RenderShadowLayer: (offset: Vector) => boolean;
 
     /**
      * @param color
@@ -272,7 +272,7 @@ declare global {
      * @param fadeout Default value is false.
      * @param share Default value is false.
      */
-    SetColor: (
+    readonly SetColor: (
       color: Color,
       duration: int,
       priority: int,
@@ -280,13 +280,13 @@ declare global {
       share?: boolean,
     ) => void;
 
-    SetSize: (
+    readonly SetSize: (
       size: float,
       sizeMulti: Vector,
       numGridCollisionPoints: int,
     ) => void;
-    SetSpriteFrame: (animation: string, frameNum: int) => void;
-    SetSpriteOverlayFrame: (animation: string, frameNum: int) => void;
+    readonly SetSpriteFrame: (animation: string, frameNum: int) => void;
+    readonly SetSpriteOverlayFrame: (animation: string, frameNum: int) => void;
 
     /**
      * The game adds taken damage to a damage buffer, which gets applied in the next frame.
@@ -299,7 +299,7 @@ declare global {
      *               `EntityRef(undefined)`.
      * @param countdownFrames
      */
-    TakeDamage: (
+    readonly TakeDamage: (
       amount: float,
       damageFlags: DamageFlag | BitFlags<DamageFlag>,
       source: EntityRef,
@@ -310,70 +310,70 @@ declare global {
      * Casts an `Entity` into an `EntityBomb`, which has bomb-specific methods and properties. If
      * the associated entity is not a bomb, then this method will return undefined.
      */
-    ToBomb: () => EntityBomb | undefined;
+    readonly ToBomb: () => EntityBomb | undefined;
 
     /**
      * Casts an `Entity` into an `EntityEffect`, which has effect-specific methods and properties.
      * If the associated entity is not a effect, then this method will return undefined.
      */
-    ToEffect: () => EntityEffect | undefined;
+    readonly ToEffect: () => EntityEffect | undefined;
 
     /**
      * Casts an `Entity` into an `EntityFamiliar`, which has familiar-specific methods and
      * properties. If the associated entity is not a familiar, then this method will return
      * undefined.
      */
-    ToFamiliar: () => EntityFamiliar | undefined;
+    readonly ToFamiliar: () => EntityFamiliar | undefined;
 
     /**
      * Casts an `Entity` into an `EntityKnife`, which has knife-specific methods and properties. If
      * the associated entity is not a knife, then this method will return undefined.
      */
-    ToKnife: () => EntityKnife | undefined;
+    readonly ToKnife: () => EntityKnife | undefined;
 
     /**
      * Casts an `Entity` into an `EntityLaser`, which has laser-specific methods and properties. If
      * the associated entity is not a laser, then this method will return undefined.
      */
-    ToLaser: () => EntityLaser | undefined;
+    readonly ToLaser: () => EntityLaser | undefined;
 
     /**
      * Casts an `Entity` into an `EntityNPC`, which has NPC-specific methods and properties. If the
      * associated entity is not an NPC, then this method will return undefined.
      */
-    ToNPC: () => EntityNPC | undefined;
+    readonly ToNPC: () => EntityNPC | undefined;
 
     /**
      * Casts an `Entity` into an `EntityPickup`, which has pickup-specific methods and properties.
      * If the associated entity is not a pickup, then this method will return undefined.
      */
-    ToPickup: () => EntityPickup | undefined;
+    readonly ToPickup: () => EntityPickup | undefined;
 
     /**
      * Casts an `Entity` into an `EntityPlayer`, which has player-specific methods and properties.
      * If the associated entity is not a player, then this method will return undefined.
      */
-    ToPlayer: () => EntityPlayer | undefined;
+    readonly ToPlayer: () => EntityPlayer | undefined;
 
     /**
      * Casts an `Entity` into an `EntityProjectile`, which has projectile-specific methods and
      * properties. If the associated entity is not a projectile, then this method will return
      * undefined.
      */
-    ToProjectile: () => EntityProjectile | undefined;
+    readonly ToProjectile: () => EntityProjectile | undefined;
 
     /**
      * Casts an `Entity` into an `EntityTear`, which has tear-specific methods and properties. If
      * the associated entity is not a tear, then this method will return undefined.
      */
-    ToTear: () => EntityTear | undefined;
+    readonly ToTear: () => EntityTear | undefined;
 
     /**
      * Runs the post-update logic for the entity for a single frame, which will cause the associated
      * callback to fire. Mods usually never need to call this function, as it can cause bugs when
      * post-update logic is ran more than once a frame.
      */
-    Update: () => void;
+    readonly Update: () => void;
 
     Child?: Entity;
     CollisionDamage: float;

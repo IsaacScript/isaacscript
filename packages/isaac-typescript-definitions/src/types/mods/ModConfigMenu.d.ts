@@ -24,7 +24,7 @@ declare global {
 
   /** @noSelf */
   interface ModConfigMenuInterface {
-    AddBooleanSetting: (
+    readonly AddBooleanSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -35,7 +35,7 @@ declare global {
       color?: string,
     ) => void;
 
-    AddControllerSetting: (
+    readonly AddControllerSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -46,7 +46,7 @@ declare global {
       color?: string,
     ) => void;
 
-    AddKeyboardSetting: (
+    readonly AddKeyboardSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -57,7 +57,7 @@ declare global {
       color?: string,
     ) => void;
 
-    AddNumberSetting: (
+    readonly AddNumberSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -71,7 +71,7 @@ declare global {
       color?: string,
     ) => void;
 
-    AddScrollSetting: (
+    readonly AddScrollSetting: (
       categoryName: string,
       subcategoryName: string,
       attribute: string,
@@ -81,48 +81,48 @@ declare global {
       color?: string,
     ) => void;
 
-    AddSetting: (
+    readonly AddSetting: (
       categoryName: string,
       subcategoryName?: string,
       setting?: ModConfigMenuSetting,
     ) => void;
 
-    AddSpace: (categoryName: string, subcategoryName: string) => void;
+    readonly AddSpace: (categoryName: string, subcategoryName: string) => void;
 
-    AddText: (
+    readonly AddText: (
       categoryName: string,
       subcategoryName: string,
       text: string | (() => string),
       color?: string,
     ) => void;
 
-    AddTitle: (
+    readonly AddTitle: (
       categoryName: string,
       subcategoryName: string,
       text: string,
       color?: string,
     ) => void;
 
-    GetCategoryIDByName: (categoryName: string) => int | undefined;
+    readonly GetCategoryIDByName: (categoryName: string) => int | undefined;
 
-    GetSubcategoryIDByName: (
+    readonly GetSubcategoryIDByName: (
       category: string | number,
       subcategoryName: string,
     ) => int;
 
-    RemoveCategory: (categoryName: string) => void;
+    readonly RemoveCategory: (categoryName: string) => void;
 
-    RemoveSetting: (
+    readonly RemoveSetting: (
       categoryName: string,
       subcategoryString: string,
       settingAttribute: string,
     ) => void;
 
-    RemoveSubcategory: (categoryName: string, subcategoryName: string) => void;
+    readonly RemoveSubcategory: (categoryName: string, subcategoryName: string) => void;
 
-    SetCategoryInfo: (categoryName: string, info: string) => void;
+    readonly SetCategoryInfo: (categoryName: string, info: string) => void;
 
-    SimpleAddSetting: (
+    readonly SimpleAddSetting: (
       settingType: ModConfigMenuOptionType,
       categoryName: string,
       subcategoryName: string,
@@ -139,12 +139,12 @@ declare global {
       functionName?: string,
     ) => void;
 
-    UpdateCategory: (
+    readonly UpdateCategory: (
       categoryName: string,
       categoryData: ModConfigMenuCategoryData,
     ) => void;
 
-    UpdateSubcategory: (
+    readonly UpdateSubcategory: (
       categoryName: string,
       subcategoryName: string,
       subcategoryData: ModConfigMenuSubcategoryData,
@@ -181,17 +181,17 @@ declare global {
 
   /** @noSelf */
   interface ModConfigMenuSetting {
-    CurrentSetting: () => number | boolean;
-    Display: () => string;
+    readonly CurrentSetting: () => number | boolean;
+    readonly Display: () => string;
     Info: string[];
     Maximum?: number;
     Minimum?: number;
     ModifyBy?: number;
 
     /** This will be undefined if the user canceled the popup dialog. */
-    OnChange: (newValue: number | boolean | undefined) => void;
+    readonly OnChange: (newValue: number | boolean | undefined) => void;
 
-    Popup?: () => void;
+    readonly Popup?: () => void;
     PopupGfx?: string;
     PopupWidth?: int;
     Type: ModConfigMenuOptionType;
