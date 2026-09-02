@@ -1,24 +1,25 @@
 import type { HeartSubType } from "isaac-typescript-definitions";
 
 /** This is used by the `getPlayerHealth` and `setPlayerHealth` helper functions. */
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface PlayerHealth {
-  readonly maxHearts: int;
-  readonly hearts: int;
-  readonly eternalHearts: int;
+  maxHearts: int;
+  hearts: int;
+  eternalHearts: int;
 
   /** For soul hearts to apply, they also have to be specified in the `soulHeartTypes` array. */
-  readonly soulHearts: int;
+  soulHearts: int;
 
   /** For bone hearts to apply, they also have to be specified in the `soulHeartTypes` array. */
-  readonly boneHearts: int;
+  boneHearts: int;
 
-  readonly goldenHearts: int;
-  readonly rottenHearts: int;
-  readonly brokenHearts: int;
-  readonly soulCharges: int;
-  readonly bloodCharges: int;
+  goldenHearts: int;
+  rottenHearts: int;
+  brokenHearts: int;
+  soulCharges: int;
+  bloodCharges: int;
 
-  readonly soulHeartTypes: readonly SoulHeartType[];
+  soulHeartTypes: readonly SoulHeartType[];
 }
 
 export type SoulHeartType =
