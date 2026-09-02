@@ -31,13 +31,14 @@
 //   - Last release in 2023.
 
 import { Command } from "@commander-js/extra-typings";
-import { nukeDependencies, updatePackageJSONDependencies } from "complete-node";
 import { checkCommand } from "./commands/check/check.js";
 import { copyCommand } from "./commands/copy/copy.js";
 import { initCommand } from "./commands/init/init.js";
 import { monitorCommand } from "./commands/monitor/monitor.js";
+import { nukeCommand } from "./commands/nuke/nuke.js";
 import { publishCommand } from "./commands/publish/publish.js";
-import { CWD, PROJECT_DESCRIPTION, PROJECT_VERSION } from "./constants.js";
+import { updateCommand } from "./commands/update/update.js";
+import { PROJECT_DESCRIPTION, PROJECT_VERSION } from "./constants.js";
 
 export async function parseArgs(): Promise<void> {
   const program = new Command()
@@ -64,27 +65,3 @@ export async function parseArgs(): Promise<void> {
   // handlers are async.
   await program.parseAsync();
 }
-
-const nukeCommand = new Command()
-  .command("nuke")
-  .description("Delete and reinstall the dependencies in the current project.")
-  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
-  .helpOption("-h, --help", "Display the list of options for this command.")
-  .option("-v, --verbose", "Enable verbose output.", false)
-  .action(async () => {
-    await nukeDependencies(CWD);
-    console.log("Successfully reinstalled dependencies from npm.");
-  });
-
-const updateCommand = new Command()
-  .command("update")
-  .description("Update the npm dependencies in the current project.")
-  .allowExcessArguments(false) // By default, Commander.js will allow extra positional arguments.
-  .helpOption("-h, --help", "Display the list of options for this command.")
-  .action(async () => {
-    const hasNewDependencies = await updatePackageJSONDependencies(CWD);
-    const msg = hasNewDependencies
-      ? "Successfully installed new Node.js dependencies."
-      : "There were no new dependency updates from npm.";
-    console.log(msg);
-  });
