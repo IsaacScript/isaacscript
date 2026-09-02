@@ -2,7 +2,6 @@ import { RoomShape } from "isaac-typescript-definitions";
 import { VectorZero } from "../core/constants";
 import { newReadonlyVector } from "../functions/readOnly";
 
-// eslint-disable-next-line complete/type-declaration-immutability
 interface LRoomRectangles {
   readonly verticalTopLeft: Readonly<Vector>;
   readonly verticalBottomRight: Readonly<Vector>;
