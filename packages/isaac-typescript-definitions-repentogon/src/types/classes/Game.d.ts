@@ -141,7 +141,9 @@ declare global {
      * Records the provided completion type for all players in the current run, unlocking the
      * relevant achievements and giving them the relevant completion mark.
      */
-    readonly RecordPlayerCompletion: (completionType: CompletionMarkType) => void;
+    readonly RecordPlayerCompletion: (
+      completionType: CompletionMarkType,
+    ) => void;
 
     /** Sets the bloom amount for a certain duration. */
     readonly SetBloom: (duration: number, amount: number) => void;

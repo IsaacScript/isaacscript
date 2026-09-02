@@ -38,7 +38,9 @@ declare global {
      * Returns the animation data from the provided animation name. Returns undefined if the
      * animation does not exist.
      */
-    readonly GetAnimationData: (animationName: string) => AnimationData | undefined;
+    readonly GetAnimationData: (
+      animationName: string,
+    ) => AnimationData | undefined;
 
     /** Returns the current animation data. Returns undefined if no animation is playing. */
     readonly GetCurrentAnimationData: () => AnimationData | undefined;
@@ -68,7 +70,9 @@ declare global {
      * Returns the `AnimationFrame` currently being displayed on the provided layer ID of the
      * current overlay animation. Returns undefined if the layer ID is invalid.
      */
-    readonly GetOverlayLayerFrameData: (layerId: int) => AnimationFrame | undefined;
+    readonly GetOverlayLayerFrameData: (
+      layerId: int,
+    ) => AnimationFrame | undefined;
 
     /**
      * Returns the null frame from the specified layer name of the current overlay animation.

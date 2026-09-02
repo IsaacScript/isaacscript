@@ -23,7 +23,10 @@ declare global {
     readonly IsTargetRoomArcade: () => boolean;
     readonly Open: () => void;
     readonly SetLocked: (locked: boolean) => void;
-    readonly SetRoomTypes: (currentRoomType: RoomType, targetRoomType: RoomType) => void;
+    readonly SetRoomTypes: (
+      currentRoomType: RoomType,
+      targetRoomType: RoomType,
+    ) => void;
     readonly SpawnDust: () => void;
     readonly TryBlowOpen: (fromExplosion: boolean, source: Entity) => boolean;
     readonly TryUnlock: (player: EntityPlayer, force: boolean) => boolean;

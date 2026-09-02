@@ -61,7 +61,9 @@ declare global {
     ) => Readonly<TemporaryEffect> | undefined;
 
     readonly GetTrinketEffectNum: (trinketType: TrinketType) => int;
-    readonly HasCollectibleEffect: (collectibleType: CollectibleType) => boolean;
+    readonly HasCollectibleEffect: (
+      collectibleType: CollectibleType,
+    ) => boolean;
     readonly HasNullEffect: (nullItemID: NullItemID) => boolean;
     readonly HasTrinketEffect: (trinketType: TrinketType) => boolean;
 
@@ -84,6 +86,9 @@ declare global {
      * @param trinketType
      * @param count Use -1 to remove all instances. Default is 1.
      */
-    readonly RemoveTrinketEffect: (trinketType: TrinketType, count?: int) => void;
+    readonly RemoveTrinketEffect: (
+      trinketType: TrinketType,
+      count?: int,
+    ) => void;
   }
 }

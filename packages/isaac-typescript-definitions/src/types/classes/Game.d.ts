@@ -115,9 +115,16 @@ declare global {
      * @param roomGridIndex The room grid index of the destination room.
      * @param dimension Default is `Dimension.CURRENT`.
      */
-    readonly ChangeRoom: (roomGridIndex: int | GridRoom, dimension?: Dimension) => void;
+    readonly ChangeRoom: (
+      roomGridIndex: int | GridRoom,
+      dimension?: Dimension,
+    ) => void;
 
-    readonly CharmFart: (position: Vector, radius: float, source: Entity) => void;
+    readonly CharmFart: (
+      position: Vector,
+      radius: float,
+      source: Entity,
+    ) => void;
     readonly ClearDonationModAngel: () => void;
     readonly ClearDonationModGreed: () => void;
     readonly ClearStagesWithoutDamage: () => void;
@@ -134,7 +141,11 @@ declare global {
      * @param kColor Optional. Defaults to `K_COLORS.Black`. This parameter was added in
      *               Repentance+.
      */
-    readonly Fadein: (speed: float, showIcon?: boolean, kColor?: KColor) => void;
+    readonly Fadein: (
+      speed: float,
+      showIcon?: boolean,
+      kColor?: KColor,
+    ) => void;
 
     /**
      * Using a non-valid `FadeoutTarget` value will be interpreted the same as `FadeoutTarget.NONE`.
@@ -223,7 +234,10 @@ declare global {
     readonly GetTargetDarkness: () => float;
     readonly GetTreasureRoomVisitCount: () => int;
     readonly GetVictoryLap: () => int;
-    readonly HasEncounteredBoss: (entityType: EntityType, variant: int) => boolean;
+    readonly HasEncounteredBoss: (
+      entityType: EntityType,
+      variant: int,
+    ) => boolean;
     readonly HasHallucination: () => int;
     readonly IsGreedMode: () => boolean;
 
@@ -254,7 +268,10 @@ declare global {
     readonly SetLastDevilRoomStage: (levelStage: LevelStage) => void;
     readonly SetLastLevelWithDamage: (levelStage: LevelStage) => void;
     readonly SetLastLevelWithoutHalfHp: (levelStage: LevelStage) => void;
-    readonly SetStateFlag: (gameStateFlag: GameStateFlag, value: boolean) => void;
+    readonly SetStateFlag: (
+      gameStateFlag: GameStateFlag,
+      value: boolean,
+    ) => void;
     readonly ShakeScreen: (timeout: int) => void;
     readonly ShowFortune: () => void;
 
@@ -263,7 +280,10 @@ declare global {
      * @param backdropType Default is a random backdrop, similar to what happens after using the
      *                     Delirious collectible.
      */
-    readonly ShowHallucination: (frameCount: int, backdropType?: BackdropType) => void;
+    readonly ShowHallucination: (
+      frameCount: int,
+      backdropType?: BackdropType,
+    ) => void;
 
     readonly ShowRule: () => void;
 

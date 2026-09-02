@@ -10,7 +10,10 @@ declare interface Sandbox {
     port: int,
     useTCP: boolean,
   ) => SocketClient | undefined;
-  readonly connectLocalhost: (port: int, useTCP: boolean) => SocketClient | undefined;
+  readonly connectLocalhost: (
+    port: int,
+    useTCP: boolean,
+  ) => SocketClient | undefined;
   readonly getDate: (format?: string) => string;
   readonly getParentFunctionDescription: (levels: int) => string;
   readonly getTime: () => float;

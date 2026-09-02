@@ -2,8 +2,18 @@ import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClas
 
 declare global {
   interface Vector extends IsaacAPIClass {
-    readonly Clamp: (minX: float, minY: float, maxX: float, maxY: float) => void;
-    readonly Clamped: (minX: float, minY: float, maxX: float, maxY: float) => Vector;
+    readonly Clamp: (
+      minX: float,
+      minY: float,
+      maxX: float,
+      maxY: float,
+    ) => void;
+    readonly Clamped: (
+      minX: float,
+      minY: float,
+      maxX: float,
+      maxY: float,
+    ) => Vector;
     readonly Cross: (secondVector: Vector) => float;
     readonly Distance: (secondVector: Vector) => float;
     readonly DistanceSquared: (secondVector: Vector) => float;

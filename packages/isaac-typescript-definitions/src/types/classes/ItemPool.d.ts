@@ -65,7 +65,10 @@ declare global {
      * @param roomType
      * @param seed
      */
-    readonly GetPoolForRoom: (roomType: RoomType, seed: Seed) => ItemPoolType | -1;
+    readonly GetPoolForRoom: (
+      roomType: RoomType,
+      seed: Seed,
+    ) => ItemPoolType | -1;
 
     /** @param dontAdvanceRNG Default is false. */
     readonly GetTrinket: (dontAdvanceRNG?: boolean) => TrinketType;

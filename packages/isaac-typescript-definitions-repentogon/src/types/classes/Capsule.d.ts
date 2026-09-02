@@ -8,7 +8,11 @@ declare interface Capsule extends IsaacAPIClass {
    * Attempts to trigger a collision between two capsules at a specific position. Returns whether
    * the capsules have collided or not.
    */
-  readonly Collide: (capsule1: Capsule, capsule2: Capsule, point: Vector) => boolean;
+  readonly Collide: (
+    capsule1: Capsule,
+    capsule2: Capsule,
+    point: Vector,
+  ) => boolean;
 
   /**
    * Returns a unit vector corresponding to the direction the capsule relative to its origin. This

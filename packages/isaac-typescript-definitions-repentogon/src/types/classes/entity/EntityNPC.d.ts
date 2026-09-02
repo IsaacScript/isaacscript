@@ -156,7 +156,10 @@ declare global {
      * @param position Optional. Default is the entity's current position.
      * @param color Optional. Default is `ColorDefault`.
      */
-    readonly SpawnBloodCloud: (position?: Vector, color?: Color) => EntityEffect;
+    readonly SpawnBloodCloud: (
+      position?: Vector,
+      color?: Color,
+    ) => EntityEffect;
 
     /** Spawns a blood splash effect. */
     readonly SpawnBloodSplash: () => void;
@@ -194,7 +197,11 @@ declare global {
      * @param direction
      * @param force This is only used by `EntityNPC` poops.
      */
-    readonly TryThrow: (source: EntityRef, direction: Vector, force: number) => boolean;
+    readonly TryThrow: (
+      source: EntityRef,
+      direction: Vector,
+      force: number,
+    ) => boolean;
 
     /**
      * Updates the NPC's dirt color.

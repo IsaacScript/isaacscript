@@ -23,24 +23,36 @@ declare global {
      * @param entityType
      * @param variant Optional. Default is 0.
      */
-    readonly AddBestiaryKill: (entityType: EntityType, variant?: int) => boolean;
+    readonly AddBestiaryKill: (
+      entityType: EntityType,
+      variant?: int,
+    ) => boolean;
 
     /** Marks the boss as killed and unlocks its relevant achievements if conditions are met. */
     readonly AddBossKilled: (bossID: BossID) => void;
 
     /** Returns the number of times a specific entity has been killed, according to the bestiary. */
-    readonly GetBestiaryDeathCount: (entityType: EntityType, variant: int) => int;
+    readonly GetBestiaryDeathCount: (
+      entityType: EntityType,
+      variant: int,
+    ) => int;
 
     /**
      * Returns the number of times a specific entity has been encountered, according to the
      * bestiary.
      */
-    readonly GetBestiaryEncounterCount: (entityType: EntityType, variant: int) => int;
+    readonly GetBestiaryEncounterCount: (
+      entityType: EntityType,
+      variant: int,
+    ) => int;
 
     /**
      * Returns the number of times a specific entity has killed a player, according to the bestiary.
      */
-    readonly GetBestiaryKillCount: (entityType: EntityType, variant: int) => int;
+    readonly GetBestiaryKillCount: (
+      entityType: EntityType,
+      variant: int,
+    ) => int;
 
     /** Returns the current value of the specified persistent event counter. */
     readonly GetEventCounter: (event: EventCounter) => int;

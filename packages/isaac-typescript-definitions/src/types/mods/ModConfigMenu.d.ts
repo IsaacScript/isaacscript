@@ -118,7 +118,10 @@ declare global {
       settingAttribute: string,
     ) => void;
 
-    readonly RemoveSubcategory: (categoryName: string, subcategoryName: string) => void;
+    readonly RemoveSubcategory: (
+      categoryName: string,
+      subcategoryName: string,
+    ) => void;
 
     readonly SetCategoryInfo: (categoryName: string, info: string) => void;
 

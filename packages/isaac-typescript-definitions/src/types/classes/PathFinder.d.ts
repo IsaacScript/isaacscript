@@ -13,7 +13,10 @@ declare interface PathFinder extends IsaacAPIClass {
   readonly HasDirectPath: () => boolean;
   readonly HasPathToPos: (position: Vector, ignorePoop: boolean) => boolean;
   readonly MoveRandomly: (ignoreStatusEffects: boolean) => boolean;
-  readonly MoveRandomlyAxisAligned: (speed: float, ignoreStatusEffects: boolean) => void;
+  readonly MoveRandomlyAxisAligned: (
+    speed: float,
+    ignoreStatusEffects: boolean,
+  ) => void;
   readonly MoveRandomlyBoss: (ignoreStatusEffects: boolean) => void;
   readonly Reset: () => void;
   readonly ResetMovementTarget: () => void;

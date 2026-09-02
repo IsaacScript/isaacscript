@@ -19,7 +19,11 @@ declare interface WeightedOutcomePicker extends IsaacAPIClass {
    * @param weight
    * @param scaleFactor Optional. The maximum weight. Default is 100.
    */
-  readonly AddOutcomeFloat: (value: int, weight: float, scaleFactor?: int) => void;
+  readonly AddOutcomeFloat: (
+    value: int,
+    weight: float,
+    scaleFactor?: int,
+  ) => void;
 
   /**
    * Adds a float outcome to the outcome selector with the weight as an integer.

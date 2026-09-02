@@ -161,7 +161,10 @@ declare global {
      * @param noDecrease If true, the collectible will not be removed from the pool that it came
      *                   from. Default is false.
      */
-    readonly GetSeededCollectible: (seed: Seed, noDecrease?: boolean) => CollectibleType;
+    readonly GetSeededCollectible: (
+      seed: Seed,
+      noDecrease?: boolean,
+    ) => CollectibleType;
 
     readonly GetShopLevel: () => int;
     readonly GetSpawnSeed: () => Seed;
@@ -227,7 +230,10 @@ declare global {
      * @param player Optional. The player that the explosion should come from. This parameter was
      *               added in Repentance+.
      */
-    readonly MamaMegaExplosion: (position?: Vector, player?: EntityPlayer) => void;
+    readonly MamaMegaExplosion: (
+      position?: Vector,
+      player?: EntityPlayer,
+    ) => void;
 
     readonly PlayMusic: () => void;
     readonly RemoveDoor: (doorSlot: DoorSlot) => void;
@@ -312,7 +318,10 @@ declare global {
      * @param ignoreTime Default is false.
      * @param force Default is false.
      */
-    readonly TrySpawnBossRushDoor: (ignoreTime?: boolean, force?: boolean) => boolean;
+    readonly TrySpawnBossRushDoor: (
+      ignoreTime?: boolean,
+      force?: boolean,
+    ) => boolean;
 
     /**
      * Attempts to spawn a door to the devil or angel room. This usually does nothing inside of
@@ -321,7 +330,10 @@ declare global {
      * @param animate Default is false.
      * @param force Default is false.
      */
-    readonly TrySpawnDevilRoomDoor: (animate?: boolean, force?: boolean) => boolean;
+    readonly TrySpawnDevilRoomDoor: (
+      animate?: boolean,
+      force?: boolean,
+    ) => boolean;
 
     /**
      * Attempts to spawn a door to Mega Satan. This usually does nothing outside of the starting

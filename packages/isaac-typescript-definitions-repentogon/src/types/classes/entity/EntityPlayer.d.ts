@@ -72,7 +72,10 @@ declare global {
      * @param evaluateItems Optional. Default is false.
      * @customName AddCacheFlags
      */
-    readonly AddCacheFlagsEx: (flag: CacheFlag, evaluateItems?: boolean) => void;
+    readonly AddCacheFlagsEx: (
+      flag: CacheFlag,
+      evaluateItems?: boolean,
+    ) => void;
 
     /**
      * Adds a candy heart bonus to the player.
@@ -182,7 +185,10 @@ declare global {
     readonly AddLeprosy: () => void;
 
     /** Adds an item locust to the player. */
-    readonly AddLocust: (collectible: CollectibleType, position: Vector) => void;
+    readonly AddLocust: (
+      collectible: CollectibleType,
+      position: Vector,
+    ) => void;
 
     /**
      * Adds a collectible effect associated with the provided `nullItemId`.
@@ -283,7 +289,9 @@ declare global {
     readonly BlockCollectible: (collectibleType: CollectibleType) => void;
 
     /** Returns whether the collectible can be added to the player's inventory. */
-    readonly CanAddCollectibleToInventory: (collectible: CollectibleType) => boolean;
+    readonly CanAddCollectibleToInventory: (
+      collectible: CollectibleType,
+    ) => boolean;
 
     /**
      * Returns whether the player can crush rocks and similar grid entities on contact.
@@ -435,7 +443,9 @@ declare global {
      * `ActiveSlot.POCKET_SINGLE_USE` being the lowest. If you need to get all of the active slots,
      * use Isaacscript Common's `getActiveItemSlots` helper function instead.
      */
-    readonly GetActiveItemSlot: (collectibleType: CollectibleType) => ActiveSlot | -1;
+    readonly GetActiveItemSlot: (
+      collectibleType: CollectibleType,
+    ) => ActiveSlot | -1;
 
     /**
      * Returns the maximum amount of charges the collectible in the provided slot has. This does not
@@ -924,7 +934,9 @@ declare global {
     };
 
     /** @param position Optional. Default is the player's position. */
-    readonly GetSpecialGridCollision: (position?: Vector) => EntityGridCollisionClass;
+    readonly GetSpecialGridCollision: (
+      position?: Vector,
+    ) => EntityGridCollisionClass;
 
     /**
      * Returns the player's current speed modifier. The speed modifier is either set through
@@ -1204,7 +1216,10 @@ declare global {
     readonly RemovePoopSpell: (queuePosition?: int) => void;
 
     /** Rerolls all of the player's collectibles. */
-    readonly RerollAllCollectibles: (rng: RNG, includeActiveItems: boolean) => void;
+    readonly RerollAllCollectibles: (
+      rng: RNG,
+      includeActiveItems: boolean,
+    ) => void;
 
     // ResetPlayer is bugged and currently does nothing.
 
@@ -1258,7 +1273,9 @@ declare global {
     readonly SetBabySkin: (skin: BabySubType) => void;
 
     /** Sets the contents of the player's Bag of Crafting. */
-    readonly SetBagOfCraftingContent: (content: readonly BagOfCraftingPickup[]) => void;
+    readonly SetBagOfCraftingContent: (
+      content: readonly BagOfCraftingPickup[],
+    ) => void;
 
     /** Sets the output of the player's Bag of Crafting to the provided collectible. */
     readonly SetBagOfCraftingOutput: (output: CollectibleType) => void;
@@ -1562,9 +1579,15 @@ declare global {
      *              health or while a room/stage transition is active. Default is false.
      * @param noEffects Optional. If true, the dust and fade effect will not play. Default is false.
      */
-    readonly SwapForgottenForm: (force?: boolean, noEffects?: boolean) => boolean;
+    readonly SwapForgottenForm: (
+      force?: boolean,
+      noEffects?: boolean,
+    ) => boolean;
 
-    readonly SyncConsumableCounts: (player: EntityPlayer, collectibleFlags: int) => void;
+    readonly SyncConsumableCounts: (
+      player: EntityPlayer,
+      collectibleFlags: int,
+    ) => void;
 
     /**
      * Teleports the player.

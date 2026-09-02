@@ -53,7 +53,10 @@ declare global {
     ) => boolean;
 
     /** Returns whether the Red Door outline can spawn at the specified `DoorSlot`. */
-    readonly CanSpawnDoorOutline: (roomIndex: int, doorSlot: DoorSlot) => boolean;
+    readonly CanSpawnDoorOutline: (
+      roomIndex: int,
+      doorSlot: DoorSlot,
+    ) => boolean;
 
     /**
      * Returns an array of grid indices that are valid locations to place the provided room using

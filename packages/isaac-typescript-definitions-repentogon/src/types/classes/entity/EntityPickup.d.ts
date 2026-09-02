@@ -36,14 +36,16 @@ declare global {
      */
     readonly GetLootList: (shouldAdvance?: boolean) => Readonly<LootList>;
 
-    readonly GetMegaChestLeftCollectible: () => EntityPickupCollectible | undefined;
+    readonly GetMegaChestLeftCollectible: () =>
+      EntityPickupCollectible | undefined;
     readonly GetMegaChestOtherCollectible: () => LuaMultiReturn<
       [
         otherCollectible: EntityPickupCollectible | undefined,
         isRight: boolean | undefined,
       ]
     >;
-    readonly GetMegaChestRightCollectible: () => EntityPickupCollectible | undefined;
+    readonly GetMegaChestRightCollectible: () =>
+      EntityPickupCollectible | undefined;
 
     /**
      * Returns the ghost effect that is visible if a player has Guppy's Eye. Returns undefined if
@@ -86,7 +88,9 @@ declare global {
     readonly RemoveCollectibleCycle: () => void;
 
     /** Sets the graphics of the item pedestal. Does nothing if the pickup is not a collectible. */
-    readonly SetAlternatePedestal: (pedestalType: CollectiblePedestalType) => void;
+    readonly SetAlternatePedestal: (
+      pedestalType: CollectiblePedestalType,
+    ) => void;
 
     /** Sets the pickup's drop delay. */
     readonly SetDropDelay: (delay: int) => void;

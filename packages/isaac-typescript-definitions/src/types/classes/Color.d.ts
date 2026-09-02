@@ -3,7 +3,12 @@ import type { CopyableIsaacAPIClassType } from "../../enums/CopyableIsaacAPIClas
 declare global {
   interface Color extends IsaacAPIClass {
     readonly Reset: () => void;
-    readonly SetColorize: (red: float, green: float, blue: float, amount: float) => void;
+    readonly SetColorize: (
+      red: float,
+      green: float,
+      blue: float,
+      amount: float,
+    ) => void;
     readonly SetOffset: (
       redOffset: float,
       greenOffset: float,

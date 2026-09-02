@@ -14,7 +14,10 @@ declare global {
     readonly CanPickupGridEntity: (gridIndex: int) => boolean;
 
     /** Returns whether an obstacle can be spawned at the provided grid index. */
-    readonly CanSpawnObstacleAtPosition: (gridIndex: int, force: boolean) => boolean;
+    readonly CanSpawnObstacleAtPosition: (
+      gridIndex: int,
+      force: boolean,
+    ) => boolean;
 
     /**
      * @param excludeNPCs Optional. Default is false.
@@ -132,7 +135,10 @@ declare global {
      * @param entityType
      * @param variant Optional. Default is 0.
      */
-    readonly IsPersistentRoomEntity: (entityType: EntityType, variant?: int) => void;
+    readonly IsPersistentRoomEntity: (
+      entityType: EntityType,
+      variant?: int,
+    ) => void;
 
     /**
      * Attempts to pick up the grid entity at the specified index. Returns an `EntityEffect` of the

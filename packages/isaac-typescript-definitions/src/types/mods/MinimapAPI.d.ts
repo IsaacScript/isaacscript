@@ -183,13 +183,17 @@ declare global {
       doorslot: DoorSlot, // cspell:ignore doorslot
     ) => Vector;
 
-    readonly GetRoom: (position: Vector) => MinimapAPIRoomDescriptor | undefined;
+    readonly GetRoom: (
+      position: Vector,
+    ) => MinimapAPIRoomDescriptor | undefined;
 
     readonly GetRoomAtPosition: (
       position: Vector,
     ) => MinimapAPIRoomDescriptor | undefined;
 
-    readonly GetRoomById: (id: number | string) => MinimapAPIRoomDescriptor | undefined;
+    readonly GetRoomById: (
+      id: number | string,
+    ) => MinimapAPIRoomDescriptor | undefined;
 
     readonly GetRoomByIdx: (
       roomGridIndex: int | GridRoom,
@@ -199,7 +203,10 @@ declare global {
 
     readonly IsPositionFree: (position: Vector) => boolean;
 
-    readonly IsPositionFreeNoAlign: (position: Vector, roomShape?: RoomShape) => boolean;
+    readonly IsPositionFreeNoAlign: (
+      position: Vector,
+      roomShape?: RoomShape,
+    ) => boolean;
 
     readonly IsRoomAdjacent: (
       room1: MinimapAPIRoomDescriptor,
@@ -263,7 +270,9 @@ declare global {
       SmoothSlidingSpeed?: number;
     };
 
-    readonly PickupChestNotCollected: (pickup: EntityPickup) => boolean | undefined;
+    readonly PickupChestNotCollected: (
+      pickup: EntityPickup,
+    ) => boolean | undefined;
     readonly PickupNotCollected: (pickup: EntityPickup) => boolean | undefined;
     readonly PickupSlotMachineNotBroken: (slot: Entity) => boolean | undefined;
 

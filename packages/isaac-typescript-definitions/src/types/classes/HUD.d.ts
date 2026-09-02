@@ -18,7 +18,10 @@ declare global {
      * @param player
      * @param slot Default is `ActiveSlot.SLOT_PRIMARY`.
      */
-    readonly InvalidateActiveItem: (player: EntityPlayer, slot?: ActiveSlot) => void;
+    readonly InvalidateActiveItem: (
+      player: EntityPlayer,
+      slot?: ActiveSlot,
+    ) => void;
 
     /**
      * Forces the crafting output from Bag of Crafting to update.

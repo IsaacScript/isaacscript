@@ -67,7 +67,9 @@ declare global {
      * Used to specify the kinds of stats that should be evaluated the next time the
      * `EntityPlayer.EvaluateCache` method is run.
      */
-    readonly AddCacheFlags: (cacheFlags: CacheFlag | BitFlags<CacheFlag>) => void;
+    readonly AddCacheFlags: (
+      cacheFlags: CacheFlag | BitFlags<CacheFlag>,
+    ) => void;
 
     readonly AddCard: (cardType: CardType) => void;
 
@@ -176,7 +178,10 @@ declare global {
      * @param position
      * @param playAnim If false, skips the appear animation for the familiars.
      */
-    readonly AddMinisaac: (position: Vector, playAnim?: boolean) => EntityFamiliar;
+    readonly AddMinisaac: (
+      position: Vector,
+      playAnim?: boolean,
+    ) => EntityFamiliar;
 
     readonly AddNullCostume: (nullItemID: NullItemID) => void;
     readonly AddPill: (pillColor: PillColor) => void;
@@ -428,7 +433,10 @@ declare global {
 
     readonly DoZitEffect: (direction: Vector) => void;
     readonly DonateLuck: (luck: int) => void;
-    readonly DropPocketItem: (pocketItemSlot: PocketItemSlot, position: Vector) => void;
+    readonly DropPocketItem: (
+      pocketItemSlot: PocketItemSlot,
+      position: Vector,
+    ) => void;
 
     /** If the player does not currently have a trinket, this function will be a no-op. */
     readonly DropTrinket: (dropPos: Vector, replaceTick: boolean) => void;
@@ -461,7 +469,10 @@ declare global {
       damageMultiplier?: float,
     ) => EntityLaser;
 
-    readonly FireDelayedBrimstone: (angle: float, parent: Entity) => EntityLaser;
+    readonly FireDelayedBrimstone: (
+      angle: float,
+      parent: Entity,
+    ) => EntityLaser;
 
     /**
      * @param parent
@@ -686,7 +697,10 @@ declare global {
     readonly GetItemState: () => CollectibleType;
     readonly GetJarFlies: () => int;
     readonly GetJarHearts: () => int;
-    readonly GetLaserOffset: (laserOffset: LaserOffset, direction: Vector) => Vector;
+    readonly GetLaserOffset: (
+      laserOffset: LaserOffset,
+      direction: Vector,
+    ) => Vector;
     readonly GetLastActionTriggers: () => int;
     readonly GetLastDamageFlags: () => BitFlags<DamageFlag>;
     readonly GetLastDamageSource: () => Readonly<EntityRef>;
@@ -1031,10 +1045,16 @@ declare global {
     /** This sets Tainted Bethany's blood charges. Only works on Tainted Bethany. */
     readonly SetBloodCharge: (num: int) => void;
 
-    readonly SetCard: (pocketItemSlot: PocketItemSlot, cardType: CardType) => void;
+    readonly SetCard: (
+      pocketItemSlot: PocketItemSlot,
+      cardType: CardType,
+    ) => void;
     readonly SetFullHearts: () => void;
     readonly SetMinDamageCooldown: (damageCooldown: int) => void;
-    readonly SetPill: (pocketItemSlot: PocketItemSlot, pillColor: PillColor) => void;
+    readonly SetPill: (
+      pocketItemSlot: PocketItemSlot,
+      pillColor: PillColor,
+    ) => void;
 
     /**
      * Sets the player's pocket active item to the given collectible.

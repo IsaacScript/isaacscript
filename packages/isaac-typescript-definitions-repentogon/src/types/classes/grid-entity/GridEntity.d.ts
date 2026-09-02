@@ -30,6 +30,8 @@ declare global {
     readonly IsBreakableRock: () => boolean;
 
     readonly ResetWaterClipFlags: () => void;
-    readonly SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
+    readonly SetWaterClipFlags: (
+      flags: WaterClipFlag | BitFlags<WaterClipFlag>,
+    ) => void;
   }
 }

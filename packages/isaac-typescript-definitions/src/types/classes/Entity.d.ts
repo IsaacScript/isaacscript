@@ -59,7 +59,9 @@ declare global {
      * Adds one or more `EntityFlag` to the entity. Flags are used to add specific effects like
      * being friendly or being shrunk.
      */
-    readonly AddEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => void;
+    readonly AddEntityFlags: (
+      entityFlags: EntityFlag | BitFlags<EntityFlag>,
+    ) => void;
 
     /**
      * Adds a fear effect to the entity.
@@ -69,7 +71,11 @@ declare global {
      * @param duration The number of frames that the effect should apply for. The maximum is 150.
      * @param ignoreBosses Optional. Defaults to false. This parameter was added in Repentance+.
      */
-    readonly AddFear: (source: EntityRef, duration: int, ignoreBosses?: boolean) => void;
+    readonly AddFear: (
+      source: EntityRef,
+      duration: int,
+      ignoreBosses?: boolean,
+    ) => void;
 
     /**
      * Adds a freeze effect to the entity.
@@ -172,7 +178,9 @@ declare global {
     // `EntityNPC.CanShutDoors`.
 
     /** Removes one or more `EntityFlag` from the entity. */
-    readonly ClearEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => void;
+    readonly ClearEntityFlags: (
+      entityFlags: EntityFlag | BitFlags<EntityFlag>,
+    ) => void;
 
     /**
      * Returns true if the entity is currently colliding with a valid `GridEntity`, as dictated by
@@ -231,7 +239,9 @@ declare global {
 
     readonly GetSprite: () => Sprite;
     readonly HasCommonParentWithEntity: (other: Entity) => boolean;
-    readonly HasEntityFlags: (entityFlags: EntityFlag | BitFlags<EntityFlag>) => boolean;
+    readonly HasEntityFlags: (
+      entityFlags: EntityFlag | BitFlags<EntityFlag>,
+    ) => boolean;
     readonly HasFullHealth: () => boolean;
     readonly HasMortalDamage: () => boolean;
 

@@ -146,7 +146,10 @@ declare interface EIDInterface {
    *
    * Useful to add small offsets. For example: for schoolbag HUD.
    */
-  readonly addTextPosModifier: (identifier: string, modifierVector: Vector) => void;
+  readonly addTextPosModifier: (
+    identifier: string,
+    modifierVector: Vector,
+  ) => void;
 
   /** Adds a description for a trinket. */
   readonly addTrinket: (
@@ -208,7 +211,9 @@ declare interface EIDInterface {
    * Overrides all potentially displayed texts and permanently displays the given texts. Can be
    * turned off again using `EID.hidePermanentText`.
    */
-  readonly displayPermanentText: (descriptionObject: EIDDescriptionObject) => void;
+  readonly displayPermanentText: (
+    descriptionObject: EIDDescriptionObject,
+  ) => void;
 
   /**
    * Filters a given string and looks for `KColor` markup. Splits the text into subsections limited

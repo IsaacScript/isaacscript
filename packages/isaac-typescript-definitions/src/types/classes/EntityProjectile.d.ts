@@ -4,7 +4,9 @@ import type { ProjectileFlag } from "../../enums/flags/ProjectileFlag";
 declare global {
   interface EntityProjectile extends Entity {
     /** See `ChangeFlags`. */
-    readonly AddChangeFlags: (flags: ProjectileFlag | BitFlags<ProjectileFlag>) => void;
+    readonly AddChangeFlags: (
+      flags: ProjectileFlag | BitFlags<ProjectileFlag>,
+    ) => void;
 
     readonly AddFallingAccel: (value: float) => void;
     readonly AddFallingSpeed: (value: float) => void;

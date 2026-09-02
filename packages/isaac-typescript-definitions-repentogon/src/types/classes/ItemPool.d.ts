@@ -109,7 +109,10 @@ declare global {
     readonly GetRemovedCollectibles: () => LuaMap<CollectibleType, boolean>;
 
     /** Returns an array of all collectibles blacklisted in the current room. */
-    readonly GetRoomBlacklistedCollectibles: () => LuaMap<CollectibleType, boolean>;
+    readonly GetRoomBlacklistedCollectibles: () => LuaMap<
+      CollectibleType,
+      boolean
+    >;
 
     /** Returns whether the specified collectible is available in item pools. */
     readonly HasCollectible: (collectible: CollectibleType) => boolean;

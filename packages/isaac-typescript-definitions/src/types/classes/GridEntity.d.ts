@@ -6,7 +6,10 @@ declare global {
     readonly Destroy: (immediate: boolean) => boolean;
 
     /** Added in Repentance+. */
-    readonly DestroyWithSource: (immediate: boolean, source: EntityRef) => boolean;
+    readonly DestroyWithSource: (
+      immediate: boolean,
+      source: EntityRef,
+    ) => boolean;
 
     readonly GetGridIndex: () => int;
 

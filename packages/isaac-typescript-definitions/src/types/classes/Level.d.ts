@@ -39,7 +39,10 @@ declare global {
      * @deprecated This method does not update the "fxlayers" properly. Use the `Game.ChangeRoom`
      *             method instead.
      */
-    readonly ChangeRoom: (roomGridIndex: int | GridRoom, dimension?: Dimension) => void;
+    readonly ChangeRoom: (
+      roomGridIndex: int | GridRoom,
+      dimension?: Dimension,
+    ) => void;
 
     readonly DisableDevilRoom: () => void;
     readonly ForceHorsemanBoss: (seed: Seed) => boolean;
@@ -202,7 +205,10 @@ declare global {
 
     readonly SetRedHeartDamage: () => void;
     readonly SetStage: (levelStage: LevelStage, stageType: StageType) => void;
-    readonly SetStateFlag: (levelStateFlag: LevelStateFlag, value: boolean) => void;
+    readonly SetStateFlag: (
+      levelStateFlag: LevelStateFlag,
+      value: boolean,
+    ) => void;
 
     /**
      * Reveals the entire map except for the Super Secret Room. (This is the same as the World card
@@ -218,7 +224,10 @@ declare global {
     /**
      * Uncovers the door on both sides by modifying the saved grid entities for neighboring room.
      */
-    readonly UncoverHiddenDoor: (currentRoomIdx: int, doorSlot: DoorSlot) => void;
+    readonly UncoverHiddenDoor: (
+      currentRoomIdx: int,
+      doorSlot: DoorSlot,
+    ) => void;
 
     readonly Update: () => void;
 

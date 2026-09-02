@@ -116,7 +116,9 @@ declare global {
     ) => void;
 
     /** Sets the stage this `CustomStage` overrides. */
-    readonly SetReplace: (stageOverrideStage: StageAPIStageOverrideStage) => void;
+    readonly SetReplace: (
+      stageOverrideStage: StageAPIStageOverrideStage,
+    ) => void;
 
     /**
      * Sets the RoomGfx used by the stage.

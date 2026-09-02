@@ -91,7 +91,10 @@ declare global {
     /** Returns whether the entity can devolve from D10. */
     readonly CanDevolve: () => boolean;
 
-    readonly ComputeStatusEffectDuration: (initialLength: int, source: EntityRef) => int;
+    readonly ComputeStatusEffectDuration: (
+      initialLength: int,
+      source: EntityRef,
+    ) => int;
 
     /**
      * Copies the entity's status effects onto the specified target.
@@ -238,7 +241,10 @@ declare global {
      *              a value of 1 would predict where the target's velocity would take them on the
      *              next update.
      */
-    readonly GetPredictedTargetPosition: (target: Entity, delay: number) => Vector;
+    readonly GetPredictedTargetPosition: (
+      target: Entity,
+      delay: number,
+    ) => Vector;
 
     /** Returns the size of the entity's shadow. */
     readonly GetShadowSize: () => number;
@@ -452,7 +458,9 @@ declare global {
     readonly SetSpeedMultiplier: (multiplier: number) => void;
 
     /** Sets the entity's water clip flags. */
-    readonly SetWaterClipFlags: (flags: WaterClipFlag | BitFlags<WaterClipFlag>) => void;
+    readonly SetWaterClipFlags: (
+      flags: WaterClipFlag | BitFlags<WaterClipFlag>,
+    ) => void;
 
     /**
      * Updates the remaining frames until the weakness status effect is removed. If the entity does
