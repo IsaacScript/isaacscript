@@ -26,7 +26,7 @@
     "eslint-config-isaacscript": "6.0.1",
     "eslint-import-resolver-typescript": "4.4.5",
     "isaacscript-spell": "1.15.2",
-    "isaacscript-tsconfig": "7.0.1",
+    "isaacscript-tsconfig": "7.1.0",
     "ts-prune-2": "0.10.7"
   },
   "peerDependencies": {
