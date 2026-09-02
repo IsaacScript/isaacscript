@@ -1,5 +1,4 @@
 # These are general-purpose words that should be in the CSpell base dictionary.
-
 astar
 autoformat
 backreference
@@ -16,6 +15,7 @@ decompilation
 decrementation
 desyncs
 easings
+extensionless
 gamepad
 grimoire
 icns # MacOS icons file.

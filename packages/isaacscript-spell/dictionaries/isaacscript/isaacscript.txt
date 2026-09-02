@@ -1,5 +1,4 @@
 # These are words contained within IsaacScript template files.
-
 airbnb # settings.json
 autocrlf # .gitattributes
 corepack # Used to install yarn
