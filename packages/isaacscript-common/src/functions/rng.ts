@@ -9,7 +9,7 @@ import { getNumbersFromTable, tableHasKeys } from "./table";
 import { isTable } from "./types";
 import { assertDefined } from "./utils";
 
-export type SerializedRNG = LuaMap<string, unknown> & {
+export type SerializedRNG = Readonly<LuaMap<string, unknown>> & {
   readonly __serializedRNGBrand: symbol;
   readonly __kind: CopyableIsaacAPIClassType.RNG;
 };

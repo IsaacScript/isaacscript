@@ -11,7 +11,7 @@ import {
 import { isTable } from "./types";
 import { assertDefined } from "./utils";
 
-export type SerializedColor = LuaMap<string, unknown> & {
+export type SerializedColor = Readonly<LuaMap<string, unknown>> & {
   readonly __serializedColorBrand: symbol;
   readonly __kind: CopyableIsaacAPIClassType.COLOR;
 };

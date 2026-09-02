@@ -17,6 +17,7 @@ import type { PostPlayerRenderReordered } from "../../callbacks/PostPlayerRender
 import type { PostPlayerUpdateReordered } from "../../callbacks/PostPlayerUpdateReordered";
 import { Feature } from "../../private/Feature";
 
+// eslint-disable-next-line complete/type-declaration-immutability
 interface QueueElement {
   readonly playerIndex: PlayerIndex;
   readonly renderOffset: Readonly<Vector>;

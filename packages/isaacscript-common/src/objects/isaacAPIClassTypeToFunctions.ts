@@ -56,6 +56,7 @@ export type SerializedIsaacAPIClass =
   | SerializedRNG
   | SerializedVector;
 
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface IsaacAPIClassTypeToType {
   readonly [CopyableIsaacAPIClassType.BIT_SET_128]: Readonly<BitSet128>;
   readonly [CopyableIsaacAPIClassType.COLOR]: Readonly<Color>;
@@ -64,6 +65,7 @@ export interface IsaacAPIClassTypeToType {
   readonly [CopyableIsaacAPIClassType.VECTOR]: Readonly<Vector>;
 }
 
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface IsaacAPIClassTypeToSerializedType {
   readonly [CopyableIsaacAPIClassType.BIT_SET_128]: Readonly<SerializedBitSet128>;
   readonly [CopyableIsaacAPIClassType.COLOR]: Readonly<SerializedColor>;

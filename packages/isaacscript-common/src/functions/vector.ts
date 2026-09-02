@@ -15,7 +15,7 @@ import {
 import { isTable } from "./types";
 import { assertDefined } from "./utils";
 
-export type SerializedVector = LuaMap<string, unknown> & {
+export type SerializedVector = Readonly<LuaMap<string, unknown>> & {
   readonly __serializedVectorBrand: symbol;
   readonly __kind: CopyableIsaacAPIClassType.VECTOR;
 };

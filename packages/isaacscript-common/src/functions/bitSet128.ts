@@ -9,7 +9,7 @@ import {
 import { isTable } from "./types";
 import { assertDefined } from "./utils";
 
-export type SerializedBitSet128 = LuaMap<string, unknown> & {
+export type SerializedBitSet128 = Readonly<LuaMap<string, unknown>> & {
   readonly __serializedBitSet128Brand: symbol;
   readonly __kind: CopyableIsaacAPIClassType.BIT_SET_128;
 };
