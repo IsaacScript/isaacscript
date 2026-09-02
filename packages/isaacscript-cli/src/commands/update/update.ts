@@ -8,7 +8,7 @@ const INTERNAL_PACKAGES = [
   "isaac-lua-polyfill",
   "isaac-typescript-definitions",
   "isaac-typescript-definitions-repentogon",
-  "isaacscript-cli",
+  "isaacscript",
   "isaacscript-common",
   "isaacscript-lint",
   "isaacscript-spell",
