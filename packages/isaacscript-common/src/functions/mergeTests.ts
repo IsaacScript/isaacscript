@@ -326,7 +326,7 @@ function oldTableHasUpdatedValueFromNull() {
 
 function oldTableHasVector() {
   interface Foo {
-    bar: Readonly<Vector>;
+    readonly bar: Readonly<Vector>;
   }
 
   const key = "foo";
@@ -362,7 +362,7 @@ function oldTableHasVector() {
 
 function oldTableHasVectorSerialized() {
   interface Foo {
-    bar: Readonly<Vector>;
+    readonly bar: Readonly<Vector>;
   }
 
   const key = "foo";

@@ -3,6 +3,7 @@
  *
  * This is used in the `newChargeBarSprites` and related helper functions.
  */
+// eslint-disable-next-line complete/type-declaration-immutability
 export interface ChargeBarSprites {
   readonly back: Readonly<Sprite>;
   readonly meter: Readonly<Sprite>;
