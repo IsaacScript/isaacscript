@@ -5,8 +5,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { PROJECT_NAME } from "../../../constants.js";
-import { SAVE_DAT_WRITER_READY_MESSAGE } from "./types.js";
 import type { SaveDatMessage, SaveDatMessageType } from "./types.js";
+import { SAVE_DAT_WRITER_READY_MESSAGE } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
 const MAX_MESSAGES = 100;

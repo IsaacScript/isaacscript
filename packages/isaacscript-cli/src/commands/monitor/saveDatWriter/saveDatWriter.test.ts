@@ -3,10 +3,10 @@ import { fork } from "node:child_process";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { setTimeout as sleep } from "node:timers/promises";
 import test from "node:test";
-import { SAVE_DAT_WRITER_READY_MESSAGE } from "./types.js";
+import { setTimeout as sleep } from "node:timers/promises";
 import type { SaveDatMessage } from "./types.js";
+import { SAVE_DAT_WRITER_READY_MESSAGE } from "./types.js";
 
 const NUM_READ_RETRIES = 100;
 const READ_RETRY_DELAY_MILLISECONDS = 10;
