@@ -58,7 +58,7 @@
     "docusaurus-theme-search-typesense": "0.27.0",
     "eslint-import-resolver-typescript": "4.4.5",
     "figlet": "1.9.2-beta.0",
-    "isaac-typescript-definitions": "43.0.7",
+    "isaac-typescript-definitions": "43.0.8",
     "jest": "30.5.1",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "8.0.0",
