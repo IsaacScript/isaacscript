@@ -28,6 +28,18 @@ const DEFAULT_MODS_PATH_LINUX = path.join(
   MODS,
 );
 
+const DEFAULT_MODS_PATH_WSL = path.join(
+  "/",
+  "mnt",
+  "c",
+  "Program Files (x86)",
+  "Steam",
+  "steamapps",
+  "common",
+  "The Binding of Isaac Rebirth",
+  "mods",
+);
+
 export async function getModsDirectory(
   modsDirectoryOption: string | undefined,
 ): Promise<string> {
@@ -35,15 +47,18 @@ export async function getModsDirectory(
     return modsDirectoryOption;
   }
 
-  const defaultModsPath = getDefaultModsPath(process.platform);
+  const defaultModsPaths = getDefaultModsPaths(process.platform);
 
-  const defaultModsExists = await isDirectory(defaultModsPath);
-  if (defaultModsExists) {
-    return defaultModsPath;
+  for (const defaultModsPath of defaultModsPaths) {
+    // eslint-disable-next-line no-await-in-loop
+    const defaultModsExists = await isDirectory(defaultModsPath);
+    if (defaultModsExists) {
+      return defaultModsPath;
+    }
   }
 
   console.error(
-    `Failed to find your mods directory at: ${chalk.green(defaultModsPath)}`,
+    `Failed to find your mods directory at: ${chalk.green(defaultModsPaths)}`,
   );
   const modsDir = await getInputString(
     `Enter the full path to the "${MODS}" directory on your system, which should be next to your "isaac-ng.exe" program:`,
@@ -73,14 +88,14 @@ export async function getModsDirectory(
   return modsDir;
 }
 
-function getDefaultModsPath(platform: string): string {
+function getDefaultModsPaths(platform: string): readonly string[] {
   switch (platform) {
     case "win32": {
-      return DEFAULT_MODS_PATH_WINDOWS;
+      return [DEFAULT_MODS_PATH_WINDOWS];
     }
 
     case "linux": {
-      return DEFAULT_MODS_PATH_LINUX;
+      return [DEFAULT_MODS_PATH_LINUX, DEFAULT_MODS_PATH_WSL];
     }
 
     default: {
