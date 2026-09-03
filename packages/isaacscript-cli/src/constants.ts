@@ -8,7 +8,10 @@ export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
 export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
-export const MOD_UPLOADER_PATH = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe`;
+const MOD_UPLOADER_PATH_WINDOWS = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe`;
+const MOD_UPLOADER_PATH_WSL =
+  "/mnt/c/Program Files (x86)/Steam/steamapps/common/The Binding of Isaac Rebirth/tools/ModUploader/ModUploader.exe";
+export const MOD_UPLOADER_PATH = getModUploaderPath();
 export const INTERNAL_PACKAGES = [
   "eslint-config-isaacscript",
   "eslint-plugin-isaacscript",
@@ -21,6 +24,18 @@ export const INTERNAL_PACKAGES = [
   "isaacscript-spell",
   "isaacscript-tsconfig",
 ] as const;
+
+export function getModUploaderPath(
+  platform: NodeJS.Platform = process.platform,
+  environment: NodeJS.ProcessEnv = process.env,
+): string {
+  const isWSL =
+    platform === "linux"
+    && (environment["WSL_DISTRO_NAME"] !== undefined
+      || environment["WSL_INTEROP"] !== undefined);
+
+  return isWSL ? MOD_UPLOADER_PATH_WSL : MOD_UPLOADER_PATH_WINDOWS;
+}
 
 const packageRoot = path.resolve(import.meta.dirname, "..");
 const { version, description } = await getPackageJSONFieldsMandatory(
