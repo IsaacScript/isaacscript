@@ -27,6 +27,7 @@
     "complete-node": "0.0.1",
     "isaacscript": "0.0.1",
     "isaacscript-lint": "0.0.1",
+    "tsx": "0.0.1",
     "typescript": "0.0.1",
     "typescript-to-lua": "0.0.1"
   }
