@@ -28,6 +28,7 @@ import {
   ACTION_YML,
   ACTION_YML_TEMPLATE_PATH,
   GITIGNORE_TEMPLATE_PATH,
+  INTERNAL_PACKAGES,
   MAIN_DEV_TS_TEMPLATE_PATH,
   MAIN_TS,
   MAIN_TS_TEMPLATE_PATH,
@@ -63,7 +64,12 @@ export async function createProject(
   await copyDynamicFiles(projectName, projectPath, packageManager, dev);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  const updated = await updatePackageJSONDependencies(projectPath, false, true);
+  const updated = await updatePackageJSONDependencies(
+    projectPath,
+    false,
+    true,
+    INTERNAL_PACKAGES,
+  );
   if (!updated) {
     fatalError('Failed to update the dependencies in the "package.json" file.');
   }

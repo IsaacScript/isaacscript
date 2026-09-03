@@ -9,6 +9,18 @@ export const HOME_DIR = os.homedir();
 export const FILE_SYNCED_MESSAGE = "File synced:";
 export const COMPILATION_SUCCESSFUL_MESSAGE = "Compilation successful.";
 export const MOD_UPLOADER_PATH = String.raw`C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe`;
+export const INTERNAL_PACKAGES = [
+  "eslint-config-isaacscript",
+  "eslint-plugin-isaacscript",
+  "isaac-lua-polyfill",
+  "isaac-typescript-definitions",
+  "isaac-typescript-definitions-repentogon",
+  "isaacscript",
+  "isaacscript-common",
+  "isaacscript-lint",
+  "isaacscript-spell",
+  "isaacscript-tsconfig",
+] as const;
 
 const packageRoot = path.resolve(import.meta.dirname, "..");
 const { version, description } = await getPackageJSONFieldsMandatory(

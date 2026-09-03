@@ -1,19 +1,6 @@
 import { Command } from "@commander-js/extra-typings";
 import { updatePackageJSONDependencies } from "complete-node";
-import { CWD } from "../../constants.js";
-
-const INTERNAL_PACKAGES = [
-  "eslint-config-isaacscript",
-  "eslint-plugin-isaacscript",
-  "isaac-lua-polyfill",
-  "isaac-typescript-definitions",
-  "isaac-typescript-definitions-repentogon",
-  "isaacscript",
-  "isaacscript-common",
-  "isaacscript-lint",
-  "isaacscript-spell",
-  "isaacscript-tsconfig",
-] as const;
+import { CWD, INTERNAL_PACKAGES } from "../../constants.js";
 
 export const updateCommand = new Command()
   // eslint-disable-next-line unicorn/no-unreadable-new-expression
