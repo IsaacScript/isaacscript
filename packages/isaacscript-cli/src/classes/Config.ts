@@ -24,7 +24,7 @@ export class Config {
    * When your code is recompiled, IsaacScript watcher can restart the game to ensure that any
    * run-related variables are properly reset. This is set to true by default.
    */
-  readonly enableIsaacScriptWatcherAutoRestart?: boolean;
+  readonly enableIsaacScriptWatcherAutoRestart?: boolean = true;
 
   /**
    * If set to true, the IsaacScript watcher will spawn an additional watcher process for the files
