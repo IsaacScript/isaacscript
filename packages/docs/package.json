@@ -54,7 +54,7 @@
     "@types/node": "26.4.0",
     "@zamiell/typedoc-plugin-not-exported": "0.3.0",
     "complete-common": "2.32.0",
-    "complete-node": "18.1.0",
+    "complete-node": "18.1.2",
     "typedoc": "0.28.20",
     "typedoc-plugin-markdown": "4.13.0",
     "typedoc-plugin-rename": "1.1.1",
