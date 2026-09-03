@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directories:
+      - /
+      - /packages/isaacscript-cli/file-templates/dynamic
+      - /packages/isaacscript-cli/file-templates/static
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
