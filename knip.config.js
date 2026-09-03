@@ -7,10 +7,6 @@
 const config = {
   ignore: ["eslint.config.mjs"],
 
-  ignoreBinaries: [
-    "tsx", // This is provided by "complete-lint".
-  ],
-
   // Ignore all dependencies in the root. (This is checked by the `lintMonorepoPackageJSONs` helper
   // function.)
   ignoreDependencies: [".+"],
@@ -23,14 +19,10 @@ const config = {
     "packages/*": {},
     "packages/docs": {
       ignore: [
-        "babel.config.js",
-        "docusaurus.config.ts",
         "eslint.config.mjs",
         "scripts/**",
         "sidebars.ts",
         "src/**/index.tsx",
-        "static/js/hotkey.js",
-        "typedoc.config.base.mjs",
       ],
     },
     "packages/eslint-plugin-isaacscript": {
@@ -45,10 +37,7 @@ const config = {
       ignore: ["eslint.config.mjs"],
     },
     "packages/isaac-typescript-definitions": {
-      ignore: ["eslint.config.mjs", "typedoc.config.mjs"],
-    },
-    "packages/isaac-typescript-definitions-repentogon": {
-      ignore: ["eslint.config.mjs", "typedoc.config.mjs"],
+      ignore: ["eslint.config.mjs"],
     },
     "packages/isaacscript-cli": {
       entry: [
@@ -64,12 +53,7 @@ const config = {
       ],
     },
     "packages/isaacscript-common": {
-      ignore: [
-        "eslint.config.mjs",
-        "src/classes/features/other/extraConsoleCommands/commands.ts",
-        "src/lib/jsonLua.js",
-        "typedoc.config.mjs",
-      ],
+      ignore: ["eslint.config.mjs"],
     },
     "packages/isaacscript-spell": {
       ignore: ["eslint.config.mjs"],

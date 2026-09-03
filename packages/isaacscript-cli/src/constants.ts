@@ -25,7 +25,7 @@ export const INTERNAL_PACKAGES = [
   "isaacscript-tsconfig",
 ] as const;
 
-export function getModUploaderPath(
+function getModUploaderPath(
   platform: NodeJS.Platform = process.platform,
   environment: NodeJS.ProcessEnv = process.env,
 ): string {
