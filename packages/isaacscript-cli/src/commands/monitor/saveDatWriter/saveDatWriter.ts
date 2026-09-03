@@ -3,7 +3,9 @@ import { getArgs, isFile, makeDirectory, readFile } from "complete-node";
 import * as JSONC from "jsonc-parser";
 import fs from "node:fs";
 import path from "node:path";
+import { setTimeout as sleep } from "node:timers/promises";
 import { PROJECT_NAME } from "../../../constants.js";
+import { SAVE_DAT_WRITER_READY_MESSAGE } from "./types.js";
 import type { SaveDatMessage, SaveDatMessageType } from "./types.js";
 
 const SUBPROCESS_NAME = "save#.dat writer";
@@ -11,6 +13,7 @@ const MAX_MESSAGES = 100;
 
 let saveDatPath: string;
 let saveDatFileName: string;
+let messageQueue = Promise.resolve(undefined);
 
 await init();
 
@@ -37,9 +40,27 @@ async function init() {
 
   // Listen for messages from the parent process.
   process.on("message", (msg: SaveDatMessage) => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    onMessage(msg.type, msg.data);
+    const previousMessage = messageQueue;
+    // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
+    messageQueue = processQueuedMessage(previousMessage, msg);
   });
+  send(SAVE_DAT_WRITER_READY_MESSAGE);
+}
+
+async function processQueuedMessage(
+  previousMessage: Promise<undefined>,
+  msg: SaveDatMessage,
+) {
+  await previousMessage;
+
+  try {
+    await onMessage(msg.type, msg.data);
+  } catch (error) {
+    send(`The ${SUBPROCESS_NAME} encountered an error: ${error}`);
+    process.exit(1);
+  }
+
+  return undefined;
 }
 
 async function onMessage(
@@ -60,7 +81,7 @@ async function onMessage(
     return;
   }
   addMessageToSaveDat(type, saveDat, data); // Mutates saveDat
-  writeSaveDatToDisk(type, data, saveDat, numRetries);
+  await writeSaveDatToDisk(type, data, saveDat, numRetries);
 }
 
 // eslint-disable-next-line complete/no-mutable-return
@@ -116,7 +137,7 @@ function addMessageToSaveDat(
   }
 }
 
-function writeSaveDatToDisk(
+async function writeSaveDatToDisk(
   type: SaveDatMessageType,
   data: string,
   saveDat: readonly SaveDatMessage[],
@@ -137,10 +158,8 @@ function writeSaveDatToDisk(
     send(
       `Writing to "${saveDatFileName}" failed. (The number of retries so far is ${numRetries}.) Trying again in 0.1 seconds...`,
     );
-    setTimeout(() => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      onMessage(type, data, numRetries + 1);
-    }, 100);
+    await sleep(100);
+    await onMessage(type, data, numRetries + 1);
   }
 }
 
