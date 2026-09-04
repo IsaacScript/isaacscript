@@ -9,6 +9,7 @@ const [isaacTypeScriptDefinitionsPlugin] = createStarlightTypeDocPlugin();
 const [isaacScriptCommonPlugin] = createStarlightTypeDocPlugin();
 
 const isaacTypeScriptDefinitionsSidebar = {
+  collapsed: true,
   items: [
     {
       label: "Introduction",
@@ -30,6 +31,7 @@ const isaacTypeScriptDefinitionsSidebar = {
 };
 
 const isaacScriptCommonSidebar = {
+  collapsed: true,
   items: [
     {
       label: "Introduction",
@@ -246,6 +248,7 @@ export default defineConfig({
       },
       sidebar: [
         {
+          collapsed: true,
           label: "Overview",
           items: [
             {
@@ -263,6 +266,7 @@ export default defineConfig({
           ],
         },
         {
+          collapsed: true,
           label: "Basic Info",
           items: [
             {
@@ -280,6 +284,7 @@ export default defineConfig({
           ],
         },
         {
+          collapsed: true,
           label: "Tutorials",
           items: [
             {
@@ -309,6 +314,7 @@ export default defineConfig({
           ],
         },
         {
+          collapsed: true,
           label: "Other Info",
           items: [
             {
