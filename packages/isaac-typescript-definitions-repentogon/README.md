@@ -2,13 +2,17 @@
 
 [![npm version](https://img.shields.io/npm/v/isaac-typescript-definitions-repentogon.svg)](https://www.npmjs.com/package/isaac-typescript-definitions-repentogon)
 
-These are TypeScript definitions for [REPENTOGON](https://repentogon.com/), an exe-hack for the modding API of [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/).
+These are TypeScript definitions for [REPENTOGON](https://repentogon.com/), an
+exe-hack for the modding API of
+[_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/).
 
-They are not included by default in [IsaacScript](https://isaacscript.github.io/) mods.
+They are not included by default in
+[IsaacScript](https://isaacscript.github.io/) mods.
 
 ## Installation
 
-First, add these definitions as a dependency (similar to any other JavaScript/TypeScript dependency):
+First, add these definitions as a dependency (similar to any other
+JavaScript/TypeScript dependency):
 
 ```sh
 npm install isaac-typescript-definitions-repentogon --save

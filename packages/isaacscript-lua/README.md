@@ -1,6 +1,7 @@
 # `isaacscript-lua`
 
-This is a Python script to help manage IsaacScript-related libraries in a Lua project.
+This is a Python script to help manage IsaacScript-related libraries in a Lua
+project.
 
 <br />
 

@@ -2,7 +2,9 @@
 
 <img src="https://isaacscript.github.io/img/items/magic-mushroom.png" alt="Magic Mushroom">
 
-`eslint-plugin-isaacscript` is a collection of [ESLint](https://eslint.org/) rules for IsaacScript mods. (By default, IsaacScript mods are automatically configured to use these rules.)
+`eslint-plugin-isaacscript` is a collection of [ESLint](https://eslint.org/)
+rules for IsaacScript mods. (By default, IsaacScript mods are automatically
+configured to use these rules.)
 
 ## Configs
 
@@ -13,7 +15,9 @@
 Each rule has emojis denoting:
 
 - :white_check_mark: - if it belongs to the `recommended` configuration
-- :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
+- :wrench: - if some problems reported by the rule are automatically fixable by
+  the `--fix`
+  [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->

@@ -2,9 +2,14 @@
 title: JavaScript/TypeScript Tutorial
 ---
 
-If you have never programmed in JavaScript/TypeScript before, but you **have** programmed in Lua, then this page is for you. Below, you can compare Lua code side by side with the equivalent TypeScript code. If you have coded a mod in Lua before, reading through this page will probably be enough to get you started.
+If you have never programmed in JavaScript/TypeScript before, but you **have**
+programmed in Lua, then this page is for you. Below, you can compare Lua code
+side by side with the equivalent TypeScript code. If you have coded a mod in Lua
+before, reading through this page will probably be enough to get you started.
 
-If you have never programmed in Lua before, then this page will still be useful, but you can skip reading all of the Lua code blocks. (But it can't hurt to learn some Lua too. The best Isaac modders will fluently know both languages.)
+If you have never programmed in Lua before, then this page will still be useful,
+but you can skip reading all of the Lua code blocks. (But it can't hurt to learn
+some Lua too. The best Isaac modders will fluently know both languages.)
 
 <br />
 
@@ -54,15 +59,22 @@ Isaac.DebugString("hello world")
 Isaac.DebugString("hello world");
 ```
 
-But don't bother typing the semi-colons yourself - just hit `Ctrl + s` and the editor will automatically insert them for you. That's [Prettier](https://prettier.io/) doing its job.
+But don't bother typing the semi-colons yourself - just hit `Ctrl + s` and the
+editor will automatically insert them for you. That's
+[Prettier](https://prettier.io/) doing its job.
 
-(In fact, you should always hit `Ctrl + s` periodically as you code, so that the code is constantly formatting itself. This frees you from the tedium of aligning things, breaking up long if statements, and so forth. If the file is not auto-formatting itself, then you probably need to add a bracket somewhere so that the code can properly compile.)
+(In fact, you should always hit `Ctrl + s` periodically as you code, so that the
+code is constantly formatting itself. This frees you from the tedium of aligning
+things, breaking up long if statements, and so forth. If the file is not
+auto-formatting itself, then you probably need to add a bracket somewhere so
+that the code can properly compile.)
 
 <br />
 
 ### Colons
 
-In Lua, you sometimes call functions with a colon, and you sometimes call functions with a period. This is really annoying.
+In Lua, you sometimes call functions with a colon, and you sometimes call
+functions with a period. This is really annoying.
 
 In TypeScript, you call all functions with a period. Easy.
 
@@ -82,12 +94,15 @@ Isaac.GetPlayer().AddMaxHearts(2);
 
 ### Variables: `local` ➜ `const` and `let`
 
-In Lua, you type `local` before declaring a variable to stop it from being turned into a global.
+In Lua, you type `local` before declaring a variable to stop it from being
+turned into a global.
 
-In TypeScript, this isn't necessary. There are no global variables, unless we explicitly decide to create one.
+In TypeScript, this isn't necessary. There are no global variables, unless we
+explicitly decide to create one.
 
-Furthermore, in TypeScript, there are two kinds of variable declarations: `let` and `const`.<br />
-(Don't ever use `var`, which is only used in older JavaScript code.)
+Furthermore, in TypeScript, there are two kinds of variable declarations: `let`
+and `const`.<br /> (Don't ever use `var`, which is only used in older JavaScript
+code.)
 
 ```lua
 -- Lua code
@@ -130,7 +145,8 @@ function getNumPoops() {
 
 ### Anonymous Functions
 
-For very small functions, it is common to type them anonymously (i.e. without a name).
+For very small functions, it is common to type them anonymously (i.e. without a
+name).
 
 ```lua
 -- Lua code
@@ -146,13 +162,16 @@ mod.AddCallback(ModCallbacks.POST_NEW_LEVEL, () => {
 });
 ```
 
-(If this syntax looks confusing, google "JavaScript arrow functions" in order to get more familiar with them. But of course, you don't have to use arrow functions if you don't want to.)
+(If this syntax looks confusing, google "JavaScript arrow functions" in order to
+get more familiar with them. But of course, you don't have to use arrow
+functions if you don't want to.)
 
 <br />
 
 ### Arrays
 
-An array is a data structure that is an ordered list of elements. In Lua, you use a table to represent an array.
+An array is a data structure that is an ordered list of elements. In Lua, you
+use a table to represent an array.
 
 ```lua
 local myArray = {"foo", "bar", "baz"}
@@ -177,13 +196,17 @@ In TypeScript, you use the `push` method:
 myArray.push("someNewElement");
 ```
 
-In addition to `push`, arrays have a lot of other handy methods that you can use. You can see all of them in [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+In addition to `push`, arrays have a lot of other handy methods that you can
+use. You can see all of them in
+[the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 <br />
 
 ### Objects
 
-An object is a data structure that stores key/value pairs. In Lua, you use a table to represent an object. (An equal sign is used in between the keys and values.)
+An object is a data structure that stores key/value pairs. In Lua, you use a
+table to represent an object. (An equal sign is used in between the keys and
+values.)
 
 ```js
 local myObject = {
@@ -193,7 +216,8 @@ local myObject = {
 }
 ```
 
-In TypeScript, there is a dedicated syntax for objects: the curly brackets. (A colon is used in between the keys and the values.)
+In TypeScript, there is a dedicated syntax for objects: the curly brackets. (A
+colon is used in between the keys and the values.)
 
 ```ts
 const myObject = {
@@ -217,13 +241,15 @@ myObject.foo = 999;
 myObject["foo"] = 999;
 ```
 
-(But ESLint will change the second form to the first form automatically when you save the file, so that everything remains consistent.)
+(But ESLint will change the second form to the first form automatically when you
+save the file, so that everything remains consistent.)
 
 <br />
 
 ### `if` Statements and Operators
 
-In Lua, you don't put parentheses around the conditions of an `if` statement. But in TypeScript, you do.
+In Lua, you don't put parentheses around the conditions of an `if` statement.
+But in TypeScript, you do.
 
 Also, the operators are a bit different:
 
@@ -249,7 +275,9 @@ if (x === 1 && y !== 0) {
 }
 ```
 
-If you find typing three equal signs annoying, then don't bother: if you type `==` instead, ESLint will automatically convert it to `===` when you save the file.
+If you find typing three equal signs annoying, then don't bother: if you type
+`==` instead, ESLint will automatically convert it to `===` when you save the
+file.
 
 <br />
 
@@ -273,7 +301,9 @@ for (let i = 1; i <= 10; i++) {
 }
 ```
 
-Alternatively, you can use the `iRange` helper function provided by the `isaacscript-common` standard library. This allows the code to be a bit more safe & understandable:
+Alternatively, you can use the `iRange` helper function provided by the
+`isaacscript-common` standard library. This allows the code to be a bit more
+safe & understandable:
 
 ```ts
 // TypeScript code
@@ -309,7 +339,8 @@ for (const i of iRange(10, 1)) {
 }
 ```
 
-Note that you can also use the `eRange` helper function for an exclusive range (instead of an inclusive range).
+Note that you can also use the `eRange` helper function for an exclusive range
+(instead of an inclusive range).
 
 <br />
 
@@ -416,7 +447,9 @@ if (entity.SpawnerEntity === undefined) {
 }
 ```
 
-Note that `null` also transpiles to `nil` (in addition to `undefined`). In order to keep your code easy to read, never use `null` unless you specifically want to model an actual null-type defined value.
+Note that `null` also transpiles to `nil` (in addition to `undefined`). In order
+to keep your code easy to read, never use `null` unless you specifically want to
+model an actual null-type defined value.
 
 <br />
 
@@ -478,7 +511,8 @@ const fartString = "Fart";
 const combinedString = poopString + fartString; // combinedString is now equal to "PoopFart".
 ```
 
-(Unlike Lua, TypeScript uses the same operator for adding numbers and concatenating strings.)
+(Unlike Lua, TypeScript uses the same operator for adding numbers and
+concatenating strings.)
 
 <br />
 
@@ -497,9 +531,11 @@ const numPoopsString1 = tostring(numPoops); // You can do the same thing as you 
 const numPoopsString2 = numPoops.toString(); // Or, you can use the typical JavaScript conversion method.
 ```
 
-Feel free to use either the standard Lua method or the JavaScript conversion method - it will be transpiled to the same thing.
+Feel free to use either the standard Lua method or the JavaScript conversion
+method - it will be transpiled to the same thing.
 
-Furthermore, when concatenating numbers to strings, TypeScript will automatically convert them to strings for you:
+Furthermore, when concatenating numbers to strings, TypeScript will
+automatically convert them to strings for you:
 
 ```lua
 -- Lua code
@@ -517,9 +553,13 @@ Isaac.DebugString("numPoops: " + numPoops + ", numFarts: " + numFarts); // No co
 
 ### String Templates
 
-TypeScript has a special feature that Lua does not have called _string templates_. String templates allow you to easily create a string that has a bunch of variables in it. They are denoted by the <code>`</code> character.
+TypeScript has a special feature that Lua does not have called _string
+templates_. String templates allow you to easily create a string that has a
+bunch of variables in it. They are denoted by the <code>`</code> character.
 
-In the previous section, we used the `+` operator to combine a bunch of variables with text. But it would be better written by using a string template, like this:
+In the previous section, we used the `+` operator to combine a bunch of
+variables with text. But it would be better written by using a string template,
+like this:
 
 ```ts
 // Typescript code
@@ -528,13 +568,15 @@ const numFarts = 4;
 Isaac.DebugString(`numPoops: ${numPoops}, numFarts: ${numFarts}`);
 ```
 
-You will probably want to get in the habit of using string templates, since they end up making your code more concise and easier to read.
+You will probably want to get in the habit of using string templates, since they
+end up making your code more concise and easier to read.
 
 <br />
 
 ### TypeScript Type Annotations
 
-The main thing that TypeScript adds to JavaScript is type annotations. Here's a quick example:
+The main thing that TypeScript adds to JavaScript is type annotations. Here's a
+quick example:
 
 ```lua
 -- Lua code
@@ -557,42 +599,71 @@ function postPlayerInit(player: EntityPlayer) {
 }
 ```
 
-In the TypeScript code snippet, you can see that we marked the `player` function argument as the `EntityPlayer` type by using a colon. The `EntityPlayer` type is automatically provided by the `isaac-typescript-definitions` package, and corresponds to [`EntityPlayer` in the official docs](https://wofsauge.github.io/IsaacDocs/rep/EntityPlayer.html). (The `isaac-typescript-definitions` package is automatically added to any IsaacScript project.)
+In the TypeScript code snippet, you can see that we marked the `player` function
+argument as the `EntityPlayer` type by using a colon. The `EntityPlayer` type is
+automatically provided by the `isaac-typescript-definitions` package, and
+corresponds to
+[`EntityPlayer` in the official docs](https://wofsauge.github.io/IsaacDocs/rep/EntityPlayer.html).
+(The `isaac-typescript-definitions` package is automatically added to any
+IsaacScript project.)
 
-Once the type has been annotated, your editor will know about all of the legal methods for the `player` variable. For example, if you make a typo on the `AddCollectible` method, the editor will immediately tell you by drawing a red squiggly line underneath it.
+Once the type has been annotated, your editor will know about all of the legal
+methods for the `player` variable. For example, if you make a typo on the
+`AddCollectible` method, the editor will immediately tell you by drawing a red
+squiggly line underneath it.
 
-When coding in TypeScript, you will need to add the type for every function argument. That way, the compiler can catch all of the bugs.
+When coding in TypeScript, you will need to add the type for every function
+argument. That way, the compiler can catch all of the bugs.
 
-(Note that if you are just trying out a new function, then you can quickly type it out without the types. The compiler will give errors, but you can ignore them and everything will work fine as you test the function in-game. Once you are satisfied with the function, you can go back and fill in the types.)
+(Note that if you are just trying out a new function, then you can quickly type
+it out without the types. The compiler will give errors, but you can ignore them
+and everything will work fine as you test the function in-game. Once you are
+satisfied with the function, you can go back and fill in the types.)
 
 <br />
 
 ### Type Inference For Variables
 
-In the previous section, we provided a type annotation for a function argument (by using a colon). It is also possible to provide a type annotation for other things. For example, this is providing a type annotation for a variable declaration:
+In the previous section, we provided a type annotation for a function argument
+(by using a colon). It is also possible to provide a type annotation for other
+things. For example, this is providing a type annotation for a variable
+declaration:
 
 ```ts
 const myNumber: number = 123;
 ```
 
-Here, we are explicitly telling the compiler what the type of the variable is. But in this case, doing this is redundant. The type is obviously a number, because 123 is a number. So we can just type out the variable like normal:
+Here, we are explicitly telling the compiler what the type of the variable is.
+But in this case, doing this is redundant. The type is obviously a number,
+because 123 is a number. So we can just type out the variable like normal:
 
 ```ts
 const myNumber = 123;
 ```
 
-Here, TypeScript will infer that `myNumber` is of type `number`, because it knows that 123 is a number. This is called [type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html). So, in general, we should never explicitly put the types on variables when they can be inferred, because it adds useless noise to the code. In this way, TypeScript saves a ton of time over older programming languages like Java. (In Java, you have to type out the type for every single variable, which is a pain.)
+Here, TypeScript will infer that `myNumber` is of type `number`, because it
+knows that 123 is a number. This is called
+[type inference](https://www.typescriptlang.org/docs/handbook/type-inference.html).
+So, in general, we should never explicitly put the types on variables when they
+can be inferred, because it adds useless noise to the code. In this way,
+TypeScript saves a ton of time over older programming languages like Java. (In
+Java, you have to type out the type for every single variable, which is a pain.)
 
-However, in some cases, we do need to specify what the type of the variable is. Imagine that we are creating a new array that will contain numbers:
+However, in some cases, we do need to specify what the type of the variable is.
+Imagine that we are creating a new array that will contain numbers:
 
 ```ts
 // We will add some numbers types later on, but right now we just need to initialize the array.
 const numberArray = [];
 ```
 
-Here, TypeScript is able to infer that the type of the variable is an array. But it can't infer what is supposed to go inside of the array, for obvious reasons. So the type defaults to `any[]` (which means "an array containing anything").
+Here, TypeScript is able to infer that the type of the variable is an array. But
+it can't infer what is supposed to go inside of the array, for obvious reasons.
+So the type defaults to `any[]` (which means "an array containing anything").
 
-This is bad, because we want our arrays to be type safe. Thus, when we declare arrays (and other container-like objects), we have to tell TypeScript what kinds of things they should contain:
+This is bad, because we want our arrays to be type safe. Thus, when we declare
+arrays (and other container-like objects), we have to tell TypeScript what kinds
+of things they should contain:
 
 ```ts
 const numberArray: number[] = [];
@@ -604,7 +675,8 @@ Much better!
 
 ### Type Inference For Functions
 
-You can also use type annotations to specify the return type of a function, like this:
+You can also use type annotations to specify the return type of a function, like
+this:
 
 ```ts
 // The return type is "boolean".
@@ -613,15 +685,21 @@ function isEven(num: number): boolean {
 }
 ```
 
-Here, providing the return type annotation is optional. If we don't specify it, the compiler would infer what the return type is automatically, saving us the time from having to type it out.
+Here, providing the return type annotation is optional. If we don't specify it,
+the compiler would infer what the return type is automatically, saving us the
+time from having to type it out.
 
-With that said, just because we don't _have_ to type it does not mean that we should _never_ type it. Having return type annotations on functions is often pretty useful, as it can catch bugs when you accidentally return things that you did not intend.
+With that said, just because we don't _have_ to type it does not mean that we
+should _never_ type it. Having return type annotations on functions is often
+pretty useful, as it can catch bugs when you accidentally return things that you
+did not intend.
 
 <br />
 
 ### Void
 
-If a function is not expected to return anything, then the return type is `void`. For example:
+If a function is not expected to return anything, then the return type is
+`void`. For example:
 
 ```ts
 function addSadOnion(player: EntityPlayer): void {
@@ -629,7 +707,8 @@ function addSadOnion(player: EntityPlayer): void {
 }
 ```
 
-But annotating a return type of void is pretty pointless, so the function is better written without the return type annotation:
+But annotating a return type of void is pretty pointless, so the function is
+better written without the return type annotation:
 
 ```ts
 function addSadOnion(player: EntityPlayer) {
@@ -637,7 +716,10 @@ function addSadOnion(player: EntityPlayer) {
 }
 ```
 
-One exception is when the function is exported. (More on what exported functions are later.) By default, the IsaacScript linter is configured to require return types for all exported functions. So, if the previous function was exported, you would write it like this:
+One exception is when the function is exported. (More on what exported functions
+are later.) By default, the IsaacScript linter is configured to require return
+types for all exported functions. So, if the previous function was exported, you
+would write it like this:
 
 ```ts
 export function addSadOnion(player: EntityPlayer): void {
@@ -679,8 +761,9 @@ end
 return postGameStarted
 ```
 
-In TypeScript, this is accomplished with `import`.<br />
-(Don't ever use the JavaScript/TypeScript version of `require()`, which is only used in older JavaScript code.)
+In TypeScript, this is accomplished with `import`.<br /> (Don't ever use the
+JavaScript/TypeScript version of `require()`, which is only used in older
+JavaScript code.)
 
 #### `main.ts`
 
@@ -705,7 +788,8 @@ function main() {
 }
 ```
 
-(With TypeScript, there is no need to have a superfluous namespacing directory like in Lua.)
+(With TypeScript, there is no need to have a superfluous namespacing directory
+like in Lua.)
 
 <br />
 
@@ -715,13 +799,18 @@ function main() {
 
 ### Using Global Variables
 
-Sometimes, your mod might need to use a global variable exported by someone else's mod. For example, you might need to use the `InfinityTrueCoopInterface` global variable from the True Co-op Mod. (This mod is useless now in Repentance, but in Afterbirth+, most character mods would want to register their character with the True Co-op Mod.)
+Sometimes, your mod might need to use a global variable exported by someone
+else's mod. For example, you might need to use the `InfinityTrueCoopInterface`
+global variable from the True Co-op Mod. (This mod is useless now in Repentance,
+but in Afterbirth+, most character mods would want to register their character
+with the True Co-op Mod.)
 
 <br />
 
 #### Option 1 - Inline Declarations
 
-In Lua, checking to see if the user has the True Co-op Mod installed would look something like this:
+In Lua, checking to see if the user has the True Co-op Mod installed would look
+something like this:
 
 ```lua
 -- Lua code
@@ -739,7 +828,13 @@ if (InfinityTrueCoopInterface !== undefined) {
 }
 ```
 
-However, this exact code would result in an error, because the TypeScript compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does not exist. Normally, this kind of thing is extremely useful, because when a variable "does not exist", it usually means we forgot to initialize it or we made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface" variable really does exist - it's just not a part of _our_ code. So, we just need a way to tell the TypeScript compiler that.
+However, this exact code would result in an error, because the TypeScript
+compiler (rightly) complains that the "InfinityTrueCoopInterface" variable does
+not exist. Normally, this kind of thing is extremely useful, because when a
+variable "does not exist", it usually means we forgot to initialize it or we
+made a typo somewhere. However, in this case, the "InfinityTrueCoopInterface"
+variable really does exist - it's just not a part of _our_ code. So, we just
+need a way to tell the TypeScript compiler that.
 
 The way to do that is to use the `declare` keyword, like this:
 
@@ -752,27 +847,40 @@ if (InfinityTrueCoopInterface !== undefined) {
 }
 ```
 
-The `declare` keyword essentially means "the following variable exists outside of the context of this program, and is provided by some other running code". Importantly, `declare` statements do not actually result in any transpiled Lua code; they are purely messages to the TypeScript compiler.
+The `declare` keyword essentially means "the following variable exists outside
+of the context of this program, and is provided by some other running code".
+Importantly, `declare` statements do not actually result in any transpiled Lua
+code; they are purely messages to the TypeScript compiler.
 
-In this context, we annotate the type of the variable as `unknown | undefined`, which means that it is either "something" or "does not exist". (`unknown` is a special TypeScript type that you can use when you don't know what the real type of something is.)
+In this context, we annotate the type of the variable as `unknown | undefined`,
+which means that it is either "something" or "does not exist". (`unknown` is a
+special TypeScript type that you can use when you don't know what the real type
+of something is.)
 
 <br />
 
 #### Option 2 - A Declaration File
 
-If you check for `InfinityTrueCoopInterface !== undefined` in more than one place in your mod, then option 1 is bad, because you would be [need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Instead, make a TypeScript definition file that corresponds to the variable / table.
+If you check for `InfinityTrueCoopInterface !== undefined` in more than one
+place in your mod, then option 1 is bad, because you would be
+[need to repeat yourself before each check](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
+Instead, make a TypeScript definition file that corresponds to the variable /
+table.
 
-For example, to declare `InfinityTrueCoopInterface`, starting from the root of your project:
+For example, to declare `InfinityTrueCoopInterface`, starting from the root of
+your project:
 
 - Create the `src/types` directory.
-- Create the `src/types/InfinityTrueCoopInterface.d.ts` file. (A `d.ts` file is a TypeScript _declaration_ file.)
+- Create the `src/types/InfinityTrueCoopInterface.d.ts` file. (A `d.ts` file is
+  a TypeScript _declaration_ file.)
 - Put the following in it:
 
 ```ts
 declare const InfinityTrueCoopInterface: unknown | undefined;
 ```
 
-Now, your other TypeScript files will "see" it as a global variable without you having to do anything else.
+Now, your other TypeScript files will "see" it as a global variable without you
+having to do anything else.
 
 <br />
 
@@ -812,15 +920,19 @@ RevelationsExports = {
 
 ### Enums
 
-In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we defined a mapping of collectibles to prices.
+In the previous [`for` loop section](#for-statements-for-keyvalue-tables), we
+defined a mapping of collectibles to prices.
 
-Imagine that in our mod, collectibles can only be sold for three different prices:
+Imagine that in our mod, collectibles can only be sold for three different
+prices:
 
 - 15 coins (normal)
 - 30 coins (double)
 - 7 coins (on sale)
 
-This means that we can get even more specific with our collectible prices definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data type.
+This means that we can get even more specific with our collectible prices
+definition by using an `enum`. Unlike Lua, TypeScript has a built-in `enum` data
+type.
 
 ```ts
 enum CollectiblePrice {
@@ -841,11 +953,19 @@ const collectiblePrices = {
 
 ### Maps
 
-In the previous [enums](#enums) section, we defined `collectiblePrices` as an object, which is roughly equivalent to a Lua table.
+In the previous [enums](#enums) section, we defined `collectiblePrices` as an
+object, which is roughly equivalent to a Lua table.
 
-Objects are good for cases where every possibility is accounted for. But this isn't the case for `collectiblePrices`. Here, we are only specifying the prices for _some_ of the collectibles in the game. If a collectible isn't in the list, we'll probably want to ignore it, or give it a default value, or something along those lines.
+Objects are good for cases where every possibility is accounted for. But this
+isn't the case for `collectiblePrices`. Here, we are only specifying the prices
+for _some_ of the collectibles in the game. If a collectible isn't in the list,
+we'll probably want to ignore it, or give it a default value, or something along
+those lines.
 
-In this example, what `collectiblePrices` _really_ represents is a [_map_](https://en.wikipedia.org/wiki/Associative_array) of a specific collectible type to a price. Unlike Lua, TypeScript has a built-in `Map` data type. So, the example would be better written like this:
+In this example, what `collectiblePrices` _really_ represents is a
+[_map_](https://en.wikipedia.org/wiki/Associative_array) of a specific
+collectible type to a price. Unlike Lua, TypeScript has a built-in `Map` data
+type. So, the example would be better written like this:
 
 ```ts
 const collectiblePrices = new Map<number, CollectiblePrice>([
@@ -859,14 +979,20 @@ for (const [collectibleType, price] of collectiblePrices.entries()) {
 }
 ```
 
-In this example, `collectiblePrices` has a type of `Map<number, CollectiblePrice>`, which is more specific than an untyped object.
+In this example, `collectiblePrices` has a type of
+`Map<number, CollectiblePrice>`, which is more specific than an untyped object.
 
 - The first value in the angle brackets corresponds to the map key type.
 - The second value in the angle brackets corresponds to the map value type.
 
-We initialize the map by passing an array of key/value pairs to the constructor. (Alternatively, we could start the map empty and then use the `set` method to set some values later on.)
+We initialize the map by passing an array of key/value pairs to the constructor.
+(Alternatively, we could start the map empty and then use the `set` method to
+set some values later on.)
 
-With a map, you can use all of the handy methods [shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) (listed on the left side). Here's an example of using the `get` method to emulate checking for a value in a Lua table:
+With a map, you can use all of the handy methods
+[shown in the MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+(listed on the left side). Here's an example of using the `get` method to
+emulate checking for a value in a Lua table:
 
 ```lua
 -- Lua code
@@ -904,14 +1030,19 @@ local player = entity:ToPlayer() -- Convert the entity to a player.
 player:AddMaxHearts(2) -- Give them a heart container.
 ```
 
-Not all entities convert to players though, so this code can fail. In fact, for most entities, the `ToPlayer` method would return `nil` and cause the next line to throw a run-time error, preventing all of the subsequent code in the callback from firing. In TypeScript, writing this code would cause a compiler error:
+Not all entities convert to players though, so this code can fail. In fact, for
+most entities, the `ToPlayer` method would return `nil` and cause the next line
+to throw a run-time error, preventing all of the subsequent code in the callback
+from firing. In TypeScript, writing this code would cause a compiler error:
 
 ```ts
 const player = entity.ToPlayer();
 player.AddMaxHearts(2); // Error: Object is possibly 'undefined'
 ```
 
-This error is because the return type of the `ToPlayer()` method is `EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing"). To solve this error, we can use _type narrowing_:
+This error is because the return type of the `ToPlayer()` method is
+`EntityPlayer | undefined` (which means "either an `EntityPlayer` or nothing").
+To solve this error, we can use _type narrowing_:
 
 ```ts
 const player = entity.ToPlayer();
@@ -921,8 +1052,19 @@ if (player === undefined) {
 player.AddMaxHearts(2); // The type of player is now narrowed to "EntityPlayer".
 ```
 
-Here, we explicitly handle the error case and supply a helpful error message. But this code does something more important than simply providing the error message.
+Here, we explicitly handle the error case and supply a helpful error message.
+But this code does something more important than simply providing the error
+message.
 
-`error` is a Lua function that causes execution of the function to immediately end. Thus, TypeScript is smart enough to realize that if the code gets to the `AddMaxHearts` line, the type of `player` is no longer `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can confirm this by mousing over the variable in VSCode.
+`error` is a Lua function that causes execution of the function to immediately
+end. Thus, TypeScript is smart enough to realize that if the code gets to the
+`AddMaxHearts` line, the type of `player` is no longer
+`EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can
+confirm this by mousing over the variable in VSCode.
 
-Since many of the Isaac API methods can fail, you will have to use _type narrowing_ like this in many places in your code. Sometimes, it can be annoying to explicitly check to see if things go wrong. But _type narrowing_ should be seen as a good thing: by handling errors in a sane way, you safely compartmentalize the damage that run-time errors can cause. And when things do go wrong, troubleshooting what happened becomes a lot easier.
+Since many of the Isaac API methods can fail, you will have to use _type
+narrowing_ like this in many places in your code. Sometimes, it can be annoying
+to explicitly check to see if things go wrong. But _type narrowing_ should be
+seen as a good thing: by handling errors in a sane way, you safely
+compartmentalize the damage that run-time errors can cause. And when things do
+go wrong, troubleshooting what happened becomes a lot easier.
