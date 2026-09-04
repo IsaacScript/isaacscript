@@ -1,3 +1,7 @@
+/**
+ * Contains the custom features that the `isaacscript-common` library provides. This is provided to
+ * the `upgradeMod` function.
+ */
 export enum ISCFeature {
   // Callback logic
   CUSTOM_REVIVE,

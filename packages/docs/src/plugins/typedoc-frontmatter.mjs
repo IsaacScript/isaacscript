@@ -14,6 +14,10 @@ const FUNCTION_TITLE_OVERRIDES = new Map([
   ["ui", "UI"],
 ]);
 
+const EXTRA_FEATURE_TITLE_OVERRIDES = new Map([
+  ["commands", "Extra Console Commands (List)"],
+]);
+
 export function load(application) {
   application.renderer.on(
     MarkdownPageEvent.BEGIN,
@@ -31,7 +35,10 @@ export function load(application) {
       ];
       frontmatter.tableOfContents = false;
 
-      if (event.model.kindOf(ReflectionKind.Module)) {
+      const extraFeatureTitle = getExtraFeatureTitle(event.url);
+      if (extraFeatureTitle !== undefined) {
+        frontmatter.title = extraFeatureTitle;
+      } else if (event.model.kindOf(ReflectionKind.Module)) {
         frontmatter.title = getModuleTitle(event.model.name, event.url);
       }
     },
@@ -50,6 +57,18 @@ function getModuleTitle(rawName, url) {
   }
 
   return moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+}
+
+function getExtraFeatureTitle(url) {
+  if (!path.posix.dirname(url).startsWith("classes/features/other")) {
+    return undefined;
+  }
+
+  const pageName = path.posix.basename(url, path.posix.extname(url));
+  return (
+    EXTRA_FEATURE_TITLE_OVERRIDES.get(pageName)
+    ?? pascalCaseToTitleCase(pageName)
+  );
 }
 
 function pascalCaseToTitleCase(value) {

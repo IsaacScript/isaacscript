@@ -4,8 +4,6 @@
 /* eslint "jsdoc/require-jsdoc": "error" */
 
 /**
- * __DOCS_LINE_THAT_WILL_BE_AUTOMATICALLY_REMOVED__
- *
  * This is a list of custom console commands that are included with the standard library. By
  * default, they will not be enabled. You can enable them by upgrading your mod with
  * `ISCFeature.EXTRA_CONSOLE_COMMANDS`. (Also see the [Extra Console
