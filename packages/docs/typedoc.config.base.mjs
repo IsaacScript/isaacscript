@@ -21,7 +21,6 @@ export function getTypeDocConfig(packageDirectoryPath) {
     classPropertiesFormat: "table",
     entryFileName: "index",
     entryPoints: getEntryPoints(packageDirectoryPath),
-    enumMembersFormat: "table",
     formatWithPrettier: true,
     githubPages: false,
     indexFormat: "table",
