@@ -52,7 +52,7 @@
     "complete-lint": "5.26.3",
     "complete-node": "18.1.2",
     "eslint-import-resolver-typescript": "4.4.5",
-    "figlet": "1.9.2-beta.0",
+    "figlet": "1.11.4",
     "isaac-typescript-definitions": "43.0.8",
     "jest": "30.5.1",
     "jsonc-parser": "3.3.1",
