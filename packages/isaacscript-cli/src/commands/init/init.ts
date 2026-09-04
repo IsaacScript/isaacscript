@@ -51,7 +51,11 @@ export const initCommand = new Command()
     validateSaveSlot,
     1,
   )
-  .option("--vscode", "Open the project in VSCode after initialization.", false)
+  .option(
+    "--vscode",
+    "Open the project in VS Code after initialization.",
+    false,
+  )
   .option("--npm", "Use npm as the package manager.", false)
   .option("--yarn", "Use Yarn as the package manager.", false)
   .option("--pnpm", "Use pnpm as the package manager.", false)

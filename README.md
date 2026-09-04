@@ -49,7 +49,7 @@ to the IsaacScript project itself, read on.
   have it already.
 - Download and install [Git](https://git-scm.com/), if you do not have it
   already.
-- Download and install [VSCode](https://https://code.visualstudio.com/), if you
+- Download and install [VS Code](https://https://code.visualstudio.com/), if you
   do not have it already.
 - Open a new
   [command prompt window](https://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/)
@@ -74,7 +74,7 @@ to the IsaacScript project itself, read on.
   - `cd isaacscript`
 - Install dependencies:
   - `npm ci`
-- Open the monorepo in VSCode:
+- Open the monorepo in VS Code:
   - `code .`
 
 <br>

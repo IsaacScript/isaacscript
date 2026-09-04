@@ -45,7 +45,7 @@ player.AddCollectible(CollectibleType.SAD_ONION);
 ```
 
 However, don't ever type the imports manually, because that's a big waste of
-time! If you tab-complete the name of an enum, VSCode should automatically
+time! If you tab-complete the name of an enum, VS Code should automatically
 import it for you. If you already have an enum that is written out, then you can
 auto-import it by putting the text cursor on the right-side of the enum and
 typing `Ctrl + space + enter`.

@@ -43,10 +43,10 @@ steps in the comment near the bottom of the file.
 
 ### `project/.vscode`
 
-This directory contains some stock settings that are recommended for VSCode to
+This directory contains some stock settings that are recommended for VS Code to
 work properly with IsaacScript projects.
 
-If you do not use VSCode and don't ever plan on collaborating with anyone who
+If you do not use VS Code and don't ever plan on collaborating with anyone who
 would, feel free to delete this directory.
 
 <br />
@@ -145,7 +145,7 @@ This is the configuration file for
 [CSpell](https://github.com/streetsidesoftware/cspell), a spell-checker for
 code.
 
-If VSCode incorrectly reports that a file is misspelled, you can right-click on
+If VS Code incorrectly reports that a file is misspelled, you can right-click on
 the word and say "Add Words to CSpell Configuration". The word will then be
 recorded in this file and the squiggly line will go away.
 

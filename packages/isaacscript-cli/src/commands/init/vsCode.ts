@@ -20,7 +20,7 @@ export async function vsCodeInit(
   const VSCodeCommand = await getVSCodeCommand();
   if (VSCodeCommand === undefined) {
     console.log(
-      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
+      'VS Code does not seem to be installed. (The "code" command is not in the path.) Skipping VS Code things.',
     );
     return;
   }
@@ -122,7 +122,7 @@ async function promptVSCode(
   }
 
   const shouldOpenVSCode = await getInputYesNo(
-    "Do you want to open your new project in VSCode now?",
+    "Do you want to open your new project in VS Code now?",
   );
   if (shouldOpenVSCode) {
     openVSCode(projectPath, VSCodeCommand, verbose);

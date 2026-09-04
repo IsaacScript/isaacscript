@@ -43,9 +43,9 @@ works:
 1. Make sure that `isaacscript` is running in a shell, monitoring for changes in
    your project.
 1. In-game, go into a run.
-1. In VSCode, add something new to your `main.ts` file, like:
+1. In VS Code, add something new to your `main.ts` file, like:
    `print("hello world");`
-1. In VSCode, save the file.
+1. In VS Code, save the file.
 1. In game, you should see text appear on the screen. (i.e. Something along the
    lines of "Compilation successful.")
 1. In game, press <code>`</code> to open the console and see if your "hello

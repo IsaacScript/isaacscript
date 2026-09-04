@@ -28,7 +28,7 @@ a simple macro.
 ### 1) Install the ssmacro Extension
 
 [ssmacro](https://marketplace.visualstudio.com/items?itemName=joekon.ssmacro) is
-a popular VSCode extension that allows you to make macros.
+a popular VS Code extension that allows you to make macros.
 
 <br />
 
@@ -49,7 +49,7 @@ Download it to the following directory:
 
 You can set up a keyboard shortcut to automatically execute the macro.
 
-In VSCode, type Ctrl + Shift + P, then type in "Preferences: Open Keyboard
+In VS Code, type Ctrl + Shift + P, then type in "Preferences: Open Keyboard
 Shortcuts (JSON)". Then, add a keybinding like so:
 
 ```jsonc

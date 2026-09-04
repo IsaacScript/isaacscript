@@ -153,7 +153,7 @@ First, go through
 [the official docs](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html)
 and read what all of the callbacks do so that you can get familiar with them.
 
-Next, open `C:\Repositories\green-candle\src\main.ts` in VSCode, which contains
+Next, open `C:\Repositories\green-candle\src\main.ts` in VS Code, which contains
 the TypeScript code that will be transpiled to the "main.lua" file and read by
 the game.
 
@@ -229,7 +229,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 ```
 
 If you pasted the code in from this website, then it wouldn't have gotten the
-chance to automatically import. Handily, VSCode has a feature to automatically
+chance to automatically import. Handily, VS Code has a feature to automatically
 import whatever the text cursor happens to be over. So, put the text cursor at
 the end of the "ModCallback" word, and then hit `Ctrl + space + enter`.
 
@@ -277,7 +277,7 @@ function checkApplyGreenCandleEffect() {
 }
 ```
 
-By simply typing in `getPlayers`, VSCode should automatically import it, which
+By simply typing in `getPlayers`, VS Code should automatically import it, which
 means that it will add the following line to the top of the file:
 
 <!-- We use "js" instead of "ts" to prevent the fixer from deleting the import statement. -->
@@ -330,8 +330,8 @@ function shouldApplyGreenCandleEffectToNPC(npc: EntityNPC) {
 
 ## 10) Applying the Poison
 
-Adding the poison is done with the `AddPoison` method. However, notice that
-VSCode will show you an error if you try to supply the player as the source:
+Adding the poison is done with the `AddPoison` method. However, notice that VS
+Code will show you an error if you try to supply the player as the source:
 
 ```ts
 function applyGreenCandleEffect(player: EntityPlayer) {
@@ -341,7 +341,7 @@ function applyGreenCandleEffect(player: EntityPlayer) {
       // - The duration is 100 frames.
       // - The damage is equal to the player's damage stat.
       npc.AddPoison(player, 100, player.Damage);
-      // (This shows an error in VSCode because the `AddPoison` method expects an `EntityRef`.)
+      // (This shows an error in VS Code because the `AddPoison` method expects an `EntityRef`.)
     }
   }
 }

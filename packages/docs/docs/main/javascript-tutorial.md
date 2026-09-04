@@ -1060,7 +1060,7 @@ message.
 end. Thus, TypeScript is smart enough to realize that if the code gets to the
 `AddMaxHearts` line, the type of `player` is no longer
 `EntityPlayer | undefined` - it would have to be a `EntityPlayer`. You can
-confirm this by mousing over the variable in VSCode.
+confirm this by mousing over the variable in VS Code.
 
 Since many of the Isaac API methods can fail, you will have to use _type
 narrowing_ like this in many places in your code. Sometimes, it can be annoying

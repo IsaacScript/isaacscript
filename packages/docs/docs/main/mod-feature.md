@@ -10,7 +10,7 @@ work in a pigsty.
 Most people already understand the basics: split code up into separate files.
 For example, it makes sense for a mod pack that contains 10 items to have all of
 the code for each individual item live in a file dedicated to just that item.
-That way, you can leverage the `Ctrl + p` hotkey in VSCode to jump to the exact
+That way, you can leverage the `Ctrl + p` hotkey in VS Code to jump to the exact
 spot that you need to go. And if you need to fix a bug with item 1, then you
 don't have to go on a scavenger hunt throughout the entire repository - you can
 just focus all of your attention on the file called "item1.ts".

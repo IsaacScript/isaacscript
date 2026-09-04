@@ -250,7 +250,7 @@ This page lists the changes to the IsaacScript framework.
 - IsaacScript now requires that TypeScript and other development-related
   dependencies are placed in the "devDependencies" array in the "package.json"
   file (instead of the "dependencies" array). This is to prevent
-  TypeScript-related functions from sneaking into VSCode's auto-complete list.
+  TypeScript-related functions from sneaking into VS Code's auto-complete list.
 - Added the following helper functions:
   - `assertNotNull`
   - `clearChallenge`
@@ -2518,7 +2518,7 @@ function postPlayerChangeType(
 
 `eslint-plugin-prettier` is no longer used in favor of using Prettier directly.
 Doing this has pros and cons, but has more pros than cons. As a result of the
-change, you will no longer see linting errors in VSCode for formatting-related
+change, you will no longer see linting errors in VS Code for formatting-related
 issues. (Of course, all of the formatting-related issues will still be fixed
 automatically upon saving the file, same as it was before.)
 
@@ -2527,9 +2527,9 @@ should also perform the following steps to keep Prettier working:
 
 <!-- markdownlint-disable MD029 -->
 
-1. Install the Prettier VSCode extension.
+1. Install the Prettier VS Code extension.
 
-2. Add the Prettier VSCode extension to `extensions.json`:
+2. Add the Prettier VS Code extension to `extensions.json`:
 
 ```json
 "esbenp.prettier-vscode", // The TypeScript formatter
@@ -2905,8 +2905,8 @@ see the official website: https://isaacscript.github.io/
 --]]
 ```
 
-- IsaacScript will now correctly handle symlinks and alternate versions of
-  VSCode. (Thanks KatTheFox)
+- IsaacScript will now correctly handle symlinks and alternate versions of VS
+  Code. (Thanks KatTheFox)
 - Added the following helper functions:
   - `getRandomArrayIndex`
   - `arrayRemoveInPlace`

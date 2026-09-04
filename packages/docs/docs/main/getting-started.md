@@ -21,12 +21,12 @@ the [Node.js download page](https://nodejs.org/en/download/).
 
 <br />
 
-### 2) Install VSCode
+### 2) Install VS Code
 
-[Visual Studio Code](https://code.visualstudio.com/) (or VSCode, for short) is
+[Visual Studio Code](https://code.visualstudio.com/) (or VS Code, for short) is
 probably the best text editor for TypeScript. If you don't have it installed
 already, download and install it from the
-[VSCode download page](https://code.visualstudio.com/download).
+[VS Code download page](https://code.visualstudio.com/download).
 
 (If you usually use a different TypeScript editor like
 [WebStorm](https://www.jetbrains.com/webstorm/) or [vim](https://www.vim.org/),
@@ -78,7 +78,7 @@ with TypeScript and other some other dependencies.
 You can safely ignore this and press enter to proceed, as it is a recent npm bug
 with Windows.)
 
-At the end, it will ask you if it should launch VSCode for you. Answer yes.
+At the end, it will ask you if it should launch VS Code for you. Answer yes.
 
 <br />
 
@@ -98,7 +98,7 @@ want to cancel it, you can press `Ctrl + C` to return to your shell.
 IsaacScript needs to be running in order for your code changes to propagate to
 the real mod directory, so you will need to start it up in the same way every
 time that you begin coding. (You could also
-[automate the invocation with a VSCode task](https://code.visualstudio.com/docs/editor/tasks)
+[automate the invocation with a VS Code task](https://code.visualstudio.com/docs/editor/tasks)
 if you find it annoying to run it manually.)
 
 <br />
@@ -108,7 +108,7 @@ if you find it annoying to run it manually.)
 That's it! Now, start coding by editing the `src/main.ts` file.
 
 Note that when you are editing the code in your project, you should always have
-VSCode opened to the project directory (i.e. by clicking on File --> Open
+VS Code opened to the project directory (i.e. by clicking on File --> Open
 Folder), as opposed to just editing a single file. Otherwise, ESLint and
 Prettier won't work.
 

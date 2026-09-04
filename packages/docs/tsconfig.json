@@ -1,5 +1,5 @@
 // A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
-// by VSCode.
+// by VS Code.
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
