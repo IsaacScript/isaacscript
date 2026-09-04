@@ -27,6 +27,8 @@ const featureEntryPoints = [
 export default {
   ...config,
   entryPoints: [...config.entryPoints, ...featureEntryPoints],
+  mergeReadme: false,
+  readme: path.join(import.meta.dirname, "website-root.md"),
   intentionallyNotExported: [
     "_TupleOf",
     "AddCallbackParametersCustom",

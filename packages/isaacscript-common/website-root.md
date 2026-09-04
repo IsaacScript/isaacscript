@@ -4,8 +4,6 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-# `isaacscript-common`
-
 In addition to having access to all of the vanilla classes and enums,
 IsaacScript mods also can access optional helper functions and features. These
 are bundled as part of the `isaacscript-common` package. Think of this as an
