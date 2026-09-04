@@ -1,0 +1,48 @@
+---
+title: IsaacScript
+description: "Write Binding of Isaac: Repentance mods with TypeScript."
+editUrl: false
+template: splash
+hero:
+  tagline: Write Binding of Isaac Repentance mods with TypeScript
+  image:
+    file: ../../assets/isaacscript-logo.png
+    alt: IsaacScript
+  actions:
+    - text: Why should I?
+      link: /main/features/
+      icon: right-arrow
+      variant: secondary
+    - text: Get Started
+      link: /main/getting-started/
+      icon: right-arrow
+      variant: primary
+---
+
+<section class="home-transformer">
+  <div class="home-transformer__grid">
+    ```typescript title="mod.ts"
+    const entities = Isaac.GetRoomEntities();
+    const deadEntities = entities.filter(
+      (entity) => entity.IsDead(),
+    );
+    ```
+
+    <div class="home-transformer__arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M4 12h16m-6-6 6 6-6 6" />
+      </svg>
+    </div>
+
+    ```lua title="mod.lua"
+    local entities = Isaac.GetRoomEntities()
+    local deadEntities = {}
+    for _, entity in ipairs(entities) do
+      if entity:IsDead() then
+        table.insert(deadEntities, entity)
+      end
+    end
+    ```
+
+  </div>
+</section>

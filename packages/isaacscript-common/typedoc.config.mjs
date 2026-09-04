@@ -16,21 +16,19 @@ const FEATURE_CLASS_DIRECTORY = path.join(
 const FEATURE_CLASS_FILE_ENTITY = fs.readdirSync(FEATURE_CLASS_DIRECTORY, {
   withFileTypes: true,
 });
-for (const fileEntity of FEATURE_CLASS_FILE_ENTITY) {
-  if (fileEntity.isFile()) {
-    config.entryPoints.push(`./src/classes/features/other/${fileEntity.name}`);
-  }
-}
-
-// Additionally, manually add feature class files that are in their own separate directories.
-// eslint-disable-next-line unicorn/no-top-level-side-effects
-config.entryPoints.push(
-  "./src/classes/features/other/extraConsoleCommands/commands.ts",
-);
+const featureEntryPoints = [
+  ...FEATURE_CLASS_FILE_ENTITY.filter((fileEntity) => fileEntity.isFile()).map(
+    (fileEntity) => path.join(FEATURE_CLASS_DIRECTORY, fileEntity.name),
+  ),
+  path.join(FEATURE_CLASS_DIRECTORY, "extraConsoleCommands", "commands.ts"),
+];
 
 /** @type {import("typedoc").TypeDocOptions} */
 export default {
   ...config,
+  entryPoints: [...config.entryPoints, ...featureEntryPoints],
+  mergeReadme: false,
+  readme: path.join(import.meta.dirname, "website-root.md"),
   intentionallyNotExported: [
     "_TupleOf",
     "AddCallbackParametersCustom",

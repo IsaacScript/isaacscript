@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: docs-build
-          path: ./packages/docs/build
+          path: ./packages/docs/dist
 
   get-lint-packages:
     runs-on: ubuntu-latest
@@ -95,90 +95,43 @@ jobs:
       - uses: ./.github/workflows/setup
       - run: npm run lint
 
-  # docs-deploy:
-  #   needs: [build, lint, test, monorepo-lint]
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-  #   steps:
-  #     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-  #     - uses: ./.github/workflows/setup
+  docs-deploy:
+    needs: [build, lint, test, monorepo-lint]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/workflows/setup
 
-  #     - name: Retrieve the docs build directory
-  #       uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-  #       with:
-  #         name: docs-build
-  #         path: ./packages/docs/build
+      - name: Retrieve the docs build directory
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: docs-build
+          path: ./packages/docs/dist
 
-  #    - name: Check if the "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
-  #      env:
-  #        SECRET_CHECK: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
-  #      if: ${{ env.SECRET_CHECK == '' }}
-  #      run: |
-  #        echo "Error: The GitHub secret of \"DOCS_SSH_PRIVATE_KEY\" is not set."
-  #        exit 1
+      - name: Check if the "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
+        env:
+          SECRET_CHECK: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
+        if: ${{ env.SECRET_CHECK == '' }}
+        run: |
+          echo "Error: The GitHub secret of \"DOCS_SSH_PRIVATE_KEY\" is not set."
+          exit 1
 
-  #    - name: Check if the "TYPESENSE_API_KEY" GitHub secret is set
-  #      env:
-  #        SECRET_CHECK: ${{ secrets.TYPESENSE_API_KEY }}
-  #      if: ${{ env.SECRET_CHECK == '' }}
-  #      run: |
-  #        echo "Error: The GitHub secret of \"TYPESENSE_API_KEY\" is not set."
-  #        exit 1
+      - name: Checkout the docs repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
+          repository: IsaacScript/isaacscript.github.io
+          ref: gh-pages
+          path: isaacscript.github.io
 
-  #    - name: Check if the "TYPESENSE_HOST" GitHub secret is set
-  #      env:
-  #        SECRET_CHECK: ${{ secrets.TYPESENSE_HOST }}
-  #      if: ${{ env.SECRET_CHECK == '' }}
-  #      run: |
-  #        echo "Error: The GitHub secret of \"TYPESENSE_HOST\" is not set."
-  #        exit 1
-
-  #    - name: Check if the "TYPESENSE_PORT" GitHub secret is set
-  #      env:
-  #        SECRET_CHECK: ${{ secrets.TYPESENSE_PORT }}
-  #      if: ${{ env.SECRET_CHECK == '' }}
-  #      run: |
-  #        echo "Error: The GitHub secret of \"TYPESENSE_PORT\" is not set."
-  #        exit 1
-
-  #    - name: Check if the "TYPESENSE_PROTOCOL" GitHub secret is set
-  #      env:
-  #        SECRET_CHECK: ${{ secrets.TYPESENSE_PROTOCOL }}
-  #      if: ${{ env.SECRET_CHECK == '' }}
-  #      run: |
-  #        echo "Error: The GitHub secret of \"TYPESENSE_PROTOCOL\" is not set."
-  #        exit 1
-
-  #     - name: Checkout the docs repository
-  #       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-  #       with:
-  #         ssh-key: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
-  #         repository: IsaacScript/isaacscript.github.io
-  #         ref: gh-pages
-  #         # The current working directory is:
-  #         # /home/runner/work/isaacscript/isaacscript
-  #         # Thus, the following path is equivalent to:
-  #         # /home/runner/work/isaacscript/isaacscript/isaacscript.github.io
-  #         # (It is not possible to clone the repo in the parent directory for security reasons.)
-  #         path: isaacscript.github.io
-
-  #     - name: Deploy the documentation website
-  #       id: deploy_documentation_website
-  #       run: npx tsx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
-
-  #     - name: Run DocSearch Scraper
-  #       uses: celsiusnarhwal/typesense-scraper@15f9049f1e4a868fc94e45948f86bd0ceed2f4b3 # v2.0.1
-  #       if: steps.deploy_documentation_website.outputs.SHOULD_SCRAPE == '1'
-  #       with:
-  #         api-key: ${{ secrets.TYPESENSE_API_KEY }}
-  #         host: ${{ secrets.TYPESENSE_HOST }}
-  #         port: ${{ secrets.TYPESENSE_PORT }}
-  #         protocol: ${{ secrets.TYPESENSE_PROTOCOL }}
-  #         config: packages/docs/docsearch.config.json
+      - name: Deploy the documentation website
+        working-directory: ./packages/docs
+        run: npm run deploy
 
   discord:
     name: Discord Failure Notification
-    needs: [build, lint, test, monorepo-lint] # docs-deploy
+    needs: [build, lint, test, monorepo-lint, docs-deploy]
     if: failure()
     runs-on: ubuntu-latest
     steps:
