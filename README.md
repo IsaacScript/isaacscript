@@ -4,7 +4,7 @@
 
 <br>
 
-[![Discord](https://img.shields.io/discord/843174215287832626?color=blue&label=Discord&logo=Discord&logoColor=white)](https://discord.gg/435qCC6nHt)
+[![Discord](https://img.shields.io/discord/843174215287832626?color=blue&label=Discord&logo=Discord&logoColor=white)](https://discord.gg/KapmKQ2gUD)
 
 IsaacScript is a tool to help you create
 [_Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/)
@@ -12,7 +12,7 @@ mods using [TypeScript](https://www.typescriptlang.org/).
 
 Please visit the [official website](https://isaacscript.github.io/) for more
 information. You can also
-[join the Discord server](https://discord.gg/435qCC6nHt).
+[join the Discord server](https://discord.gg/KapmKQ2gUD).
 
 This is the [monorepo](https://en.wikipedia.org/wiki/Monorepo) that houses the
 various packages in the ecosystem.
