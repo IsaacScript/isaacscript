@@ -33,6 +33,12 @@ export function load(application) {
           tag: "style",
         },
       ];
+      if (path.posix.dirname(event.url) === "enums") {
+        frontmatter.tableOfContents = {
+          maxHeadingLevel: 5,
+          minHeadingLevel: 4,
+        };
+      }
 
       const extraFeatureTitle = getExtraFeatureTitle(event.url);
       if (extraFeatureTitle !== undefined) {
