@@ -5,11 +5,7 @@ import path from "node:path";
 export const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
-      // In the future, this should be converted to "projectServices" as explained in the TSESLint
-      // documentation.
-      // https://discord.com/channels/1026804805894672454/1274783430785241220/1274783430785241220
-      // https://github.com/typescript-eslint/typescript-eslint/issues/9906
-      project: true,
+      projectService: true,
 
       /**
        * Switching the below `__dirname` to `import.meta.dirname` causes test errors:
