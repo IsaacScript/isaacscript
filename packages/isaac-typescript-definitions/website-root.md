@@ -4,8 +4,6 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-# `isaac-typescript-definitions`
-
 The `isaac-typescript-definitions` package contains the definitions for the
 vanilla Isaac Lua API. It also includes bugfixes and quality of life changes
 that they developers have not bothered to implement yet.
@@ -27,4 +25,4 @@ would in a Lua mod.) Alternatively, you can view
 directly.
 
 If you want to use `isaac-typescript-definitions` as a Lua library for your Lua
-code, see the [using IsaacScript in Lua](/main/isaacscript-in-lua.md) page.
+code, see the [using IsaacScript in Lua](/main/isaacscript-in-lua) page.

@@ -6,6 +6,8 @@ const config = getTypeDocConfig(import.meta.dirname);
 export default {
   ...config,
   entryPoints: [path.join(import.meta.dirname, "src", "index.ts")],
+  mergeReadme: false,
+  readme: path.join(import.meta.dirname, "website-root.md"),
   intentionallyNotExported: [
     // From: "./src/enums/flags"
     "ActionTriggerType",

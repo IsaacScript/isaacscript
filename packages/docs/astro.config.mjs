@@ -5,10 +5,30 @@ import { createStarlightTypeDocPlugin } from "starlight-typedoc";
 import isaacTypeScriptDefinitionsConfig from "../isaac-typescript-definitions/typedoc.config.mjs"; // eslint-disable-line import-x/no-relative-packages
 import isaacScriptCommonConfig from "../isaacscript-common/typedoc.config.mjs"; // eslint-disable-line import-x/no-relative-packages
 
-const [isaacTypeScriptDefinitionsPlugin, isaacTypeScriptDefinitionsSidebar] =
-  createStarlightTypeDocPlugin();
+const [isaacTypeScriptDefinitionsPlugin] = createStarlightTypeDocPlugin();
 const [isaacScriptCommonPlugin, isaacScriptCommonSidebar] =
   createStarlightTypeDocPlugin();
+
+const isaacTypeScriptDefinitionsSidebar = {
+  items: [
+    {
+      label: "Introduction",
+      slug: "isaac-typescript-definitions",
+    },
+    {
+      collapsed: true,
+      items: [
+        {
+          autogenerate: {
+            directory: "isaac-typescript-definitions/enums",
+          },
+        },
+      ],
+      label: "Enums",
+    },
+  ],
+  label: "isaac-typescript-definitions",
+};
 
 const isaacTypeScriptDefinitions = createTypeDocConfiguration(
   "isaac-typescript-definitions",
