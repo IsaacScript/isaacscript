@@ -32,6 +32,7 @@ jobs:
         with:
           name: docs-build
           path: ./packages/docs/dist
+          include-hidden-files: true
 
   get-lint-packages:
     runs-on: ubuntu-latest
