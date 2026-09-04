@@ -33,7 +33,7 @@ export function load(application) {
           tag: "style",
         },
       ];
-      frontmatter.tableOfContents = false;
+      frontmatter.tableOfContents = shouldHaveTableOfContents(event.url);
 
       const extraFeatureTitle = getExtraFeatureTitle(event.url);
       if (extraFeatureTitle !== undefined) {
@@ -69,6 +69,10 @@ function getExtraFeatureTitle(url) {
     EXTRA_FEATURE_TITLE_OVERRIDES.get(pageName)
     ?? pascalCaseToTitleCase(pageName)
   );
+}
+
+function shouldHaveTableOfContents(url) {
+  return url === "classes/features/other/extraConsoleCommands/commands.md";
 }
 
 function pascalCaseToTitleCase(value) {
