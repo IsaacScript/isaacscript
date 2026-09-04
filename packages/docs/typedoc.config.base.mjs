@@ -20,7 +20,6 @@ export function getTypeDocConfig(packageDirectoryPath) {
     ],
     entryFileName: "index",
     entryPoints: getEntryPoints(packageDirectoryPath),
-    excludePrivate: true,
     githubPages: false,
     out: path.join(
       import.meta.dirname,
@@ -41,11 +40,6 @@ export function getTypeDocConfig(packageDirectoryPath) {
     sort: ["source-order"],
     treatWarningsAsErrors: true,
     tsconfig: path.join(packageDirectoryPath, "tsconfig.json"),
-    validation: {
-      invalidLink: true,
-      notDocumented: false,
-      notExported: true,
-    },
   };
 }
 
