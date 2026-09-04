@@ -45,7 +45,5 @@
     "pyproject",
     "ssmacro",
     "syncer",
-    "typedoc",
-    "typesense",
   ],
 }

@@ -1,6 +1,3 @@
-- install npm ci git hook
-- redo fandom links to wiki.gg
-
 - utils.ts - fix TODO comment
   https://discord.com/channels/1026804805894672454/1274783430785241220
 
