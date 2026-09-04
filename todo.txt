@@ -1,21 +1,8 @@
 - install npm ci git hook
 - redo fandom links to wiki.gg
 
-- redo ci for docs so that it matches complete (but with typesense instead of algolia)
-
-!- rewrite create docs script to work with latest typedoc-plugin-markdown
-
 - utils.ts - fix TODO comment
   https://discord.com/channels/1026804805894672454/1274783430785241220
-
-- // TODO: Re-enable.
-
-- release new version with flat config
-
-- use `sort-keys` eslint plugin to sort object alphabetically in base-typescript-eslint
-  https://eslint.org/docs/latest/rules/sort-keys
-
-- import eslint-plugin-plugin
 
 - use stack overflow to remove isaac-typescript-definitions from deps
   - difficult, do it when I have the courage
