@@ -18,15 +18,16 @@ export function load(application) {
   application.renderer.on(
     MarkdownPageEvent.BEGIN,
     (event) => {
-      if (
-        event.frontmatter === undefined
-        || !event.model.kindOf(ReflectionKind.Module)
-      ) {
+      if (event.frontmatter === undefined) {
         return;
       }
 
       const { frontmatter } = event;
-      frontmatter.title = getModuleTitle(event.model.name, event.url);
+      frontmatter.tableOfContents = false;
+
+      if (event.model.kindOf(ReflectionKind.Module)) {
+        frontmatter.title = getModuleTitle(event.model.name, event.url);
+      }
     },
     -100,
   );
