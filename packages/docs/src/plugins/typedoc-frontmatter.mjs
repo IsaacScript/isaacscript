@@ -23,6 +23,12 @@ export function load(application) {
       }
 
       const { frontmatter } = event;
+      frontmatter.head = [
+        {
+          content: ":root { --sl-content-width: 80rem; }",
+          tag: "style",
+        },
+      ];
       frontmatter.tableOfContents = false;
 
       if (event.model.kindOf(ReflectionKind.Module)) {
