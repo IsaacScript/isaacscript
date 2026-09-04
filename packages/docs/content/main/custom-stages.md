@@ -20,7 +20,7 @@ stages, but using IsaacScript over StageAPI has several advantages. See the
 ## Getting Started
 
 First, make sure that you are familiar with IsaacScript and have built a
-practice mod or two. (See the [getting started](getting-started.md) guide.)
+practice mod or two. (See the [getting started](/main/getting-started/) guide.)
 
 <br />
 
@@ -95,18 +95,14 @@ in the root of your project.)
 
 First, make sure that it has a "$schema" field at the top:
 
-<!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
-
-```ts
+```jsonc
 // We specify the schema to get auto-complete and validation.
 "$schema": "https://raw.githubusercontent.com/IsaacScript/isaacscript/main/packages/isaacscript-cli/schemas/tsconfig-isaacscript-schema.json",
 ```
 
 Second, make sure it has an "isaacscript" field at the bottom:
 
-<!-- We specify the following code block as "ts" instead of "jsonc" because Docusaurus will mess up the syntax highlighting. -->
-
-```ts
+```jsonc
 // IsaacScript settings
 "isaacscript": {
   // A list of objects that represent the custom stages that are in your mod, if any. See:
@@ -126,7 +122,7 @@ fields are required. But you will likely want to make additional customizations.
 There are many more optional fields that you can specify, like `baseStage` to
 specify what vanilla floor number should be used as a base for the stage. These
 optional fields are documented in the
-[`CustomStageTSConfig` interface](/isaacscript-common/other/interfaces/CustomStageTSConfig),
+[`CustomStageTSConfig` interface](/isaacscript-common/interfaces/customstagetsconfig/),
 so keep that in mind.
 
 When you are first building and testing your custom stage, you can use a
@@ -211,7 +207,7 @@ to the custom stage of "Foo 1". That's all we need to do!
 If you specifically wanted to take the player to "Foo 2", then you would specify
 `LevelStage.BASEMENT_2` instead. There are also other optional arguments that
 you can use; see the documentation for the
-[`spawnCustomTrapdoor`](/isaacscript-common/features/CustomTrapdoors/#spawncustomtrapdoor)
+[`spawnCustomTrapdoor`](/isaacscript-common/classes/features/other/customtrapdoors/#spawncustomtrapdoor)
 method.
 
 If you want to code some custom way to travel to the custom stage that does not
@@ -322,7 +318,7 @@ Note that it is possible to have vanilla bosses in the boss pool, if needed.
 Thus, we could have a boss pool with a mix of custom bosses and vanilla bosses,
 or a boss pool of only vanilla bosses. To add a vanilla boss, just use the name
 that matches the real name of the entity, and use the sub-type corresponding to
-the [`BossID`](/isaac-typescript-definitions/enums/BossID/) enum. (And make sure
+the [`BossID`](/isaac-typescript-definitions/enums/bossid/) enum. (And make sure
 that you create the corresponding rooms for the sub-type in your XML file.)
 
 <br />

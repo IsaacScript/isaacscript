@@ -1,9 +1,11 @@
+import path from "node:path";
 import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-disable-line import-x/no-relative-packages
 
 const config = getTypeDocConfig(import.meta.dirname);
 
 export default {
   ...config,
+  entryPoints: [path.join(import.meta.dirname, "src", "index.ts")],
   intentionallyNotExported: [
     // From: "./src/enums/flags"
     "ActionTriggerType",
@@ -40,4 +42,5 @@ export default {
     "__global.BitSet128",
     "int",
   ],
+  router: "kind",
 };

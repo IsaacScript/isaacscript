@@ -42,8 +42,8 @@ function anyPlayerHasSadOnion(): boolean {
 
 Like any good library, importing anything `isaacscript-common` will not cause
 any code to be executed in your mod. However, in order for
-[the custom callbacks](/isaacscript-common/other/enums/ModCallbackCustom) and
-the [extra features](#using-extra-features) to work, some code does need to be
+[the custom callbacks](/isaacscript-common/enums/modcallbackcustom/) and the
+[extra features](#using-extra-features) to work, some code does need to be
 executed. This is because these features need to track when certain things
 happen in-game. In order to enable this functionality, you must upgrade your mod
 with the `upgradeMod` function.

@@ -2,7 +2,7 @@
 title: Next Steps
 ---
 
-If you just finished the [Green Candle tutorial](example-mod.md), you may be
+If you just finished the [Green Candle tutorial](/main/example-mod/), you may be
 wondering about the next steps you should take.
 
 <br />
@@ -18,20 +18,18 @@ What to do next probably depends on your skill level.
 For intermediate to advanced programmers, the Green Candle tutorial should be
 enough for you to understand the anatomy of an Isaac mod. From here, you can use
 the [API reference documentation](https://wofsauge.github.io/IsaacDocs/rep/) and
-the [IsaacScript standard library documentation](/isaacscript-common) to go
+the [IsaacScript standard library documentation](/isaacscript-common/) to go
 forth and build whatever it is you want to build, using
 [the appropriate callbacks](https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html).
-(Also check out the
-[IsaacScript-specific callbacks](/isaacscript-common/other/enums/ModCallbackCustom.md).)
 
 <br />
 
 ### Experienced Isaac Modders
 
 For people who already have experience in Isaac modding in Lua, the
-[Green Candle tutorial](example-mod.md) should be enough to get you familiar
+[Green Candle tutorial](/main/example-mod/) should be enough to get you familiar
 with how exactly IsaacScript mods are different from Lua mods. And the
-[JavaScript tutorial](javascript-tutorial.md) should be enough to get you
+[JavaScript tutorial](/main/javascript-tutorial/) should be enough to get you
 familiar with the syntax differences between the two languages. (Overall, they
 are pretty similar.)
 
@@ -135,8 +133,8 @@ Sometimes, studying other people's code can also be helpful. If you want a
 real-life project to look at, you can take a look at
 [Racing+](https://github.com/Zamiell/racing-plus), which is one of the biggest
 Isaac mods in existence. Or, if you want to focus on a smaller project, take a
-look through the `#mod-showcase` channel of [the Discord server](discord.md), of
-which there are many to pick from.
+look through the `#mod-showcase` channel of
+[the Discord server](/main/discord/), of which there are many to pick from.
 
 Remember that because Lua is so similar to TypeScript, you can also download any
 popular mod from the Steam Workshop and then directly read the Lua code that it
@@ -148,4 +146,4 @@ in general, the code quality of Lua mods is usually pretty low.)
 ## Discord
 
 The IsaacScript community can help you with any questions that you have. Use the
-`#help-and-questions` channel of [the Discord server](discord.md).
+`#help-and-questions` channel of [the Discord server](/main/discord/).

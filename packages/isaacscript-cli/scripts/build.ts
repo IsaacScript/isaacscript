@@ -37,7 +37,7 @@ await buildScript(import.meta.dirname, async (packageRoot) => {
  * https://github.com/TypeScriptToLua/TypeScriptToLua/issues/1514
  *
  * Additionally, we do not want to create a "isaacscript-common-types" package because then it
- * becomes harder to get the types documented on the Docusaurus website.
+ * becomes harder to include the types in the generated API documentation.
  */
 async function copyIsaacScriptCommonFiles(packageRoot: string) {
   await copyITDEnums(packageRoot);

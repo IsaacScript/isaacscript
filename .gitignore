@@ -6,17 +6,9 @@
 .DS_Store
 thumbs.db
 
-# Docusaurus artifacts
-# https://github.com/facebook/docusaurus/blob/main/packages/create-docusaurus/templates/shared/gitignore
-build
-.docusaurus
-.cache-loader
-
-# Ignore the auto-generated API docs from TypeDoc (since it will just contain duplicate information
-# from what is already in the JSDoc comments of the source code).
-packages/docs/docs/eslint-config-isaacscript
-packages/docs/docs/isaacscript-common
-packages/docs/docs/isaac-typescript-definitions
+# Astro artifacts and staged documentation
+packages/docs/.astro
+packages/docs/src/content/docs
 
 # Temporary build files
 packages/isaacscript-common/src/indexLua.ts
@@ -135,9 +127,6 @@ dist
 
 # vitepress cache directory
 **/.vitepress/cache
-
-# Docusaurus cache and generated files
-.docusaurus
 
 # Serverless directories
 .serverless/

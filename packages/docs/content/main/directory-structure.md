@@ -187,7 +187,7 @@ the dependencies.
 If you decide to add a new dependency (e.g. `npm install lodash --save`), then
 `npm` would automatically edit the `package.json` file accordingly. (Beware of
 adding JavaScript/TypeScript dependencies, since
-[it will not work properly](gotchas.md#npm-dependencies).)
+[it will not work properly](/main/gotchas/#npm-dependencies).)
 
 IsaacScript projects start with some dependencies:
 <!-- This corresponds to "package.mod.json". -->

@@ -227,7 +227,8 @@ As a side note, you might be wondering why the above code uses
 `const CollectibleTypeCustom` instead of `enum CollectibleTypeCustom`. The basic
 explanation is that we want the types of the values to be `CollectibleType`, so
 that we can use them later on in the API. For a more in-depth explanation, see
-the page on [the differences between enums and objects](enums-and-objects.md).
+the page on
+[the differences between enums and objects](/main/enums-and-objects/).
 
 ### Extending Enums --> Custom Enums (Part 2)
 

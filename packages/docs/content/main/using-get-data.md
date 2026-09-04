@@ -172,9 +172,9 @@ keeping data for NPCs that have already despawned.
 
 Finally, inside of the `room` sub-object, we define the `fooData` map. (If you
 don't know what a `Map` is, read the
-[JavaScript/TypeScript tutorial](javascript-tutorial.md#maps), as understanding
-maps is essential for this section.) The `fooData` map is two-dimensional in
-that it will contain the data for every NPC in the room.
+[JavaScript/TypeScript tutorial](/main/javascript-tutorial/#maps), as
+understanding maps is essential for this section.) The `fooData` map is
+two-dimensional in that it will contain the data for every NPC in the room.
 
 So, we need a way to identify each NPC in the room, and then use this identifier
 as the index in our map. The solution is to use the pointer hash, which a unique

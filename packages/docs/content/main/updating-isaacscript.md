@@ -8,9 +8,9 @@ automatically pushed to your mod.
 
 In a TypeScript project, you can see your project dependencies and their current
 versions by looking at the `package.json` file. More information can be found in
-the [package.json documentation](directory-structure.md#packagejson). You can
-upgrade the dependencies in your IsaacScript mod in the same way that you would
-upgrade the dependencies for any other TypeScript program.
+the [package.json documentation](/main/directory-structure/#packagejson). You
+can upgrade the dependencies in your IsaacScript mod in the same way that you
+would upgrade the dependencies for any other TypeScript program.
 <!-- cspell:ignore packagejson -->
 
 As a convenience, the `isaacscript` program itself can update dependencies like

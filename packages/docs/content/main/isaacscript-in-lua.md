@@ -22,7 +22,7 @@ The IsaacScript framework contains two _Binding of Isaac: Repentance_ libraries:
   advanced Isaac library ever written. You can learn more about every function
   and feature by [reading the documentation](/isaacscript-common).
 
-If you are writing your mod in [TypeScript](features.md), then using these
+If you are writing your mod in [TypeScript](/main/features/), then using these
 libraries is effortless - you can just start typing the names of the enums or
 functions, and the auto-complete will automatically import them (and include
 them in your final bundled mod).
@@ -186,8 +186,8 @@ any code to be executed in your mod. Most of its functions are
 [pure functions](https://en.wikipedia.org/wiki/Pure_function).
 
 However, in order for
-[the custom callbacks](/isaacscript-common/other/enums/ModCallbackCustom) and
-the [extra features](#using-extra-features) to work, some code does need to be
+[the custom callbacks](/isaacscript-common/enums/modcallbackcustom/) and the
+[extra features](#using-extra-features) to work, some code does need to be
 executed. This is because these features need to track when certain things
 happen in-game. In order to enable this functionality, you must upgrade your mod
 with the `upgradeMod` function.
@@ -254,7 +254,7 @@ our mod.
 
 The `isaac-typescript-definitions` and `isaacscript-common` packages change
 frequently with bug fixes and new features. You can read about the latest
-changes on the [change log](change-log.md) or by reading the
+changes on the [change log](/main/change-log/) or by reading the
 [commits to the monorepo](https://github.com/IsaacScript/isaacscript/commits/main).
 Subsequently, it is a good idea to keep your library version up to date.
 
@@ -278,7 +278,7 @@ such as `map` and `filter`, which allow you to write functional, high-level
 code.
 
 Many of these array methods are now provided as
-[convenience functions](/isaacscript-common/functions/arrayLua) inside of
+[convenience functions](/isaacscript-common/functions/arraylua/) inside of
 `isaacscript-common` specifically for Lua users who don't have these methods
 natively.
 
@@ -307,8 +307,8 @@ having perpetual technical debt.
 ## The IsaacScript Stage Library
 
 The IsaacScript standard library contains the ability to create
-[custom stages](custom-stages.md), which was inspired by StageAPI and aims
-[to improve upon it](custom-stages.md#motivation).
+[custom stages](/main/custom-stages/), which was inspired by StageAPI and aims
+[to improve upon it](/main/custom-stages/#motivation).
 
 <!-- cspell:ignore setcustomstage -->
 
@@ -419,6 +419,6 @@ auto-importing, and the compiler preventing you from ever misusing anything in
 the library. Taken together, it makes for a dream-like Isaac development
 experience.
 
-For more information, see the [list of features](features.md). (If you don't
+For more information, see the [list of features](/main/features/). (If you don't
 know how to program in TypeScript, then you can learn in around
-[30 minutes](javascript-tutorial.md).)
+[30 minutes](/main/javascript-tutorial/).)

@@ -51,8 +51,8 @@ pattern is extremely powerful for a few reasons:
    conditions are met. This can be useful if your callback functions are
    expensive.
 1. Classes automatically subscribe to the
-   [save data manager](/isaacscript-common/features/SaveDataManager/), which
-   reduces boilerplate.
+   [save data manager](/isaacscript-common/classes/features/other/savedatamanager/),
+   which reduces boilerplate.
 
 In short, feature classes are a powerful abstraction that allows you to write
 concise, easy-to-read code. They also provide a great deal of flexibility and

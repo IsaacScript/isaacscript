@@ -17,16 +17,16 @@ export async function vsCodeInit(
   yes: boolean,
   verbose: boolean,
 ): Promise<void> {
-  const VSCodeCommand = await getVSCodeCommand();
-  if (VSCodeCommand === undefined) {
+  const vsCodeCommand = await getVSCodeCommand();
+  if (vsCodeCommand === undefined) {
     console.log(
       'VS Code does not seem to be installed. (The "code" command is not in the path.) Skipping VS Code things.',
     );
     return;
   }
 
-  await installVSCodeExtensions(projectPath, VSCodeCommand, verbose);
-  await promptVSCode(projectPath, VSCodeCommand, vscode, yes, verbose);
+  await installVSCodeExtensions(projectPath, vsCodeCommand, verbose);
+  await promptVSCode(projectPath, vsCodeCommand, vscode, yes, verbose);
 }
 
 async function getVSCodeCommand(): Promise<string | undefined> {
@@ -43,7 +43,7 @@ async function getVSCodeCommand(): Promise<string | undefined> {
 
 async function installVSCodeExtensions(
   projectPath: string,
-  VSCodeCommand: string,
+  vsCodeCommand: string,
   verbose: boolean,
 ) {
   // Installing extensions from inside WSL on Windows will result in the VS Code process never
@@ -55,7 +55,7 @@ async function installVSCodeExtensions(
 
   const extensions = await getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
-    execShell(VSCodeCommand, ["--install-extension", extensionName], verbose);
+    execShell(vsCodeCommand, ["--install-extension", extensionName], verbose);
   }
 }
 
@@ -99,14 +99,14 @@ async function getExtensionsFromJSON(
 
 async function promptVSCode(
   projectPath: string,
-  VSCodeCommand: string,
+  vsCodeCommand: string,
   vscode: boolean,
   yes: boolean,
   verbose: boolean,
 ) {
   if (vscode) {
     // They supplied the "--vscode" command-line flag, so there is no need to prompt the user.
-    openVSCode(projectPath, VSCodeCommand, verbose);
+    openVSCode(projectPath, vsCodeCommand, verbose);
     return;
   }
 
@@ -125,14 +125,14 @@ async function promptVSCode(
     "Do you want to open your new project in VS Code now?",
   );
   if (shouldOpenVSCode) {
-    openVSCode(projectPath, VSCodeCommand, verbose);
+    openVSCode(projectPath, vsCodeCommand, verbose);
   }
 }
 
 function openVSCode(
   projectPath: string,
-  VSCodeCommand: string,
+  vsCodeCommand: string,
   verbose: boolean,
 ) {
-  execShell(VSCodeCommand, [projectPath], verbose);
+  execShell(vsCodeCommand, [projectPath], verbose);
 }

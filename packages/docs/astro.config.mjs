@@ -1,0 +1,177 @@
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import linksValidator from "starlight-links-validator";
+import { createStarlightTypeDocPlugin } from "starlight-typedoc";
+import isaacTypeScriptDefinitionsConfig from "../isaac-typescript-definitions/typedoc.config.mjs"; // eslint-disable-line import-x/no-relative-packages
+import isaacScriptCommonConfig from "../isaacscript-common/typedoc.config.mjs"; // eslint-disable-line import-x/no-relative-packages
+
+const [isaacTypeScriptDefinitionsPlugin, isaacTypeScriptDefinitionsSidebar] =
+  createStarlightTypeDocPlugin();
+const [isaacScriptCommonPlugin, isaacScriptCommonSidebar] =
+  createStarlightTypeDocPlugin();
+
+const isaacTypeScriptDefinitions = createTypeDocConfiguration(
+  "isaac-typescript-definitions",
+  "isaac-typescript-definitions",
+  isaacTypeScriptDefinitionsConfig,
+  isaacTypeScriptDefinitionsPlugin,
+);
+const isaacScriptCommon = createTypeDocConfiguration(
+  "isaacscript-common",
+  "isaacscript-common",
+  isaacScriptCommonConfig,
+  isaacScriptCommonPlugin,
+);
+
+export default defineConfig({
+  site: "https://isaacscript.github.io",
+  integrations: [
+    starlight({
+      title: "IsaacScript",
+      description:
+        "A framework for coding mods for The Binding of Isaac: Repentance",
+      logo: {
+        src: "./src/assets/isaacscript-logo.png",
+      },
+      social: [
+        {
+          icon: "discord",
+          label: "Discord",
+          href: "https://discord.gg/isaacscript",
+        },
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/IsaacScript/isaacscript",
+        },
+      ],
+      editLink: {
+        baseUrl:
+          "https://github.com/IsaacScript/isaacscript/edit/main/packages/docs/content/",
+      },
+      sidebar: [
+        {
+          label: "Overview",
+          items: [
+            {
+              label: "Features",
+              slug: "main/features",
+            },
+            {
+              label: "Is IsaacScript Right for Me?",
+              slug: "main/right-for-me",
+            },
+            {
+              label: "Getting Started",
+              slug: "main/getting-started",
+            },
+          ],
+        },
+        {
+          label: "Basic Info",
+          items: [
+            {
+              label: "Discord",
+              slug: "main/discord",
+            },
+            {
+              label: "What Is IsaacScript Doing?",
+              slug: "main/what-is-isaacscript-doing",
+            },
+            {
+              label: "Directory Structure",
+              slug: "main/directory-structure",
+            },
+          ],
+        },
+        {
+          label: "Tutorials",
+          items: [
+            {
+              label: "JavaScript Tutorial",
+              slug: "main/javascript-tutorial",
+            },
+            {
+              label: "Example Mod",
+              slug: "main/example-mod",
+            },
+            {
+              label: "Next Steps",
+              slug: "main/next-steps",
+            },
+            {
+              label: "Using getData",
+              slug: "main/using-get-data",
+            },
+            {
+              label: "Enums and Objects",
+              slug: "main/enums-and-objects",
+            },
+            {
+              label: "ModFeature",
+              slug: "main/mod-feature",
+            },
+          ],
+        },
+        {
+          label: "Other Info",
+          items: [
+            {
+              label: "Converting Lua Code",
+              slug: "main/converting-lua-code",
+            },
+            {
+              label: "Updating IsaacScript",
+              slug: "main/updating-isaacscript",
+            },
+            {
+              label: "Custom Stages",
+              slug: "main/custom-stages",
+            },
+            {
+              label: "Publishing to the Workshop",
+              slug: "main/publishing-to-the-workshop",
+            },
+            {
+              label: "Gotchas",
+              slug: "main/gotchas",
+            },
+            {
+              label: "IsaacScript in Lua",
+              slug: "main/isaacscript-in-lua",
+            },
+          ],
+        },
+        {
+          label: "Change Log",
+          slug: "main/change-log",
+        },
+        isaacTypeScriptDefinitionsSidebar,
+        isaacScriptCommonSidebar,
+      ],
+      customCss: ["./src/styles/custom.css"],
+      favicon: "/img/favicon.ico",
+      plugins: [
+        isaacTypeScriptDefinitions,
+        isaacScriptCommon,
+        linksValidator(),
+      ],
+    }),
+  ],
+});
+
+function createTypeDocConfiguration(packageName, label, config, pluginFactory) {
+  const { entryPoints, tsconfig, ...typeDoc } = config;
+
+  return pluginFactory({
+    entryPoints,
+    output: packageName,
+    pagination: true,
+    sidebar: {
+      label,
+      readmeLabel: "Overview",
+    },
+    tsconfig,
+    typeDoc,
+  });
+}

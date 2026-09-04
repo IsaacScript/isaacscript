@@ -26,13 +26,8 @@ mod/resources/**/*.anm2
 # Compiled plugins
 packages/isaacscript-cli/plugins/*.cjs
 
-# Docusaurus artifacts
-.docusaurus
-.cache-loader
-
-# API docs are automatically created by TypeDoc.
-packages/docs/docs/isaacscript-common
-packages/docs/docs/isaac-typescript-definitions
-packages/docs/docs/eslint-config-isaacscript
+# Astro artifacts and staged documentation
+packages/docs/.astro
+packages/docs/src/content/docs
 
 # @template-customization-end

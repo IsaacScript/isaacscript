@@ -1,34 +1,12 @@
-// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
-// by VS Code.
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
-
-  "extends": [
-    // https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json
-    "complete-tsconfig/tsconfig.base.json",
-  ],
-
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "extends": ["complete-tsconfig/tsconfig.base.json"],
   "compilerOptions": {
-    // Include the browser JavaScript files in the project used by ESLint.
     "allowJs": true,
-
-    // Necessary since Docusaurus uses JSX.
-    "jsx": "preserve",
-
-    // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
-    "lib": ["DOM", "ES2021"],
-
-    "types": ["@docusaurus/theme-classic"],
-
-    // Necessary since "./src" is the default and we type-check files in the root project directory.
-    "rootDir": ".",
+    "lib": ["DOM", "ES2023"],
+    "moduleResolution": "bundler",
+    "rootDir": "..",
+    "types": ["astro/client"],
   },
-
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./static/js/*.js",
-    "sidebars.ts",
-  ],
+  "include": ["src/**/*.astro", "src/**/*.mjs", "src/**/*.ts"],
 }

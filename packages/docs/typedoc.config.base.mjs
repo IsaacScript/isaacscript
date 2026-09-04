@@ -2,91 +2,80 @@ import fs from "node:fs";
 import path from "node:path";
 import { OptionDefaults } from "typedoc";
 
-/** @type {Partial<import("typedoc").TypeDocOptions>} */
-const config = {
-  tsconfig: "tsconfig.json",
-  plugin: [
-    "typedoc-plugin-markdown",
-    "typedoc-plugin-rename",
-    "@zamiell/typedoc-plugin-not-exported",
-  ],
-  excludePrivate: true,
-  readme: "website-root.md",
-  githubPages: false,
+const TYPE_DOC_FRONTMATTER_PLUGIN_PATH = path.join(
+  import.meta.dirname,
+  "src",
+  "plugins",
+  "typedoc-frontmatter.mjs",
+);
 
-  blockTags: [
-    ...OptionDefaults.blockTags,
-    "@allowEmptyVariadic",
-    "@maximum",
-    "@minimum",
-  ],
-  sort: ["source-order"],
-  treatWarningsAsErrors: true,
-  validation: {
-    notExported: true,
-    invalidLink: true,
-    notDocumented: false, // Not every enum member has a JSDoc comment.
-  },
-};
-
-const configTypeDocPluginMarkdown = {
-  /// hideBreadcrumbs: true,
-};
-
-/**
- * @param {string} packageDirectoryPath The path to the package directory.
- * @returns {Partial<import("typedoc").TypeDocOptions>} The generated config.
- */
 export function getTypeDocConfig(packageDirectoryPath) {
-  const packageName = path.basename(packageDirectoryPath);
-  const out = path.join(import.meta.dirname, "docs", packageName);
-
-  // We want one entry point for each export source file, which will correspond to one Markdown file
-  // for each source file.
-  const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
-  const typeScriptFileExports = getIndexTSExports(indexTSPath);
-  const exportsWithSrcPrefix = typeScriptFileExports.map((entryPoint) =>
-    entryPoint.replaceAll("./", "./src/"),
-  );
-  const entryPoints = exportsWithSrcPrefix.map(
-    (entryPoint) => `${entryPoint}.ts`,
-  );
-
   return {
-    ...config,
-    ...configTypeDocPluginMarkdown,
-    entryPoints,
-    out,
+    blockTags: [
+      ...OptionDefaults.blockTags,
+      "@allowEmptyVariadic",
+      "@maximum",
+      "@minimum",
+    ],
+    classPropertiesFormat: "table",
+    entryFileName: "index",
+    entryPoints: getEntryPoints(packageDirectoryPath),
+    enumMembersFormat: "table",
+    formatWithPrettier: true,
+    githubPages: false,
+    indexFormat: "table",
+    interfacePropertiesFormat: "table",
+    mergeReadme: true,
+    out: path.join(
+      import.meta.dirname,
+      "src",
+      "content",
+      "docs",
+      path.basename(packageDirectoryPath),
+    ),
+    parametersFormat: "table",
+    plugin: [
+      "@zamiell/typedoc-plugin-not-exported",
+      import.meta.resolve("typedoc-plugin-frontmatter"),
+      TYPE_DOC_FRONTMATTER_PLUGIN_PATH,
+      "typedoc-plugin-markdown",
+      "typedoc-plugin-rename",
+    ],
+    propertyMembersFormat: "table",
+    readme: path.join(packageDirectoryPath, "README.md"),
+    router: "module",
+    treatWarningsAsErrors: true,
+    tsconfig: path.join(packageDirectoryPath, "tsconfig.json"),
+    typeDeclarationFormat: "table",
+    useCodeBlocks: true,
+    validation: {
+      invalidLink: true,
+      notDocumented: true,
+      notExported: true,
+    },
   };
 }
 
 /**
- * By default, TypeDoc will create a page for each individual function (even if the
- * "entryPointStrategy" is set to "expand"). Instead, we want to create a page per function
- * category.
- *
- * This function parses the "index.ts" file to find all of the individual pages.
- *
- * @param {string} typeScriptFilePath The path to the ".ts" file.
- * @returns {readonly string[]} An array of exported file paths.
+ * @param {string} packageDirectoryPath
+ * @returns {readonly string[]}
  */
-function getIndexTSExports(typeScriptFilePath) {
-  const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf8");
-  const lines = typeScriptFile.split("\n");
-  const exportLines = lines.filter((line) => line.startsWith("export"));
-  return exportLines.map((line) => {
-    const match = /^export (?:type )?\* from "(?<insideQuotes>[^"]+)";$/v.exec(
-      line,
-    );
-    if (match?.groups === undefined) {
-      throw new Error(`Failed to parse line: ${line}`);
-    }
+function getEntryPoints(packageDirectoryPath) {
+  const indexPath = path.join(packageDirectoryPath, "src", "index.ts");
+  const source = fs.readFileSync(indexPath, "utf8");
+  const exportPaths = source
+    .split("\n")
+    .filter((line) => line.startsWith("export"))
+    .map((line) => {
+      const match = /export (?:type )?\* from "(?<path>[^"]+)";/v.exec(line);
+      if (match?.groups?.["path"] === undefined) {
+        throw new Error(`Failed to parse export line: ${line}`);
+      }
 
-    const { insideQuotes } = match.groups;
-    if (insideQuotes === undefined) {
-      throw new Error(`Failed to parse inside the quotes: ${line}`);
-    }
+      return match.groups["path"];
+    });
 
-    return insideQuotes;
-  });
+  return exportPaths.map((exportPath) =>
+    path.join(packageDirectoryPath, `${exportPath.replace("./", "src/")}.ts`),
+  );
 }

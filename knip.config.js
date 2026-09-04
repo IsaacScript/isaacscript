@@ -18,12 +18,8 @@ const config = {
   workspaces: {
     "packages/*": {},
     "packages/docs": {
-      ignore: [
-        "eslint.config.mjs",
-        "scripts/**",
-        "sidebars.ts",
-        "src/**/index.tsx",
-      ],
+      entry: ["content/homepage.mdx", "scripts/**"],
+      ignore: ["eslint.config.mjs"],
     },
     "packages/eslint-plugin-isaacscript": {
       ignore: [

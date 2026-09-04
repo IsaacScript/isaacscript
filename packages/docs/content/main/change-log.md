@@ -9,6 +9,11 @@ This page lists the changes to the IsaacScript framework.
 
 <br />
 
+## August 8, 2025
+
+- Added the following helper functions:
+  - `isRepentancePlus`
+
 ## July 26th, 2025
 
 - Added the following custom callbacks:
@@ -582,8 +587,7 @@ This page lists the changes to the IsaacScript framework.
 ## August 3rd, 2023
 
 - `eslint-config-isaacscript` is rewritten from scratch. It no longer relies on
-  any upstream configs and is now
-  [documented officially on the website](https://isaacscript.github.io/eslint-config-isaacscript).
+  any upstream configs.
 
 ## June 30th, 2023
 

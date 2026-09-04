@@ -5,9 +5,9 @@ title: Building an Example Mod
 This is a tutorial that shows off how to code a simple mod with IsaacScript. Our
 goal will be to create a new passive item in the game called the _Green Candle_.
 
-(If you don't know what IsaacScript is, see the [features](features.md) page. If
-you don't know whether you should use it yet, see the
-[Is IsaacScript Right for Me?](right-for-me.md) page.)
+(If you don't know what IsaacScript is, see the [features](/main/features/)
+page. If you don't know whether you should use it yet, see the
+[Is IsaacScript Right for Me?](/main/right-for-me/) page.)
 
 <br />
 
@@ -32,8 +32,8 @@ that you can get familiar with where particular files need to live.
 ## 1) Initializing the Project
 
 First, make sure that you have already read the
-[Getting Started](getting-started.md) section of the IsaacScript docs and have a
-rough understanding of how IsaacScript works.
+[Getting Started](/main/getting-started/) section of the IsaacScript docs and
+have a rough understanding of how IsaacScript works.
 
 For this tutorial, we will be using `C:\Repositories\green-candle` as the
 directory for our mod. So, in a Windows command prompt, create that directory,
@@ -440,5 +440,5 @@ You should now know the basic anatomy of an Isaac mod:
 - using the IsaacScript watcher to automatically compile and see your changes
   in-game
 
-For a recommendation on what to do next, see the [next steps](next-steps.md)
+For a recommendation on what to do next, see the [next steps](/main/next-steps/)
 page.
