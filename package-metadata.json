@@ -1,6 +1,10 @@
 {
   "@schema": "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/package-metadata-schema.json",
   "dependencies": {
+    "@microsoft/api-extractor": {
+      "lock-version": true,
+      "lock-reason": "https://github.com/microsoft/rushstack/issues/1114#issuecomment-467154786"
+    },
     "typescript": {
       "lock-version": true,
       "lock-reason": "https://github.com/TypeScriptToLua/TypeScriptToLua/blob/master/package.json#L45"
