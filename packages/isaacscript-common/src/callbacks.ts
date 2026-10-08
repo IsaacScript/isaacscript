@@ -176,8 +176,8 @@ export function getCallbacks(): ModCallbackCustomToClass {
   const instantiatedClasses: Record<number, unknown> = {};
 
   for (const modCallbackCustom of MOD_CALLBACK_CUSTOM_VALUES) {
-    const constructor = MOD_CALLBACK_CUSTOM_TO_CLASS[modCallbackCustom];
-    instantiatedClasses[modCallbackCustom] = new constructor();
+    const Constructor = MOD_CALLBACK_CUSTOM_TO_CLASS[modCallbackCustom];
+    instantiatedClasses[modCallbackCustom] = new Constructor();
   }
 
   return instantiatedClasses as unknown as ModCallbackCustomToClass;
