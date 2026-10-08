@@ -1,4 +1,5 @@
-import { SackSubType } from "isaac-typescript-definitions";
+import { SackSubType, SoundEffect } from "isaac-typescript-definitions";
+import { sfxManager } from "../../../core/cachedClasses";
 import { Exported } from "../../../decorators";
 import { ISCFeature } from "../../../enums/ISCFeature";
 import { removeEntities } from "../../../functions/entities";
@@ -42,6 +43,7 @@ export class StartAmbush extends Feature {
       player.Position,
       SACK_SEED_THAT_SPAWNS_TWO_COINS,
     );
+    const wasPlayingSound = sfxManager.IsPlaying(SoundEffect.SHELL_GAME);
 
     // The sack will play the "Appear" animation and the player will not be able to interact with it
     // while this is occurring. By stopping the animation, it will transition to the "Idle"
@@ -53,6 +55,9 @@ export class StartAmbush extends Feature {
       const futureSack = sackPtr.Ref;
       if (futureSack === undefined) {
         return;
+      }
+      if (!wasPlayingSound) {
+        sfxManager.Stop(SoundEffect.SHELL_GAME);
       }
 
       futureSack.Remove();
