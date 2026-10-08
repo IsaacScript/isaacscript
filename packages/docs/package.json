@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "@types/node": "26.6.3",
+    "@types/node": "26.6.4",
     "complete-common": "2.32.0",
     "complete-node": "18.1.2",
     "starlight-links-validator": "0.26.0",

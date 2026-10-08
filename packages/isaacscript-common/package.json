@@ -37,7 +37,7 @@
     "isaac-typescript-definitions": "43.0.8"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "8.0.0",
+    "@microsoft/api-extractor": "7.59.4",
     "complete-node": "18.1.2",
     "typescript-eslint": "8.71.0",
     "typescript-to-lua": "1.37.1"
