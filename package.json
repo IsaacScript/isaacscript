@@ -28,7 +28,7 @@
     "@babel/preset-env": "8.0.6",
     "@babel/preset-typescript": "8.0.1",
     "@commander-js/extra-typings": "15.0.0",
-    "@microsoft/api-extractor": "7.0.19",
+    "@microsoft/api-extractor": "7.59.4",
     "@prettier/plugin-xml": "3.4.2",
     "@tsconfig/node-lts": "24.0.1",
     "@tsconfig/strictest": "2.0.8",
