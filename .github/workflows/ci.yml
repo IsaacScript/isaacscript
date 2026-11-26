@@ -92,6 +92,18 @@ jobs:
       - uses: ./.github/workflows/setup
       - run: bun run lint
 
+  # The matrix jobs above have names that change when packages are added or removed, so this job is
+  # used as the single required status check for the "main" branch (and for Dependabot auto-merge).
+  ci-passed:
+    name: CI passed
+    needs: [build, lint, test, monorepo-lint]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that all of the previous jobs succeeded
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
+        run: exit 1
+
   docs-deploy:
     needs: [build, lint, test, monorepo-lint]
     runs-on: ubuntu-latest
