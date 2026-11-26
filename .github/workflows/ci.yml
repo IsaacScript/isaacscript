@@ -83,11 +83,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
-        # We specify custom Node.js options in order to increase the memory size, since GitHub
-        # Actions can fail with the following error when doing the `eslint-plugin-isaacscript`
-        # tests:
-        # FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
-        run: NODE_OPTIONS='--max-old-space-size=8192' bun run test
+        run: bun run test
 
   monorepo-lint:
     runs-on: ubuntu-latest
