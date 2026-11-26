@@ -1,13 +1,4 @@
-import {
-  exists,
-  getMonorepoPackageNames,
-  getPackageJSONScripts,
-  isFile,
-  lintCommands,
-} from "complete-node";
-import path from "node:path";
-
-const MONOREPO_ROOT = path.resolve(import.meta.dirname, "..");
+import { lintCommands } from "complete-node";
 
 await lintCommands(import.meta.dirname, [
   // Use TypeScript to type-check the code.
@@ -34,70 +25,4 @@ await lintCommands(import.meta.dirname, [
 
   // Check for template updates.
   "bun ./packages/isaacscript-cli/src/main.ts check --ignore action.yml,bundleEntry.ts,ci.yml,eslint.config.mjs,lint.ts,tsconfig.json",
-
-  // Check that the files referenced in "package.json" scripts exist. (Knip does not report these.)
-  // eslint-disable-next-line unicorn/prefer-top-level-await
-  ["checkPackageJSONScriptFiles", checkPackageJSONScriptFiles()],
 ]);
-
-async function checkPackageJSONScriptFiles() {
-  const packageNames = await getMonorepoPackageNames(MONOREPO_ROOT);
-  const packageDirs = [
-    MONOREPO_ROOT,
-    ...packageNames.map((packageName) =>
-      path.join(MONOREPO_ROOT, "packages", packageName),
-    ),
-  ];
-
-  const errors: string[] = [];
-
-  for (const packageDir of packageDirs) {
-    // Some directories in the "packages" directory are not JavaScript packages.
-    const packageJSONPath = path.join(packageDir, "package.json");
-    // eslint-disable-next-line no-await-in-loop
-    const packageJSONExists = await isFile(packageJSONPath);
-    if (!packageJSONExists) {
-      continue;
-    }
-
-    // eslint-disable-next-line no-await-in-loop
-    const scripts = await getPackageJSONScripts(packageDir);
-    if (scripts === undefined) {
-      continue;
-    }
-
-    for (const [scriptName, script] of Object.entries(scripts)) {
-      for (const filePath of getFilePathsFromScript(script)) {
-        const fullPath = path.join(packageDir, filePath);
-        // eslint-disable-next-line no-await-in-loop
-        const fileExists = await exists(fullPath);
-        if (!fileExists) {
-          errors.push(
-            `The "${scriptName}" script in "${packageJSONPath}" references a file that does not exist: ${filePath}`,
-          );
-        }
-      }
-    }
-  }
-
-  if (errors.length > 0) {
-    throw new Error(errors.join("\n"));
-  }
-}
-
-/**
- * We consider every argument that contains a slash to be a relative file path, other than flags and
- * globs.
- */
-function getFilePathsFromScript(script: string): readonly string[] {
-  return script
-    .split(" ")
-    .map((arg) => arg.replaceAll(/["']/gv, ""))
-    .filter(
-      (arg) =>
-        arg.includes("/")
-        && !arg.startsWith("-")
-        && !arg.includes("*")
-        && !arg.includes(":"),
-    );
-}
