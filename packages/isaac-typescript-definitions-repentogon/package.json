@@ -30,7 +30,7 @@
     "lint": "bun ./scripts/lint.mts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "catalog:"
+    "isaac-typescript-definitions": "workspace:*"
   },
   "devDependencies": {
     "complete-node": "catalog:",

@@ -14,7 +14,6 @@ minimumReleaseAge = 604800 # 1 week in seconds (7 * 24 * 60 * 60)
 minimumReleaseAgeExcludes = [
   "eslint-config-isaacscript",
   "eslint-plugin-isaacscript",
-  "isaac-typescript-definitions",
   "isaacscript-spell",
   "isaacscript-tsconfig",
 ]
@@ -24,8 +23,7 @@ minimumReleaseAgeExcludes = [
 # "node_modules" directory, and the root linting tools are provided by "complete-lint".
 linker = "hoisted"
 
-# Packages from this monorepo are installed from the npm registry instead of being linked to the
-# local workspace. Otherwise, packages would depend on local versions that may not be built yet
-# (e.g. "isaacscript-common" would need "isaac-typescript-definitions" to be built first, and
-# TypeScriptToLua would not treat it as an external dependency).
+# Packages from this monorepo are only linked to the local workspace when they are specified with
+# the "workspace:" protocol (e.g. "isaac-typescript-definitions", which is built in the
+# "postinstall" script). Otherwise, they are installed from the npm registry.
 linkWorkspacePackages = false

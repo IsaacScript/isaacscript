@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "complete-common": "catalog:",
-    "isaac-typescript-definitions": "catalog:"
+    "isaac-typescript-definitions": "workspace:*"
   },
   "devDependencies": {
     "complete-node": "catalog:",

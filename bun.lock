@@ -80,7 +80,7 @@
       "version": "1.1.1",
       "dependencies": {
         "complete-common": "catalog:",
-        "isaac-typescript-definitions": "catalog:",
+        "isaac-typescript-definitions": "workspace:*",
       },
       "devDependencies": {
         "complete-node": "catalog:",
@@ -104,7 +104,7 @@
       "name": "isaac-typescript-definitions-repentogon",
       "version": "3.0.0",
       "dependencies": {
-        "isaac-typescript-definitions": "catalog:",
+        "isaac-typescript-definitions": "workspace:*",
       },
       "devDependencies": {
         "complete-node": "catalog:",
@@ -159,7 +159,7 @@
       "name": "isaacscript-common",
       "version": "87.10.3",
       "dependencies": {
-        "isaac-typescript-definitions": "catalog:",
+        "isaac-typescript-definitions": "workspace:*",
       },
       "devDependencies": {
         "@microsoft/api-extractor": "catalog:",
@@ -238,7 +238,6 @@
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-isaacscript": "4.0.0",
     "figlet": "1.12.0",
-    "isaac-typescript-definitions": "43.0.8",
     "isaacscript-spell": "1.15.2",
     "isaacscript-tsconfig": "7.1.0",
     "jest": "30.5.2",
@@ -2936,12 +2935,6 @@
     "glob/minimatch": ["minimatch@10.2.3", "", { "dependencies": { "brace-expansion": "^5.0.2" } }, "sha512-Rwi3pnapEqirPSbWbrZaa6N3nmqq4Xer/2XooiOKyV3q12ML06f7MOuc5DVH8ONZIFhwIYQ3yzPH4nt7iWHaTg=="],
 
     "import-fresh/resolve-from": ["resolve-from@4.0.0", "", {}, "sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g=="],
-
-    "isaac-lua-polyfill/isaac-typescript-definitions": ["isaac-typescript-definitions@43.0.8", "", { "dependencies": { "lua-types": "2.14.1" } }, "sha512-Yj01He3kN58Vnqf/Ci4YrheGDwGPr5LxYbGNfx18x4E4kCwFV65TwKwDJbw52Bl8pdYgu23nLdrve8ju+z8oxA=="],
-
-    "isaac-typescript-definitions-repentogon/isaac-typescript-definitions": ["isaac-typescript-definitions@43.0.8", "", { "dependencies": { "lua-types": "2.14.1" } }, "sha512-Yj01He3kN58Vnqf/Ci4YrheGDwGPr5LxYbGNfx18x4E4kCwFV65TwKwDJbw52Bl8pdYgu23nLdrve8ju+z8oxA=="],
-
-    "isaacscript-common/isaac-typescript-definitions": ["isaac-typescript-definitions@43.0.8", "", { "dependencies": { "lua-types": "2.14.1" } }, "sha512-Yj01He3kN58Vnqf/Ci4YrheGDwGPr5LxYbGNfx18x4E4kCwFV65TwKwDJbw52Bl8pdYgu23nLdrve8ju+z8oxA=="],
 
     "isaacscript-lint/eslint-config-isaacscript": ["eslint-config-isaacscript@6.1.0", "", { "dependencies": { "eslint-plugin-isaacscript": "4.0.0", "typescript-eslint": "8.69.0" }, "peerDependencies": { "eslint": ">= 9.0.0" } }, "sha512-r0Ltl6xYoR+l8Mht39j7KZS2hmdiHj/3tEroKeNf393alLwA5JMNcFaHvf068BRHAIy5/AAHZ3BGD0Jdh5lMTQ=="],
 
