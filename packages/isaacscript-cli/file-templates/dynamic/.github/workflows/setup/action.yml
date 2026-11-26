@@ -8,6 +8,11 @@ runs:
         node-version: lts/*
         cache: PACKAGE_MANAGER_NAME
 
+    # @template-bun-start
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+    # @template-bun-end
+
     - name: Install dependencies
       run: PACKAGE_MANAGER_INSTALL_COMMAND
       shell: bash # Composite jobs must specify the shell.

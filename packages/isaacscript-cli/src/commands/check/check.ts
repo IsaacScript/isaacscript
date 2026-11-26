@@ -15,6 +15,7 @@ import {
 } from "complete-node";
 import klawSync from "klaw-sync";
 import path from "node:path";
+import { MARKER_BUN, isSetupBunStepLine } from "../../actionYML.js";
 import {
   ACTION_YML,
   ACTION_YML_TEMPLATE_PATH,
@@ -304,6 +305,7 @@ export function getTruncatedText(
   const newLinesBeforeIgnore = new Set<string>();
 
   let isSkipping = false;
+  let isSkippingBunStep = false;
   let isIgnoring = false;
   let shouldIgnoreNextLine = false;
   let previousLine = "";
@@ -414,6 +416,21 @@ export function getTruncatedText(
 
       case "ci.yml":
       case "action.yml": {
+        // The step to install Bun only exists in projects that use Bun as the package manager.
+        if (line.includes(`${MARKER_BUN}-start`)) {
+          isSkippingBunStep = true;
+          continue;
+        }
+
+        if (line.includes(`${MARKER_BUN}-end`)) {
+          isSkippingBunStep = false;
+          continue;
+        }
+
+        if (isSkippingBunStep || isSetupBunStepLine(line)) {
+          continue;
+        }
+
         // End-users can have different package managers.
         if (hasPackageManagerString(line)) {
           continue;

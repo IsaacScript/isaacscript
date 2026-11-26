@@ -22,6 +22,7 @@ import {
   writeFile,
 } from "complete-node";
 import path from "node:path";
+import { applyPackageManagerToActionYML } from "../../actionYML.js";
 import { Config } from "../../classes/Config.js";
 import { createConfigFile } from "../../configFile.js";
 import {
@@ -135,7 +136,11 @@ async function copyDynamicFiles(
     const fileName = ACTION_YML;
     const templatePath = ACTION_YML_TEMPLATE_PATH;
     const templateRaw = await readFile(templatePath);
-    const template = parseTemplate(templateRaw);
+    const templateForPackageManager = applyPackageManagerToActionYML(
+      templateRaw,
+      packageManager,
+    );
+    const template = parseTemplate(templateForPackageManager);
 
     const lockFileName = getPackageManagerLockFileName(packageManager);
     const installCommand = getPackageManagerInstallCICommand(packageManager);
