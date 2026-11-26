@@ -1,0 +1,66 @@
+# Opens a pull request when GitHub updates their "Node.gitignore" template, updating both the copy
+# that new projects get and the bottom section of the root ".gitignore" file. The pull request is
+# automatically merged once the required "CI passed" check succeeds.
+name: Update Node.gitignore
+
+on:
+  schedule:
+    - cron: "0 12 * * 1" # Every Monday.
+  workflow_dispatch:
+
+permissions:
+  actions: write # To run the CI workflow on the pull request branch.
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-node-gitignore:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: update-node-gitignore
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Update the Node.gitignore files
+        env:
+          URL: https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore
+          TEMPLATE_PATH: packages/isaacscript-cli/file-templates/dynamic/Node.gitignore
+        run: |
+          curl -fsSL "$URL" -o "$RUNNER_TEMP/Node.gitignore"
+          cp "$RUNNER_TEMP/Node.gitignore" "$TEMPLATE_PATH"
+
+          # The root ".gitignore" file contains project-specific entries, then a 5-line header, then
+          # the template. Everything after the header is replaced.
+          header_line=$(grep -n -m 1 "^# GitHub Node.gitignore template$" .gitignore | cut -d: -f1)
+          if [[ -z "$header_line" ]]; then
+            echo "Error: Failed to find the Node.gitignore header in the root \".gitignore\" file."
+            exit 1
+          fi
+          {
+            head -n "$((header_line + 3))" .gitignore
+            echo
+            cat "$RUNNER_TEMP/Node.gitignore"
+          } > "$RUNNER_TEMP/root.gitignore"
+          mv "$RUNNER_TEMP/root.gitignore" .gitignore
+
+      - id: create-pull-request
+        uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
+        with:
+          branch: ${{ env.BRANCH }}
+          delete-branch: true
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          commit-message: "chore: update Node.gitignore"
+          title: "chore: update Node.gitignore"
+          body: Updates to the latest version of [Node.gitignore](https://github.com/github/gitignore/blob/main/Node.gitignore).
+
+      # Pull requests created with the "GITHUB_TOKEN" do not trigger the "pull_request" event, so we
+      # manually run CI on the branch to produce the required "CI passed" check.
+      - name: Run CI and enable auto-merge
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created' || steps.create-pull-request.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.create-pull-request.outputs.pull-request-number }}
+        run: |
+          gh workflow run ci.yml --ref "$BRANCH"
+          gh pr merge --auto --squash "$PR_NUMBER"
