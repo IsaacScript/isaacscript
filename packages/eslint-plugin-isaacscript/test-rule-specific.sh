@@ -23,4 +23,4 @@ if [[ -n ${2-} ]]; then
 fi
 
 echo "Running test: $RULE_NAME --> $TEST_NAME"
-npx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" --verbose=false -t "$TEST_NAME"
+bunx jest "$DIR/tests/rules/$RULE_NAME"*".test.ts" --verbose=false -t "$TEST_NAME"

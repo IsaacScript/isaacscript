@@ -27,7 +27,7 @@ await lintCommands(import.meta.dirname, [
   "cspell-check-unused-words",
 
   // Check for template updates.
-  "tsx ./packages/isaacscript-cli/src/main.ts check --ignore bundleEntry.ts,ci.yml,eslint.config.mjs,lint.ts,tsconfig.json",
+  "tsx ./packages/isaacscript-cli/src/main.ts check --ignore action.yml,bundleEntry.ts,ci.yml,eslint.config.mjs,lint.ts,tsconfig.json",
 
   // Check to see if the child "package.json" files are up to date.
   ["lintMonorepoPackageJSONs", lintMonorepoPackageJSONs(MONOREPO_ROOT)],

@@ -73,7 +73,7 @@ to the IsaacScript project itself, read on.
 - Enter the cloned repository:
   - `cd isaacscript`
 - Install dependencies:
-  - `npm ci`
+  - `bun install`
 - Open the monorepo in VS Code:
   - `code .`
 

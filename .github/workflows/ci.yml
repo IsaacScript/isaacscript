@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/workflows/setup
       - working-directory: ./packages/${{ matrix.package-name }}
-        run: npm run build
+        run: bun run build
       - name: Store the docs build directory
         if: ${{ matrix.package-name == 'docs' }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -59,7 +59,7 @@ jobs:
       - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         if: ${{ matrix.package-name == 'isaacscript-cli' }}
       - working-directory: ./packages/${{ matrix.package-name }}
-        run: npm run lint
+        run: bun run lint
 
   get-test-packages:
     runs-on: ubuntu-latest
@@ -87,14 +87,14 @@ jobs:
         # Actions can fail with the following error when doing the `eslint-plugin-isaacscript`
         # tests:
         # FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
-        run: NODE_OPTIONS='--max-old-space-size=8192' npm run test
+        run: NODE_OPTIONS='--max-old-space-size=8192' bun run test
 
   monorepo-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/workflows/setup
-      - run: npm run lint
+      - run: bun run lint
 
   docs-deploy:
     needs: [build, lint, test, monorepo-lint]
@@ -128,7 +128,7 @@ jobs:
 
       - name: Deploy the documentation website
         working-directory: ./packages/docs
-        run: npm run deploy
+        run: bun run deploy
 
   discord:
     name: Discord Failure Notification

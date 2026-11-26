@@ -13,12 +13,12 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "scripts": {
-    "build": "npm run prepare && astro build",
+    "build": "bun run prepare && astro build",
     "deploy": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/deploy.mts",
-    "dev": "npm run prepare && astro dev",
-    "lint": "npm run prepare && astro check && tsc --noEmit --project scripts/tsconfig.json && eslint .",
+    "dev": "bun run prepare && astro dev",
+    "lint": "bun run prepare && astro check && tsc --noEmit --project scripts/tsconfig.json && eslint .",
     "prepare": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/prepare.mts",
-    "start": "npm run dev"
+    "start": "bun run dev"
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.5",

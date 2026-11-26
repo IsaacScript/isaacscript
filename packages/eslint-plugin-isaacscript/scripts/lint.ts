@@ -52,7 +52,7 @@ async function checkGenerateChangedFiles() {
   }
 
   if (changed) {
-    echo('Run "npm run generate" and commit the changes.');
+    echo('Run "bun run generate" and commit the changes.');
     exit(1);
   }
 }

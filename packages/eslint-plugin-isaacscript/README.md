@@ -20,7 +20,7 @@ Each rule has emojis denoting:
   [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
 - :thought_balloon: - if it requires type information
 
-<!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->
+<!-- Do not manually modify the RULES_TABLE section. Instead, run: bun run generate -->
 <!-- RULES_TABLE -->
 
 | Name                                                                                       | Description                                                             | :white_check_mark: | :wrench: | :thought_balloon: |

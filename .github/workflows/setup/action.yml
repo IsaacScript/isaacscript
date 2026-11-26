@@ -2,12 +2,15 @@ runs:
   using: composite
 
   steps:
+    # Node.js is still used as the runtime for the scripts (e.g. `tsx`).
     - name: Setup Node.js
       uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
       with:
         node-version: lts/*
-        cache: npm
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
 
     - name: Install dependencies
-      run: npm ci
+      run: bun install --frozen-lockfile
       shell: bash # Composite jobs must specify the shell.

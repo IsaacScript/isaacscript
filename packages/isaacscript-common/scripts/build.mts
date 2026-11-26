@@ -62,5 +62,5 @@ await buildScript(import.meta.dirname, async (packageRoot) => {
  * https://github.com/timocov/dts-bundle-generator/issues/218
  */
 async function scrubInternalExports() {
-  await $q`npx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
+  await $q`bunx api-extractor run`; // `api-extractor` is noisy and we only care if it fails.
 }

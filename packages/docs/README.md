@@ -5,7 +5,7 @@ This website is built with [Astro Starlight](https://starlight.astro.build/).
 ## Local Development
 
 ```sh
-npm start
+bun start
 ```
 
 This command starts a local development server. Most changes are reflected live
