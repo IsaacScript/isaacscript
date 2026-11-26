@@ -36,10 +36,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.ts",
-    "create-rule": "tsx ./scripts/createRule.ts",
-    "generate": "tsx ./scripts/generate.ts",
-    "lint": "tsx ./scripts/lint.ts",
+    "build": "bun ./scripts/build.ts",
+    "create-rule": "bun ./scripts/createRule.ts",
+    "generate": "bun ./scripts/generate.ts",
+    "lint": "bun ./scripts/lint.ts",
     "test": "jest"
   },
   "dependencies": {

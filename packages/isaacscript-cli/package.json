@@ -34,10 +34,10 @@
     "schemas"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.ts",
-    "lint": "tsx ./scripts/lint.ts",
-    "start": "tsx ./src/main.ts",
-    "test": "tsx --test \"src/**/*.test.ts\""
+    "build": "bun ./scripts/build.ts",
+    "lint": "bun ./scripts/lint.ts",
+    "start": "bun ./src/main.ts",
+    "test": "bun test ./src"
   },
   "dependencies": {
     "@commander-js/extra-typings": "15.0.0",

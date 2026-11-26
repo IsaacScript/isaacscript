@@ -14,10 +14,10 @@
   "author": "Zamiell",
   "scripts": {
     "build": "bun run prepare && astro build",
-    "deploy": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/deploy.mts",
+    "deploy": "bun ./scripts/deploy.mts",
     "dev": "bun run prepare && astro dev",
     "lint": "bun run prepare && astro check && tsc --noEmit --project scripts/tsconfig.json && eslint .",
-    "prepare": "tsx --tsconfig ./scripts/tsconfig.json ./scripts/prepare.mts",
+    "prepare": "bun ./scripts/prepare.mts",
     "start": "bun run dev"
   },
   "dependencies": {

@@ -24,8 +24,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.ts",
-    "lint": "tsx ./scripts/lint.ts"
+    "build": "bun ./scripts/build.ts",
+    "lint": "bun ./scripts/lint.ts"
   },
   "dependencies": {
     "complete-common": "2.32.0",

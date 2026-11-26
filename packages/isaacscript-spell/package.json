@@ -24,7 +24,7 @@
     "cspell-isaacscript.json"
   ],
   "scripts": {
-    "lint": "tsx ./scripts/lint.ts"
+    "lint": "bun ./scripts/lint.ts"
   },
   "devDependencies": {
     "complete-common": "2.32.0",

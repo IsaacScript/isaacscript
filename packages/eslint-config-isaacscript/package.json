@@ -27,7 +27,7 @@
     "src"
   ],
   "scripts": {
-    "lint": "tsx ./scripts/lint.ts"
+    "lint": "bun ./scripts/lint.ts"
   },
   "dependencies": {
     "eslint-plugin-isaacscript": "4.0.0",
