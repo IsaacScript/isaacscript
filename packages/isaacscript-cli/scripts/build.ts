@@ -243,7 +243,7 @@ function getCopiedFileHeader(packageName: string): string {
 }
 
 async function compile() {
-  await $`tsc`;
+  await $`tsc --project ./tsconfig.build.json`;
 }
 
 async function compilePlugins(packageRoot: string) {

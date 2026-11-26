@@ -1,0 +1,6 @@
+// The TypeScript configuration used when compiling the package. Unlike "tsconfig.json", it excludes
+// tests so that they are not included in the "dist" directory (and in the published package).
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["${configDir}/src/**/*.test.ts"],
+}

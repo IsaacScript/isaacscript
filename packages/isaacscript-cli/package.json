@@ -37,7 +37,7 @@
     "build": "bun ./scripts/build.ts",
     "lint": "bun ./scripts/lint.ts",
     "start": "bun ./src/main.ts",
-    "test": "bun test ./src"
+    "test": "bun test"
   },
   "dependencies": {
     "@commander-js/extra-typings": "15.0.0",
