@@ -232,14 +232,14 @@ export default defineConfig({
       },
       social: [
         {
-          icon: "discord",
-          label: "Discord",
-          href: "https://discord.gg/KapmKQ2gUD",
-        },
-        {
           icon: "github",
           label: "GitHub",
           href: "https://github.com/IsaacScript/isaacscript",
+        },
+        {
+          icon: "discord",
+          label: "Discord",
+          href: "https://discord.gg/KapmKQ2gUD",
         },
       ],
       editLink: {
