@@ -27,7 +27,7 @@
     "tsconfig.node.json"
   ],
   "dependencies": {
-    "@tsconfig/node-lts": "24.0.1",
-    "@tsconfig/strictest": "2.0.8"
+    "@tsconfig/node-lts": "catalog:",
+    "@tsconfig/strictest": "catalog:"
   }
 }

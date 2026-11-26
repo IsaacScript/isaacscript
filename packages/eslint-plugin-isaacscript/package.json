@@ -43,20 +43,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "8.71.0",
-    "@typescript-eslint/utils": "8.71.0",
-    "typescript-eslint": "8.71.0"
+    "@typescript-eslint/type-utils": "catalog:",
+    "@typescript-eslint/utils": "catalog:",
+    "typescript-eslint": "catalog:"
   },
   "devDependencies": {
-    "@babel/core": "8.0.6",
-    "@babel/preset-env": "8.0.6",
-    "@babel/preset-typescript": "8.0.1",
-    "@types/jest": "30.0.0",
-    "@typescript-eslint/rule-tester": "8.71.0",
-    "complete-common": "2.32.0",
-    "complete-node": "18.1.2",
-    "jest": "30.5.2",
-    "prettier": "3.9.9"
+    "@babel/core": "catalog:",
+    "@babel/preset-env": "catalog:",
+    "@babel/preset-typescript": "catalog:",
+    "@types/jest": "catalog:",
+    "@typescript-eslint/rule-tester": "catalog:",
+    "complete-common": "catalog:",
+    "complete-node": "catalog:",
+    "jest": "catalog:",
+    "prettier": "catalog:"
   },
   "peerDependencies": {
     "eslint": ">= 9.0.0",

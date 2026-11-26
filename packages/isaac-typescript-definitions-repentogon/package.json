@@ -30,11 +30,12 @@
     "lint": "bun ./scripts/lint.mts"
   },
   "dependencies": {
-    "isaac-typescript-definitions": "43.0.8"
+    "isaac-typescript-definitions": "catalog:"
   },
   "devDependencies": {
-    "complete-node": "18.1.2",
-    "typescript-eslint": "8.71.0",
-    "typescript-to-lua": "1.37.1"
+    "complete-node": "catalog:",
+    "typedoc": "catalog:",
+    "typescript-eslint": "catalog:",
+    "typescript-to-lua": "catalog:"
   }
 }

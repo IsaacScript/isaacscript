@@ -1,0 +1,30 @@
+[install]
+
+# https://bun.com/docs/runtime/bunfig#install-exact
+# By default, bun will install the latest non-major versions, similar to how npm works.
+exact = true
+
+# https://bun.com/docs/runtime/bunfig#install-minimumreleaseage
+# By default, bun will download any dependency. We want to configure a minimum age to mitigate
+# supply chain attacks.
+minimumReleaseAge = 604800 # 1 week in seconds (7 * 24 * 60 * 60)
+
+# Packages from this monorepo must be installable immediately after they are published.
+minimumReleaseAgeExcludes = [
+  "eslint-config-isaacscript",
+  "eslint-plugin-isaacscript",
+  "isaac-typescript-definitions",
+  "isaacscript-spell",
+  "isaacscript-tsconfig",
+]
+
+# Packages are installed to the root "node_modules" directory (like npm does) instead of being
+# isolated. TypeScriptToLua needs to find the compiled Lua files of dependencies in a normal
+# "node_modules" directory, and the root linting tools are provided by "complete-lint".
+linker = "hoisted"
+
+# Packages from this monorepo are installed from the npm registry instead of being linked to the
+# local workspace. Otherwise, packages would depend on local versions that may not be built yet
+# (e.g. "isaacscript-common" would need "isaac-typescript-definitions" to be built first, and
+# TypeScriptToLua would not treat it as an external dependency).
+linkWorkspacePackages = false
