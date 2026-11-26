@@ -83,7 +83,6 @@
     "postinstall": "bun ./packages/eslint-plugin-isaacscript/scripts/build.ts",
     "lint": "bun ./scripts/lint.ts",
     "lint-all": "bun ./scripts/lint-all.ts",
-    "package-json-lint": "bun ./scripts/packageJSONLint.ts",
     "publish": "bun ./scripts/publish.ts",
     "update": "bun ./scripts/update.ts"
   },
