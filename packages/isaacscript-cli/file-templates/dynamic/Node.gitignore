@@ -151,7 +151,3 @@ vite.config.ts.timestamp-*
 # Turbo Repo (https://turborepo.dev/)
 .turbo
 
-# Nx (https://nx.dev/)
-.nx/cache
-.nx/workspace-data
-.nx/migrate-runs
