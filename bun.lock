@@ -7,6 +7,7 @@
       "devDependencies": {
         "@prettier/plugin-xml": "catalog:",
         "@types/node": "catalog:",
+        "complete-common": "catalog:",
         "complete-lint": "catalog:",
         "complete-node": "catalog:",
         "eslint": "catalog:",

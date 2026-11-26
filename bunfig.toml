@@ -9,7 +9,8 @@ exact = true
 # supply chain attacks.
 minimumReleaseAge = 604800 # 1 week in seconds (7 * 24 * 60 * 60)
 
-# Packages from this monorepo must be installable immediately after they are published.
+# Packages from this monorepo must be installable immediately after they are published. (The
+# "update" script also reads this list in order to exempt them from the update cooldown.)
 minimumReleaseAgeExcludes = [
   "eslint-config-isaacscript",
   "eslint-plugin-isaacscript",
