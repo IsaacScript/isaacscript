@@ -93,7 +93,8 @@ jobs:
       - run: bun run lint
 
   # The matrix jobs above have names that change when packages are added or removed, so this job is
-  # used as the single required status check for the "main" branch (and for Dependabot auto-merge).
+  # used as the single required status check for the "main" branch (and for auto-merge). Later jobs
+  # depend on it instead of repeating the list of jobs.
   ci-passed:
     name: CI passed
     needs: [build, lint, test, monorepo-lint]
@@ -105,7 +106,7 @@ jobs:
         run: exit 1
 
   docs-deploy:
-    needs: [build, lint, test, monorepo-lint]
+    needs: ci-passed
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     steps:
@@ -140,7 +141,7 @@ jobs:
 
   discord:
     name: Discord Failure Notification
-    needs: [build, lint, test, monorepo-lint, docs-deploy]
+    needs: [ci-passed, docs-deploy]
     if: failure()
     runs-on: ubuntu-latest
     steps:
