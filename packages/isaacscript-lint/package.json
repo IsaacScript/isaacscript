@@ -21,13 +21,13 @@
   "author": "Zamiell",
   "type": "module",
   "dependencies": {
-    "@prettier/plugin-xml": "3.4.2",
-    "complete-lint": "5.26.3",
-    "eslint-config-isaacscript": "6.1.0",
-    "eslint-import-resolver-typescript": "4.4.5",
-    "isaacscript-spell": "1.15.2",
-    "isaacscript-tsconfig": "7.1.0",
-    "ts-prune-2": "0.10.7"
+    "@prettier/plugin-xml": "catalog:",
+    "complete-lint": "catalog:",
+    "eslint-config-isaacscript": "catalog:",
+    "eslint-import-resolver-typescript": "catalog:",
+    "isaacscript-spell": "catalog:",
+    "isaacscript-tsconfig": "catalog:",
+    "ts-prune-2": "catalog:"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0"

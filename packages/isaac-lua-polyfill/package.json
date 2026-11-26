@@ -28,11 +28,11 @@
     "lint": "bun ./scripts/lint.ts"
   },
   "dependencies": {
-    "complete-common": "2.32.0",
-    "isaac-typescript-definitions": "43.0.8"
+    "complete-common": "catalog:",
+    "isaac-typescript-definitions": "catalog:"
   },
   "devDependencies": {
-    "complete-node": "18.1.2",
-    "typescript-eslint": "8.71.0"
+    "complete-node": "catalog:",
+    "typescript-eslint": "catalog:"
   }
 }

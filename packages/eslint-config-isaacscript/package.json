@@ -30,11 +30,11 @@
     "lint": "bun ./scripts/lint.ts"
   },
   "dependencies": {
-    "eslint-plugin-isaacscript": "4.0.0",
-    "typescript-eslint": "8.71.0"
+    "eslint-plugin-isaacscript": "catalog:",
+    "typescript-eslint": "catalog:"
   },
   "devDependencies": {
-    "complete-node": "18.1.2"
+    "complete-node": "catalog:"
   },
   "peerDependencies": {
     "eslint": ">= 9.0.0"

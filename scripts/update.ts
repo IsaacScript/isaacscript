@@ -1,5 +1,8 @@
-import { updatePackageJSONDependenciesMonorepo } from "complete-node";
+import { updatePackageJSONDependencies } from "complete-node";
+import path from "node:path";
 
-await updatePackageJSONDependenciesMonorepo(import.meta.dirname, [
+const MONOREPO_ROOT = path.resolve(import.meta.dirname, "..");
+
+await updatePackageJSONDependencies(MONOREPO_ROOT, true, false, [
   "isaac-typescript-definitions",
 ]);
